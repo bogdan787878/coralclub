@@ -1,6 +1,7 @@
 .root {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  /* every option stretches to the tallest one (the tier with a note) */
+  grid-auto-rows: 1fr;
   gap: var(--space-8);
 }
 
@@ -12,7 +13,7 @@
   padding: var(--space-16) var(--space-20);
   border: 1px solid var(--color-primary-30);
   border-radius: calc(var(--radius-base) / 2);
-  background: var(--color-bg);
+  background: transparent;
   cursor: pointer;
   transition:
     border-color var(--duration-base) var(--ease-standard),

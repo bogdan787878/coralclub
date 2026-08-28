@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
-import { BodyLong, Button, Container, Heading, Stack } from "@/components/ui";
+import { BodyLong, Button, Container, Heading } from "@/components/ui";
 import styles from "./Hero.module.css";
 
 export type HeroImage = {
@@ -33,16 +33,21 @@ export function Hero({ title, body, image, cta }: HeroProps) {
         sizes="100vw"
       />
 
-      <Container className={styles.content}>
-        <Stack gap="text" className={styles.copy}>
-          <Heading className={styles.title}>{title}</Heading>
+      <div className={styles.content}>
+        <div className={styles.copy}>
+          <Container>
+            <Heading className={styles.title}>{title}</Heading>
+          </Container>
+          {/* full width of the panel, 16px side gutters */}
           <BodyLong className={styles.body}>{body}</BodyLong>
-        </Stack>
+        </div>
 
-        <Button variant="primary" href={cta.href} className={styles.cta}>
-          {cta.label}
-        </Button>
-      </Container>
+        <Container className={styles.actions}>
+          <Button variant="primary" href={cta.href} className={styles.cta}>
+            {cta.label}
+          </Button>
+        </Container>
+      </div>
     </section>
   );
 }

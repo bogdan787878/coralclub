@@ -94,8 +94,13 @@ export default function UiKitPage() {
             </Stack>
 
             <div className={styles.specimen}>
-              <span className={styles.mono}>H1 · 28 / 32 · -2% · Suisse Intl</span>
+              <span className={styles.mono}>H1 · 40 / 44 · -2% · Suisse Intl</span>
               <Heading as="p">Живи в ритме своего тела</Heading>
+            </div>
+
+            <div className={styles.specimen}>
+              <span className={styles.mono}>H2 · 28 / 32 · -2% · Suisse Intl</span>
+              <Heading as="h2">Живи в ритме своего тела</Heading>
             </div>
 
             <div className={styles.specimen}>

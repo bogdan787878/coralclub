@@ -1,4 +1,4 @@
-/* h1 — 28 / 32 · -2% */
+/* h1 — 40 / 44 · -2% */
 .h1 {
   font-family: var(--font-sans);
   font-size: var(--text-h1-size);
@@ -6,6 +6,16 @@
   letter-spacing: var(--text-h1-tracking);
   font-weight: var(--text-h1-weight);
   color: inherit; /* follows the surrounding surface (Section tone / Hero) */
+}
+
+/* h2 — 28 / 32 · -2% */
+.h2 {
+  font-family: var(--font-sans);
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-line);
+  letter-spacing: var(--text-h2-tracking);
+  font-weight: var(--text-h2-weight);
+  color: inherit;
 }
 
 /* Body long — 14 / 20 */

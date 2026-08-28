@@ -18,8 +18,9 @@ export default function Home() {
       <Hero
         title={
           <>
-            Your health routine starts <Accent>with water</Accent>. Not another
-            supplement. A foundation.
+            Your health starts
+            <br />
+            <Accent>with water</Accent>
           </>
         }
         body="Hydration is step one of your Coral Club routine — the phase everything else builds on."

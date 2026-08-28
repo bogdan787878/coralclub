@@ -39,11 +39,17 @@
   /* ---------- Typography · scale (mobile) ----------
      Notation: <size> / <line-height> · <letter-spacing>            */
 
-  /* h1 — 28 / 32 · -2% */
-  --text-h1-size: 1.75rem; /* 28px */
-  --text-h1-line: 2rem; /* 32px */
+  /* h1 — 40 / 44 · -2%  (hero headline) */
+  --text-h1-size: 2.5rem; /* 40px */
+  --text-h1-line: 2.75rem; /* 44px */
   --text-h1-tracking: -0.02em; /* -2%  */
   --text-h1-weight: var(--font-weight-medium);
+
+  /* h2 — 28 / 32 · -2%  (section headings) */
+  --text-h2-size: 1.75rem; /* 28px */
+  --text-h2-line: 2rem; /* 32px */
+  --text-h2-tracking: -0.02em; /* -2%  */
+  --text-h2-weight: var(--font-weight-medium);
 
   /* Body long — 14 / 20 */
   --text-body-long-size: 0.875rem; /* 14px */
@@ -105,9 +111,6 @@
     --page-padding-inline: var(--space-24);
     --gap-base: var(--space-32);
     --gap-text: var(--space-20);
-
-    --text-h1-size: 2.5rem; /* 40px */
-    --text-h1-line: 2.75rem; /* 44px */
   }
 }
 
@@ -119,9 +122,6 @@
     --page-padding-block: var(--space-64);
     --page-padding-inline: var(--space-32);
     --gap-base: var(--space-48);
-
-    --text-h1-size: 3.25rem; /* 52px */
-    --text-h1-line: 3.5rem; /* 56px */
   }
 }
 

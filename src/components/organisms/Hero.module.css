@@ -26,6 +26,9 @@
 }
 
 .copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-text);
   /* pushes the CTA to the bottom of the panel */
   flex: 1 1 auto;
 }
@@ -37,7 +40,12 @@
 
 .body {
   color: var(--color-text-on-primary-muted);
-  max-width: 34ch;
+  /* spans the whole panel width with a 16px gutter on each side */
+  padding-inline: var(--space-16);
+}
+
+.actions {
+  display: flex;
 }
 
 .cta {
@@ -55,20 +63,22 @@
     object-position: 62% 42%;
   }
 
-  /* copy + CTA grouped and vertically centred, aligned to the left */
+  /* contain + centre the hero content on wide screens;
+     the body still gets its 16px gutter inside this column */
   .content {
     justify-content: center;
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
   }
 
   .copy {
     flex: 0 0 auto;
-    max-width: 40rem;
   }
 
   .body {
     font-size: var(--text-button-size); /* 16 */
     line-height: var(--text-button-line); /* 24 */
-    max-width: 44ch;
   }
 
   .cta {
@@ -79,9 +89,5 @@
 @media (min-width: 1024px) {
   .panel {
     min-height: min(82vh, 720px);
-  }
-
-  .copy {
-    max-width: 46rem;
   }
 }

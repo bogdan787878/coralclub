@@ -5,7 +5,7 @@
 
   /* Responsive slide width. An explicit `itemWidth` prop (inline
      --carousel-item-width) overrides this at every breakpoint. */
-  --carousel-item-size: 148px;
+  --carousel-item-size: 156px;
 }
 
 /* Align the header and the scroller's first slide to the page container. */

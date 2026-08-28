@@ -5,14 +5,15 @@ function cx(...parts: Array<string | false | undefined>) {
   return parts.filter(Boolean).join(" ");
 }
 
-/* ---------- Heading (h1 · 28/32 · -2%) ---------- */
+/* ---------- Heading — h1 (40/44) / h2 (28/32), both -2% ---------- */
 
 type HeadingProps = HTMLAttributes<HTMLHeadingElement> & {
   as?: ElementType;
 };
 
 export function Heading({ as: Tag = "h1", className, ...rest }: HeadingProps) {
-  return <Tag className={cx(styles.h1, className)} {...rest} />;
+  const base = Tag === "h2" ? styles.h2 : styles.h1;
+  return <Tag className={cx(base, className)} {...rest} />;
 }
 
 /* ---------- Body long (14/20) ---------- */
