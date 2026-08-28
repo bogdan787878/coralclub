@@ -3,6 +3,7 @@ import type {
   ButtonHTMLAttributes,
   ReactNode,
 } from "react";
+import Link from "next/link";
 import styles from "./Button.module.css";
 
 type Variant = "primary" | "secondary" | "ghost";
@@ -30,8 +31,9 @@ type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 /**
  * Button — text token 16/24.
- * Renders an `<a>` when `href` is provided so redirect-based flows
- * (registration, add-to-cart handoff to the external store) stay declarative.
+ * With `href` it renders a link: internal paths ("/...") use next/link for
+ * client-side navigation; anything else (external URLs, "#" anchors) stays a
+ * plain `<a>` for redirect-based flows.
  */
 export function Button({
   variant = "primary",
@@ -45,8 +47,18 @@ export function Button({
     .join(" ");
 
   if ("href" in rest && rest.href !== undefined) {
+    const anchorProps = rest as AnchorHTMLAttributes<HTMLAnchorElement> & {
+      href: string;
+    };
+    if (anchorProps.href.startsWith("/")) {
+      return (
+        <Link className={cls} {...anchorProps}>
+          {children}
+        </Link>
+      );
+    }
     return (
-      <a className={cls} {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}>
+      <a className={cls} {...anchorProps}>
         {children}
       </a>
     );

@@ -11,6 +11,8 @@ export type PriceOption = {
   /** e.g. "25% Savings" — rendered as an accent sub-label. */
   note?: string;
   price: string;
+  /** Primary action for this tier. Club → add to bag; Regular → sign up. */
+  cta: { label: string; href: string };
 };
 
 export type Product = {
@@ -30,8 +32,19 @@ export type Product = {
 
 function tier(clubPrice: string, regularPrice: string): PriceOption[] {
   return [
-    { id: "club", label: "Club Price", note: "25% Savings", price: clubPrice },
-    { id: "regular", label: "Regular Price", price: regularPrice },
+    {
+      id: "club",
+      label: "Club Price",
+      note: "25% Savings",
+      price: clubPrice,
+      cta: { label: "Add to bag", href: "#add-to-bag" },
+    },
+    {
+      id: "regular",
+      label: "Regular Price",
+      price: regularPrice,
+      cta: { label: "Sign up", href: "#sign-up" },
+    },
   ];
 }
 

@@ -3,14 +3,13 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   BodyLong,
-  Button,
   Container,
   Heading,
   Rating,
   Section,
   Stack,
 } from "@/components/ui";
-import { PriceSelector, SiteHeader } from "@/components/organisms";
+import { BuyBox, SiteHeader } from "@/components/organisms";
 import { PRODUCTS, getProduct } from "@/lib/products";
 import styles from "./page.module.css";
 
@@ -76,11 +75,7 @@ export default async function ProductPage({
                 <BodyLong>{product.description}</BodyLong>
               </div>
 
-              <PriceSelector options={product.prices} />
-
-              <Button variant="primary" block href="#add-to-bag">
-                Add to bag
-              </Button>
+              <BuyBox options={product.prices} />
             </Stack>
           </div>
         </Container>

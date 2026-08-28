@@ -12,24 +12,28 @@ export type PriceSelectorOption = {
 
 export type PriceSelectorProps = {
   options: PriceSelectorOption[];
+  /** Controlled selection. Omit to let the component manage it. */
+  value?: string;
   defaultValue?: string;
   onChange?: (id: string) => void;
 };
 
 /**
  * PriceSelector — radio group of price tiers (Club vs Regular).
- * Controlled internally; reports the selected id through `onChange`.
+ * Works controlled (`value`) or uncontrolled; reports picks via `onChange`.
  */
 export function PriceSelector({
   options,
+  value,
   defaultValue,
   onChange,
 }: PriceSelectorProps) {
   const name = useId();
-  const [selected, setSelected] = useState(defaultValue ?? options[0]?.id);
+  const [internal, setInternal] = useState(defaultValue ?? options[0]?.id);
+  const selected = value ?? internal;
 
   const select = (id: string) => {
-    setSelected(id);
+    if (value === undefined) setInternal(id);
     onChange?.(id);
   };
 
