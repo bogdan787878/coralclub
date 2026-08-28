@@ -3,6 +3,8 @@
  * Later this comes from the external Coral Club store / CMS.
  */
 
+import { asset } from "./asset";
+
 export type PriceOption = {
   id: string;
   label: string;
@@ -158,7 +160,8 @@ export const PRODUCTS: Product[] = [
 ];
 
 export function getProduct(slug: string): Product | undefined {
-  return PRODUCTS.find((p) => p.slug === slug);
+  const product = PRODUCTS.find((p) => p.slug === slug);
+  return product ? { ...product, image: asset(product.image) } : undefined;
 }
 
 export const productHref = (slug: string) => `/products/${slug}`;

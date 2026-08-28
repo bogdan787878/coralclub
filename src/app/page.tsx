@@ -1,9 +1,10 @@
 import { Accent } from "@/components/ui";
 import { Hero, PhasesSection, SiteHeader } from "@/components/organisms";
 import { getPhases } from "@/lib/products";
+import { asset } from "@/lib/asset";
 
 const HERO_IMAGE = {
-  src: "/images/hero-hydration.png",
+  src: asset("/images/hero-hydration.png"),
   alt: "Coral-Mine Silver sachet beside a glass of mineralized water",
 };
 
