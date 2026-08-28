@@ -1,0 +1,30 @@
+/* h1 — 28 / 32 · -2% */
+.h1 {
+  font-family: var(--font-sans);
+  font-size: var(--text-h1-size);
+  line-height: var(--text-h1-line);
+  letter-spacing: var(--text-h1-tracking);
+  font-weight: var(--text-h1-weight);
+  color: inherit; /* follows the surrounding surface (Section tone / Hero) */
+}
+
+/* Body long — 14 / 20 */
+.bodyLong {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-long-size);
+  line-height: var(--text-body-long-line);
+  letter-spacing: var(--text-body-long-tracking);
+  font-weight: var(--text-body-long-weight);
+  color: inherit;
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+/* Newton, italic — accent / editorial emphasis */
+.accent {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: var(--font-weight-regular);
+}

@@ -1,0 +1,48 @@
+.page {
+  min-height: 100dvh;
+}
+
+.media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  padding: var(--space-32);
+  background: var(--color-primary-30);
+  border-radius: var(--radius-base);
+}
+
+.media :global(img) {
+  object-fit: contain;
+}
+
+.headGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-text);
+}
+
+.name {
+  color: var(--color-text);
+}
+
+@media (min-width: 768px) {
+  .media {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* image left, buy panel right */
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap-base);
+    align-items: start;
+  }
+
+  .media {
+    aspect-ratio: 1 / 1;
+    position: sticky;
+    top: var(--space-32);
+  }
+}

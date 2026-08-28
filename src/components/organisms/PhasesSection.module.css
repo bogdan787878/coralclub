@@ -1,0 +1,48 @@
+/* ---------- Phase themes ----------
+   Each phase re-maps the blue palette tokens for its whole subtree. */
+
+.themed {
+  /* Phase 1 — Hydration (blue = the base palette) */
+  --phase-100: #011130;
+  --phase-30: #c6d6ed;
+  --phase-10: #e3ecfa;
+}
+
+.themed[data-phase="restart"] {
+  /* Phase 2 — Restart (green) */
+  --phase-100: #06281c;
+  --phase-30: #bfe0ce;
+  --phase-10: #e6f3ec;
+}
+
+.themed[data-phase="personalization"] {
+  /* Phase 3 — Personalization (violet) */
+  --phase-100: #1e1440;
+  --phase-30: #d3c9ec;
+  --phase-10: #ede9fa;
+}
+
+.themed {
+  --color-primary-100: var(--phase-100);
+  --color-primary-30: var(--phase-30);
+  --color-primary-10: var(--phase-10);
+  --color-surface: var(--phase-10);
+  --color-border: var(--phase-30);
+  --color-text: var(--phase-100);
+  --color-text-muted: color-mix(in srgb, var(--phase-100) 58%, transparent);
+  --color-action: var(--phase-100);
+}
+
+.themed section,
+.themed article {
+  transition:
+    background-color var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-base);
+}

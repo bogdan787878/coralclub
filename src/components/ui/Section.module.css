@@ -1,0 +1,18 @@
+.section {
+  padding-block: var(--page-padding-block); /* top/bottom = 32 */
+}
+
+.tone-default {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.tone-surface {
+  background: var(--color-surface); /* Primary 10 */
+  color: var(--color-text);
+}
+
+.tone-primary {
+  background: var(--color-primary-100);
+  color: var(--color-text-on-primary);
+}

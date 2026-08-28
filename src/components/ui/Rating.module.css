@@ -1,0 +1,31 @@
+.root {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-long-size);
+  line-height: var(--text-body-long-line);
+  color: var(--color-text-muted);
+}
+
+.score {
+  color: var(--color-text-muted);
+}
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--color-primary-100);
+}
+
+.star {
+  display: block;
+}
+
+.starEmpty {
+  color: var(--color-primary-30);
+}
+
+.counts {
+  color: var(--color-text-muted);
+}

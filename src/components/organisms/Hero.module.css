@@ -1,0 +1,87 @@
+/* ---------- Hero panel ---------- */
+.panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: min(78svh, 620px);
+  border-radius: 0 0 var(--radius-base) var(--radius-base);
+  background: var(--color-primary-100);
+  color: var(--color-text-on-primary);
+}
+
+.bg {
+  object-fit: cover;
+  object-position: 50% 60%;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-base);
+  min-height: inherit;
+  padding-block: var(--page-padding-block) var(--space-48);
+}
+
+.copy {
+  /* pushes the CTA to the bottom of the panel */
+  flex: 1 1 auto;
+}
+
+.title {
+  color: var(--color-text-on-primary);
+  text-wrap: balance;
+}
+
+.body {
+  color: var(--color-text-on-primary-muted);
+  max-width: 34ch;
+}
+
+.cta {
+  align-self: center;
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+/* ---------- Wide screens ---------- */
+@media (min-width: 768px) {
+  .panel {
+    min-height: min(72vh, 560px);
+  }
+
+  .bg {
+    object-position: 62% 42%;
+  }
+
+  /* copy + CTA grouped and vertically centred, aligned to the left */
+  .content {
+    justify-content: center;
+  }
+
+  .copy {
+    flex: 0 0 auto;
+    max-width: 40rem;
+  }
+
+  .body {
+    font-size: var(--text-button-size); /* 16 */
+    line-height: var(--text-button-line); /* 24 */
+    max-width: 44ch;
+  }
+
+  .cta {
+    align-self: flex-start;
+  }
+}
+
+@media (min-width: 1024px) {
+  .panel {
+    min-height: min(82vh, 720px);
+  }
+
+  .copy {
+    max-width: 46rem;
+  }
+}

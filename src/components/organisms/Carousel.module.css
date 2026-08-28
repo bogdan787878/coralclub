@@ -1,0 +1,63 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-base);
+
+  /* Responsive slide width. An explicit `itemWidth` prop (inline
+     --carousel-item-width) overrides this at every breakpoint. */
+  --carousel-item-size: 148px;
+}
+
+/* Align the header and the scroller's first slide to the page container. */
+.gutter {
+  padding-inline: max(
+    var(--page-padding-inline),
+    calc((100% - var(--container-max)) / 2)
+  );
+}
+
+.head {
+  composes: gutter;
+}
+
+/* Full-bleed scroller; first slide aligns to the container, next slide peeks in. */
+.viewport {
+  composes: gutter;
+  display: flex;
+  gap: var(--space-8);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: max(
+    var(--page-padding-inline),
+    calc((100% - var(--container-max)) / 2)
+  );
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  flex: 0 0 var(--carousel-item-width, var(--carousel-item-size));
+  scroll-snap-align: start;
+  display: flex;
+}
+
+.item > * {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .root {
+    --carousel-item-size: 220px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .root {
+    --carousel-item-size: 248px;
+  }
+}

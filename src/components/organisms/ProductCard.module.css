@@ -1,0 +1,99 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-text);
+  height: 100%;
+  padding: var(--space-16);
+  background: var(--color-primary-30);
+  border-radius: var(--radius-base);
+}
+
+.badge {
+  align-self: flex-start;
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-10);
+  color: var(--color-primary-100);
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+/* Stretched link — the whole card is clickable, CTA stays independent. */
+.titleLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.titleLink::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.titleLink:focus-visible {
+  outline: 2px solid var(--color-action);
+  outline-offset: 2px;
+}
+
+.media {
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  padding: var(--space-16);
+  background: var(--color-surface);
+  /* concentric with the card: outer radius minus the card padding */
+  border-radius: calc(var(--radius-base) - var(--space-16));
+}
+
+.mediaInner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.mediaInner :global(img) {
+  object-fit: cover;
+}
+
+.mediaEmpty {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-10),
+    var(--color-primary-30)
+  );
+}
+
+.price {
+  margin-top: auto;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+/* keep the CTA above the stretched link */
+.cta {
+  position: relative;
+  z-index: 2;
+}

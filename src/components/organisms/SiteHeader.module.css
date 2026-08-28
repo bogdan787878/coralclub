@@ -1,0 +1,45 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.announce {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--page-padding-inline);
+  background: var(--color-primary-30);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-long-size);
+  line-height: var(--text-body-long-line);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+}
+
+.announceChevron {
+  flex: none;
+}
+
+.brandBar {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-16) var(--page-padding-inline);
+  background: var(--color-surface);
+}
+
+.brand {
+  font-family: var(--font-sans);
+  font-size: 1.375rem;
+  line-height: 1.5rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+@media (min-width: 1024px) {
+  .brand {
+    font-size: 1.5rem;
+  }
+}
