@@ -18,32 +18,20 @@ export function Sheet({ open, onClose, title, children }: SheetProps) {
   useEffect(() => {
     if (!open) return;
 
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKey);
-
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
     return () => {
-      document.removeEventListener("keydown", onKey);
       document.body.style.overflow = prevOverflow;
     };
-  }, [open, onClose]);
+  }, [open]);
 
   if (!open) return null;
 
   return (
     <div className={styles.overlay} role="dialog" aria-modal="true">
-      <button
-        type="button"
-        className={styles.backdrop}
-        aria-label="Close"
-        onClick={onClose}
-      />
+      <div className={styles.backdrop} aria-hidden="true" />
       <div className={styles.panel}>
-        <span className={styles.grabber} aria-hidden="true" />
         <div className={styles.header}>
           <h2 className={styles.title}>{title}</h2>
           <button
