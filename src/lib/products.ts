@@ -198,8 +198,8 @@ export type PhaseView = {
   id: "hydration" | "restart" | "personalization";
   index: number;
   name: string;
-  /** Carousel heading for this phase. */
-  tagline: string;
+  /** Carousel heading for this phase: sans lead + a Newton-italic accent. */
+  headline: { lead: string; accent: string };
   products: PhaseProductCard[];
 };
 
@@ -208,21 +208,30 @@ const PHASE_DEFS: Array<Omit<PhaseView, "products"> & { slugs: string[] }> = [
     id: "hydration",
     index: 1,
     name: "Hydration",
-    tagline: "The layer that stays active under everything else.",
+    headline: {
+      lead: "Water alone doesn't hydrate.",
+      accent: "Minerals do.",
+    },
     slugs: ["coral-mine-silver", "pentokan", "oceanmin", "h-500"],
   },
   {
     id: "restart",
     index: 2,
     name: "Restart",
-    tagline: "Reduce the internal load, step by step.",
+    headline: {
+      lead: "Willpower doesn't reset your body.",
+      accent: "A guided sequence does.",
+    },
     slugs: ["coral-detox-plus", "parashield", "colo-vada-plus"],
   },
   {
     id: "personalization",
     index: 3,
     name: "Personalization",
-    tagline: "With the foundation in place, aim at your goal.",
+    headline: {
+      lead: "Generic nutrition doesn't fit you.",
+      accent: "A plan for your goal does.",
+    },
     slugs: ["promarine-collagen", "omega-3-60", "spirulina"],
   },
 ];

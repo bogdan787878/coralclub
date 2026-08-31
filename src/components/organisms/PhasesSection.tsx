@@ -37,7 +37,8 @@ export function PhasesSection({ phases }: PhasesSectionProps) {
             label={`Phase ${phase.index} — ${phase.name}`}
             title={
               <>
-                Phase {phase.index}, <Accent>{phase.name}</Accent>
+                {phase.headline.lead}{" "}
+                <Accent>{phase.headline.accent}</Accent>
               </>
             }
           >
