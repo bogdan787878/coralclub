@@ -38,13 +38,15 @@ function tier(clubPrice: string, regularPrice: string): PriceOption[] {
       label: "Club Price",
       note: "25% Savings",
       price: clubPrice,
-      cta: { label: "Add to bag", href: "#add-to-bag" },
+      // member price → you sign up to unlock it
+      cta: { label: "Sign up", href: "#sign-up" },
     },
     {
       id: "regular",
       label: "Regular Price",
       price: regularPrice,
-      cta: { label: "Sign up", href: "#sign-up" },
+      // full price → straight to the bag
+      cta: { label: "Add to bag", href: "#add-to-bag" },
     },
   ];
 }

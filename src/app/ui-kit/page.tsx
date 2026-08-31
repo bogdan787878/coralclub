@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import {
   Accent,
+  Accordion,
+  AccordionItem,
   BodyLong,
   Button,
   Container,
@@ -264,6 +266,32 @@ export default function UiKitPage() {
                 { id: "regular", label: "Regular Price", price: "$875" },
               ]}
             />
+          </Stack>
+        </Container>
+      </Section>
+
+      {/* Accordion */}
+      <Section>
+        <Container>
+          <Stack gap="base">
+            <Stack gap="text">
+              <p className={styles.kicker}>08 — Accordion</p>
+              <Heading as="h2">Accordion</Heading>
+            </Stack>
+            <Accordion>
+              <AccordionItem title="How to Use" defaultOpen>
+                <p>
+                  Add one sachet to 1.5 L of water and let it dissolve. Drink
+                  through the day.
+                </p>
+              </AccordionItem>
+              <AccordionItem title="Manufacturing details">
+                <p>Made in Japan. GMP · HACCP · ISO certified.</p>
+              </AccordionItem>
+              <AccordionItem title="Shipping &amp; returns">
+                <p>Delivery in 24–48h from a local warehouse. 30-day guarantee.</p>
+              </AccordionItem>
+            </Accordion>
           </Stack>
         </Container>
       </Section>

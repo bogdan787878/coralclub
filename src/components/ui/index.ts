@@ -5,3 +5,4 @@ export { Heading, BodyLong, Accent } from "./Text";
 export { Button } from "./Button";
 export { Rating } from "./Rating";
 export type { RatingProps } from "./Rating";
+export { Accordion, AccordionItem } from "./Accordion";

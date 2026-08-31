@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
+  Accordion,
+  AccordionItem,
   BodyLong,
   Container,
   Heading,
@@ -87,6 +89,17 @@ export default async function ProductPage({
               </div>
 
               <BuyBox options={product.prices} />
+
+              <Accordion>
+                <AccordionItem title="How to Use">
+                  {/* content TBD */}
+                  <p>Details coming soon.</p>
+                </AccordionItem>
+                <AccordionItem title="Manufacturing details">
+                  {/* content TBD */}
+                  <p>Details coming soon.</p>
+                </AccordionItem>
+              </Accordion>
             </Stack>
           </div>
         </Container>

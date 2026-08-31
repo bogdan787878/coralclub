@@ -32,10 +32,19 @@
   );
 }
 
+/* children in order: name → rating → description → disclaimer */
 .headGroup {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-text);
+}
+.headGroup > :nth-child(2) {
+  margin-top: var(--space-8); /* name → rating */
+}
+.headGroup > :nth-child(3) {
+  margin-top: var(--space-16); /* rating → description */
+}
+.headGroup > :nth-child(4) {
+  margin-top: var(--space-8); /* description → disclaimer */
 }
 
 .name {
@@ -44,7 +53,6 @@
 
 /* FDA fine print — quiet footnote under the description */
 .disclaimer {
-  margin-top: var(--space-8);
   font-family: var(--font-sans);
   font-size: 0.75rem; /* 12 */
   line-height: 1.125rem; /* 18 */
