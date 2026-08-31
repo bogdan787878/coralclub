@@ -4,12 +4,27 @@
    ============================================================ */
 
 :root {
-  /* ---------- Color · raw palette ---------- */
+  /* ---------- Color · raw palette ----------
+     Interface palettes: a near-black desaturated anchor (-100) plus soft
+     light tints (-30, -10), adapted from the brandbook's print palettes
+     (deliberately different — the brandbook colours are for print). */
+
+  /* Blue — brandbook "вода" — primary / Hydration */
   --color-primary-100: #011130; /* darkest navy — text, borders, hover */
   --color-primary-90: #01204f; /* mid navy — primary action default */
   --color-primary-70: #3f5170; /* slate navy — dark content panels */
   --color-primary-30: #c6d6ed;
   --color-primary-10: #e3ecfa;
+
+  /* Peach — brandbook "земля" — Restart phase */
+  --color-peach-100: #331e10;
+  --color-peach-30: #f5d2ac;
+  --color-peach-10: #faeee2;
+
+  /* Forest — brandbook "зелень" — Personalization phase */
+  --color-forest-100: #01271e;
+  --color-forest-30: #d5e6b8;
+  --color-forest-10: #f4f7dd;
 
   --color-white: #ffffff;
   --color-black: #000000;
