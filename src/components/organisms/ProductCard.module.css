@@ -58,9 +58,8 @@
 }
 
 .media {
-  /* fixed frame — the packshot always fits inside it, never cropped */
-  height: 190px;
   overflow: hidden;
+  aspect-ratio: 1 / 1;
   padding: var(--space-16);
   background: transparent; /* packshot sits directly on the card */
   /* concentric with the card: outer radius minus the card padding */
@@ -76,12 +75,6 @@
 
 .mediaInner :global(img) {
   object-fit: contain;
-}
-
-@media (min-width: 768px) {
-  .media {
-    height: 240px;
-  }
 }
 
 .mediaEmpty {
