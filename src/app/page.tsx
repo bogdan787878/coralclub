@@ -1,5 +1,6 @@
 import { Accent } from "@/components/ui";
 import {
+  Editorial,
   FeaturedSeries,
   Hero,
   PhasesSection,
@@ -49,6 +50,32 @@ export default function Home() {
         }
         image={HERO_IMAGE}
         cta={{ label: "Learn about hydration", href: "#phases" }}
+      />
+
+      <Editorial
+        title={{
+          lead: "You Are 90% Water.",
+          accent: "Everything Else Depends On It.",
+        }}
+        image={{
+          src: asset("/images/core-idea.png"),
+          alt: "Woman drinking a glass of water",
+          position: "38% 50%",
+        }}
+        body={
+          <>
+            <p>
+              Most supplements skip the first step of your routine: the water you
+              drink every day.
+            </p>
+            <p>
+              You can take the best supplements, but if you&apos;re dehydrated,
+              your body doesn&apos;t actually use them. That&apos;s why Coral Club
+              starts with what matters first: the water you drink daily.
+              Everything else builds on top of that.
+            </p>
+          </>
+        }
       />
 
       <div id="phases">
