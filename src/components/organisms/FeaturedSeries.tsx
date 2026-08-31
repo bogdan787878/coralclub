@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Accent, Button, Container, Heading, Section } from "@/components/ui";
+import { Accent, Button, Heading, Section } from "@/components/ui";
 import styles from "./FeaturedSeries.module.css";
 
 export type SeriesImage = {
@@ -61,18 +61,18 @@ export function FeaturedSeries({
 }: FeaturedSeriesProps) {
   return (
     <Section tone="surface">
-      <Container>
-        <div className={styles.panel}>
-          <Heading as="h2" className={styles.title}>
-            {title.lead}
-            <br />
-            <Accent>{title.accent}</Accent>
-          </Heading>
+      <div className={styles.panel}>
+        <Heading as="h2" className={styles.title}>
+          {title.lead}
+          <br />
+          <Accent>{title.accent}</Accent>
+        </Heading>
 
+        <div className={styles.media}>
           <Tile
             image={feature}
             className={styles.feature}
-            sizes="(max-width: 480px) 100vw, 480px"
+            sizes="100vw"
           />
 
           <div className={styles.grid}>
@@ -81,21 +81,16 @@ export function FeaturedSeries({
                 key={i}
                 image={item}
                 className={styles.thumb}
-                sizes="(max-width: 480px) 50vw, 240px"
+                sizes="50vw"
               />
             ))}
           </div>
-
-          <Button
-            variant="primary"
-            block
-            href={cta.href}
-            className={styles.cta}
-          >
-            {cta.label}
-          </Button>
         </div>
-      </Container>
+
+        <Button variant="primary" block href={cta.href} className={styles.cta}>
+          {cta.label}
+        </Button>
+      </div>
     </Section>
   );
 }

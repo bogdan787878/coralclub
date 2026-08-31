@@ -15,7 +15,10 @@ const HERO_IMAGE = {
 
 const HYDRATION_SERIES = {
   title: { lead: "The Hydration Series.", accent: "Step by Step" },
-  feature: { alt: "Hydramax Plus — 30-day hydration set" },
+  feature: {
+    src: asset("/images/hydration-series-feature.png"),
+    alt: "Coral Club hydration set on a bright desk",
+  },
   items: [
     { alt: "Hydration Series item" },
     { alt: "Hydration Series item" },

@@ -1,3 +1,4 @@
+/* full-bleed dark band, like the hero panel */
 .panel {
   display: flex;
   flex-direction: column;
@@ -11,6 +12,13 @@
 .title {
   color: var(--color-text-on-primary);
   text-wrap: balance;
+}
+
+/* feature image + thumbnail row, tightly spaced */
+.media {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
 }
 
 /* shared tile treatment */
@@ -32,7 +40,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-12);
+  gap: var(--space-8);
 }
 
 .thumb {
