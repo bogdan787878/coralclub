@@ -11,7 +11,12 @@ import {
   Section,
   Stack,
 } from "@/components/ui";
-import { Carousel, PriceSelector, ProductCard } from "@/components/organisms";
+import {
+  Carousel,
+  InfoAccordion,
+  PriceSelector,
+  ProductCard,
+} from "@/components/organisms";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -276,7 +281,7 @@ export default function UiKitPage() {
           <Stack gap="base">
             <Stack gap="text">
               <p className={styles.kicker}>08 — Accordion</p>
-              <Heading as="h2">Accordion</Heading>
+              <Heading as="h2">Accordion (inline)</Heading>
             </Stack>
             <Accordion>
               <AccordionItem title="How to Use" defaultOpen>
@@ -292,6 +297,29 @@ export default function UiKitPage() {
                 <p>Delivery in 24–48h from a local warehouse. 30-day guarantee.</p>
               </AccordionItem>
             </Accordion>
+
+            <Heading as="h2">InfoAccordion → Sheet / Drawer</Heading>
+            <BodyLong muted>
+              Rows open their content in a bottom sheet on mobile, a side
+              drawer on desktop.
+            </BodyLong>
+            <InfoAccordion
+              items={[
+                {
+                  title: "How to Use",
+                  content: (
+                    <p>
+                      Add one sachet to 1.5 L of water and let it dissolve.
+                      Drink through the day.
+                    </p>
+                  ),
+                },
+                {
+                  title: "Manufacturing details",
+                  content: <p>Made in Japan. GMP · HACCP · ISO certified.</p>,
+                },
+              ]}
+            />
           </Stack>
         </Container>
       </Section>

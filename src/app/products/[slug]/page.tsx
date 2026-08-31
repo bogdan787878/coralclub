@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
-  Accordion,
-  AccordionItem,
   BodyLong,
   Container,
   Heading,
@@ -11,8 +9,9 @@ import {
   Section,
   Stack,
 } from "@/components/ui";
-import { BuyBox, SiteHeader } from "@/components/organisms";
+import { BuyBox, InfoAccordion, SiteHeader } from "@/components/organisms";
 import { PRODUCTS, getProduct } from "@/lib/products";
+import { ManufacturingDetails } from "./ManufacturingDetails";
 import styles from "./page.module.css";
 
 type Params = { slug: string };
@@ -90,16 +89,18 @@ export default async function ProductPage({
 
               <BuyBox options={product.prices} />
 
-              <Accordion>
-                <AccordionItem title="How to Use">
-                  {/* content TBD */}
-                  <p>Details coming soon.</p>
-                </AccordionItem>
-                <AccordionItem title="Manufacturing details">
-                  {/* content TBD */}
-                  <p>Details coming soon.</p>
-                </AccordionItem>
-              </Accordion>
+              <InfoAccordion
+                items={[
+                  {
+                    title: "How to Use",
+                    content: <p>Details coming soon.</p>,
+                  },
+                  {
+                    title: "Manufacturing details",
+                    content: <ManufacturingDetails />,
+                  },
+                ]}
+              />
             </Stack>
           </div>
         </Container>

@@ -1,0 +1,133 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(1, 17, 48, 0.45);
+  cursor: pointer;
+  animation: fade var(--duration-base) var(--ease-standard);
+}
+
+.panel {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-bg);
+  color: var(--color-text);
+
+  /* mobile — bottom sheet */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 90dvh;
+  border-radius: var(--radius-base) var(--radius-base) 0 0;
+  animation: up var(--duration-base) var(--ease-standard);
+}
+
+.grabber {
+  flex: none;
+  width: 40px;
+  height: 4px;
+  margin: var(--space-8) auto 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-30);
+}
+
+.header {
+  flex: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-16);
+  padding: var(--space-16) var(--page-padding-inline) var(--space-8);
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-line);
+  letter-spacing: var(--text-h2-tracking);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.close {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.close:hover {
+  background: var(--color-surface);
+}
+
+.body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: var(--space-8) var(--page-padding-inline) var(--page-padding-block);
+}
+
+@media (min-width: 768px) {
+  .panel {
+    /* desktop — right-side drawer */
+    left: auto;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: min(460px, 92vw);
+    max-height: none;
+    border-radius: 0;
+    animation: side var(--duration-base) var(--ease-standard);
+  }
+
+  .grabber {
+    display: none;
+  }
+
+  .header {
+    padding-top: var(--space-24);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes side {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .panel {
+    animation: none;
+  }
+}

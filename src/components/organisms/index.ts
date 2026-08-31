@@ -24,3 +24,6 @@ export type { PhasesSectionProps } from "./PhasesSection";
 
 export { FeaturedSeries } from "./FeaturedSeries";
 export type { FeaturedSeriesProps, SeriesImage } from "./FeaturedSeries";
+
+export { InfoAccordion } from "./InfoAccordion";
+export type { InfoAccordionProps, InfoSection } from "./InfoAccordion";

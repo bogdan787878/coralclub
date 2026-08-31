@@ -6,3 +6,5 @@ export { Button } from "./Button";
 export { Rating } from "./Rating";
 export type { RatingProps } from "./Rating";
 export { Accordion, AccordionItem } from "./Accordion";
+export { Sheet } from "./Sheet";
+export type { SheetProps } from "./Sheet";
