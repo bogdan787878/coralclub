@@ -48,7 +48,11 @@ export function PhasesSection({ phases }: PhasesSectionProps) {
                 title={p.title}
                 price={p.price}
                 href={productHref(p.slug)}
-                image={{ src: p.image, alt: p.name, position: p.imagePosition }}
+                image={
+                  p.image
+                    ? { src: p.image, alt: p.name, position: p.imagePosition }
+                    : undefined
+                }
                 cta={{ label: "Shop" }}
               />
             ))}

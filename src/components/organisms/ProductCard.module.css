@@ -67,7 +67,7 @@
 }
 
 .mediaInner :global(img) {
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .mediaEmpty {

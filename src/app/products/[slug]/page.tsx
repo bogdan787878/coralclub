@@ -50,18 +50,22 @@ export default async function ProductPage({
         <Container>
           <div className={styles.layout}>
             <div className={styles.media}>
-              <Image
-                src={product.image}
-                alt={product.name}
-                fill
-                priority
-                sizes="(max-width: 1023px) 100vw, 560px"
-                style={
-                  product.imagePosition
-                    ? { objectPosition: product.imagePosition }
-                    : undefined
-                }
-              />
+              {product.image ? (
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  priority
+                  sizes="(max-width: 1023px) 100vw, 560px"
+                  style={
+                    product.imagePosition
+                      ? { objectPosition: product.imagePosition }
+                      : undefined
+                  }
+                />
+              ) : (
+                <span className={styles.mediaEmpty} aria-hidden="true" />
+              )}
             </div>
 
             <Stack gap="base">

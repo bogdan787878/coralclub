@@ -17,7 +17,7 @@ const HYDRATION_SERIES = {
   title: { lead: "The Hydration Series.", accent: "Step by Step" },
   feature: {
     src: asset("/images/hydration-series-feature.png"),
-    alt: "Coral Club hydration set on a bright desk",
+    alt: "Hydramax Plus — 30-day hydration set on a bright desk",
   },
   items: [
     { alt: "Hydration Series item" },

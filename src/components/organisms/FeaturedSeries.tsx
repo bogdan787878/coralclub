@@ -87,7 +87,7 @@ export function FeaturedSeries({
           </div>
         </div>
 
-        <Button variant="primary" block href={cta.href} className={styles.cta}>
+        <Button variant="primary" block href={cta.href}>
           {cta.label}
         </Button>
       </div>

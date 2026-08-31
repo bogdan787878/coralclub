@@ -21,7 +21,8 @@ export type Product = {
   /** Short line shown on the carousel card. */
   cardTitle: string;
   description: string;
-  image: string;
+  /** Packshot path in /public. Omit to render a placeholder tile. */
+  image?: string;
   /** Framing for the packshot inside its tile (object-position). */
   imagePosition?: string;
   rating: number;
@@ -56,7 +57,6 @@ export const PRODUCTS: Product[] = [
     description:
       "You can take the best supplements, but if you're dehydrated, your body doesn't actually use them. That's why Coral Club starts with what matters first: the water you drink daily. Everything else builds on top of that.",
     image: "/images/products/coral-mine-silver.png",
-    imagePosition: "42% 56%",
     rating: 3.4,
     ratingsCount: 25,
     reviewsCount: 12,
@@ -104,7 +104,6 @@ export const PRODUCTS: Product[] = [
     cardTitle: "Gentle Daily Cleanse",
     description:
       "A seven-day pack that supports the body's natural cleansing — antioxidants, fibre and a lecithin-based binder that eases the internal load before you go deeper.",
-    image: "/images/products/coral-detox-plus.png",
     rating: 4.4,
     ratingsCount: 28,
     reviewsCount: 11,
@@ -116,7 +115,6 @@ export const PRODUCTS: Product[] = [
     cardTitle: "Herbal Cleanse Support",
     description:
       "A concentrated blend of black walnut, clove and wormwood — traditional botanicals used to keep the gut environment inhospitable to unwanted guests.",
-    image: "/images/products/parashield.png",
     rating: 4.3,
     ratingsCount: 19,
     reviewsCount: 8,
@@ -128,7 +126,6 @@ export const PRODUCTS: Product[] = [
     cardTitle: "Deep Intestinal Cleanse",
     description:
       "A structured 14-day programme in three stages — preparation, active cleanse and recovery — for a thorough reset of the digestive tract.",
-    image: "/images/products/colo-vada-plus.png",
     rating: 4.6,
     ratingsCount: 47,
     reviewsCount: 22,
@@ -140,7 +137,6 @@ export const PRODUCTS: Product[] = [
     cardTitle: "Marine Collagen, Every Day",
     description:
       "Marine collagen peptides as a daily drink — for skin, hair and joints. Part of your daily beauty ritual, built on proper hydration.",
-    image: "/images/products/promarine-collagen.png",
     rating: 4.7,
     ratingsCount: 52,
     reviewsCount: 24,
@@ -152,7 +148,6 @@ export const PRODUCTS: Product[] = [
     cardTitle: "Essential Fatty Acids",
     description:
       "High-concentration fish oil — 60% omega-3 — for heart, brain and joint support once your hydration and cleansing layers are in place.",
-    image: "/images/products/omega-3-60.png",
     rating: 4.5,
     ratingsCount: 38,
     reviewsCount: 16,
@@ -164,7 +159,6 @@ export const PRODUCTS: Product[] = [
     cardTitle: "Green Whole-Food Nutrition",
     description:
       "A dense whole-food source of plant protein, chlorophyll and iron — an easy daily top-up for a personalised nutrition plan.",
-    image: "/images/products/spirulina.png",
     rating: 4.4,
     ratingsCount: 41,
     reviewsCount: 17,
@@ -174,7 +168,11 @@ export const PRODUCTS: Product[] = [
 
 export function getProduct(slug: string): Product | undefined {
   const product = PRODUCTS.find((p) => p.slug === slug);
-  return product ? { ...product, image: asset(product.image) } : undefined;
+  if (!product) return undefined;
+  return {
+    ...product,
+    image: product.image ? asset(product.image) : undefined,
+  };
 }
 
 export const productHref = (slug: string) => `/products/${slug}`;
@@ -189,7 +187,7 @@ export type PhaseProductCard = {
   name: string;
   title: string;
   price: string;
-  image: string;
+  image?: string;
   imagePosition?: string;
 };
 

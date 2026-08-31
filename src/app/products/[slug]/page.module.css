@@ -15,6 +15,16 @@
   object-fit: contain;
 }
 
+.mediaEmpty {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-10),
+    var(--color-primary-30)
+  );
+}
+
 .headGroup {
   display: flex;
   flex-direction: column;

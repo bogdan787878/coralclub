@@ -57,10 +57,6 @@
   );
 }
 
-.cta {
-  background: var(--color-primary-100);
-}
-
 @media (min-width: 768px) {
   .panel {
     padding: var(--space-32);

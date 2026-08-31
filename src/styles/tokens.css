@@ -39,9 +39,9 @@
   --color-text-on-primary: var(--color-white);
   --color-text-on-primary-muted: rgba(255, 255, 255, 0.72);
 
-  /* primary button: mid navy at rest, darkens to the darkest navy on hover */
-  --color-action: var(--color-primary-90);
-  --color-action-hover: var(--color-primary-100);
+  /* primary button: darkest navy at rest, lifts to the mid navy on hover */
+  --color-action: var(--color-primary-100);
+  --color-action-hover: var(--color-primary-90);
   --color-action-contrast: var(--color-white);
 
   /* ---------- Typography · families ---------- */
