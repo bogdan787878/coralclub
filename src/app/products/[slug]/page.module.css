@@ -42,6 +42,18 @@
   color: var(--color-text);
 }
 
+/* FDA fine print — quiet footnote under the description */
+.disclaimer {
+  margin-top: var(--space-8);
+  padding-top: var(--gap-text);
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-sans);
+  font-size: 0.75rem; /* 12 */
+  line-height: 1.125rem; /* 18 */
+  color: var(--color-text-muted);
+  text-wrap: pretty;
+}
+
 @media (min-width: 768px) {
   .media {
     aspect-ratio: 4 / 3;
