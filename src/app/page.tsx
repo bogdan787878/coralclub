@@ -52,6 +52,12 @@ export default function Home() {
         cta={{ label: "Learn about hydration", href: "#phases" }}
       />
 
+      <div id="phases">
+        <PhasesSection phases={phases} />
+      </div>
+
+      <FeaturedSeries {...HYDRATION_SERIES} />
+
       <Editorial
         title={{
           lead: "You Are 90% Water.",
@@ -77,12 +83,6 @@ export default function Home() {
           </>
         }
       />
-
-      <div id="phases">
-        <PhasesSection phases={phases} />
-      </div>
-
-      <FeaturedSeries {...HYDRATION_SERIES} />
     </main>
   );
 }

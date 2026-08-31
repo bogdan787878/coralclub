@@ -6,9 +6,9 @@
 
 .title {
   font-family: var(--font-sans);
-  font-size: var(--text-h1-size); /* 40 */
-  line-height: var(--text-h1-line); /* 44 */
-  letter-spacing: var(--text-h1-tracking);
+  font-size: var(--text-h2-size); /* 28 */
+  line-height: var(--text-h2-line); /* 32 */
+  letter-spacing: var(--text-h2-tracking);
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
   text-wrap: balance;
@@ -17,7 +17,7 @@
 .media {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 4 / 5;
+  height: 264px;
   border-radius: var(--radius-base);
   background: var(--color-primary-30);
 }
@@ -38,10 +38,4 @@
 
 .body p {
   margin: 0;
-}
-
-@media (min-width: 768px) {
-  .media {
-    aspect-ratio: 3 / 2;
-  }
 }
