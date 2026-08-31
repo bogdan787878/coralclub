@@ -5,7 +5,8 @@
 
 :root {
   /* ---------- Color · raw palette ---------- */
-  --color-primary-100: #011130;
+  --color-primary-100: #011130; /* darkest navy — text, borders, hover */
+  --color-primary-90: #01204f; /* mid navy — primary action default */
   --color-primary-30: #c6d6ed;
   --color-primary-10: #e3ecfa;
 
@@ -22,8 +23,9 @@
   --color-text-on-primary: var(--color-white);
   --color-text-on-primary-muted: rgba(255, 255, 255, 0.72);
 
-  --color-action: var(--color-primary-100);
-  --color-action-hover: #01204f;
+  /* primary button: mid navy at rest, darkens to the darkest navy on hover */
+  --color-action: var(--color-primary-90);
+  --color-action-hover: var(--color-primary-100);
   --color-action-contrast: var(--color-white);
 
   /* ---------- Typography · families ---------- */

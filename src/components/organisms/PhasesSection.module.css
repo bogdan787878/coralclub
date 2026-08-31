@@ -30,7 +30,9 @@
   --color-border: var(--phase-30);
   --color-text: var(--phase-100);
   --color-text-muted: color-mix(in srgb, var(--phase-100) 58%, transparent);
+  /* primary button: phase colour at rest, a touch darker on hover */
   --color-action: var(--phase-100);
+  --color-action-hover: color-mix(in srgb, var(--phase-100) 82%, #000);
 }
 
 .themed section,
