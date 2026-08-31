@@ -21,10 +21,10 @@
   --color-peach-30: #f5d2ac;
   --color-peach-10: #faeee2;
 
-  /* Malachite — brandbook "зелень", shifted to a jewel green — Personalization phase */
-  --color-forest-100: #052c1d; /* deep — matched to --color-peach-100 */
-  --color-forest-30: #bfe3d1;
-  --color-forest-10: #e7f4ee;
+  /* Malachite — brandbook "зелень", a dark bluish-green — Personalization phase */
+  --color-forest-100: #03211d;
+  --color-forest-30: #b9e0d6;
+  --color-forest-10: #e3f2ee;
 
   --color-white: #ffffff;
   --color-black: #000000;

@@ -20,10 +20,10 @@
 }
 
 .themed[data-phase="personalization"] {
-  /* Phase 3 — Personalization (malachite) — --color-forest-* */
-  --phase-100: #052c1d;
-  --phase-30: #bfe3d1;
-  --phase-10: #e7f4ee;
+  /* Phase 3 — Personalization (dark bluish-green) — --color-forest-* */
+  --phase-100: #03211d;
+  --phase-30: #b9e0d6;
+  --phase-10: #e3f2ee;
 }
 
 .themed {
