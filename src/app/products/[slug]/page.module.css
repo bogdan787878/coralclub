@@ -6,7 +6,7 @@
   overflow: hidden;
   aspect-ratio: 1 / 1;
   /* inner padding so the packshot doesn't touch the frame edges */
-  padding: var(--space-32);
+  padding: var(--space-48);
   background: var(--color-primary-30);
   border-radius: var(--radius-base);
 }
