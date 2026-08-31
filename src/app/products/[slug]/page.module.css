@@ -3,15 +3,22 @@
 }
 
 .media {
-  position: relative;
   overflow: hidden;
   aspect-ratio: 1 / 1;
+  /* inner padding so the packshot doesn't touch the frame edges */
   padding: var(--space-32);
   background: var(--color-primary-30);
   border-radius: var(--radius-base);
 }
 
-.media :global(img) {
+/* the fill image respects the frame padding via this inner box */
+.mediaInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.mediaInner :global(img) {
   object-fit: contain;
 }
 
