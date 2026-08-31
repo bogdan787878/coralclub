@@ -1,11 +1,26 @@
 import { Accent } from "@/components/ui";
-import { Hero, PhasesSection, SiteHeader } from "@/components/organisms";
+import {
+  FeaturedSeries,
+  Hero,
+  PhasesSection,
+  SiteHeader,
+} from "@/components/organisms";
 import { getPhases } from "@/lib/products";
 import { asset } from "@/lib/asset";
 
 const HERO_IMAGE = {
   src: asset("/images/hero-hydration.png"),
   alt: "Coral-Mine Silver sachet beside a glass of mineralized water",
+};
+
+const HYDRATION_SERIES = {
+  title: { lead: "The Hydration Series.", accent: "Step by Step" },
+  feature: { alt: "Hydramax Plus — 30-day hydration set" },
+  items: [
+    { alt: "Hydration Series item" },
+    { alt: "Hydration Series item" },
+  ],
+  cta: { label: "Shop", href: "#shop" },
 };
 
 export default function Home() {
@@ -31,6 +46,8 @@ export default function Home() {
       <div id="phases">
         <PhasesSection phases={phases} />
       </div>
+
+      <FeaturedSeries {...HYDRATION_SERIES} />
     </main>
   );
 }

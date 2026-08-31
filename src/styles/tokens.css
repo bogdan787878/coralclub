@@ -7,6 +7,7 @@
   /* ---------- Color · raw palette ---------- */
   --color-primary-100: #011130; /* darkest navy — text, borders, hover */
   --color-primary-90: #01204f; /* mid navy — primary action default */
+  --color-primary-70: #3f5170; /* slate navy — dark content panels */
   --color-primary-30: #c6d6ed;
   --color-primary-10: #e3ecfa;
 

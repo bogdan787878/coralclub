@@ -21,3 +21,6 @@ export type { PhaseSwitcherProps, PhaseTab } from "./PhaseSwitcher";
 
 export { PhasesSection } from "./PhasesSection";
 export type { PhasesSectionProps } from "./PhasesSection";
+
+export { FeaturedSeries } from "./FeaturedSeries";
+export type { FeaturedSeriesProps, SeriesImage } from "./FeaturedSeries";
