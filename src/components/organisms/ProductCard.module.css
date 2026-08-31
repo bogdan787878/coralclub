@@ -29,6 +29,13 @@
   line-height: 1.375rem;
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
+  /* keep the media tiles aligned across cards: reserve two lines, cap at three */
+  min-height: calc(1.375rem * 2);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
 }
 
 /* Stretched link — the whole card is clickable, CTA stays independent. */
@@ -51,8 +58,9 @@
 }
 
 .media {
+  /* fixed frame — the packshot always fits inside it, never cropped */
+  height: 190px;
   overflow: hidden;
-  aspect-ratio: 1 / 1;
   padding: var(--space-16);
   background: transparent; /* packshot sits directly on the card */
   /* concentric with the card: outer radius minus the card padding */
@@ -68,6 +76,12 @@
 
 .mediaInner :global(img) {
   object-fit: contain;
+}
+
+@media (min-width: 768px) {
+  .media {
+    height: 240px;
+  }
 }
 
 .mediaEmpty {

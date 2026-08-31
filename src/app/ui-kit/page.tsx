@@ -226,7 +226,7 @@ export default function UiKitPage() {
         </Container>
         <Container style={{ paddingBlock: "var(--gap-base)" }}>
           <ProductCard
-            title="Coral Minerals for Every Glass"
+            title="Minerals in every glass"
             price="$475.99"
             href="/products/coral-mine-silver"
             cta={{ label: "Shop" }}
@@ -234,9 +234,9 @@ export default function UiKitPage() {
         </Container>
         <Carousel label="Hydration Series sample">
           {[
-            { t: "Coral Minerals for Every Glass", s: "coral-mine-silver" },
-            { t: "Sea Minerals for Every Day", s: "oceanmin" },
-            { t: "Antioxidant Water, Every Day", s: "h-500" },
+            { t: "Minerals in every glass", s: "coral-mine-silver" },
+            { t: "Deep-sea magnesium", s: "oceanmin" },
+            { t: "Daily antioxidant boost", s: "h-500" },
           ].map(({ t, s }) => (
             <ProductCard
               key={s}

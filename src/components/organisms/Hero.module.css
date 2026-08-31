@@ -78,6 +78,11 @@
     flex: 0 0 auto;
   }
 
+  /* the manual line break in the body copy is mobile-only */
+  .body br {
+    display: none;
+  }
+
   .cta {
     align-self: flex-start;
   }

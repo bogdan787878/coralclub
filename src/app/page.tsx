@@ -41,7 +41,12 @@ export default function Home() {
             <Accent>with water</Accent>
           </>
         }
-        body="Hydration is step one of your Coral Club routine — the phase everything else builds on."
+        body={
+          <>
+            Hydration is step one of your Coral Club <br />
+            routine — the phase everything else builds on.
+          </>
+        }
         image={HERO_IMAGE}
         cta={{ label: "Learn about hydration", href: "#phases" }}
       />

@@ -53,7 +53,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "coral-mine-silver",
     name: "Coral Mine Silver",
-    cardTitle: "Coral Minerals for Every Glass",
+    cardTitle: "Minerals in every glass",
     description:
       "You can take the best supplements, but if you're dehydrated, your body doesn't actually use them. That's why Coral Club starts with what matters first: the water you drink daily. Everything else builds on top of that.",
     image: "/images/products/coral-mine-silver.png",
@@ -65,7 +65,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "pentokan",
     name: "PentoKan K+",
-    cardTitle: "Potassium for Every Day",
+    cardTitle: "Potassium for energy",
     description:
       "A soluble potassium and magnesium drink that supports heart rhythm, muscle function and healthy blood pressure — part of the daily hydration layer.",
     image: "/images/products/pentokan.png",
@@ -77,7 +77,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "oceanmin",
     name: "Oceanmin",
-    cardTitle: "Sea Minerals for Every Day",
+    cardTitle: "Deep-sea magnesium",
     description:
       "A deep-sea mineral concentrate in ionic form — magnesium-dominant, drawn from 662 m down in the Pacific. Steady energy and balance for every day.",
     image: "/images/products/oceanmin.png",
@@ -89,7 +89,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "h-500",
     name: "H-500",
-    cardTitle: "Antioxidant Water, Every Day",
+    cardTitle: "Daily antioxidant boost",
     description:
       "An alkaline-mineral effervescent tablet. Your daily water, taken further — one of the strongest antioxidant drinks you can make at home.",
     image: "/images/products/h-500.png",
@@ -101,7 +101,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "coral-detox-plus",
     name: "Coral Detox Plus",
-    cardTitle: "Gentle Daily Cleanse",
+    cardTitle: "7-day gentle cleanse",
     description:
       "A seven-day pack that supports the body's natural cleansing — antioxidants, fibre and a lecithin-based binder that eases the internal load before you go deeper.",
     rating: 4.4,
@@ -112,7 +112,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "parashield",
     name: "Parashield",
-    cardTitle: "Herbal Cleanse Support",
+    cardTitle: "Herbal gut cleanse",
     description:
       "A concentrated blend of black walnut, clove and wormwood — traditional botanicals used to keep the gut environment inhospitable to unwanted guests.",
     rating: 4.3,
@@ -123,7 +123,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "colo-vada-plus",
     name: "Colo-Vada Plus",
-    cardTitle: "Deep Intestinal Cleanse",
+    cardTitle: "14-day deep cleanse",
     description:
       "A structured 14-day programme in three stages — preparation, active cleanse and recovery — for a thorough reset of the digestive tract.",
     rating: 4.6,
@@ -134,7 +134,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "promarine-collagen",
     name: "Promarine Collagen",
-    cardTitle: "Marine Collagen, Every Day",
+    cardTitle: "Skin & joint collagen",
     description:
       "Marine collagen peptides as a daily drink — for skin, hair and joints. Part of your daily beauty ritual, built on proper hydration.",
     rating: 4.7,
@@ -145,7 +145,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "omega-3-60",
     name: "Omega 3/60",
-    cardTitle: "Essential Fatty Acids",
+    cardTitle: "Heart & brain omega-3",
     description:
       "High-concentration fish oil — 60% omega-3 — for heart, brain and joint support once your hydration and cleansing layers are in place.",
     rating: 4.5,
@@ -156,7 +156,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "spirulina",
     name: "Spirulina",
-    cardTitle: "Green Whole-Food Nutrition",
+    cardTitle: "Daily greens & protein",
     description:
       "A dense whole-food source of plant protein, chlorophyll and iron — an easy daily top-up for a personalised nutrition plan.",
     rating: 4.4,
