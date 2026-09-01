@@ -6,7 +6,10 @@
   );
 }
 
+/* Same base gutter as the track — 32px on desktop, no extra Container
+   padding stacked on top. Keeps the heading aligned with the first clip. */
 .head {
+  composes: gutter;
   margin-bottom: var(--gap-base);
 }
 

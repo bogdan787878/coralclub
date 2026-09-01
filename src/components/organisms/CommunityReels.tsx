@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type MouseEvent } from "react";
-import { Accent, Container, Heading, Section } from "@/components/ui";
+import { Accent, Heading, Section } from "@/components/ui";
 import styles from "./CommunityReels.module.css";
 
 export type Reel = {
@@ -62,14 +62,12 @@ export function CommunityReels({ title, body, reels }: CommunityReelsProps) {
   return (
     <Section tone="surface">
       <div className={styles.head}>
-        <Container>
-          <div className={styles.copy}>
-            <Heading as="h2" className={styles.title}>
-              {title.lead} <Accent>{title.accent}</Accent>
-            </Heading>
-            <p className={styles.body}>{body}</p>
-          </div>
-        </Container>
+        <div className={styles.copy}>
+          <Heading as="h2" className={styles.title}>
+            {title.lead} <Accent>{title.accent}</Accent>
+          </Heading>
+          <p className={styles.body}>{body}</p>
+        </div>
       </div>
 
       <ul className={styles.track} ref={trackRef} aria-label="Community clips" role="list">
