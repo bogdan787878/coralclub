@@ -15,11 +15,24 @@ export type PriceOption = {
   cta: { label: string; href: string };
 };
 
+/** Base wellness scenarios — the quiz maps answers onto these. */
+export type Goal = "vitality" | "sleep" | "energy" | "calm" | "skin";
+
+export const GOALS: { id: Goal; label: string }[] = [
+  { id: "vitality", label: "Stay in shape" },
+  { id: "sleep", label: "Sleep better" },
+  { id: "energy", label: "More energy" },
+  { id: "calm", label: "Less stress" },
+  { id: "skin", label: "Skin & hair" },
+];
+
 export type Product = {
   slug: string;
   name: string;
-  /** Short line shown on the carousel card. */
+  /** Short line shown on the carousel card — the goal the product serves. */
   cardTitle: string;
+  /** Scenarios this product supports, most relevant first. */
+  goals: Goal[];
   description: string;
   /** Packshot path in /public. Omit to render a placeholder tile. */
   image?: string;
@@ -55,7 +68,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "coral-mine-silver",
     name: "Coral Mine Silver",
-    cardTitle: "Minerals in every glass",
+    cardTitle: "For everyday vitality",
+    goals: ["vitality", "energy"],
     description:
       "You can take the best supplements, but if you're dehydrated, your body doesn't actually use them. That's why Coral Club starts with what matters first: the water you drink daily. Everything else builds on top of that.",
     image: "/images/products/coral-mine-silver.png",
@@ -67,7 +81,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "pentokan",
     name: "PentoKan K+",
-    cardTitle: "Potassium for energy",
+    cardTitle: "For more energy",
+    goals: ["energy", "vitality"],
     description:
       "A soluble potassium and magnesium drink that supports heart rhythm, muscle function and healthy blood pressure — part of the daily hydration layer.",
     image: "/images/products/pentokan.png",
@@ -79,7 +94,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "oceanmin",
     name: "Oceanmin",
-    cardTitle: "Deep-sea magnesium",
+    cardTitle: "For deeper sleep",
+    goals: ["sleep", "calm"],
     description:
       "A deep-sea mineral concentrate in ionic form — magnesium-dominant, drawn from 662 m down in the Pacific. Steady energy and balance for every day.",
     image: "/images/products/oceanmin.png",
@@ -91,7 +107,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "h-500",
     name: "H-500",
-    cardTitle: "Daily antioxidant boost",
+    cardTitle: "For more energy",
+    goals: ["energy", "vitality"],
     description:
       "An alkaline-mineral effervescent tablet. Your daily water, taken further — one of the strongest antioxidant drinks you can make at home.",
     image: "/images/products/h-500.png",
@@ -103,7 +120,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "coral-detox-plus",
     name: "Coral Detox Plus",
-    cardTitle: "7-day gentle cleanse",
+    cardTitle: "For more energy",
+    goals: ["energy", "vitality"],
     description:
       "A seven-day pack that supports the body's natural cleansing — antioxidants, fibre and a lecithin-based binder that eases the internal load before you go deeper.",
     rating: 4.4,
@@ -114,7 +132,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "parashield",
     name: "Parashield",
-    cardTitle: "Herbal gut cleanse",
+    cardTitle: "For everyday vitality",
+    goals: ["vitality"],
     description:
       "A concentrated blend of black walnut, clove and wormwood — traditional botanicals used to keep the gut environment inhospitable to unwanted guests.",
     rating: 4.3,
@@ -125,7 +144,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "colo-vada-plus",
     name: "Colo-Vada Plus",
-    cardTitle: "14-day deep cleanse",
+    cardTitle: "For more energy",
+    goals: ["energy", "vitality"],
     description:
       "A structured 14-day programme in three stages — preparation, active cleanse and recovery — for a thorough reset of the digestive tract.",
     rating: 4.6,
@@ -136,7 +156,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "promarine-collagen",
     name: "Promarine Collagen",
-    cardTitle: "Skin & joint collagen",
+    cardTitle: "For skin & hair",
+    goals: ["skin"],
     description:
       "Marine collagen peptides as a daily drink — for skin, hair and joints. Part of your daily beauty ritual, built on proper hydration.",
     rating: 4.7,
@@ -147,7 +168,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "omega-3-60",
     name: "Omega 3/60",
-    cardTitle: "Heart & brain omega-3",
+    cardTitle: "For a calmer mind",
+    goals: ["calm", "sleep"],
     description:
       "High-concentration fish oil — 60% omega-3 — for heart, brain and joint support once your hydration and cleansing layers are in place.",
     rating: 4.5,
@@ -158,7 +180,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "spirulina",
     name: "Spirulina",
-    cardTitle: "Daily greens & protein",
+    cardTitle: "For more energy",
+    goals: ["energy", "vitality"],
     description:
       "A dense whole-food source of plant protein, chlorophyll and iron — an easy daily top-up for a personalised nutrition plan.",
     rating: 4.4,
@@ -189,6 +212,7 @@ export type PhaseProductCard = {
   name: string;
   title: string;
   price: string;
+  goals: Goal[];
   image?: string;
   imagePosition?: string;
 };
@@ -247,6 +271,7 @@ export function getPhases(): PhaseView[] {
         name: p.name,
         title: p.cardTitle,
         price: p.prices[0].price,
+        goals: p.goals,
         image: p.image,
         imagePosition: p.imagePosition,
       })),
