@@ -60,4 +60,16 @@
   .root {
     --carousel-item-size: 248px;
   }
+
+  /* Desktop: no scrolling — the cards divide the full section width. */
+  .viewport {
+    gap: var(--gap-text);
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+
+  .item {
+    flex: 1 1 0;
+    min-width: 0;
+  }
 }
