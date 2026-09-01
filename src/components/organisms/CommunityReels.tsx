@@ -60,7 +60,7 @@ export function CommunityReels({ title, body, reels }: CommunityReelsProps) {
   };
 
   return (
-    <Section>
+    <Section tone="surface">
       <div className={styles.head}>
         <Container>
           <Heading as="h2" className={styles.title}>

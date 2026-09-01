@@ -67,15 +67,6 @@ export default function Home() {
 
       <FeaturedSeries {...HYDRATION_SERIES} />
 
-      <CommunityReels
-        title={{
-          lead: "The proof isn't on the label.",
-          accent: "It's in the community.",
-        }}
-        body="Real members, real routines. Most people start Coral Club because someone they already trust did first."
-        reels={COMMUNITY_REELS}
-      />
-
       <Editorial
         title={{
           lead: "You Are 90% Water.",
@@ -100,6 +91,15 @@ export default function Home() {
             </p>
           </>
         }
+      />
+
+      <CommunityReels
+        title={{
+          lead: "The proof isn't on the label.",
+          accent: "It's in the community.",
+        }}
+        body="Real members, real routines. Most people start Coral Club because someone they already trust did first."
+        reels={COMMUNITY_REELS}
       />
     </main>
   );

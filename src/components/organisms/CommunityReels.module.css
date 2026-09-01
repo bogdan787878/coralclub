@@ -9,7 +9,7 @@
 .head {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-text);
+  gap: var(--space-16); /* heading → body: fixed 16 at every breakpoint */
   margin-bottom: var(--gap-base);
 }
 
