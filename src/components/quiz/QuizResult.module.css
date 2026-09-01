@@ -1,0 +1,176 @@
+/* Rendered inside the navy tone — inherits --q-* from QuizFlow.module.css */
+
+.result {
+  padding-bottom: var(--space-32);
+}
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  font-weight: 500;
+  opacity: 0.7;
+  margin-bottom: var(--space-12);
+}
+
+.title {
+  font-size: clamp(1.75rem, 3vw + 1rem, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+.lead {
+  margin-top: var(--space-16);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  opacity: 0.82;
+}
+
+/* ---------- Recap ---------- */
+.recap {
+  margin-top: var(--space-24);
+  padding: var(--space-20);
+  border: 1px solid var(--q-card-border);
+  border-radius: var(--q-radius);
+  background: var(--q-card);
+}
+.recapHead {
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+  margin-bottom: var(--space-12);
+}
+.recap ul {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+}
+.recap li {
+  position: relative;
+  padding-left: var(--space-20);
+  font-size: 0.9375rem;
+  line-height: 1.4rem;
+}
+.recap li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.55rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+/* ---------- Phases ---------- */
+.phases {
+  margin-top: var(--space-32);
+  display: grid;
+  gap: var(--space-16);
+  list-style: none;
+  padding: 0;
+  counter-reset: phase;
+}
+
+.phase {
+  padding: var(--space-24);
+  border: 1px solid var(--q-card-border);
+  border-radius: var(--radius-base);
+  background: var(--q-card);
+}
+
+.phaseHead {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-12);
+}
+.phaseNum {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.6;
+}
+.phaseName {
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.phaseWhy {
+  margin-top: var(--space-8);
+  font-size: 0.9375rem;
+  line-height: 1.4rem;
+  opacity: 0.8;
+}
+
+.products {
+  margin-top: var(--space-16);
+  display: grid;
+  gap: 2px;
+  list-style: none;
+  padding: 0;
+}
+.product {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-16);
+  padding: var(--space-12) 0;
+  border-top: 1px solid var(--q-card-border);
+}
+.product:first-child {
+  border-top: none;
+}
+.productLink {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.productLink:hover .productName {
+  text-decoration: underline;
+}
+.productName {
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+.productFor {
+  font-size: 0.8125rem;
+  opacity: 0.65;
+}
+.productPrice {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ---------- Actions ---------- */
+.actions {
+  margin-top: var(--space-32);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+}
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 var(--space-24);
+  border-radius: var(--radius-pill);
+  font-size: 1rem;
+  font-weight: 500;
+}
+.primary {
+  background: var(--q-fg);
+  color: var(--q-bg);
+}
+.secondary {
+  border: 1px solid color-mix(in srgb, var(--q-fg) 35%, transparent);
+  color: var(--q-fg);
+}

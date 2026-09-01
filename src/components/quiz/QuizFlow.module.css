@@ -1,0 +1,330 @@
+/* ============================================================
+   Quiz — full-bleed, one vivid colour per screen.
+   Each tone sets the same set of custom properties; the layout
+   below is tone-agnostic.
+   ============================================================ */
+
+.root {
+  --q-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--q-bg);
+  color: var(--q-fg);
+  transition: background-color 0.35s var(--ease-standard), color 0.35s var(--ease-standard);
+}
+
+/* ---------- Tones (values mirror the palette in tokens.css) ---------- */
+.toneNavy {
+  --q-bg: #011130;
+  --q-fg: #ffffff;
+  --q-card: rgba(255, 255, 255, 0.06);
+  --q-card-border: rgba(255, 255, 255, 0.22);
+  --q-on: #ffffff;
+  --q-on-fg: #011130;
+}
+.toneBlue {
+  --q-bg: #c6d6ed;
+  --q-fg: #011130;
+  --q-card: #e3ecfa;
+  --q-card-border: rgba(1, 17, 48, 0.14);
+  --q-on: #011130;
+  --q-on-fg: #ffffff;
+}
+.tonePeach {
+  --q-bg: #f5d2ac;
+  --q-fg: #331e10;
+  --q-card: #faeee2;
+  --q-card-border: rgba(51, 30, 16, 0.16);
+  --q-on: #331e10;
+  --q-on-fg: #ffffff;
+}
+.toneGreen {
+  --q-bg: #b9e0d6;
+  --q-fg: #03211d;
+  --q-card: #e3f2ee;
+  --q-card-border: rgba(3, 33, 29, 0.16);
+  --q-on: #03211d;
+  --q-on-fg: #ffffff;
+}
+
+/* ---------- Top bar + progress ---------- */
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--q-bg);
+  transition: background-color 0.35s var(--ease-standard);
+}
+
+.track {
+  height: 3px;
+  background: color-mix(in srgb, var(--q-fg) 16%, transparent);
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  background: var(--q-fg);
+  transition: width 0.35s var(--ease-standard);
+}
+
+.barRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+  padding: var(--space-16) var(--page-padding-inline);
+}
+
+.ghost {
+  color: var(--q-fg);
+  opacity: 0.7;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.ghost:hover {
+  opacity: 1;
+}
+
+.counter {
+  font-size: 0.8125rem;
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Stage ---------- */
+.stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-32) var(--page-padding-inline) var(--space-48);
+}
+
+/* long screens (contact, result) start from the top instead of centering */
+.stageTop {
+  align-items: flex-start;
+}
+
+.inner {
+  width: 100%;
+  max-width: 560px;
+  animation: rise 0.28s var(--ease-standard) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* ---------- Type ---------- */
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  font-weight: 500;
+  opacity: 0.7;
+  margin-bottom: var(--space-16);
+}
+
+.title {
+  font-size: clamp(1.5rem, 3vw + 1rem, 2.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+.lead {
+  margin-top: var(--space-16);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  opacity: 0.85;
+}
+
+.help {
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-24);
+  font-size: 0.875rem;
+  opacity: 0.7;
+}
+
+.intro .title {
+  margin-top: 0;
+}
+.intro .primary {
+  margin-top: var(--space-32);
+}
+
+/* ---------- Options ---------- */
+.options {
+  display: grid;
+  gap: var(--space-12);
+  margin: var(--space-24) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+  width: 100%;
+  padding: var(--space-20);
+  text-align: left;
+  color: inherit;
+  background: var(--q-card);
+  border: 1px solid var(--q-card-border);
+  border-radius: var(--q-radius);
+  transition: background-color 0.15s var(--ease-standard),
+    border-color 0.15s var(--ease-standard), transform 0.12s var(--ease-standard);
+}
+.option:hover {
+  border-color: color-mix(in srgb, var(--q-fg) 45%, transparent);
+}
+.option:active {
+  transform: scale(0.99);
+}
+
+.optionOn {
+  background: var(--q-on);
+  color: var(--q-on-fg);
+  border-color: transparent;
+}
+
+.optionMain {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.optionLabel {
+  font-size: 1rem;
+  font-weight: 500;
+}
+.optionHint {
+  font-size: 0.8125rem;
+  opacity: 0.7;
+}
+
+.tick {
+  position: relative;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, var(--q-fg) 35%, transparent);
+}
+.optionOn .tick {
+  border-color: var(--q-on-fg);
+  background: var(--q-on-fg);
+}
+.optionOn .tick::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 6px;
+  height: 11px;
+  border: solid var(--q-on);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* ---------- Primary / secondary buttons ---------- */
+.primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 var(--space-32);
+  border-radius: var(--radius-pill);
+  background: var(--q-fg);
+  color: var(--q-bg);
+  font-size: 1rem;
+  font-weight: 500;
+}
+.primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 var(--space-24);
+  border-radius: var(--radius-pill);
+  border: 1px solid color-mix(in srgb, var(--q-fg) 35%, transparent);
+  color: var(--q-fg);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ---------- Contact form ---------- */
+.form {
+  display: grid;
+  gap: var(--space-16);
+  margin: var(--space-24) 0;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+.field > span {
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+.optional {
+  font-style: normal;
+  opacity: 0.55;
+}
+
+.input {
+  height: 52px;
+  width: 100%;
+  padding: 0 var(--space-16);
+  border-radius: 14px;
+  border: 1px solid var(--q-card-border);
+  background: var(--q-card);
+  color: inherit;
+  font-size: 1rem;
+}
+.input:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--q-fg) 55%, transparent);
+  outline-offset: 1px;
+}
+
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.875rem;
+  opacity: 0.9;
+  cursor: pointer;
+}
+.consent input {
+  margin-top: 2px;
+  accent-color: var(--q-fg);
+}
+
+.error {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #d64545;
+}
+.toneNavy .error {
+  color: #ff9a9a;
+}
+
+@media (min-width: 768px) {
+  .stage {
+    padding: var(--space-64) var(--page-padding-inline);
+  }
+}

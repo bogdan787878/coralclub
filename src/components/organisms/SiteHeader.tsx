@@ -45,6 +45,11 @@ export function SiteHeader({
         <Link href="/" className={styles.brand}>
           {brand}
         </Link>
+        <Link href="/quiz" className={styles.quiz}>
+          <span className={styles.quizFull}>Пройти квиз</span>
+          <span className={styles.quizShort}>Квиз</span>
+          <span aria-hidden="true"> →</span>
+        </Link>
       </div>
     </div>
   );
