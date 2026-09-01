@@ -16,14 +16,23 @@ export type PriceOption = {
 };
 
 /** Base wellness scenarios — the quiz maps answers onto these. */
-export type Goal = "vitality" | "sleep" | "energy" | "calm" | "skin";
+export type Goal =
+  | "energy"
+  | "sleep"
+  | "skin"
+  | "detox"
+  | "weight"
+  | "immune"
+  | "hydration";
 
 export const GOALS: { id: Goal; label: string }[] = [
-  { id: "vitality", label: "Stay in shape" },
-  { id: "sleep", label: "Sleep better" },
   { id: "energy", label: "More energy" },
-  { id: "calm", label: "Less stress" },
+  { id: "sleep", label: "Better sleep & calm" },
   { id: "skin", label: "Skin & hair" },
+  { id: "detox", label: "Detox & feel lighter" },
+  { id: "weight", label: "Weight & metabolism" },
+  { id: "immune", label: "Immune support" },
+  { id: "hydration", label: "Better hydration" },
 ];
 
 export type Product = {
@@ -68,8 +77,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "coral-mine-silver",
     name: "Coral Mine Silver",
-    cardTitle: "For everyday vitality",
-    goals: ["vitality", "energy"],
+    cardTitle: "Better hydration",
+    goals: ["hydration", "energy"],
     description:
       "You can take the best supplements, but if you're dehydrated, your body doesn't actually use them. That's why Coral Club starts with what matters first: the water you drink daily. Everything else builds on top of that.",
     image: "/images/products/coral-mine-silver.png",
@@ -81,8 +90,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "pentokan",
     name: "PentoKan K+",
-    cardTitle: "For more energy",
-    goals: ["energy", "vitality"],
+    cardTitle: "More energy",
+    goals: ["energy", "hydration"],
     description:
       "A soluble potassium and magnesium drink that supports heart rhythm, muscle function and healthy blood pressure — part of the daily hydration layer.",
     image: "/images/products/pentokan.png",
@@ -94,8 +103,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "oceanmin",
     name: "Oceanmin",
-    cardTitle: "For deeper sleep",
-    goals: ["sleep", "calm"],
+    cardTitle: "Better sleep & calm",
+    goals: ["sleep", "energy"],
     description:
       "A deep-sea mineral concentrate in ionic form — magnesium-dominant, drawn from 662 m down in the Pacific. Steady energy and balance for every day.",
     image: "/images/products/oceanmin.png",
@@ -107,8 +116,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "h-500",
     name: "H-500",
-    cardTitle: "For more energy",
-    goals: ["energy", "vitality"],
+    cardTitle: "Immune support",
+    goals: ["immune", "energy"],
     description:
       "An alkaline-mineral effervescent tablet. Your daily water, taken further — one of the strongest antioxidant drinks you can make at home.",
     image: "/images/products/h-500.png",
@@ -120,8 +129,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "coral-detox-plus",
     name: "Coral Detox Plus",
-    cardTitle: "For more energy",
-    goals: ["energy", "vitality"],
+    cardTitle: "Detox & feel lighter",
+    goals: ["detox", "weight"],
     description:
       "A seven-day pack that supports the body's natural cleansing — antioxidants, fibre and a lecithin-based binder that eases the internal load before you go deeper.",
     rating: 4.4,
@@ -132,8 +141,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "parashield",
     name: "Parashield",
-    cardTitle: "For everyday vitality",
-    goals: ["vitality"],
+    cardTitle: "Detox & feel lighter",
+    goals: ["detox", "immune"],
     description:
       "A concentrated blend of black walnut, clove and wormwood — traditional botanicals used to keep the gut environment inhospitable to unwanted guests.",
     rating: 4.3,
@@ -144,8 +153,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "colo-vada-plus",
     name: "Colo-Vada Plus",
-    cardTitle: "For more energy",
-    goals: ["energy", "vitality"],
+    cardTitle: "Weight & metabolism",
+    goals: ["weight", "detox"],
     description:
       "A structured 14-day programme in three stages — preparation, active cleanse and recovery — for a thorough reset of the digestive tract.",
     rating: 4.6,
@@ -156,7 +165,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "promarine-collagen",
     name: "Promarine Collagen",
-    cardTitle: "For skin & hair",
+    cardTitle: "Skin & hair",
     goals: ["skin"],
     description:
       "Marine collagen peptides as a daily drink — for skin, hair and joints. Part of your daily beauty ritual, built on proper hydration.",
@@ -168,8 +177,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "omega-3-60",
     name: "Omega 3/60",
-    cardTitle: "For a calmer mind",
-    goals: ["calm", "sleep"],
+    cardTitle: "Better sleep & calm",
+    goals: ["sleep", "immune"],
     description:
       "High-concentration fish oil — 60% omega-3 — for heart, brain and joint support once your hydration and cleansing layers are in place.",
     rating: 4.5,
@@ -180,8 +189,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "spirulina",
     name: "Spirulina",
-    cardTitle: "For more energy",
-    goals: ["energy", "vitality"],
+    cardTitle: "More energy",
+    goals: ["energy", "weight"],
     description:
       "A dense whole-food source of plant protein, chlorophyll and iron — an easy daily top-up for a personalised nutrition plan.",
     rating: 4.4,
