@@ -1,0 +1,79 @@
+/* Align the header to the page container, like the Carousel. */
+.gutter {
+  padding-inline: max(
+    var(--page-padding-inline),
+    calc((100% - var(--container-max)) / 2)
+  );
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-text);
+  margin-bottom: var(--gap-base);
+}
+
+.title {
+  text-wrap: balance;
+}
+
+.body {
+  margin: 0;
+  max-width: 44ch;
+  font-family: var(--font-sans);
+  font-size: var(--text-button-size); /* 16 */
+  line-height: var(--text-button-line); /* 24 */
+  color: var(--color-text-muted);
+}
+
+/* Full-bleed scroller; first clip aligns to the container, next peeks in. */
+.track {
+  composes: gutter;
+  display: flex;
+  gap: var(--space-8);
+  margin: 0;
+  padding-block: 0;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: max(
+    var(--page-padding-inline),
+    calc((100% - var(--container-max)) / 2)
+  );
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  --reel-width: 200px;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  flex: 0 0 var(--reel-width);
+  scroll-snap-align: start;
+}
+
+.video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: var(--radius-base);
+  background: var(--color-primary-30);
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .track {
+    --reel-width: 240px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .track {
+    --reel-width: 264px;
+  }
+}

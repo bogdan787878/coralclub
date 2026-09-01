@@ -1,5 +1,6 @@
 import { Accent } from "@/components/ui";
 import {
+  CommunityReels,
   Editorial,
   FeaturedSeries,
   Hero,
@@ -13,6 +14,14 @@ const HERO_IMAGE = {
   src: asset("/images/hero-hydration.png"),
   alt: "Coral-Mine Silver sachet beside a glass of mineralized water",
 };
+
+const COMMUNITY_REELS = [
+  { src: asset("/reels/reel1.mp4"), alt: "Coral Club member sharing her morning hydration routine" },
+  { src: asset("/reels/reel2.mp4"), alt: "Member talking about how the Restart programme felt" },
+  { src: asset("/reels/reel3.mp4"), alt: "Before-and-after story from a long-time member" },
+  { src: asset("/reels/reel4.mp4"), alt: "Member showing the products she keeps on her counter" },
+  { src: asset("/reels/reel5.mp4"), alt: "Ambassador explaining why she recommends Coral Club" },
+];
 
 const HYDRATION_SERIES = {
   title: { lead: "The Hydration Series.", accent: "Step by Step" },
@@ -57,6 +66,15 @@ export default function Home() {
       </div>
 
       <FeaturedSeries {...HYDRATION_SERIES} />
+
+      <CommunityReels
+        title={{
+          lead: "The proof isn't on the label.",
+          accent: "It's in the community.",
+        }}
+        body="Real members, real routines. Most people start Coral Club because someone they already trust did first."
+        reels={COMMUNITY_REELS}
+      />
 
       <Editorial
         title={{
