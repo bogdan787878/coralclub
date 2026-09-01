@@ -63,10 +63,12 @@ export function CommunityReels({ title, body, reels }: CommunityReelsProps) {
     <Section tone="surface">
       <div className={styles.head}>
         <Container>
-          <Heading as="h2" className={styles.title}>
-            {title.lead} <Accent>{title.accent}</Accent>
-          </Heading>
-          <p className={styles.body}>{body}</p>
+          <div className={styles.copy}>
+            <Heading as="h2" className={styles.title}>
+              {title.lead} <Accent>{title.accent}</Accent>
+            </Heading>
+            <p className={styles.body}>{body}</p>
+          </div>
         </Container>
       </div>
 
