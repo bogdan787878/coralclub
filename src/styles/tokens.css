@@ -135,7 +135,11 @@
 /* Desktop */
 @media (min-width: 1024px) {
   :root {
-    --container-max: 1120px;
+    /* No centred max-width on desktop: every block runs full-bleed and
+       lines up on the flat 32px inline gutter below. The big value keeps
+       the `calc((100% - container-max) / 2)` gutter maths resolving to
+       the 32px floor at any viewport width. */
+    --container-max: 100000px;
 
     --page-padding-block: var(--space-64);
     --page-padding-inline: var(--space-32);

@@ -42,8 +42,8 @@
   color: var(--color-text-on-primary); /* solid white, no opacity */
   font-size: var(--text-button-size); /* 16 */
   line-height: var(--text-button-line); /* 24 */
-  /* spans the whole panel width with a 16px gutter on each side */
-  padding-inline: var(--space-16);
+  /* same inline gutter as the title Container (16 mobile → 32 desktop) */
+  padding-inline: var(--page-padding-inline);
 }
 
 .actions {

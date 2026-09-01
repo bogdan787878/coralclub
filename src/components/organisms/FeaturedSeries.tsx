@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Accent, Button, Heading, Section } from "@/components/ui";
+import { Accent, Button, Container, Heading, Section } from "@/components/ui";
 import styles from "./FeaturedSeries.module.css";
 
 export type SeriesImage = {
@@ -61,36 +61,38 @@ export function FeaturedSeries({
 }: FeaturedSeriesProps) {
   return (
     <Section tone="surface">
-      <div className={styles.panel}>
-        <Heading as="h2" className={styles.title}>
-          {title.lead}
-          <br />
-          <Accent>{title.accent}</Accent>
-        </Heading>
+      <Container>
+        <div className={styles.panel}>
+          <Heading as="h2" className={styles.title}>
+            {title.lead}
+            <br />
+            <Accent>{title.accent}</Accent>
+          </Heading>
 
-        <div className={styles.media}>
-          <Tile
-            image={feature}
-            className={styles.feature}
-            sizes="100vw"
-          />
+          <div className={styles.media}>
+            <Tile
+              image={feature}
+              className={styles.feature}
+              sizes="100vw"
+            />
 
-          <div className={styles.grid}>
-            {items.map((item, i) => (
-              <Tile
-                key={i}
-                image={item}
-                className={styles.thumb}
-                sizes="50vw"
-              />
-            ))}
+            <div className={styles.grid}>
+              {items.map((item, i) => (
+                <Tile
+                  key={i}
+                  image={item}
+                  className={styles.thumb}
+                  sizes="50vw"
+                />
+              ))}
+            </div>
           </div>
-        </div>
 
-        <Button variant="primary" block href={cta.href}>
-          {cta.label}
-        </Button>
-      </div>
+          <Button variant="primary" block href={cta.href}>
+            {cta.label}
+          </Button>
+        </div>
+      </Container>
     </Section>
   );
 }
