@@ -73,11 +73,10 @@
 }
 
 @media (min-width: 1024px) {
-  /* image left, buy panel right — media tile ~30% wider than the 13fr:7fr
-     split it grew from (65% -> ~85% of the row) */
+  /* image left, buy panel right — media tile at ~68% of the row */
   .layout {
     display: grid;
-    grid-template-columns: 17fr 3fr;
+    grid-template-columns: 17fr 8fr;
     gap: var(--gap-base);
     align-items: start;
   }
