@@ -44,11 +44,8 @@ export function QuizFlow() {
   const setAnswer = (id: string, value: string | string[]) =>
     setAnswers((a) => ({ ...a, [id]: value }));
 
-  const pickSingle = (id: string, value: string) => {
-    setAnswer(id, value);
-    // let the selected state paint before advancing
-    window.setTimeout(() => setIndex((i) => Math.min(steps.length - 1, i + 1)), 160);
-  };
+  // forward nav is the pinned "Далее" button — selecting only records the answer
+  const pickSingle = (id: string, value: string) => setAnswer(id, value);
 
   const toggleMulti = (id: string, value: string, max?: number) => {
     const current = asArray(answers[id]);
@@ -69,8 +66,32 @@ export function QuizFlow() {
     go(1);
   };
 
-  const canAdvance =
-    step.kind === "multi" ? isStepAnswered(step, answers) : true;
+  const isLong =
+    step.kind === "result" || step.kind === "contact" || step.kind === "multi";
+
+  // footer: one persistent primary + a round back button
+  const footerLabel =
+    step.kind === "intro"
+      ? step.cta
+      : step.kind === "contact"
+        ? submitting
+          ? "Отправляем…"
+          : "Получить протокол"
+        : "Далее";
+
+  const footerDisabled =
+    step.kind === "contact"
+      ? submitting
+      : step.kind === "multi"
+        ? !isStepAnswered(step, answers)
+        : step.kind === "single"
+          ? !answers[step.id]
+          : false;
+
+  const footerAction = () => {
+    if (step.kind === "contact") return void submitContact();
+    go(1);
+  };
 
   return (
     <div className={`${styles.root} ${toneClass[step.tone]}`}>
@@ -79,15 +100,9 @@ export function QuizFlow() {
           <span className={styles.fill} style={{ width: `${Math.round(progress * 100)}%` }} />
         </div>
         <div className={styles.barRow}>
-          {step.kind !== "intro" && step.kind !== "result" ? (
-            <button type="button" className={styles.ghost} onClick={() => go(-1)}>
-              ← Назад
-            </button>
-          ) : (
-            <Link href="/" className={styles.ghost}>
-              ← На главную
-            </Link>
-          )}
+          <Link href="/" className={styles.ghost}>
+            ← На главную
+          </Link>
           {qNumber > 0 && step.kind !== "result" && (
             <span className={styles.counter}>
               {qNumber} / {questionSteps.length}
@@ -96,20 +111,13 @@ export function QuizFlow() {
         </div>
       </header>
 
-      <main
-        className={`${styles.stage} ${
-          step.kind === "result" || step.kind === "contact" ? styles.stageTop : ""
-        }`}
-      >
+      <main className={`${styles.stage} ${isLong ? styles.stageTop : ""}`}>
         <div className={styles.inner} key={step.id}>
           {step.kind === "intro" && (
             <div className={styles.intro}>
               <p className={styles.kicker}>{step.kicker}</p>
               <h1 className={styles.title}>{step.title}</h1>
               <p className={styles.lead}>{step.body}</p>
-              <button type="button" className={styles.primary} onClick={() => go(1)}>
-                {step.cta}
-              </button>
             </div>
           )}
 
@@ -146,17 +154,6 @@ export function QuizFlow() {
                   );
                 })}
               </ul>
-
-              {step.kind === "multi" && (
-                <button
-                  type="button"
-                  className={styles.primary}
-                  disabled={!canAdvance}
-                  onClick={() => go(1)}
-                >
-                  Далее
-                </button>
-              )}
             </>
           )}
 
@@ -215,15 +212,6 @@ export function QuizFlow() {
                   <span className={styles.error}>Без согласия не сможем прислать разбор</span>
                 )}
               </div>
-
-              <button
-                type="button"
-                className={styles.primary}
-                disabled={submitting}
-                onClick={submitContact}
-              >
-                {submitting ? "Отправляем…" : "Получить протокол"}
-              </button>
             </>
           )}
 
@@ -232,6 +220,39 @@ export function QuizFlow() {
           )}
         </div>
       </main>
+
+      {step.kind !== "result" && (
+        <footer className={styles.footer}>
+          <div className={styles.footerInner}>
+            {step.kind !== "intro" && (
+              <button
+                type="button"
+                className={styles.back}
+                aria-label="Назад"
+                onClick={() => go(-1)}
+              >
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M15 6l-6 6 6 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            )}
+            <button
+              type="button"
+              className={styles.next}
+              disabled={footerDisabled}
+              onClick={footerAction}
+            >
+              {footerLabel}
+            </button>
+          </div>
+        </footer>
+      )}
     </div>
   );
 }

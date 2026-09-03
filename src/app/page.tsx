@@ -58,7 +58,7 @@ export default function Home() {
           </>
         }
         image={HERO_IMAGE}
-        cta={{ label: "Learn about hydration", href: "#phases" }}
+        cta={{ label: "Learn about hydration", href: "/quiz" }}
       />
 
       <div id="phases">

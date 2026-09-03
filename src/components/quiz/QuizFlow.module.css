@@ -103,9 +103,10 @@
   padding: var(--space-32) var(--page-padding-inline) var(--space-48);
 }
 
-/* long screens (contact, result) start from the top instead of centering */
+/* long screens (multi, contact, result) start from the top instead of centering */
 .stageTop {
   align-items: flex-start;
+  padding-bottom: var(--space-64);
 }
 
 .inner {
@@ -155,9 +156,6 @@
 
 .intro .title {
   margin-top: 0;
-}
-.intro .primary {
-  margin-top: var(--space-32);
 }
 
 /* ---------- Options ---------- */
@@ -235,8 +233,56 @@
   transform: rotate(45deg);
 }
 
-/* ---------- Primary / secondary buttons ---------- */
-.primary {
+/* ---------- Pinned footer nav ---------- */
+.footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 6;
+  background: var(--q-bg);
+  border-top: 1px solid color-mix(in srgb, var(--q-fg) 12%, transparent);
+  transition: background-color 0.35s var(--ease-standard),
+    border-color 0.35s var(--ease-standard);
+}
+
+.footerInner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  width: 100%;
+  max-width: 560px;
+  margin-inline: auto;
+  padding: var(--space-16) var(--page-padding-inline);
+  padding-bottom: max(var(--space-16), env(safe-area-inset-bottom));
+}
+
+/* round back button with a chevron, sits left of "Далее" */
+.back {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--q-fg) 35%, transparent);
+  color: var(--q-fg);
+  transition: background-color 0.15s var(--ease-standard),
+    border-color 0.15s var(--ease-standard), transform 0.12s var(--ease-standard);
+}
+.back:hover {
+  border-color: var(--q-fg);
+}
+.back:active {
+  transform: scale(0.95);
+}
+.back svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.next {
+  flex: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -248,22 +294,9 @@
   font-size: 1rem;
   font-weight: 500;
 }
-.primary:disabled {
+.next:disabled {
   opacity: 0.4;
   cursor: not-allowed;
-}
-
-.secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 52px;
-  padding: 0 var(--space-24);
-  border-radius: var(--radius-pill);
-  border: 1px solid color-mix(in srgb, var(--q-fg) 35%, transparent);
-  color: var(--q-fg);
-  font-size: 1rem;
-  font-weight: 500;
 }
 
 /* ---------- Contact form ---------- */
