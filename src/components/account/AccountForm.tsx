@@ -13,7 +13,7 @@ import {
 } from "@/lib/auth";
 import { LegalNote } from "./LegalNote";
 import { SocialButtons } from "./SocialButtons";
-import { ChevronLeft } from "./icons";
+import { ChevronLeft, ChevronRight } from "./icons";
 import styles from "./AccountForm.module.css";
 
 const HEADING: Record<AuthMode, string> = {
@@ -136,52 +136,59 @@ export function AccountForm() {
           </button>
         </div>
 
-        {channel === "email" ? (
-          <input
-            className={styles.input}
-            type="email"
-            inputMode="email"
-            autoComplete="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        ) : (
-          <div className={styles.phoneRow}>
-            <select
-              className={styles.countrySelect}
-              aria-label="Country code"
-              value={country.code}
-              onChange={(e) =>
-                setCountry(COUNTRIES.find((c) => c.code === e.target.value) ?? COUNTRIES[0])
-              }
-            >
-              {COUNTRIES.map((c) => (
-                <option key={c.code} value={c.code}>
-                  {c.flag} {c.dial}
-                </option>
-              ))}
-            </select>
+        <div className={styles.inputRow}>
+          {channel === "email" ? (
             <input
-              className={styles.phoneInput}
-              type="tel"
-              inputMode="tel"
-              autoComplete="tel"
-              placeholder="Phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              className={styles.input}
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-          </div>
-        )}
+          ) : (
+            <>
+              <select
+                className={styles.countrySelect}
+                aria-label="Country code"
+                value={country.code}
+                onChange={(e) =>
+                  setCountry(COUNTRIES.find((c) => c.code === e.target.value) ?? COUNTRIES[0])
+                }
+              >
+                {COUNTRIES.map((c) => (
+                  <option key={c.code} value={c.code}>
+                    {c.flag} {c.dial}
+                  </option>
+                ))}
+              </select>
+              <input
+                className={styles.phoneInput}
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
+                placeholder="Phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </>
+          )}
+          <button
+            type="button"
+            className={styles.submit}
+            disabled={submitting}
+            aria-label="Continue"
+            onClick={submit}
+          >
+            {submitting ? "…" : <ChevronRight />}
+          </button>
+        </div>
         {touched && !valid && (
           <span className={styles.error}>
             {channel === "email" ? "Enter a valid email" : "Enter a valid phone number"}
           </span>
         )}
-
-        <button type="button" className={styles.continue} disabled={submitting} onClick={submit}>
-          {submitting ? "…" : "Continue"}
-        </button>
 
         <button
           type="button"

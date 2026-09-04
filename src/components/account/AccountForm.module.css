@@ -120,18 +120,40 @@
   outline-offset: 1px;
 }
 
-.phoneRow {
+/* the input(s) share a row with the chevron submit button */
+.inputRow {
   display: flex;
   gap: var(--space-8);
 }
-.countrySelect {
-  flex: none;
-  width: 104px;
-  padding: 0 var(--space-8);
-}
+.input,
 .phoneInput {
   flex: 1;
   min-width: 0;
+}
+.countrySelect {
+  flex: none;
+  width: 96px;
+  padding: 0 var(--space-8);
+}
+
+.submit {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #ffffff;
+  color: var(--color-primary-100);
+}
+.submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.submit svg {
+  width: 22px;
+  height: 22px;
 }
 
 .error {

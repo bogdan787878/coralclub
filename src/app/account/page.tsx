@@ -28,7 +28,6 @@ export default function AccountLanding() {
           sizes="(min-width: 768px) 420px, 100vw"
           className={styles.bg}
         />
-        <div className={styles.scrim} aria-hidden="true" />
 
         <Link href="/" className={styles.close} aria-label="Close">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
