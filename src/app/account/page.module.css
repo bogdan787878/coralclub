@@ -112,6 +112,9 @@
        Matching the mobile aspect ratio keeps the crop identical (minimal)
        at any viewport height. */
     width: auto;
+    /* the mobile rule's min-height: 100dvh would otherwise win over the
+       height below on any viewport taller than ~900px */
+    min-height: 0;
     height: min(812px, 90vh);
     aspect-ratio: 375 / 812;
     border-radius: var(--radius-base);
