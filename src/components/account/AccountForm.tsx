@@ -211,9 +211,7 @@ export function AccountForm() {
             {channel === "email" ? "Enter a valid email" : "Enter a valid phone number"}
           </span>
         )}
-      </div>
 
-      <div className={styles.bottom}>
         <button
           type="button"
           className={styles.toggle}
@@ -222,7 +220,9 @@ export function AccountForm() {
           <span className={styles.toggleCaption}>{TOGGLE_CAPTION[mode]}</span>
           <span className={styles.toggleAction}>{TOGGLE_ACTION[mode]}</span>
         </button>
+      </div>
 
+      <div className={styles.bottom}>
         <SocialButtons />
         <LegalNote />
       </div>

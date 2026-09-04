@@ -1,9 +1,8 @@
 .screen {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  padding: var(--space-16) var(--page-padding-inline)
-    calc(var(--space-32) + env(safe-area-inset-bottom, 0px));
+  min-height: 100%;
+  padding: var(--space-16) var(--page-padding-inline) var(--space-32);
 }
 
 .back {
@@ -65,7 +64,7 @@
 .body {
   display: flex;
   flex-direction: column;
-  margin-top: 96px;
+  margin-top: var(--space-64);
 }
 
 .title {
@@ -234,6 +233,7 @@
 }
 
 .toggle {
+  margin-top: 170px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -253,22 +253,15 @@
   text-underline-offset: 3px;
 }
 
-/* Pinned to the bottom of the screen, same as the splash .content — so
-   the social row lands at the same Y on both screens regardless of how
-   tall the form above it is. */
 .bottom {
-  margin-top: auto;
-  padding-top: var(--space-32);
+  /* redline: toggle -> social icons = 40 */
+  margin-top: var(--space-40);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .bottom > :nth-child(2) {
-  /* toggle -> social icons */
-  margin-top: var(--space-40);
-}
-.bottom > :nth-child(3) {
-  /* social icons -> legal */
+  /* redline: social icons -> legal = 20 */
   margin-top: var(--space-20);
 }
 

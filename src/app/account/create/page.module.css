@@ -7,12 +7,7 @@
 
 .screen {
   width: 100%;
-  /* height (not min-height): dvh already shrinks to exclude Safari's
-     chrome — including the floating toolbar — so pinning to it exactly
-     and letting the bottom block auto-position within it is what keeps
-     content from landing underneath that toolbar. */
-  height: 100dvh;
-  overflow-y: auto;
+  min-height: 100dvh;
   background: var(--color-primary-100);
   color: #ffffff;
   /* this screen is always dark — let native UI (Safari's <select> sheet,
