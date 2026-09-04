@@ -64,7 +64,6 @@
 .body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-16);
   margin-top: var(--space-32);
 }
 
@@ -76,25 +75,28 @@
   letter-spacing: -0.02em;
 }
 
+/* Single segmented switcher — one track, the active side is a solid pill,
+   the inactive side is just dimmed text on the shared track (no chip/border). */
 .tabs {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-8);
+  margin-top: var(--space-16);
+  padding: 4px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .tab {
   min-height: 44px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 0.9375rem;
   font-weight: var(--font-weight-medium);
-  transition: background-color 0.15s var(--ease-standard), color 0.15s var(--ease-standard),
-    border-color 0.15s var(--ease-standard);
+  transition: background-color 0.15s var(--ease-standard), color 0.15s var(--ease-standard);
 }
 .tabOn {
   background: #ffffff;
-  border-color: transparent;
   color: var(--color-primary-100);
 }
 
@@ -123,7 +125,8 @@
 /* the input(s) share a row with the chevron submit button */
 .inputRow {
   display: flex;
-  gap: var(--space-8);
+  align-items: stretch;
+  margin-top: var(--space-16);
 }
 .input,
 .phoneInput {
@@ -133,19 +136,34 @@
 .countrySelect {
   flex: none;
   width: 96px;
+  margin-right: var(--space-8);
   padding: 0 var(--space-8);
 }
 
+/* Continue only appears once the field is active (focused) or filled —
+   collapses to nothing rather than just disabling, so the input owns the
+   full row width until there is something to submit. */
 .submit {
   flex: none;
   width: 52px;
   height: 52px;
+  margin-left: var(--space-8);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 14px;
   background: #ffffff;
   color: var(--color-primary-100);
+  overflow: hidden;
+  transition: width 0.18s var(--ease-standard), margin-left 0.18s var(--ease-standard),
+    opacity 0.15s var(--ease-standard), transform 0.18s var(--ease-standard);
+}
+.submitHidden {
+  width: 0;
+  margin-left: 0;
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
 }
 .submit:disabled {
   opacity: 0.5;
@@ -154,10 +172,11 @@
 .submit svg {
   width: 22px;
   height: 22px;
+  flex: none;
 }
 
 .error {
-  margin-top: calc(var(--space-16) * -1);
+  margin-top: var(--space-8);
   font-size: 0.8125rem;
   font-weight: var(--font-weight-medium);
   color: #ff9a9a;
@@ -177,6 +196,8 @@
 }
 
 .toggle {
+  /* redline: input row -> toggle = 170 */
+  margin-top: 170px;
   min-height: 44px;
   color: #ffffff;
   opacity: 0.85;
@@ -187,12 +208,15 @@
 }
 
 .bottom {
-  margin-top: auto;
-  padding-top: var(--space-32);
+  /* redline: toggle -> social icons = 40 */
+  margin-top: var(--space-40);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-16);
+}
+.bottom > :nth-child(2) {
+  /* redline: social icons -> legal = 20 */
+  margin-top: var(--space-20);
 }
 
 /* ---------- Confirmation state (submitted) ---------- */

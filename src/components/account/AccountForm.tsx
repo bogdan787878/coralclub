@@ -42,6 +42,7 @@ export function AccountForm() {
   const [touched, setTouched] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [focused, setFocused] = useState(false);
 
   // "/account/create#signin" lands directly in sign-in mode. The hash is
   // only readable client-side, so this has to run post-mount rather than
@@ -54,6 +55,9 @@ export function AccountForm() {
   }, []);
 
   const valid = channel === "email" ? isEmail(email) : isPhone(phone);
+  const hasValue = channel === "email" ? email.trim().length > 0 : phone.trim().length > 0;
+  // Continue only shows once the field is active (focused) or filled
+  const showSubmit = focused || hasValue;
 
   const submit = async () => {
     setTouched(true);
@@ -121,7 +125,10 @@ export function AccountForm() {
             role="tab"
             aria-selected={channel === "email"}
             className={`${styles.tab} ${channel === "email" ? styles.tabOn : ""}`}
-            onClick={() => setChannel("email")}
+            onClick={() => {
+              setChannel("email");
+              setFocused(false);
+            }}
           >
             Email
           </button>
@@ -130,7 +137,10 @@ export function AccountForm() {
             role="tab"
             aria-selected={channel === "phone"}
             className={`${styles.tab} ${channel === "phone" ? styles.tabOn : ""}`}
-            onClick={() => setChannel("phone")}
+            onClick={() => {
+              setChannel("phone");
+              setFocused(false);
+            }}
           >
             Phone
           </button>
@@ -146,6 +156,8 @@ export function AccountForm() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
             />
           ) : (
             <>
@@ -171,14 +183,19 @@ export function AccountForm() {
                 placeholder="Phone"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
               />
             </>
           )}
           <button
             type="button"
-            className={styles.submit}
+            className={`${styles.submit} ${showSubmit ? "" : styles.submitHidden}`}
             disabled={submitting}
             aria-label="Continue"
+            aria-hidden={!showSubmit}
+            tabIndex={showSubmit ? 0 : -1}
+            onMouseDown={(e) => e.preventDefault()}
             onClick={submit}
           >
             {submitting ? "…" : <ChevronRight />}
