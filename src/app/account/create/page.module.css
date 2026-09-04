@@ -10,6 +10,9 @@
   min-height: 100dvh;
   background: var(--color-primary-100);
   color: #ffffff;
+  /* this screen is always dark — let native UI (Safari's <select> sheet,
+     scrollbars, autofill) render dark instead of defaulting to white */
+  color-scheme: dark;
 }
 
 @media (min-width: 768px) {

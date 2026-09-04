@@ -14,6 +14,9 @@
   display: flex;
   flex-direction: column;
   color: #ffffff;
+  /* this screen is always dark — let native UI (Safari's <select> sheet,
+     scrollbars, autofill) render dark instead of defaulting to white */
+  color-scheme: dark;
 }
 
 .bg {
