@@ -101,7 +101,7 @@ export function AccountForm() {
       <div className={styles.head}>
         <p className={styles.brand}>coralclub</p>
         <div className={styles.locale}>
-          <span aria-hidden="true">🇺🇸 USA</span>
+          <span aria-hidden="true">USA</span>
           <svg viewBox="0 0 12 12" aria-hidden="true" className={styles.localeChevron}>
             <path
               d="M2.5 4.5 6 8l3.5-3.5"
@@ -160,9 +160,9 @@ export function AccountForm() {
               onBlur={() => setFocused(false)}
             />
           ) : (
-            <>
+            <div className={styles.phoneField}>
               <select
-                className={styles.countrySelect}
+                className={styles.countryInlineSelect}
                 aria-label="Country code"
                 value={country.code}
                 onChange={(e) =>
@@ -171,12 +171,13 @@ export function AccountForm() {
               >
                 {COUNTRIES.map((c) => (
                   <option key={c.code} value={c.code}>
-                    {c.flag} {c.dial}
+                    {c.code} {c.dial}
                   </option>
                 ))}
               </select>
+              <span className={styles.phoneDivider} aria-hidden="true" />
               <input
-                className={styles.phoneInput}
+                className={styles.phoneInlineInput}
                 type="tel"
                 inputMode="tel"
                 autoComplete="tel"
@@ -186,7 +187,7 @@ export function AccountForm() {
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}
               />
-            </>
+            </div>
           )}
           <button
             type="button"

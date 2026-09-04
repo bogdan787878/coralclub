@@ -7,17 +7,17 @@
 
 .row {
   display: flex;
-  gap: var(--space-16);
+  gap: var(--space-8);
 }
 
 .circle {
-  width: 52px;
+  width: 96px;
   height: 52px;
   flex: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: #ffffff;
   color: #0b0b0c;
   transition: transform 0.12s var(--ease-standard);

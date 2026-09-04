@@ -33,13 +33,14 @@ export const submitAuthIntent = async (intent: AuthIntent): Promise<void> => {
   }
 };
 
-export type Country = { code: string; dial: string; flag: string; label: string };
+/** Letter designation only — no flag emoji, per design. */
+export type Country = { code: string; dial: string; label: string };
 
 export const COUNTRIES: Country[] = [
-  { code: "US", dial: "+1", flag: "🇺🇸", label: "USA" },
-  { code: "CA", dial: "+1", flag: "🇨🇦", label: "Canada" },
-  { code: "GB", dial: "+44", flag: "🇬🇧", label: "UK" },
-  { code: "DE", dial: "+49", flag: "🇩🇪", label: "Germany" },
-  { code: "FR", dial: "+33", flag: "🇫🇷", label: "France" },
-  { code: "AU", dial: "+61", flag: "🇦🇺", label: "Australia" },
+  { code: "US", dial: "+1", label: "USA" },
+  { code: "CA", dial: "+1", label: "Canada" },
+  { code: "GB", dial: "+44", label: "UK" },
+  { code: "DE", dial: "+49", label: "Germany" },
+  { code: "FR", dial: "+33", label: "France" },
+  { code: "AU", dial: "+61", label: "Australia" },
 ];
