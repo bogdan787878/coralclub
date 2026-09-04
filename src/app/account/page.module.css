@@ -107,9 +107,13 @@
   }
 
   .screen {
-    width: 420px;
-    min-height: 800px;
-    max-height: 90vh;
+    /* phone-shaped, not an arbitrary box — a wider ratio here was forcing
+       the cover-fit splash photo to crop more on desktop than on mobile.
+       Matching the mobile aspect ratio keeps the crop identical (minimal)
+       at any viewport height. */
+    width: auto;
+    height: min(812px, 90vh);
+    aspect-ratio: 375 / 812;
     border-radius: var(--radius-base);
     box-shadow: 0 24px 64px rgba(1, 17, 48, 0.35);
   }
