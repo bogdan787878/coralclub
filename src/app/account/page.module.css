@@ -9,7 +9,9 @@
   position: relative;
   isolation: isolate;
   width: 100%;
-  min-height: 100dvh;
+  /* height (not min-height): dvh already excludes Safari's chrome —
+     including the floating toolbar — so pin to it exactly. */
+  height: 100dvh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -61,7 +63,7 @@
   flex-direction: column;
   align-items: center;
   padding: var(--space-32) var(--page-padding-inline)
-    calc(var(--space-64) + env(safe-area-inset-bottom, 0px));
+    calc(var(--space-32) + env(safe-area-inset-bottom, 0px));
 }
 
 /* redline gaps: primary->secondary 8, secondary->social 40, social->legal 20 */

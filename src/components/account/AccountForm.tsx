@@ -21,9 +21,13 @@ const HEADING: Record<AuthMode, string> = {
   signin: "Sign in",
 };
 
-const TOGGLE_LABEL: Record<AuthMode, string> = {
-  create: "Already have an account? Sign in",
-  signin: "New here? Create account",
+const TOGGLE_CAPTION: Record<AuthMode, string> = {
+  create: "Already have an account?",
+  signin: "New here?",
+};
+const TOGGLE_ACTION: Record<AuthMode, string> = {
+  create: "Sign in",
+  signin: "Create account",
 };
 
 /**
@@ -207,17 +211,18 @@ export function AccountForm() {
             {channel === "email" ? "Enter a valid email" : "Enter a valid phone number"}
           </span>
         )}
+      </div>
 
+      <div className={styles.bottom}>
         <button
           type="button"
           className={styles.toggle}
           onClick={() => setMode((m) => (m === "create" ? "signin" : "create"))}
         >
-          {TOGGLE_LABEL[mode]}
+          <span className={styles.toggleCaption}>{TOGGLE_CAPTION[mode]}</span>
+          <span className={styles.toggleAction}>{TOGGLE_ACTION[mode]}</span>
         </button>
-      </div>
 
-      <div className={styles.bottom}>
         <SocialButtons />
         <LegalNote />
       </div>
