@@ -60,7 +60,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--space-32) var(--page-padding-inline) var(--space-32);
+  padding: var(--space-32) var(--page-padding-inline)
+    calc(var(--space-64) + env(safe-area-inset-bottom, 0px));
 }
 
 /* redline gaps: primary->secondary 8, secondary->social 40, social->legal 20 */
