@@ -30,9 +30,9 @@
   background: var(--color-surface);
 }
 
-.quiz {
+.quiz,
+.signIn {
   position: absolute;
-  right: var(--page-padding-inline);
   top: 50%;
   transform: translateY(-50%);
   font-family: var(--font-sans);
@@ -41,7 +41,14 @@
   color: var(--color-text);
   opacity: 0.75;
 }
-.quiz:hover {
+.quiz {
+  right: var(--page-padding-inline);
+}
+.signIn {
+  left: var(--page-padding-inline);
+}
+.quiz:hover,
+.signIn:hover {
   opacity: 1;
 }
 

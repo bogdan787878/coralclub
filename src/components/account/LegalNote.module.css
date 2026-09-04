@@ -1,0 +1,13 @@
+.legal {
+  max-width: 360px;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1.1rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.legal a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

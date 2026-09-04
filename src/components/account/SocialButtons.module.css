@@ -1,0 +1,40 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.row {
+  display: flex;
+  gap: var(--space-16);
+}
+
+.circle {
+  width: 52px;
+  height: 52px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #0b0b0c;
+  transition: transform 0.12s var(--ease-standard);
+}
+.circle:active {
+  transform: scale(0.95);
+}
+.circle svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.notice {
+  max-width: 320px;
+  text-align: center;
+  font-size: 0.8125rem;
+  line-height: 1.2rem;
+  color: rgba(255, 255, 255, 0.75);
+}

@@ -1,0 +1,30 @@
+.backdrop {
+  display: flex;
+  justify-content: center;
+  min-height: 100dvh;
+  background: var(--color-primary-100);
+}
+
+.screen {
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--color-primary-100);
+  color: #ffffff;
+}
+
+@media (min-width: 768px) {
+  .backdrop {
+    align-items: center;
+    padding: var(--space-32);
+    background: var(--color-surface);
+  }
+
+  .screen {
+    width: 420px;
+    min-height: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: var(--radius-base);
+    box-shadow: 0 24px 64px rgba(1, 17, 48, 0.35);
+  }
+}

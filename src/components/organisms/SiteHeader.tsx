@@ -42,6 +42,9 @@ export function SiteHeader({
       )}
 
       <div className={styles.brandBar}>
+        <Link href="/account" className={styles.signIn}>
+          Sign In
+        </Link>
         <Link href="/" className={styles.brand}>
           {brand}
         </Link>

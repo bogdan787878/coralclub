@@ -1,0 +1,116 @@
+.backdrop {
+  display: flex;
+  justify-content: center;
+  min-height: 100dvh;
+  background: var(--color-primary-100);
+}
+
+.screen {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
+}
+
+.bg {
+  object-fit: cover;
+  object-position: 50% 12%;
+  z-index: -2;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to bottom,
+    rgba(1, 17, 48, 0.55) 0%,
+    rgba(1, 17, 48, 0.1) 28%,
+    rgba(1, 17, 48, 0.12) 48%,
+    rgba(1, 17, 48, 0.78) 80%,
+    rgba(1, 17, 48, 0.97) 100%
+  );
+}
+
+.close {
+  position: absolute;
+  top: var(--space-16);
+  right: var(--page-padding-inline);
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+.close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.mark {
+  position: relative;
+  z-index: 1;
+  margin: var(--space-32) 0 0 var(--page-padding-inline);
+  width: 180px;
+  height: auto;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-32) var(--page-padding-inline) var(--space-48);
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 360px;
+  min-height: 52px;
+  padding: 0 var(--space-24);
+  border-radius: var(--radius-pill);
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.primary {
+  background: var(--color-primary-90);
+  color: #ffffff;
+}
+
+.secondary {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  margin-bottom: var(--space-12);
+}
+
+@media (min-width: 768px) {
+  .backdrop {
+    align-items: center;
+    padding: var(--space-32);
+    background: var(--color-surface);
+  }
+
+  .screen {
+    width: 420px;
+    min-height: 800px;
+    max-height: 90vh;
+    border-radius: var(--radius-base);
+    box-shadow: 0 24px 64px rgba(1, 17, 48, 0.35);
+  }
+}
