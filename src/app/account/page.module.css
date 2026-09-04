@@ -44,8 +44,9 @@
 .mark {
   position: relative;
   z-index: 1;
-  margin: var(--space-32) 0 0 var(--page-padding-inline);
-  width: 180px;
+  display: block;
+  margin-top: var(--space-32);
+  width: 100%;
   height: auto;
 }
 
@@ -75,8 +76,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 360px;
+  width: 200px;
   min-height: 52px;
   padding: 0 var(--space-24);
   border-radius: var(--radius-pill);
