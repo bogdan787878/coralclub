@@ -259,16 +259,21 @@ export type PhaseView = {
   id: "hydration" | "restart" | "personalization";
   index: number;
   name: string;
+  /** Circular thumbnail for the phase switcher. */
+  image: { src: string; alt: string };
   /** Carousel heading for this phase: sans lead + a Newton-italic accent. */
   headline: { lead: string; accent: string };
   products: PhaseProductCard[];
 };
 
-const PHASE_DEFS: Array<Omit<PhaseView, "products"> & { slugs: string[] }> = [
+const PHASE_DEFS: Array<
+  Omit<PhaseView, "products" | "image"> & { slugs: string[]; image: string }
+> = [
   {
     id: "hydration",
     index: 1,
     name: "Hydration",
+    image: "/images/phase-hydration.png",
     headline: {
       lead: "Water alone doesn't hydrate.",
       accent: "Minerals do.",
@@ -279,6 +284,7 @@ const PHASE_DEFS: Array<Omit<PhaseView, "products"> & { slugs: string[] }> = [
     id: "restart",
     index: 2,
     name: "Restart",
+    image: "/images/phase-restart.png",
     headline: {
       lead: "Willpower doesn't reset your body.",
       accent: "A guided sequence does.",
@@ -289,6 +295,7 @@ const PHASE_DEFS: Array<Omit<PhaseView, "products"> & { slugs: string[] }> = [
     id: "personalization",
     index: 3,
     name: "Personalization",
+    image: "/images/phase-personalization.png",
     headline: {
       lead: "Generic nutrition doesn't fit you.",
       accent: "A plan for your goal does.",
@@ -298,8 +305,9 @@ const PHASE_DEFS: Array<Omit<PhaseView, "products"> & { slugs: string[] }> = [
 ];
 
 export function getPhases(): PhaseView[] {
-  return PHASE_DEFS.map(({ slugs, ...phase }) => ({
+  return PHASE_DEFS.map(({ slugs, image, ...phase }) => ({
     ...phase,
+    image: { src: asset(image), alt: `Coral Club ${phase.name} phase` },
     products: slugs
       .map((slug) => getProduct(slug))
       .filter((p): p is Product => Boolean(p))
