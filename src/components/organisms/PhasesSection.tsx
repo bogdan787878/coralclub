@@ -50,10 +50,10 @@ export function PhasesSection({ phases }: PhasesSectionProps) {
                 price={p.price}
                 priceWas={p.priceWas}
                 href={productHref(p.slug)}
-                image={
+                images={
                   p.image
-                    ? { src: p.image, alt: p.name, position: p.imagePosition }
-                    : undefined
+                    ? [{ src: p.image, alt: p.name, position: p.imagePosition }]
+                    : []
                 }
               />
             ))}

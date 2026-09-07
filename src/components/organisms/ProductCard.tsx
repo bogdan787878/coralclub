@@ -1,4 +1,6 @@
-import type { ReactNode } from "react";
+"use client";
+
+import { useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./ProductCard.module.css";
@@ -11,21 +13,20 @@ export type ProductImage = {
 };
 
 export type ProductCardProps = {
-  /** Big two-line title. */
+  /** Two-line product name. */
   title: ReactNode;
-  /** Tan category pill above the title. */
+  /** Tan category pill above the name. */
   category?: string;
   /** Current / sale price. */
   price: ReactNode;
   /** Struck-through "was" price shown next to it. */
   priceWas?: ReactNode;
-  /** Product page the whole card links to. */
+  /** Product page the name links to. */
   href: string;
-  image?: ProductImage;
+  /** Packshots — one per slide of the card's own nested carousel. */
+  images?: ProductImage[];
   /** Where the cart button links (add-to-bag redirect). */
   cartHref?: string;
-  /** Decorative image-pager dots. Default 4; 0 hides them. */
-  dots?: number;
 };
 
 function CartIcon() {
@@ -45,10 +46,10 @@ function CartIcon() {
 }
 
 /**
- * ProductCard — packshot tile on a soft-blue card, a floating cart button,
- * image-pager dots, a category pill, a two-line title and a sale price.
- * The whole card links to the product page (stretched link on the title);
- * the cart button is an independent add-to-bag link.
+ * ProductCard — a packshot tile (the only filled surface; the section
+ * behind is the "card") with its own nested image carousel + dots and a
+ * floating cart button; below it, on no background, the category pill, the
+ * name and the sale price. The text block links to the product page.
  */
 export function ProductCard({
   title,
@@ -56,52 +57,72 @@ export function ProductCard({
   price,
   priceWas,
   href,
-  image,
+  images = [],
   cartHref = "#add-to-bag",
-  dots = 4,
 }: ProductCardProps) {
+  const [active, setActive] = useState(0);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  const onScroll = () => {
+    const el = trackRef.current;
+    if (!el || el.clientWidth === 0) return;
+    setActive(Math.round(el.scrollLeft / el.clientWidth));
+  };
+
+  const multi = images.length > 1;
+
   return (
     <article className={styles.card}>
       <div className={styles.media}>
-        <span className={styles.mediaInner}>
-          {image ? (
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              sizes="(max-width: 767px) 220px, (max-width: 1023px) 260px, 340px"
-              style={image.position ? { objectPosition: image.position } : undefined}
-            />
+        <div className={styles.track} ref={trackRef} onScroll={multi ? onScroll : undefined}>
+          {images.length ? (
+            images.map((img, i) => (
+              <span className={styles.slide} key={i}>
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  sizes="(max-width: 767px) 220px, (max-width: 1023px) 260px, 300px"
+                  style={img.position ? { objectPosition: img.position } : undefined}
+                />
+              </span>
+            ))
           ) : (
-            <span className={styles.mediaEmpty} aria-hidden="true" />
+            <span className={`${styles.slide} ${styles.slideEmpty}`} aria-hidden="true" />
           )}
-        </span>
+        </div>
+
+        {multi && (
+          <span className={styles.dots} aria-hidden="true">
+            {images.map((_, i) => (
+              <span key={i} className={`${styles.dot} ${i === active ? styles.dotOn : ""}`} />
+            ))}
+          </span>
+        )}
+
+        {!multi && (
+          <Link href={href} className={styles.mediaLink} aria-hidden="true" tabIndex={-1} />
+        )}
 
         <Link href={cartHref} className={styles.cart} aria-label="Add to bag">
           <CartIcon />
         </Link>
       </div>
 
-      {dots > 0 && (
-        <span className={styles.dots} aria-hidden="true">
-          {Array.from({ length: dots }).map((_, i) => (
-            <span key={i} className={`${styles.dot} ${i === 0 ? styles.dotOn : ""}`} />
-          ))}
-        </span>
-      )}
+      <div className={styles.info}>
+        {category && <span className={styles.category}>{category}</span>}
 
-      {category && <span className={styles.category}>{category}</span>}
+        <h3 className={styles.title}>
+          <Link href={href} className={styles.titleLink}>
+            {title}
+          </Link>
+        </h3>
 
-      <h3 className={styles.title}>
-        <Link href={href} className={styles.titleLink}>
-          {title}
-        </Link>
-      </h3>
-
-      <p className={styles.price}>
-        <span className={styles.priceNow}>{price}</span>
-        {priceWas && <span className={styles.priceWas}>{priceWas}</span>}
-      </p>
+        <p className={styles.price}>
+          <span className={styles.priceNow}>{price}</span>
+          {priceWas && <span className={styles.priceWas}>{priceWas}</span>}
+        </p>
+      </div>
     </article>
   );
 }

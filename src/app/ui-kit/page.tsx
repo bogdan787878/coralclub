@@ -17,6 +17,7 @@ import {
   PriceSelector,
   ProductCard,
 } from "@/components/organisms";
+import { asset } from "@/lib/asset";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -240,6 +241,9 @@ export default function UiKitPage() {
               price="$20.90"
               priceWas="$30.00"
               href="/products/coral-mine-silver"
+              images={[
+                { src: asset("/images/products/coral-mine-silver.png"), alt: "Coral Mine" },
+              ]}
             />
           </div>
         </Container>
@@ -256,6 +260,7 @@ export default function UiKitPage() {
               price="$20.90"
               priceWas="$30.00"
               href={`/products/${s}`}
+              images={[{ src: asset(`/images/products/${s}.png`), alt: t }]}
             />
           ))}
         </Carousel>
