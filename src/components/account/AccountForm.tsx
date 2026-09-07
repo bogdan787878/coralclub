@@ -3,13 +3,12 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
-  COUNTRIES,
+  formatUsPhone,
   isEmail,
   isPhone,
   submitAuthIntent,
   type AuthChannel,
   type AuthMode,
-  type Country,
 } from "@/lib/auth";
 import { LegalNote } from "./LegalNote";
 import { SocialButtons } from "./SocialButtons";
@@ -42,7 +41,6 @@ export function AccountForm() {
   const [channel, setChannel] = useState<AuthChannel>("email");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState<Country>(COUNTRIES[0]);
   const [touched, setTouched] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -70,7 +68,7 @@ export function AccountForm() {
     await submitAuthIntent({
       mode,
       channel,
-      value: channel === "email" ? email.trim() : `${country.dial} ${phone.trim()}`,
+      value: channel === "email" ? email.trim() : phone.trim(),
       submittedAt: new Date().toISOString(),
     });
     setSubmitting(false);
@@ -164,34 +162,17 @@ export function AccountForm() {
               onBlur={() => setFocused(false)}
             />
           ) : (
-            <div className={styles.phoneField}>
-              <select
-                className={styles.countryInlineSelect}
-                aria-label="Country code"
-                value={country.code}
-                onChange={(e) =>
-                  setCountry(COUNTRIES.find((c) => c.code === e.target.value) ?? COUNTRIES[0])
-                }
-              >
-                {COUNTRIES.map((c) => (
-                  <option key={c.code} value={c.code}>
-                    {c.code} {c.dial}
-                  </option>
-                ))}
-              </select>
-              <span className={styles.phoneDivider} aria-hidden="true" />
-              <input
-                className={styles.phoneInlineInput}
-                type="tel"
-                inputMode="tel"
-                autoComplete="tel"
-                placeholder="Phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                onFocus={() => setFocused(true)}
-                onBlur={() => setFocused(false)}
-              />
-            </div>
+            <input
+              className={styles.input}
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              placeholder="+1"
+              value={phone}
+              onChange={(e) => setPhone(formatUsPhone(e.target.value))}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+            />
           )}
           <button
             type="button"

@@ -121,7 +121,7 @@
   outline-offset: 1px;
 }
 
-/* the input(s) share a row with the chevron submit button */
+/* the input shares a row with the chevron submit button */
 .inputRow {
   display: flex;
   align-items: stretch;
@@ -130,55 +130,6 @@
 .input {
   flex: 1;
   min-width: 0;
-}
-
-/* Phone: country code + number live inside one merged field, not two
-   separate boxes. */
-.phoneField {
-  flex: 1;
-  min-width: 0;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(255, 255, 255, 0.06);
-  padding-left: var(--space-12);
-}
-.phoneField:focus-within {
-  outline: 2px solid rgba(255, 255, 255, 0.6);
-  outline-offset: 1px;
-}
-
-.countryInlineSelect {
-  flex: none;
-  height: 100%;
-  border: none;
-  background: transparent;
-  color: #ffffff;
-  font-size: 1rem;
-  padding-right: var(--space-8);
-}
-
-.phoneDivider {
-  width: 1px;
-  align-self: stretch;
-  margin: var(--space-12) 0;
-  background: rgba(255, 255, 255, 0.18);
-}
-
-.phoneInlineInput {
-  flex: 1;
-  min-width: 0;
-  height: 100%;
-  border: none;
-  background: transparent;
-  color: #ffffff;
-  padding: 0 var(--space-16) 0 var(--space-12);
-  font-size: 1rem;
-}
-.phoneInlineInput::placeholder {
-  color: rgba(255, 255, 255, 0.5);
 }
 
 /* Continue only appears once the field is active (focused) or filled —

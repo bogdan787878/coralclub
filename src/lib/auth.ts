@@ -18,8 +18,28 @@ export type AuthIntent = {
 
 export const isEmail = (v: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
-/** Loose check — just "enough digits", not a real phone validator. */
-export const isPhone = (v: string): boolean => v.replace(/\D/g, "").length >= 7;
+/** Digits of a US number, without the leading country "1". */
+const usDigits = (v: string): string => v.replace(/\D/g, "").replace(/^1/, "").slice(0, 10);
+
+/** Valid once the full 10-digit US national number is entered. */
+export const isPhone = (v: string): boolean => usDigits(v).length === 10;
+
+/**
+ * Progressive US phone mask: "5551234567" -> "+1 (555) 123-4567".
+ * Returns "" for no digits so the placeholder shows.
+ */
+export const formatUsPhone = (v: string): string => {
+  const d = usDigits(v);
+  if (!d) return "";
+  const a = d.slice(0, 3);
+  const b = d.slice(3, 6);
+  const c = d.slice(6, 10);
+  let out = `+1 (${a}`;
+  if (d.length >= 3) out += ")";
+  if (b) out += ` ${b}`;
+  if (c) out += `-${c}`;
+  return out;
+};
 
 /**
  * Persist an auth intent. No backend yet.
@@ -33,14 +53,3 @@ export const submitAuthIntent = async (intent: AuthIntent): Promise<void> => {
   }
 };
 
-/** Letter designation only — no flag emoji, per design. */
-export type Country = { code: string; dial: string; label: string };
-
-export const COUNTRIES: Country[] = [
-  { code: "US", dial: "+1", label: "USA" },
-  { code: "CA", dial: "+1", label: "Canada" },
-  { code: "GB", dial: "+44", label: "UK" },
-  { code: "DE", dial: "+49", label: "Germany" },
-  { code: "FR", dial: "+33", label: "France" },
-  { code: "AU", dial: "+61", label: "Australia" },
-];
