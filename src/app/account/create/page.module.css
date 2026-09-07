@@ -1,13 +1,18 @@
 .backdrop {
   display: flex;
   justify-content: center;
-  min-height: 100dvh;
+  min-height: 100svh;
   background: var(--color-primary-100);
 }
 
 .screen {
   width: 100%;
-  min-height: 100dvh;
+  /* svh = the viewport with the browser chrome shown (its smallest state).
+     Sizing the "one screenful" reference to that keeps the trailing legal
+     text above where iOS Safari's floating toolbar sits — dvh/100vh would
+     put it underneath. Plain document scroll otherwise, no nested
+     overflow, so the keyboard doesn't strand the scroll position. */
+  min-height: 100svh;
   background: var(--color-primary-100);
   color: #ffffff;
   /* this screen is always dark — let native UI (Safari's <select> sheet,

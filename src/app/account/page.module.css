@@ -1,7 +1,7 @@
 .backdrop {
   display: flex;
   justify-content: center;
-  min-height: 100dvh;
+  min-height: 100svh;
   background: var(--color-primary-100);
 }
 
@@ -9,7 +9,9 @@
   position: relative;
   isolation: isolate;
   width: 100%;
-  min-height: 100dvh;
+  /* svh = viewport with browser chrome shown — keeps the trailing legal
+     text above iOS Safari's floating toolbar (dvh/100vh puts it under). */
+  min-height: 100svh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -60,7 +62,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--space-32) var(--page-padding-inline) var(--space-32);
+  padding: var(--space-32) var(--page-padding-inline)
+    calc(var(--space-32) + env(safe-area-inset-bottom, 0px));
 }
 
 /* redline gaps: primary->secondary 8, secondary->social 40, social->legal 20 */
