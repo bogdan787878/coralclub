@@ -2,87 +2,34 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: var(--gap-text);
   height: 100%;
-  padding: var(--space-16);
+  padding: var(--space-12);
   background: var(--color-primary-30);
   border-radius: var(--radius-base);
 }
 
-.badge {
-  align-self: flex-start;
-  padding: 2px var(--space-8);
-  border-radius: var(--radius-pill);
-  background: var(--color-primary-10);
-  color: var(--color-primary-100);
-  font-family: var(--font-sans);
-  font-size: 0.6875rem;
-  line-height: 1rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  font-weight: var(--font-weight-medium);
-}
-
-.title {
-  font-family: var(--font-sans);
-  font-size: 1rem; /* 16 */
-  line-height: 1.25rem; /* 20 */
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text);
-  text-align: center;
-  /* keep the media tiles aligned across cards: reserve two lines, cap at three */
-  min-height: calc(1.25rem * 2);
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  overflow: hidden;
-}
-
-/* Stretched link — the whole card is clickable, CTA stays independent. */
-.titleLink {
-  color: inherit;
-  text-decoration: none;
-}
-
-.titleLink::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: inherit;
-}
-
-.titleLink:focus-visible {
-  outline: 2px solid var(--color-action);
-  outline-offset: 2px;
-}
-
+/* ---------- Packshot tile ---------- */
 .media {
-  overflow: hidden;
-  aspect-ratio: 1 / 1;
-  padding: var(--space-16);
-  background: transparent; /* packshot sits directly on the card */
-  /* concentric with the card: outer radius minus the card padding */
-  border-radius: calc(var(--radius-base) - var(--space-16));
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: calc(var(--radius-base) - var(--space-12));
+  background: var(--color-primary-10);
 }
 
 .mediaInner {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
+  padding: var(--space-16);
+  border-radius: inherit;
+  overflow: hidden;
 }
-
 .mediaInner :global(img) {
   object-fit: contain;
 }
 
 .mediaEmpty {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: var(--radius-md);
+  position: absolute;
+  inset: 0;
   background: linear-gradient(
     135deg,
     var(--color-primary-10),
@@ -90,18 +37,113 @@
   );
 }
 
-.price {
-  margin-top: auto;
-  text-align: center;
+/* floating add-to-bag button, overhanging the tile's bottom-right */
+.cart {
+  position: absolute;
+  right: 4px;
+  bottom: -18px;
+  z-index: 2;
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--color-primary-100);
+  box-shadow: 0 10px 24px rgba(1, 17, 48, 0.18);
+  transition: transform 0.12s var(--ease-standard);
+}
+.cart svg {
+  width: 24px;
+  height: 24px;
+}
+.cart:active {
+  transform: scale(0.94);
+}
+
+/* ---------- Pager dots ---------- */
+.dots {
+  display: flex;
+  align-self: center;
+  gap: 5px;
+  margin-top: var(--space-32);
+}
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(1, 17, 48, 0.25);
+}
+.dotOn {
+  background: var(--color-primary-100);
+}
+
+/* ---------- Category pill ---------- */
+.category {
+  align-self: flex-start;
+  margin-top: var(--space-16);
+  padding: 4px var(--space-12);
+  border-radius: var(--radius-pill);
+  background: #b0794a;
+  color: #ffffff;
   font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.1rem;
+  font-weight: var(--font-weight-medium);
+}
+
+/* ---------- Title ---------- */
+.title {
+  margin-top: var(--space-12);
+  font-family: var(--font-sans);
+  font-size: clamp(1.375rem, 1vw + 1.1rem, 1.625rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  /* reserve two lines so the price row lines up across cards */
+  min-height: calc(2 * 1.12 * 1.375rem);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.titleLink {
+  color: inherit;
+  text-decoration: none;
+}
+/* stretched link — whole card opens the product page; cart stays independent */
+.titleLink::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+.titleLink:focus-visible {
+  outline: 2px solid var(--color-action);
+  outline-offset: 2px;
+}
+
+/* ---------- Price ---------- */
+.price {
+  margin-top: var(--space-12);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-8);
+  font-family: var(--font-sans);
+}
+.priceNow {
+  font-size: 1.5rem;
+  line-height: 1;
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
 }
-
-/* keep the CTA above the stretched link */
-.cta {
-  position: relative;
-  z-index: 2;
+.priceWas {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  text-decoration: line-through;
 }

@@ -45,15 +45,16 @@ export function PhasesSection({ phases }: PhasesSectionProps) {
             {phase.products.map((p) => (
               <ProductCard
                 key={p.slug}
-                title={p.title}
+                title={p.headline}
+                category={p.category}
                 price={p.price}
+                priceWas={p.priceWas}
                 href={productHref(p.slug)}
                 image={
                   p.image
                     ? { src: p.image, alt: p.name, position: p.imagePosition }
                     : undefined
                 }
-                cta={{ label: "Shop" }}
               />
             ))}
           </Carousel>

@@ -38,6 +38,10 @@ export const GOALS: { id: Goal; label: string }[] = [
 export type Product = {
   slug: string;
   name: string;
+  /** Big two-line title on the carousel card. */
+  headline: string;
+  /** Category pill on the carousel card. */
+  category: string;
   /** Short line shown on the carousel card — the goal the product serves. */
   cardTitle: string;
   /** Scenarios this product supports, most relevant first. */
@@ -77,6 +81,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "coral-mine-silver",
     name: "Coral Mine Silver",
+    headline: "Coral Mine — deep-sea minerals",
+    category: "Foundation",
     cardTitle: "Better hydration",
     goals: ["hydration", "energy"],
     description:
@@ -90,6 +96,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "pentokan",
     name: "PentoKan K+",
+    headline: "PentoKan — potassium & magnesium",
+    category: "Foundation",
     cardTitle: "More energy",
     goals: ["energy", "hydration"],
     description:
@@ -103,6 +111,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "oceanmin",
     name: "Oceanmin",
+    headline: "Oceanmin — deep-sea magnesium",
+    category: "Recovery & calm",
     cardTitle: "Better sleep & calm",
     goals: ["sleep", "energy"],
     description:
@@ -116,6 +126,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "h-500",
     name: "H-500",
+    headline: "H-500 — antioxidant boost",
+    category: "Immune support",
     cardTitle: "Immune support",
     goals: ["immune", "energy"],
     description:
@@ -129,6 +141,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "coral-detox-plus",
     name: "Coral Detox Plus",
+    headline: "Coral Detox Plus — 7-day cleanse",
+    category: "Restart",
     cardTitle: "Detox & feel lighter",
     goals: ["detox", "weight"],
     description:
@@ -141,6 +155,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "parashield",
     name: "Parashield",
+    headline: "Parashield — gut botanicals",
+    category: "Restart",
     cardTitle: "Detox & feel lighter",
     goals: ["detox", "immune"],
     description:
@@ -153,6 +169,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "colo-vada-plus",
     name: "Colo-Vada Plus",
+    headline: "Colo-Vada Plus — 14-day reset",
+    category: "Restart",
     cardTitle: "Weight & metabolism",
     goals: ["weight", "detox"],
     description:
@@ -165,6 +183,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "promarine-collagen",
     name: "Promarine Collagen",
+    headline: "Promarine Collagen — marine peptides",
+    category: "Skin & hair",
     cardTitle: "Skin & hair",
     goals: ["skin"],
     description:
@@ -177,6 +197,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "omega-3-60",
     name: "Omega 3/60",
+    headline: "Omega 3/60 — fish oil, 60% omega-3",
+    category: "Recovery & calm",
     cardTitle: "Better sleep & calm",
     goals: ["sleep", "immune"],
     description:
@@ -189,6 +211,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "spirulina",
     name: "Spirulina",
+    headline: "Spirulina — whole-food greens",
+    category: "Daily nutrition",
     cardTitle: "More energy",
     goals: ["energy", "weight"],
     description:
@@ -219,8 +243,12 @@ export const productHref = (slug: string) => `/products/${slug}`;
 export type PhaseProductCard = {
   slug: string;
   name: string;
+  headline: string;
+  category: string;
   title: string;
   price: string;
+  /** Struck-through "was" price on the card. */
+  priceWas: string;
   goals: Goal[];
   image?: string;
   imagePosition?: string;
@@ -278,8 +306,11 @@ export function getPhases(): PhaseView[] {
       .map((p) => ({
         slug: p.slug,
         name: p.name,
+        headline: p.headline,
+        category: p.category,
         title: p.cardTitle,
         price: p.prices[0].price,
+        priceWas: p.prices[1].price,
         goals: p.goals,
         image: p.image,
         imagePosition: p.imagePosition,

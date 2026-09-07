@@ -227,30 +227,35 @@ export default function UiKitPage() {
             <p className={styles.kicker}>06 — Organisms</p>
             <Heading as="h2">Product card</Heading>
             <BodyLong muted>
-              The whole card links to the product page; the CTA is independent.
+              Whole card links to the product page; the cart button is an
+              independent add-to-bag link.
             </BodyLong>
           </Stack>
         </Container>
         <Container style={{ paddingBlock: "var(--gap-base)" }}>
-          <ProductCard
-            title="Better hydration"
-            price="$475.99"
-            href="/products/coral-mine-silver"
-            cta={{ label: "Shop" }}
-          />
+          <div style={{ maxWidth: 260 }}>
+            <ProductCard
+              title="Coral Mine — deep-sea minerals"
+              category="Foundation"
+              price="$20.90"
+              priceWas="$30.00"
+              href="/products/coral-mine-silver"
+            />
+          </div>
         </Container>
         <Carousel label="Hydration Series sample">
           {[
-            { t: "Better hydration", s: "coral-mine-silver" },
-            { t: "Better sleep & calm", s: "oceanmin" },
-            { t: "Immune support", s: "h-500" },
-          ].map(({ t, s }) => (
+            { t: "Coral Mine — deep-sea minerals", c: "Foundation", s: "coral-mine-silver" },
+            { t: "Oceanmin — deep-sea magnesium", c: "Recovery & calm", s: "oceanmin" },
+            { t: "H-500 — antioxidant boost", c: "Immune support", s: "h-500" },
+          ].map(({ t, c, s }) => (
             <ProductCard
               key={s}
               title={t}
-              price="$475.99"
+              category={c}
+              price="$20.90"
+              priceWas="$30.00"
               href={`/products/${s}`}
-              cta={{ label: "Shop" }}
             />
           ))}
         </Carousel>

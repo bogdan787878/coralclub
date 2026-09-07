@@ -5,7 +5,7 @@
 
   /* Responsive slide width. An explicit `itemWidth` prop (inline
      --carousel-item-width) overrides this at every breakpoint. */
-  --carousel-item-size: 156px;
+  --carousel-item-size: 232px;
 }
 
 /* Align the header and the scroller's first slide to the page container. */
@@ -52,13 +52,13 @@
 
 @media (min-width: 768px) {
   .root {
-    --carousel-item-size: 220px;
+    --carousel-item-size: 264px;
   }
 }
 
 @media (min-width: 1024px) {
   .root {
-    --carousel-item-size: 248px;
+    --carousel-item-size: 300px;
   }
 
   /* Desktop: no scrolling — the cards divide the full section width. */
