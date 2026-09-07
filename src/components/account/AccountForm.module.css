@@ -139,6 +139,64 @@
   min-width: 0;
 }
 
+/* ---------- SMS verification step ---------- */
+/* sits where the switcher was — same 44px height, same top margin */
+.verifyBlock {
+  height: 44px;
+  margin-top: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+.verifyHint {
+  font-size: 0.8125rem;
+  line-height: 1rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+.verifyPhone {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-weight: var(--font-weight-medium);
+  color: #ffffff;
+}
+
+.otpRow {
+  display: flex;
+  gap: var(--space-12);
+  margin-top: var(--space-16);
+}
+.otpBox {
+  flex: 1;
+  min-width: 0;
+  height: 64px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: transparent;
+  color: #ffffff;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-medium);
+}
+.otpBox:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 1px;
+}
+
+.resend {
+  margin-top: var(--space-24);
+  text-align: center;
+  font-size: 1rem;
+  color: #ffffff;
+}
+.resendBtn {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* Continue only appears once the field is active (focused) or filled —
    collapses to nothing rather than just disabling, so the input owns the
    full row width until there is something to submit. */
