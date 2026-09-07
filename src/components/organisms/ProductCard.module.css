@@ -1,6 +1,7 @@
 .card {
   display: flex;
   flex-direction: column;
+  width: 150px;
   height: 100%;
   /* no card background — the tile below is the only filled surface, the
      section behind is the "card" */
@@ -9,7 +10,8 @@
 /* ---------- Packshot tile — the only blue surface ---------- */
 .media {
   position: relative;
-  aspect-ratio: 3 / 4;
+  width: 150px;
+  height: 210px;
   border-radius: var(--radius-base);
   background: var(--color-primary-30);
 }
@@ -34,7 +36,7 @@
   position: relative;
   flex: 0 0 100%;
   scroll-snap-align: start;
-  padding: var(--space-20);
+  padding: var(--space-16);
 }
 .slide :global(img) {
   object-fit: contain;

@@ -3,9 +3,9 @@
   flex-direction: column;
   gap: var(--gap-base);
 
-  /* Responsive slide width. An explicit `itemWidth` prop (inline
-     --carousel-item-width) overrides this at every breakpoint. */
-  --carousel-item-size: 232px;
+  /* Slide width. An explicit `itemWidth` prop (inline
+     --carousel-item-width) overrides this. */
+  --carousel-item-size: 150px;
 }
 
 /* Align the header and the scroller's first slide to the page container. */
@@ -51,25 +51,13 @@
 }
 
 @media (min-width: 768px) {
-  .root {
-    --carousel-item-size: 264px;
+  .viewport {
+    gap: var(--space-16);
   }
 }
 
 @media (min-width: 1024px) {
-  .root {
-    --carousel-item-size: 300px;
-  }
-
-  /* Desktop: no scrolling — the cards divide the full section width. */
   .viewport {
-    gap: var(--gap-text);
-    overflow-x: visible;
-    scroll-snap-type: none;
-  }
-
-  .item {
-    flex: 1 1 0;
-    min-width: 0;
+    gap: var(--space-24);
   }
 }
