@@ -26,7 +26,9 @@ export const isPhone = (v: string): boolean => usDigits(v).length === 10;
 
 /**
  * Progressive US phone mask: "5551234567" -> "+1 (555) 123-4567".
- * Returns "" for no digits so the placeholder shows.
+ * Returns "" for no digits so the placeholder shows. Trailing separators
+ * (the ")") are only emitted once there's a digit after them, so
+ * backspace never gets "eaten" by a regenerated formatting char.
  */
 export const formatUsPhone = (v: string): string => {
   const d = usDigits(v);
@@ -35,7 +37,7 @@ export const formatUsPhone = (v: string): string => {
   const b = d.slice(3, 6);
   const c = d.slice(6, 10);
   let out = `+1 (${a}`;
-  if (d.length >= 3) out += ")";
+  if (d.length > 3) out += ")";
   if (b) out += ` ${b}`;
   if (c) out += `-${c}`;
   return out;
