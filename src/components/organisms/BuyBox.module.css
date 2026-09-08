@@ -17,7 +17,21 @@
   margin-inline: auto;
   display: flex;
   flex-direction: column;
-  gap: var(--space-12);
+}
+
+/* price toggle — collapses on scroll-down, expands on scroll-up */
+.prices {
+  overflow: hidden;
+  /* room for the tilted savings tag that pokes above the card */
+  padding-top: 10px;
+  max-height: 150px;
+  margin-bottom: var(--space-12);
+  opacity: 1;
+  transition:
+    max-height 0.28s var(--ease-standard),
+    padding-top 0.28s var(--ease-standard),
+    margin-bottom 0.28s var(--ease-standard),
+    opacity 0.18s var(--ease-standard);
 }
 
 .action {
