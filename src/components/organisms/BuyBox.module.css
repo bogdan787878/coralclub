@@ -1,4 +1,5 @@
-/* Pinned buy bar — price selector + action, always at the bottom of the PDP. */
+/* Only the primary action is pinned to the bottom; the price selector
+   lives in the page body. */
 .bar {
   position: fixed;
   left: 0;
@@ -15,25 +16,9 @@
 .inner {
   max-width: 640px;
   margin-inline: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-/* price toggle — collapses on scroll-down, expands on scroll-up */
-.prices {
-  overflow: hidden;
-  /* room for the tilted savings tag that pokes above the card */
-  padding-top: 10px;
-  max-height: 150px;
-  margin-bottom: var(--space-12);
-  opacity: 1;
-  transition:
-    max-height 0.28s var(--ease-standard),
-    padding-top 0.28s var(--ease-standard),
-    margin-bottom 0.28s var(--ease-standard),
-    opacity 0.18s var(--ease-standard);
 }
 
 .action {
+  width: 100%;
   min-height: 52px;
 }

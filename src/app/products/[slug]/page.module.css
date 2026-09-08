@@ -1,7 +1,7 @@
 .page {
   min-height: 100dvh;
-  /* clear the fixed buy bar */
-  padding-bottom: 200px;
+  /* clear the fixed action button */
+  padding-bottom: 120px;
 }
 
 .layout {
@@ -22,15 +22,19 @@
   margin-top: calc(-1 * var(--page-padding-block));
 }
 
-/* floating round controls over the image — back (left) + cart (right) */
+/* round controls pinned to the top corners — back (left) + cart (right) */
 .imageControls {
-  position: absolute;
+  position: fixed;
   top: calc(var(--space-16) + env(safe-area-inset-top, 0px));
   left: var(--space-16);
   right: var(--space-16);
-  z-index: 2;
+  z-index: 30;
   display: flex;
   justify-content: space-between;
+  pointer-events: none;
+}
+.imageControls > * {
+  pointer-events: auto;
 }
 
 .circleBtn {

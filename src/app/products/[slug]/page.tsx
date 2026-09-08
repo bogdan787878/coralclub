@@ -47,14 +47,15 @@ export default async function ProductPage({
 
   return (
     <main className={styles.page}>
+      <div className={styles.imageControls}>
+        <BackButton className={styles.circleBtn} />
+        <CartButton className={styles.circleBtn} />
+      </div>
+
       <Section tone="surface">
         <Container>
           <div className={styles.layout}>
             <div className={styles.media}>
-              <div className={styles.imageControls}>
-                <BackButton className={styles.circleBtn} />
-                <CartButton className={styles.circleBtn} />
-              </div>
               <div className={styles.mediaInner}>
                 {product.image ? (
                   <Image
@@ -91,6 +92,16 @@ export default async function ProductPage({
                 </p>
               </div>
 
+              <BuyBox
+                options={product.prices}
+                product={{
+                  coralId: product.coralId,
+                  slug: product.slug,
+                  name: product.name,
+                  image: product.image,
+                }}
+              />
+
               <InfoAccordion
                 items={[
                   {
@@ -107,16 +118,6 @@ export default async function ProductPage({
           </div>
         </Container>
       </Section>
-
-      <BuyBox
-        options={product.prices}
-        product={{
-          coralId: product.coralId,
-          slug: product.slug,
-          name: product.name,
-          image: product.image,
-        }}
-      />
     </main>
   );
 }

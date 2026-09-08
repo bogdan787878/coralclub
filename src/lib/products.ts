@@ -86,7 +86,7 @@ function tier(clubPrice: string, regularPrice: string): PriceOption[] {
       price: regularPrice,
       // full price → hand off to the coralclub.ru basket (href filled in
       // from `coralId` below; falls back to the shop root)
-      cta: { label: "Add to bag", href: CORAL_SHOP },
+      cta: { label: "Add to Cart", href: CORAL_SHOP },
     },
   ];
 }
