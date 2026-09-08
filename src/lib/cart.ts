@@ -111,6 +111,23 @@ export function clearCart(): void {
   write([]);
 }
 
+/* --------------------------- open the drawer ------------------------- */
+
+const OPEN_EVENT = "coralclub:cart:open";
+
+/** Ask the cart drawer (wherever it lives) to open. */
+export function openCart(): void {
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event(OPEN_EVENT));
+  }
+}
+
+/** Subscribe the drawer host to open requests. Returns an unsubscribe fn. */
+export function onCartOpen(cb: () => void): () => void {
+  window.addEventListener(OPEN_EVENT, cb);
+  return () => window.removeEventListener(OPEN_EVENT, cb);
+}
+
 /* ------------------------------ selectors ---------------------------- */
 
 export function cartCount(lines: CartLine[]): number {

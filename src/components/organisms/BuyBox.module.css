@@ -18,7 +18,22 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-16);
+  gap: var(--space-12);
+}
+
+/* right cluster once the product is in the cart: stepper + "Go to Cart" */
+.actions {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.goCart {
+  flex: none;
+  min-height: 52px;
+  padding-inline: var(--space-16);
+  white-space: nowrap;
 }
 
 .priceBlock {

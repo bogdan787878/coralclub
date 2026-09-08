@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui";
-import { addItem, setQty, useCart } from "@/lib/cart";
+import { addItem, openCart, setQty, useCart } from "@/lib/cart";
 import styles from "./BuyBox.module.css";
 
 export type BuyBoxOption = {
@@ -27,8 +27,9 @@ export type BuyBoxProps = {
 
 /**
  * BuyBox — pinned bottom bar: club price (regular price struck through +
- * savings tag) on the left, one action on the right. Once the product is in
- * the cart the action becomes a "− N +" stepper, like the carousel card.
+ * savings tag) on the left; on the right an "Add to Cart" button that,
+ * once the product is in the cart, is joined by a "− N +" stepper and
+ * relabelled to open the cart.
  */
 export function BuyBox({ options, product }: BuyBoxProps) {
   const cart = useCart();
@@ -69,24 +70,33 @@ export function BuyBox({ options, product }: BuyBoxProps) {
         </div>
 
         {canAddToCart && qty > 0 ? (
-          <div className={styles.stepper + anim}>
-            <button
-              type="button"
-              aria-label="Remove one"
-              onClick={() => bump(qty - 1)}
+          <div className={styles.actions}>
+            <div className={`${styles.stepper}${anim}`}>
+              <button
+                type="button"
+                aria-label="Remove one"
+                onClick={() => bump(qty - 1)}
+              >
+                −
+              </button>
+              <span className={styles.stepperCount} aria-live="polite">
+                {qty}
+              </span>
+              <button
+                type="button"
+                aria-label="Add one"
+                onClick={() => bump(qty + 1)}
+              >
+                +
+              </button>
+            </div>
+            <Button
+              variant="primary"
+              className={styles.goCart}
+              onClick={openCart}
             >
-              −
-            </button>
-            <span className={styles.stepperCount} aria-live="polite">
-              {qty}
-            </span>
-            <button
-              type="button"
-              aria-label="Add one"
-              onClick={() => bump(qty + 1)}
-            >
-              +
-            </button>
+              Cart&nbsp;→
+            </Button>
           </div>
         ) : canAddToCart ? (
           <Button
