@@ -16,13 +16,15 @@ export function SiteHeader({ brand = "coralclub" }: SiteHeaderProps) {
   return (
     <div className={styles.root}>
       <div className={styles.brandBar}>
-        <CartButton />
         <Link href="/" className={styles.brand}>
           {brand}
         </Link>
-        <Link href="/account" className={styles.cta}>
-          Get start
-        </Link>
+        <div className={styles.actions}>
+          <Link href="/account" className={styles.cta}>
+            Get start
+          </Link>
+          <CartButton />
+        </div>
       </div>
     </div>
   );

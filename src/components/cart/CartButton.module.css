@@ -1,8 +1,5 @@
 .button {
-  position: absolute;
-  top: 50%;
-  left: var(--page-padding-inline);
-  transform: translateY(-50%);
+  position: relative;
   width: 36px;
   height: 36px;
   display: inline-flex;
