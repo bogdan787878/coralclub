@@ -95,7 +95,7 @@ export function BuyBox({ options, product }: BuyBoxProps) {
               className={styles.goCart}
               onClick={openCart}
             >
-              Cart&nbsp;→
+              Cart
             </Button>
           </div>
         ) : canAddToCart ? (
