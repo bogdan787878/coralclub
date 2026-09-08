@@ -1,8 +1,11 @@
 "use client";
 
 import type { DomainContent } from "@/lib/products";
-import { DOMAIN_COLOR, DOMAIN_SHAPE } from "./DomainShapes";
+import { DOMAIN_SHAPE } from "./DomainShapes";
 import styles from "./DomainCarousel.module.css";
+
+// experiment: all domain shapes in one light DS blue (was per-domain colours)
+const SHAPE_COLOR = "var(--color-primary-30)";
 
 export type DomainCarouselProps = {
   domains: DomainContent[];
@@ -30,7 +33,7 @@ export function DomainCarousel({ domains, value, onChange }: DomainCarouselProps
             role="tab"
             aria-selected={active}
             className={`${styles.item} ${active ? styles.itemOn : ""}`}
-            style={{ color: DOMAIN_COLOR[d.id] ?? "var(--color-primary-90)" }}
+            style={{ color: SHAPE_COLOR }}
             onClick={() => onChange(d.id)}
           >
             <span className={styles.shape}>{DOMAIN_SHAPE[d.id]}</span>
