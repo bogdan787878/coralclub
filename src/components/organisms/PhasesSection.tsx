@@ -8,7 +8,7 @@ import { DomainCarousel } from "./DomainCarousel";
 import { PhaseSwitcher } from "./PhaseSwitcher";
 import { ProductCard } from "./ProductCard";
 import type { DomainContent, PhaseView } from "@/lib/products";
-import { domainProductHref, productHref } from "@/lib/products";
+import { domainProductHref, productHref, shortCategory } from "@/lib/products";
 import styles from "./PhasesSection.module.css";
 
 export type PhasesSectionProps = {
@@ -70,7 +70,7 @@ export function PhasesSection({ phases, domains }: PhasesSectionProps) {
                   <ProductCard
                     key={ref.slug}
                     title={ref.name}
-                    category={ref.category}
+                    category={shortCategory(ref.category)}
                     price={ref.clubPrice}
                     priceWas={ref.price}
                     href={link.href}

@@ -80,12 +80,15 @@ export const DOMAIN_SHAPE: Record<string, ReactNode> = {
       />
     </Shape>
   ),
-  // crescent moon
+  // pillow
   "sleep-stress": (
     <Shape>
       <path
-        d="M52 10a40 40 0 1 0 0 80 32 32 0 1 1 0-80z"
+        d="M22 32c16-7 40-7 56 0 7 16 7 36 0 52-16 7-40 7-56 0-7-16-7-36 0-52z"
         fill="currentColor"
+        stroke="currentColor"
+        strokeWidth="6"
+        strokeLinejoin="round"
       />
     </Shape>
   ),
