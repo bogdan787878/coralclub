@@ -19,9 +19,9 @@ export type PhasesSectionProps = {
 
 /**
  * PhasesSection — the phase switcher plus a carousel that swaps its products
- * and colour theme with the selected Health Concept phase. On the
- * Personalization phase a row of abstract domain shapes appears; picking one
- * swaps the product carousel to that domain's set.
+ * with the selected Health Concept phase. On the Personalization phase a row
+ * of abstract domain shapes appears; picking one swaps the product carousel
+ * to that domain's set.
  */
 export function PhasesSection({ phases, domains }: PhasesSectionProps) {
   const [activeId, setActiveId] = useState(phases[0]?.id);
@@ -35,92 +35,46 @@ export function PhasesSection({ phases, domains }: PhasesSectionProps) {
     coralId ? (cart.find((l) => l.coralId === coralId)?.qty ?? 0) : 0;
 
   return (
-    <div className={styles.themed} data-phase={phase.id}>
-      <Section tone="surface">
-        <div className={styles.inner}>
-          <Container>
-            <PhaseSwitcher
-              phases={phases}
-              value={phase.id}
-              onChange={(id) => setActiveId(id as PhaseView["id"])}
-            />
-          </Container>
+    <Section tone="surface">
+      <div className={styles.inner}>
+        <Container>
+          <PhaseSwitcher
+            phases={phases}
+            value={phase.id}
+            onChange={(id) => setActiveId(id as PhaseView["id"])}
+          />
+        </Container>
 
-          {isPersonalization && domain && (
-            <DomainCarousel
-              domains={domains}
-              value={domain.id}
-              onChange={setDomainId}
-            />
-          )}
+        {isPersonalization && domain && (
+          <DomainCarousel
+            domains={domains}
+            value={domain.id}
+            onChange={setDomainId}
+          />
+        )}
 
-          {isPersonalization && domain ? (
-            <Carousel
-              key={domain.id}
-              label={`Personalization — ${domain.label}`}
-              title={
-                <>
-                  Your route for{" "}
-                  <Accent>{domain.label.toLowerCase()}</Accent>
-                </>
-              }
-            >
-              {domain.products
-                .map((slug) => getProduct(slug))
-                .filter((p): p is Product => Boolean(p))
-                .map((p) => (
-                  <ProductCard
-                    key={p.slug}
-                    title={p.headline}
-                    category={shortCategory(p.category)}
-                    price={p.prices[0].price}
-                    priceWas={p.prices[1].price}
-                    href={productHref(p.slug)}
-                    cartHref={p.prices[1].cta.href}
-                    onAddToCart={
-                      p.coralId
-                        ? () =>
-                            addItem({
-                              coralId: p.coralId as string,
-                              slug: p.slug,
-                              name: p.name,
-                              price: p.prices[1].price,
-                              image: p.carouselImages[0],
-                            })
-                        : undefined
-                    }
-                    cartQty={qtyOf(p.coralId)}
-                    onSetQty={
-                      p.coralId
-                        ? (n) => setQty(p.coralId as string, n)
-                        : undefined
-                    }
-                    images={p.carouselImages.map((src) => ({
-                      src,
-                      alt: p.name,
-                    }))}
-                  />
-                ))}
-            </Carousel>
-          ) : (
-            <Carousel
-              label={phase.name}
-              title={
-                <>
-                  {phase.headline.lead}{" "}
-                  <Accent>{phase.headline.accent}</Accent>
-                </>
-              }
-            >
-              {phase.products.map((p) => (
+        {isPersonalization && domain ? (
+          <Carousel
+            key={domain.id}
+            label={`Personalization — ${domain.label}`}
+            title={
+              <>
+                Your route for <Accent>{domain.label.toLowerCase()}</Accent>
+              </>
+            }
+          >
+            {domain.products
+              .map((slug) => getProduct(slug))
+              .filter((p): p is Product => Boolean(p))
+              .map((p) => (
                 <ProductCard
                   key={p.slug}
                   title={p.headline}
-                  category={p.category}
-                  price={p.price}
-                  priceWas={p.priceWas}
+                  category={shortCategory(p.category)}
+                  price={p.prices[0].price}
+                  priceWas={p.prices[1].price}
                   href={productHref(p.slug)}
-                  cartHref={p.cartHref}
+                  cartHref={p.prices[1].cta.href}
                   onAddToCart={
                     p.coralId
                       ? () =>
@@ -128,8 +82,8 @@ export function PhasesSection({ phases, domains }: PhasesSectionProps) {
                             coralId: p.coralId as string,
                             slug: p.slug,
                             name: p.name,
-                            price: p.priceWas,
-                            image: p.images[0]?.src,
+                            price: p.prices[1].price,
+                            image: p.carouselImages[0],
                           })
                       : undefined
                   }
@@ -139,23 +93,63 @@ export function PhasesSection({ phases, domains }: PhasesSectionProps) {
                       ? (n) => setQty(p.coralId as string, n)
                       : undefined
                   }
-                  images={p.images}
+                  images={p.carouselImages.map((src) => ({
+                    src,
+                    alt: p.name,
+                  }))}
                 />
               ))}
-            </Carousel>
-          )}
+          </Carousel>
+        ) : (
+          <Carousel
+            label={phase.name}
+            title={
+              <>
+                {phase.headline.lead} <Accent>{phase.headline.accent}</Accent>
+              </>
+            }
+          >
+            {phase.products.map((p) => (
+              <ProductCard
+                key={p.slug}
+                title={p.headline}
+                category={p.category}
+                price={p.price}
+                priceWas={p.priceWas}
+                href={productHref(p.slug)}
+                cartHref={p.cartHref}
+                onAddToCart={
+                  p.coralId
+                    ? () =>
+                        addItem({
+                          coralId: p.coralId as string,
+                          slug: p.slug,
+                          name: p.name,
+                          price: p.priceWas,
+                          image: p.images[0]?.src,
+                        })
+                    : undefined
+                }
+                cartQty={qtyOf(p.coralId)}
+                onSetQty={
+                  p.coralId ? (n) => setQty(p.coralId as string, n) : undefined
+                }
+                images={p.images}
+              />
+            ))}
+          </Carousel>
+        )}
 
-          {!isPersonalization &&
-            (() => {
-              const rep = getProduct(
-                phase.seriesSlug ?? phase.products[0]?.slug ?? "",
-              );
-              return rep ? (
-                <SeriesFeature seriesName={phase.name} product={rep} />
-              ) : null;
-            })()}
-        </div>
-      </Section>
-    </div>
+        {!isPersonalization &&
+          (() => {
+            const rep = getProduct(
+              phase.seriesSlug ?? phase.products[0]?.slug ?? "",
+            );
+            return rep ? (
+              <SeriesFeature seriesName={phase.name} product={rep} />
+            ) : null;
+          })()}
+      </div>
+    </Section>
   );
 }
