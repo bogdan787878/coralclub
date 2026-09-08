@@ -134,6 +134,7 @@ const CATALOGUE: Product[] = [
     description:
       "A deep-sea mineral concentrate in ionic form — magnesium-dominant, drawn from 662 m down in the Pacific. Steady energy and balance for every day.",
     image: "/images/products/oceanmin.png",
+    coralId: "225115",
     rating: 4.6,
     ratingsCount: 41,
     reviewsCount: 18,
@@ -149,6 +150,7 @@ const CATALOGUE: Product[] = [
     description:
       "An alkaline-mineral effervescent tablet. Your daily water, taken further — one of the strongest antioxidant drinks you can make at home.",
     image: "/images/products/h-500.png",
+    coralId: "91800",
     rating: 4.8,
     ratingsCount: 63,
     reviewsCount: 29,
