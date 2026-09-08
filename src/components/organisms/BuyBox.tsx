@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui";
 import { addItem } from "@/lib/cart";
 import { PriceSelector } from "./PriceSelector";
+import styles from "./BuyBox.module.css";
 
 export type BuyBoxOption = {
   id: string;
@@ -53,29 +54,37 @@ export function BuyBox({ options, product }: BuyBoxProps) {
   };
 
   return (
-    <>
-      <PriceSelector
-        options={options}
-        value={selectedId}
-        onChange={setSelectedId}
-      />
+    <div className={styles.bar}>
+      <div className={styles.inner}>
+        <PriceSelector
+          options={options}
+          value={selectedId}
+          onChange={setSelectedId}
+        />
 
-      {canAddToCart ? (
-        <Button variant="primary" block onClick={addToCart}>
-          {added ? "Added to cart ✓" : selected.cta.label}
-        </Button>
-      ) : (
-        <Button
-          variant="primary"
-          block
-          href={selected.cta.href}
-          {...(external
-            ? { target: "_blank", rel: "noopener noreferrer" }
-            : {})}
-        >
-          {selected.cta.label}
-        </Button>
-      )}
-    </>
+        {canAddToCart ? (
+          <Button
+            variant="primary"
+            block
+            className={styles.action}
+            onClick={addToCart}
+          >
+            {added ? "Added to cart ✓" : selected.cta.label}
+          </Button>
+        ) : (
+          <Button
+            variant="primary"
+            block
+            className={styles.action}
+            href={selected.cta.href}
+            {...(external
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
+          >
+            {selected.cta.label}
+          </Button>
+        )}
+      </div>
+    </div>
   );
 }

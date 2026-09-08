@@ -74,7 +74,7 @@ function tier(clubPrice: string, regularPrice: string): PriceOption[] {
   return [
     {
       id: "club",
-      label: "Club Price",
+      label: "Club",
       note: "25% Savings",
       price: clubPrice,
       // member price → become a club member to unlock it
@@ -82,7 +82,7 @@ function tier(clubPrice: string, regularPrice: string): PriceOption[] {
     },
     {
       id: "regular",
-      label: "Regular Price",
+      label: "Regular",
       price: regularPrice,
       // full price → hand off to the coralclub.ru basket (href filled in
       // from `coralId` below; falls back to the shop root)

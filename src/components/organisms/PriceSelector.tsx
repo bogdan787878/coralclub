@@ -58,10 +58,7 @@ export function PriceSelector({
               <span className={styles.name}>{opt.label}</span>
               {opt.note && <span className={styles.note}>{opt.note}</span>}
             </span>
-            <span className={styles.right}>
-              <span className={styles.price}>{opt.price}</span>
-              <span className={styles.radio} aria-hidden="true" />
-            </span>
+            <span className={styles.price}>{opt.price}</span>
           </label>
         );
       })}

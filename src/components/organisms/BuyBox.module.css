@@ -1,0 +1,25 @@
+/* Pinned buy bar — price selector + action, always at the bottom of the PDP. */
+.bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-primary-10);
+  box-shadow: 0 -8px 24px rgba(1, 17, 48, 0.08);
+  padding: var(--space-16) var(--page-padding-inline)
+    calc(var(--space-16) + env(safe-area-inset-bottom, 0px));
+}
+
+.inner {
+  max-width: 640px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.action {
+  min-height: 52px;
+}

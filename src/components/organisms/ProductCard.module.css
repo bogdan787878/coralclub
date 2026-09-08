@@ -114,16 +114,16 @@
   z-index: 3;
   display: inline-flex;
   align-items: center;
-  height: 40px;
-  padding: 0 2px;
+  height: 48px;
+  padding: 0 4px;
   border-radius: var(--radius-pill);
   background: #ffffff;
   color: var(--color-primary-100);
   box-shadow: 0 10px 24px rgba(1, 17, 48, 0.18);
 }
 .stepper button {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
