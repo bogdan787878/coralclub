@@ -33,12 +33,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  /* experiment: default vs active shape colour */
-  color: var(--color-primary-50);
-  transition: color 0.18s var(--ease-standard);
-}
-.itemOn .shape {
-  color: #3a85ff;
 }
 .shape svg {
   width: 100%;
