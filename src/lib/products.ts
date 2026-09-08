@@ -119,12 +119,26 @@ export function basketUrl(coralId: string, qty = 1): string {
   return `${CORAL_SHOP}shop_basket.php?${coralId}=${qty}&utm_source=copy-link&utm_medium=cart-recom`;
 }
 
+const numeric = (s: string): number => {
+  const n = parseFloat(String(s).replace(/[^0-9.]/g, ""));
+  return Number.isFinite(n) ? n : 0;
+};
+
+/** Whole-percent club saving vs the regular price, e.g. "20% Savings". */
+function savingNote(regular: string, club: string): string | undefined {
+  const r = numeric(regular);
+  const c = numeric(club);
+  if (r <= 0 || c <= 0 || c >= r) return undefined;
+  const pct = Math.round((1 - c / r) * 100);
+  return pct > 0 ? `${pct}% Savings` : undefined;
+}
+
 function pricesFor(c: ProductContent): PriceOption[] {
   return [
     {
       id: "club",
       label: "Club",
-      note: "25% Savings",
+      note: savingNote(c.price, c.clubPrice),
       price: c.clubPrice,
       cta: { label: "Become a club member", href: "/account" },
     },
