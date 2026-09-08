@@ -4,8 +4,8 @@ import type { DomainContent } from "@/lib/products";
 import { DOMAIN_SHAPE } from "./DomainShapes";
 import styles from "./DomainCarousel.module.css";
 
-// experiment: all domain shapes in one light DS blue (was per-domain colours)
-const SHAPE_COLOR = "var(--color-primary-30)";
+// experiment: all domain shapes in one mid DS blue (was per-domain colours)
+const SHAPE_COLOR = "var(--color-primary-50)";
 
 export type DomainCarouselProps = {
   domains: DomainContent[];
