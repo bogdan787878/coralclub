@@ -11,13 +11,46 @@
 }
 
 .media {
+  position: relative;
   overflow: hidden;
   aspect-ratio: 1 / 1;
   /* inner padding so the packshot doesn't touch the frame edges */
   padding: var(--space-48);
   background: var(--color-primary-30);
-  /* full-bleed to the screen edges, no rounded corners */
+  /* full-bleed to the screen edges, flush to the top (no header) */
   margin-inline: calc(-1 * var(--page-padding-inline));
+  margin-top: calc(-1 * var(--page-padding-block));
+}
+
+/* floating round controls over the image — back (left) + cart (right) */
+.imageControls {
+  position: absolute;
+  top: calc(var(--space-16) + env(safe-area-inset-top, 0px));
+  left: var(--space-16);
+  right: var(--space-16);
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+}
+
+.circleBtn {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: #ffffff;
+  color: var(--color-primary-100);
+  box-shadow: 0 8px 24px rgba(1, 17, 48, 0.18);
+}
+.circleBtn svg {
+  width: 20px;
+  height: 20px;
+}
+.circleBtn:active {
+  transform: scale(0.94);
 }
 
 /* the fill image respects the frame padding via this inner box */
@@ -88,5 +121,6 @@
     aspect-ratio: 1 / 1;
     position: sticky;
     top: var(--space-32);
+    margin-top: 0;
   }
 }

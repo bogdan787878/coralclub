@@ -9,8 +9,10 @@ import {
   Section,
   Stack,
 } from "@/components/ui";
-import { BuyBox, InfoAccordion, SiteHeader } from "@/components/organisms";
+import { BuyBox, InfoAccordion } from "@/components/organisms";
+import { CartButton } from "@/components/cart/CartButton";
 import { PRODUCTS, getProduct } from "@/lib/products";
+import { BackButton } from "./BackButton";
 import { ManufacturingDetails } from "./ManufacturingDetails";
 import styles from "./page.module.css";
 
@@ -45,12 +47,14 @@ export default async function ProductPage({
 
   return (
     <main className={styles.page}>
-      <SiteHeader />
-
       <Section tone="surface">
         <Container>
           <div className={styles.layout}>
             <div className={styles.media}>
+              <div className={styles.imageControls}>
+                <BackButton className={styles.circleBtn} />
+                <CartButton className={styles.circleBtn} />
+              </div>
               <div className={styles.mediaInner}>
                 {product.image ? (
                   <Image
