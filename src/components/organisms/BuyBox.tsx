@@ -25,6 +25,8 @@ export function BuyBox({ options }: BuyBoxProps) {
   const [selectedId, setSelectedId] = useState(options[0]?.id);
   const selected = options.find((o) => o.id === selectedId) ?? options[0];
 
+  const external = /^https?:/.test(selected.cta.href);
+
   return (
     <>
       <PriceSelector
@@ -32,7 +34,14 @@ export function BuyBox({ options }: BuyBoxProps) {
         value={selectedId}
         onChange={setSelectedId}
       />
-      <Button variant="primary" block href={selected.cta.href}>
+      <Button
+        variant="primary"
+        block
+        href={selected.cta.href}
+        {...(external
+          ? { target: "_blank", rel: "noopener noreferrer" }
+          : {})}
+      >
         {selected.cta.label}
       </Button>
     </>

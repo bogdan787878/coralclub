@@ -106,9 +106,21 @@ export function ProductCard({
           <Link href={href} className={styles.mediaLink} aria-hidden="true" tabIndex={-1} />
         )}
 
-        <Link href={cartHref} className={styles.cart} aria-label="Add to bag">
-          <CartIcon />
-        </Link>
+        {/^https?:/.test(cartHref) ? (
+          <a
+            href={cartHref}
+            className={styles.cart}
+            aria-label="Add to bag"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <CartIcon />
+          </a>
+        ) : (
+          <Link href={cartHref} className={styles.cart} aria-label="Add to bag">
+            <CartIcon />
+          </Link>
+        )}
       </div>
 
       <div className={styles.info}>

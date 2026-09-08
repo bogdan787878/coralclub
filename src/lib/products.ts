@@ -57,7 +57,22 @@ export type Product = {
   prices: PriceOption[];
 };
 
-function tier(clubPrice: string, regularPrice: string): PriceOption[] {
+/**
+ * The live Coral Club store. We don't run our own cart — "Add to bag" drops
+ * the shopper into coralclub.ru's basket with the product pre-added, using
+ * their share-cart link format. `coralId` is the product's id in that store.
+ */
+const CORAL_SHOP = "https://coralclub.ru/shop/";
+
+export function basketUrl(coralId: string, qty = 1): string {
+  return `${CORAL_SHOP}shop_basket.php?${coralId}=${qty}&utm_source=copy-link&utm_medium=cart-recom`;
+}
+
+function tier(
+  clubPrice: string,
+  regularPrice: string,
+  coralId?: string,
+): PriceOption[] {
   return [
     {
       id: "club",
@@ -71,8 +86,11 @@ function tier(clubPrice: string, regularPrice: string): PriceOption[] {
       id: "regular",
       label: "Regular Price",
       price: regularPrice,
-      // full price → straight to the bag
-      cta: { label: "Add to bag", href: "#add-to-bag" },
+      // full price → straight to the coralclub.ru basket
+      cta: {
+        label: "Add to bag",
+        href: coralId ? basketUrl(coralId) : CORAL_SHOP,
+      },
     },
   ];
 }
@@ -91,7 +109,8 @@ export const PRODUCTS: Product[] = [
     rating: 3.4,
     ratingsCount: 25,
     reviewsCount: 12,
-    prices: tier("$475.99", "$875"),
+    // Coral Mine — coralclub.ru product id 2221
+    prices: tier("$475.99", "$875", "2221"),
   },
   {
     slug: "pentokan",
@@ -106,7 +125,8 @@ export const PRODUCTS: Product[] = [
     rating: 4.5,
     ratingsCount: 33,
     reviewsCount: 14,
-    prices: tier("$21.99", "$29.99"),
+    // PentoKan — coralclub.ru product id 2141
+    prices: tier("$21.99", "$29.99", "2141"),
   },
   {
     slug: "oceanmin",
@@ -249,6 +269,8 @@ export type PhaseProductCard = {
   price: string;
   /** Struck-through "was" price on the card. */
   priceWas: string;
+  /** coralclub.ru basket link for the card's cart button. */
+  cartHref: string;
   goals: Goal[];
   image?: string;
   imagePosition?: string;
@@ -319,6 +341,7 @@ export function getPhases(): PhaseView[] {
         title: p.cardTitle,
         price: p.prices[0].price,
         priceWas: p.prices[1].price,
+        cartHref: p.prices[1].cta.href,
         goals: p.goals,
         image: p.image,
         imagePosition: p.imagePosition,
