@@ -1144,14 +1144,15 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "A 30-day program that optimizes hydration with the minerals and electrolytes your body actually uses — supporting water balance, steady energy and overall well-being. It bundles the whole hydration layer in one pack: Coral Mine ×3, PentoKan ×3, H-500 ×1 and Oceanmin ×1.",
     "price": "$146.25",
     "clubPrice": "$117",
-    "carouselImages": [],
-    "pdpImages": [],
-    "rating": 4.7,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
+    "description": "A 30-day program that optimizes hydration with the minerals and electrolytes your body actually uses — supporting water balance, steady energy and overall well-being. It bundles the whole hydration layer in one pack: Coral Mine ×3, PentoKan ×3, H-500 ×1 and Oceanmin ×1.",
+    "carouselImages": [
+      "/images/products/image7.png"
+    ],
+    "pdpImages": [
+      "/images/products/image7.png"
+    ],
     "howToUse": "Read the instructions inside the package before use. Program duration — 30 days.",
     "manufacturing": {
       "countryOfOrigin": "Japan, USA, Taiwan, Germany",
@@ -1161,9 +1162,18 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "Set: Coral Mine, PentoKan, H-500, Oceanmin.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "Test",
+            "amount": "Test",
+            "dv": ""
+          }
+        ]
       }
-    }
+    },
+    "rating": 4.7,
+    "ratingsCount": 0,
+    "reviewsCount": 0
   },
   {
     "slug": "iron",
