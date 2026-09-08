@@ -71,8 +71,8 @@ export function PhasesSection({ phases, domains }: PhasesSectionProps) {
                     key={ref.slug}
                     title={ref.name}
                     category={ref.category}
-                    price={ref.price}
-                    priceWas={ref.clubPrice}
+                    price={ref.clubPrice}
+                    priceWas={ref.price}
                     href={link.href}
                     images={[]}
                   />
@@ -105,7 +105,7 @@ export function PhasesSection({ phases, domains }: PhasesSectionProps) {
                             coralId: p.coralId as string,
                             slug: p.slug,
                             name: p.name,
-                            price: p.price,
+                            price: p.priceWas,
                             image: p.images[0]?.src,
                           })
                       : undefined

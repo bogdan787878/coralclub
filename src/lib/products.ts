@@ -312,9 +312,9 @@ export function getPhases(): PhaseView[] {
         headline: p.headline,
         category: p.category,
         title: p.cardTitle,
-        // main price = regular; struck-through "was" price = the club price
-        price: p.prices[1].price,
-        priceWas: p.prices[0].price,
+        // main price = club (sale); struck-through "was" price = regular
+        price: p.prices[0].price,
+        priceWas: p.prices[1].price,
         coralId: p.coralId,
         cartHref: p.prices[1].cta.href,
         goals: p.goals,
