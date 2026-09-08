@@ -1,0 +1,31 @@
+{
+  "slug": "pau-d-arco-mate",
+  "name": "Pau D`Arco with Mate",
+  "headline": "Pau D`Arco with Mate",
+  "category": "Immunity",
+  "cardTitle": "",
+  "goals": [
+    "immune"
+  ],
+  "coralId": "",
+  "description": "",
+  "price": "$18.75",
+  "clubPrice": "$15",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "slug": "gotu-kola-extract",
+  "name": "Gotu Kola Extract",
+  "headline": "Gotu Kola Extract",
+  "category": "Phytonutrients",
+  "cardTitle": "",
+  "goals": [
+    "energy"
+  ],
+  "coralId": "",
+  "description": "",
+  "price": "$13.13",
+  "clubPrice": "$10.50",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "slug": "zinc-methionine-25-mg",
+  "name": "Zinc Methionine 25 mg",
+  "headline": "Zinc Methionine 25 mg",
+  "category": "Phytonutrients",
+  "cardTitle": "",
+  "goals": [
+    "skin"
+  ],
+  "coralId": "",
+  "description": "",
+  "price": "$13.75",
+  "clubPrice": "$11",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

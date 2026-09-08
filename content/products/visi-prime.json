@@ -1,0 +1,31 @@
+{
+  "slug": "visi-prime",
+  "name": "Visi-Prime",
+  "headline": "Visi-Prime",
+  "category": "Vitamins",
+  "cardTitle": "",
+  "goals": [
+    "energy"
+  ],
+  "coralId": "",
+  "description": "",
+  "price": "$16.25",
+  "clubPrice": "$13",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

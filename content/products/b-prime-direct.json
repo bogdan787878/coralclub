@@ -1,0 +1,31 @@
+{
+  "slug": "b-prime-direct",
+  "name": "B-Prime Direct",
+  "headline": "B-Prime Direct",
+  "category": "More Energy",
+  "cardTitle": "",
+  "goals": [
+    "energy"
+  ],
+  "coralId": "",
+  "description": "",
+  "price": "$19",
+  "clubPrice": "$15.20",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

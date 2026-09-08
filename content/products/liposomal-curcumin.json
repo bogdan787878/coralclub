@@ -1,0 +1,31 @@
+{
+  "slug": "liposomal-curcumin",
+  "name": "Liposomal Curcumin",
+  "headline": "Liposomal Curcumin",
+  "category": "Immunity",
+  "cardTitle": "",
+  "goals": [
+    "detox"
+  ],
+  "coralId": "",
+  "description": "",
+  "price": "$31.25",
+  "clubPrice": "$25",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

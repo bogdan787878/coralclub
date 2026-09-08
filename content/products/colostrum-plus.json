@@ -1,0 +1,31 @@
+{
+  "slug": "colostrum-plus",
+  "name": "Colostrum Plus",
+  "headline": "Colostrum Plus",
+  "category": "Immunity",
+  "cardTitle": "",
+  "goals": [
+    "immune"
+  ],
+  "coralId": "",
+  "description": "",
+  "price": "$38.75",
+  "clubPrice": "$31",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

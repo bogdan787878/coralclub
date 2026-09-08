@@ -1,0 +1,31 @@
+{
+  "slug": "slim-by-slim-2374",
+  "name": "Slim by Slim",
+  "headline": "Slim by Slim",
+  "category": "Health",
+  "cardTitle": "",
+  "goals": [
+    "weight"
+  ],
+  "coralId": "",
+  "description": "",
+  "price": "$75",
+  "clubPrice": "$60",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

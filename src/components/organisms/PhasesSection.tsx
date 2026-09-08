@@ -8,8 +8,8 @@ import { DomainCarousel } from "./DomainCarousel";
 import { PhaseSwitcher } from "./PhaseSwitcher";
 import { ProductCard } from "./ProductCard";
 import { SeriesFeature } from "./SeriesFeature";
-import type { DomainContent, PhaseView } from "@/lib/products";
-import { domainProductHref, productHref, shortCategory } from "@/lib/products";
+import type { DomainContent, PhaseView, Product } from "@/lib/products";
+import { getProduct, productHref, shortCategory } from "@/lib/products";
 import styles from "./PhasesSection.module.css";
 
 export type PhasesSectionProps = {
@@ -65,20 +65,42 @@ export function PhasesSection({ phases, domains }: PhasesSectionProps) {
                 </>
               }
             >
-              {domain.products.map((ref) => {
-                const link = domainProductHref(ref);
-                return (
+              {domain.products
+                .map((slug) => getProduct(slug))
+                .filter((p): p is Product => Boolean(p))
+                .map((p) => (
                   <ProductCard
-                    key={ref.slug}
-                    title={ref.name}
-                    category={shortCategory(ref.category)}
-                    price={ref.clubPrice}
-                    priceWas={ref.price}
-                    href={link.href}
-                    images={[]}
+                    key={p.slug}
+                    title={p.headline}
+                    category={shortCategory(p.category)}
+                    price={p.prices[0].price}
+                    priceWas={p.prices[1].price}
+                    href={productHref(p.slug)}
+                    cartHref={p.prices[1].cta.href}
+                    onAddToCart={
+                      p.coralId
+                        ? () =>
+                            addItem({
+                              coralId: p.coralId as string,
+                              slug: p.slug,
+                              name: p.name,
+                              price: p.prices[1].price,
+                              image: p.carouselImages[0],
+                            })
+                        : undefined
+                    }
+                    cartQty={qtyOf(p.coralId)}
+                    onSetQty={
+                      p.coralId
+                        ? (n) => setQty(p.coralId as string, n)
+                        : undefined
+                    }
+                    images={p.carouselImages.map((src) => ({
+                      src,
+                      alt: p.name,
+                    }))}
                   />
-                );
-              })}
+                ))}
             </Carousel>
           ) : (
             <Carousel

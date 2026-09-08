@@ -1,0 +1,31 @@
+{
+  "slug": "coral-licorice",
+  "name": "Coral Licorice Root",
+  "headline": "Coral Licorice Root",
+  "category": "Immunity",
+  "cardTitle": "",
+  "goals": [
+    "immune"
+  ],
+  "coralId": "",
+  "description": "",
+  "price": "$13.75",
+  "clubPrice": "$11",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

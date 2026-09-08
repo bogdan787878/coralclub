@@ -1,0 +1,31 @@
+{
+  "slug": "shark-liver-oil-plus",
+  "name": "Shark Liver Oil Plus",
+  "headline": "Shark Liver Oil Plus",
+  "category": "Immunity",
+  "cardTitle": "",
+  "goals": [
+    "skin"
+  ],
+  "coralId": "",
+  "description": "",
+  "price": "$25",
+  "clubPrice": "$20",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

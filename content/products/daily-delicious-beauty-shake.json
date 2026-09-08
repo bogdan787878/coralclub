@@ -1,0 +1,31 @@
+{
+  "slug": "daily-delicious-beauty-shake",
+  "name": "Daily Delicious Beauty Protein Mix Raspberry",
+  "headline": "Daily Delicious Beauty Protein Mix Raspberry",
+  "category": "Protein",
+  "cardTitle": "",
+  "goals": [
+    "energy"
+  ],
+  "coralId": "",
+  "description": "",
+  "price": "$43.75",
+  "clubPrice": "$35",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

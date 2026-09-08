@@ -1,0 +1,31 @@
+{
+  "slug": "coral-magnesium",
+  "name": "Coral Magnesium",
+  "headline": "Coral Magnesium",
+  "category": "Heart and Blood",
+  "cardTitle": "",
+  "goals": [
+    "sleep"
+  ],
+  "coralId": "",
+  "description": "",
+  "price": "$22.50",
+  "clubPrice": "$18",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

@@ -20,9 +20,12 @@ const products = files.map((f) => {
   return raw;
 });
 
-const domains = existsSync(DOMAINS_FILE)
+const domainsRaw = existsSync(DOMAINS_FILE)
   ? JSON.parse(readFileSync(DOMAINS_FILE, "utf8"))
   : [];
+const domains = Array.isArray(domainsRaw)
+  ? domainsRaw
+  : (domainsRaw.domains ?? []);
 
 const banner =
   "// AUTO-GENERATED from content/products/*.json + content/domains.json by\n" +

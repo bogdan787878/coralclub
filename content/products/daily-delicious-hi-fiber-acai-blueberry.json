@@ -1,0 +1,31 @@
+{
+  "slug": "daily-delicious-hi-fiber-acai-blueberry",
+  "name": "Daily Delicious Hi-Fiber Acai & Blueberry",
+  "headline": "Daily Delicious Hi-Fiber Acai & Blueberry",
+  "category": "Protein",
+  "cardTitle": "",
+  "goals": [
+    "weight"
+  ],
+  "coralId": "",
+  "description": "",
+  "price": "$25",
+  "clubPrice": "$20",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

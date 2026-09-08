@@ -1,0 +1,31 @@
+{
+  "slug": "phytomix-for-women-new",
+  "name": "PhytoMix for Women",
+  "headline": "PhytoMix for Women",
+  "category": "Supplements",
+  "cardTitle": "",
+  "goals": [
+    "sleep"
+  ],
+  "coralId": "",
+  "description": "",
+  "price": "$25",
+  "clubPrice": "$20",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

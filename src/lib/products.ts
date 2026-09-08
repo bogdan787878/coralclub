@@ -259,41 +259,13 @@ const PHASE_DEFS: Array<
 /* (data from content/domains.json, matched from coralclub.us categories).    */
 /* -------------------------------------------------------------------------- */
 
-/** One product row inside a domain set. */
-export type DomainProductRef = {
-  /** Our product slug — links to a real PDP when it's one of our own. */
-  slug: string;
-  /** coralclub.us slug. */
-  usSlug: string;
-  id: string;
-  name: string;
-  category: string;
-  variant: string;
-  /** Regular price, e.g. "$40" — shown as the main price. */
-  price: string;
-  /** Club price, e.g. "$32" — shown struck through on the card. */
-  clubPrice: string;
-  usUrl: string;
-};
-
 export type DomainContent = {
   id: string;
   label: string;
   goal: Goal;
-  products: DomainProductRef[];
+  /** Product slugs — each resolves to a real content/products/*.json. */
+  products: string[];
 };
-
-const OWN_SLUGS = new Set(PRODUCTS.map((p) => p.slug));
-
-/** Does this domain product have a PDP on our site? */
-export function domainProductHref(ref: DomainProductRef): {
-  href: string;
-  external: boolean;
-} {
-  return OWN_SLUGS.has(ref.slug)
-    ? { href: productHref(ref.slug), external: false }
-    : { href: ref.usUrl, external: true };
-}
 
 /** Slugs already covered by the fixed Hydration + Restart phases — kept out
  *  of the personalization domain sets. */
@@ -306,7 +278,7 @@ const FIXED_PHASE_SLUGS = new Set(
 export function getDomains(): DomainContent[] {
   return (GENERATED_DOMAINS as DomainContent[]).map((d) => ({
     ...d,
-    products: d.products.filter((p) => !FIXED_PHASE_SLUGS.has(p.slug)),
+    products: d.products.filter((slug) => !FIXED_PHASE_SLUGS.has(slug)),
   }));
 }
 

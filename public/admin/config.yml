@@ -166,3 +166,27 @@ collections:
         widget: number
         value_type: int
         default: 0
+
+  - name: personalization
+    label: "Personalization"
+    files:
+      - name: domains
+        label: "Domain sets"
+        file: content/domains.json
+        description: "12 health domains, each with its list of product slugs (a slug must match a product's Slug field)."
+        fields:
+          - name: domains
+            label: "Domains"
+            widget: list
+            summary: "{{fields.label}} ({{fields.products.length}})"
+            fields:
+              - { name: id, label: "ID", widget: string }
+              - { name: label, label: "Label (EN)", widget: string }
+              - name: goal
+                label: "Quiz goal"
+                widget: select
+                options: [energy, sleep, skin, detox, weight, immune, hydration]
+              - name: products
+                label: "Product slugs"
+                widget: list
+                field: { name: slug, label: "Slug", widget: string }

@@ -1,0 +1,31 @@
+{
+  "slug": "bp-phyto-control",
+  "name": "PhytoMix #1",
+  "headline": "PhytoMix #1",
+  "category": "Heart and Blood",
+  "cardTitle": "",
+  "goals": [
+    "energy"
+  ],
+  "coralId": "",
+  "description": "",
+  "price": "$26.25",
+  "clubPrice": "$21",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

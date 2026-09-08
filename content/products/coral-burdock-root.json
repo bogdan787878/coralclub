@@ -1,0 +1,31 @@
+{
+  "slug": "coral-burdock-root",
+  "name": "Coral Burdock Root",
+  "headline": "Coral Burdock Root",
+  "category": "Detox",
+  "cardTitle": "",
+  "goals": [
+    "detox"
+  ],
+  "coralId": "",
+  "description": "",
+  "price": "$20",
+  "clubPrice": "$16",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}
