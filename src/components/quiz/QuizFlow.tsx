@@ -6,6 +6,7 @@ import {
   asArray,
   isStepAnswered,
   resolveOptions,
+  titleOf,
   visibleSteps,
   type Answers,
 } from "@/lib/quiz";
@@ -101,7 +102,7 @@ export function QuizFlow() {
 
           {(step.kind === "single" || step.kind === "multi") && (
             <>
-              <h2 className={styles.title}>{step.title}</h2>
+              <h2 className={styles.title}>{titleOf(step, answers)}</h2>
               {step.help && <p className={styles.help}>{step.help}</p>}
 
               <ul className={styles.options} role="list">
