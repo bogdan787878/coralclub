@@ -23,7 +23,14 @@
 
 .priceBlock {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+
+.priceRow {
+  display: flex;
   align-items: baseline;
   gap: var(--space-8);
 }
@@ -44,10 +51,9 @@
   text-decoration: line-through;
 }
 
+/* hug-content pill on its own line */
 .savings {
-  flex-basis: 100%;
-  width: max-content;
-  margin-top: 2px;
+  align-self: flex-start;
   padding: 2px var(--space-8);
   border-radius: var(--radius-pill);
   background: #b0794a;
@@ -62,4 +68,37 @@
   flex: none;
   min-height: 52px;
   padding-inline: var(--space-40);
+}
+
+/* −  N  +  stepper — replaces the action once the product is in the cart */
+.stepper {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-action);
+  color: #ffffff;
+}
+.stepper button {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  font-size: 1.375rem;
+  line-height: 1;
+  color: inherit;
+}
+.stepper button:active {
+  background: rgba(255, 255, 255, 0.16);
+}
+.stepperCount {
+  min-width: 32px;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  font-weight: 600;
 }

@@ -18,23 +18,28 @@ rebuilds and redeploys automatically — live in ~1–2 minutes.
 
 ### Signing in
 
-The CMS talks to GitHub as *you*. A one-click "Sign in with GitHub" button
-needs an OAuth relay we don't host, so use a token instead:
+⚠️ **Do NOT click "Sign In with GitHub".** That button needs an OAuth relay
+we haven't deployed, so it falls back to Netlify's and dead-ends on a
+"Not Found" page. Use **"Sign In Using Access Token"** instead:
 
 1. GitHub → **Settings → Developer settings → Personal access tokens →
    Fine-grained tokens → Generate new token**.
 2. **Repository access:** Only select repositories → `bogdan787878/coralclub`.
 3. **Permissions → Repository permissions → Contents: Read and write.**
-4. Generate, copy the token.
-5. On the CMS sign-in screen pick the **personal access token** option and
-   paste it. (The token stays in your browser; it's never committed.)
+   (Leave everything else "No access".)
+4. Set a short expiry, generate, copy the token.
+5. On the CMS sign-in screen click **Sign In Using Access Token** and paste
+   it. The token stays in your browser; it is never committed.
 
-Treat that token like a password. Revoke it from the same GitHub page when
-you're done, or give it a short expiry.
+Treat the token like a password; revoke it from the same GitHub page when
+you're done.
 
-> Optional upgrade: deploy the tiny `sveltia-cms-auth` Cloudflare Worker + a
-> GitHub OAuth App to get the "Sign in with GitHub" button, then add
-> `backend.base_url` to `config.yml`. See the Sveltia CMS docs.
+> Optional: to get a working one-click "Sign In with GitHub" button, deploy
+> the [`sveltia-cms-auth`](https://github.com/sveltia/sveltia-cms-auth)
+> Cloudflare Worker (it has a "Deploy to Cloudflare" button), register a
+> GitHub OAuth App with the callback the worker prints, then add
+> `backend.base_url: https://<your-worker>.workers.dev` to
+> `public/admin/config.yml`. Until then, the token flow above is the way in.
 
 ### Fields
 

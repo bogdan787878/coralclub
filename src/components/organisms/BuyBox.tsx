@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui";
-import { addItem } from "@/lib/cart";
+import { addItem, setQty, useCart } from "@/lib/cart";
 import styles from "./BuyBox.module.css";
 
 export type BuyBoxOption = {
@@ -26,20 +25,20 @@ export type BuyBoxProps = {
 };
 
 /**
- * BuyBox — pinned bottom bar: the price (club price, with the regular price
- * struck through and the savings tag) on the left, one "Add to Cart" action
- * on the right. No tier toggle. Regular-price value is what goes into the
- * cart line; checkout hands the whole cart to coralclub.ru.
+ * BuyBox — pinned bottom bar: club price (regular price struck through +
+ * savings tag) on the left, one action on the right. Once the product is in
+ * the cart the action becomes a "− N +" stepper, like the carousel card.
  */
 export function BuyBox({ options, product }: BuyBoxProps) {
-  const [added, setAdded] = useState(false);
-
+  const cart = useCart();
   const club = options.find((o) => o.id === "club") ?? options[0];
   const regular = options.find((o) => o.id === "regular") ?? options[0];
   const canAddToCart = Boolean(product.coralId);
-  const shopHref = regular.cta.href;
+  const qty = canAddToCart
+    ? (cart.find((l) => l.coralId === product.coralId)?.qty ?? 0)
+    : 0;
 
-  const addToCart = () => {
+  const add = () =>
     addItem({
       coralId: product.coralId as string,
       slug: product.slug,
@@ -47,32 +46,47 @@ export function BuyBox({ options, product }: BuyBoxProps) {
       price: regular.price,
       image: product.image,
     });
-    setAdded(true);
-    window.setTimeout(() => setAdded(false), 2000);
-  };
 
   return (
     <div className={styles.bar}>
       <div className={styles.inner}>
         <div className={styles.priceBlock}>
-          <span className={styles.now}>{club.price}</span>
-          <span className={styles.was}>{regular.price}</span>
+          <div className={styles.priceRow}>
+            <span className={styles.now}>{club.price}</span>
+            <span className={styles.was}>{regular.price}</span>
+          </div>
           {club.note && <span className={styles.savings}>{club.note}</span>}
         </div>
 
-        {canAddToCart ? (
-          <Button
-            variant="primary"
-            className={styles.action}
-            onClick={addToCart}
-          >
-            {added ? "Added ✓" : "Add to Cart"}
+        {canAddToCart && qty > 0 ? (
+          <div className={styles.stepper}>
+            <button
+              type="button"
+              aria-label="Remove one"
+              onClick={() => setQty(product.coralId as string, qty - 1)}
+            >
+              −
+            </button>
+            <span className={styles.stepperCount} aria-live="polite">
+              {qty}
+            </span>
+            <button
+              type="button"
+              aria-label="Add one"
+              onClick={() => setQty(product.coralId as string, qty + 1)}
+            >
+              +
+            </button>
+          </div>
+        ) : canAddToCart ? (
+          <Button variant="primary" className={styles.action} onClick={add}>
+            Add to Cart
           </Button>
         ) : (
           <Button
             variant="primary"
             className={styles.action}
-            href={shopHref}
+            href={regular.cta.href}
             target="_blank"
             rel="noopener noreferrer"
           >
