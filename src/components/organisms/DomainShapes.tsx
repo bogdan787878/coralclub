@@ -8,9 +8,15 @@ import type { ReactNode } from "react";
 
 const V = "0 0 100 100";
 
-function Shape({ children }: { children: ReactNode }) {
+function Shape({
+  children,
+  viewBox = V,
+}: {
+  children: ReactNode;
+  viewBox?: string;
+}) {
   return (
-    <svg viewBox={V} fill="none" aria-hidden="true">
+    <svg viewBox={viewBox} fill="none" aria-hidden="true">
       {children}
     </svg>
   );
@@ -80,21 +86,26 @@ export const DOMAIN_SHAPE: Record<string, ReactNode> = {
       />
     </Shape>
   ),
-  // cloud with Zzz
+  // cloud with Zzz (converted from the provided CustomPainter paths)
   "sleep-stress": (
-    <Shape>
+    <Shape viewBox="0 2 182 136">
       <path
-        d="M32 74a20 20 0 0 1-3-40 24 24 0 0 1 44-8 17 17 0 0 1 5 33 15 15 0 0 1-5 15z"
+        d="M50 68C64 68 76 72 85 78C93 84 100 92 100 100C100 110 93 119 85 125C76 131 64 134 50 134C36 134 24 131 15 125C7 119 1 110 1 100C1 92 7 84 15 78C24 72 36 68 50 68Z"
         fill="currentColor"
-        stroke="currentColor"
-        strokeWidth="6"
-        strokeLinejoin="round"
       />
       <path
-        d="M52 40h16l-16 16h16M70 20h11l-11 11h11M84 8h8l-8 8h8"
+        d="M84 34C111 34 134 57 134 84C134 112 111 134 84 134C56 134 34 112 34 84C34 57 56 34 84 34Z"
+        fill="currentColor"
+      />
+      <path
+        d="M130 62C144 62 156 65 165 71C173 77 179 86 179 95C179 104 173 112 165 118C156 124 144 128 130 128C116 128 104 124 95 118C87 112 81 104 81 95C81 86 87 77 95 71C104 65 116 62 130 62Z"
+        fill="currentColor"
+      />
+      <path
+        d="M124 7C128 6 148 7 151 7C152 7 145 10 135 15C124 19 120 24 119 24C122 25 128 25 136 26C140 27 145 28 150 30M121 35C122 35 126 35 130 35C131 36 127 38 123 42C122 43 123 44 124 45C128 47 131 49 133 49"
         fill="none"
         stroke="currentColor"
-        strokeWidth="6"
+        strokeWidth="7"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
