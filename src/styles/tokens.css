@@ -29,6 +29,9 @@
   --color-white: #ffffff;
   --color-black: #000000;
 
+  /* Special — warm tan accent for category tags */
+  --color-special: #cb8d52;
+
   /* ---------- Color · semantic ---------- */
   --color-bg: var(--color-white);
   --color-surface: var(--color-primary-10);

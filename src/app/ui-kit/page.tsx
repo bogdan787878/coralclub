@@ -29,6 +29,7 @@ const COLORS = [
   { name: "Primary 100", value: "#011130", token: "--color-primary-100" },
   { name: "Primary 30", value: "#C6D6ED", token: "--color-primary-30" },
   { name: "Primary 10", value: "#E3ECFA", token: "--color-primary-10" },
+  { name: "Special", value: "#CB8D52", token: "--color-special" },
 ];
 
 const SPACING = [

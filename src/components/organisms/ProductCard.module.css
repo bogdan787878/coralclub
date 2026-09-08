@@ -195,14 +195,11 @@
 
 .category {
   align-self: flex-start;
-  padding: 4px var(--space-12);
-  border-radius: var(--radius-pill);
-  background: #b0794a;
-  color: #ffffff;
+  color: var(--color-special);
   font-family: var(--font-sans);
-  font-size: 0.8125rem;
-  line-height: 1.1rem;
-  font-weight: var(--font-weight-medium);
+  font-size: 0.875rem; /* 14 */
+  line-height: 1rem; /* 16 */
+  font-weight: var(--font-weight-bold);
 }
 
 .title {

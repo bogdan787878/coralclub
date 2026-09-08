@@ -295,8 +295,19 @@ export function domainProductHref(ref: DomainProductRef): {
     : { href: ref.usUrl, external: true };
 }
 
+/** Slugs already covered by the fixed Hydration + Restart phases — kept out
+ *  of the personalization domain sets. */
+const FIXED_PHASE_SLUGS = new Set(
+  PHASE_DEFS.filter((p) => p.id === "hydration" || p.id === "restart").flatMap(
+    (p) => p.slugs,
+  ),
+);
+
 export function getDomains(): DomainContent[] {
-  return GENERATED_DOMAINS as DomainContent[];
+  return (GENERATED_DOMAINS as DomainContent[]).map((d) => ({
+    ...d,
+    products: d.products.filter((p) => !FIXED_PHASE_SLUGS.has(p.slug)),
+  }));
 }
 
 /** Short tag labels for the long coralclub.us category names. */

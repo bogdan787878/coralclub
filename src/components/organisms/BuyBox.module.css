@@ -71,7 +71,7 @@
   align-self: flex-start;
   padding: 2px var(--space-8);
   border-radius: var(--radius-pill);
-  background: #b0794a;
+  background: var(--color-special);
   color: #ffffff;
   font-family: var(--font-sans);
   font-size: 0.75rem;
