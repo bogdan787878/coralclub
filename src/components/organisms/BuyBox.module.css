@@ -78,8 +78,10 @@
   height: 52px;
   padding: 0 6px;
   border-radius: var(--radius-pill);
-  background: var(--color-action);
-  color: #ffffff;
+  background: #ffffff;
+  color: var(--color-primary-100);
+  border: 1px solid var(--color-primary-30);
+  box-shadow: 0 8px 24px rgba(1, 17, 48, 0.12);
 }
 .stepper button {
   width: 42px;
@@ -93,7 +95,7 @@
   color: inherit;
 }
 .stepper button:active {
-  background: rgba(255, 255, 255, 0.16);
+  background: var(--color-primary-10);
 }
 .stepperCount {
   min-width: 32px;
