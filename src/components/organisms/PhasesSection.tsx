@@ -81,7 +81,7 @@ export function PhasesSection({ phases, domains }: PhasesSectionProps) {
             </Carousel>
           ) : (
             <Carousel
-              label={`Phase ${phase.index} — ${phase.name}`}
+              label={phase.name}
               title={
                 <>
                   {phase.headline.lead}{" "}

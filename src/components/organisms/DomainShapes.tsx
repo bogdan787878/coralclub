@@ -7,14 +7,10 @@ import type { ReactNode } from "react";
  */
 
 const V = "0 0 100 100";
-const halo = (
-  <circle cx="50" cy="50" r="46" fill="currentColor" opacity="0.13" />
-);
 
 function Shape({ children }: { children: ReactNode }) {
   return (
     <svg viewBox={V} fill="none" aria-hidden="true">
-      {halo}
       {children}
     </svg>
   );

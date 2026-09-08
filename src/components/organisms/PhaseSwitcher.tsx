@@ -50,7 +50,6 @@ export function PhaseSwitcher({
               )}
             </span>
             <span className={styles.label}>
-              <span className={styles.phase}>Phase {phase.index}</span>
               <span className={styles.name}>{phase.name}</span>
             </span>
           </button>
