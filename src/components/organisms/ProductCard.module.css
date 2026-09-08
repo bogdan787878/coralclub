@@ -106,6 +106,43 @@
   transform: scale(0.94);
 }
 
+/* −  N  +  stepper — replaces the cart button once the line is in the cart */
+.stepper {
+  position: absolute;
+  right: var(--space-12);
+  bottom: var(--space-12);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 2px;
+  border-radius: var(--radius-pill);
+  background: #ffffff;
+  color: var(--color-primary-100);
+  box-shadow: 0 10px 24px rgba(1, 17, 48, 0.18);
+}
+.stepper button {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  font-size: 1.25rem;
+  line-height: 1;
+  color: inherit;
+}
+.stepper button:active {
+  background: var(--color-primary-10);
+}
+.stepperCount {
+  min-width: 18px;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}
+
 /* ---------- Text — no background ---------- */
 .info {
   position: relative;

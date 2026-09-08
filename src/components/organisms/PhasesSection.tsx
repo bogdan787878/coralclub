@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Accent, Container, Section } from "@/components/ui";
-import { addItem } from "@/lib/cart";
+import { addItem, setQty, useCart } from "@/lib/cart";
 import { Carousel } from "./Carousel";
 import { PhaseSwitcher } from "./PhaseSwitcher";
 import { ProductCard } from "./ProductCard";
@@ -21,6 +21,10 @@ export type PhasesSectionProps = {
 export function PhasesSection({ phases }: PhasesSectionProps) {
   const [activeId, setActiveId] = useState(phases[0]?.id);
   const phase = phases.find((p) => p.id === activeId) ?? phases[0];
+
+  const cart = useCart();
+  const qtyOf = (coralId?: string) =>
+    coralId ? (cart.find((l) => l.coralId === coralId)?.qty ?? 0) : 0;
 
   return (
     <div className={styles.themed} data-phase={phase.id}>
@@ -62,6 +66,12 @@ export function PhasesSection({ phases }: PhasesSectionProps) {
                           price: p.priceWas,
                           image: p.image,
                         })
+                    : undefined
+                }
+                cartQty={qtyOf(p.coralId)}
+                onSetQty={
+                  p.coralId
+                    ? (n) => setQty(p.coralId as string, n)
                     : undefined
                 }
                 images={

@@ -29,6 +29,10 @@ export type ProductCardProps = {
   cartHref?: string;
   /** Adds the product to the local cart. Takes over the cart button. */
   onAddToCart?: () => void;
+  /** Current quantity of this product in the cart. */
+  cartQty?: number;
+  /** Set the cart quantity (0 removes). Powers the −/+ stepper. */
+  onSetQty?: (qty: number) => void;
 };
 
 function CartIcon() {
@@ -62,6 +66,8 @@ export function ProductCard({
   images = [],
   cartHref = "#add-to-bag",
   onAddToCart,
+  cartQty = 0,
+  onSetQty,
 }: ProductCardProps) {
   const [active, setActive] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -110,14 +116,36 @@ export function ProductCard({
         )}
 
         {onAddToCart ? (
-          <button
-            type="button"
-            onClick={onAddToCart}
-            className={styles.cart}
-            aria-label="Add to bag"
-          >
-            <CartIcon />
-          </button>
+          cartQty > 0 ? (
+            <span className={styles.stepper}>
+              <button
+                type="button"
+                aria-label="Remove one"
+                onClick={() => onSetQty?.(cartQty - 1)}
+              >
+                −
+              </button>
+              <span className={styles.stepperCount} aria-live="polite">
+                {cartQty}
+              </span>
+              <button
+                type="button"
+                aria-label="Add one"
+                onClick={() => onSetQty?.(cartQty + 1)}
+              >
+                +
+              </button>
+            </span>
+          ) : (
+            <button
+              type="button"
+              onClick={onAddToCart}
+              className={styles.cart}
+              aria-label="Add to bag"
+            >
+              <CartIcon />
+            </button>
+          )
         ) : /^https?:/.test(cartHref) ? (
           <a
             href={cartHref}
