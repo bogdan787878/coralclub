@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import {
   basketHandoffUrl,
@@ -38,14 +39,16 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
     };
   }, [open, onClose]);
 
-  if (!open) return null;
+  if (!open || typeof document === "undefined") return null;
 
   const checkout = () => {
     if (!lines.length) return;
     window.open(basketHandoffUrl(lines), "_blank", "noopener,noreferrer");
   };
 
-  return (
+  // portal to <body> so the drawer isn't trapped inside a lower stacking
+  // context (e.g. the PDP's fixed controls / buy bar)
+  return createPortal(
     <div className={styles.root} role="dialog" aria-modal="true" aria-label="Cart">
       <button
         type="button"
@@ -139,6 +142,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
           )}
         </footer>
       </aside>
-    </div>
+    </div>,
+    document.body,
   );
 }

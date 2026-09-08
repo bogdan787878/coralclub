@@ -1,5 +1,4 @@
-/* Only the primary action is pinned to the bottom; the price selector
-   lives in the page body. */
+/* Pinned buy bar: price on the left, one action on the right. */
 .bar {
   position: fixed;
   left: 0;
@@ -16,9 +15,51 @@
 .inner {
   max-width: 640px;
   margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+}
+
+.priceBlock {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-8);
+}
+
+.now {
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.was {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.25rem;
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+.savings {
+  flex-basis: 100%;
+  width: max-content;
+  margin-top: 2px;
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-pill);
+  background: #b0794a;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: var(--font-weight-medium);
 }
 
 .action {
-  width: 100%;
+  flex: none;
   min-height: 52px;
+  padding-inline: var(--space-40);
 }

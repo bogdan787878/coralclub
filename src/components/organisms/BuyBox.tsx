@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui";
 import { addItem } from "@/lib/cart";
-import { PriceSelector } from "./PriceSelector";
 import styles from "./BuyBox.module.css";
 
 export type BuyBoxOption = {
@@ -27,19 +26,18 @@ export type BuyBoxProps = {
 };
 
 /**
- * BuyBox — the price selector sits in the page body; only the primary
- * action is pinned to the bottom of the screen. Club tier → become a
- * member (link). Regular tier → add to the local cart, which later hands
- * off to coralclub.ru's basket (or the redirect link when there's no id).
+ * BuyBox — pinned bottom bar: the price (club price, with the regular price
+ * struck through and the savings tag) on the left, one "Add to Cart" action
+ * on the right. No tier toggle. Regular-price value is what goes into the
+ * cart line; checkout hands the whole cart to coralclub.ru.
  */
 export function BuyBox({ options, product }: BuyBoxProps) {
-  const [selectedId, setSelectedId] = useState(options[0]?.id);
   const [added, setAdded] = useState(false);
-  const selected = options.find((o) => o.id === selectedId) ?? options[0];
 
-  const regular = options.find((o) => o.id === "regular") ?? selected;
-  const canAddToCart = selected.id === "regular" && Boolean(product.coralId);
-  const external = /^https?:/.test(selected.cta.href);
+  const club = options.find((o) => o.id === "club") ?? options[0];
+  const regular = options.find((o) => o.id === "regular") ?? options[0];
+  const canAddToCart = Boolean(product.coralId);
+  const shopHref = regular.cta.href;
 
   const addToCart = () => {
     addItem({
@@ -54,39 +52,34 @@ export function BuyBox({ options, product }: BuyBoxProps) {
   };
 
   return (
-    <>
-      <PriceSelector
-        options={options}
-        value={selectedId}
-        onChange={setSelectedId}
-      />
-
-      <div className={styles.bar}>
-        <div className={styles.inner}>
-          {canAddToCart ? (
-            <Button
-              variant="primary"
-              block
-              className={styles.action}
-              onClick={addToCart}
-            >
-              {added ? "Added to cart ✓" : selected.cta.label}
-            </Button>
-          ) : (
-            <Button
-              variant="primary"
-              block
-              className={styles.action}
-              href={selected.cta.href}
-              {...(external
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-            >
-              {selected.cta.label}
-            </Button>
-          )}
+    <div className={styles.bar}>
+      <div className={styles.inner}>
+        <div className={styles.priceBlock}>
+          <span className={styles.now}>{club.price}</span>
+          <span className={styles.was}>{regular.price}</span>
+          {club.note && <span className={styles.savings}>{club.note}</span>}
         </div>
+
+        {canAddToCart ? (
+          <Button
+            variant="primary"
+            className={styles.action}
+            onClick={addToCart}
+          >
+            {added ? "Added ✓" : "Add to Cart"}
+          </Button>
+        ) : (
+          <Button
+            variant="primary"
+            className={styles.action}
+            href={shopHref}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Add to Cart
+          </Button>
+        )}
       </div>
-    </>
+    </div>
   );
 }
