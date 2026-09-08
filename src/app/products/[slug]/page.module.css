@@ -14,7 +14,8 @@
   /* inner padding so the packshot doesn't touch the frame edges */
   padding: var(--space-48);
   background: var(--color-primary-30);
-  border-radius: var(--radius-base);
+  /* full-bleed to the screen edges, no rounded corners */
+  margin-inline: calc(-1 * var(--page-padding-inline));
 }
 
 /* the fill image respects the frame padding via this inner box */

@@ -3,25 +3,6 @@
   flex-direction: column;
 }
 
-.announce {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-8);
-  padding: var(--space-8) var(--page-padding-inline);
-  background: var(--color-primary-30);
-  color: var(--color-text);
-  font-family: var(--font-sans);
-  font-size: var(--text-body-long-size);
-  line-height: var(--text-body-long-line);
-  font-weight: var(--font-weight-medium);
-  text-align: center;
-}
-
-.announceChevron {
-  flex: none;
-}
-
 .brandBar {
   position: relative;
   display: flex;
@@ -30,42 +11,26 @@
   background: var(--color-surface);
 }
 
-.quiz,
-.signIn {
+.cta {
   position: absolute;
   top: 50%;
+  right: var(--page-padding-inline);
   transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 var(--space-16);
+  border-radius: var(--radius-pill);
+  background: var(--color-action);
+  color: #fff;
   font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: var(--font-weight-medium);
-  color: var(--color-text);
-  opacity: 0.75;
+  transition: background-color 0.15s var(--ease-standard);
 }
-.quiz {
-  right: var(--page-padding-inline);
-}
-.signIn {
-  left: var(--page-padding-inline);
-}
-.quiz:hover,
-.signIn:hover {
-  opacity: 1;
-}
-
-.quizFull {
-  display: none;
-}
-.quizShort {
-  display: inline;
-}
-
-@media (min-width: 480px) {
-  .quizFull {
-    display: inline;
-  }
-  .quizShort {
-    display: none;
-  }
+.cta:hover {
+  background: var(--color-action-hover);
 }
 
 .brand {

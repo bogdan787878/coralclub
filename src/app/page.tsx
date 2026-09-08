@@ -46,19 +46,19 @@ export default function Home() {
       <Hero
         title={
           <>
-            A system for your health.
+            Your health starts
             <br />
-            <Accent>It starts with water.</Accent>
+            <Accent>with water</Accent>
           </>
         }
         body={
           <>
-            Coral Club isn&apos;t a shelf of separate supplements. It&apos;s one
-            system, built in phases — and hydration is where it begins.
+            Hydration is step one of your Coral Club routine — the phase
+            everything else builds on.
           </>
         }
         image={HERO_IMAGE}
-        cta={{ label: "Learn about hydration", href: "/quiz" }}
+        cta={{ label: "Build my set", href: "/quiz" }}
       />
 
       <div id="phases">

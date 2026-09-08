@@ -64,8 +64,8 @@ function tier(clubPrice: string, regularPrice: string): PriceOption[] {
       label: "Club Price",
       note: "25% Savings",
       price: clubPrice,
-      // member price → you sign up to unlock it
-      cta: { label: "Sign up", href: "#sign-up" },
+      // member price → become a club member to unlock it
+      cta: { label: "Become a club member", href: "/account" },
     },
     {
       id: "regular",
