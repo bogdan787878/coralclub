@@ -2,7 +2,6 @@ import { Accent } from "@/components/ui";
 import {
   CommunityReels,
   Editorial,
-  FeaturedSeries,
   Hero,
   PhasesSection,
   SiteHeader,
@@ -23,18 +22,6 @@ const COMMUNITY_REELS = [
   { src: asset("/reels/reel5.mp4"), alt: "Ambassador explaining why she recommends Coral Club" },
 ];
 
-const HYDRATION_SERIES = {
-  title: { lead: "The Hydration Series.", accent: "Step by Step" },
-  feature: {
-    src: asset("/images/hydration-series-feature.png"),
-    alt: "Hydramax Plus — 30-day hydration set on a bright desk",
-  },
-  items: [
-    { alt: "Hydration Series item" },
-    { alt: "Hydration Series item" },
-  ],
-  cta: { label: "Shop", href: "#shop" },
-};
 
 export default function Home() {
   const phases = getPhases();
@@ -66,7 +53,6 @@ export default function Home() {
         <PhasesSection phases={phases} domains={domains} />
       </div>
 
-      <FeaturedSeries {...HYDRATION_SERIES} />
 
       <Editorial
         title={{

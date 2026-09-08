@@ -7,6 +7,7 @@ import { Carousel } from "./Carousel";
 import { DomainCarousel } from "./DomainCarousel";
 import { PhaseSwitcher } from "./PhaseSwitcher";
 import { ProductCard } from "./ProductCard";
+import { SeriesFeature } from "./SeriesFeature";
 import type { DomainContent, PhaseView } from "@/lib/products";
 import { domainProductHref, productHref, shortCategory } from "@/lib/products";
 import styles from "./PhasesSection.module.css";
@@ -120,6 +121,13 @@ export function PhasesSection({ phases, domains }: PhasesSectionProps) {
                 />
               ))}
             </Carousel>
+          )}
+
+          {!isPersonalization && phase.products[0] && (
+            <SeriesFeature
+              seriesName={phase.name}
+              product={phase.products[0]}
+            />
           )}
         </div>
       </Section>
