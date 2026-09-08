@@ -36,9 +36,13 @@
   position: relative;
   flex: 0 0 100%;
   scroll-snap-align: start;
-  padding: var(--space-16);
 }
-.slide :global(img) {
+/* 16px inner padding around the packshot */
+.frame {
+  position: absolute;
+  inset: var(--space-16);
+}
+.frame :global(img) {
   object-fit: contain;
 }
 .slideEmpty {
@@ -77,14 +81,14 @@
   background: var(--color-primary-100);
 }
 
-/* floating add-to-bag button, overhanging the tile's bottom-right */
+/* white cart button, inside the tile's bottom-right corner */
 .cart {
   position: absolute;
-  right: 4px;
-  bottom: -18px;
+  right: var(--space-12);
+  bottom: var(--space-12);
   z-index: 3;
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -95,8 +99,8 @@
   transition: transform 0.12s var(--ease-standard);
 }
 .cart svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
 }
 .cart:active {
   transform: scale(0.94);
@@ -107,8 +111,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  /* clear the overhanging cart button */
-  margin-top: var(--space-24);
+  margin-top: var(--space-12);
 }
 
 .category {

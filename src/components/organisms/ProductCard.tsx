@@ -78,13 +78,15 @@ export function ProductCard({
           {images.length ? (
             images.map((img, i) => (
               <span className={styles.slide} key={i}>
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  sizes="(max-width: 767px) 220px, (max-width: 1023px) 260px, 300px"
-                  style={img.position ? { objectPosition: img.position } : undefined}
-                />
+                <span className={styles.frame}>
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    sizes="150px"
+                    style={img.position ? { objectPosition: img.position } : undefined}
+                  />
+                </span>
               </span>
             ))
           ) : (
