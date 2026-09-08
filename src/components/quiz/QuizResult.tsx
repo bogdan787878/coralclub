@@ -1,33 +1,19 @@
 import Link from "next/link";
-import { buildProtocol, recapLines, type Answers } from "@/lib/quiz";
+import { buildSelection, recapLines, type Answers } from "@/lib/quiz";
 import { productHref } from "@/lib/products";
 import styles from "./QuizResult.module.css";
 
-export function QuizResult({
-  answers,
-  name,
-  email,
-}: {
-  answers: Answers;
-  name: string;
-  email: string;
-}) {
-  const protocol = buildProtocol(answers);
+export function QuizResult({ answers }: { answers: Answers }) {
+  const products = buildSelection(answers);
   const recap = recapLines(answers);
-  const firstName = name.trim().split(/\s+/)[0];
 
   return (
     <div className={styles.result}>
-      <p className={styles.kicker}>Готово{firstName ? `, ${firstName}` : ""}</p>
-      <h1 className={styles.title}>Твой протокол по фазам</h1>
-      <p className={styles.lead}>
-        Идём сверху вниз: сначала база, потом разгрузка, потом точечная поддержка.
-        Разбор и подборку мы также вернём на {email || "твою почту"}.
-      </p>
+      <p className={styles.kicker}>Готово</p>
+      <h1 className={styles.title}>Твоя подборка</h1>
 
       {recap.length > 0 && (
         <div className={styles.recap}>
-          <p className={styles.recapHead}>Что мы поняли про твою задачу</p>
           <ul>
             {recap.map((line, i) => (
               <li key={i}>{line}</li>
@@ -36,34 +22,38 @@ export function QuizResult({
         </div>
       )}
 
-      <ol className={styles.phases}>
-        {protocol.map((phase) => (
-          <li key={phase.id} className={styles.phase}>
-            <div className={styles.phaseHead}>
-              <span className={styles.phaseNum}>Фаза {phase.index}</span>
-              <h2 className={styles.phaseName}>{phase.name}</h2>
-            </div>
-            <p className={styles.phaseWhy}>{phase.why}</p>
-
-            <ul className={styles.products} role="list">
-              {phase.products.map((p) => (
-                <li key={p.slug} className={styles.product}>
-                  <Link href={productHref(p.slug)} className={styles.productLink}>
-                    <span className={styles.productName}>{p.name}</span>
-                    <span className={styles.productFor}>{p.title}</span>
-                  </Link>
-                  <span className={styles.productPrice}>{p.price}</span>
-                </li>
-              ))}
-            </ul>
+      <ul className={styles.products} role="list">
+        {products.map((p) => (
+          <li key={p.slug} className={styles.product}>
+            <Link href={productHref(p.slug)} className={styles.productLink}>
+              <span className={styles.productBody}>
+                <span className={styles.productName}>{p.name}</span>
+                <span className={styles.productCat}>{p.category}</span>
+              </span>
+              <span className={styles.productPrice}>
+                <span className={styles.now}>{p.prices[0].price}</span>
+                <span className={styles.was}>{p.prices[1].price}</span>
+              </span>
+              <span className={styles.chevron} aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M9 6l6 6-6 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </Link>
           </li>
         ))}
-      </ol>
+      </ul>
 
       <div className={styles.actions}>
-        <a className={styles.primary} href="#open-in-store">
-          Открыть подборку в магазине
-        </a>
+        <Link href="/#phases" className={styles.primary}>
+          Смотреть все направления
+        </Link>
         <Link href="/" className={styles.secondary}>
           На главную
         </Link>

@@ -1,52 +1,25 @@
 /* ============================================================
-   Quiz — full-bleed, one vivid colour per screen.
-   Each tone sets the same set of custom properties; the layout
-   below is tone-agnostic.
+   Quiz — full-bleed, blue only. The background shade cycles
+   (see BLUES in QuizFlow.tsx) via the inline --q-bg; everything
+   below reads the same custom properties.
    ============================================================ */
 
 .root {
   --q-radius: 20px;
 
-  display: flex;
-  flex-direction: column;
-  min-height: 100dvh;
-  background: var(--q-bg);
-  color: var(--q-fg);
-  transition: background-color 0.35s var(--ease-standard), color 0.35s var(--ease-standard);
-}
-
-/* ---------- Tones (values mirror the palette in tokens.css) ---------- */
-.toneNavy {
+  /* --q-bg is set inline per screen; the rest is fixed (white on dark blue) */
   --q-bg: #011130;
   --q-fg: #ffffff;
   --q-card: rgba(255, 255, 255, 0.06);
   --q-card-border: rgba(255, 255, 255, 0.22);
   --q-on: #ffffff;
   --q-on-fg: #011130;
-}
-.toneBlue {
-  --q-bg: #c6d6ed;
-  --q-fg: #011130;
-  --q-card: #e3ecfa;
-  --q-card-border: rgba(1, 17, 48, 0.14);
-  --q-on: #011130;
-  --q-on-fg: #ffffff;
-}
-.tonePeach {
-  --q-bg: #f5d2ac;
-  --q-fg: #331e10;
-  --q-card: #faeee2;
-  --q-card-border: rgba(51, 30, 16, 0.16);
-  --q-on: #331e10;
-  --q-on-fg: #ffffff;
-}
-.toneGreen {
-  --q-bg: #b9e0d6;
-  --q-fg: #03211d;
-  --q-card: #e3f2ee;
-  --q-card-border: rgba(3, 33, 29, 0.16);
-  --q-on: #03211d;
-  --q-on-fg: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background-color: var(--q-bg);
+  color: var(--q-fg);
 }
 
 /* ---------- Top bar + progress ---------- */
@@ -54,8 +27,8 @@
   position: sticky;
   top: 0;
   z-index: 5;
-  background: var(--q-bg);
-  transition: background-color 0.35s var(--ease-standard);
+  /* follow the root's (transitioning) background */
+  background-color: inherit;
 }
 
 .track {

@@ -80,14 +80,22 @@ export const DOMAIN_SHAPE: Record<string, ReactNode> = {
       />
     </Shape>
   ),
-  // pillow
+  // cloud with Zzz
   "sleep-stress": (
     <Shape>
       <path
-        d="M22 32c16-7 40-7 56 0 7 16 7 36 0 52-16 7-40 7-56 0-7-16-7-36 0-52z"
+        d="M32 74a20 20 0 0 1-3-40 24 24 0 0 1 44-8 17 17 0 0 1 5 33 15 15 0 0 1-5 15z"
         fill="currentColor"
         stroke="currentColor"
         strokeWidth="6"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M52 40h16l-16 16h16M70 20h11l-11 11h11M84 8h8l-8 8h8"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="6"
+        strokeLinecap="round"
         strokeLinejoin="round"
       />
     </Shape>
