@@ -1,0 +1,168 @@
+backend:
+  name: github
+  repo: bogdan787878/coralclub
+  branch: main
+  # A "Sign in with GitHub" button needs an OAuth relay. Without one,
+  # Sveltia CMS also lets you paste a GitHub fine-grained personal access
+  # token on the sign-in screen (repo contents: read & write). See ADMIN.md.
+
+# Uploaded images are committed to the repo here; the path stored in the
+# JSON uses `public_folder`, and the app's asset() helper adds the
+# /coralclub base path at runtime.
+media_folder: "public/images/products"
+public_folder: "/images/products"
+
+# Commit straight to the branch (no PR workflow).
+publish_mode: simple
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - name: products
+    label: Products
+    label_singular: Product
+    identifier_field: name
+    summary: "{{fields.name}} — {{fields.category}}"
+    folder: content/products
+    create: true
+    delete: true
+    extension: json
+    format: json
+    slug: "{{fields.slug}}"
+    fields:
+      - name: slug
+        label: "Slug (URL)"
+        widget: string
+        hint: "lowercase-with-dashes — the product page address, e.g. /products/<slug>"
+        pattern: ["^[a-z0-9]+(?:-[a-z0-9]+)*$", "lowercase letters, digits and dashes only"]
+
+      - name: name
+        label: "Название продукта"
+        widget: string
+
+      - name: headline
+        label: "Заголовок карточки (карусель, 2 строки)"
+        widget: string
+
+      - name: category
+        label: "Категория (для тегов)"
+        widget: string
+
+      - name: cardTitle
+        label: "Строка цели на карточке"
+        widget: string
+
+      - name: goals
+        label: "Цели (для подбора в квизе)"
+        widget: select
+        multiple: true
+        min: 1
+        options:
+          - energy
+          - sleep
+          - skin
+          - detox
+          - weight
+          - immune
+          - hydration
+
+      - name: coralId
+        label: "coralclub.ru ID (для корзины)"
+        widget: string
+        required: false
+        hint: "Product id from a coralclub.ru share-cart link. Leave blank to link out to the shop."
+
+      - name: price
+        label: "Цена"
+        widget: string
+        hint: "e.g. $29.99"
+
+      - name: clubPrice
+        label: "Клубная цена"
+        widget: string
+        hint: "e.g. $21.99 — shown on the PDP as the main price; on the carousel card it's the struck-through price"
+
+      - name: description
+        label: "Описание"
+        widget: text
+
+      - name: carouselImages
+        label: "Картинки — карусель"
+        widget: list
+        summary: "{{fields.image}}"
+        field:
+          name: image
+          label: Image
+          widget: image
+          media_library:
+            config:
+              max_file_size: 5000000
+
+      - name: pdpImages
+        label: "Картинки — страница товара (PDP)"
+        widget: list
+        summary: "{{fields.image}}"
+        field:
+          name: image
+          label: Image
+          widget: image
+          media_library:
+            config:
+              max_file_size: 5000000
+
+      - name: howToUse
+        label: "How to use"
+        widget: text
+        required: false
+
+      - name: manufacturing
+        label: "Manufacturing detail"
+        widget: object
+        collapsed: true
+        fields:
+          - { name: countryOfOrigin, label: "Country of origin", widget: string, required: false }
+          - { name: shippingWeight, label: "Shipping weight", widget: string, required: false }
+          - { name: expiration, label: "Expiration date", widget: string, required: false }
+          - { name: storage, label: "Storage method", widget: text, required: false }
+          - { name: ingredients, label: "Ingredient list", widget: text, required: false }
+          - name: supplementFacts
+            label: "Supplement Facts"
+            widget: object
+            fields:
+              - name: servingLabel
+                label: "Column header"
+                widget: string
+                default: "Amount Per Serving"
+              - name: rows
+                label: "Rows"
+                label_singular: "Row"
+                widget: list
+                summary: "{{fields.name}} — {{fields.amount}}"
+                fields:
+                  - { name: name, label: "Nutrient", widget: string }
+                  - { name: amount, label: "Amount per serving", widget: string }
+                  - { name: dv, label: "%DV", widget: string, required: false }
+
+      - name: rating
+        label: "Rating (0–5)"
+        widget: number
+        value_type: float
+        min: 0
+        max: 5
+        step: 0.1
+        default: 4.5
+
+      - name: ratingsCount
+        label: "Ratings count"
+        widget: number
+        value_type: int
+        default: 0
+
+      - name: reviewsCount
+        label: "Reviews count"
+        widget: number
+        value_type: int
+        default: 0
