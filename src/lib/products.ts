@@ -213,6 +213,8 @@ export type PhaseView = {
   image: { src: string; alt: string };
   /** Carousel heading for this phase: sans lead + a Newton-italic accent. */
   headline: { lead: string; accent: string };
+  /** The single product that represents the set (SeriesFeature block). */
+  seriesSlug?: string;
   products: PhaseProductCard[];
 };
 
@@ -228,6 +230,7 @@ const PHASE_DEFS: Array<
       lead: "Water alone doesn't hydrate.",
       accent: "Minerals do.",
     },
+    seriesSlug: "hydramax-plus",
     slugs: ["coral-mine-silver", "pentokan", "oceanmin", "h-500"],
   },
   {

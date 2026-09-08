@@ -145,12 +145,15 @@ export function PhasesSection({ phases, domains }: PhasesSectionProps) {
             </Carousel>
           )}
 
-          {!isPersonalization && phase.products[0] && (
-            <SeriesFeature
-              seriesName={phase.name}
-              product={phase.products[0]}
-            />
-          )}
+          {!isPersonalization &&
+            (() => {
+              const rep = getProduct(
+                phase.seriesSlug ?? phase.products[0]?.slug ?? "",
+              );
+              return rep ? (
+                <SeriesFeature seriesName={phase.name} product={rep} />
+              ) : null;
+            })()}
         </div>
       </Section>
     </div>

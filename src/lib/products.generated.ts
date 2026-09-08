@@ -1134,6 +1134,38 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     }
   },
   {
+    "slug": "hydramax-plus",
+    "name": "Hydramax Plus",
+    "headline": "Hydramax Plus — the 30-day hydration set",
+    "category": "Foundation",
+    "cardTitle": "Optimal hydration",
+    "goals": [
+      "hydration",
+      "energy"
+    ],
+    "coralId": "",
+    "description": "A 30-day program that optimizes hydration with the minerals and electrolytes your body actually uses — supporting water balance, steady energy and overall well-being. It bundles the whole hydration layer in one pack: Coral Mine ×3, PentoKan ×3, H-500 ×1 and Oceanmin ×1.",
+    "price": "$146.25",
+    "clubPrice": "$117",
+    "carouselImages": [],
+    "pdpImages": [],
+    "rating": 4.7,
+    "ratingsCount": 0,
+    "reviewsCount": 0,
+    "howToUse": "Read the instructions inside the package before use. Program duration — 30 days.",
+    "manufacturing": {
+      "countryOfOrigin": "Japan, USA, Taiwan, Germany",
+      "shippingWeight": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place at room temperature, out of reach of children.",
+      "ingredients": "Set: Coral Mine, PentoKan, H-500, Oceanmin.",
+      "supplementFacts": {
+        "servingLabel": "Amount Per Serving",
+        "rows": []
+      }
+    }
+  },
+  {
     "slug": "iron",
     "name": "Iron",
     "headline": "Iron",
