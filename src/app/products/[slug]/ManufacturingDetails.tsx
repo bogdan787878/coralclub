@@ -1,12 +1,11 @@
 import type { ReactNode } from "react";
+import type { Manufacturing } from "@/lib/products";
 import styles from "./ManufacturingDetails.module.css";
 
-/**
- * Manufacturing-details sheet content. Static placeholder that mirrors the
- * design — later this comes per-product from the catalogue / CMS.
- */
+/** Per-product manufacturing sheet + editable Supplement Facts table. */
 
 function Fact({ label, children }: { label: string; children: ReactNode }) {
+  if (!children) return null;
   return (
     <div className={styles.fact}>
       <p className={styles.label}>{label}</p>
@@ -15,66 +14,52 @@ function Fact({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
-const FACTS = [
-  { term: "Vitamin C (ascorbyl palmitate)", amount: "50 mg", dv: "56%" },
-  { term: "Bamboo (Bambusa vulgaris) extract", amount: "7.5 mg", dv: "–" },
-  { term: "Manganese (manganese gluconate)", amount: "0.3 mg", dv: "13%" },
-  { term: "Bamboo (Bambusa vulgaris) extract", amount: "7.5 mg", dv: "–" },
-  { term: "Manganese (manganese gluconate)", amount: "0.3 mg", dv: "13%" },
-  { term: "Bamboo (Bambusa vulgaris) extract", amount: "7.5 mg", dv: "–" },
-];
-
-export function ManufacturingDetails() {
+export function SupplementFacts({ data }: { data: Manufacturing["supplementFacts"] }) {
+  if (!data?.rows?.length) return null;
   return (
-    <div className={styles.root}>
-      <Fact label="Country of Origin">Germany, Australia</Fact>
-      <Fact label="Shipping weight">0.61 kg</Fact>
-      <Fact label="Expiration date">2 years from the date of manufacture</Fact>
-      <Fact label="Storage method">
-        Store in a dry place, protected from direct sunlight, out of reach of
-        children at a temperature not exceeding +25&nbsp;°C. After opening, store
-        the bottle in the refrigerator.
-      </Fact>
-      <Fact label="Region of register">
-        <a href="#source">Source</a>
-      </Fact>
-      <Fact label="Ingredient list">
-        Vitamin C (ascorbyl palmitate), bamboo extract (Bambusa vulgaris),
-        manganese (manganese gluconate).
-      </Fact>
-
-      <div>
-        <p className={styles.factsTitle}>Supplement Facts</p>
-        <div className={styles.tableWrap}>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th scope="col" />
-                <th scope="col" className={styles.num}>
-                  Amount Per Serving
-                  <br />1 capsule
-                </th>
-                <th scope="col" className={styles.num}>
-                  %DV*
-                </th>
+    <div>
+      <p className={styles.factsTitle}>Supplement Facts</p>
+      <div className={styles.tableWrap}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th scope="col" />
+              <th scope="col" className={styles.num}>
+                {data.servingLabel || "Amount Per Serving"}
+              </th>
+              <th scope="col" className={styles.num}>
+                %DV*
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.rows.map((row, i) => (
+              <tr key={i}>
+                <td>{row.name}</td>
+                <td className={styles.num}>{row.amount}</td>
+                <td className={styles.num}>{row.dv || "–"}</td>
               </tr>
-            </thead>
-            <tbody>
-              {FACTS.map((row, i) => (
-                <tr key={i}>
-                  <td>{row.term}</td>
-                  <td className={styles.num}>{row.amount}</td>
-                  <td className={styles.num}>{row.dv}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
-
       <p className={styles.footnote}>
         * Percent Daily Values are based on a 2,000 calorie diet.
       </p>
+    </div>
+  );
+}
+
+export function ManufacturingDetails({ data }: { data: Manufacturing }) {
+  return (
+    <div className={styles.root}>
+      <Fact label="Country of Origin">{data.countryOfOrigin}</Fact>
+      <Fact label="Shipping weight">{data.shippingWeight}</Fact>
+      <Fact label="Expiration date">{data.expiration}</Fact>
+      <Fact label="Storage method">{data.storage}</Fact>
+      <Fact label="Ingredient list">{data.ingredients}</Fact>
+
+      <SupplementFacts data={data.supplementFacts} />
     </div>
   );
 }

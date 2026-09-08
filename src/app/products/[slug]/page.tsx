@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   BodyLong,
@@ -9,7 +8,7 @@ import {
   Section,
   Stack,
 } from "@/components/ui";
-import { BuyBox, InfoAccordion } from "@/components/organisms";
+import { BuyBox, ImageSlider, InfoAccordion } from "@/components/organisms";
 import { CartButton } from "@/components/cart/CartButton";
 import { PRODUCTS, getProduct } from "@/lib/products";
 import { BackButton } from "./BackButton";
@@ -57,22 +56,13 @@ export default async function ProductPage({
           <div className={styles.layout}>
             <div className={styles.media}>
               <div className={styles.mediaInner}>
-                {product.image ? (
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    priority
-                    sizes="(max-width: 1023px) 100vw, 560px"
-                    style={
-                      product.imagePosition
-                        ? { objectPosition: product.imagePosition }
-                        : undefined
-                    }
-                  />
-                ) : (
-                  <span className={styles.mediaEmpty} aria-hidden="true" />
-                )}
+                <ImageSlider
+                  images={product.pdpImages.map((src) => ({
+                    src,
+                    alt: product.name,
+                  }))}
+                  sizes="(max-width: 1023px) 100vw, 560px"
+                />
               </div>
             </div>
 
@@ -106,11 +96,17 @@ export default async function ProductPage({
                 items={[
                   {
                     title: "How to Use",
-                    content: <p>Details coming soon.</p>,
+                    content: (
+                      <p style={{ whiteSpace: "pre-line" }}>
+                        {product.howToUse || "Details coming soon."}
+                      </p>
+                    ),
                   },
                   {
                     title: "Manufacturing details",
-                    content: <ManufacturingDetails />,
+                    content: (
+                      <ManufacturingDetails data={product.manufacturing} />
+                    ),
                   },
                 ]}
               />

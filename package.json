@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "gen": "node scripts/gen-products.mjs",
+    "predev": "npm run gen",
     "dev": "next dev",
+    "prebuild": "npm run gen",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

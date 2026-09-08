@@ -1,0 +1,36 @@
+{
+  "slug": "pentokan",
+  "name": "PentoKan K+",
+  "headline": "PentoKan — potassium & magnesium",
+  "category": "Foundation",
+  "cardTitle": "More energy",
+  "goals": [
+    "energy",
+    "hydration"
+  ],
+  "coralId": "2141",
+  "description": "A soluble potassium and magnesium drink that supports heart rhythm, muscle function and healthy blood pressure — part of the daily hydration layer.",
+  "price": "$29.99",
+  "clubPrice": "$21.99",
+  "carouselImages": [
+    "/images/products/pentokan.png"
+  ],
+  "pdpImages": [
+    "/images/products/pentokan.png"
+  ],
+  "rating": 4.5,
+  "ratingsCount": 33,
+  "reviewsCount": 14,
+  "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "2 years from the date of manufacture",
+    "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

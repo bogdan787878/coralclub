@@ -1,0 +1,32 @@
+{
+  "slug": "coral-detox-plus",
+  "name": "Coral Detox Plus",
+  "headline": "Coral Detox Plus — 7-day cleanse",
+  "category": "Restart",
+  "cardTitle": "Detox & feel lighter",
+  "goals": [
+    "detox",
+    "weight"
+  ],
+  "coralId": "",
+  "description": "A seven-day pack that supports the body's natural cleansing — antioxidants, fibre and a lecithin-based binder that eases the internal load before you go deeper.",
+  "price": "$106.99",
+  "clubPrice": "$79.99",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.4,
+  "ratingsCount": 28,
+  "reviewsCount": 11,
+  "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "2 years from the date of manufacture",
+    "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

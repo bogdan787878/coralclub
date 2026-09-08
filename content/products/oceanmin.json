@@ -1,0 +1,36 @@
+{
+  "slug": "oceanmin",
+  "name": "Oceanmin",
+  "headline": "Oceanmin — deep-sea magnesium",
+  "category": "Recovery & calm",
+  "cardTitle": "Better sleep & calm",
+  "goals": [
+    "sleep",
+    "energy"
+  ],
+  "coralId": "225115",
+  "description": "A deep-sea mineral concentrate in ionic form — magnesium-dominant, drawn from 662 m down in the Pacific. Steady energy and balance for every day.",
+  "price": "$35.99",
+  "clubPrice": "$26.99",
+  "carouselImages": [
+    "/images/products/oceanmin.png"
+  ],
+  "pdpImages": [
+    "/images/products/oceanmin.png"
+  ],
+  "rating": 4.6,
+  "ratingsCount": 41,
+  "reviewsCount": 18,
+  "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "2 years from the date of manufacture",
+    "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

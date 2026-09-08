@@ -63,8 +63,8 @@ export function PhasesSection({ phases }: PhasesSectionProps) {
                           coralId: p.coralId as string,
                           slug: p.slug,
                           name: p.name,
-                          price: p.priceWas,
-                          image: p.image,
+                          price: p.price,
+                          image: p.images[0]?.src,
                         })
                     : undefined
                 }
@@ -74,11 +74,7 @@ export function PhasesSection({ phases }: PhasesSectionProps) {
                     ? (n) => setQty(p.coralId as string, n)
                     : undefined
                 }
-                images={
-                  p.image
-                    ? [{ src: p.image, alt: p.name, position: p.imagePosition }]
-                    : []
-                }
+                images={p.images}
               />
             ))}
           </Carousel>

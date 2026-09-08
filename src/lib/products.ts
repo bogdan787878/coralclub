@@ -1,19 +1,11 @@
 /**
- * Product catalogue + Health Concept phases (stand-in data).
- * Later this comes from the external Coral Club store / CMS.
+ * Product catalogue. The data lives in content/products/*.json (edited by
+ * the CMS at /admin) and is compiled into src/lib/products.generated.ts by
+ * scripts/gen-products.mjs (prebuild / predev / `npm run gen`).
  */
 
 import { asset } from "./asset";
-
-export type PriceOption = {
-  id: string;
-  label: string;
-  /** e.g. "25% Savings" — rendered as an accent sub-label. */
-  note?: string;
-  price: string;
-  /** Primary action for this tier. Club → add to bag; Regular → sign up. */
-  cta: { label: string; href: string };
-};
+import { GENERATED_PRODUCTS } from "./products.generated";
 
 /** Base wellness scenarios — the quiz maps answers onto these. */
 export type Goal =
@@ -35,6 +27,59 @@ export const GOALS: { id: Goal; label: string }[] = [
   { id: "hydration", label: "Better hydration" },
 ];
 
+/** One row of the editable Supplement Facts table. */
+export type SupplementFactRow = {
+  name: string;
+  amount: string;
+  dv: string;
+};
+
+export type SupplementFacts = {
+  /** Column header, e.g. "Amount Per Serving — 1 capsule". */
+  servingLabel: string;
+  rows: SupplementFactRow[];
+};
+
+export type Manufacturing = {
+  countryOfOrigin: string;
+  shippingWeight: string;
+  expiration: string;
+  storage: string;
+  ingredients: string;
+  supplementFacts: SupplementFacts;
+};
+
+/** The raw shape of a content/products/*.json file. */
+export type ProductContent = {
+  slug: string;
+  name: string;
+  headline: string;
+  category: string;
+  cardTitle: string;
+  goals: Goal[];
+  coralId?: string;
+  description: string;
+  price: string;
+  clubPrice: string;
+  carouselImages: string[];
+  pdpImages: string[];
+  rating: number;
+  ratingsCount: number;
+  reviewsCount: number;
+  howToUse: string;
+  manufacturing: Manufacturing;
+};
+
+export type PriceOption = {
+  id: string;
+  label: string;
+  /** e.g. "25% Savings" — rendered as an accent sub-label. */
+  note?: string;
+  price: string;
+  /** Primary action for this tier. Club → become a member; Regular → cart. */
+  cta: { label: string; href: string };
+};
+
 export type Product = {
   slug: string;
   name: string;
@@ -42,25 +87,29 @@ export type Product = {
   coralId?: string;
   /** Big two-line title on the carousel card. */
   headline: string;
-  /** Category pill on the carousel card. */
+  /** Category pill. */
   category: string;
   /** Short line shown on the carousel card — the goal the product serves. */
   cardTitle: string;
   /** Scenarios this product supports, most relevant first. */
   goals: Goal[];
   description: string;
-  /** Packshot path in /public. Omit to render a placeholder tile. */
+  /** Packshots for the carousel card's image slider. */
+  carouselImages: string[];
+  /** Packshots for the PDP image slider. */
+  pdpImages: string[];
+  /** First carousel image — convenience for single-image spots. */
   image?: string;
-  /** Framing for the packshot inside its tile (object-position). */
-  imagePosition?: string;
   rating: number;
   ratingsCount: number;
   reviewsCount: number;
+  howToUse: string;
+  manufacturing: Manufacturing;
   prices: PriceOption[];
 };
 
 /**
- * The live Coral Club store. We don't run our own cart — "Add to bag" drops
+ * The live Coral Club store. We don't run our own cart — "Add to Cart" drops
  * the shopper into coralclub.ru's basket with the product pre-added, using
  * their share-cart link format. `coralId` is the product's id in that store.
  */
@@ -70,194 +119,62 @@ export function basketUrl(coralId: string, qty = 1): string {
   return `${CORAL_SHOP}shop_basket.php?${coralId}=${qty}&utm_source=copy-link&utm_medium=cart-recom`;
 }
 
-function tier(clubPrice: string, regularPrice: string): PriceOption[] {
+function pricesFor(c: ProductContent): PriceOption[] {
   return [
     {
       id: "club",
       label: "Club",
       note: "25% Savings",
-      price: clubPrice,
-      // member price → become a club member to unlock it
+      price: c.clubPrice,
       cta: { label: "Become a club member", href: "/account" },
     },
     {
       id: "regular",
       label: "Regular",
-      price: regularPrice,
-      // full price → hand off to the coralclub.ru basket (href filled in
-      // from `coralId` below; falls back to the shop root)
-      cta: { label: "Add to Cart", href: CORAL_SHOP },
+      price: c.price,
+      cta: {
+        label: "Add to Cart",
+        href: c.coralId ? basketUrl(c.coralId) : CORAL_SHOP,
+      },
     },
   ];
 }
 
-const CATALOGUE: Product[] = [
-  {
-    slug: "coral-mine-silver",
-    name: "Coral Mine Silver",
-    headline: "Coral Mine — deep-sea minerals",
-    category: "Foundation",
-    cardTitle: "Better hydration",
-    goals: ["hydration", "energy"],
-    description:
-      "You can take the best supplements, but if you're dehydrated, your body doesn't actually use them. That's why Coral Club starts with what matters first: the water you drink daily. Everything else builds on top of that.",
-    image: "/images/products/coral-mine-silver.png",
-    coralId: "2221",
-    rating: 3.4,
-    ratingsCount: 25,
-    reviewsCount: 12,
-    prices: tier("$475.99", "$875"),
-  },
-  {
-    slug: "pentokan",
-    name: "PentoKan K+",
-    headline: "PentoKan — potassium & magnesium",
-    category: "Foundation",
-    cardTitle: "More energy",
-    goals: ["energy", "hydration"],
-    description:
-      "A soluble potassium and magnesium drink that supports heart rhythm, muscle function and healthy blood pressure — part of the daily hydration layer.",
-    image: "/images/products/pentokan.png",
-    coralId: "2141",
-    rating: 4.5,
-    ratingsCount: 33,
-    reviewsCount: 14,
-    prices: tier("$21.99", "$29.99"),
-  },
-  {
-    slug: "oceanmin",
-    name: "Oceanmin",
-    headline: "Oceanmin — deep-sea magnesium",
-    category: "Recovery & calm",
-    cardTitle: "Better sleep & calm",
-    goals: ["sleep", "energy"],
-    description:
-      "A deep-sea mineral concentrate in ionic form — magnesium-dominant, drawn from 662 m down in the Pacific. Steady energy and balance for every day.",
-    image: "/images/products/oceanmin.png",
-    coralId: "225115",
-    rating: 4.6,
-    ratingsCount: 41,
-    reviewsCount: 18,
-    prices: tier("$26.99", "$35.99"),
-  },
-  {
-    slug: "h-500",
-    name: "H-500",
-    headline: "H-500 — antioxidant boost",
-    category: "Immune support",
-    cardTitle: "Immune support",
-    goals: ["immune", "energy"],
-    description:
-      "An alkaline-mineral effervescent tablet. Your daily water, taken further — one of the strongest antioxidant drinks you can make at home.",
-    image: "/images/products/h-500.png",
-    coralId: "91800",
-    rating: 4.8,
-    ratingsCount: 63,
-    reviewsCount: 29,
-    prices: tier("$32.99", "$43.99"),
-  },
-  {
-    slug: "coral-detox-plus",
-    name: "Coral Detox Plus",
-    headline: "Coral Detox Plus — 7-day cleanse",
-    category: "Restart",
-    cardTitle: "Detox & feel lighter",
-    goals: ["detox", "weight"],
-    description:
-      "A seven-day pack that supports the body's natural cleansing — antioxidants, fibre and a lecithin-based binder that eases the internal load before you go deeper.",
-    rating: 4.4,
-    ratingsCount: 28,
-    reviewsCount: 11,
-    prices: tier("$79.99", "$106.99"),
-  },
-  {
-    slug: "parashield",
-    name: "Parashield",
-    headline: "Parashield — gut botanicals",
-    category: "Restart",
-    cardTitle: "Detox & feel lighter",
-    goals: ["detox", "immune"],
-    description:
-      "A concentrated blend of black walnut, clove and wormwood — traditional botanicals used to keep the gut environment inhospitable to unwanted guests.",
-    rating: 4.3,
-    ratingsCount: 19,
-    reviewsCount: 8,
-    prices: tier("$27.99", "$37.99"),
-  },
-  {
-    slug: "colo-vada-plus",
-    name: "Colo-Vada Plus",
-    headline: "Colo-Vada Plus — 14-day reset",
-    category: "Restart",
-    cardTitle: "Weight & metabolism",
-    goals: ["weight", "detox"],
-    description:
-      "A structured 14-day programme in three stages — preparation, active cleanse and recovery — for a thorough reset of the digestive tract.",
-    rating: 4.6,
-    ratingsCount: 47,
-    reviewsCount: 22,
-    prices: tier("$63.99", "$85.99"),
-  },
-  {
-    slug: "promarine-collagen",
-    name: "Promarine Collagen",
-    headline: "Promarine Collagen — marine peptides",
-    category: "Skin & hair",
-    cardTitle: "Skin & hair",
-    goals: ["skin"],
-    description:
-      "Marine collagen peptides as a daily drink — for skin, hair and joints. Part of your daily beauty ritual, built on proper hydration.",
-    rating: 4.7,
-    ratingsCount: 52,
-    reviewsCount: 24,
-    prices: tier("$44.99", "$59.99"),
-  },
-  {
-    slug: "omega-3-60",
-    name: "Omega 3/60",
-    headline: "Omega 3/60 — fish oil, 60% omega-3",
-    category: "Recovery & calm",
-    cardTitle: "Better sleep & calm",
-    goals: ["sleep", "immune"],
-    description:
-      "High-concentration fish oil — 60% omega-3 — for heart, brain and joint support once your hydration and cleansing layers are in place.",
-    rating: 4.5,
-    ratingsCount: 38,
-    reviewsCount: 16,
-    prices: tier("$23.99", "$31.99"),
-  },
-  {
-    slug: "spirulina",
-    name: "Spirulina",
-    headline: "Spirulina — whole-food greens",
-    category: "Daily nutrition",
-    cardTitle: "More energy",
-    goals: ["energy", "weight"],
-    description:
-      "A dense whole-food source of plant protein, chlorophyll and iron — an easy daily top-up for a personalised nutrition plan.",
-    rating: 4.4,
-    ratingsCount: 41,
-    reviewsCount: 17,
-    prices: tier("$18.99", "$25.99"),
-  },
-];
+function fromContent(c: ProductContent): Product {
+  const carouselImages = c.carouselImages ?? [];
+  const pdpImages = c.pdpImages?.length ? c.pdpImages : carouselImages;
+  return {
+    slug: c.slug,
+    name: c.name,
+    coralId: c.coralId || undefined,
+    headline: c.headline,
+    category: c.category,
+    cardTitle: c.cardTitle,
+    goals: c.goals ?? [],
+    description: c.description,
+    carouselImages,
+    pdpImages,
+    image: carouselImages[0],
+    rating: c.rating,
+    ratingsCount: c.ratingsCount,
+    reviewsCount: c.reviewsCount,
+    howToUse: c.howToUse ?? "",
+    manufacturing: c.manufacturing,
+    prices: pricesFor(c),
+  };
+}
 
-/** Fill each product's "Add to bag" href from its coralclub.ru id. */
-export const PRODUCTS: Product[] = CATALOGUE.map((p) => {
-  if (!p.coralId) return p;
-  const prices = p.prices.map((price) =>
-    price.id === "regular"
-      ? { ...price, cta: { ...price.cta, href: basketUrl(p.coralId!) } }
-      : price,
-  );
-  return { ...p, prices };
-});
+export const PRODUCTS: Product[] = GENERATED_PRODUCTS.map(fromContent);
+
+const withAssets = (paths: string[]) => paths.map((p) => asset(p));
 
 export function getProduct(slug: string): Product | undefined {
   const product = PRODUCTS.find((p) => p.slug === slug);
   if (!product) return undefined;
   return {
     ...product,
+    carouselImages: withAssets(product.carouselImages),
+    pdpImages: withAssets(product.pdpImages),
     image: product.image ? asset(product.image) : undefined,
   };
 }
@@ -276,15 +193,15 @@ export type PhaseProductCard = {
   category: string;
   title: string;
   price: string;
-  /** Struck-through "was" price on the card. */
+  /** Struck-through "was" price on the card (= the club price). */
   priceWas: string;
   /** coralclub.ru product id — the card's cart button adds this line. */
   coralId?: string;
   /** coralclub.ru basket link — fallback when there's no local cart. */
   cartHref: string;
   goals: Goal[];
-  image?: string;
-  imagePosition?: string;
+  /** Packshots for the card's image slider. */
+  images: { src: string; alt: string }[];
 };
 
 export type PhaseView = {
@@ -350,13 +267,13 @@ export function getPhases(): PhaseView[] {
         headline: p.headline,
         category: p.category,
         title: p.cardTitle,
-        price: p.prices[0].price,
-        priceWas: p.prices[1].price,
+        // main price = regular; struck-through "was" price = the club price
+        price: p.prices[1].price,
+        priceWas: p.prices[0].price,
         coralId: p.coralId,
         cartHref: p.prices[1].cta.href,
         goals: p.goals,
-        image: p.image,
-        imagePosition: p.imagePosition,
+        images: p.carouselImages.map((src) => ({ src, alt: p.name })),
       })),
   }));
 }

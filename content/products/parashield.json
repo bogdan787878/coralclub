@@ -1,0 +1,32 @@
+{
+  "slug": "parashield",
+  "name": "Parashield",
+  "headline": "Parashield — gut botanicals",
+  "category": "Restart",
+  "cardTitle": "Detox & feel lighter",
+  "goals": [
+    "detox",
+    "immune"
+  ],
+  "coralId": "",
+  "description": "A concentrated blend of black walnut, clove and wormwood — traditional botanicals used to keep the gut environment inhospitable to unwanted guests.",
+  "price": "$37.99",
+  "clubPrice": "$27.99",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.3,
+  "ratingsCount": 19,
+  "reviewsCount": 8,
+  "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "2 years from the date of manufacture",
+    "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

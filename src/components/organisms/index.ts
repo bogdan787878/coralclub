@@ -10,6 +10,9 @@ export type { CarouselProps } from "./Carousel";
 export { ProductCard } from "./ProductCard";
 export type { ProductCardProps, ProductImage } from "./ProductCard";
 
+export { ImageSlider } from "./ImageSlider";
+export type { ImageSliderProps, SliderImage } from "./ImageSlider";
+
 export { PriceSelector } from "./PriceSelector";
 export type { PriceSelectorProps, PriceSelectorOption } from "./PriceSelector";
 

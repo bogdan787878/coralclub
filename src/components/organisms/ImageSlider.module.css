@@ -1,0 +1,55 @@
+.root {
+  position: absolute;
+  inset: 0;
+}
+
+.empty {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-10),
+    var(--color-primary-30)
+  );
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  position: relative;
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+
+.dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--space-16);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: rgba(1, 17, 48, 0.25);
+  transition: background-color 0.15s var(--ease-standard);
+}
+.dotOn {
+  background: var(--color-primary-100);
+}

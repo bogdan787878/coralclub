@@ -1,0 +1,36 @@
+{
+  "slug": "h-500",
+  "name": "H-500",
+  "headline": "H-500 — antioxidant boost",
+  "category": "Immune support",
+  "cardTitle": "Immune support",
+  "goals": [
+    "immune",
+    "energy"
+  ],
+  "coralId": "91800",
+  "description": "An alkaline-mineral effervescent tablet. Your daily water, taken further — one of the strongest antioxidant drinks you can make at home.",
+  "price": "$43.99",
+  "clubPrice": "$32.99",
+  "carouselImages": [
+    "/images/products/h-500.png"
+  ],
+  "pdpImages": [
+    "/images/products/h-500.png"
+  ],
+  "rating": 4.8,
+  "ratingsCount": 63,
+  "reviewsCount": 29,
+  "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "2 years from the date of manufacture",
+    "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}
