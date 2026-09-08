@@ -42,8 +42,13 @@ export function Hero({ title, body, image, cta }: HeroProps) {
           <BodyLong className={styles.body}>{body}</BodyLong>
         </div>
 
-        <Container className={styles.actions}>
-          <Button variant="primary" href={cta.href} className={styles.cta}>
+        <Container>
+          <Button
+            variant="primary"
+            block
+            href={cta.href}
+            className={styles.cta}
+          >
             {cta.label}
           </Button>
         </Container>

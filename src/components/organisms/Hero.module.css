@@ -45,12 +45,7 @@
   padding-inline: var(--page-padding-inline);
 }
 
-.actions {
-  display: flex;
-}
-
 .cta {
-  align-self: center;
   border-color: rgba(255, 255, 255, 0.24);
 }
 
@@ -80,10 +75,6 @@
   /* the manual line break in the body copy is mobile-only */
   .body br {
     display: none;
-  }
-
-  .cta {
-    align-self: flex-start;
   }
 }
 
