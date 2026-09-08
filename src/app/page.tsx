@@ -7,7 +7,7 @@ import {
   PhasesSection,
   SiteHeader,
 } from "@/components/organisms";
-import { getPhases } from "@/lib/products";
+import { getDomains, getPhases } from "@/lib/products";
 import { asset } from "@/lib/asset";
 
 const HERO_IMAGE = {
@@ -38,6 +38,7 @@ const HYDRATION_SERIES = {
 
 export default function Home() {
   const phases = getPhases();
+  const domains = getDomains();
 
   return (
     <main>
@@ -62,7 +63,7 @@ export default function Home() {
       />
 
       <div id="phases">
-        <PhasesSection phases={phases} />
+        <PhasesSection phases={phases} domains={domains} />
       </div>
 
       <FeaturedSeries {...HYDRATION_SERIES} />

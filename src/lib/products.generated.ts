@@ -1,7 +1,8 @@
-// AUTO-GENERATED from content/products/*.json by scripts/gen-products.mjs.
-// Do not edit by hand — edit the JSON (or use the CMS) and re-run `npm run gen`.
+// AUTO-GENERATED from content/products/*.json + content/domains.json by
+// scripts/gen-products.mjs. Do not edit by hand — edit the JSON (or use
+// the CMS) and re-run `npm run gen`.
 
-import type { ProductContent } from "./products";
+import type { ProductContent, DomainContent } from "./products";
 
 export const GENERATED_PRODUCTS: ProductContent[] = [
   {
@@ -338,5 +339,1412 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "rows": []
       }
     }
+  }
+];
+
+export const GENERATED_DOMAINS: DomainContent[] = [
+  {
+    "id": "energy",
+    "label": "Energy",
+    "goal": "energy",
+    "products": [
+      {
+        "slug": "h-500",
+        "usSlug": "h-500",
+        "id": "91800",
+        "name": "H-500",
+        "category": "Energy and Performance",
+        "variant": "60 Capsules",
+        "clubPrice": "$32",
+        "price": "$40",
+        "usUrl": "https://coralclub.us/shop/h-500.html"
+      },
+      {
+        "slug": "coenzyme-q10-kaneka",
+        "usSlug": "coenzyme-q10-kaneka",
+        "id": "2177",
+        "name": "Coenzyme Q10",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "60 vegetable capsules",
+        "clubPrice": "$30",
+        "price": "$37.50",
+        "usUrl": "https://coralclub.us/shop/coenzyme-q10-kaneka.html"
+      },
+      {
+        "slug": "pentokan",
+        "usSlug": "pentokan",
+        "id": "2141",
+        "name": "PentoKan",
+        "category": "Energy and Performance",
+        "variant": "20 Effervescent Tablets",
+        "clubPrice": "$13",
+        "price": "$16.25",
+        "usUrl": "https://coralclub.us/shop/pentokan.html"
+      },
+      {
+        "slug": "coral-carnitine",
+        "usSlug": "coral-carnitine",
+        "id": "91890",
+        "name": "Coral Carnitine",
+        "category": "Energy and Performance",
+        "variant": "180 Capsules",
+        "clubPrice": "$27",
+        "price": "$33.75",
+        "usUrl": "https://coralclub.us/shop/coral-carnitine.html"
+      },
+      {
+        "slug": "daily-delicious-beauty-shake",
+        "usSlug": "daily-delicious-beauty-shake",
+        "id": "211501",
+        "name": "Daily Delicious Beauty Protein Mix Raspberry",
+        "category": "Protein shakes",
+        "variant": "500 g / 20 servings",
+        "clubPrice": "$35",
+        "price": "$43.75",
+        "usUrl": "https://coralclub.us/shop/daily-delicious-beauty-shake.html"
+      },
+      {
+        "slug": "protivity-ultra",
+        "usSlug": "protivity-ultra",
+        "id": "2178",
+        "name": "Protivity Ultra",
+        "category": "Amino Acids",
+        "variant": "150 caplets",
+        "clubPrice": "$41",
+        "price": "$51.25",
+        "usUrl": "https://coralclub.us/shop/protivity-ultra.html"
+      },
+      {
+        "slug": "cardiopack",
+        "usSlug": "cardiopack",
+        "id": "803701",
+        "name": "Cardiopack",
+        "category": "Energy and Performance",
+        "variant": "Set of products",
+        "clubPrice": "$89",
+        "price": "$111.25",
+        "usUrl": "https://coralclub.us/shop/cardiopack.html"
+      },
+      {
+        "slug": "oceanmin",
+        "usSlug": "oceanmin",
+        "id": "2251301",
+        "name": "Oceanmin 1-month course",
+        "category": "Energy and Performance",
+        "variant": "30 sachets",
+        "clubPrice": "$35",
+        "price": "$43.75",
+        "usUrl": "https://coralclub.us/shop/oceanmin.html"
+      },
+      {
+        "slug": "b-prime-direct",
+        "usSlug": "b-prime-direct",
+        "id": "2315",
+        "name": "B-Prime Direct",
+        "category": "Energy and Performance",
+        "variant": "30 stick-packets (2 g each)",
+        "clubPrice": "$15.20",
+        "price": "$19",
+        "usUrl": "https://coralclub.us/shop/b-prime-direct.html"
+      },
+      {
+        "slug": "memo-prime",
+        "usSlug": "memo-prime",
+        "id": "2181",
+        "name": "Memo-Prime",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "30 vegetable capsules",
+        "clubPrice": "$24",
+        "price": "$30",
+        "usUrl": "https://coralclub.us/shop/memo-prime.html"
+      }
+    ]
+  },
+  {
+    "id": "weight-metabolism",
+    "label": "Weight & Metabolism",
+    "goal": "weight",
+    "products": [
+      {
+        "slug": "lipostick-fit",
+        "usSlug": "lipostick-fit",
+        "id": "2169",
+        "name": "Lipostick Fit",
+        "category": "Phytonutrients",
+        "variant": "15 single serving sticks / 15 ml",
+        "clubPrice": "$19",
+        "price": "$23.80",
+        "usUrl": "https://coralclub.us/shop/lipostick-fit.html"
+      },
+      {
+        "slug": "coral-carnitine",
+        "usSlug": "coral-carnitine",
+        "id": "91890",
+        "name": "Coral Carnitine",
+        "category": "Energy and Performance",
+        "variant": "180 Capsules",
+        "clubPrice": "$27",
+        "price": "$33.75",
+        "usUrl": "https://coralclub.us/shop/coral-carnitine.html"
+      },
+      {
+        "slug": "daily-delicious-beauty-shake",
+        "usSlug": "daily-delicious-beauty-shake",
+        "id": "211501",
+        "name": "Daily Delicious Beauty Protein Mix Raspberry",
+        "category": "Protein shakes",
+        "variant": "500 g / 20 servings",
+        "clubPrice": "$35",
+        "price": "$43.75",
+        "usUrl": "https://coralclub.us/shop/daily-delicious-beauty-shake.html"
+      },
+      {
+        "slug": "daily-delicious-hi-fiber-acai-blueberry",
+        "usSlug": "daily-delicious-hi-fiber-acai-blueberry",
+        "id": "2103",
+        "name": "Daily Delicious Hi-Fiber Acai & Blueberry",
+        "category": "Protein shakes",
+        "variant": "Powder 0.6 lb (270 g)",
+        "clubPrice": "$20",
+        "price": "$25",
+        "usUrl": "https://coralclub.us/shop/daily-delicious-hi-fiber-acai-blueberry.html"
+      },
+      {
+        "slug": "spirulina",
+        "usSlug": "premium-spirulina",
+        "id": "2163",
+        "name": "Premium Spirulina",
+        "category": "Weight Management",
+        "variant": "200 tablets",
+        "clubPrice": "$25",
+        "price": "$31.25",
+        "usUrl": "https://coralclub.us/shop/premium-spirulina.html"
+      },
+      {
+        "slug": "coral-artichoke",
+        "usSlug": "coral-artichoke",
+        "id": "91640",
+        "name": "Coral Artichoke",
+        "category": "Digestive supplements",
+        "variant": "90 Capsules",
+        "clubPrice": "$18",
+        "price": "$22.50",
+        "usUrl": "https://coralclub.us/shop/coral-artichoke.html"
+      },
+      {
+        "slug": "fandetox",
+        "usSlug": "fandetox",
+        "id": "9167501",
+        "name": "FanDetox",
+        "category": "Detox & Cleansing",
+        "variant": "30 Stick packs (4.5 g)",
+        "clubPrice": "$52",
+        "price": "$65",
+        "usUrl": "https://coralclub.us/shop/fandetox.html"
+      },
+      {
+        "slug": "premium-plankton-oil-new-2025-glass",
+        "usSlug": "premium-plankton-oil-new-2025-glass",
+        "id": "2392",
+        "name": "Premium Plankton Oil",
+        "category": "Supplements",
+        "variant": "60 capsules",
+        "clubPrice": "$38",
+        "price": "$47.50",
+        "usUrl": "https://coralclub.us/shop/premium-plankton-oil-new-2025-glass.html"
+      },
+      {
+        "slug": "selenium",
+        "usSlug": "selenium",
+        "id": "2111",
+        "name": "Selenium",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "100 Vegetable Capsules",
+        "clubPrice": "$13",
+        "price": "$16.25",
+        "usUrl": "https://coralclub.us/shop/selenium.html"
+      },
+      {
+        "slug": "slim-by-slim-2374",
+        "usSlug": "slim-by-slim-2374",
+        "id": "2374",
+        "name": "Slim by Slim",
+        "category": "Health",
+        "variant": "30 stick packs, 6 g each",
+        "clubPrice": "$60",
+        "price": "$75",
+        "usUrl": "https://coralclub.us/shop/slim-by-slim-2374.html"
+      }
+    ]
+  },
+  {
+    "id": "digestion-gut",
+    "label": "Digestion & Gut",
+    "goal": "detox",
+    "products": [
+      {
+        "slug": "assimilator",
+        "usSlug": "assimilator",
+        "id": "91118",
+        "name": "Assimilator",
+        "category": "Digestive supplements",
+        "variant": "90 Vegetable Capsules",
+        "clubPrice": "$29",
+        "price": "$36.25",
+        "usUrl": "https://coralclub.us/shop/assimilator.html"
+      },
+      {
+        "slug": "super-flora",
+        "usSlug": "super-flora",
+        "id": "2150",
+        "name": "Super-Flora",
+        "category": "Digestive supplements",
+        "variant": "90 vegetable capsules",
+        "clubPrice": "$18",
+        "price": "$22.50",
+        "usUrl": "https://coralclub.us/shop/super-flora.html"
+      },
+      {
+        "slug": "daily-delicious-hi-fiber-acai-blueberry",
+        "usSlug": "daily-delicious-hi-fiber-acai-blueberry",
+        "id": "2103",
+        "name": "Daily Delicious Hi-Fiber Acai & Blueberry",
+        "category": "Protein shakes",
+        "variant": "Powder 0.6 lb (270 g)",
+        "clubPrice": "$20",
+        "price": "$25",
+        "usUrl": "https://coralclub.us/shop/daily-delicious-hi-fiber-acai-blueberry.html"
+      },
+      {
+        "slug": "liposomal-curcumin",
+        "usSlug": "liposomal-curcumin",
+        "id": "2165",
+        "name": "Liposomal Curcumin",
+        "category": "Immune Support",
+        "variant": "100 ml / 3.38 fl.oz",
+        "clubPrice": "$25",
+        "price": "$31.25",
+        "usUrl": "https://coralclub.us/shop/liposomal-curcumin.html"
+      },
+      {
+        "slug": "coral-artichoke",
+        "usSlug": "coral-artichoke",
+        "id": "91640",
+        "name": "Coral Artichoke",
+        "category": "Digestive supplements",
+        "variant": "90 Capsules",
+        "clubPrice": "$18",
+        "price": "$22.50",
+        "usUrl": "https://coralclub.us/shop/coral-artichoke.html"
+      },
+      {
+        "slug": "zaferan",
+        "usSlug": "zaferan",
+        "id": "91873",
+        "name": "Zaferan",
+        "category": "Phytonutrients",
+        "variant": "60 Capsules",
+        "clubPrice": "$16",
+        "price": "$20",
+        "usUrl": "https://coralclub.us/shop/zaferan.html"
+      },
+      {
+        "slug": "coral-alfalfa",
+        "usSlug": "coral-alfalfa",
+        "id": "2102",
+        "name": "Coral Alfalfa",
+        "category": "Digestive supplements",
+        "variant": "120 Capsules",
+        "clubPrice": "$14",
+        "price": "$17.50",
+        "usUrl": "https://coralclub.us/shop/coral-alfalfa.html"
+      },
+      {
+        "slug": "coral-burdock-root",
+        "usSlug": "coral-burdock-root",
+        "id": "91860",
+        "name": "Coral Burdock Root",
+        "category": "Detox & Cleansing",
+        "variant": "90 Capsules",
+        "clubPrice": "$16",
+        "price": "$20",
+        "usUrl": "https://coralclub.us/shop/coral-burdock-root.html"
+      },
+      {
+        "slug": "coral-lecithin",
+        "usSlug": "coral-lecithin",
+        "id": "91650",
+        "name": "Coral Lecithin",
+        "category": "Digestive supplements",
+        "variant": "120 Capsules",
+        "clubPrice": "$15",
+        "price": "$19",
+        "usUrl": "https://coralclub.us/shop/coral-lecithin.html"
+      },
+      {
+        "slug": "cascara-sagrada-rbc",
+        "usSlug": "cascara-sagrada-rbc",
+        "id": "1405",
+        "name": "Cascara Sagrada",
+        "category": "Phytonutrients",
+        "variant": "100 Tablets",
+        "clubPrice": "$15",
+        "price": "$18.75",
+        "usUrl": "https://coralclub.us/shop/cascara-sagrada-rbc.html"
+      }
+    ]
+  },
+  {
+    "id": "immunity",
+    "label": "Immunity",
+    "goal": "immune",
+    "products": [
+      {
+        "slug": "d-spray-2000",
+        "usSlug": "d-spray-2000",
+        "id": "2197",
+        "name": "D-Spray 2000",
+        "category": "Immune Support",
+        "variant": "10 ml, 170 doses",
+        "clubPrice": "$12",
+        "price": "$15",
+        "usUrl": "https://coralclub.us/shop/d-spray-2000.html"
+      },
+      {
+        "slug": "liposomal-curcumin",
+        "usSlug": "liposomal-curcumin",
+        "id": "2165",
+        "name": "Liposomal Curcumin",
+        "category": "Immune Support",
+        "variant": "100 ml / 3.38 fl.oz",
+        "clubPrice": "$25",
+        "price": "$31.25",
+        "usUrl": "https://coralclub.us/shop/liposomal-curcumin.html"
+      },
+      {
+        "slug": "pau-d-arco-mate",
+        "usSlug": "pau-d-arco-mate",
+        "id": "2125",
+        "name": "Pau D`Arco with Mate",
+        "category": "Immune Support",
+        "variant": "90 Vegetable Capsules",
+        "clubPrice": "$15",
+        "price": "$18.75",
+        "usUrl": "https://coralclub.us/shop/pau-d-arco-mate.html"
+      },
+      {
+        "slug": "pau-d-arco-with-selenium",
+        "usSlug": "pau-d-arco-with-selenium",
+        "id": "2153",
+        "name": "Pau D'Arco with Selenium",
+        "category": "Immune Support",
+        "variant": "90 vegetable capsules",
+        "clubPrice": "$15",
+        "price": "$18.75",
+        "usUrl": "https://coralclub.us/shop/pau-d-arco-with-selenium.html"
+      },
+      {
+        "slug": "colostrum-plus",
+        "usSlug": "colostrum-plus",
+        "id": "2171",
+        "name": "Colostrum Plus",
+        "category": "Immune Support",
+        "variant": "120 vegetable capsules",
+        "clubPrice": "$31",
+        "price": "$38.75",
+        "usUrl": "https://coralclub.us/shop/colostrum-plus.html"
+      },
+      {
+        "slug": "coral-cat-s-claw",
+        "usSlug": "coral-cat-s-claw",
+        "id": "91642",
+        "name": "Coral Cat's Claw",
+        "category": "Immune Support",
+        "variant": "60 Capsules",
+        "clubPrice": "$23",
+        "price": "$28.75",
+        "usUrl": "https://coralclub.us/shop/coral-cat-s-claw.html"
+      },
+      {
+        "slug": "coral-licorice",
+        "usSlug": "coral-licorice",
+        "id": "91641",
+        "name": "Coral Licorice Root",
+        "category": "Immune Support",
+        "variant": "100 Capsules",
+        "clubPrice": "$11",
+        "price": "$13.75",
+        "usUrl": "https://coralclub.us/shop/coral-licorice.html"
+      },
+      {
+        "slug": "ultimate-max",
+        "usSlug": "ultimate-max",
+        "id": "2175",
+        "name": "Ultimate Max",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "60 capsules",
+        "clubPrice": "$22",
+        "price": "$27.50",
+        "usUrl": "https://coralclub.us/shop/ultimate-max.html"
+      },
+      {
+        "slug": "omega-3-60",
+        "usSlug": "omega-3-oranges",
+        "id": "2113",
+        "name": "Omega 3 Oranges",
+        "category": "Omega-3 and phospholipids",
+        "variant": "30 Chewable Capsules",
+        "clubPrice": "$8",
+        "price": "$10",
+        "usUrl": "https://coralclub.us/shop/omega-3-oranges.html"
+      },
+      {
+        "slug": "super-flora",
+        "usSlug": "super-flora",
+        "id": "2150",
+        "name": "Super-Flora",
+        "category": "Digestive supplements",
+        "variant": "90 vegetable capsules",
+        "clubPrice": "$18",
+        "price": "$22.50",
+        "usUrl": "https://coralclub.us/shop/super-flora.html"
+      }
+    ]
+  },
+  {
+    "id": "sleep-stress",
+    "label": "Sleep & Stress",
+    "goal": "sleep",
+    "products": [
+      {
+        "slug": "evening-formula-91832",
+        "usSlug": "evening-formula-91832",
+        "id": "91832",
+        "name": "Evening Formula",
+        "category": "Phytonutrients",
+        "variant": "60 Capsules",
+        "clubPrice": "$18",
+        "price": "$22.50",
+        "usUrl": "https://coralclub.us/shop/evening-formula-91832.html"
+      },
+      {
+        "slug": "mindset",
+        "usSlug": "mindset",
+        "id": "91819",
+        "name": "MindSet",
+        "category": "Antistress and Sleep",
+        "variant": "90 Capsules",
+        "clubPrice": "$30",
+        "price": "$37.50",
+        "usUrl": "https://coralclub.us/shop/mindset.html"
+      },
+      {
+        "slug": "coral-magnesium",
+        "usSlug": "coral-magnesium",
+        "id": "91881",
+        "name": "Coral Magnesium",
+        "category": "Heart and Blood Vessels",
+        "variant": "90 Capsules",
+        "clubPrice": "$18",
+        "price": "$22.50",
+        "usUrl": "https://coralclub.us/shop/coral-magnesium.html"
+      },
+      {
+        "slug": "griffonia",
+        "usSlug": "griffonia",
+        "id": "91848",
+        "name": "Griffonia",
+        "category": "Antistress and Sleep",
+        "variant": "60 Capsules",
+        "clubPrice": "$18",
+        "price": "$22.50",
+        "usUrl": "https://coralclub.us/shop/griffonia.html"
+      },
+      {
+        "slug": "phytomix-for-women-new",
+        "usSlug": "phytomix-for-women-new",
+        "id": "2173",
+        "name": "PhytoMix for Women",
+        "category": "Supplements",
+        "variant": "30 vegetable capsules",
+        "clubPrice": "$20",
+        "price": "$25",
+        "usUrl": "https://coralclub.us/shop/phytomix-for-women-new.html"
+      },
+      {
+        "slug": "coral-lecithin",
+        "usSlug": "coral-lecithin",
+        "id": "91650",
+        "name": "Coral Lecithin",
+        "category": "Digestive supplements",
+        "variant": "120 Capsules",
+        "clubPrice": "$15",
+        "price": "$19",
+        "usUrl": "https://coralclub.us/shop/coral-lecithin.html"
+      },
+      {
+        "slug": "lipostick-fit",
+        "usSlug": "lipostick-fit",
+        "id": "2169",
+        "name": "Lipostick Fit",
+        "category": "Phytonutrients",
+        "variant": "15 single serving sticks / 15 ml",
+        "clubPrice": "$19",
+        "price": "$23.80",
+        "usUrl": "https://coralclub.us/shop/lipostick-fit.html"
+      },
+      {
+        "slug": "oceanmin",
+        "usSlug": "oceanmin",
+        "id": "2251301",
+        "name": "Oceanmin 1-month course",
+        "category": "Energy and Performance",
+        "variant": "30 sachets",
+        "clubPrice": "$35",
+        "price": "$43.75",
+        "usUrl": "https://coralclub.us/shop/oceanmin.html"
+      },
+      {
+        "slug": "coral-mine-silver",
+        "usSlug": "coral-mine",
+        "id": "2220",
+        "name": "Coral-Mine",
+        "category": "Water and Mineral balance",
+        "variant": "3x10 Sachets",
+        "clubPrice": "$21",
+        "price": "$26.25",
+        "usUrl": "https://coralclub.us/shop/coral-mine.html"
+      },
+      {
+        "slug": "safrino",
+        "usSlug": "safrino",
+        "id": "2184",
+        "name": "Safrino",
+        "category": "Anti-Aging & Longevity",
+        "variant": "30 vegetable capsules",
+        "clubPrice": "$23",
+        "price": "$28.75",
+        "usUrl": "https://coralclub.us/shop/safrino.html"
+      }
+    ]
+  },
+  {
+    "id": "brain-focus",
+    "label": "Brain & Focus",
+    "goal": "energy",
+    "products": [
+      {
+        "slug": "mindset",
+        "usSlug": "mindset",
+        "id": "91819",
+        "name": "MindSet",
+        "category": "Antistress and Sleep",
+        "variant": "90 Capsules",
+        "clubPrice": "$30",
+        "price": "$37.50",
+        "usUrl": "https://coralclub.us/shop/mindset.html"
+      },
+      {
+        "slug": "omega-3-60",
+        "usSlug": "omega-3-oranges",
+        "id": "2113",
+        "name": "Omega 3 Oranges",
+        "category": "Omega-3 and phospholipids",
+        "variant": "30 Chewable Capsules",
+        "clubPrice": "$8",
+        "price": "$10",
+        "usUrl": "https://coralclub.us/shop/omega-3-oranges.html"
+      },
+      {
+        "slug": "coral-lecithin",
+        "usSlug": "coral-lecithin",
+        "id": "91650",
+        "name": "Coral Lecithin",
+        "category": "Digestive supplements",
+        "variant": "120 Capsules",
+        "clubPrice": "$15",
+        "price": "$19",
+        "usUrl": "https://coralclub.us/shop/coral-lecithin.html"
+      },
+      {
+        "slug": "gotu-kola-extract",
+        "usSlug": "gotu-kola-extract",
+        "id": "2149",
+        "name": "Gotu Kola Extract",
+        "category": "Phytonutrients",
+        "variant": "60 Vegetable Capsules",
+        "clubPrice": "$10.50",
+        "price": "$13.13",
+        "usUrl": "https://coralclub.us/shop/gotu-kola-extract.html"
+      },
+      {
+        "slug": "liposomal-curcumin",
+        "usSlug": "liposomal-curcumin",
+        "id": "2165",
+        "name": "Liposomal Curcumin",
+        "category": "Immune Support",
+        "variant": "100 ml / 3.38 fl.oz",
+        "clubPrice": "$25",
+        "price": "$31.25",
+        "usUrl": "https://coralclub.us/shop/liposomal-curcumin.html"
+      },
+      {
+        "slug": "zaferan",
+        "usSlug": "zaferan",
+        "id": "91873",
+        "name": "Zaferan",
+        "category": "Phytonutrients",
+        "variant": "60 Capsules",
+        "clubPrice": "$16",
+        "price": "$20",
+        "usUrl": "https://coralclub.us/shop/zaferan.html"
+      },
+      {
+        "slug": "selenium",
+        "usSlug": "selenium",
+        "id": "2111",
+        "name": "Selenium",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "100 Vegetable Capsules",
+        "clubPrice": "$13",
+        "price": "$16.25",
+        "usUrl": "https://coralclub.us/shop/selenium.html"
+      },
+      {
+        "slug": "b-prime-direct",
+        "usSlug": "b-prime-direct",
+        "id": "2315",
+        "name": "B-Prime Direct",
+        "category": "Energy and Performance",
+        "variant": "30 stick-packets (2 g each)",
+        "clubPrice": "$15.20",
+        "price": "$19",
+        "usUrl": "https://coralclub.us/shop/b-prime-direct.html"
+      },
+      {
+        "slug": "onestack-mental-force",
+        "usSlug": "onestack-mental-force",
+        "id": "80610124",
+        "name": "Mental Force",
+        "category": "Health",
+        "variant": "",
+        "clubPrice": "$77",
+        "price": "$96.25",
+        "usUrl": "https://coralclub.us/shop/onestack-mental-force.html"
+      },
+      {
+        "slug": "ultimate-max",
+        "usSlug": "ultimate-max",
+        "id": "2175",
+        "name": "Ultimate Max",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "60 capsules",
+        "clubPrice": "$22",
+        "price": "$27.50",
+        "usUrl": "https://coralclub.us/shop/ultimate-max.html"
+      }
+    ]
+  },
+  {
+    "id": "heart-vessels",
+    "label": "Heart & Vessels",
+    "goal": "energy",
+    "products": [
+      {
+        "slug": "coenzyme-q10-kaneka",
+        "usSlug": "coenzyme-q10-kaneka",
+        "id": "2177",
+        "name": "Coenzyme Q10",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "60 vegetable capsules",
+        "clubPrice": "$30",
+        "price": "$37.50",
+        "usUrl": "https://coralclub.us/shop/coenzyme-q10-kaneka.html"
+      },
+      {
+        "slug": "omega-3-60",
+        "usSlug": "omega-3-oranges",
+        "id": "2113",
+        "name": "Omega 3 Oranges",
+        "category": "Omega-3 and phospholipids",
+        "variant": "30 Chewable Capsules",
+        "clubPrice": "$8",
+        "price": "$10",
+        "usUrl": "https://coralclub.us/shop/omega-3-oranges.html"
+      },
+      {
+        "slug": "pentokan",
+        "usSlug": "pentokan",
+        "id": "2141",
+        "name": "PentoKan",
+        "category": "Energy and Performance",
+        "variant": "20 Effervescent Tablets",
+        "clubPrice": "$13",
+        "price": "$16.25",
+        "usUrl": "https://coralclub.us/shop/pentokan.html"
+      },
+      {
+        "slug": "coral-magnesium",
+        "usSlug": "coral-magnesium",
+        "id": "91881",
+        "name": "Coral Magnesium",
+        "category": "Heart and Blood Vessels",
+        "variant": "90 Capsules",
+        "clubPrice": "$18",
+        "price": "$22.50",
+        "usUrl": "https://coralclub.us/shop/coral-magnesium.html"
+      },
+      {
+        "slug": "cardiopack",
+        "usSlug": "cardiopack",
+        "id": "803701",
+        "name": "Cardiopack",
+        "category": "Energy and Performance",
+        "variant": "Set of products",
+        "clubPrice": "$89",
+        "price": "$111.25",
+        "usUrl": "https://coralclub.us/shop/cardiopack.html"
+      },
+      {
+        "slug": "bp-phyto-control",
+        "usSlug": "bp-phyto-control",
+        "id": "91859",
+        "name": "PhytoMix #1",
+        "category": "Heart and Blood Vessels",
+        "variant": "90 Capsules",
+        "clubPrice": "$21",
+        "price": "$26.25",
+        "usUrl": "https://coralclub.us/shop/bp-phyto-control.html"
+      },
+      {
+        "slug": "circuphyt",
+        "usSlug": "circuphyt",
+        "id": "91823",
+        "name": "CircuPhyt",
+        "category": "Phytonutrients",
+        "variant": "60 Capsules",
+        "clubPrice": "$30",
+        "price": "$37.50",
+        "usUrl": "https://coralclub.us/shop/circuphyt.html"
+      },
+      {
+        "slug": "gotu-kola-extract",
+        "usSlug": "gotu-kola-extract",
+        "id": "2149",
+        "name": "Gotu Kola Extract",
+        "category": "Phytonutrients",
+        "variant": "60 Vegetable Capsules",
+        "clubPrice": "$10.50",
+        "price": "$13.13",
+        "usUrl": "https://coralclub.us/shop/gotu-kola-extract.html"
+      },
+      {
+        "slug": "aquaox",
+        "usSlug": "aquaox",
+        "id": "91829",
+        "name": "AquaOx",
+        "category": "Phytonutrients",
+        "variant": "60 Vegetable Capsules",
+        "clubPrice": "$28",
+        "price": "$35",
+        "usUrl": "https://coralclub.us/shop/aquaox.html"
+      },
+      {
+        "slug": "lymflow",
+        "usSlug": "lymflow",
+        "id": "91865",
+        "name": "LymFlow",
+        "category": "Phytonutrients",
+        "variant": "90 Capsules",
+        "clubPrice": "$16",
+        "price": "$20",
+        "usUrl": "https://coralclub.us/shop/lymflow.html"
+      }
+    ]
+  },
+  {
+    "id": "bones-joints",
+    "label": "Bones & Joints",
+    "goal": "energy",
+    "products": [
+      {
+        "slug": "b-luron",
+        "usSlug": "b-luron",
+        "id": "918141",
+        "name": "B-Luron",
+        "category": "Joints and Bones",
+        "variant": "500 ml, 2 bottles",
+        "clubPrice": "$225",
+        "price": "$281.25",
+        "usUrl": "https://coralclub.us/shop/b-luron.html"
+      },
+      {
+        "slug": "flexicor",
+        "usSlug": "flexicor",
+        "id": "91803",
+        "name": "FlexiCor",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "90 Capsules",
+        "clubPrice": "$33",
+        "price": "$41.25",
+        "usUrl": "https://coralclub.us/shop/flexicor.html"
+      },
+      {
+        "slug": "msm",
+        "usSlug": "msm",
+        "id": "2152",
+        "name": "MSM",
+        "category": "Joints and Bones",
+        "variant": "60 Vegetable Capsules",
+        "clubPrice": "$12",
+        "price": "$15",
+        "usUrl": "https://coralclub.us/shop/msm.html"
+      },
+      {
+        "slug": "coral-boswellia",
+        "usSlug": "coral-boswellia",
+        "id": "91846",
+        "name": "Coral Boswellia",
+        "category": "Health",
+        "variant": "90 Capsules",
+        "clubPrice": "$21",
+        "price": "$26.25",
+        "usUrl": "https://coralclub.us/shop/coral-boswellia.html"
+      },
+      {
+        "slug": "liposomal-curcumin",
+        "usSlug": "liposomal-curcumin",
+        "id": "2165",
+        "name": "Liposomal Curcumin",
+        "category": "Immune Support",
+        "variant": "100 ml / 3.38 fl.oz",
+        "clubPrice": "$25",
+        "price": "$31.25",
+        "usUrl": "https://coralclub.us/shop/liposomal-curcumin.html"
+      },
+      {
+        "slug": "zaferan",
+        "usSlug": "zaferan",
+        "id": "91873",
+        "name": "Zaferan",
+        "category": "Phytonutrients",
+        "variant": "60 Capsules",
+        "clubPrice": "$16",
+        "price": "$20",
+        "usUrl": "https://coralclub.us/shop/zaferan.html"
+      },
+      {
+        "slug": "omega-3-60",
+        "usSlug": "omega-3-oranges",
+        "id": "2113",
+        "name": "Omega 3 Oranges",
+        "category": "Omega-3 and phospholipids",
+        "variant": "30 Chewable Capsules",
+        "clubPrice": "$8",
+        "price": "$10",
+        "usUrl": "https://coralclub.us/shop/omega-3-oranges.html"
+      },
+      {
+        "slug": "pure-c",
+        "usSlug": "pure-c",
+        "id": "2185",
+        "name": "Pure-C 500 mg",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "60 vegetable capsules",
+        "clubPrice": "$23",
+        "price": "$28.75",
+        "usUrl": "https://coralclub.us/shop/pure-c.html"
+      },
+      {
+        "slug": "calci-prime",
+        "usSlug": "calci-prime",
+        "id": "2195",
+        "name": "Calci-Prime",
+        "category": "Minerals",
+        "variant": "120 Vegetable Capsules",
+        "clubPrice": "$22",
+        "price": "$27.50",
+        "usUrl": "https://coralclub.us/shop/calci-prime.html"
+      },
+      {
+        "slug": "o-mega-3-tg",
+        "usSlug": "o-mega-3-tg",
+        "id": "2191",
+        "name": "O!Мega-3 TG",
+        "category": "Omega-3 and phospholipids",
+        "variant": "90 capsules",
+        "clubPrice": "$30",
+        "price": "$37.50",
+        "usUrl": "https://coralclub.us/shop/o-mega-3-tg.html"
+      }
+    ]
+  },
+  {
+    "id": "skin-hair-nails",
+    "label": "Skin, Hair & Nails",
+    "goal": "skin",
+    "products": [
+      {
+        "slug": "promarine-collagen",
+        "usSlug": "promarine-collagen-peptides-",
+        "id": "2260",
+        "name": "Promarine Collagen Peptides",
+        "category": "Special Care",
+        "variant": "1 box of 10 bottles",
+        "clubPrice": "$55",
+        "price": "$68.75",
+        "usUrl": "https://coralclub.us/shop/promarine-collagen-peptides-.html"
+      },
+      {
+        "slug": "promarine-collagen-tripeptides-pack",
+        "usSlug": "promarine-collagen-tripeptides-pack",
+        "id": "2270",
+        "name": "Promarine Collagen Tripeptides",
+        "category": "Special Care",
+        "variant": "1 pack of 10 bottles (50 ml)",
+        "clubPrice": "$65",
+        "price": "$81.25",
+        "usUrl": "https://coralclub.us/shop/promarine-collagen-tripeptides-pack.html"
+      },
+      {
+        "slug": "promarine-collagen-tripeptides",
+        "usSlug": "promarine-collagen-tripeptides",
+        "id": "227003",
+        "name": "Promarine Collagen Tripeptides",
+        "category": "Special Care",
+        "variant": "3 packs of 10 bottles",
+        "clubPrice": "$190",
+        "price": "$237.50",
+        "usUrl": "https://coralclub.us/shop/promarine-collagen-tripeptides.html"
+      },
+      {
+        "slug": "msm",
+        "usSlug": "msm",
+        "id": "2152",
+        "name": "MSM",
+        "category": "Joints and Bones",
+        "variant": "60 Vegetable Capsules",
+        "clubPrice": "$12",
+        "price": "$15",
+        "usUrl": "https://coralclub.us/shop/msm.html"
+      },
+      {
+        "slug": "ultimate-max",
+        "usSlug": "ultimate-max",
+        "id": "2175",
+        "name": "Ultimate Max",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "60 capsules",
+        "clubPrice": "$22",
+        "price": "$27.50",
+        "usUrl": "https://coralclub.us/shop/ultimate-max.html"
+      },
+      {
+        "slug": "prenatal",
+        "usSlug": "prenatal",
+        "id": "2140",
+        "name": "Prenatal+",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "30 Softgel Capsules",
+        "clubPrice": "$18",
+        "price": "$22.50",
+        "usUrl": "https://coralclub.us/shop/prenatal.html"
+      },
+      {
+        "slug": "iron",
+        "usSlug": "iron",
+        "id": "2123",
+        "name": "Iron",
+        "category": "Minerals",
+        "variant": "60 Vegetable Capsules",
+        "clubPrice": "$10",
+        "price": "$12.50",
+        "usUrl": "https://coralclub.us/shop/iron.html"
+      },
+      {
+        "slug": "zinc-methionine-25-mg",
+        "usSlug": "zinc-methionine-25-mg",
+        "id": "2305",
+        "name": "Zinc Methionine 25 mg",
+        "category": "Phytonutrients",
+        "variant": "90 Vegetable Capsules",
+        "clubPrice": "$11",
+        "price": "$13.75",
+        "usUrl": "https://coralclub.us/shop/zinc-methionine-25-mg.html"
+      },
+      {
+        "slug": "d-spray-2000",
+        "usSlug": "d-spray-2000",
+        "id": "2197",
+        "name": "D-Spray 2000",
+        "category": "Immune Support",
+        "variant": "10 ml, 170 doses",
+        "clubPrice": "$12",
+        "price": "$15",
+        "usUrl": "https://coralclub.us/shop/d-spray-2000.html"
+      },
+      {
+        "slug": "shark-liver-oil-plus",
+        "usSlug": "shark-liver-oil-plus",
+        "id": "2309",
+        "name": "Shark Liver Oil Plus",
+        "category": "Immune Support",
+        "variant": "60 capsules",
+        "clubPrice": "$20",
+        "price": "$25",
+        "usUrl": "https://coralclub.us/shop/shark-liver-oil-plus.html"
+      }
+    ]
+  },
+  {
+    "id": "longevity",
+    "label": "Longevity",
+    "goal": "energy",
+    "products": [
+      {
+        "slug": "coral-detox",
+        "usSlug": "coral-detox",
+        "id": "803503",
+        "name": "Coral Detox",
+        "category": "Detox & Cleansing",
+        "variant": "Set of products",
+        "clubPrice": "$92",
+        "price": "$115",
+        "usUrl": "https://coralclub.us/shop/coral-detox.html"
+      },
+      {
+        "slug": "coral-lecithin",
+        "usSlug": "coral-lecithin",
+        "id": "91650",
+        "name": "Coral Lecithin",
+        "category": "Digestive supplements",
+        "variant": "120 Capsules",
+        "clubPrice": "$15",
+        "price": "$19",
+        "usUrl": "https://coralclub.us/shop/coral-lecithin.html"
+      },
+      {
+        "slug": "assimilator",
+        "usSlug": "assimilator",
+        "id": "91118",
+        "name": "Assimilator",
+        "category": "Digestive supplements",
+        "variant": "90 Vegetable Capsules",
+        "clubPrice": "$29",
+        "price": "$36.25",
+        "usUrl": "https://coralclub.us/shop/assimilator.html"
+      },
+      {
+        "slug": "aquaox",
+        "usSlug": "aquaox",
+        "id": "91829",
+        "name": "AquaOx",
+        "category": "Phytonutrients",
+        "variant": "60 Vegetable Capsules",
+        "clubPrice": "$28",
+        "price": "$35",
+        "usUrl": "https://coralclub.us/shop/aquaox.html"
+      },
+      {
+        "slug": "activin",
+        "usSlug": "activin",
+        "id": "91109",
+        "name": "ActiVin",
+        "category": "Phytonutrients",
+        "variant": "60 Vegetable Capsules",
+        "clubPrice": "$28",
+        "price": "$35",
+        "usUrl": "https://coralclub.us/shop/activin.html"
+      },
+      {
+        "slug": "coenzyme-q10-kaneka",
+        "usSlug": "coenzyme-q10-kaneka",
+        "id": "2177",
+        "name": "Coenzyme Q10",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "60 vegetable capsules",
+        "clubPrice": "$30",
+        "price": "$37.50",
+        "usUrl": "https://coralclub.us/shop/coenzyme-q10-kaneka.html"
+      },
+      {
+        "slug": "coral-magnesium",
+        "usSlug": "coral-magnesium",
+        "id": "91881",
+        "name": "Coral Magnesium",
+        "category": "Heart and Blood Vessels",
+        "variant": "90 Capsules",
+        "clubPrice": "$18",
+        "price": "$22.50",
+        "usUrl": "https://coralclub.us/shop/coral-magnesium.html"
+      },
+      {
+        "slug": "ultimate-max",
+        "usSlug": "ultimate-max",
+        "id": "2175",
+        "name": "Ultimate Max",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "60 capsules",
+        "clubPrice": "$22",
+        "price": "$27.50",
+        "usUrl": "https://coralclub.us/shop/ultimate-max.html"
+      },
+      {
+        "slug": "selenium",
+        "usSlug": "selenium",
+        "id": "2111",
+        "name": "Selenium",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "100 Vegetable Capsules",
+        "clubPrice": "$13",
+        "price": "$16.25",
+        "usUrl": "https://coralclub.us/shop/selenium.html"
+      },
+      {
+        "slug": "pentokan",
+        "usSlug": "pentokan",
+        "id": "2141",
+        "name": "PentoKan",
+        "category": "Energy and Performance",
+        "variant": "20 Effervescent Tablets",
+        "clubPrice": "$13",
+        "price": "$16.25",
+        "usUrl": "https://coralclub.us/shop/pentokan.html"
+      }
+    ]
+  },
+  {
+    "id": "vision-eyes",
+    "label": "Vision & Eyes",
+    "goal": "energy",
+    "products": [
+      {
+        "slug": "visi-prime",
+        "usSlug": "visi-prime",
+        "id": "2114",
+        "name": "Visi-Prime",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "30 Softgel Capsules",
+        "clubPrice": "$13",
+        "price": "$16.25",
+        "usUrl": "https://coralclub.us/shop/visi-prime.html"
+      },
+      {
+        "slug": "omega-3-60",
+        "usSlug": "omega-3-oranges",
+        "id": "2113",
+        "name": "Omega 3 Oranges",
+        "category": "Omega-3 and phospholipids",
+        "variant": "30 Chewable Capsules",
+        "clubPrice": "$8",
+        "price": "$10",
+        "usUrl": "https://coralclub.us/shop/omega-3-oranges.html"
+      },
+      {
+        "slug": "prenatal",
+        "usSlug": "prenatal",
+        "id": "2140",
+        "name": "Prenatal+",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "30 Softgel Capsules",
+        "clubPrice": "$18",
+        "price": "$22.50",
+        "usUrl": "https://coralclub.us/shop/prenatal.html"
+      },
+      {
+        "slug": "ultimate-max",
+        "usSlug": "ultimate-max",
+        "id": "2175",
+        "name": "Ultimate Max",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "60 capsules",
+        "clubPrice": "$22",
+        "price": "$27.50",
+        "usUrl": "https://coralclub.us/shop/ultimate-max.html"
+      },
+      {
+        "slug": "fandetox",
+        "usSlug": "fandetox",
+        "id": "9167501",
+        "name": "FanDetox",
+        "category": "Detox & Cleansing",
+        "variant": "30 Stick packs (4.5 g)",
+        "clubPrice": "$52",
+        "price": "$65",
+        "usUrl": "https://coralclub.us/shop/fandetox.html"
+      },
+      {
+        "slug": "b-luron",
+        "usSlug": "b-luron",
+        "id": "918141",
+        "name": "B-Luron",
+        "category": "Joints and Bones",
+        "variant": "500 ml, 2 bottles",
+        "clubPrice": "$225",
+        "price": "$281.25",
+        "usUrl": "https://coralclub.us/shop/b-luron.html"
+      },
+      {
+        "slug": "zinc-methionine-25-mg",
+        "usSlug": "zinc-methionine-25-mg",
+        "id": "2305",
+        "name": "Zinc Methionine 25 mg",
+        "category": "Phytonutrients",
+        "variant": "90 Vegetable Capsules",
+        "clubPrice": "$11",
+        "price": "$13.75",
+        "usUrl": "https://coralclub.us/shop/zinc-methionine-25-mg.html"
+      },
+      {
+        "slug": "o-mega-3-tg",
+        "usSlug": "o-mega-3-tg",
+        "id": "2191",
+        "name": "O!Мega-3 TG",
+        "category": "Omega-3 and phospholipids",
+        "variant": "90 capsules",
+        "clubPrice": "$30",
+        "price": "$37.50",
+        "usUrl": "https://coralclub.us/shop/o-mega-3-tg.html"
+      },
+      {
+        "slug": "dha-d3-smart-chews",
+        "usSlug": "dha-d3-smart-chews",
+        "id": "2304",
+        "name": "DHA+D3 Smart Chews",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "30 chewable tablets",
+        "clubPrice": "$12",
+        "price": "$15",
+        "usUrl": "https://coralclub.us/shop/dha-d3-smart-chews.html"
+      },
+      {
+        "slug": "coral-taurine",
+        "usSlug": "coral-taurine",
+        "id": "2501",
+        "name": "Coral Taurine",
+        "category": "Heart and Blood Vessels",
+        "variant": "60 vegetable capsules",
+        "clubPrice": "$16",
+        "price": "$20",
+        "usUrl": "https://coralclub.us/shop/coral-taurine.html"
+      }
+    ]
+  },
+  {
+    "id": "reproductive",
+    "label": "Reproductive Health",
+    "goal": "skin",
+    "products": [
+      {
+        "slug": "phytomix-for-women-new",
+        "usSlug": "phytomix-for-women-new",
+        "id": "2173",
+        "name": "PhytoMix for Women",
+        "category": "Supplements",
+        "variant": "30 vegetable capsules",
+        "clubPrice": "$20",
+        "price": "$25",
+        "usUrl": "https://coralclub.us/shop/phytomix-for-women-new.html"
+      },
+      {
+        "slug": "prenatal",
+        "usSlug": "prenatal",
+        "id": "2140",
+        "name": "Prenatal+",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "30 Softgel Capsules",
+        "clubPrice": "$18",
+        "price": "$22.50",
+        "usUrl": "https://coralclub.us/shop/prenatal.html"
+      },
+      {
+        "slug": "ultimate-max",
+        "usSlug": "ultimate-max",
+        "id": "2175",
+        "name": "Ultimate Max",
+        "category": "Vitamins and Vitamin-Like Substances",
+        "variant": "60 capsules",
+        "clubPrice": "$22",
+        "price": "$27.50",
+        "usUrl": "https://coralclub.us/shop/ultimate-max.html"
+      },
+      {
+        "slug": "iron",
+        "usSlug": "iron",
+        "id": "2123",
+        "name": "Iron",
+        "category": "Minerals",
+        "variant": "60 Vegetable Capsules",
+        "clubPrice": "$10",
+        "price": "$12.50",
+        "usUrl": "https://coralclub.us/shop/iron.html"
+      },
+      {
+        "slug": "circuphyt",
+        "usSlug": "circuphyt",
+        "id": "91823",
+        "name": "CircuPhyt",
+        "category": "Phytonutrients",
+        "variant": "60 Capsules",
+        "clubPrice": "$30",
+        "price": "$37.50",
+        "usUrl": "https://coralclub.us/shop/circuphyt.html"
+      },
+      {
+        "slug": "lymflow",
+        "usSlug": "lymflow",
+        "id": "91865",
+        "name": "LymFlow",
+        "category": "Phytonutrients",
+        "variant": "90 Capsules",
+        "clubPrice": "$16",
+        "price": "$20",
+        "usUrl": "https://coralclub.us/shop/lymflow.html"
+      },
+      {
+        "slug": "d-spray-2000",
+        "usSlug": "d-spray-2000",
+        "id": "2197",
+        "name": "D-Spray 2000",
+        "category": "Immune Support",
+        "variant": "10 ml, 170 doses",
+        "clubPrice": "$12",
+        "price": "$15",
+        "usUrl": "https://coralclub.us/shop/d-spray-2000.html"
+      },
+      {
+        "slug": "promarine-collagen-peptides-skin-harmony-biocellulose-facial-mask",
+        "usSlug": "promarine-collagen-peptides-skin-harmony-biocellulose-facial-mask",
+        "id": "22600303",
+        "name": "Promarin Collagen Peptides Set (1-month course) & Bio-cellulose Face Masks Skin Harmony (5 sachets)",
+        "category": "Health",
+        "variant": "Set of products",
+        "clubPrice": "$195",
+        "price": "$243.75",
+        "usUrl": "https://coralclub.us/shop/promarine-collagen-peptides-skin-harmony-biocellulose-facial-mask.html"
+      },
+      {
+        "slug": "promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask",
+        "usSlug": "promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask",
+        "id": "22600302",
+        "name": "Promarine Collagen Peptides Set (1-month course) & Bio-cellulose Face Masks Hydro Boost (5 sachets)",
+        "category": "Health",
+        "variant": "Set of products",
+        "clubPrice": "$195",
+        "price": "$243.75",
+        "usUrl": "https://coralclub.us/shop/promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask.html"
+      },
+      {
+        "slug": "promarine-collagen",
+        "usSlug": "promarine-collagen-peptides-",
+        "id": "226003",
+        "name": "Promarine Collagen Peptides",
+        "category": "Special Care",
+        "variant": "3 boxes of 10 bottles",
+        "clubPrice": "$160",
+        "price": "$200",
+        "usUrl": "https://coralclub.us/shop/promarine-collagen-peptides-.html"
+      }
+    ]
   }
 ];

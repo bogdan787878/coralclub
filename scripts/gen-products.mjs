@@ -2,10 +2,11 @@
 // client-safe data module the app imports. Run via prebuild / predev, or
 // `npm run gen`.
 
-import { readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
 const CONTENT_DIR = join(process.cwd(), "content", "products");
+const DOMAINS_FILE = join(process.cwd(), "content", "domains.json");
 const OUT = join(process.cwd(), "src", "lib", "products.generated.ts");
 
 const files = readdirSync(CONTENT_DIR)
@@ -19,19 +20,31 @@ const products = files.map((f) => {
   return raw;
 });
 
+const domains = existsSync(DOMAINS_FILE)
+  ? JSON.parse(readFileSync(DOMAINS_FILE, "utf8"))
+  : [];
+
 const banner =
-  "// AUTO-GENERATED from content/products/*.json by scripts/gen-products.mjs.\n" +
-  "// Do not edit by hand — edit the JSON (or use the CMS) and re-run `npm run gen`.\n";
+  "// AUTO-GENERATED from content/products/*.json + content/domains.json by\n" +
+  "// scripts/gen-products.mjs. Do not edit by hand — edit the JSON (or use\n" +
+  "// the CMS) and re-run `npm run gen`.\n";
 
 writeFileSync(
   OUT,
   banner +
-    "\nimport type { ProductContent } from \"./products\";\n\n" +
+    '\nimport type { ProductContent, DomainContent } from "./products";\n\n' +
     `export const GENERATED_PRODUCTS: ProductContent[] = ${JSON.stringify(
       products,
+      null,
+      2,
+    )};\n\n` +
+    `export const GENERATED_DOMAINS: DomainContent[] = ${JSON.stringify(
+      domains,
       null,
       2,
     )};\n`,
 );
 
-console.log(`gen-products: wrote ${products.length} products -> ${OUT}`);
+console.log(
+  `gen-products: wrote ${products.length} products, ${domains.length} domains -> ${OUT}`,
+);
