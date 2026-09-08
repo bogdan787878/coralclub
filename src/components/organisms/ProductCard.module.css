@@ -81,6 +81,18 @@
   background: var(--color-primary-100);
 }
 
+/* swap-in animation for whichever cart control just mounted */
+@keyframes cartSwapIn {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* white cart button, inside the tile's bottom-right corner */
 .cart {
   position: absolute;
@@ -120,6 +132,12 @@
   background: #ffffff;
   color: var(--color-primary-100);
   box-shadow: 0 10px 24px rgba(1, 17, 48, 0.18);
+  transform-origin: right center;
+}
+
+/* applied only after the shopper acts, so it fires on the swap, not on load */
+.animIn {
+  animation: cartSwapIn 0.2s var(--ease-standard);
 }
 .stepper button {
   width: 36px;
@@ -134,6 +152,12 @@
 }
 .stepper button:active {
   background: var(--color-primary-10);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animIn {
+    animation: none;
+  }
 }
 .stepperCount {
   min-width: 18px;

@@ -64,10 +64,28 @@
   font-weight: var(--font-weight-medium);
 }
 
+/* swap-in animation for whichever action just mounted */
+@keyframes actionSwapIn {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .action {
   flex: none;
   min-height: 52px;
   padding-inline: var(--space-40);
+  transform-origin: right center;
+}
+
+/* applied only after the shopper acts, so it fires on the swap, not on load */
+.animIn {
+  animation: actionSwapIn 0.2s var(--ease-standard);
 }
 
 /* −  N  +  stepper — replaces the action once the product is in the cart */
@@ -82,6 +100,7 @@
   color: var(--color-primary-100);
   border: 1px solid var(--color-primary-30);
   box-shadow: 0 8px 24px rgba(1, 17, 48, 0.12);
+  transform-origin: right center;
 }
 .stepper button {
   width: 42px;
@@ -103,4 +122,10 @@
   font-family: var(--font-sans);
   font-size: 1.125rem;
   font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animIn {
+    animation: none;
+  }
 }

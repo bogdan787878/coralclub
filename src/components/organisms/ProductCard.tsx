@@ -70,7 +70,9 @@ export function ProductCard({
   onSetQty,
 }: ProductCardProps) {
   const [active, setActive] = useState(0);
+  const [acted, setActed] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
+  const anim = acted ? ` ${styles.animIn}` : "";
 
   const onScroll = () => {
     const el = trackRef.current;
@@ -117,11 +119,14 @@ export function ProductCard({
 
         {onAddToCart ? (
           cartQty > 0 ? (
-            <span className={styles.stepper}>
+            <span className={styles.stepper + anim}>
               <button
                 type="button"
                 aria-label="Remove one"
-                onClick={() => onSetQty?.(cartQty - 1)}
+                onClick={() => {
+                  setActed(true);
+                  onSetQty?.(cartQty - 1);
+                }}
               >
                 −
               </button>
@@ -131,7 +136,10 @@ export function ProductCard({
               <button
                 type="button"
                 aria-label="Add one"
-                onClick={() => onSetQty?.(cartQty + 1)}
+                onClick={() => {
+                  setActed(true);
+                  onSetQty?.(cartQty + 1);
+                }}
               >
                 +
               </button>
@@ -139,8 +147,11 @@ export function ProductCard({
           ) : (
             <button
               type="button"
-              onClick={onAddToCart}
-              className={styles.cart}
+              onClick={() => {
+                setActed(true);
+                onAddToCart();
+              }}
+              className={styles.cart + anim}
               aria-label="Add to bag"
             >
               <CartIcon />

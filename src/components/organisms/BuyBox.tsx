@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui";
 import { addItem, setQty, useCart } from "@/lib/cart";
 import styles from "./BuyBox.module.css";
@@ -31,14 +32,17 @@ export type BuyBoxProps = {
  */
 export function BuyBox({ options, product }: BuyBoxProps) {
   const cart = useCart();
+  const [acted, setActed] = useState(false);
   const club = options.find((o) => o.id === "club") ?? options[0];
   const regular = options.find((o) => o.id === "regular") ?? options[0];
   const canAddToCart = Boolean(product.coralId);
   const qty = canAddToCart
     ? (cart.find((l) => l.coralId === product.coralId)?.qty ?? 0)
     : 0;
+  const anim = acted ? ` ${styles.animIn}` : "";
 
-  const add = () =>
+  const add = () => {
+    setActed(true);
     addItem({
       coralId: product.coralId as string,
       slug: product.slug,
@@ -46,6 +50,12 @@ export function BuyBox({ options, product }: BuyBoxProps) {
       price: regular.price,
       image: product.image,
     });
+  };
+
+  const bump = (next: number) => {
+    setActed(true);
+    setQty(product.coralId as string, next);
+  };
 
   return (
     <div className={styles.bar}>
@@ -59,11 +69,11 @@ export function BuyBox({ options, product }: BuyBoxProps) {
         </div>
 
         {canAddToCart && qty > 0 ? (
-          <div className={styles.stepper}>
+          <div className={styles.stepper + anim}>
             <button
               type="button"
               aria-label="Remove one"
-              onClick={() => setQty(product.coralId as string, qty - 1)}
+              onClick={() => bump(qty - 1)}
             >
               −
             </button>
@@ -73,13 +83,17 @@ export function BuyBox({ options, product }: BuyBoxProps) {
             <button
               type="button"
               aria-label="Add one"
-              onClick={() => setQty(product.coralId as string, qty + 1)}
+              onClick={() => bump(qty + 1)}
             >
               +
             </button>
           </div>
         ) : canAddToCart ? (
-          <Button variant="primary" className={styles.action} onClick={add}>
+          <Button
+            variant="primary"
+            className={styles.action + anim}
+            onClick={add}
+          >
             Add to Cart
           </Button>
         ) : (
