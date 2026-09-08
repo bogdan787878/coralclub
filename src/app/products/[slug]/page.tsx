@@ -87,7 +87,15 @@ export default async function ProductPage({
                 </p>
               </div>
 
-              <BuyBox options={product.prices} />
+              <BuyBox
+                options={product.prices}
+                product={{
+                  coralId: product.coralId,
+                  slug: product.slug,
+                  name: product.name,
+                  image: product.image,
+                }}
+              />
 
               <InfoAccordion
                 items={[

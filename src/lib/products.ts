@@ -38,6 +38,8 @@ export const GOALS: { id: Goal; label: string }[] = [
 export type Product = {
   slug: string;
   name: string;
+  /** Product id in the coralclub.ru store — powers the cart hand-off. */
+  coralId?: string;
   /** Big two-line title on the carousel card. */
   headline: string;
   /** Category pill on the carousel card. */
@@ -68,11 +70,7 @@ export function basketUrl(coralId: string, qty = 1): string {
   return `${CORAL_SHOP}shop_basket.php?${coralId}=${qty}&utm_source=copy-link&utm_medium=cart-recom`;
 }
 
-function tier(
-  clubPrice: string,
-  regularPrice: string,
-  coralId?: string,
-): PriceOption[] {
+function tier(clubPrice: string, regularPrice: string): PriceOption[] {
   return [
     {
       id: "club",
@@ -86,16 +84,14 @@ function tier(
       id: "regular",
       label: "Regular Price",
       price: regularPrice,
-      // full price → straight to the coralclub.ru basket
-      cta: {
-        label: "Add to bag",
-        href: coralId ? basketUrl(coralId) : CORAL_SHOP,
-      },
+      // full price → hand off to the coralclub.ru basket (href filled in
+      // from `coralId` below; falls back to the shop root)
+      cta: { label: "Add to bag", href: CORAL_SHOP },
     },
   ];
 }
 
-export const PRODUCTS: Product[] = [
+const CATALOGUE: Product[] = [
   {
     slug: "coral-mine-silver",
     name: "Coral Mine Silver",
@@ -106,11 +102,11 @@ export const PRODUCTS: Product[] = [
     description:
       "You can take the best supplements, but if you're dehydrated, your body doesn't actually use them. That's why Coral Club starts with what matters first: the water you drink daily. Everything else builds on top of that.",
     image: "/images/products/coral-mine-silver.png",
+    coralId: "2221",
     rating: 3.4,
     ratingsCount: 25,
     reviewsCount: 12,
-    // Coral Mine — coralclub.ru product id 2221
-    prices: tier("$475.99", "$875", "2221"),
+    prices: tier("$475.99", "$875"),
   },
   {
     slug: "pentokan",
@@ -122,11 +118,11 @@ export const PRODUCTS: Product[] = [
     description:
       "A soluble potassium and magnesium drink that supports heart rhythm, muscle function and healthy blood pressure — part of the daily hydration layer.",
     image: "/images/products/pentokan.png",
+    coralId: "2141",
     rating: 4.5,
     ratingsCount: 33,
     reviewsCount: 14,
-    // PentoKan — coralclub.ru product id 2141
-    prices: tier("$21.99", "$29.99", "2141"),
+    prices: tier("$21.99", "$29.99"),
   },
   {
     slug: "oceanmin",
@@ -244,6 +240,17 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
+/** Fill each product's "Add to bag" href from its coralclub.ru id. */
+export const PRODUCTS: Product[] = CATALOGUE.map((p) => {
+  if (!p.coralId) return p;
+  const prices = p.prices.map((price) =>
+    price.id === "regular"
+      ? { ...price, cta: { ...price.cta, href: basketUrl(p.coralId!) } }
+      : price,
+  );
+  return { ...p, prices };
+});
+
 export function getProduct(slug: string): Product | undefined {
   const product = PRODUCTS.find((p) => p.slug === slug);
   if (!product) return undefined;
@@ -269,7 +276,9 @@ export type PhaseProductCard = {
   price: string;
   /** Struck-through "was" price on the card. */
   priceWas: string;
-  /** coralclub.ru basket link for the card's cart button. */
+  /** coralclub.ru product id — the card's cart button adds this line. */
+  coralId?: string;
+  /** coralclub.ru basket link — fallback when there's no local cart. */
   cartHref: string;
   goals: Goal[];
   image?: string;
@@ -341,6 +350,7 @@ export function getPhases(): PhaseView[] {
         title: p.cardTitle,
         price: p.prices[0].price,
         priceWas: p.prices[1].price,
+        coralId: p.coralId,
         cartHref: p.prices[1].cta.href,
         goals: p.goals,
         image: p.image,

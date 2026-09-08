@@ -25,8 +25,10 @@ export type ProductCardProps = {
   href: string;
   /** Packshots — one per slide of the card's own nested carousel. */
   images?: ProductImage[];
-  /** Where the cart button links (add-to-bag redirect). */
+  /** Where the cart button links when there's no local-cart handler. */
   cartHref?: string;
+  /** Adds the product to the local cart. Takes over the cart button. */
+  onAddToCart?: () => void;
 };
 
 function CartIcon() {
@@ -59,6 +61,7 @@ export function ProductCard({
   href,
   images = [],
   cartHref = "#add-to-bag",
+  onAddToCart,
 }: ProductCardProps) {
   const [active, setActive] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -106,7 +109,16 @@ export function ProductCard({
           <Link href={href} className={styles.mediaLink} aria-hidden="true" tabIndex={-1} />
         )}
 
-        {/^https?:/.test(cartHref) ? (
+        {onAddToCart ? (
+          <button
+            type="button"
+            onClick={onAddToCart}
+            className={styles.cart}
+            aria-label="Add to bag"
+          >
+            <CartIcon />
+          </button>
+        ) : /^https?:/.test(cartHref) ? (
           <a
             href={cartHref}
             className={styles.cart}

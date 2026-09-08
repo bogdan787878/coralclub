@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Accent, Container, Section } from "@/components/ui";
+import { addItem } from "@/lib/cart";
 import { Carousel } from "./Carousel";
 import { PhaseSwitcher } from "./PhaseSwitcher";
 import { ProductCard } from "./ProductCard";
@@ -51,6 +52,18 @@ export function PhasesSection({ phases }: PhasesSectionProps) {
                 priceWas={p.priceWas}
                 href={productHref(p.slug)}
                 cartHref={p.cartHref}
+                onAddToCart={
+                  p.coralId
+                    ? () =>
+                        addItem({
+                          coralId: p.coralId as string,
+                          slug: p.slug,
+                          name: p.name,
+                          price: p.priceWas,
+                          image: p.image,
+                        })
+                    : undefined
+                }
                 images={
                   p.image
                     ? [{ src: p.image, alt: p.name, position: p.imagePosition }]
