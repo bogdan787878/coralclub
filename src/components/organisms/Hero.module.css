@@ -4,7 +4,6 @@
   isolation: isolate;
   overflow: hidden;
   min-height: min(78svh, 620px);
-  border-radius: 0 0 var(--radius-base) var(--radius-base);
   background: var(--color-primary-100);
   color: var(--color-text-on-primary);
 }
