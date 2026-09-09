@@ -69,8 +69,9 @@ Water" block. Fields: an `id`, a two-line heading (`titleLead` + italic
 `titleAccent`), a `blurb` paragraph, one large image (optional — a gradient
 placeholder shows until you add one; uploads go to `public/images/series/`),
 and an ordered list of product slugs (each must match a product's Slug).
-Rendered on the homepage by `SeriesShowcase`; only the `liumi` block is wired
-in right now (`src/app/page.tsx`).
+Rendered on the homepage by `SeriesShowcase`; the `liumi` and `privilege`
+blocks are wired in right now (`src/app/page.tsx`), one after the other in
+the Hydration area.
 
 ## 2. Straight in GitHub (zero setup)
 

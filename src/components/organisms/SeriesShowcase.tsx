@@ -8,6 +8,8 @@ import styles from "./SeriesShowcase.module.css";
 
 export type SeriesShowcaseProps = {
   series: SeriesView;
+  /** Background tone — alternate it when two blocks sit next to each other. */
+  tone?: "default" | "surface";
 };
 
 /**
@@ -16,12 +18,12 @@ export type SeriesShowcaseProps = {
  * blurb and a carousel of the series' products. Driven by
  * content/series/*.json (editable in the CMS).
  */
-export function SeriesShowcase({ series }: SeriesShowcaseProps) {
+export function SeriesShowcase({ series, tone = "default" }: SeriesShowcaseProps) {
   const { titleLead, titleAccent, blurb, features, image, products } = series;
   if (products.length === 0) return null;
 
   return (
-    <Section tone="primary">
+    <Section tone={tone}>
       <div className={styles.inner}>
         <Container>
           <div className={styles.media}>

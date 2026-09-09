@@ -1,0 +1,31 @@
+{
+  "slug": "privilege-anti-aging-morning-cream",
+  "name": "Privilege Anti-Aging Morning Cream (50 ml)",
+  "headline": "Anti-Aging Morning Cream",
+  "category": "Privilege",
+  "cardTitle": "Step 4 — Day cream",
+  "goals": [
+    "skin"
+  ],
+  "coralId": "",
+  "description": "A day cream with coffee oil and extract that hydrates, firms and protects, sitting well under sunscreen and makeup.",
+  "price": "$31.25",
+  "clubPrice": "$25.00",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.7,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "Apply to face and neck every morning after serum.",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "3 years from the date of manufacture; 12 months after opening",
+    "storage": "Store at room temperature, away from direct sunlight.",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

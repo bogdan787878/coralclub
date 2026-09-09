@@ -1,0 +1,31 @@
+{
+  "slug": "privilege-milk-cleanser",
+  "name": "Privilege Milk Cleanser (100 ml)",
+  "headline": "Milk Cleanser",
+  "category": "Privilege",
+  "cardTitle": "Step 1 — Cleanse",
+  "goals": [
+    "skin"
+  ],
+  "coralId": "",
+  "description": "A creamy milk cleanser with coffee oil and extract that dissolves makeup and daily grime while leaving the skin soft and comfortable. The gentle first step of the Privilege routine.",
+  "price": "$21.88",
+  "clubPrice": "$17.50",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.7,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "Morning and evening, massage over dry or damp skin, then rinse or wipe off with a cotton pad.",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "3 years from the date of manufacture; 12 months after opening",
+    "storage": "Store at room temperature, away from direct sunlight.",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

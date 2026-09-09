@@ -1,0 +1,31 @@
+{
+  "slug": "privilege-intensive-eye-serum",
+  "name": "Privilege Intensive Eye Serum (30 ml)",
+  "headline": "Intensive Eye Serum",
+  "category": "Privilege",
+  "cardTitle": "Targeted — Eyes",
+  "goals": [
+    "skin"
+  ],
+  "coralId": "",
+  "description": "A lightweight eye serum that visibly reduces puffiness and the look of fine lines around the eye contour.",
+  "price": "$40.63",
+  "clubPrice": "$32.50",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.7,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "Pat a small amount around the orbital bone morning and evening, before eye cream.",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "3 years from the date of manufacture; 12 months after opening",
+    "storage": "Store at room temperature, away from direct sunlight.",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

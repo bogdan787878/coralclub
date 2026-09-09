@@ -1,0 +1,31 @@
+{
+  "slug": "privilege-facial-scrub",
+  "name": "Privilege Facial Scrub (50 ml)",
+  "headline": "Facial Scrub",
+  "category": "Privilege",
+  "cardTitle": "Weekly — Exfoliate",
+  "goals": [
+    "skin"
+  ],
+  "coralId": "",
+  "description": "A fine coffee-based scrub that polishes away dead cells and unclogs pores, leaving skin smoother and more even. Use once or twice a week.",
+  "price": "$31.25",
+  "clubPrice": "$25.00",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.7,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "Apply to damp skin, massage gently for 30–60 seconds avoiding the eye area, then rinse.",
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "3 years from the date of manufacture; 12 months after opening",
+    "storage": "Store at room temperature, away from direct sunlight.",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

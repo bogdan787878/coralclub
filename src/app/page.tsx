@@ -29,6 +29,7 @@ export default function Home() {
   const phases = getPhases();
   const domains = getDomains();
   const liumi = getSeries("liumi");
+  const privilege = getSeries("privilege");
 
   return (
     <main>
@@ -84,6 +85,8 @@ export default function Home() {
       />
 
       {liumi && <SeriesShowcase series={liumi} />}
+
+      {privilege && <SeriesShowcase series={privilege} tone="surface" />}
 
       <CommunityReels
         title={{
