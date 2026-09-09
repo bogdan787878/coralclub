@@ -49,6 +49,31 @@
   border-color: rgba(255, 255, 255, 0.24);
 }
 
+/* phase indicator dots, under the CTA */
+.dots {
+  margin-top: var(--space-16);
+  display: flex;
+  justify-content: center;
+  gap: var(--space-8);
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.35);
+  transition:
+    width 0.2s var(--ease-standard),
+    background-color 0.2s var(--ease-standard);
+}
+.dotOn {
+  width: 22px;
+  background: #ffffff;
+}
+.dot:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
 /* ---------- Wide screens ---------- */
 @media (min-width: 768px) {
   .panel {

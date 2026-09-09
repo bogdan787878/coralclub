@@ -54,8 +54,9 @@ function Reels({ content }: { content: ReelsContent }) {
 }
 
 function HomeContent({ phases, domains, seriesById }: HomeViewProps) {
-  const { phase } = usePhase();
+  const { phase, setPhase } = usePhase();
   const c = HOME_CONTENT[phase];
+  const phaseIds = phases.map((p) => p.id);
 
   return (
     <main>
@@ -68,6 +69,14 @@ function HomeContent({ phases, domains, seriesById }: HomeViewProps) {
           body={paras(c.hero.body)}
           image={c.hero.image}
           cta={c.hero.cta}
+          nav={{
+            count: phaseIds.length,
+            activeIndex: phaseIds.indexOf(phase),
+            onSelect: (i) => {
+              const id = phaseIds[i];
+              if (id) setPhase(id);
+            },
+          }}
         />
       </div>
 
