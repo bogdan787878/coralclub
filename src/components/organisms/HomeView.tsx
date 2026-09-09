@@ -7,7 +7,7 @@ import { PhaseProvider, usePhase } from "@/lib/phase";
 import type { DomainContent, PhaseView, SeriesView } from "@/lib/products";
 import { CommunityReels } from "./CommunityReels";
 import { Editorial } from "./Editorial";
-import { Hero } from "./Hero";
+import { HeroCarousel } from "./HeroCarousel";
 import { PhasesSection } from "./PhasesSection";
 import { SeriesShowcase } from "./SeriesShowcase";
 import { SiteHeader } from "./SiteHeader";
@@ -62,23 +62,22 @@ function HomeContent({ phases, domains, seriesById }: HomeViewProps) {
     <main>
       <SiteHeader cart={false} />
 
-      {/* re-keyed on phase → content swaps with a light fade */}
-      <div key={`hero-${phase}`} className={styles.swap}>
-        <Hero
-          title={titleNode(c.hero.title)}
-          body={paras(c.hero.body)}
-          image={c.hero.image}
-          cta={c.hero.cta}
-          nav={{
-            count: phaseIds.length,
-            activeIndex: phaseIds.indexOf(phase),
-            onSelect: (i) => {
-              const id = phaseIds[i];
-              if (id) setPhase(id);
-            },
-          }}
-        />
-      </div>
+      <HeroCarousel
+        activeIndex={phaseIds.indexOf(phase)}
+        onSelect={(i) => {
+          const id = phaseIds[i];
+          if (id) setPhase(id);
+        }}
+        slides={phaseIds.map((id) => {
+          const hero = HOME_CONTENT[id].hero;
+          return {
+            title: titleNode(hero.title),
+            body: paras(hero.body),
+            image: hero.image,
+            cta: hero.cta,
+          };
+        })}
+      />
 
       {/* the switcher lives here — kept outside the swap so it stays mounted */}
       <div id="phases">

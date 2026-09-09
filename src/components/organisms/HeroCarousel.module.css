@@ -1,0 +1,60 @@
+.viewport {
+  position: relative;
+}
+
+/* native scroll-snap track — swipe = browser momentum + snap */
+.track {
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+/* phase dots — over the hero, just below the CTA */
+.dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--space-24);
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  gap: var(--space-8);
+  pointer-events: none;
+}
+.dot {
+  pointer-events: auto;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.35);
+  transition:
+    width 0.2s var(--ease-standard),
+    background-color 0.2s var(--ease-standard);
+}
+.dotOn {
+  width: 22px;
+  background: #ffffff;
+}
+.dot:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    scroll-behavior: auto;
+  }
+}

@@ -4,6 +4,9 @@ export type { SiteHeaderProps } from "./SiteHeader";
 export { Hero } from "./Hero";
 export type { HeroProps, HeroImage } from "./Hero";
 
+export { HeroCarousel } from "./HeroCarousel";
+export type { HeroCarouselProps } from "./HeroCarousel";
+
 export { Carousel } from "./Carousel";
 export type { CarouselProps } from "./Carousel";
 
