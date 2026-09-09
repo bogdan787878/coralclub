@@ -1412,14 +1412,15 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "skin"
     ],
     "coralId": "",
-    "description": "A lightweight toner that floods skin with moisture right after cleansing and preps it to absorb everything that follows. Restores a plump, bouncy feel in seconds.",
     "price": "$47",
     "clubPrice": "$37",
-    "carouselImages": [],
-    "pdpImages": [],
-    "rating": 4.8,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
+    "description": "A lightweight toner that floods skin with moisture right after cleansing and preps it to absorb everything that follows. Restores a plump, bouncy feel in seconds.",
+    "carouselImages": [
+      "/images/products/mggdb8ewyfftlrghif56x7tb0ejz2j7m 1.png"
+    ],
+    "pdpImages": [
+      "/images/products/mggdb8ewyfftlrghif56x7tb0ejz2j7m 1.png"
+    ],
     "howToUse": "After cleansing, pat a few drops over the face with your hands until absorbed.",
     "manufacturing": {
       "countryOfOrigin": "South Korea",
@@ -1429,9 +1430,18 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "test",
+            "amount": "test",
+            "dv": "test"
+          }
+        ]
       }
-    }
+    },
+    "rating": 4.8,
+    "ratingsCount": 0,
+    "reviewsCount": 0
   },
   {
     "slug": "liumi-purifying-gel-cleanser",

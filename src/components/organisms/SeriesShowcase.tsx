@@ -8,7 +8,7 @@ import styles from "./SeriesShowcase.module.css";
 
 export type SeriesShowcaseProps = {
   series: SeriesView;
-  /** Background tone — alternate it when two blocks sit next to each other. */
+  /** Background tone. Defaults to "surface" to match the rest of the page. */
   tone?: "default" | "surface";
 };
 
@@ -18,7 +18,7 @@ export type SeriesShowcaseProps = {
  * blurb and a carousel of the series' products. Driven by
  * content/series/*.json (editable in the CMS).
  */
-export function SeriesShowcase({ series, tone = "default" }: SeriesShowcaseProps) {
+export function SeriesShowcase({ series, tone = "surface" }: SeriesShowcaseProps) {
   const { titleLead, titleAccent, blurb, features, image, products } = series;
   if (products.length === 0) return null;
 
@@ -59,7 +59,7 @@ export function SeriesShowcase({ series, tone = "default" }: SeriesShowcaseProps
                         /* eslint-disable-next-line @next/next/no-img-element */
                         <img
                           className={styles.featureIcon}
-                          src={f.icon}
+                          src={`${f.icon}?v=2`}
                           alt=""
                           width={24}
                         />

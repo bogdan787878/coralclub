@@ -86,7 +86,7 @@ export default function Home() {
 
       {liumi && <SeriesShowcase series={liumi} />}
 
-      {privilege && <SeriesShowcase series={privilege} tone="surface" />}
+      {privilege && <SeriesShowcase series={privilege} />}
 
       <CommunityReels
         title={{
