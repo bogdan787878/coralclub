@@ -9,7 +9,7 @@ import {
   Stack,
 } from "@/components/ui";
 import { BuyBox, ImageSlider, InfoAccordion } from "@/components/organisms";
-import { CartButton } from "@/components/cart/CartButton";
+import { CartDrawerHost } from "@/components/cart/CartDrawerHost";
 import { PRODUCTS, getProduct } from "@/lib/products";
 import { BackButton } from "./BackButton";
 import { ShareButton } from "./ShareButton";
@@ -49,10 +49,7 @@ export default async function ProductPage({
     <main className={styles.page}>
       <div className={styles.imageControls}>
         <BackButton className={styles.circleBtn} />
-        <div className={styles.controlsRight}>
-          <ShareButton className={styles.circleBtn} title={product.name} />
-          <CartButton className={styles.circleBtn} />
-        </div>
+        <ShareButton className={styles.circleBtn} title={product.name} />
       </div>
 
       <Section tone="surface">
@@ -118,6 +115,8 @@ export default async function ProductPage({
           image: product.image,
         }}
       />
+
+      <CartDrawerHost />
     </main>
   );
 }

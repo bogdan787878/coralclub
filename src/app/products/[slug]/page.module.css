@@ -41,17 +41,6 @@
   pointer-events: auto;
 }
 
-/* share + cart grouped at the right corner */
-.controlsRight {
-  display: flex;
-  align-items: center;
-  gap: var(--space-8);
-  pointer-events: none;
-}
-.controlsRight > * {
-  pointer-events: auto;
-}
-
 .circleBtn {
   position: relative;
   width: 44px;
