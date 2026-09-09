@@ -1,9 +1,21 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BodyLong, Container, Heading, Section, Stack } from "@/components/ui";
-import { BuyBox, ImageSlider, InfoAccordion } from "@/components/organisms";
+import {
+  BuyBox,
+  Carousel,
+  ImageSlider,
+  InfoAccordion,
+  ProductCard,
+} from "@/components/organisms";
 import { CartDrawerHost } from "@/components/cart/CartDrawerHost";
-import { PRODUCTS, getProduct, shortCategory } from "@/lib/products";
+import {
+  PRODUCTS,
+  getProduct,
+  productHref,
+  relatedProducts,
+  shortCategory,
+} from "@/lib/products";
 import { BackButton } from "./BackButton";
 import { ShareButton } from "./ShareButton";
 import { ManufacturingDetails } from "./ManufacturingDetails";
@@ -37,6 +49,8 @@ export default async function ProductPage({
   const { slug } = await params;
   const product = getProduct(slug);
   if (!product) notFound();
+
+  const related = relatedProducts(slug);
 
   return (
     <main className={styles.page}>
@@ -96,6 +110,28 @@ export default async function ProductPage({
           </div>
         </Container>
       </Section>
+
+      {related.length > 0 && (
+        <Section tone="surface">
+          <Carousel
+            title={<>More in {shortCategory(product.category)}</>}
+            label={`More ${shortCategory(product.category)} products`}
+          >
+            {related.map((p) => (
+              <ProductCard
+                key={p.slug}
+                title={p.headline}
+                category={shortCategory(p.category)}
+                price={p.prices[0].price}
+                priceWas={p.prices[1].price}
+                href={productHref(p.slug)}
+                cartHref={p.prices[1].cta.href}
+                images={p.carouselImages.map((src) => ({ src, alt: p.name }))}
+              />
+            ))}
+          </Carousel>
+        </Section>
+      )}
 
       <BuyBox
         options={product.prices}

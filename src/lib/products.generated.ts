@@ -762,18 +762,15 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "2221",
-    "description": "You can take the best supplements, but if you're dehydrated, your body doesn't actually use them. That's why Coral Club starts with what matters first: the water you drink daily. Everything else builds on top of that.",
     "price": "$26.25",
     "clubPrice": "$21",
+    "description": "Coral-Mine is a naturally derived mineral product sourced from deep-sea coral formations in the Sea of Japan near the Okinawa and Tokunoshima islands. Its unique mineral composition helps enrich water and supports hydration, normal mineral balance, and overall well-being.",
     "carouselImages": [
       "/images/products/coral-mine-silver.png"
     ],
     "pdpImages": [
       "/images/products/coral-mine-silver.png"
     ],
-    "rating": 3.4,
-    "ratingsCount": 25,
-    "reviewsCount": 12,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "manufacturing": {
       "countryOfOrigin": "",
@@ -783,9 +780,23 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "test",
+            "amount": "test",
+            "dv": ""
+          },
+          {
+            "name": "test",
+            "amount": "test",
+            "dv": ""
+          }
+        ]
       }
-    }
+    },
+    "rating": 3.4,
+    "ratingsCount": 25,
+    "reviewsCount": 12
   },
   {
     "slug": "coral-taurine",

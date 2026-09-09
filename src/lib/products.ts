@@ -201,6 +201,18 @@ export function getProduct(slug: string): Product | undefined {
 
 export const productHref = (slug: string) => `/products/${slug}`;
 
+/** Other products sharing the same category, asset-wrapped, current one excluded. */
+export function relatedProducts(slug: string, limit = 12): Product[] {
+  const current = PRODUCTS.find((p) => p.slug === slug);
+  if (!current) return [];
+  return PRODUCTS.filter(
+    (p) => p.slug !== slug && p.category === current.category,
+  )
+    .slice(0, limit)
+    .map((p) => getProduct(p.slug))
+    .filter((p): p is Product => Boolean(p));
+}
+
 /* -------------------------------------------------------------------------- */
 /* Health Concept 2.0 — phases                                               */
 /* -------------------------------------------------------------------------- */
