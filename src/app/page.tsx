@@ -7,6 +7,7 @@ import {
   SeriesShowcase,
   SiteHeader,
 } from "@/components/organisms";
+import { CartBar } from "@/components/cart/CartBar";
 import { getDomains, getPhases, getSeries } from "@/lib/products";
 import { asset } from "@/lib/asset";
 
@@ -33,7 +34,7 @@ export default function Home() {
 
   return (
     <main>
-      <SiteHeader />
+      <SiteHeader cart={false} />
 
       <Hero
         title={
@@ -96,6 +97,8 @@ export default function Home() {
         body="Real members, real routines. Most people start Coral Club because someone they already trust did first."
         reels={COMMUNITY_REELS}
       />
+
+      <CartBar />
     </main>
   );
 }

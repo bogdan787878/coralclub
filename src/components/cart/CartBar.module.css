@@ -1,0 +1,62 @@
+/* Keeps the last section clear of the fixed bar while it's shown. */
+.spacer {
+  height: calc(76px + env(safe-area-inset-bottom, 0px));
+}
+
+/* Pinned to the bottom of the viewport, constrained to the mobile column. */
+.wrap {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 100%;
+  max-width: 480px;
+  z-index: 45;
+}
+
+.bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  min-height: 60px;
+  padding: var(--space-16) var(--page-padding-inline)
+    calc(var(--space-16) + env(safe-area-inset-bottom, 0px));
+  background: var(--color-action);
+  color: #ffffff;
+  box-shadow: 0 -8px 24px rgba(1, 17, 48, 0.14);
+  font-family: var(--font-sans);
+  transition: background-color 0.15s var(--ease-standard);
+}
+.bar:hover {
+  background: var(--color-action-hover);
+}
+.bar:active {
+  transform: translateY(1px);
+}
+
+.bar svg {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+
+/* label sits next to the icon; margin-auto pushes total + chevron right */
+.label {
+  margin-right: auto;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.total {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.chevron {
+  width: 20px;
+  height: 20px;
+  opacity: 0.7;
+}
