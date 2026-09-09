@@ -8,14 +8,15 @@
     "skin"
   ],
   "coralId": "",
-  "description": "A recovery serum that calms redness, evens out tone and reinforces a stressed moisture barrier. For skin that feels reactive, dull or out of balance.",
   "price": "$59",
   "clubPrice": "$47",
-  "carouselImages": [],
-  "pdpImages": [],
-  "rating": 4.8,
-  "ratingsCount": 0,
-  "reviewsCount": 0,
+  "description": "A recovery serum that calms redness, evens out tone and reinforces a stressed moisture barrier. For skin that feels reactive, dull or out of balance.",
+  "carouselImages": [
+    "/images/products/z441940waifbg54rqvq7bs4z1y9zcn2b 1.png"
+  ],
+  "pdpImages": [
+    "/images/products/z441940waifbg54rqvq7bs4z1y9zcn2b 1.png"
+  ],
   "howToUse": "Apply a few drops to clean skin morning and evening, before moisturiser.",
   "manufacturing": {
     "countryOfOrigin": "South Korea",
@@ -25,7 +26,16 @@
     "ingredients": "",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "test",
+          "amount": "test",
+          "dv": ""
+        }
+      ]
     }
-  }
+  },
+  "rating": 4.8,
+  "ratingsCount": 0,
+  "reviewsCount": 0
 }
