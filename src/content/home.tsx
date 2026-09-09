@@ -118,8 +118,7 @@ const RESTART: HomePhase = {
   hero: {
     title: { lead: "Come out lighter,", accent: "calmer, clearer" },
     body: [
-      "Water's set — now the deeper work: the internal load comes down.",
-      "Three guided steps, about three months, each building on the last.",
+      "The internal load comes down in three guided steps over about three months.",
     ],
     cta: { label: "Start the reset", href: "/quiz" },
     image: HYDRATION.hero.image,
