@@ -109,9 +109,6 @@ const HYDRATION: HomePhase = {
  * (Coral Detox Plus -> ParaShield -> Colo-Vada). Environment over willpower;
  * layer by layer, not abrupt steps.
  *
- * TODO(image): hero photo — a calm still life of the three Restart programmes
- * together, same mood as hero-hydration.png. Drop it in img/hero-restart.png
- * and swap `image` below. For now it reuses the hydration hero image.
  * TODO(image): sections[0].image — the three programme boxes in sequence.
  */
 const RESTART: HomePhase = {
@@ -121,7 +118,10 @@ const RESTART: HomePhase = {
       "The internal load comes down in three guided steps over about three months.",
     ],
     cta: { label: "Start the reset", href: "/quiz" },
-    image: HYDRATION.hero.image,
+    image: {
+      src: `${asset("/images/hero-restart.png")}?v=1`,
+      alt: "Coral Detox Plus, ParaShield and Colo-Vada boxes on studio podiums",
+    },
   },
   sections: [
     {
