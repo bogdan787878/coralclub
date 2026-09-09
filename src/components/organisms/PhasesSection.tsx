@@ -66,7 +66,7 @@ export function PhasesSection({
                 coralId: p.coralId as string,
                 slug: p.slug,
                 name: p.name,
-                price: p.priceWas,
+                price: p.price,
                 image: p.images[0]?.src,
               })
           : undefined

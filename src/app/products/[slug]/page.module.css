@@ -121,3 +121,14 @@
 }
 
 /* single-column at every width — the site is a mobile-width column */
+
+/* "More in <category>" — 2-up grid instead of a carousel */
+.moreTitle {
+  color: var(--color-text);
+  margin-bottom: var(--space-16);
+}
+.moreGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-24) var(--space-12);
+}

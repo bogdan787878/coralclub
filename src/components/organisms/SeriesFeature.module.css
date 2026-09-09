@@ -1,4 +1,5 @@
 .block {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-16);
@@ -26,18 +27,8 @@
   object-fit: cover;
 }
 
-/* click-through to the product page (single-image only, so it doesn't
-   fight the slider swipe) */
-.mediaLink {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-}
-
 .name {
   display: block;
-  width: fit-content;
-  max-width: 100%;
   font-family: var(--font-sans);
   font-size: 1.375rem;
   line-height: 1.75rem;
@@ -45,14 +36,23 @@
   color: var(--color-text);
   text-decoration: none;
 }
-.name:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
+/* stretched click target — the whole .block is the link */
+.name::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 .name:focus-visible {
   outline: 2px solid var(--color-action);
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+/* keep the cart control tappable above the stretched link */
+.priceRow > :last-child {
+  position: relative;
+  z-index: 2;
 }
 
 /* price on the left, cart control on the right */

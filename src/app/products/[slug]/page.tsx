@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { BodyLong, Container, Heading, Section, Stack } from "@/components/ui";
 import {
   BuyBox,
-  Carousel,
   ImageSlider,
   InfoAccordion,
   ProductCard,
@@ -114,23 +113,26 @@ export default async function ProductPage({
 
       {related.length > 0 && (
         <Section tone="surface">
-          <Carousel
-            title={<>More in {shortCategory(product.category)}</>}
-            label={`More ${shortCategory(product.category)} products`}
-          >
-            {related.map((p) => (
-              <ProductCard
-                key={p.slug}
-                title={p.headline}
-                category={shortCategory(p.category)}
-                price={p.prices[0].price}
-                priceWas={p.prices[1].price}
-                href={productHref(p.slug)}
-                cartHref={p.prices[1].cta.href}
-                images={p.carouselImages.map((src) => ({ src, alt: p.name }))}
-              />
-            ))}
-          </Carousel>
+          <Container>
+            <Heading as="h2" className={styles.moreTitle}>
+              More in {shortCategory(product.category)}
+            </Heading>
+            <div className={styles.moreGrid}>
+              {related.map((p) => (
+                <ProductCard
+                  key={p.slug}
+                  fluid
+                  title={p.headline}
+                  category={shortCategory(p.category)}
+                  price={p.prices[0].price}
+                  priceWas={p.prices[1].price}
+                  href={productHref(p.slug)}
+                  cartHref={p.prices[1].cta.href}
+                  images={p.carouselImages.map((src) => ({ src, alt: p.name }))}
+                />
+              ))}
+            </div>
+          </Container>
         </Section>
       )}
 

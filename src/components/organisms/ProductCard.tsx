@@ -33,6 +33,8 @@ export type ProductCardProps = {
   cartQty?: number;
   /** Set the cart quantity (0 removes). Powers the −/+ stepper. */
   onSetQty?: (qty: number) => void;
+  /** Fill the container (for a grid) instead of the fixed 150px carousel width. */
+  fluid?: boolean;
 };
 
 function CartIcon() {
@@ -68,6 +70,7 @@ export function ProductCard({
   onAddToCart,
   cartQty = 0,
   onSetQty,
+  fluid = false,
 }: ProductCardProps) {
   const [active, setActive] = useState(0);
   const [acted, setActed] = useState(false);
@@ -83,7 +86,7 @@ export function ProductCard({
   const multi = images.length > 1;
 
   return (
-    <article className={styles.card}>
+    <article className={`${styles.card}${fluid ? ` ${styles.fluid}` : ""}`}>
       <div className={styles.media}>
         <div className={styles.track} ref={trackRef} onScroll={multi ? onScroll : undefined}>
           {images.length ? (

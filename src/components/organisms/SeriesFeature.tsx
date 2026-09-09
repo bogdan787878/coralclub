@@ -67,7 +67,7 @@ export function SeriesFeature({
       coralId: coralId as string,
       slug: product.slug,
       name: product.name,
-      price: regular,
+      price: club,
       image: images[0]?.src,
     });
   };
@@ -83,16 +83,9 @@ export function SeriesFeature({
           <div className={styles.mediaInner}>
             <ImageSlider images={images} sizes="100vw" />
           </div>
-          {images.length <= 1 && (
-            <Link
-              href={href}
-              className={styles.mediaLink}
-              aria-label={product.name}
-              tabIndex={-1}
-            />
-          )}
         </div>
 
+        {/* stretched link — covers the whole block */}
         <Link href={href} className={styles.name}>
           {product.headline}
         </Link>

@@ -7,6 +7,16 @@
      section behind is the "card" */
 }
 
+/* grid mode — fill the column instead of the fixed carousel width */
+.fluid {
+  width: 100%;
+}
+.fluid .media {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 7;
+}
+
 /* ---------- Packshot tile — the only blue surface ---------- */
 .media {
   position: relative;

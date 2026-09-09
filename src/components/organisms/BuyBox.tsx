@@ -48,7 +48,7 @@ export function BuyBox({ options, product }: BuyBoxProps) {
       coralId: product.coralId as string,
       slug: product.slug,
       name: product.name,
-      price: regular.price,
+      price: club.price,
       image: product.image,
     });
   };
