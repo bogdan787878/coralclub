@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, Container, Heading } from "@/components/ui";
+import { useState } from "react";
+import { Container, Heading } from "@/components/ui";
 import { addItem, useCart, setQty } from "@/lib/cart";
 import { ImageSlider } from "./ImageSlider";
 import type { Product } from "@/lib/products";
@@ -13,30 +14,53 @@ export type SeriesFeatureProps = {
   product: Product;
 };
 
+function CartIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M4 5h2.2l1.9 9.6a2 2 0 0 0 2 1.6h7a2 2 0 0 0 2-1.6L21 8.5H6.6"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="10" cy="20" r="1.4" fill="currentColor" />
+      <circle cx="17" cy="20" r="1.4" fill="currentColor" />
+    </svg>
+  );
+}
+
 /**
  * SeriesFeature — the block under the phase carousel that spotlights the set
- * as a whole: title, an image slider, the set product's name + price and one
- * Add-to-Cart action. Shown only for the fixed phase sets.
+ * as a whole: title, an image slider, the set product's name + price and a
+ * floating cart button on the image (same control as the carousel cards).
+ * Shown only for the fixed phase sets.
  */
 export function SeriesFeature({ seriesName, product }: SeriesFeatureProps) {
   const cart = useCart();
+  const [acted, setActed] = useState(false);
+  const anim = acted ? ` ${styles.animIn}` : "";
+
   const club = product.prices[0].price;
   const regular = product.prices[1].price;
   const shopHref = product.prices[1].cta.href;
   const images = product.pdpImages.map((src) => ({ src, alt: product.name }));
 
-  const qty = product.coralId
-    ? (cart.find((l) => l.coralId === product.coralId)?.qty ?? 0)
+  const coralId = product.coralId;
+  const qty = coralId
+    ? (cart.find((l) => l.coralId === coralId)?.qty ?? 0)
     : 0;
 
-  const add = () =>
+  const add = () => {
+    setActed(true);
     addItem({
-      coralId: product.coralId as string,
+      coralId: coralId as string,
       slug: product.slug,
       name: product.name,
       price: regular,
       image: images[0]?.src,
     });
+  };
 
   return (
     <Container>
@@ -49,6 +73,55 @@ export function SeriesFeature({ seriesName, product }: SeriesFeatureProps) {
           <div className={styles.mediaInner}>
             <ImageSlider images={images} sizes="100vw" />
           </div>
+
+          {coralId ? (
+            qty > 0 ? (
+              <span className={styles.stepper + anim}>
+                <button
+                  type="button"
+                  aria-label="Remove one"
+                  onClick={() => {
+                    setActed(true);
+                    setQty(coralId, qty - 1);
+                  }}
+                >
+                  −
+                </button>
+                <span className={styles.stepperCount} aria-live="polite">
+                  {qty}
+                </span>
+                <button
+                  type="button"
+                  aria-label="Add one"
+                  onClick={() => {
+                    setActed(true);
+                    setQty(coralId, qty + 1);
+                  }}
+                >
+                  +
+                </button>
+              </span>
+            ) : (
+              <button
+                type="button"
+                className={styles.cart + anim}
+                onClick={add}
+                aria-label="Add to cart"
+              >
+                <CartIcon />
+              </button>
+            )
+          ) : (
+            <a
+              className={styles.cart}
+              href={shopHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Add to cart"
+            >
+              <CartIcon />
+            </a>
+          )}
         </div>
 
         <div className={styles.name}>{product.headline}</div>
@@ -57,34 +130,6 @@ export function SeriesFeature({ seriesName, product }: SeriesFeatureProps) {
           <span className={styles.now}>{club}</span>
           <span className={styles.was}>{regular}</span>
         </p>
-
-        {product.coralId && qty > 0 ? (
-          <div className={styles.stepper}>
-            <button
-              type="button"
-              aria-label="Remove one"
-              onClick={() => setQty(product.coralId as string, qty - 1)}
-            >
-              −
-            </button>
-            <span aria-live="polite">{qty}</span>
-            <button
-              type="button"
-              aria-label="Add one"
-              onClick={() => setQty(product.coralId as string, qty + 1)}
-            >
-              +
-            </button>
-          </div>
-        ) : product.coralId ? (
-          <Button variant="primary" block onClick={add}>
-            Add to Cart
-          </Button>
-        ) : (
-          <Button variant="primary" block href={shopHref}>
-            Add to Cart
-          </Button>
-        )}
       </div>
     </Container>
   );

@@ -53,30 +53,99 @@
   text-decoration: line-through;
 }
 
-.stepper {
-  align-self: stretch;
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 52px;
-  padding: 0 var(--space-8);
-  border-radius: var(--radius-pill);
-  background: var(--color-action);
-  color: #fff;
+/* floating cart control on the image — same as the carousel cards */
+@keyframes cartSwapIn {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
-.stepper button {
-  width: 44px;
-  height: 44px;
+@keyframes stepperStretch {
+  from {
+    max-width: 48px;
+    opacity: 0.5;
+  }
+  to {
+    max-width: 280px;
+    opacity: 1;
+  }
+}
+
+.cart {
+  position: absolute;
+  right: var(--space-16);
+  bottom: var(--space-16);
+  z-index: 3;
+  width: 48px;
+  height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-pill);
-  font-size: 1.375rem;
+  background: #ffffff;
+  color: var(--color-primary-100);
+  box-shadow: 0 10px 24px rgba(1, 17, 48, 0.18);
+  transition: transform 0.12s var(--ease-standard);
+}
+.cart svg {
+  width: 22px;
+  height: 22px;
+}
+.cart:active {
+  transform: scale(0.94);
+}
+
+.stepper {
+  position: absolute;
+  right: var(--space-16);
+  bottom: var(--space-16);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 4px;
+  border-radius: var(--radius-pill);
+  background: #ffffff;
+  color: var(--color-primary-100);
+  box-shadow: 0 10px 24px rgba(1, 17, 48, 0.18);
+  transform-origin: right center;
+}
+.stepper button {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  font-size: 1.25rem;
   line-height: 1;
   color: inherit;
 }
-.stepper span {
+.stepper button:active {
+  background: var(--color-primary-10);
+}
+.stepperCount {
+  min-width: 18px;
+  text-align: center;
   font-family: var(--font-sans);
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.animIn {
+  animation: cartSwapIn 0.2s var(--ease-standard);
+}
+.stepper.animIn {
+  overflow: hidden;
+  animation: stepperStretch 0.24s var(--ease-standard);
+}
+@media (prefers-reduced-motion: reduce) {
+  .animIn,
+  .stepper.animIn {
+    animation: none;
+  }
 }
