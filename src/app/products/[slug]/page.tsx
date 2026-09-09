@@ -67,6 +67,11 @@ export default async function ProductPage({
                 </span>
                 <Heading className={styles.name}>{product.name}</Heading>
                 <BodyLong>{product.description}</BodyLong>
+                <p className={styles.disclaimer}>
+                  This statement has not been evaluated by the Food and Drug
+                  Administration. This product is not intended to diagnose,
+                  treat, cure, or prevent any disease.
+                </p>
               </div>
 
               <InfoAccordion
@@ -91,12 +96,6 @@ export default async function ProductPage({
           </div>
         </Container>
       </Section>
-
-      <p className={styles.disclaimer}>
-        This statement has not been evaluated by the Food and Drug
-        Administration. This product is not intended to diagnose, treat, cure,
-        or prevent any disease.
-      </p>
 
       <BuyBox
         options={product.prices}
