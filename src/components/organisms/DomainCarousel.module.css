@@ -1,7 +1,7 @@
 .track {
   composes: gutter from "./Carousel.module.css";
   display: flex;
-  gap: var(--space-12);
+  gap: var(--space-8);
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x proximity;
@@ -13,62 +13,64 @@
   display: none;
 }
 
+/* each domain sits in its own rounded box */
 .item {
   flex: 0 0 auto;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  width: 88px;
-  padding: 0;
-  background: none;
+  width: 128px;
+  min-height: 172px;
+  padding: var(--space-16);
+  gap: var(--space-12);
   border: 0;
+  border-radius: 28px;
+  background: var(--color-primary-10);
   cursor: pointer;
+  transition: background-color 0.18s var(--ease-standard);
+}
+.itemOn {
+  background: var(--color-primary-30);
 }
 
 .shape {
-  width: 72px;
-  height: 72px;
-  display: inline-flex;
+  flex: 1;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 .shape :global(img) {
-  width: 100%;
-  height: 100%;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
 }
 
 .label {
+  align-self: flex-start;
   font-family: var(--font-sans);
-  font-size: 0.75rem;
-  line-height: 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
   font-weight: var(--font-weight-medium);
-  text-align: center;
-  color: var(--color-text);
-  opacity: 0.4;
-  transition: opacity 0.18s var(--ease-standard);
+  text-align: left;
+  color: var(--color-text-muted);
+  transition: color 0.18s var(--ease-standard);
 }
 .itemOn .label {
-  opacity: 1;
+  color: var(--color-text);
 }
 
 .item:focus-visible {
-  outline: none;
-}
-.item:focus-visible .shape {
   outline: 2px solid var(--color-action);
-  outline-offset: 4px;
-  border-radius: 50%;
+  outline-offset: 2px;
 }
 
 @media (min-width: 1024px) {
   .item {
-    width: 104px;
+    width: 144px;
+    min-height: 188px;
   }
-  .shape {
-    width: 84px;
-    height: 84px;
+  .shape :global(img) {
+    width: 80px;
+    height: 80px;
   }
 }
