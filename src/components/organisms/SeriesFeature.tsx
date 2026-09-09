@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Container, Heading } from "@/components/ui";
 import { addItem, useCart, setQty } from "@/lib/cart";
 import { ImageSlider } from "./ImageSlider";
@@ -10,6 +10,8 @@ import styles from "./SeriesFeature.module.css";
 export type SeriesFeatureProps = {
   /** Name of the set, e.g. "Hydration" → "The Hydration Series". */
   seriesName: string;
+  /** Overrides the default "The {seriesName} Series" heading. */
+  heading?: ReactNode;
   /** The product that represents the set. */
   product: Product;
 };
@@ -36,7 +38,11 @@ function CartIcon() {
  * floating cart button on the image (same control as the carousel cards).
  * Shown only for the fixed phase sets.
  */
-export function SeriesFeature({ seriesName, product }: SeriesFeatureProps) {
+export function SeriesFeature({
+  seriesName,
+  heading,
+  product,
+}: SeriesFeatureProps) {
   const cart = useCart();
   const [acted, setActed] = useState(false);
   const anim = acted ? ` ${styles.animIn}` : "";
@@ -66,7 +72,7 @@ export function SeriesFeature({ seriesName, product }: SeriesFeatureProps) {
     <Container>
       <div className={styles.block}>
         <Heading as="h2" className={styles.title}>
-          The {seriesName} Series
+          {heading ?? `The ${seriesName} Series`}
         </Heading>
 
         <div className={styles.media}>

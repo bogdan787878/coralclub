@@ -150,6 +150,18 @@ export function PhasesSection({ phases, domains }: PhasesSectionProps) {
               <SeriesFeature seriesName={phase.name} product={rep} />
             ) : null;
           })()}
+
+        {isPersonalization &&
+          (() => {
+            const bl = getProduct("b-luron");
+            return bl ? (
+              <SeriesFeature
+                seriesName="B-Luron"
+                heading="The B-Luron Course"
+                product={bl}
+              />
+            ) : null;
+          })()}
       </div>
     </Section>
   );
