@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import Link from "next/link";
 import { Container, Heading } from "@/components/ui";
 import { addItem, useCart, setQty } from "@/lib/cart";
+import { productHref } from "@/lib/catalog";
 import { ImageSlider } from "./ImageSlider";
 import type { Product } from "@/lib/products";
 import styles from "./SeriesFeature.module.css";
@@ -57,6 +59,8 @@ export function SeriesFeature({
     ? (cart.find((l) => l.coralId === coralId)?.qty ?? 0)
     : 0;
 
+  const href = productHref(product.slug);
+
   const add = () => {
     setActed(true);
     addItem({
@@ -79,9 +83,19 @@ export function SeriesFeature({
           <div className={styles.mediaInner}>
             <ImageSlider images={images} sizes="100vw" />
           </div>
+          {images.length <= 1 && (
+            <Link
+              href={href}
+              className={styles.mediaLink}
+              aria-label={product.name}
+              tabIndex={-1}
+            />
+          )}
         </div>
 
-        <div className={styles.name}>{product.headline}</div>
+        <Link href={href} className={styles.name}>
+          {product.headline}
+        </Link>
 
         <div className={styles.priceRow}>
           <p className={styles.price}>
