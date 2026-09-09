@@ -1,6 +1,6 @@
 .track {
   display: flex;
-  gap: var(--space-8);
+  gap: 4px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x proximity;
