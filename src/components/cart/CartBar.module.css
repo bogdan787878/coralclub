@@ -1,9 +1,10 @@
-/* Keeps the last section clear of the fixed bar while it's shown. */
+/* Keeps the last section clear of the floating bar while it's shown. */
 .spacer {
-  height: calc(76px + env(safe-area-inset-bottom, 0px));
+  height: calc(88px + env(safe-area-inset-bottom, 0px));
 }
 
-/* Pinned to the bottom of the viewport, constrained to the mobile column. */
+/* Fixed light-blue tray at the bottom (like the PDP buy bar), holding the
+   floating cart button; constrained to the mobile column. */
 .wrap {
   position: fixed;
   left: 50%;
@@ -12,6 +13,10 @@
   width: 100%;
   max-width: 480px;
   z-index: 45;
+  padding: var(--space-12) var(--page-padding-inline)
+    calc(var(--space-16) + env(safe-area-inset-bottom, 0px));
+  background: var(--color-surface);
+  box-shadow: 0 -8px 24px rgba(1, 17, 48, 0.08);
 }
 
 .bar {
@@ -20,11 +25,11 @@
   align-items: center;
   gap: var(--space-12);
   min-height: 60px;
-  padding: var(--space-16) var(--page-padding-inline)
-    calc(var(--space-16) + env(safe-area-inset-bottom, 0px));
+  padding: 0 var(--space-20);
+  border-radius: 100px;
   background: var(--color-action);
   color: #ffffff;
-  box-shadow: 0 -8px 24px rgba(1, 17, 48, 0.14);
+  box-shadow: 0 12px 28px rgba(1, 17, 48, 0.22);
   font-family: var(--font-sans);
   transition: background-color 0.15s var(--ease-standard);
 }
