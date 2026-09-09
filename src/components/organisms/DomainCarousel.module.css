@@ -1,30 +1,31 @@
 .track {
-  composes: gutter from "./Carousel.module.css";
   display: flex;
   gap: var(--space-8);
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--page-padding-inline);
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   padding-block: var(--space-8);
+  padding-inline: var(--page-padding-inline);
 }
 .track::-webkit-scrollbar {
   display: none;
 }
 
-/* each domain sits in its own rounded box */
+/* compact rounded box per domain — the icon keeps its size */
 .item {
   flex: 0 0 auto;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  width: 128px;
-  min-height: 172px;
-  padding: var(--space-16);
-  gap: var(--space-12);
+  align-items: center;
+  width: 104px;
+  padding: var(--space-12);
+  gap: var(--space-8);
   border: 0;
-  border-radius: 28px;
+  border-radius: 22px;
   background: var(--color-primary-10);
   cursor: pointer;
   transition: background-color 0.18s var(--ease-standard);
@@ -34,7 +35,6 @@
 }
 
 .shape {
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,12 +46,11 @@
 }
 
 .label {
-  align-self: flex-start;
   font-family: var(--font-sans);
-  font-size: 0.9375rem;
-  line-height: 1.25rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
   font-weight: var(--font-weight-medium);
-  text-align: left;
+  text-align: center;
   color: var(--color-text-muted);
   transition: color 0.18s var(--ease-standard);
 }
@@ -62,15 +61,4 @@
 .item:focus-visible {
   outline: 2px solid var(--color-action);
   outline-offset: 2px;
-}
-
-@media (min-width: 1024px) {
-  .item {
-    width: 144px;
-    min-height: 188px;
-  }
-  .shape :global(img) {
-    width: 80px;
-    height: 80px;
-  }
 }
