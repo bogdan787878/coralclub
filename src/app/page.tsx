@@ -92,6 +92,11 @@ export default function Home() {
           accent: "where people live to 100",
         }}
         image={{ src: MINERALS_IMAGE, alt: "Sango fossil coral off the coast of Okinawa" }}
+        badge={
+          <>
+            <span aria-hidden="true">🇯🇵</span> Okinawa, Japan
+          </>
+        }
         body={
           <p>
             Off the coast of Okinawa, one of the planet&apos;s five Blue Zones,

@@ -18,18 +18,27 @@ export type EditorialProps = {
   image: EditorialImage;
   body: ReactNode;
   tone?: Tone;
+  /** Optional frosted tag pinned to the image's top-left corner. */
+  badge?: ReactNode;
 };
 
 /**
  * Editorial — a statement block: heading (sans + Newton-italic accent),
  * a framed image and supporting body copy.
  */
-export function Editorial({ title, image, body, tone = "surface" }: EditorialProps) {
+export function Editorial({
+  title,
+  image,
+  body,
+  tone = "surface",
+  badge,
+}: EditorialProps) {
   return (
     <Section tone={tone}>
       <Container>
         <div className={styles.inner}>
           <div className={styles.media}>
+            {badge && <span className={styles.badge}>{badge}</span>}
             {image.src ? (
               <Image
                 src={image.src}

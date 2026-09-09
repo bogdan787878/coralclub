@@ -37,6 +37,33 @@
   );
 }
 
+/* frosted tag in the image's top-left corner */
+.badge {
+  position: absolute;
+  top: var(--space-12);
+  left: var(--space-12);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-12);
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(1, 17, 48, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1;
+  font-weight: var(--font-weight-medium);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .badge {
+    background: rgba(1, 17, 48, 0.6);
+  }
+}
+
 .body {
   display: flex;
   flex-direction: column;
