@@ -51,13 +51,14 @@
   color: var(--color-text);
 }
 
-/* icon + label row shown in place of the blurb */
+/* icon + label row shown in place of the blurb, with a divider between cols */
 .features {
   list-style: none;
   margin: var(--gap-base) 0 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr) 1px minmax(0, 1fr);
+  align-items: center;
   gap: var(--space-16);
 }
 
@@ -67,6 +68,12 @@
   align-items: center;
   gap: var(--space-12);
   text-align: center;
+}
+
+.divider {
+  width: 1px;
+  height: 72px;
+  background: rgba(255, 255, 255, 0.22);
 }
 
 .featureIcon {
@@ -79,5 +86,4 @@
   font-size: 1rem; /* 16 */
   line-height: 1.25rem; /* 20 */
   color: var(--color-text);
-  text-wrap: balance;
 }

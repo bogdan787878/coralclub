@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Image from "next/image";
 import { Accent, Container, Section } from "@/components/ui";
 import { productHref, shortCategory, type SeriesView } from "@/lib/products";
@@ -44,20 +45,36 @@ export function SeriesShowcase({ series }: SeriesShowcaseProps) {
 
           {features.length > 0 ? (
             <ul className={styles.features}>
-              {features.map((f, i) => (
-                <li key={i} className={styles.feature}>
-                  {f.icon && (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      className={styles.featureIcon}
-                      src={f.icon}
-                      alt=""
-                      width={24}
-                    />
-                  )}
-                  <span className={styles.featureText}>{f.text}</span>
-                </li>
-              ))}
+              {features.map((f, i) => {
+                const [first, ...rest] = f.text.split(" ");
+                return (
+                  <Fragment key={i}>
+                    {i > 0 && (
+                      <li className={styles.divider} aria-hidden="true" />
+                    )}
+                    <li className={styles.feature}>
+                      {f.icon && (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img
+                          className={styles.featureIcon}
+                          src={f.icon}
+                          alt=""
+                          width={24}
+                        />
+                      )}
+                      <span className={styles.featureText}>
+                        {first}
+                        {rest.length > 0 && (
+                          <>
+                            <br />
+                            {rest.join(" ")}
+                          </>
+                        )}
+                      </span>
+                    </li>
+                  </Fragment>
+                );
+              })}
             </ul>
           ) : (
             blurb && <p className={styles.blurb}>{blurb}</p>
