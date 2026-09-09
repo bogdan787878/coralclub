@@ -29,6 +29,9 @@ body {
   font-size: var(--text-body-long-size);
   line-height: var(--text-body-long-line);
   font-weight: var(--font-weight-regular);
+  /* kill the horizontal rubber-band: a nested carousel must never let the
+     whole page pan/wobble sideways on touch */
+  overscroll-behavior: none;
 }
 
 /* On any screen wider than mobile the whole site stays a centred
@@ -37,6 +40,9 @@ body {
   width: 100%;
   max-width: 480px;
   margin-inline: auto;
+  /* clip (not hidden) — contains any sideways overflow from a carousel
+     without creating a scroll container, so the sticky header still works */
+  overflow-x: clip;
 }
 @media (min-width: 481px) {
   body {

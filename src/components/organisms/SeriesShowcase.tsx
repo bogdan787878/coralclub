@@ -20,7 +20,7 @@ export function SeriesShowcase({ series }: SeriesShowcaseProps) {
   if (products.length === 0) return null;
 
   return (
-    <Section tone="default">
+    <Section tone="primary">
       <div className={styles.inner}>
         <Container>
           <div className={styles.media}>
