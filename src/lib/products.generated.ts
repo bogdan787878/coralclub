@@ -366,7 +366,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "weight",
       "detox"
     ],
-    "coralId": "",
+    "coralId": "1200",
     "description": "A structured 14-day programme in three stages — preparation, active cleanse and recovery — for a thorough reset of the digestive tract.",
     "price": "$111.38",
     "clubPrice": "$89.10",
@@ -615,7 +615,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "detox",
       "weight"
     ],
-    "coralId": "",
+    "coralId": "8036007",
     "description": "A seven-day pack that supports the body's natural cleansing — antioxidants, fibre and a lecithin-based binder that eases the internal load before you go deeper.",
     "price": "$152.50",
     "clubPrice": "$122",
@@ -1769,7 +1769,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "detox",
       "immune"
     ],
-    "coralId": "",
+    "coralId": "80320",
     "description": "A concentrated blend of black walnut, clove and wormwood — traditional botanicals used to keep the gut environment inhospitable to unwanted guests.",
     "price": "$105",
     "clubPrice": "$84",
