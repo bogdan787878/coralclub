@@ -4,9 +4,10 @@ import {
   Editorial,
   Hero,
   PhasesSection,
+  SeriesShowcase,
   SiteHeader,
 } from "@/components/organisms";
-import { getDomains, getPhases } from "@/lib/products";
+import { getDomains, getPhases, getSeries } from "@/lib/products";
 import { asset } from "@/lib/asset";
 
 const HERO_IMAGE = {
@@ -27,6 +28,7 @@ const COMMUNITY_REELS = [
 export default function Home() {
   const phases = getPhases();
   const domains = getDomains();
+  const liumi = getSeries("liumi");
 
   return (
     <main>
@@ -80,6 +82,8 @@ export default function Home() {
           </>
         }
       />
+
+      {liumi && <SeriesShowcase series={liumi} />}
 
       <CommunityReels
         title={{

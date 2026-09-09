@@ -1,0 +1,31 @@
+{
+  "slug": "liumi-purifying-gel-cleanser",
+  "name": "LIŪMI Purifying Gel Cleanser",
+  "headline": "Purifying Gel Cleanser",
+  "category": "LIŪMI",
+  "cardTitle": "Step 1 — Cleanse",
+  "goals": [
+    "skin"
+  ],
+  "coralId": "",
+  "description": "A gentle daily gel that lifts away makeup, sunscreen and excess oil without stripping the skin barrier. Leaves skin soft and comfortable, never tight — the clean base every other step is built on.",
+  "price": "$36",
+  "clubPrice": "$29",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.8,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "Morning and evening, massage a small amount over damp skin, then rinse with lukewarm water.",
+  "manufacturing": {
+    "countryOfOrigin": "South Korea",
+    "shippingWeight": "",
+    "expiration": "3 years from the date of manufacture; 12 months after opening",
+    "storage": "Store at room temperature, away from direct sunlight.",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

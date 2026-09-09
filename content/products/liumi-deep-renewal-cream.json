@@ -1,0 +1,31 @@
+{
+  "slug": "liumi-deep-renewal-cream",
+  "name": "LIŪMI Deep Renewal Cream",
+  "headline": "Deep Renewal Cream",
+  "category": "LIŪMI",
+  "cardTitle": "Targeted — Renew",
+  "goals": [
+    "skin"
+  ],
+  "coralId": "",
+  "description": "A rich nourishing night cream that renews skin while you sleep, so you wake to a rested, replenished look. For dry or mature skin, or as a weekly recovery mask.",
+  "price": "$69",
+  "clubPrice": "$55",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.8,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "Apply a generous layer as the last step of your evening routine.",
+  "manufacturing": {
+    "countryOfOrigin": "South Korea",
+    "shippingWeight": "",
+    "expiration": "3 years from the date of manufacture; 12 months after opening",
+    "storage": "Store at room temperature, away from direct sunlight.",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

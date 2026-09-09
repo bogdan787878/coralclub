@@ -167,6 +167,47 @@ collections:
         value_type: int
         default: 0
 
+  - name: series
+    label: "Series blocks"
+    label_singular: "Series block"
+    identifier_field: id
+    summary: "{{fields.titleLead}} ({{fields.products.length}})"
+    description: "Standalone homepage blocks: a large image, a heading and a carousel of products (e.g. LIŪMI in the Hydration area)."
+    folder: content/series
+    create: true
+    delete: true
+    extension: json
+    format: json
+    slug: "{{fields.id}}"
+    media_folder: "/public/images/series"
+    public_folder: "/images/series"
+    fields:
+      - name: id
+        label: "ID (URL-safe)"
+        widget: string
+        pattern: ["^[a-z0-9]+(?:-[a-z0-9]+)*$", "lowercase letters, digits and dashes only"]
+      - name: titleLead
+        label: "Heading — line 1"
+        widget: string
+      - name: titleAccent
+        label: "Heading — line 2 (italic accent)"
+        widget: string
+      - name: blurb
+        label: "Blurb (paragraph under the heading)"
+        widget: text
+      - name: image
+        label: "Large image"
+        widget: image
+        required: false
+        media_library:
+          config:
+            max_file_size: 5000000
+      - name: products
+        label: "Product slugs (carousel order)"
+        widget: list
+        summary: "{{fields.slug}}"
+        field: { name: slug, label: "Slug", widget: string }
+
   - name: personalization
     label: "Personalization"
     files:

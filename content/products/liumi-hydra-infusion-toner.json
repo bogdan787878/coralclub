@@ -1,0 +1,31 @@
+{
+  "slug": "liumi-hydra-infusion-toner",
+  "name": "LIŪMI Hydra-Infusion Toner",
+  "headline": "Hydra-Infusion Toner",
+  "category": "LIŪMI",
+  "cardTitle": "Step 2 — Prep",
+  "goals": [
+    "skin"
+  ],
+  "coralId": "",
+  "description": "A lightweight toner that floods skin with moisture right after cleansing and preps it to absorb everything that follows. Restores a plump, bouncy feel in seconds.",
+  "price": "$47",
+  "clubPrice": "$37",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.8,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "After cleansing, pat a few drops over the face with your hands until absorbed.",
+  "manufacturing": {
+    "countryOfOrigin": "South Korea",
+    "shippingWeight": "",
+    "expiration": "3 years from the date of manufacture; 12 months after opening",
+    "storage": "Store at room temperature, away from direct sunlight.",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

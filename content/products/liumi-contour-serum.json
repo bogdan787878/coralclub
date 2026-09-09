@@ -1,0 +1,31 @@
+{
+  "slug": "liumi-contour-serum",
+  "name": "LIŪMI Contour Lifting Serum",
+  "headline": "Contour Lifting Serum",
+  "category": "LIŪMI",
+  "cardTitle": "Targeted — Lift",
+  "goals": [
+    "skin"
+  ],
+  "coralId": "",
+  "description": "A microneedle lifting serum that visibly firms and redefines the contour of the face. Use where skin feels lax — jawline, cheeks, around the eyes.",
+  "price": "$74",
+  "clubPrice": "$59",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.8,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "In the evening, roll the microneedle applicator over the target area, then press in the serum.",
+  "manufacturing": {
+    "countryOfOrigin": "South Korea",
+    "shippingWeight": "",
+    "expiration": "3 years from the date of manufacture; 12 months after opening",
+    "storage": "Store at room temperature, away from direct sunlight.",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

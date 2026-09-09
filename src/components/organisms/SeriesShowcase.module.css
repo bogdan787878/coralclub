@@ -1,0 +1,48 @@
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-base);
+}
+
+/* large lead image, same framing as the Editorial block but taller */
+.media {
+  position: relative;
+  overflow: hidden;
+  height: 320px;
+  border-radius: var(--radius-base);
+  background: var(--color-primary-30);
+  margin-bottom: var(--gap-base);
+}
+
+.media :global(img) {
+  object-fit: cover;
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-10),
+    var(--color-primary-30)
+  );
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-line);
+  letter-spacing: var(--text-h2-tracking);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  text-wrap: balance;
+  margin: 0;
+}
+
+.blurb {
+  margin: var(--gap-text) 0 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-button-size);
+  line-height: var(--text-button-line);
+  color: var(--color-text);
+}

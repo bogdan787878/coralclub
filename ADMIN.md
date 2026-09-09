@@ -60,6 +60,18 @@ you're done.
 | Manufacturing detail | PDP accordion, incl. the editable **Supplement Facts** row list |
 | Rating / Ratings / Reviews | numbers shown next to the stars |
 
+### Series blocks
+
+The **"Series blocks"** collection edits `content/series/*.json` — the
+standalone homepage blocks (large image + heading + a carousel of products),
+e.g. **LIŪMI** in the Hydration area, rendered right after the "You Are 90%
+Water" block. Fields: an `id`, a two-line heading (`titleLead` + italic
+`titleAccent`), a `blurb` paragraph, one large image (optional — a gradient
+placeholder shows until you add one; uploads go to `public/images/series/`),
+and an ordered list of product slugs (each must match a product's Slug).
+Rendered on the homepage by `SeriesShowcase`; only the `liumi` block is wired
+in right now (`src/app/page.tsx`).
+
 ## 2. Straight in GitHub (zero setup)
 
 Edit `content/products/<slug>.json` in the GitHub web editor (or locally),

@@ -1,0 +1,31 @@
+{
+  "slug": "liumi-balancing-repair-serum",
+  "name": "LIŪMI Balancing Repair Serum",
+  "headline": "Balancing Repair Serum",
+  "category": "LIŪMI",
+  "cardTitle": "Step 3 — Repair",
+  "goals": [
+    "skin"
+  ],
+  "coralId": "",
+  "description": "A recovery serum that calms redness, evens out tone and reinforces a stressed moisture barrier. For skin that feels reactive, dull or out of balance.",
+  "price": "$59",
+  "clubPrice": "$47",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.8,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "Apply a few drops to clean skin morning and evening, before moisturiser.",
+  "manufacturing": {
+    "countryOfOrigin": "South Korea",
+    "shippingWeight": "",
+    "expiration": "3 years from the date of manufacture; 12 months after opening",
+    "storage": "Store at room temperature, away from direct sunlight.",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

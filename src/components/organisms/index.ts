@@ -34,5 +34,8 @@ export type { InfoAccordionProps, InfoSection } from "./InfoAccordion";
 export { Editorial } from "./Editorial";
 export type { EditorialProps, EditorialImage } from "./Editorial";
 
+export { SeriesShowcase } from "./SeriesShowcase";
+export type { SeriesShowcaseProps } from "./SeriesShowcase";
+
 export { CommunityReels } from "./CommunityReels";
 export type { CommunityReelsProps, Reel } from "./CommunityReels";

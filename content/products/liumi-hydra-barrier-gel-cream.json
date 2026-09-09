@@ -1,0 +1,31 @@
+{
+  "slug": "liumi-hydra-barrier-gel-cream",
+  "name": "LIŪMI Hydra-Barrier Gel Cream",
+  "headline": "Hydra-Barrier Gel Cream",
+  "category": "LIŪMI",
+  "cardTitle": "Step 4 — Seal",
+  "goals": [
+    "skin"
+  ],
+  "coralId": "",
+  "description": "A weightless gel-cream that locks in moisture for up to 24 hours and strengthens the skin barrier. Absorbs instantly with no film — the daily seal on your water layer.",
+  "price": "$66",
+  "clubPrice": "$53",
+  "carouselImages": [],
+  "pdpImages": [],
+  "rating": 4.8,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "Apply as the last step of your routine, morning and evening.",
+  "manufacturing": {
+    "countryOfOrigin": "South Korea",
+    "shippingWeight": "",
+    "expiration": "3 years from the date of manufacture; 12 months after opening",
+    "storage": "Store at room temperature, away from direct sunlight.",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

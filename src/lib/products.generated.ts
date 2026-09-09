@@ -2,7 +2,7 @@
 // scripts/gen-products.mjs. Do not edit by hand — edit the JSON (or use
 // the CMS) and re-run `npm run gen`.
 
-import type { ProductContent, DomainContent } from "./products";
+import type { ProductContent, DomainContent, SeriesContent } from "./products";
 
 export const GENERATED_PRODUCTS: ProductContent[] = [
   {
@@ -1269,6 +1269,192 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     }
   },
   {
+    "slug": "liumi-balancing-repair-serum",
+    "name": "LIŪMI Balancing Repair Serum",
+    "headline": "Balancing Repair Serum",
+    "category": "LIŪMI",
+    "cardTitle": "Step 3 — Repair",
+    "goals": [
+      "skin"
+    ],
+    "coralId": "",
+    "description": "A recovery serum that calms redness, evens out tone and reinforces a stressed moisture barrier. For skin that feels reactive, dull or out of balance.",
+    "price": "$59",
+    "clubPrice": "$47",
+    "carouselImages": [],
+    "pdpImages": [],
+    "rating": 4.8,
+    "ratingsCount": 0,
+    "reviewsCount": 0,
+    "howToUse": "Apply a few drops to clean skin morning and evening, before moisturiser.",
+    "manufacturing": {
+      "countryOfOrigin": "South Korea",
+      "shippingWeight": "",
+      "expiration": "3 years from the date of manufacture; 12 months after opening",
+      "storage": "Store at room temperature, away from direct sunlight.",
+      "ingredients": "",
+      "supplementFacts": {
+        "servingLabel": "Amount Per Serving",
+        "rows": []
+      }
+    }
+  },
+  {
+    "slug": "liumi-contour-serum",
+    "name": "LIŪMI Contour Lifting Serum",
+    "headline": "Contour Lifting Serum",
+    "category": "LIŪMI",
+    "cardTitle": "Targeted — Lift",
+    "goals": [
+      "skin"
+    ],
+    "coralId": "",
+    "description": "A microneedle lifting serum that visibly firms and redefines the contour of the face. Use where skin feels lax — jawline, cheeks, around the eyes.",
+    "price": "$74",
+    "clubPrice": "$59",
+    "carouselImages": [],
+    "pdpImages": [],
+    "rating": 4.8,
+    "ratingsCount": 0,
+    "reviewsCount": 0,
+    "howToUse": "In the evening, roll the microneedle applicator over the target area, then press in the serum.",
+    "manufacturing": {
+      "countryOfOrigin": "South Korea",
+      "shippingWeight": "",
+      "expiration": "3 years from the date of manufacture; 12 months after opening",
+      "storage": "Store at room temperature, away from direct sunlight.",
+      "ingredients": "",
+      "supplementFacts": {
+        "servingLabel": "Amount Per Serving",
+        "rows": []
+      }
+    }
+  },
+  {
+    "slug": "liumi-deep-renewal-cream",
+    "name": "LIŪMI Deep Renewal Cream",
+    "headline": "Deep Renewal Cream",
+    "category": "LIŪMI",
+    "cardTitle": "Targeted — Renew",
+    "goals": [
+      "skin"
+    ],
+    "coralId": "",
+    "description": "A rich nourishing night cream that renews skin while you sleep, so you wake to a rested, replenished look. For dry or mature skin, or as a weekly recovery mask.",
+    "price": "$69",
+    "clubPrice": "$55",
+    "carouselImages": [],
+    "pdpImages": [],
+    "rating": 4.8,
+    "ratingsCount": 0,
+    "reviewsCount": 0,
+    "howToUse": "Apply a generous layer as the last step of your evening routine.",
+    "manufacturing": {
+      "countryOfOrigin": "South Korea",
+      "shippingWeight": "",
+      "expiration": "3 years from the date of manufacture; 12 months after opening",
+      "storage": "Store at room temperature, away from direct sunlight.",
+      "ingredients": "",
+      "supplementFacts": {
+        "servingLabel": "Amount Per Serving",
+        "rows": []
+      }
+    }
+  },
+  {
+    "slug": "liumi-hydra-barrier-gel-cream",
+    "name": "LIŪMI Hydra-Barrier Gel Cream",
+    "headline": "Hydra-Barrier Gel Cream",
+    "category": "LIŪMI",
+    "cardTitle": "Step 4 — Seal",
+    "goals": [
+      "skin"
+    ],
+    "coralId": "",
+    "description": "A weightless gel-cream that locks in moisture for up to 24 hours and strengthens the skin barrier. Absorbs instantly with no film — the daily seal on your water layer.",
+    "price": "$66",
+    "clubPrice": "$53",
+    "carouselImages": [],
+    "pdpImages": [],
+    "rating": 4.8,
+    "ratingsCount": 0,
+    "reviewsCount": 0,
+    "howToUse": "Apply as the last step of your routine, morning and evening.",
+    "manufacturing": {
+      "countryOfOrigin": "South Korea",
+      "shippingWeight": "",
+      "expiration": "3 years from the date of manufacture; 12 months after opening",
+      "storage": "Store at room temperature, away from direct sunlight.",
+      "ingredients": "",
+      "supplementFacts": {
+        "servingLabel": "Amount Per Serving",
+        "rows": []
+      }
+    }
+  },
+  {
+    "slug": "liumi-hydra-infusion-toner",
+    "name": "LIŪMI Hydra-Infusion Toner",
+    "headline": "Hydra-Infusion Toner",
+    "category": "LIŪMI",
+    "cardTitle": "Step 2 — Prep",
+    "goals": [
+      "skin"
+    ],
+    "coralId": "",
+    "description": "A lightweight toner that floods skin with moisture right after cleansing and preps it to absorb everything that follows. Restores a plump, bouncy feel in seconds.",
+    "price": "$47",
+    "clubPrice": "$37",
+    "carouselImages": [],
+    "pdpImages": [],
+    "rating": 4.8,
+    "ratingsCount": 0,
+    "reviewsCount": 0,
+    "howToUse": "After cleansing, pat a few drops over the face with your hands until absorbed.",
+    "manufacturing": {
+      "countryOfOrigin": "South Korea",
+      "shippingWeight": "",
+      "expiration": "3 years from the date of manufacture; 12 months after opening",
+      "storage": "Store at room temperature, away from direct sunlight.",
+      "ingredients": "",
+      "supplementFacts": {
+        "servingLabel": "Amount Per Serving",
+        "rows": []
+      }
+    }
+  },
+  {
+    "slug": "liumi-purifying-gel-cleanser",
+    "name": "LIŪMI Purifying Gel Cleanser",
+    "headline": "Purifying Gel Cleanser",
+    "category": "LIŪMI",
+    "cardTitle": "Step 1 — Cleanse",
+    "goals": [
+      "skin"
+    ],
+    "coralId": "",
+    "description": "A gentle daily gel that lifts away makeup, sunscreen and excess oil without stripping the skin barrier. Leaves skin soft and comfortable, never tight — the clean base every other step is built on.",
+    "price": "$36",
+    "clubPrice": "$29",
+    "carouselImages": [],
+    "pdpImages": [],
+    "rating": 4.8,
+    "ratingsCount": 0,
+    "reviewsCount": 0,
+    "howToUse": "Morning and evening, massage a small amount over damp skin, then rinse with lukewarm water.",
+    "manufacturing": {
+      "countryOfOrigin": "South Korea",
+      "shippingWeight": "",
+      "expiration": "3 years from the date of manufacture; 12 months after opening",
+      "storage": "Store at room temperature, away from direct sunlight.",
+      "ingredients": "",
+      "supplementFacts": {
+        "servingLabel": "Amount Per Serving",
+        "rows": []
+      }
+    }
+  },
+  {
     "slug": "lymflow",
     "name": "LymFlow",
     "headline": "LymFlow",
@@ -2478,6 +2664,24 @@ export const GENERATED_DOMAINS: DomainContent[] = [
       "promarine-collagen-peptides-skin-harmony-biocellulose-facial-mask",
       "promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask",
       "promarine-collagen"
+    ]
+  }
+];
+
+export const GENERATED_SERIES: SeriesContent[] = [
+  {
+    "id": "liumi",
+    "titleLead": "Your skin is a water barrier too.",
+    "titleAccent": "LIŪMI keeps it sealed.",
+    "blurb": "A focused skincare line built around the same idea as the rest of your routine: hold water in, keep the barrier strong. Six steps, from a gentle cleanse to an overnight seal.",
+    "image": "",
+    "products": [
+      "liumi-purifying-gel-cleanser",
+      "liumi-hydra-infusion-toner",
+      "liumi-balancing-repair-serum",
+      "liumi-hydra-barrier-gel-cream",
+      "liumi-contour-serum",
+      "liumi-deep-renewal-cream"
     ]
   }
 ];

@@ -5,7 +5,11 @@
  */
 
 import { asset } from "./asset";
-import { GENERATED_DOMAINS, GENERATED_PRODUCTS } from "./products.generated";
+import {
+  GENERATED_DOMAINS,
+  GENERATED_PRODUCTS,
+  GENERATED_SERIES,
+} from "./products.generated";
 
 /** Base wellness scenarios — the quiz maps answers onto these. */
 export type Goal =
@@ -318,6 +322,52 @@ const CATEGORY_LABEL: Record<string, string> = {
 
 export const shortCategory = (raw: string): string =>
   CATEGORY_LABEL[raw] ?? raw;
+
+/* -------------------------------------------------------------------------- */
+/* Product series — a standalone homepage block (large image + product row).  */
+/* Data from content/series/*.json, editable in the CMS.                      */
+/* -------------------------------------------------------------------------- */
+
+/** The raw shape of a content/series/*.json file. */
+export type SeriesContent = {
+  id: string;
+  /** Heading — sans lead line. */
+  titleLead: string;
+  /** Heading — Newton-italic accent line. */
+  titleAccent: string;
+  /** Supporting paragraph under the heading. */
+  blurb: string;
+  /** Large image at the top of the block. Empty → placeholder tile. */
+  image: string;
+  /** Product slugs shown in the carousel, in order. */
+  products: string[];
+};
+
+export type SeriesView = {
+  id: string;
+  titleLead: string;
+  titleAccent: string;
+  blurb: string;
+  /** Asset-prefixed image src, or "" for the placeholder. */
+  image: string;
+  /** Resolved, asset-wrapped products. */
+  products: Product[];
+};
+
+export function getSeries(id: string): SeriesView | undefined {
+  const c = (GENERATED_SERIES as SeriesContent[]).find((s) => s.id === id);
+  if (!c) return undefined;
+  return {
+    id: c.id,
+    titleLead: c.titleLead,
+    titleAccent: c.titleAccent,
+    blurb: c.blurb,
+    image: c.image ? asset(c.image) : "",
+    products: c.products
+      .map((slug) => getProduct(slug))
+      .filter((p): p is Product => Boolean(p)),
+  };
+}
 
 export function getPhases(): PhaseView[] {
   return PHASE_DEFS.map(({ slugs, image, ...phase }) => ({
