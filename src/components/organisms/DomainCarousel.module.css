@@ -43,7 +43,7 @@
   width: 72px;
   height: 72px;
   object-fit: contain;
-  filter: contrast(0.9);
+  filter: contrast(0.95);
 }
 
 .label {
