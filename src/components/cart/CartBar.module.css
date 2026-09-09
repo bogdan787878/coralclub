@@ -46,12 +46,23 @@
   flex: none;
 }
 
-/* label sits next to the icon; margin-auto pushes total + chevron right */
-.label {
+/* "Cart" + item count, stacked; margin-auto pushes total + chevron right */
+.labelBlock {
   margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.label {
   font-size: 1rem;
   line-height: 1.25rem;
   font-weight: var(--font-weight-medium);
+}
+.count {
+  font-size: 0.75rem; /* 12 */
+  line-height: 0.875rem; /* 14 */
+  font-weight: var(--font-weight-regular);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .total {

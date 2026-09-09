@@ -37,7 +37,12 @@ export function CartBar() {
             aria-label={`Open cart — ${count} item${count === 1 ? "" : "s"}, ${total}`}
           >
             <BagIcon />
-            <span className={styles.label}>Cart</span>
+            <span className={styles.labelBlock}>
+              <span className={styles.label}>Cart</span>
+              <span className={styles.count}>
+                {count} item{count === 1 ? "" : "s"}
+              </span>
+            </span>
             <span className={styles.total}>{total}</span>
             <svg
               className={styles.chevron}
