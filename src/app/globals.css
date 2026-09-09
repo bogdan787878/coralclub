@@ -31,6 +31,19 @@ body {
   font-weight: var(--font-weight-regular);
 }
 
+/* On any screen wider than mobile the whole site stays a centred
+   mobile-width column; the surrounding gutter takes the surface tint. */
+.appShell {
+  width: 100%;
+  max-width: 480px;
+  margin-inline: auto;
+}
+@media (min-width: 481px) {
+  body {
+    background: var(--color-primary-10);
+  }
+}
+
 img,
 picture,
 svg,

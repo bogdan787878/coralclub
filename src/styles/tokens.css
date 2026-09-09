@@ -120,34 +120,8 @@
 }
 
 /* ============================================================
-   Responsive scale. Mobile values above are the source of truth
-   for small screens; these only widen the canvas as it grows.
+   The site renders at the mobile scale on every screen — on
+   desktop it's a centred mobile-width column (see .appShell).
+   No responsive token bumps.
    ============================================================ */
-
-/* Tablet */
-@media (min-width: 768px) {
-  :root {
-    --container-max: 704px;
-
-    --page-padding-block: var(--space-48);
-    --page-padding-inline: var(--space-24);
-    --gap-base: var(--space-32);
-    --gap-text: var(--space-20);
-  }
-}
-
-/* Desktop */
-@media (min-width: 1024px) {
-  :root {
-    /* No centred max-width on desktop: every block runs full-bleed and
-       lines up on the flat 32px inline gutter below. The big value keeps
-       the `calc((100% - container-max) / 2)` gutter maths resolving to
-       the 32px floor at any viewport width. */
-    --container-max: 100000px;
-
-    --page-padding-block: var(--space-64);
-    --page-padding-inline: var(--space-32);
-    --gap-base: var(--space-48);
-  }
-}
 

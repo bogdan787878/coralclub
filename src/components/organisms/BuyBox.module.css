@@ -1,8 +1,10 @@
 /* Pinned buy bar: price on the left, one action on the right. */
 .bar {
   position: fixed;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
   bottom: 0;
   z-index: 40;
   background: var(--color-surface);
