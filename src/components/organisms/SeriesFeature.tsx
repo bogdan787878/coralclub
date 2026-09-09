@@ -73,6 +73,15 @@ export function SeriesFeature({ seriesName, product }: SeriesFeatureProps) {
           <div className={styles.mediaInner}>
             <ImageSlider images={images} sizes="100vw" />
           </div>
+        </div>
+
+        <div className={styles.name}>{product.headline}</div>
+
+        <div className={styles.priceRow}>
+          <p className={styles.price}>
+            <span className={styles.now}>{club}</span>
+            <span className={styles.was}>{regular}</span>
+          </p>
 
           {coralId ? (
             qty > 0 ? (
@@ -123,13 +132,6 @@ export function SeriesFeature({ seriesName, product }: SeriesFeatureProps) {
             </a>
           )}
         </div>
-
-        <div className={styles.name}>{product.headline}</div>
-
-        <p className={styles.price}>
-          <span className={styles.now}>{club}</span>
-          <span className={styles.was}>{regular}</span>
-        </p>
       </div>
     </Container>
   );
