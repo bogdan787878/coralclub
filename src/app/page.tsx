@@ -10,7 +10,8 @@ import { getDomains, getPhases } from "@/lib/products";
 import { asset } from "@/lib/asset";
 
 const HERO_IMAGE = {
-  src: asset("/images/hero-hydration.png"),
+  // ?v bump = cache-bust when the file is swapped in place
+  src: `${asset("/images/hero-hydration.png")}?v=2`,
   alt: "Coral-Mine Silver sachet beside a glass of mineralized water",
 };
 
