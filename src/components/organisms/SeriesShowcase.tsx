@@ -37,6 +37,41 @@ export function SeriesShowcase({ series, tone = "surface" }: SeriesShowcaseProps
             ) : (
               <span className={styles.placeholder} aria-hidden="true" />
             )}
+
+            {features.length > 0 && (
+              <ul className={styles.features}>
+                {features.map((f, i) => {
+                  const [first, ...rest] = f.text.split(" ");
+                  return (
+                    <Fragment key={i}>
+                      {i > 0 && (
+                        <li className={styles.divider} aria-hidden="true" />
+                      )}
+                      <li className={styles.feature}>
+                        {f.icon && (
+                          /* eslint-disable-next-line @next/next/no-img-element */
+                          <img
+                            className={styles.featureIcon}
+                            src={`${f.icon}?v=3`}
+                            alt=""
+                            width={24}
+                          />
+                        )}
+                        <span className={styles.featureText}>
+                          {first}
+                          {rest.length > 0 && (
+                            <>
+                              <br />
+                              {rest.join(" ")}
+                            </>
+                          )}
+                        </span>
+                      </li>
+                    </Fragment>
+                  );
+                })}
+              </ul>
+            )}
           </div>
 
           <h2 className={styles.title}>
@@ -45,42 +80,7 @@ export function SeriesShowcase({ series, tone = "surface" }: SeriesShowcaseProps
             <Accent>{titleAccent}</Accent>
           </h2>
 
-          {features.length > 0 ? (
-            <ul className={styles.features}>
-              {features.map((f, i) => {
-                const [first, ...rest] = f.text.split(" ");
-                return (
-                  <Fragment key={i}>
-                    {i > 0 && (
-                      <li className={styles.divider} aria-hidden="true" />
-                    )}
-                    <li className={styles.feature}>
-                      {f.icon && (
-                        /* eslint-disable-next-line @next/next/no-img-element */
-                        <img
-                          className={styles.featureIcon}
-                          src={`${f.icon}?v=2`}
-                          alt=""
-                          width={24}
-                        />
-                      )}
-                      <span className={styles.featureText}>
-                        {first}
-                        {rest.length > 0 && (
-                          <>
-                            <br />
-                            {rest.join(" ")}
-                          </>
-                        )}
-                      </span>
-                    </li>
-                  </Fragment>
-                );
-              })}
-            </ul>
-          ) : (
-            blurb && <p className={styles.blurb}>{blurb}</p>
-          )}
+          {blurb && <p className={styles.blurb}>{blurb}</p>}
         </Container>
 
         <Carousel label={`${titleAccent} products`}>
