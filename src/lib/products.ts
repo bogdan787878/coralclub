@@ -67,9 +67,10 @@ export type ProductContent = {
   clubPrice: string;
   carouselImages: string[];
   pdpImages: string[];
-  rating: number;
-  ratingsCount: number;
-  reviewsCount: number;
+  /** Deprecated — reviews were removed from the PDP and the CMS. */
+  rating?: number;
+  ratingsCount?: number;
+  reviewsCount?: number;
   howToUse: string;
   manufacturing: Manufacturing;
 };
@@ -104,9 +105,10 @@ export type Product = {
   pdpImages: string[];
   /** First carousel image — convenience for single-image spots. */
   image?: string;
-  rating: number;
-  ratingsCount: number;
-  reviewsCount: number;
+  /** Deprecated — reviews were removed from the PDP and the CMS. */
+  rating?: number;
+  ratingsCount?: number;
+  reviewsCount?: number;
   howToUse: string;
   manufacturing: Manufacturing;
   prices: PriceOption[];

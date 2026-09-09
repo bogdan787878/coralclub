@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import {
-  BodyLong,
-  Container,
-  Heading,
-  Rating,
-  Section,
-  Stack,
-} from "@/components/ui";
+import { BodyLong, Container, Heading, Section, Stack } from "@/components/ui";
 import { BuyBox, ImageSlider, InfoAccordion } from "@/components/organisms";
 import { CartDrawerHost } from "@/components/cart/CartDrawerHost";
-import { PRODUCTS, getProduct } from "@/lib/products";
+import { PRODUCTS, getProduct, shortCategory } from "@/lib/products";
 import { BackButton } from "./BackButton";
 import { ShareButton } from "./ShareButton";
 import { ManufacturingDetails } from "./ManufacturingDetails";
@@ -69,18 +62,11 @@ export default async function ProductPage({
 
             <Stack gap="base">
               <div className={styles.headGroup}>
+                <span className={styles.category}>
+                  {shortCategory(product.category)}
+                </span>
                 <Heading className={styles.name}>{product.name}</Heading>
-                <Rating
-                  value={product.rating}
-                  ratingsCount={product.ratingsCount}
-                  reviewsCount={product.reviewsCount}
-                />
                 <BodyLong>{product.description}</BodyLong>
-                <p className={styles.disclaimer}>
-                  This statement has not been evaluated by the Food and Drug
-                  Administration. This product is not intended to diagnose,
-                  treat, cure, or prevent any disease.
-                </p>
               </div>
 
               <InfoAccordion
@@ -105,6 +91,12 @@ export default async function ProductPage({
           </div>
         </Container>
       </Section>
+
+      <p className={styles.disclaimer}>
+        This statement has not been evaluated by the Food and Drug
+        Administration. This product is not intended to diagnose, treat, cure,
+        or prevent any disease.
+      </p>
 
       <BuyBox
         options={product.prices}

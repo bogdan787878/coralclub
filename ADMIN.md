@@ -48,7 +48,7 @@ you're done.
 | Slug (URL) | `lowercase-with-dashes` — the product page address |
 | Название продукта | product name (also the PDP `<h1>`) |
 | Заголовок карточки | two-line title on the carousel card |
-| Категория | the tan tag |
+| Категория | the accent tag — on the carousel card and above the PDP title |
 | Строка цели | short goal line on the carousel card |
 | Цели | one or more of `energy / sleep / skin / detox / weight / immune / hydration` — drives quiz matching |
 | coralclub.ru ID | product id from a share-cart link; blank ⇒ "Add to Cart" links out to the shop |
@@ -58,7 +58,6 @@ you're done.
 | Картинки — карусель / PDP | image lists → swipe sliders with dots. One image = no dots |
 | How to use | PDP accordion |
 | Manufacturing detail | PDP accordion, incl. the editable **Supplement Facts** row list |
-| Rating / Ratings / Reviews | numbers shown next to the stars |
 
 ### Series blocks
 

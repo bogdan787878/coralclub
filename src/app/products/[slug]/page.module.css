@@ -82,27 +82,38 @@
   );
 }
 
-/* children in order: name → rating → description → disclaimer */
+/* children in order: category → name → description */
 .headGroup {
   display: flex;
   flex-direction: column;
 }
 .headGroup > :nth-child(2) {
-  margin-top: var(--space-8); /* name → rating */
+  margin-top: var(--space-8); /* category → name */
 }
 .headGroup > :nth-child(3) {
-  margin-top: var(--space-16); /* rating → description */
+  margin-top: var(--space-16); /* name → description */
 }
-.headGroup > :nth-child(4) {
-  margin-top: var(--space-8); /* description → disclaimer */
+
+/* category tag above the title — plain bold accent text, like the carousel */
+.category {
+  align-self: flex-start;
+  font-family: var(--font-sans);
+  font-size: 0.875rem; /* 14 */
+  line-height: 1rem; /* 16 */
+  font-weight: 900;
+  color: var(--color-special);
 }
 
 .name {
   color: var(--color-text);
 }
 
-/* FDA fine print — quiet footnote under the description */
+/* FDA fine print — full-width strip spanning the column, within the page gutter */
 .disclaimer {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: var(--space-24) var(--page-padding-inline) 0;
   font-family: var(--font-sans);
   font-size: 0.75rem; /* 12 */
   line-height: 1.125rem; /* 18 */

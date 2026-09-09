@@ -146,27 +146,6 @@ collections:
                   - { name: amount, label: "Amount per serving", widget: string }
                   - { name: dv, label: "%DV", widget: string, required: false }
 
-      - name: rating
-        label: "Rating (0–5)"
-        widget: number
-        value_type: float
-        min: 0
-        max: 5
-        step: 0.1
-        default: 4.5
-
-      - name: ratingsCount
-        label: "Ratings count"
-        widget: number
-        value_type: int
-        default: 0
-
-      - name: reviewsCount
-        label: "Reviews count"
-        widget: number
-        value_type: int
-        default: 0
-
   - name: series
     label: "Series blocks"
     label_singular: "Series block"
