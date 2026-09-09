@@ -3,28 +3,43 @@
 import { useState } from "react";
 import { Accent, Container, Section } from "@/components/ui";
 import { addItem, setQty, useCart } from "@/lib/cart";
+import { productHref } from "@/lib/catalog";
 import { usePhase, type PhaseId } from "@/lib/phase";
 import { Carousel } from "./Carousel";
 import { DomainCarousel } from "./DomainCarousel";
 import { PhaseSwitcher } from "./PhaseSwitcher";
 import { ProductCard } from "./ProductCard";
 import { SeriesFeature } from "./SeriesFeature";
-import type { DomainContent, PhaseView, Product } from "@/lib/products";
-import { getProduct, productHref, shortCategory } from "@/lib/products";
+import type {
+  DomainContent,
+  PhaseProductCard,
+  PhaseView,
+  Product,
+} from "@/lib/products";
 import styles from "./PhasesSection.module.css";
 
 export type PhasesSectionProps = {
   phases: PhaseView[];
   domains: DomainContent[];
+  /** Resolved product cards per personalization domain (keyed by domain id). */
+  domainCards: Record<string, PhaseProductCard[]>;
+  /** The product spotlighted under the Personalization carousel. */
+  featureProduct: Product | null;
 };
 
 /**
  * PhasesSection — the phase switcher plus a carousel that swaps its products
  * with the selected Health Concept phase. On the Personalization phase a row
  * of abstract domain shapes appears; picking one swaps the product carousel
- * to that domain's set.
+ * to that domain's set. All product data is resolved on the server and
+ * passed in — this component never imports the catalogue.
  */
-export function PhasesSection({ phases, domains }: PhasesSectionProps) {
+export function PhasesSection({
+  phases,
+  domains,
+  domainCards,
+  featureProduct,
+}: PhasesSectionProps) {
   const { phase: activeId, setPhase } = usePhase();
   const [domainId, setDomainId] = useState(domains[0]?.id);
   const phase = phases.find((p) => p.id === activeId) ?? phases[0];
@@ -34,6 +49,36 @@ export function PhasesSection({ phases, domains }: PhasesSectionProps) {
   const cart = useCart();
   const qtyOf = (coralId?: string) =>
     coralId ? (cart.find((l) => l.coralId === coralId)?.qty ?? 0) : 0;
+
+  const renderCard = (p: PhaseProductCard) => (
+    <ProductCard
+      key={p.slug}
+      title={p.headline}
+      category={p.category}
+      price={p.price}
+      priceWas={p.priceWas}
+      href={productHref(p.slug)}
+      cartHref={p.cartHref}
+      onAddToCart={
+        p.coralId
+          ? () =>
+              addItem({
+                coralId: p.coralId as string,
+                slug: p.slug,
+                name: p.name,
+                price: p.priceWas,
+                image: p.images[0]?.src,
+              })
+          : undefined
+      }
+      cartQty={qtyOf(p.coralId)}
+      onSetQty={p.coralId ? (n) => setQty(p.coralId as string, n) : undefined}
+      images={p.images}
+    />
+  );
+
+  const cards =
+    isPersonalization && domain ? (domainCards[domain.id] ?? []) : phase.products;
 
   return (
     <Section tone="surface">
@@ -64,42 +109,7 @@ export function PhasesSection({ phases, domains }: PhasesSectionProps) {
               </>
             }
           >
-            {domain.products
-              .map((slug) => getProduct(slug))
-              .filter((p): p is Product => Boolean(p))
-              .map((p) => (
-                <ProductCard
-                  key={p.slug}
-                  title={p.headline}
-                  category={shortCategory(p.category)}
-                  price={p.prices[0].price}
-                  priceWas={p.prices[1].price}
-                  href={productHref(p.slug)}
-                  cartHref={p.prices[1].cta.href}
-                  onAddToCart={
-                    p.coralId
-                      ? () =>
-                          addItem({
-                            coralId: p.coralId as string,
-                            slug: p.slug,
-                            name: p.name,
-                            price: p.prices[1].price,
-                            image: p.carouselImages[0],
-                          })
-                      : undefined
-                  }
-                  cartQty={qtyOf(p.coralId)}
-                  onSetQty={
-                    p.coralId
-                      ? (n) => setQty(p.coralId as string, n)
-                      : undefined
-                  }
-                  images={p.carouselImages.map((src) => ({
-                    src,
-                    alt: p.name,
-                  }))}
-                />
-              ))}
+            {cards.map(renderCard)}
           </Carousel>
         ) : (
           <Carousel
@@ -110,58 +120,21 @@ export function PhasesSection({ phases, domains }: PhasesSectionProps) {
               </>
             }
           >
-            {phase.products.map((p) => (
-              <ProductCard
-                key={p.slug}
-                title={p.headline}
-                category={p.category}
-                price={p.price}
-                priceWas={p.priceWas}
-                href={productHref(p.slug)}
-                cartHref={p.cartHref}
-                onAddToCart={
-                  p.coralId
-                    ? () =>
-                        addItem({
-                          coralId: p.coralId as string,
-                          slug: p.slug,
-                          name: p.name,
-                          price: p.priceWas,
-                          image: p.images[0]?.src,
-                        })
-                    : undefined
-                }
-                cartQty={qtyOf(p.coralId)}
-                onSetQty={
-                  p.coralId ? (n) => setQty(p.coralId as string, n) : undefined
-                }
-                images={p.images}
-              />
-            ))}
+            {cards.map(renderCard)}
           </Carousel>
         )}
 
-        {!isPersonalization &&
-          (() => {
-            const rep = getProduct(
-              phase.seriesSlug ?? phase.products[0]?.slug ?? "",
-            );
-            return rep ? (
-              <SeriesFeature seriesName={phase.name} product={rep} />
-            ) : null;
-          })()}
+        {!isPersonalization && phase.seriesProduct && (
+          <SeriesFeature seriesName={phase.name} product={phase.seriesProduct} />
+        )}
 
-        {isPersonalization &&
-          (() => {
-            const bl = getProduct("b-luron");
-            return bl ? (
-              <SeriesFeature
-                seriesName="B-Luron"
-                heading="The B-Luron Course"
-                product={bl}
-              />
-            ) : null;
-          })()}
+        {isPersonalization && featureProduct && (
+          <SeriesFeature
+            seriesName="B-Luron"
+            heading="The B-Luron Course"
+            product={featureProduct}
+          />
+        )}
       </div>
     </Section>
   );

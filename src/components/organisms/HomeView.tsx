@@ -4,7 +4,13 @@ import { Accent } from "@/components/ui";
 import { CartBar } from "@/components/cart/CartBar";
 import { HOME_CONTENT, type EditorialItem, type ReelsContent } from "@/content/home";
 import { PhaseProvider, usePhase } from "@/lib/phase";
-import type { DomainContent, PhaseView, SeriesView } from "@/lib/products";
+import type {
+  DomainContent,
+  PhaseProductCard,
+  PhaseView,
+  Product,
+  SeriesView,
+} from "@/lib/products";
 import { CommunityReels } from "./CommunityReels";
 import { Editorial } from "./Editorial";
 import { HeroCarousel } from "./HeroCarousel";
@@ -16,6 +22,10 @@ import styles from "./HomeView.module.css";
 export type HomeViewProps = {
   phases: PhaseView[];
   domains: DomainContent[];
+  /** Resolved product cards per personalization domain. */
+  domainCards: Record<string, PhaseProductCard[]>;
+  /** Product spotlighted under the Personalization carousel. */
+  featureProduct: Product | null;
   /** Every series id referenced by any phase, pre-resolved on the server. */
   seriesById: Record<string, SeriesView | null>;
 };
@@ -53,7 +63,13 @@ function Reels({ content }: { content: ReelsContent }) {
   );
 }
 
-function HomeContent({ phases, domains, seriesById }: HomeViewProps) {
+function HomeContent({
+  phases,
+  domains,
+  domainCards,
+  featureProduct,
+  seriesById,
+}: HomeViewProps) {
   const { phase, setPhase } = usePhase();
   const c = HOME_CONTENT[phase];
   const phaseIds = phases.map((p) => p.id);
@@ -81,7 +97,12 @@ function HomeContent({ phases, domains, seriesById }: HomeViewProps) {
 
       {/* the switcher lives here — kept outside the swap so it stays mounted */}
       <div id="phases">
-        <PhasesSection phases={phases} domains={domains} />
+        <PhasesSection
+          phases={phases}
+          domains={domains}
+          domainCards={domainCards}
+          featureProduct={featureProduct}
+        />
       </div>
 
       <div key={`tail-${phase}`} className={styles.swap}>

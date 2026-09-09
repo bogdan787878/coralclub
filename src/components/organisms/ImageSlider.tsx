@@ -17,6 +17,8 @@ export type ImageSliderProps = {
   sizes?: string;
   /** object-fit for the packshots. Default "contain". */
   fit?: "contain" | "cover";
+  /** Preload the first frame (only when the slider is above the fold). */
+  priority?: boolean;
 };
 
 /**
@@ -27,6 +29,7 @@ export function ImageSlider({
   images,
   sizes = "100vw",
   fit = "contain",
+  priority = false,
 }: ImageSliderProps) {
   const [active, setActive] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -56,7 +59,8 @@ export function ImageSlider({
               alt={img.alt}
               fill
               sizes={sizes}
-              priority={i === 0}
+              priority={priority && i === 0}
+              loading={priority && i === 0 ? undefined : "lazy"}
               style={{
                 objectFit: fit,
                 ...(img.position ? { objectPosition: img.position } : {}),

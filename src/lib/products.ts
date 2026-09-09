@@ -5,11 +5,14 @@
  */
 
 import { asset } from "./asset";
+import { productHref, shortCategory } from "./catalog";
 import {
   GENERATED_DOMAINS,
   GENERATED_PRODUCTS,
   GENERATED_SERIES,
 } from "./products.generated";
+
+export { productHref, shortCategory } from "./catalog";
 
 /** Base wellness scenarios — the quiz maps answers onto these. */
 export type Goal =
@@ -199,8 +202,6 @@ export function getProduct(slug: string): Product | undefined {
   };
 }
 
-export const productHref = (slug: string) => `/products/${slug}`;
-
 /** Other products sharing the same category, asset-wrapped, current one excluded. */
 export function relatedProducts(slug: string, limit = 12): Product[] {
   const current = PRODUCTS.find((p) => p.slug === slug);
@@ -248,10 +249,15 @@ export type PhaseView = {
   /** The single product that represents the set (SeriesFeature block). */
   seriesSlug?: string;
   products: PhaseProductCard[];
+  /** Resolved rep product for the SeriesFeature block (fixed phases only). */
+  seriesProduct: Product | null;
 };
 
 const PHASE_DEFS: Array<
-  Omit<PhaseView, "products" | "image"> & { slugs: string[]; image: string }
+  Omit<PhaseView, "products" | "image" | "seriesProduct"> & {
+    slugs: string[];
+    image: string;
+  }
 > = [
   {
     id: "hydration",
@@ -317,26 +323,6 @@ export function getDomains(): DomainContent[] {
   }));
 }
 
-/** Short tag labels for the long coralclub.us category names. */
-const CATEGORY_LABEL: Record<string, string> = {
-  "Digestive supplements": "Digestive",
-  "Vitamins and Vitamin-Like Substances": "Vitamins",
-  "Heart and Blood Vessels": "Heart and Blood",
-  "Energy and Performance": "More Energy",
-  "Omega-3 and phospholipids": "Omega 3",
-  "Antistress and Sleep": "Antistress",
-  "Water and Mineral balance": "Mineral Balance",
-  "Anti-Aging & Longevity": "Anti-Aging",
-  "Detox & Cleansing": "Detox",
-  "Immune Support": "Immunity",
-  "Joints and Bones": "Joints & Bones",
-  "Protein shakes": "Protein",
-  "Weight Management": "Weight",
-};
-
-export const shortCategory = (raw: string): string =>
-  CATEGORY_LABEL[raw] ?? raw;
-
 /* -------------------------------------------------------------------------- */
 /* Product series — a standalone homepage block (large image + product row).  */
 /* Data from content/series/*.json, editable in the CMS.                      */
@@ -394,7 +380,27 @@ export function getSeries(id: string): SeriesView | undefined {
     image: c.image ? asset(c.image) : "",
     products: c.products
       .map((slug) => getProduct(slug))
-      .filter((p): p is Product => Boolean(p)),
+      .filter((p): p is Product => Boolean(p))
+      // pre-shorten the category tag so the (client) showcase needs no helper
+      .map((p) => ({ ...p, category: shortCategory(p.category) })),
+  };
+}
+
+/** A resolved Product → the serialisable card the (client) carousels render. */
+function toCard(p: Product): PhaseProductCard {
+  return {
+    slug: p.slug,
+    name: p.name,
+    headline: p.headline,
+    category: shortCategory(p.category),
+    title: p.cardTitle,
+    // main price = club (sale); struck-through "was" price = regular
+    price: p.prices[0].price,
+    priceWas: p.prices[1].price,
+    coralId: p.coralId,
+    cartHref: p.prices[1].cta.href,
+    goals: p.goals,
+    images: p.carouselImages.map((src) => ({ src, alt: p.name })),
   };
 }
 
@@ -405,19 +411,24 @@ export function getPhases(): PhaseView[] {
     products: slugs
       .map((slug) => getProduct(slug))
       .filter((p): p is Product => Boolean(p))
-      .map((p) => ({
-        slug: p.slug,
-        name: p.name,
-        headline: p.headline,
-        category: p.category,
-        title: p.cardTitle,
-        // main price = club (sale); struck-through "was" price = regular
-        price: p.prices[0].price,
-        priceWas: p.prices[1].price,
-        coralId: p.coralId,
-        cartHref: p.prices[1].cta.href,
-        goals: p.goals,
-        images: p.carouselImages.map((src) => ({ src, alt: p.name })),
-      })),
+      .map(toCard),
+    seriesProduct:
+      getProduct(phase.seriesSlug ?? slugs[0] ?? "") ?? null,
   }));
+}
+
+/**
+ * Resolved product cards per personalization domain — pre-computed on the
+ * server so <PhasesSection> (a client component) doesn't import the
+ * catalogue. Keyed by domain id.
+ */
+export function getDomainCards(): Record<string, PhaseProductCard[]> {
+  const out: Record<string, PhaseProductCard[]> = {};
+  for (const d of getDomains()) {
+    out[d.id] = d.products
+      .map((slug) => getProduct(slug))
+      .filter((p): p is Product => Boolean(p))
+      .map(toCard);
+  }
+  return out;
 }

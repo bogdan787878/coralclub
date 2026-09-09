@@ -1,7 +1,8 @@
 import { Fragment } from "react";
 import Image from "next/image";
 import { Accent, Container, Section } from "@/components/ui";
-import { productHref, shortCategory, type SeriesView } from "@/lib/products";
+import { productHref } from "@/lib/catalog";
+import type { SeriesView } from "@/lib/products";
 import { Carousel } from "./Carousel";
 import { ProductCard } from "./ProductCard";
 import styles from "./SeriesShowcase.module.css";
@@ -88,7 +89,7 @@ export function SeriesShowcase({ series, tone = "surface" }: SeriesShowcaseProps
             <ProductCard
               key={p.slug}
               title={p.headline}
-              category={shortCategory(p.category)}
+              category={p.category}
               price={p.prices[0].price}
               priceWas={p.prices[1].price}
               href={productHref(p.slug)}

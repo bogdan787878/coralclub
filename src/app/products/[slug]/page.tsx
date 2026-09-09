@@ -70,6 +70,7 @@ export default async function ProductPage({
                     alt: product.name,
                   }))}
                   sizes="(max-width: 1023px) 100vw, 560px"
+                  priority
                 />
               </div>
             </div>

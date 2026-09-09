@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { buildSelection, recapLines, type Answers } from "@/lib/quiz";
-import { productHref } from "@/lib/products";
+import { productHref } from "@/lib/catalog";
 import styles from "./QuizResult.module.css";
 
 export function QuizResult({ answers }: { answers: Answers }) {

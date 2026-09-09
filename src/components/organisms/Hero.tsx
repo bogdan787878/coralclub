@@ -16,6 +16,9 @@ export type HeroProps = {
   cta: { label: string; href: string };
   /** Preload the background image. Off for off-screen carousel slides. */
   priority?: boolean;
+  /** Skip mounting the <Image> entirely (off-screen carousel slide, no
+   *  interaction yet) — the navy panel + copy still render. */
+  renderImage?: boolean;
 };
 
 /**
@@ -23,17 +26,27 @@ export type HeroProps = {
  * the primary call to action over it. Pair it with <SiteHeader /> above.
  * Presentational; <HeroCarousel> stacks these into a swipeable slider.
  */
-export function Hero({ title, body, image, cta, priority = true }: HeroProps) {
+export function Hero({
+  title,
+  body,
+  image,
+  cta,
+  priority = true,
+  renderImage = true,
+}: HeroProps) {
   return (
     <section className={styles.panel}>
-      <Image
-        className={styles.bg}
-        src={image.src}
-        alt={image.alt}
-        fill
-        priority={priority}
-        sizes="100vw"
-      />
+      {renderImage && (
+        <Image
+          className={styles.bg}
+          src={image.src}
+          alt={image.alt}
+          fill
+          priority={priority}
+          loading={priority ? undefined : "lazy"}
+          sizes="100vw"
+        />
+      )}
 
       <div className={styles.content}>
         <div className={styles.copy}>

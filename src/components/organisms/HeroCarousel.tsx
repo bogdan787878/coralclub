@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useRef, type UIEvent } from "react";
+import { useEffect, useRef, useState, type UIEvent } from "react";
 import { Hero, type HeroProps } from "./Hero";
 import styles from "./HeroCarousel.module.css";
 
 export type HeroCarouselProps = {
   /** One hero per phase, in order. */
-  slides: Omit<HeroProps, "priority">[];
+  slides: Omit<HeroProps, "priority" | "renderImage">[];
   /** Index of the phase currently shown. */
   activeIndex: number;
   /** Called when the user swipes / taps to a different phase. */
@@ -21,6 +21,9 @@ export type HeroCarouselProps = {
 export function HeroCarousel({ slides, activeIndex, onSelect }: HeroCarouselProps) {
   const track = useRef<HTMLDivElement>(null);
   const settle = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // off-screen slides mount their <Image> only after the first interaction,
+  // so the other phase heroes don't download on initial load
+  const [touched, setTouched] = useState(false);
 
   // keep the track aligned to the active phase (dot tap, phase tab, resize)
   useEffect(() => {
@@ -57,6 +60,7 @@ export function HeroCarousel({ slides, activeIndex, onSelect }: HeroCarouselProp
   const onScroll = (e: UIEvent<HTMLDivElement>) => {
     const el = e.currentTarget;
     if (el.clientWidth === 0) return;
+    if (!touched) setTouched(true);
     if (settle.current) clearTimeout(settle.current);
     settle.current = setTimeout(() => {
       const i = Math.round(el.scrollLeft / el.clientWidth);
@@ -70,10 +74,15 @@ export function HeroCarousel({ slides, activeIndex, onSelect }: HeroCarouselProp
         className={styles.track}
         ref={track}
         onScroll={slides.length > 1 ? onScroll : undefined}
+        onPointerDown={() => setTouched(true)}
       >
         {slides.map((s, i) => (
           <div className={styles.slide} key={i} aria-hidden={i !== activeIndex}>
-            <Hero {...s} priority={i === activeIndex} />
+            <Hero
+              {...s}
+              priority={i === activeIndex}
+              renderImage={i === activeIndex || touched}
+            />
           </div>
         ))}
       </div>
