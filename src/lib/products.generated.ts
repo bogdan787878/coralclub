@@ -1974,7 +1974,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
   },
   {
     "slug": "privilege-facial-scrub",
-    "name": "Privilege Facial Scrub (50 ml)",
+    "name": "Privilege Facial Scrub",
     "headline": "Facial Scrub",
     "category": "Privilege",
     "cardTitle": "Weekly — Exfoliate",
@@ -1982,26 +1982,36 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "skin"
     ],
     "coralId": "",
-    "description": "A fine coffee-based scrub that polishes away dead cells and unclogs pores, leaving skin smoother and more even. Use once or twice a week.",
     "price": "$31.25",
     "clubPrice": "$25.00",
-    "carouselImages": [],
-    "pdpImages": [],
-    "rating": 4.7,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
+    "description": "A fine coffee-based scrub that polishes away dead cells and unclogs pores, leaving skin smoother and more even. Use once or twice a week.",
+    "carouselImages": [
+      "/images/products/goqzq4n5v259ejmg41ur3rnbcbojlid9 1.png"
+    ],
+    "pdpImages": [
+      "/images/products/goqzq4n5v259ejmg41ur3rnbcbojlid9 1.png"
+    ],
     "howToUse": "Apply to damp skin, massage gently for 30–60 seconds avoiding the eye area, then rinse.",
     "manufacturing": {
-      "countryOfOrigin": "USA",
+      "countryOfOrigin": "",
       "shippingWeight": "",
       "expiration": "3 years from the date of manufacture; 12 months after opening",
       "storage": "Store at room temperature, away from direct sunlight.",
-      "ingredients": "Organic aloe vera leaf juice, propylene glycol, caprylic/capric triglyceride, pentylene glycol, ground arabica coffee beans, ground walnut shell, carbomer, cetearyl alcohol, phenoxyethanol, caprylyl glycol, ceteareth-20, arabica coffee oil, sodium hydroxide, vitamin E and other components.",
+      "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "test",
+            "amount": "test",
+            "dv": ""
+          }
+        ]
       }
-    }
+    },
+    "rating": 4.7,
+    "ratingsCount": 0,
+    "reviewsCount": 0
   },
   {
     "slug": "privilege-intensive-facial-serum",
@@ -2013,26 +2023,36 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "skin"
     ],
     "coralId": "",
-    "description": "A concentrated serum that targets fine lines, uneven tone and loss of firmness, boosting hydration and radiance with continued use.",
     "price": "$40.63",
     "clubPrice": "$32.50",
-    "carouselImages": [],
-    "pdpImages": [],
-    "rating": 4.7,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
+    "description": "A concentrated serum that targets fine lines, uneven tone and loss of firmness, boosting hydration and radiance with continued use.",
+    "carouselImages": [
+      "/images/products/h0i19ii9cmsivn9nzcfl4q90i75ikrkd 1.png"
+    ],
+    "pdpImages": [
+      "/images/products/h0i19ii9cmsivn9nzcfl4q90i75ikrkd 1.png"
+    ],
     "howToUse": "Apply a few drops to clean skin morning and evening, before moisturiser.",
     "manufacturing": {
-      "countryOfOrigin": "USA",
+      "countryOfOrigin": "",
       "shippingWeight": "",
       "expiration": "3 years from the date of manufacture; 12 months after opening",
       "storage": "Store at room temperature, away from direct sunlight.",
-      "ingredients": "Organic aloe vera leaf juice, glycerin, water, soluble collagen, red algae extract (Hypnea musciformis), carbomer, phenoxyethanol, vitamin C (3-O-ethyl ascorbic acid), proline, threonine, brown algae extract (Sargassum filipendula), caprylyl glycol, sorbitol, rice extract and other components.",
+      "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "test",
+            "amount": "test",
+            "dv": ""
+          }
+        ]
       }
-    }
+    },
+    "rating": 4.7,
+    "ratingsCount": 0,
+    "reviewsCount": 0
   },
   {
     "slug": "privilege-milk-cleanser",
@@ -2044,26 +2064,36 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "skin"
     ],
     "coralId": "",
-    "description": "A creamy milk cleanser with coffee oil and extract that dissolves makeup and daily grime while leaving the skin soft and comfortable. The gentle first step of the Privilege routine.",
     "price": "$21.88",
     "clubPrice": "$17.50",
-    "carouselImages": [],
-    "pdpImages": [],
-    "rating": 4.7,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
+    "description": "A creamy milk cleanser with coffee oil and extract that dissolves makeup and daily grime while leaving the skin soft and comfortable. The gentle first step of the Privilege routine.",
+    "carouselImages": [
+      "/images/products/108uk7bysn2yju4eloz3f0e5ykli3xk4 1.png"
+    ],
+    "pdpImages": [
+      "/images/products/108uk7bysn2yju4eloz3f0e5ykli3xk4 1.png"
+    ],
     "howToUse": "Morning and evening, massage over dry or damp skin, then rinse or wipe off with a cotton pad.",
     "manufacturing": {
-      "countryOfOrigin": "USA",
+      "countryOfOrigin": "",
       "shippingWeight": "",
       "expiration": "3 years from the date of manufacture; 12 months after opening",
       "storage": "Store at room temperature, away from direct sunlight.",
-      "ingredients": "Organic aloe vera leaf juice, sodium C14-16 olefin sulfonate, glycerin, cocamidopropyl betaine, phenoxyethanol, disodium cocoamphodiacetate, arabica coffee oil, glycol distearate, PEG-150 pentaerythrityl tetrastearate, sodium chloride, caprylyl glycol, caprylyl/capryl glucoside, lauryl glucoside and other components.",
+      "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "test",
+            "amount": "test",
+            "dv": ""
+          }
+        ]
       }
-    }
+    },
+    "rating": 4.7,
+    "ratingsCount": 0,
+    "reviewsCount": 0
   },
   {
     "slug": "promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask",

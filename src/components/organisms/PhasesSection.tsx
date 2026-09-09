@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Accent, Container, Section } from "@/components/ui";
 import { addItem, setQty, useCart } from "@/lib/cart";
+import { usePhase, type PhaseId } from "@/lib/phase";
 import { Carousel } from "./Carousel";
 import { DomainCarousel } from "./DomainCarousel";
 import { PhaseSwitcher } from "./PhaseSwitcher";
@@ -24,7 +25,7 @@ export type PhasesSectionProps = {
  * to that domain's set.
  */
 export function PhasesSection({ phases, domains }: PhasesSectionProps) {
-  const [activeId, setActiveId] = useState(phases[0]?.id);
+  const { phase: activeId, setPhase } = usePhase();
   const [domainId, setDomainId] = useState(domains[0]?.id);
   const phase = phases.find((p) => p.id === activeId) ?? phases[0];
   const isPersonalization = phase.id === "personalization";
@@ -41,7 +42,7 @@ export function PhasesSection({ phases, domains }: PhasesSectionProps) {
           <PhaseSwitcher
             phases={phases}
             value={phase.id}
-            onChange={(id) => setActiveId(id as PhaseView["id"])}
+            onChange={(id) => setPhase(id as PhaseId)}
           />
         </Container>
 

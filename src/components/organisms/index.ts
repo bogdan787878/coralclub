@@ -39,3 +39,6 @@ export type { SeriesShowcaseProps } from "./SeriesShowcase";
 
 export { CommunityReels } from "./CommunityReels";
 export type { CommunityReelsProps, Reel } from "./CommunityReels";
+
+export { HomeView } from "./HomeView";
+export type { HomeViewProps } from "./HomeView";

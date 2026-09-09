@@ -1,0 +1,19 @@
+/* phase swap — the key={phase} remount does the work; this softens it */
+@keyframes phaseFadeIn {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.swap {
+  animation: phaseFadeIn 0.2s var(--ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swap {
+    animation: none;
+  }
+}

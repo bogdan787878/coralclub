@@ -1,123 +1,25 @@
-import { Accent } from "@/components/ui";
-import {
-  CommunityReels,
-  Editorial,
-  Hero,
-  PhasesSection,
-  SeriesShowcase,
-  SiteHeader,
-} from "@/components/organisms";
-import { CartBar } from "@/components/cart/CartBar";
+import { HomeView } from "@/components/organisms";
+import { HOME_CONTENT, type SeriesItem } from "@/content/home";
 import { getDomains, getPhases, getSeries } from "@/lib/products";
-import { asset } from "@/lib/asset";
-
-const HERO_IMAGE = {
-  // ?v bump = cache-bust when the file is swapped in place
-  src: `${asset("/images/hero-hydration.png")}?v=2`,
-  alt: "Coral-Mine Silver sachet beside a glass of mineralized water",
-};
-
-const WATER_IMAGE = `${asset("/images/you-are-90-water.png")}?v=2`;
-const MINERALS_IMAGE = `${asset("/images/minerals-japan.png")}?v=1`;
-
-const COMMUNITY_REELS = [
-  { src: asset("/reels/reel1.mp4"), alt: "Coral Club member sharing her morning hydration routine" },
-  { src: asset("/reels/reel2.mp4"), alt: "Member talking about how the Restart programme felt" },
-  { src: asset("/reels/reel3.mp4"), alt: "Before-and-after story from a long-time member" },
-  { src: asset("/reels/reel4.mp4"), alt: "Member showing the products she keeps on her counter" },
-  { src: asset("/reels/reel5.mp4"), alt: "Ambassador explaining why she recommends Coral Club" },
-];
-
 
 export default function Home() {
   const phases = getPhases();
   const domains = getDomains();
-  const liumi = getSeries("liumi");
-  const privilege = getSeries("privilege");
+
+  // resolve every series id any phase references, once, on the server
+  const seriesIds = [
+    ...new Set(
+      Object.values(HOME_CONTENT)
+        .flatMap((p) => p.sections)
+        .filter((s): s is SeriesItem => s.kind === "series")
+        .map((s) => s.id),
+    ),
+  ];
+  const seriesById = Object.fromEntries(
+    seriesIds.map((id) => [id, getSeries(id) ?? null]),
+  );
 
   return (
-    <main>
-      <SiteHeader cart={false} />
-
-      <Hero
-        title={
-          <>
-            Your health starts
-            <br />
-            <Accent>with water</Accent>
-          </>
-        }
-        body={
-          <>
-            Hydration is step one of your Coral Club routine — the phase
-            everything else builds on.
-          </>
-        }
-        image={HERO_IMAGE}
-        cta={{ label: "Build my set", href: "/quiz" }}
-      />
-
-      <div id="phases">
-        <PhasesSection phases={phases} domains={domains} />
-      </div>
-
-
-      <Editorial
-        title={{
-          lead: "You Are 90% Water.",
-          accent: "Everything Else Depends On It.",
-        }}
-        image={{ src: WATER_IMAGE, alt: "Woman drinking a glass of water" }}
-        body={
-          <>
-            <p>
-              Most supplements skip the first step of your routine: the water you
-              drink every day.
-            </p>
-            <p>
-              You can take the best supplements, but if you&apos;re dehydrated,
-              your body doesn&apos;t actually use them. That&apos;s why Coral Club
-              starts with what matters first: the water you drink daily.
-              Everything else builds on top of that.
-            </p>
-          </>
-        }
-      />
-
-      {liumi && <SeriesShowcase series={liumi} />}
-
-      <Editorial
-        title={{
-          lead: "Minerals from the Japan islands",
-          accent: "where people live to 100",
-        }}
-        image={{ src: MINERALS_IMAGE, alt: "Sango fossil coral off the coast of Okinawa" }}
-        badge={
-          <>
-            <span aria-hidden="true">🇯🇵</span> Okinawa, Japan
-          </>
-        }
-        body={
-          <p>
-            Off the coast of Okinawa, one of the planet&apos;s five Blue Zones,
-            lies Sango fossil coral, naturally rich in calcium, magnesium and
-            70+ trace minerals.
-          </p>
-        }
-      />
-
-      {privilege && <SeriesShowcase series={privilege} />}
-
-      <CommunityReels
-        title={{
-          lead: "The proof isn't on the label.",
-          accent: "It's in the community.",
-        }}
-        body="Real members, real routines. Most people start Coral Club because someone they already trust did first."
-        reels={COMMUNITY_REELS}
-      />
-
-      <CartBar />
-    </main>
+    <HomeView phases={phases} domains={domains} seriesById={seriesById} />
   );
 }
