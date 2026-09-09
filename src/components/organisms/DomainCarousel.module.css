@@ -7,7 +7,6 @@
   scroll-padding-inline: var(--page-padding-inline);
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding-block: var(--space-8);
   padding-inline: var(--page-padding-inline);
 }
 .track::-webkit-scrollbar {
