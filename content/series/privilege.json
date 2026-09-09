@@ -2,17 +2,12 @@
   "id": "privilege",
   "titleLead": "When hydration isn't enough.",
   "titleAccent": "Privilege goes further.",
-  "blurb": "The premium anti-aging line, built on coffee oil and extract: a full routine for firmer, more even, more resilient skin — from the first cleanse to the night cream.",
+  "blurb": "The premium anti-aging line, built on coffee oil and extract — cleanse, exfoliate and treat for firmer, more even, more resilient skin.",
   "features": [],
   "image": "",
   "products": [
     "privilege-milk-cleanser",
     "privilege-facial-scrub",
-    "privilege-hydrating-toner",
-    "privilege-intensive-facial-serum",
-    "privilege-intensive-eye-serum",
-    "privilege-repairing-eye-cream",
-    "privilege-anti-aging-morning-cream",
-    "privilege-anti-aging-night-cream"
+    "privilege-intensive-facial-serum"
   ]
 }

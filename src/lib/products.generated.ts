@@ -1962,68 +1962,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     }
   },
   {
-    "slug": "privilege-anti-aging-morning-cream",
-    "name": "Privilege Anti-Aging Morning Cream (50 ml)",
-    "headline": "Anti-Aging Morning Cream",
-    "category": "Privilege",
-    "cardTitle": "Step 4 — Day cream",
-    "goals": [
-      "skin"
-    ],
-    "coralId": "",
-    "description": "A day cream with coffee oil and extract that hydrates, firms and protects, sitting well under sunscreen and makeup.",
-    "price": "$31.25",
-    "clubPrice": "$25.00",
-    "carouselImages": [],
-    "pdpImages": [],
-    "rating": 4.7,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
-    "howToUse": "Apply to face and neck every morning after serum.",
-    "manufacturing": {
-      "countryOfOrigin": "",
-      "shippingWeight": "",
-      "expiration": "3 years from the date of manufacture; 12 months after opening",
-      "storage": "Store at room temperature, away from direct sunlight.",
-      "ingredients": "",
-      "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
-      }
-    }
-  },
-  {
-    "slug": "privilege-anti-aging-night-cream",
-    "name": "Privilege Anti-Aging Night Cream (50 ml)",
-    "headline": "Anti-Aging Night Cream",
-    "category": "Privilege",
-    "cardTitle": "Step 4 — Night cream",
-    "goals": [
-      "skin"
-    ],
-    "coralId": "",
-    "description": "A richer night cream that supports the skin's overnight recovery, so it looks replenished and firmer by morning.",
-    "price": "$31.25",
-    "clubPrice": "$25.00",
-    "carouselImages": [],
-    "pdpImages": [],
-    "rating": 4.7,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
-    "howToUse": "Apply to face and neck every evening as the last step of your routine.",
-    "manufacturing": {
-      "countryOfOrigin": "",
-      "shippingWeight": "",
-      "expiration": "3 years from the date of manufacture; 12 months after opening",
-      "storage": "Store at room temperature, away from direct sunlight.",
-      "ingredients": "",
-      "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
-      }
-    }
-  },
-  {
     "slug": "privilege-facial-scrub",
     "name": "Privilege Facial Scrub (50 ml)",
     "headline": "Facial Scrub",
@@ -2042,68 +1980,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Apply to damp skin, massage gently for 30–60 seconds avoiding the eye area, then rinse.",
-    "manufacturing": {
-      "countryOfOrigin": "",
-      "shippingWeight": "",
-      "expiration": "3 years from the date of manufacture; 12 months after opening",
-      "storage": "Store at room temperature, away from direct sunlight.",
-      "ingredients": "",
-      "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
-      }
-    }
-  },
-  {
-    "slug": "privilege-hydrating-toner",
-    "name": "Privilege Hydrating Toner (100 ml)",
-    "headline": "Hydrating Toner",
-    "category": "Privilege",
-    "cardTitle": "Step 2 — Prep",
-    "goals": [
-      "skin"
-    ],
-    "coralId": "",
-    "description": "A coffee-infused toner that rebalances the skin after cleansing and adds a first layer of moisture so the serums and creams that follow absorb better.",
-    "price": "$25.00",
-    "clubPrice": "$20.00",
-    "carouselImages": [],
-    "pdpImages": [],
-    "rating": 4.7,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
-    "howToUse": "After cleansing, sweep over the face with a cotton pad or press in with your hands.",
-    "manufacturing": {
-      "countryOfOrigin": "",
-      "shippingWeight": "",
-      "expiration": "3 years from the date of manufacture; 12 months after opening",
-      "storage": "Store at room temperature, away from direct sunlight.",
-      "ingredients": "",
-      "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
-      }
-    }
-  },
-  {
-    "slug": "privilege-intensive-eye-serum",
-    "name": "Privilege Intensive Eye Serum (30 ml)",
-    "headline": "Intensive Eye Serum",
-    "category": "Privilege",
-    "cardTitle": "Targeted — Eyes",
-    "goals": [
-      "skin"
-    ],
-    "coralId": "",
-    "description": "A lightweight eye serum that visibly reduces puffiness and the look of fine lines around the eye contour.",
-    "price": "$40.63",
-    "clubPrice": "$32.50",
-    "carouselImages": [],
-    "pdpImages": [],
-    "rating": 4.7,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
-    "howToUse": "Pat a small amount around the orbital bone morning and evening, before eye cream.",
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -2166,37 +2042,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Morning and evening, massage over dry or damp skin, then rinse or wipe off with a cotton pad.",
-    "manufacturing": {
-      "countryOfOrigin": "",
-      "shippingWeight": "",
-      "expiration": "3 years from the date of manufacture; 12 months after opening",
-      "storage": "Store at room temperature, away from direct sunlight.",
-      "ingredients": "",
-      "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
-      }
-    }
-  },
-  {
-    "slug": "privilege-repairing-eye-cream",
-    "name": "Privilege Repairing Eye Cream (30 ml)",
-    "headline": "Repairing Eye Cream",
-    "category": "Privilege",
-    "cardTitle": "Targeted — Eyes",
-    "goals": [
-      "skin"
-    ],
-    "coralId": "",
-    "description": "A rich eye cream with coffee oil and extract that nourishes thin, tired under-eye skin and softens the look of lines overnight.",
-    "price": "$37.50",
-    "clubPrice": "$30.00",
-    "carouselImages": [],
-    "pdpImages": [],
-    "rating": 4.7,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
-    "howToUse": "Apply as the last eye step, morning and evening.",
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -2980,18 +2825,13 @@ export const GENERATED_SERIES: SeriesContent[] = [
     "id": "privilege",
     "titleLead": "When hydration isn't enough.",
     "titleAccent": "Privilege goes further.",
-    "blurb": "The premium anti-aging line, built on coffee oil and extract: a full routine for firmer, more even, more resilient skin — from the first cleanse to the night cream.",
+    "blurb": "The premium anti-aging line, built on coffee oil and extract — cleanse, exfoliate and treat for firmer, more even, more resilient skin.",
     "features": [],
     "image": "",
     "products": [
       "privilege-milk-cleanser",
       "privilege-facial-scrub",
-      "privilege-hydrating-toner",
-      "privilege-intensive-facial-serum",
-      "privilege-intensive-eye-serum",
-      "privilege-repairing-eye-cream",
-      "privilege-anti-aging-morning-cream",
-      "privilege-anti-aging-night-cream"
+      "privilege-intensive-facial-serum"
     ]
   }
 ];
