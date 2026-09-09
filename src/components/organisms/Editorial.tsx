@@ -36,15 +36,21 @@ export function Editorial({ title, image, body, tone = "surface" }: EditorialPro
           </h2>
 
           <div className={styles.media}>
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              sizes="(max-width: 480px) 100vw, 480px"
-              style={
-                image.position ? { objectPosition: image.position } : undefined
-              }
-            />
+            {image.src ? (
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="(max-width: 480px) 100vw, 480px"
+                style={
+                  image.position
+                    ? { objectPosition: image.position }
+                    : undefined
+                }
+              />
+            ) : (
+              <span className={styles.placeholder} aria-hidden="true" />
+            )}
           </div>
 
           <div className={styles.body}>{body}</div>

@@ -87,6 +87,21 @@ export default function Home() {
 
       {liumi && <SeriesShowcase series={liumi} />}
 
+      <Editorial
+        title={{
+          lead: "Minerals from the Japan islands",
+          accent: "where people live to 100",
+        }}
+        image={{ src: "", alt: "Sango fossil coral off the coast of Okinawa" }}
+        body={
+          <p>
+            Off the coast of Okinawa, one of the planet&apos;s five Blue Zones,
+            lies Sango fossil coral, naturally rich in calcium, magnesium and
+            70+ trace minerals.
+          </p>
+        }
+      />
+
       {privilege && <SeriesShowcase series={privilege} />}
 
       <CommunityReels

@@ -18,12 +18,23 @@
   position: relative;
   overflow: hidden;
   height: 264px;
-  border-radius: var(--radius-base);
   background: var(--color-primary-30);
+  /* full-bleed to the column edges, no rounded corners */
+  margin-inline: calc(-1 * var(--page-padding-inline));
 }
 
 .media :global(img) {
   object-fit: cover;
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-10),
+    var(--color-primary-30)
+  );
 }
 
 .body {
