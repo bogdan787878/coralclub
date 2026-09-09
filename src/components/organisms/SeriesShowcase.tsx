@@ -16,7 +16,7 @@ export type SeriesShowcaseProps = {
  * content/series/*.json (editable in the CMS).
  */
 export function SeriesShowcase({ series }: SeriesShowcaseProps) {
-  const { titleLead, titleAccent, blurb, image, products } = series;
+  const { titleLead, titleAccent, blurb, features, image, products } = series;
   if (products.length === 0) return null;
 
   return (
@@ -42,7 +42,26 @@ export function SeriesShowcase({ series }: SeriesShowcaseProps) {
             <Accent>{titleAccent}</Accent>
           </h2>
 
-          {blurb && <p className={styles.blurb}>{blurb}</p>}
+          {features.length > 0 ? (
+            <ul className={styles.features}>
+              {features.map((f, i) => (
+                <li key={i} className={styles.feature}>
+                  {f.icon && (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      className={styles.featureIcon}
+                      src={f.icon}
+                      alt=""
+                      width={24}
+                    />
+                  )}
+                  <span className={styles.featureText}>{f.text}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            blurb && <p className={styles.blurb}>{blurb}</p>
+          )}
         </Container>
 
         <Carousel label={`${titleAccent} products`}>

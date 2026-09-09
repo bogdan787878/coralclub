@@ -195,6 +195,22 @@ collections:
       - name: blurb
         label: "Blurb (paragraph under the heading)"
         widget: text
+        hint: "Shown only when the Feature row below is empty."
+      - name: features
+        label: "Feature row (icon + label, replaces the blurb)"
+        widget: list
+        required: false
+        summary: "{{fields.text}}"
+        fields:
+          - name: icon
+            label: "Icon (~24px wide)"
+            widget: image
+            media_library:
+              config:
+                max_file_size: 1000000
+          - name: text
+            label: "Label (16/20)"
+            widget: string
       - name: image
         label: "Large image"
         widget: image

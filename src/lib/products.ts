@@ -328,6 +328,14 @@ export const shortCategory = (raw: string): string =>
 /* Data from content/series/*.json, editable in the CMS.                      */
 /* -------------------------------------------------------------------------- */
 
+/** One icon + label shown under the series heading (instead of a blurb). */
+export type SeriesFeatureItem = {
+  /** Small icon, ~24px wide (path under /public). */
+  icon: string;
+  /** Label, rendered at 16/20. */
+  text: string;
+};
+
 /** The raw shape of a content/series/*.json file. */
 export type SeriesContent = {
   id: string;
@@ -335,8 +343,10 @@ export type SeriesContent = {
   titleLead: string;
   /** Heading — Newton-italic accent line. */
   titleAccent: string;
-  /** Supporting paragraph under the heading. */
+  /** Supporting paragraph under the heading. Used only when `features` is empty. */
   blurb: string;
+  /** Icon + label row shown under the heading, in place of the blurb. */
+  features?: SeriesFeatureItem[];
   /** Large image at the top of the block. Empty → placeholder tile. */
   image: string;
   /** Product slugs shown in the carousel, in order. */
@@ -348,6 +358,8 @@ export type SeriesView = {
   titleLead: string;
   titleAccent: string;
   blurb: string;
+  /** Asset-wrapped icon paths. */
+  features: SeriesFeatureItem[];
   /** Asset-prefixed image src, or "" for the placeholder. */
   image: string;
   /** Resolved, asset-wrapped products. */
@@ -362,6 +374,9 @@ export function getSeries(id: string): SeriesView | undefined {
     titleLead: c.titleLead,
     titleAccent: c.titleAccent,
     blurb: c.blurb,
+    features: (c.features ?? [])
+      .filter((f) => f.text || f.icon)
+      .map((f) => ({ icon: f.icon ? asset(f.icon) : "", text: f.text })),
     image: c.image ? asset(c.image) : "",
     products: c.products
       .map((slug) => getProduct(slug))
