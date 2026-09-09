@@ -54,13 +54,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule twice a day with food, in the morning and midday.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Pomegranate fruit extract, acai fruit extract, cocoa bean extract, rosemary leaf extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -85,13 +85,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule once a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Enzyme blend (protease, amylase, lipase, maltase, lactase, papain, bromelain, cellulase), vitamins A and D, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -116,13 +116,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 30 ml (2 tablespoons or 1 measuring cup) a day after food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Germany",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C. After opening, keep the bottle in the refrigerator.",
+      "ingredients": "Chondroitin sulphate, hyaluronic acid, vitamin E, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -147,13 +147,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 stick sachet a day after food. Pour the contents straight into the mouth and let it dissolve before swallowing; no water needed.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Slovenia",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Sorbitol (sweetener), choline (choline citrate), inositol (myo-inositol), sodium chloride, vitamin B3 (niacinamide), orange flavouring, biotin (D-biotin), vitamin B5 (calcium D-pantothenate), vitamin B12 (methylcobalamin), vitamin B2 (sodium riboflavin 5'-phosphate), vitamin B1 (thiamine hydrochloride) and other B vitamins.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -178,13 +178,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 2 capsules in the first half of the day, with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Hawthorn fruit extract, motherwort leaf extract, hibiscus flower extract, green coffee bean extract, skullcap root extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -209,12 +209,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults and children over 14 – 2 capsules twice a day with food. Course: 1 month, repeated if needed.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Slovenia",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
@@ -240,13 +240,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Read the instructions inside the pack before use. Course: 60 days.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Germany, USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "PentoKan ×3 (60 tablets), Coenzyme Q10 ×1 (60 capsules), Coral Taurine ×1 (60 capsules), Coral Magnesium ×1 (90 capsules).",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -271,13 +271,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 tablet in the evening with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Cascara sagrada (Rhamnus purshiana) bark, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -302,13 +302,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule in the first half of the day, with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Diosmin, gotu kola extract, horse chestnut seed extract, blueberry extract, hawthorn fruit extract, ginkgo biloba leaf extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -333,13 +333,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule a day with food. Course: 1 month.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Chicory root inulin, Kaneka Q10 coenzyme (ubiquinone), medium-chain triglycerides from coconut oil, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -396,13 +396,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 2 capsules twice a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Bovine colostrum 250 mg, beta-glucans (beta-1,3/1,6-glucans) 50 mg, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -427,13 +427,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 2 capsules twice a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Concentrated alfalfa grass juice, alfalfa grass, calcium carbonate, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -458,13 +458,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule twice a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Artichoke leaf extract, betaine hydrochloride, milk thistle seed extract, dandelion root extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -489,13 +489,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule three times a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Boswellia extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -520,13 +520,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule three times a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Burdock root, burdock root extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -551,13 +551,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule twice a day with food. Course: 1 month.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Acetyl-L-carnitine, capsule (hydroxypropyl methylcellulose), microcrystalline cellulose (emulsifier), silicon dioxide (anti-caking agent), magnesium salt of stearic acid (stabiliser).",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -582,13 +582,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule three times a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Cat's claw bark extract, burdock root extract, green tea leaf extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -616,11 +616,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "reviewsCount": 11,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA, Russia, Germany, Japan",
       "shippingWeight": "",
       "expiration": "2 years from the date of manufacture",
       "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
-      "ingredients": "",
+      "ingredients": "Assimilator ×1 (90 veg capsules), H-500 ×1 (60 capsules), Coral Alfalfa ×1 (120 capsules), Sunflower Lecithin ×1 (120 veg capsules), PentoKan ×2 (40 effervescent tablets), Coral-Mine ×3 (30 sachets).",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -645,13 +645,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Read the instructions inside the pack before use. Programme duration: 30 days.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA, Russia, Japan",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C. After opening, keep tightly closed.",
+      "ingredients": "Assimilator ×1 (90 veg capsules), H-500 ×1 (60 capsules), Sunflower Lecithin ×1 (120 veg capsules), Coral-Mine ×3 (30 sachets).",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -676,13 +676,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule 2-3 times a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Lecithin, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -707,13 +707,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule twice a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Deglycyrrhizinated licorice root extract, licorice root extract, ginger root extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -738,13 +738,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1-2 capsules a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Magnesium taurate and magnesium glycinate, gelatin (capsule), magnesium salt of stearic acid (stabiliser).",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -816,13 +816,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Taurine, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -847,12 +847,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 spray (0.06 ml) once a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Slovenia",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from light, out of reach of children, at a temperature of 15-25°C.",
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
@@ -878,13 +878,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Take 25 g of powder (2 heaped scoops) a day, dissolved in 250 ml of low-fat (1.5%) milk.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Germany",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "18 months from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Vitamin A, vitamin C, vitamin E, niacin, folate (folic acid), biotin, pantothenic acid, magnesium (magnesium citrate), selenium (L-selenomethionine), copper, branched-chain amino acids (L-isoleucine, L-leucine, L-valine), PABA (para-aminobenzoic acid), excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -909,13 +909,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Stir 1 scoop of powder (9 g) into 150 ml of water. Adults – once a day, followed by a glass of water.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "18 months from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Apple fibre, inulin, rice bran, L-glutamine, apple pectin, plum, pineapple, acai extract, blueberry, aloe vera gel, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -940,13 +940,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 pastille a day with food. Course: 1 month, repeated if needed.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Norway",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "20 months from the date of manufacture",
+      "storage": "Store in a dry place, protected from light, out of reach of children, at a temperature of 15-25°C.",
+      "ingredients": "Omega-3 fatty acids high in DHA (360 mg) and vitamin D3; chewable fruit-and-citrus pastilles made with Concordix technology.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -971,13 +971,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule once a day with food, in the second half of the day.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Theanine, lemon balm leaf extract, hop flower extract, St John's wort extract, magnesium, skullcap root extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1002,13 +1002,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1-2 sachets a day after food, dissolved in 100 ml of water.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "South Korea",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Persimmon fruit extract, goji berry extract, mandarin peel extract, buckwheat extract, soy sprout extract, vitamin C, taurine, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1033,12 +1033,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule twice a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
@@ -1064,13 +1064,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule twice a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Gotu kola extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1095,13 +1095,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Griffonia seed extract, vitamins B6 and B12, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1133,11 +1133,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "reviewsCount": 29,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
       "expiration": "2 years from the date of manufacture",
       "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
-      "ingredients": "",
+      "ingredients": "H-500 blend (potassium citrate, magnesium citrate, potassium ascorbate, sodium borate, silicon dioxide), excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1204,13 +1204,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule once a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Iron (iron bisglycinate), excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1235,13 +1235,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Shake the bottle before use. Adults – 5 ml once a day with food, neat or added to a glass of water or juice. Measuring cap included.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Netherlands",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C. After opening, keep the bottle in the refrigerator.",
+      "ingredients": "Purified water, xylitol, lecithin, glycerin, turmeric root extract in liposomal form, xanthan gum, potassium sorbate, steviol glycosides, alpha-tocopherol.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1266,13 +1266,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 stick sachet twice a day with food, neat or dissolved in half a glass of water.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C. Use immediately after opening the sachet.",
+      "ingredients": "Per 15 ml sachet: fermented mandarin peel (Citrus reticulata) 5 g, noni fruit juice (Morinda citrifolia) 300 mg, L-carnitine 50 mg, green tea leaf extract (Camellia sinensis) 26 mg, green coffee bean extract (Coffea arabica) 5 mg, greater burdock root (Arctium lappa), black pepper extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1344,7 +1344,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "shippingWeight": "",
       "expiration": "3 years from the date of manufacture; 12 months after opening",
       "storage": "Store at room temperature, away from direct sunlight.",
-      "ingredients": "",
+      "ingredients": "Aqua, Butylene Glycol, Glycerin, Caprylic/Capric Triglyceride, 1,2-Hexanediol, Dipropylene Glycol, Pentaerythrityl Tetraisostearate, Bakuchiol, Ammonium Acryloyldimethyltaurate/VP Copolymer, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Tromethamine, Polyglyceryl-10 Laurate, Undaria Pinnatifida Extract and other INCI components.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1375,7 +1375,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "shippingWeight": "",
       "expiration": "3 years from the date of manufacture; 12 months after opening",
       "storage": "Store at room temperature, away from direct sunlight.",
-      "ingredients": "",
+      "ingredients": "Aqua, Propanediol, Caprylic/Capric Triglyceride, Glycerin, Coco-caprylate/Caprate, Lactobacillus/Collagen Ferment Filtrate, Niacinamide, Cetearyl Alcohol, Glyceryl Stearate SE, Polyglyceryl-2 Stearate, Sodium DNA, Hydrolyzed Collagen, Glyceryl Stearate, 1,2-Hexanediol, Stearyl Alcohol and other INCI components.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1406,7 +1406,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "shippingWeight": "",
       "expiration": "3 years from the date of manufacture; 12 months after opening",
       "storage": "Store at room temperature, away from direct sunlight.",
-      "ingredients": "",
+      "ingredients": "Aqua, Glycerin, Butylene Glycol, Propanediol, Niacinamide, Hydrogenated Ethylhexyl Olivate, Cocoglycerides, Ectoin, 1,2-Hexanediol, Carbomer, Ceramide NP, 2,3-Butanediol, Caprylyl Glycol, Tromethamine, Sodium Polyacryloyldimethyl Taurate, Hydrogenated Olive Oil Unsaponifiables and other INCI components.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1513,12 +1513,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule three times a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
@@ -1544,13 +1544,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule a day with food, morning or midday. Course: 1 month.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Slovenia",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Memophenol (French grape and wild Canadian blueberry extract) 300 mg, green tea extract 50 mg, vitamin B12 (methylcobalamin) 3 mcg, zinc 2.3 mg, vitamin B6 (pyridoxal 5-phosphate) 2 mg, vitamin B9 (calcium L-methylfolate Extrafolate-S) 100 mcg, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1575,13 +1575,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Acetyl-L-carnitine, St John's wort extract, gotu kola leaf extract, tyrosine, theanine, reishi fruiting body extract, reishi mycelium extract, lipoic acid, ginger root extract, ginkgo biloba leaf extract, rosemary leaf extract, vitamins B6 and B12, folic acid, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1606,13 +1606,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule a day with food. Course: 1 month, repeated if needed.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Methylsulfonylmethane, vitamin C, biotin, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1637,13 +1637,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults and children over 14 – 1 capsule three times a day with food. Course: 1 month, repeated if needed.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Spain",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "3 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Omega-3 concentrate 650 mg from ocean fish oil (anchovy, sardine, mackerel, tuna), including EPA (eicosapentaenoic acid) 360 mg and DHA (docosahexaenoic acid) 240 mg, vitamin E (D-alpha-tocopherol) 6.71 mg.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1675,7 +1675,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "reviewsCount": 18,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
       "expiration": "2 years from the date of manufacture",
       "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
@@ -1738,10 +1738,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "reviewsCount": 0,
     "howToUse": "",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA, Slovenia, Spain, Japan",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
@@ -1770,7 +1770,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "reviewsCount": 8,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA, Japan",
       "shippingWeight": "",
       "expiration": "2 years from the date of manufacture",
       "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
@@ -1799,13 +1799,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 3 capsules once a day in the first half of the day, with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Pau d'arco (lapacho) bark extract, olive leaf extract, yerba mate leaf extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1830,13 +1830,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1-2 capsules a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Pau d'arco bark 500 mg, vitamin C 60 mg, selenium 30 mcg, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1868,11 +1868,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "reviewsCount": 14,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Germany",
       "shippingWeight": "",
       "expiration": "2 years from the date of manufacture",
       "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
-      "ingredients": "",
+      "ingredients": "Potassium, inulin, vitamin C, D-ribose, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1897,13 +1897,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Women – 1 capsule three times a day with food. Course: 10-30 days.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Beta-alanine, hop cone extract, flax seed extract, saffron extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1928,13 +1928,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule twice a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Spain",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "3 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Calanus oil from marine zooplankton Zooca (Calanus finmarchicus), capsule (gelatin, glycerin, water), vitamin E (D-alpha-tocopherol) in sunflower oil.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1959,13 +1959,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule once a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Germany",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Omega-3 fatty acids, vitamin E, niacinamide, pantothenic acid, vitamin B12, zinc, vitamin B6, selenium, vitamin B1, vitamin B2, folic acid, iodine, vitamin D3, biotin, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -1992,11 +1992,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "reviewsCount": 0,
     "howToUse": "Apply to damp skin, massage gently for 30–60 seconds avoiding the eye area, then rinse.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
       "expiration": "3 years from the date of manufacture; 12 months after opening",
       "storage": "Store at room temperature, away from direct sunlight.",
-      "ingredients": "",
+      "ingredients": "Organic aloe vera leaf juice, propylene glycol, caprylic/capric triglyceride, pentylene glycol, ground arabica coffee beans, ground walnut shell, carbomer, cetearyl alcohol, phenoxyethanol, caprylyl glycol, ceteareth-20, arabica coffee oil, sodium hydroxide, vitamin E and other components.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -2023,11 +2023,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "reviewsCount": 0,
     "howToUse": "Apply a few drops to clean skin morning and evening, before moisturiser.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
       "expiration": "3 years from the date of manufacture; 12 months after opening",
       "storage": "Store at room temperature, away from direct sunlight.",
-      "ingredients": "",
+      "ingredients": "Organic aloe vera leaf juice, glycerin, water, soluble collagen, red algae extract (Hypnea musciformis), carbomer, phenoxyethanol, vitamin C (3-O-ethyl ascorbic acid), proline, threonine, brown algae extract (Sargassum filipendula), caprylyl glycol, sorbitol, rice extract and other components.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -2054,11 +2054,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "reviewsCount": 0,
     "howToUse": "Morning and evening, massage over dry or damp skin, then rinse or wipe off with a cotton pad.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
       "expiration": "3 years from the date of manufacture; 12 months after opening",
       "storage": "Store at room temperature, away from direct sunlight.",
-      "ingredients": "",
+      "ingredients": "Organic aloe vera leaf juice, sodium C14-16 olefin sulfonate, glycerin, cocamidopropyl betaine, phenoxyethanol, disodium cocoamphodiacetate, arabica coffee oil, glycol distearate, PEG-150 pentaerythrityl tetrastearate, sodium chloride, caprylyl glycol, caprylyl/capryl glucoside, lauryl glucoside and other components.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -2083,12 +2083,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Collagen peptides: adults – 50 ml (1 bottle) once a day with food, for 1 month, repeated if needed. Mask: on cleansed skin, apply the mask, remove the film from one side, smooth it onto the face, remove the second film and leave for 15-20 minutes, then pat in the remaining essence.",
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place at room temperature, away from heat and direct sunlight, out of reach of children.",
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
@@ -2145,13 +2145,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 bottle (50 ml) a day with food. Course: 10-30 days, repeated if needed.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "MaxiCollagen liquid hydrolysed fish collagen with tripeptides, hibiscus flower extract, white currant fruit extract, vitamin C (L-ascorbic acid), hyaluronic acid, vitamin B6 (pyridoxine hydrochloride), vitamin B2 (riboflavin), spinach leaf, biotin, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -2176,13 +2176,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 bottle a day in the morning with food. Course: 30 days.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Liquid hydrolysed fish collagen (incl. MaxiCollagen 3.5 g) 15 g, hibiscus flower extract (Hibiscus sabdariffa) 1.5 g, white currant extract (Ribes rubrum) 700 mg, vitamin C (ascorbic acid) 100 mg, hyaluronic acid (sodium hyaluronate) 72 mg, vitamin B6 1.8 mg, vitamin B2 1.7 mg, biotin.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -2238,13 +2238,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 5 tablets a day with food, with a glass of water. Course: 1 month, repeated if needed.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "L-leucine 250 mg, L-isoleucine 125 mg, L-valine 125 mg, L-lysine hydrochloride 120 mg, L-arginine 100 mg, L-phenylalanine 100 mg, L-glutamine 100 mg, citrulline 80 mg, L-threonine 60 mg, L-histidine 40 mg, L-cysteine 20 mg, excipients: microcrystalline cellulose, stearic acid, hydroxypropyl methylcellulose.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -2269,13 +2269,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Take 1 capsule a day with or straight after food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Vitamin C (L-ascorbic acid) from PureWay-C 500 mg, citrus bioflavonoids from a fruit blend extract (Citrus sinensis, Citrus limon, Citrus aurantifolia, Citrus reticulata, Citrus tangerina), rice bran fatty acid blend (Oryza sativa L.), excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -2300,13 +2300,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule a day with food. Course: 1 month.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Slovenia",
       "shippingWeight": "",
       "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "storage": "Store in a dry place, protected from light, out of reach of children, at a temperature of 15-25°C.",
+      "ingredients": "Inositol (myo-inositol) 350 mg, saffron stigma extract Safr'Inside 30 mg, zinc (zinc oxide in the capsule shell) 2.3 mg, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -2331,13 +2331,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule once a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Selenium, vitamin C, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -2362,12 +2362,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule a day. Course: 1 month, repeated if needed.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Spain",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
+      "expiration": "3 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C. After opening, keep the bottle in the refrigerator.",
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
@@ -2393,13 +2393,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 stick sachet once a day during or after food, dissolved in 250 ml of warm water.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "South Korea",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Fructo-oligosaccharides (chicory root powder), extract of persimmon fruit and goji berry blend, mandarin peel extract, garcinia cambogia fruit extract, green tea leaf extract, xylitol (sweetener), citric acid (acidity regulator), taurine, vitamin C (L-ascorbic acid).",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -2456,13 +2456,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule once a day with food, as a dietary supplement.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Freeze-dried bifidobacteria and lactobacteria cultures, inulin, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -2487,12 +2487,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule twice a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
@@ -2518,13 +2518,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Germany",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Omega-3 fatty acids (from fish oil), lutein, zeaxanthin, vitamins E and B2, zinc, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -2549,13 +2549,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule once a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "USA",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Turmeric extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
@@ -2580,13 +2580,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Adults – 1 capsule a day with food.",
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Spain",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
+      "ingredients": "Zinc, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": []
