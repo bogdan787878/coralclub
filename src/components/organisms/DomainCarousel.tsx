@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import type { DomainContent } from "@/lib/products";
-import { DOMAIN_COLOR, DOMAIN_SHAPE } from "./DomainShapes";
+import { asset } from "@/lib/asset";
 import styles from "./DomainCarousel.module.css";
 
 export type DomainCarouselProps = {
@@ -11,7 +12,7 @@ export type DomainCarouselProps = {
 };
 
 /**
- * DomainCarousel — the row of abstract flat shapes under the Personalization
+ * DomainCarousel — the row of category icons under the Personalization
  * circle. Tap one to swap the product carousel below to that domain's set.
  */
 export function DomainCarousel({ domains, value, onChange }: DomainCarouselProps) {
@@ -30,10 +31,16 @@ export function DomainCarousel({ domains, value, onChange }: DomainCarouselProps
             role="tab"
             aria-selected={active}
             className={`${styles.item} ${active ? styles.itemOn : ""}`}
-            style={{ color: DOMAIN_COLOR[d.id] ?? "var(--color-primary-90)" }}
             onClick={() => onChange(d.id)}
           >
-            <span className={styles.shape}>{DOMAIN_SHAPE[d.id]}</span>
+            <span className={styles.shape}>
+              <Image
+                src={asset(`/images/domains/${d.id}.png`)}
+                alt=""
+                width={88}
+                height={88}
+              />
+            </span>
             <span className={styles.label}>{d.label}</span>
           </button>
         );
