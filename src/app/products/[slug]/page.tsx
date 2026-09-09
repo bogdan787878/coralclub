@@ -12,6 +12,7 @@ import { BuyBox, ImageSlider, InfoAccordion } from "@/components/organisms";
 import { CartButton } from "@/components/cart/CartButton";
 import { PRODUCTS, getProduct } from "@/lib/products";
 import { BackButton } from "./BackButton";
+import { ShareButton } from "./ShareButton";
 import { ManufacturingDetails } from "./ManufacturingDetails";
 import styles from "./page.module.css";
 
@@ -48,7 +49,10 @@ export default async function ProductPage({
     <main className={styles.page}>
       <div className={styles.imageControls}>
         <BackButton className={styles.circleBtn} />
-        <CartButton className={styles.circleBtn} />
+        <div className={styles.controlsRight}>
+          <ShareButton className={styles.circleBtn} title={product.name} />
+          <CartButton className={styles.circleBtn} />
+        </div>
       </div>
 
       <Section tone="surface">
