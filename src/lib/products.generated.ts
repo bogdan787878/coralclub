@@ -15,7 +15,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "An antioxidant complex built on red grape seed extract. Its natural antioxidants help neutralise free radicals, slow the ageing process and support energy, stamina and overall resilience.",
     "price": "$35",
     "clubPrice": "$28",
     "carouselImages": [],
@@ -46,7 +46,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A plant complex of four powerful antioxidants — pomegranate, acai berry, cocoa bean and rosemary extracts. It helps protect cells from damage, keeps the body's systems working in balance and supports healthy, active longevity.",
     "price": "$35",
     "clubPrice": "$28",
     "carouselImages": [],
@@ -77,7 +77,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "detox"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A blend of digestive enzymes with vitamins A and D. It supports better absorption of nutrients from food and helps reduce discomfort in the stomach and intestines.",
     "price": "$36.25",
     "clubPrice": "$29",
     "carouselImages": [],
@@ -139,7 +139,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A modern B-complex with 10 B vitamins in highly bioavailable forms, to top up deficiencies and support the whole body. It comes as single-dose stick sachets of powder that dissolve in the mouth, with a citrus taste and no sugar.",
     "price": "$19",
     "clubPrice": "$15.20",
     "carouselImages": [],
@@ -170,7 +170,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A composition of medicinal plant extracts for the cardiovascular system. It helps keep blood pressure and heart rhythm in a normal range, supports the elasticity of large and small blood vessels and helps counter cholesterol build-up.",
     "price": "$26.25",
     "clubPrice": "$21",
     "carouselImages": [],
@@ -201,7 +201,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A source of natural calcium paired with the vitamins and minerals that help the body absorb it and support healthy bone metabolism.",
     "price": "$27.50",
     "clubPrice": "$22",
     "carouselImages": [],
@@ -232,7 +232,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A set for heart health. Its combination of components nourishes and energises the cells of the heart and supports the normal work of the cardiovascular system.",
     "price": "$111.25",
     "clubPrice": "$89",
     "carouselImages": [],
@@ -263,7 +263,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "detox"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A gentle laxative based on cascara sagrada (Rhamnus purshiana). It supports intestinal motility and a normal, soft stool while helping reduce irritation of the intestinal lining.",
     "price": "$18.75",
     "clubPrice": "$15",
     "carouselImages": [],
@@ -294,7 +294,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A complex of plant venotonics that helps reduce heaviness and tiredness in the legs. It supports the strength of vein walls, helps prevent blood pooling and improves lymph flow.",
     "price": "$37.50",
     "clubPrice": "$30",
     "carouselImages": [],
@@ -325,7 +325,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A source of ubiquinone, needed for energy production in cells and for overall vitality. It uses Kaneka's patented active form of coenzyme Q10, produced by yeast fermentation and considered identical to the CoQ10 the body makes itself.",
     "price": "$37.50",
     "clubPrice": "$30",
     "carouselImages": [],
@@ -388,7 +388,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "immune"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A synergistic complex of bovine colostrum and beta-glucans for immune support. It helps strengthen immunity, raise the body's resistance to pathogens, speed up regeneration and protect and restore the lining of the digestive tract.",
     "price": "$38.75",
     "clubPrice": "$31",
     "carouselImages": [],
@@ -419,7 +419,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "detox"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A natural plant source of minerals, vitamins, essential amino acids and phytoestrogens. It has a general tonic effect on the body and helps raise vitality; combining alfalfa powder with its concentrated juice strengthens the overall effect.",
     "price": "$17.50",
     "clubPrice": "$14",
     "carouselImages": [],
@@ -450,7 +450,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "weight"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Plant-based liver support — artichoke and milk thistle extracts with dandelion extract and betaine — that helps protect the liver and clear it of toxins. Useful for city dwellers, smokers and anyone who tends to over-do alcohol, fatty or spicy food.",
     "price": "$22.50",
     "clubPrice": "$18",
     "carouselImages": [],
@@ -481,7 +481,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Boswellia is a small tree native to India and Southeast Asia. Its resin contains boswellic acids, which help calm inflammatory processes, improve the nourishment of joint tissue and ease pain and stiffness.",
     "price": "$26.25",
     "clubPrice": "$21",
     "carouselImages": [],
@@ -512,7 +512,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "detox"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Burdock root is a well-known aid for cleansing the body. Its active components have a regulating effect on the liver, gallbladder and pancreas, help restore the tissues of the digestive tract and support normal cholesterol levels.",
     "price": "$20",
     "clubPrice": "$16",
     "carouselImages": [],
@@ -543,7 +543,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Carnitine helps restore the body's energy reserves after physical exertion and supports stamina and performance. It also helps keep weight in a normal range and reduce fatty deposits on blood vessel walls.",
     "price": "$33.75",
     "clubPrice": "$27",
     "carouselImages": [],
@@ -574,7 +574,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "immune"
     ],
     "coralId": "",
-    "description": "",
+    "description": "The Peruvian plant cat's claw has anti-inflammatory and immune-activating properties. Combined with burdock root and green tea it helps raise vitality and is useful during fatigue and general weakness.",
     "price": "$28.75",
     "clubPrice": "$23",
     "carouselImages": [],
@@ -637,7 +637,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "The Coral Detox set supports the body's natural cleansing and helps restore its self-regulation. Four products for a 30-day course — enzymes, phospholipids, vitamins and minerals — supporting the digestive, cardiovascular and nervous systems and healthy longevity.",
     "price": "$115",
     "clubPrice": "$92",
     "carouselImages": [],
@@ -668,7 +668,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "detox"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A source of phosphatidylcholine, a key building block of every cell membrane in the body. It is also a precursor of choline, which supports metabolism in nerve tissue and brain cells, and the body needs it throughout life.",
     "price": "$19",
     "clubPrice": "$15",
     "carouselImages": [],
@@ -699,7 +699,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "immune"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Licorice root extract with ginger root extract has a soothing effect on the respiratory tract and the digestive system and helps strengthen the body's defences.",
     "price": "$13.75",
     "clubPrice": "$11",
     "carouselImages": [],
@@ -730,7 +730,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "sleep"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A source of magnesium, one of the body's most important minerals. It has a calming effect on the nervous system and helps regulate muscle tone and heart rhythm; the organic glycinate and taurate forms used here give it good bioavailability.",
     "price": "$22.50",
     "clubPrice": "$18",
     "carouselImages": [],
@@ -797,7 +797,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A source of taurine, an amino acid that supports the normal work of the cardiovascular system and the health of eye tissue.",
     "price": "$20",
     "clubPrice": "$16",
     "carouselImages": [],
@@ -828,7 +828,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "immune"
     ],
     "coralId": "",
-    "description": "",
+    "description": "High-dose vitamin D3 in a convenient spray — one press delivers 50 mcg / 2000 IU, with about 170 doses per bottle. MCT coconut-oil fatty acids improve absorption; vitamin D3 helps regulate calcium, magnesium and phosphorus metabolism and supports bone density.",
     "price": "$15",
     "clubPrice": "$12",
     "carouselImages": [],
@@ -890,7 +890,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "weight"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A good-tasting source of soluble and insoluble fibre plus extra plant components that supply enzymes, amino acids, minerals and vitamins. It supports the removal of toxins, a healthy gut microflora and regular motility, and helps curb appetite.",
     "price": "$25",
     "clubPrice": "$20",
     "carouselImages": [],
@@ -921,7 +921,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Tasty pastilles high in omega-3 DHA (360 mg) and vitamin D3, for cognitive function and immunity. Made in Norway using Concordix technology for higher bioavailability; supports the brain and nervous system, eye health, bones and teeth.",
     "price": "$15",
     "clubPrice": "$12",
     "carouselImages": [],
@@ -952,7 +952,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "sleep"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Lemon balm, hops and St John's wort extracts with the calming mineral magnesium and the amino acid theanine. Together they have a mild soothing effect on the nervous system and help make falling asleep easier.",
     "price": "$22.50",
     "clubPrice": "$18",
     "carouselImages": [],
@@ -983,7 +983,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "weight"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A complex of tropical-plant and citrus extracts that helps restore liver cells and protect them from toxic effects. It supports well-being and healthy cholesterol levels, and comes as a powder to dissolve in water in single-serve foil stick sachets.",
     "price": "$65",
     "clubPrice": "$52",
     "carouselImages": [],
@@ -1014,7 +1014,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Supports joint mobility and flexibility and helps reduce stiffness. It combines active components known for strengthening the musculoskeletal system: glucosamine, chondroitin, MSM, manganese, bamboo extract and vitamin C.",
     "price": "$41.25",
     "clubPrice": "$33",
     "carouselImages": [],
@@ -1045,7 +1045,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Gotu kola has been valued in Ayurvedic tradition for centuries. The extract helps improve the elasticity and strength of blood vessel walls, including veins, and supports circulation throughout the body, easing the feeling of venous insufficiency and supporting cerebral blood flow.",
     "price": "$13.13",
     "clubPrice": "$10.50",
     "carouselImages": [],
@@ -1076,7 +1076,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "sleep"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Griffonia seed extract is a source of the amino acid that precedes serotonin. With vitamins B6 and B12 it supports endorphin synthesis in the brain, helps steady mood, reduces feelings of anxiety and makes falling asleep easier.",
     "price": "$22.50",
     "clubPrice": "$18",
     "carouselImages": [],
@@ -1185,7 +1185,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "skin"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Provides a daily dose of iron (14 mg) in the easily absorbed organic form iron bisglycinate. It supports normal haemoglobin levels in the blood and takes part in many metabolic processes.",
     "price": "$12.50",
     "clubPrice": "$10",
     "carouselImages": [],
@@ -1216,7 +1216,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "detox"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A new curcumin formula with exceptional efficacy. Combining liposomal encapsulation with the enhanced Cureit formula significantly raises the bioavailability of curcumin.",
     "price": "$31.25",
     "clubPrice": "$25",
     "carouselImages": [],
@@ -1247,7 +1247,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "weight"
     ],
     "coralId": "",
-    "description": "",
+    "description": "An innovative product for getting into shape. It helps speed up metabolism and raise energy expenditure; naturally derived components and liposomal technology give it high efficacy, safety and bioavailability.",
     "price": "$23.80",
     "clubPrice": "$19",
     "carouselImages": [],
@@ -1494,7 +1494,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A complex of plant extracts to improve lymphatic drainage and vascular blood flow and to support the elasticity and strength of vessels. It contains extracts of cherry stalks, blackcurrant leaf, parsley and Chinese hibiscus.",
     "price": "$20",
     "clubPrice": "$16",
     "carouselImages": [],
@@ -1525,7 +1525,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Helps improve memory and concentration, supporting more effective mental work.",
     "price": "$30",
     "clubPrice": "$24",
     "carouselImages": [],
@@ -1556,7 +1556,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "sleep"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A complex of amino acids, B vitamins and extracts of ginkgo biloba, gotu kola, ginger root and St John's wort. Together they support blood supply and nourishment of the brain, memory and attention, while reishi mushroom helps protect nerve cells.",
     "price": "$37.50",
     "clubPrice": "$30",
     "carouselImages": [],
@@ -1587,7 +1587,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Bioavailable organic sulphur with biotin and vitamin C, to help strengthen cartilage and joints and improve the condition of skin, hair and nails. It also helps nourish and recover muscles after exercise.",
     "price": "$15",
     "clubPrice": "$12",
     "carouselImages": [],
@@ -1618,7 +1618,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Essential omega-3 polyunsaturated fatty acids in the restored triglyceride form. This form is close to the natural one but with a high concentration of omega-3, making it easier to keep up a healthy rhythm of life.",
     "price": "$37.50",
     "clubPrice": "$30",
     "carouselImages": [],
@@ -1717,7 +1717,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Supports the brain's cognitive functions through a 3-stage programme of 8 products over 30 days. With plant extracts, amino acids, phospholipids, omega-3, B vitamins and minerals, it supports the brain, nervous system and vision, helps cope with mental and physical load and supports emotional balance.",
     "price": "$96.25",
     "clubPrice": "$77",
     "carouselImages": [],
@@ -1780,7 +1780,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "immune"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Pau d'arco (lapacho) bark extract with olive leaf and yerba mate extracts helps activate the body's immunity, raise vitality and give a feeling of energy.",
     "price": "$18.75",
     "clubPrice": "$15",
     "carouselImages": [],
@@ -1811,7 +1811,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "immune"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Pau d'arco bark powder with selenium and vitamin C helps strengthen immunity by stimulating the body's own defences. Selenium and vitamin C, two strong antioxidants, help protect cells from harmful internal and external effects.",
     "price": "$18.75",
     "clubPrice": "$15",
     "carouselImages": [],
@@ -1878,7 +1878,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "sleep"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Supports a woman's physical health and emotional state during menopause. A complex of plant extracts and the amino acid beta-alanine helps ease hot flushes, sweating, dizziness and mood swings, supports falling asleep and sleep quality, and helps slow skin and overall ageing.",
     "price": "$25",
     "clubPrice": "$20",
     "carouselImages": [],
@@ -1909,7 +1909,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "weight"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Contains calanus oil — a source of a rare form of omega-3 from Arctic zooplankton. This fully natural product from the cold, clean waters of the North Atlantic delivers omega-3 and other lipids in the rare wax-ester form, plus astaxanthin, with 500 mg of calanus oil per capsule.",
     "price": "$47.50",
     "clubPrice": "$38",
     "carouselImages": [],
@@ -1940,7 +1940,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "skin"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A vitamin and mineral complex to support the health of mother and child. It helps support a healthy pregnancy and lower the risk of birth defects; when planning a pregnancy it is recommended for both parents 3-4 months before conception.",
     "price": "$22.50",
     "clubPrice": "$18",
     "carouselImages": [],
@@ -2064,7 +2064,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "skin"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Marine collagen peptides support the skin's firmness and smoothness and the health of hair and nails, replacing what the body makes less of with age. Paired with the Hydro Boost biocellulose mask — with sea water, 3D hyaluronic acid, seaweed and a metabiotic — for intensive hydration.",
     "price": "$243.75",
     "clubPrice": "$195",
     "carouselImages": [],
@@ -2095,7 +2095,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "skin"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Marine collagen peptides support the skin's firmness and smoothness and the health of hair and nails, replacing what the body makes less of with age. Paired with the Skin Harmony biocellulose mask — with sea water, metabiotics, ceramides and moringa seed and seaweed extracts — to soothe and rebalance.",
     "price": "$243.75",
     "clubPrice": "$195",
     "carouselImages": [],
@@ -2126,7 +2126,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "skin"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A modern, high-tech form of collagen for easier absorption, enriched with a complex of plant extracts, vitamins and hyaluronic acid for smooth, radiant skin and strong hair and nails.",
     "price": "$81.25",
     "clubPrice": "$65",
     "carouselImages": [],
@@ -2219,7 +2219,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A complex of 11 essential and non-essential amino acids to complement and enrich the daily diet. It helps make up a protein shortfall, optimise metabolism, recover muscles, joints and ligaments, build muscle, support immunity and raise stamina. Free from GMOs, soy and gluten.",
     "price": "$51.25",
     "clubPrice": "$41",
     "carouselImages": [],
@@ -2250,7 +2250,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "All the benefits of vitamin C in the well-absorbed, gentle PureWay-C form. A patented form of vitamin C with improved uptake, 500 mg per capsule, made in the USA.",
     "price": "$28.75",
     "clubPrice": "$23",
     "carouselImages": [],
@@ -2281,7 +2281,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "sleep"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Helps restore emotional balance under everyday, repeated stress — including PMS and menopause — easing tension and irritability and improving mood and sleep quality. It also helps reduce the impact of stress on the heart; each capsule provides 30 mg of the patented saffron extract Safr'Inside and 350 mg of myo-inositol.",
     "price": "$28.75",
     "clubPrice": "$23",
     "carouselImages": [],
@@ -2312,7 +2312,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "weight"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A combination of the bioavailable organic form of selenium (L-selenomethionine) with vitamin C, to support immune activity, normal endocrine and cardiovascular function and the condition of skin, hair and nails.",
     "price": "$16.25",
     "clubPrice": "$13",
     "carouselImages": [],
@@ -2343,7 +2343,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "skin"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Shark liver oil, further enriched with squalene and vitamin E, to help raise vitality and strengthen the body's defences.",
     "price": "$25",
     "clubPrice": "$20",
     "carouselImages": [],
@@ -2374,7 +2374,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "weight"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A balanced complex for digestion and metabolism. Its 6 plant extracts, the amino acid taurine and vitamin C take part in regulating metabolic processes and help keep a feeling of fullness after eating.",
     "price": "$75",
     "clubPrice": "$60",
     "carouselImages": [],
@@ -2437,7 +2437,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "detox"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A balanced combination of probiotics (bifidobacteria and lactobacteria) with the prebiotic inulin, to help normalise the gut microflora. More beneficial bacteria in the gut supports better digestion and stronger immunity.",
     "price": "$22.50",
     "clubPrice": "$18",
     "carouselImages": [],
@@ -2468,7 +2468,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "immune"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A balanced complex of vitamins, minerals and phytonutrients in active, bioavailable form to make up shortfalls in the diet. It helps balance vitamin and mineral status, strengthen immunity, raise performance and vitality and support healthy longevity.",
     "price": "$27.50",
     "clubPrice": "$22",
     "carouselImages": [],
@@ -2499,7 +2499,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "",
-    "description": "",
+    "description": "Supports the sharpness and quality of vision. It contains omega-3 fatty acids, vitamins, minerals, lutein and zeaxanthin; helps reduce fatigue under heavy visual load, ease dry-eye symptoms, counter UV damage and slow age-related changes in eye tissue.",
     "price": "$16.25",
     "clubPrice": "$13",
     "carouselImages": [],
@@ -2530,7 +2530,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "detox"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A source of curcumin, an extract from the root of the tropical plant turmeric. Curcumin helps reduce symptoms of indigestion, supports the work of the liver and gallbladder and eases inflammatory joint conditions.",
     "price": "$20",
     "clubPrice": "$16",
     "carouselImages": [],
@@ -2561,7 +2561,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "skin"
     ],
     "coralId": "",
-    "description": "",
+    "description": "A bioavailable source of zinc as a chelated compound of zinc with the amino acid methionine, 25 mg of elemental zinc per capsule. It helps strengthen immunity, supports the health and beauty of skin, hair and nails and helps slow early ageing.",
     "price": "$13.75",
     "clubPrice": "$11",
     "carouselImages": [],

@@ -118,7 +118,6 @@
   font-size: 0.75rem; /* 12 */
   line-height: 1.125rem; /* 18 */
   color: var(--color-text-muted);
-  text-wrap: pretty;
 }
 
 /* single-column at every width — the site is a mobile-width column */
