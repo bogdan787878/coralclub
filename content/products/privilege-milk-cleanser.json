@@ -8,24 +8,34 @@
     "skin"
   ],
   "coralId": "",
-  "description": "A creamy milk cleanser with coffee oil and extract that dissolves makeup and daily grime while leaving the skin soft and comfortable. The gentle first step of the Privilege routine.",
   "price": "$21.88",
   "clubPrice": "$17.50",
-  "carouselImages": [],
-  "pdpImages": [],
-  "rating": 4.7,
-  "ratingsCount": 0,
-  "reviewsCount": 0,
+  "description": "A creamy milk cleanser with coffee oil and extract that dissolves makeup and daily grime while leaving the skin soft and comfortable. The gentle first step of the Privilege routine.",
+  "carouselImages": [
+    "/images/products/108uk7bysn2yju4eloz3f0e5ykli3xk4 1.png"
+  ],
+  "pdpImages": [
+    "/images/products/108uk7bysn2yju4eloz3f0e5ykli3xk4 1.png"
+  ],
   "howToUse": "Morning and evening, massage over dry or damp skin, then rinse or wipe off with a cotton pad.",
   "manufacturing": {
-    "countryOfOrigin": "USA",
+    "countryOfOrigin": "",
     "shippingWeight": "",
     "expiration": "3 years from the date of manufacture; 12 months after opening",
     "storage": "Store at room temperature, away from direct sunlight.",
-    "ingredients": "Organic aloe vera leaf juice, sodium C14-16 olefin sulfonate, glycerin, cocamidopropyl betaine, phenoxyethanol, disodium cocoamphodiacetate, arabica coffee oil, glycol distearate, PEG-150 pentaerythrityl tetrastearate, sodium chloride, caprylyl glycol, caprylyl/capryl glucoside, lauryl glucoside and other components.",
+    "ingredients": "",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "test",
+          "amount": "test",
+          "dv": ""
+        }
+      ]
     }
-  }
+  },
+  "rating": 4.7,
+  "ratingsCount": 0,
+  "reviewsCount": 0
 }
