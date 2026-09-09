@@ -102,8 +102,58 @@ const HYDRATION: HomePhase = {
   },
 };
 
-// TODO(copy): Restart-specific hero + sections. Placeholder = Hydration content.
-const RESTART: HomePhase = HYDRATION;
+/*
+ * Restart ("Перезагрузка" in Health Concept 2.0) — reducing the internal load.
+ * Once hydration is set, the body is ready for deeper work: three guided
+ * programmes over ~3 months of increasing depth
+ * (Coral Detox Plus -> ParaShield -> Colo-Vada). Environment over willpower;
+ * layer by layer, not abrupt steps.
+ *
+ * TODO(image): hero photo — a calm still life of the three Restart programmes
+ * together, same mood as hero-hydration.png. Drop it in img/hero-restart.png
+ * and swap `image` below. For now it reuses the hydration hero image.
+ * TODO(image): sections[0].image — the three programme boxes in sequence.
+ */
+const RESTART: HomePhase = {
+  hero: {
+    title: { lead: "Now, lighten", accent: "the load" },
+    body: [
+      "With your water layer working, the body is ready for deeper work — gently lowering the internal load and restoring a clean base for digestion.",
+      "Three guided programmes over about three months, each one building on the state the last one left you in.",
+    ],
+    cta: { label: "Start the reset", href: "/quiz" },
+    image: HYDRATION.hero.image,
+  },
+  sections: [
+    {
+      kind: "editorial",
+      title: { lead: "A Detox Is a Burst.", accent: "A Reset Is a Sequence." },
+      image: { src: "", alt: "Coral Detox Plus, ParaShield and Colo-Vada in sequence" },
+      badge: { flag: "↺", text: "≈ 3 months · 3 steps" },
+      body: [
+        "Most cleanses are a few days of effort and a swing back to where you started.",
+        "Restart is the opposite. Coral Detox Plus opens the phase gently, ParaShield does the targeted middle work, Colo-Vada is the deep finish — one sequence of increasing depth, each step resting on the one before it.",
+      ],
+    },
+    {
+      kind: "editorial",
+      title: { lead: "The Body Rebuilds", accent: "in Layers." },
+      image: {
+        src: `${asset("/images/you-are-90-water.png")}?v=2`,
+        alt: "A glass of mineralized water",
+      },
+      body: [
+        "Water first. Then the internal load comes down. Only then the targeted, personal work.",
+        "Restart is the middle layer — and the Hydrostack you built in phase one keeps running underneath it the whole time.",
+      ],
+    },
+  ],
+  reels: {
+    title: { lead: "The proof isn't on the label.", accent: "It's in the reset." },
+    body: "Real members on what Restart actually felt like — the gentle start, the middle, the finish.",
+    reels: REELS,
+  },
+};
 
 // TODO(copy): Personalization-specific hero + sections. Placeholder = Hydration content.
 const PERSONALIZATION: HomePhase = HYDRATION;
