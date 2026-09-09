@@ -51,7 +51,9 @@
   margin-right: auto;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 0;
+  text-align: left;
 }
 .label {
   font-size: 1rem;
@@ -63,6 +65,7 @@
   line-height: 0.875rem; /* 14 */
   font-weight: var(--font-weight-regular);
   color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
 }
 
 .total {
