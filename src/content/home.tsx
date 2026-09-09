@@ -116,10 +116,10 @@ const HYDRATION: HomePhase = {
  */
 const RESTART: HomePhase = {
   hero: {
-    title: { lead: "Now, lighten", accent: "the load" },
+    title: { lead: "Come out lighter,", accent: "calmer, clearer" },
     body: [
-      "With your water layer working, the body is ready for deeper work — gently lowering the internal load and restoring a clean base for digestion.",
-      "Three guided programmes over about three months, each one building on the state the last one left you in.",
+      "Water's set — now the deeper work: the internal load comes down.",
+      "Three guided steps, about three months, each building on the last.",
     ],
     cta: { label: "Start the reset", href: "/quiz" },
     image: HYDRATION.hero.image,
