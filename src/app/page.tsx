@@ -17,7 +17,7 @@ const HERO_IMAGE = {
   alt: "Coral-Mine Silver sachet beside a glass of mineralized water",
 };
 
-const WATER_IMAGE = `${asset("/images/you-are-90-water.png")}?v=1`;
+const WATER_IMAGE = `${asset("/images/you-are-90-water.png")}?v=2`;
 const MINERALS_IMAGE = `${asset("/images/minerals-japan.png")}?v=1`;
 
 const COMMUNITY_REELS = [
