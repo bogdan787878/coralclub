@@ -138,8 +138,8 @@ const RESTART: HomePhase = {
       kind: "editorial",
       title: { lead: "The Body Rebuilds", accent: "in Layers." },
       image: {
-        src: `${asset("/images/you-are-90-water.png")}?v=2`,
-        alt: "A glass of mineralized water",
+        src: `${asset("/images/body-rebuilds-layers.png")}?v=1`,
+        alt: "Water, then load, then targeted work — the layers of the routine",
       },
       body: [
         "Water first. Then the internal load comes down. Only then the targeted, personal work.",
