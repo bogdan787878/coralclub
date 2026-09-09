@@ -29,12 +29,6 @@ export function Editorial({ title, image, body, tone = "surface" }: EditorialPro
     <Section tone={tone}>
       <Container>
         <div className={styles.inner}>
-          <h2 className={styles.title}>
-            {title.lead}
-            <br />
-            <Accent>{title.accent}</Accent>
-          </h2>
-
           <div className={styles.media}>
             {image.src ? (
               <Image
@@ -52,6 +46,12 @@ export function Editorial({ title, image, body, tone = "surface" }: EditorialPro
               <span className={styles.placeholder} aria-hidden="true" />
             )}
           </div>
+
+          <h2 className={styles.title}>
+            {title.lead}
+            <br />
+            <Accent>{title.accent}</Accent>
+          </h2>
 
           <div className={styles.body}>{body}</div>
         </div>

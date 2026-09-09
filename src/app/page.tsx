@@ -17,8 +17,8 @@ const HERO_IMAGE = {
   alt: "Coral-Mine Silver sachet beside a glass of mineralized water",
 };
 
-// shared by the two Editorial blocks (water + Okinawa minerals)
 const WATER_IMAGE = `${asset("/images/you-are-90-water.png")}?v=1`;
+const MINERALS_IMAGE = `${asset("/images/minerals-japan.png")}?v=1`;
 
 const COMMUNITY_REELS = [
   { src: asset("/reels/reel1.mp4"), alt: "Coral Club member sharing her morning hydration routine" },
@@ -91,7 +91,7 @@ export default function Home() {
           lead: "Minerals from the Japan islands",
           accent: "where people live to 100",
         }}
-        image={{ src: WATER_IMAGE, alt: "Sango fossil coral off the coast of Okinawa" }}
+        image={{ src: MINERALS_IMAGE, alt: "Sango fossil coral off the coast of Okinawa" }}
         body={
           <p>
             Off the coast of Okinawa, one of the planet&apos;s five Blue Zones,
