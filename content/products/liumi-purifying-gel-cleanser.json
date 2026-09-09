@@ -8,14 +8,15 @@
     "skin"
   ],
   "coralId": "",
-  "description": "A gentle daily gel that lifts away makeup, sunscreen and excess oil without stripping the skin barrier. Leaves skin soft and comfortable, never tight — the clean base every other step is built on.",
   "price": "$36",
   "clubPrice": "$29",
-  "carouselImages": [],
-  "pdpImages": [],
-  "rating": 4.8,
-  "ratingsCount": 0,
-  "reviewsCount": 0,
+  "description": "A gentle daily gel that lifts away makeup, sunscreen and excess oil without stripping the skin barrier. Leaves skin soft and comfortable, never tight — the clean base every other step is built on.",
+  "carouselImages": [
+    "/images/products/1co007ou3lf8sbvxwnk6lzokeyqsrwzn 1.png"
+  ],
+  "pdpImages": [
+    "/images/products/1co007ou3lf8sbvxwnk6lzokeyqsrwzn 1.png"
+  ],
   "howToUse": "Morning and evening, massage a small amount over damp skin, then rinse with lukewarm water.",
   "manufacturing": {
     "countryOfOrigin": "South Korea",
@@ -25,7 +26,16 @@
     "ingredients": "",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "test",
+          "amount": "test",
+          "dv": ""
+        }
+      ]
     }
-  }
+  },
+  "rating": 4.8,
+  "ratingsCount": 0,
+  "reviewsCount": 0
 }
