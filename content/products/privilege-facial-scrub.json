@@ -1,6 +1,6 @@
 {
   "slug": "privilege-facial-scrub",
-  "name": "Privilege Facial Scrub (50 ml)",
+  "name": "Privilege Facial Scrub",
   "headline": "Facial Scrub",
   "category": "Privilege",
   "cardTitle": "Weekly — Exfoliate",
@@ -8,24 +8,34 @@
     "skin"
   ],
   "coralId": "",
-  "description": "A fine coffee-based scrub that polishes away dead cells and unclogs pores, leaving skin smoother and more even. Use once or twice a week.",
   "price": "$31.25",
   "clubPrice": "$25.00",
-  "carouselImages": [],
-  "pdpImages": [],
-  "rating": 4.7,
-  "ratingsCount": 0,
-  "reviewsCount": 0,
+  "description": "A fine coffee-based scrub that polishes away dead cells and unclogs pores, leaving skin smoother and more even. Use once or twice a week.",
+  "carouselImages": [
+    "/images/products/goqzq4n5v259ejmg41ur3rnbcbojlid9 1.png"
+  ],
+  "pdpImages": [
+    "/images/products/goqzq4n5v259ejmg41ur3rnbcbojlid9 1.png"
+  ],
   "howToUse": "Apply to damp skin, massage gently for 30–60 seconds avoiding the eye area, then rinse.",
   "manufacturing": {
-    "countryOfOrigin": "USA",
+    "countryOfOrigin": "",
     "shippingWeight": "",
     "expiration": "3 years from the date of manufacture; 12 months after opening",
     "storage": "Store at room temperature, away from direct sunlight.",
-    "ingredients": "Organic aloe vera leaf juice, propylene glycol, caprylic/capric triglyceride, pentylene glycol, ground arabica coffee beans, ground walnut shell, carbomer, cetearyl alcohol, phenoxyethanol, caprylyl glycol, ceteareth-20, arabica coffee oil, sodium hydroxide, vitamin E and other components.",
+    "ingredients": "",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "test",
+          "amount": "test",
+          "dv": ""
+        }
+      ]
     }
-  }
+  },
+  "rating": 4.7,
+  "ratingsCount": 0,
+  "reviewsCount": 0
 }
