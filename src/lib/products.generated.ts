@@ -10,7 +10,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "ActiVin",
     "headline": "ActiVin",
     "category": "Phytonutrients",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -51,7 +50,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "AquaOx",
     "headline": "AquaOx",
     "category": "Phytonutrients",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -100,7 +98,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Assimilator",
     "headline": "Assimilator",
     "category": "Digestive",
-    "cardTitle": "",
     "goals": [
       "detox"
     ],
@@ -145,7 +142,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "B-Luron",
     "headline": "B-Luron — hyaluronic acid and chondroitin for joint mobility and comfort",
     "category": "Joints & Bones",
-    "cardTitle": "bones & joints",
     "goals": [
       "energy"
     ],
@@ -192,7 +188,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "B-Prime Direct",
     "headline": "B-Prime Direct",
     "category": "More Energy",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -249,7 +244,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "PhytoMix #1",
     "headline": "PhytoMix #1",
     "category": "Heart and Blood",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -298,7 +292,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Calci-Prime",
     "headline": "Calci-Prime",
     "category": "Minerals",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -343,7 +336,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Cardiopack",
     "headline": "Cardiopack",
     "category": "More Energy",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -384,7 +376,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Cascara Sagrada",
     "headline": "Cascara Sagrada",
     "category": "Phytonutrients",
-    "cardTitle": "",
     "goals": [
       "detox"
     ],
@@ -421,7 +412,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "CircuPhyt",
     "headline": "CircuPhyt",
     "category": "Phytonutrients",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -470,7 +460,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Coenzyme Q10",
     "headline": "Coenzyme Q10",
     "category": "Vitamins",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -507,7 +496,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Colo-Vada Plus",
     "headline": "Colo-Vada Plus — 14-day reset",
     "category": "Restart",
-    "cardTitle": "Weight & metabolism",
     "goals": [
       "weight",
       "detox"
@@ -553,7 +541,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Colostrum Plus",
     "headline": "Colostrum Plus",
     "category": "Immunity",
-    "cardTitle": "",
     "goals": [
       "immune"
     ],
@@ -594,7 +581,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Coral Alfalfa",
     "headline": "Coral Alfalfa",
     "category": "Digestive",
-    "cardTitle": "",
     "goals": [
       "detox"
     ],
@@ -635,7 +621,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Coral Artichoke",
     "headline": "Coral Artichoke",
     "category": "Digestive",
-    "cardTitle": "",
     "goals": [
       "weight"
     ],
@@ -684,7 +669,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Coral Boswellia",
     "headline": "Coral Boswellia",
     "category": "Health",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -721,7 +705,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Coral Burdock Root",
     "headline": "Coral Burdock Root",
     "category": "Detox",
-    "cardTitle": "",
     "goals": [
       "detox"
     ],
@@ -758,23 +741,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Coral Carnitine",
     "headline": "Coral Carnitine",
     "category": "More Energy",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
     "coralId": "91890",
-    "description": "Carnitine helps restore the body's energy reserves after physical exertion and supports stamina and performance. It also helps keep weight in a normal range and reduce fatty deposits on blood vessel walls.",
     "price": "$33.75",
     "clubPrice": "$27",
-    "carouselImages": [],
-    "pdpImages": [],
-    "rating": 4.5,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
+    "description": "Carnitine helps restore the body's energy reserves after physical exertion and supports stamina and performance. It also helps keep weight in a normal range and reduce fatty deposits on blood vessel walls.",
+    "carouselImages": [
+      "/images/products/xs-4.png"
+    ],
+    "pdpImages": [
+      "/images/products/1-6.png",
+      "/images/products/2-6.png"
+    ],
     "howToUse": "Adults – 1 capsule twice a day with food. Course: 1 month.",
     "elements": [
       {
-        "symbol": "Car",
+        "symbol": "Lc",
         "name": "L-Carnitine"
       }
     ],
@@ -786,16 +770,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "Acetyl-L-carnitine, capsule (hydroxypropyl methylcellulose), microcrystalline cellulose (emulsifier), silicon dioxide (anti-caking agent), magnesium salt of stearic acid (stabiliser).",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "Test",
+            "amount": "Test",
+            "dv": "Test"
+          }
+        ]
       }
-    }
+    },
+    "rating": 4.5,
+    "ratingsCount": 0,
+    "reviewsCount": 0
   },
   {
     "slug": "coral-cat-s-claw",
     "name": "Coral Cat's Claw",
     "headline": "Coral Cat's Claw",
     "category": "Immunity",
-    "cardTitle": "",
     "goals": [
       "immune"
     ],
@@ -840,7 +832,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Coral Detox Plus",
     "headline": "Coral Detox Plus — 7-day cleanse",
     "category": "Restart",
-    "cardTitle": "Detox & feel lighter",
     "goals": [
       "detox",
       "weight"
@@ -894,7 +885,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Coral Detox",
     "headline": "Coral Detox",
     "category": "Detox",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -943,7 +933,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Coral Lecithin",
     "headline": "Coral Lecithin",
     "category": "Digestive",
-    "cardTitle": "",
     "goals": [
       "detox"
     ],
@@ -980,7 +969,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Coral Licorice Root",
     "headline": "Coral Licorice Root",
     "category": "Immunity",
-    "cardTitle": "",
     "goals": [
       "immune"
     ],
@@ -1021,7 +1009,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Coral Magnesium",
     "headline": "Coral Magnesium",
     "category": "Heart and Blood",
-    "cardTitle": "",
     "goals": [
       "sleep"
     ],
@@ -1058,7 +1045,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Coral Mine Silver",
     "headline": "Coral Mine — deep-sea minerals",
     "category": "Foundation",
-    "cardTitle": "Better hydration",
     "goals": [
       "hydration",
       "energy"
@@ -1121,7 +1107,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Coral Taurine",
     "headline": "Coral Taurine",
     "category": "Heart and Blood",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -1158,7 +1143,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "D-Spray 2000",
     "headline": "D-Spray 2000",
     "category": "Immunity",
-    "cardTitle": "",
     "goals": [
       "immune"
     ],
@@ -1195,7 +1179,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Daily Delicious Beauty Protein Mix Raspberry",
     "headline": "Daily Delicious Beauty Protein Mix Raspberry",
     "category": "Protein",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -1252,7 +1235,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Daily Delicious Hi-Fiber Acai & Blueberry",
     "headline": "Daily Delicious Hi-Fiber Acai & Blueberry",
     "category": "Protein",
-    "cardTitle": "",
     "goals": [
       "weight"
     ],
@@ -1301,7 +1283,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "DHA+D3 Smart Chews",
     "headline": "DHA+D3 Smart Chews",
     "category": "Vitamins",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -1338,7 +1319,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Evening Formula",
     "headline": "Evening Formula",
     "category": "Phytonutrients",
-    "cardTitle": "",
     "goals": [
       "sleep"
     ],
@@ -1375,7 +1355,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "FanDetox",
     "headline": "FanDetox",
     "category": "Detox",
-    "cardTitle": "",
     "goals": [
       "weight"
     ],
@@ -1412,7 +1391,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "FlexiCor",
     "headline": "FlexiCor",
     "category": "Vitamins",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -1453,7 +1431,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Gotu Kola Extract",
     "headline": "Gotu Kola Extract",
     "category": "Phytonutrients",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -1490,7 +1467,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Griffonia",
     "headline": "Griffonia",
     "category": "Antistress",
-    "cardTitle": "",
     "goals": [
       "sleep"
     ],
@@ -1535,7 +1511,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "H-500",
     "headline": "H-500 — antioxidant boost",
     "category": "Immune support",
-    "cardTitle": "Immune support",
     "goals": [
       "immune",
       "energy"
@@ -1589,7 +1564,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Hydramax Plus",
     "headline": "Hydramax Plus — the 30-day hydration set",
     "category": "Foundation",
-    "cardTitle": "Optimal hydration",
     "goals": [
       "hydration",
       "energy"
@@ -1649,7 +1623,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Iron",
     "headline": "Iron",
     "category": "Minerals",
-    "cardTitle": "",
     "goals": [
       "skin"
     ],
@@ -1686,7 +1659,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Liposomal Curcumin",
     "headline": "Liposomal Curcumin",
     "category": "Immunity",
-    "cardTitle": "",
     "goals": [
       "detox"
     ],
@@ -1727,7 +1699,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Lipostick Fit",
     "headline": "Lipostick Fit",
     "category": "Phytonutrients",
-    "cardTitle": "",
     "goals": [
       "weight"
     ],
@@ -1776,7 +1747,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "LIŪMI Balancing Repair Serum",
     "headline": "Balancing Repair Serum",
     "category": "LIŪMI",
-    "cardTitle": "Step 3 — Repair",
     "goals": [
       "skin"
     ],
@@ -1827,7 +1797,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "LIŪMI Contour Lifting Serum",
     "headline": "Contour Lifting Serum",
     "category": "LIŪMI",
-    "cardTitle": "Targeted — Lift",
     "goals": [
       "skin"
     ],
@@ -1868,7 +1837,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "LIŪMI Deep Renewal Cream",
     "headline": "Deep Renewal Cream",
     "category": "LIŪMI",
-    "cardTitle": "Targeted — Renew",
     "goals": [
       "skin"
     ],
@@ -1913,7 +1881,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "LIŪMI Hydra-Barrier Gel Cream",
     "headline": "Hydra-Barrier Gel Cream",
     "category": "LIŪMI",
-    "cardTitle": "Step 4 — Seal",
     "goals": [
       "skin"
     ],
@@ -1962,7 +1929,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "LIŪMI Hydra-Infusion Toner",
     "headline": "Hydra-Infusion Toner",
     "category": "LIŪMI",
-    "cardTitle": "Step 2 — Prep",
     "goals": [
       "skin"
     ],
@@ -2013,7 +1979,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "LIŪMI Purifying Gel Cleanser",
     "headline": "Purifying Gel Cleanser",
     "category": "LIŪMI",
-    "cardTitle": "Step 1 — Cleanse",
     "goals": [
       "skin"
     ],
@@ -2064,7 +2029,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "LymFlow",
     "headline": "LymFlow",
     "category": "Phytonutrients",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -2109,7 +2073,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Memo-Prime",
     "headline": "Memo-Prime",
     "category": "Vitamins",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -2158,7 +2121,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "MindSet",
     "headline": "MindSet",
     "category": "Antistress",
-    "cardTitle": "",
     "goals": [
       "sleep"
     ],
@@ -2211,7 +2173,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "MSM",
     "headline": "MSM",
     "category": "Joints & Bones",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -2256,7 +2217,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "O!Мega-3 TG",
     "headline": "O!Мega-3 TG",
     "category": "Omega 3",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -2293,7 +2253,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Oceanmin",
     "headline": "Oceanmin — deep-sea magnesium",
     "category": "Recovery & calm",
-    "cardTitle": "Better sleep & calm",
     "goals": [
       "sleep",
       "energy"
@@ -2356,7 +2315,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Omega 3/60",
     "headline": "Omega 3/60 — fish oil, 60% omega-3",
     "category": "Recovery & calm",
-    "cardTitle": "Better sleep & calm",
     "goals": [
       "sleep",
       "immune"
@@ -2402,7 +2360,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Mental Force",
     "headline": "Mental Force",
     "category": "Health",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -2455,7 +2412,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Parashield",
     "headline": "Parashield — gut botanicals",
     "category": "Restart",
-    "cardTitle": "Detox & feel lighter",
     "goals": [
       "detox",
       "immune"
@@ -2501,7 +2457,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Pau D`Arco with Mate",
     "headline": "Pau D`Arco with Mate",
     "category": "Immunity",
-    "cardTitle": "",
     "goals": [
       "immune"
     ],
@@ -2546,7 +2501,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Pau D'Arco with Selenium",
     "headline": "Pau D'Arco with Selenium",
     "category": "Immunity",
-    "cardTitle": "",
     "goals": [
       "immune"
     ],
@@ -2591,7 +2545,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "PentoKan K+",
     "headline": "PentoKan — potassium & magnesium",
     "category": "Foundation",
-    "cardTitle": "More energy",
     "goals": [
       "energy",
       "hydration"
@@ -2648,7 +2601,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "PhytoMix for Women",
     "headline": "PhytoMix for Women",
     "category": "Supplements",
-    "cardTitle": "",
     "goals": [
       "sleep"
     ],
@@ -2697,7 +2649,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Premium Plankton Oil",
     "headline": "Premium Plankton Oil",
     "category": "Supplements",
-    "cardTitle": "",
     "goals": [
       "weight"
     ],
@@ -2734,7 +2685,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Prenatal+",
     "headline": "Prenatal+",
     "category": "Vitamins",
-    "cardTitle": "",
     "goals": [
       "skin"
     ],
@@ -2791,7 +2741,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Privilege Facial Scrub",
     "headline": "Facial Scrub",
     "category": "Privilege",
-    "cardTitle": "Weekly — Exfoliate",
     "goals": [
       "skin"
     ],
@@ -2838,7 +2787,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Privilege Intensive Facial Serum (50 ml)",
     "headline": "Intensive Facial Serum",
     "category": "Privilege",
-    "cardTitle": "Step 3 — Treat",
     "goals": [
       "skin"
     ],
@@ -2889,7 +2837,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Privilege Milk Cleanser (100 ml)",
     "headline": "Milk Cleanser",
     "category": "Privilege",
-    "cardTitle": "Step 1 — Cleanse",
     "goals": [
       "skin"
     ],
@@ -2940,7 +2887,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Promarine Collagen Peptides Set (1-month course) & Bio-cellulose Face Masks Hydro Boost (5 sachets)",
     "headline": "Promarine Collagen Peptides Set (1-month course) & Bio-cellulose Face Masks Hydro Boost (5 sachets)",
     "category": "Health",
-    "cardTitle": "",
     "goals": [
       "skin"
     ],
@@ -2981,7 +2927,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Promarin Collagen Peptides Set (1-month course) & Bio-cellulose Face Masks Skin Harmony (5 sachets)",
     "headline": "Promarin Collagen Peptides Set (1-month course) & Bio-cellulose Face Masks Skin Harmony (5 sachets)",
     "category": "Health",
-    "cardTitle": "",
     "goals": [
       "skin"
     ],
@@ -3022,7 +2967,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Promarine Collagen Tripeptides",
     "headline": "Promarine Collagen Tripeptides",
     "category": "Special Care",
-    "cardTitle": "",
     "goals": [
       "skin"
     ],
@@ -3071,7 +3015,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Promarine Collagen Tripeptides",
     "headline": "Promarine Collagen Tripeptides",
     "category": "Special Care",
-    "cardTitle": "",
     "goals": [
       "skin"
     ],
@@ -3120,7 +3063,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Promarine Collagen",
     "headline": "Promarine Collagen — marine peptides",
     "category": "Skin & hair",
-    "cardTitle": "Skin & hair",
     "goals": [
       "skin"
     ],
@@ -3157,7 +3099,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Protivity Ultra",
     "headline": "Protivity Ultra",
     "category": "Amino Acids",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -3206,7 +3147,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Pure-C 500 mg",
     "headline": "Pure-C 500 mg",
     "category": "Vitamins",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -3243,7 +3183,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Safrino",
     "headline": "Safrino",
     "category": "Anti-Aging",
-    "cardTitle": "",
     "goals": [
       "sleep"
     ],
@@ -3280,7 +3219,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Selenium",
     "headline": "Selenium",
     "category": "Vitamins",
-    "cardTitle": "",
     "goals": [
       "weight"
     ],
@@ -3321,7 +3259,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Shark Liver Oil Plus",
     "headline": "Shark Liver Oil Plus",
     "category": "Immunity",
-    "cardTitle": "",
     "goals": [
       "skin"
     ],
@@ -3358,7 +3295,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Slim by Slim",
     "headline": "Slim by Slim",
     "category": "Health",
-    "cardTitle": "",
     "goals": [
       "weight"
     ],
@@ -3395,7 +3331,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Spirulina",
     "headline": "Spirulina — whole-food greens",
     "category": "Daily nutrition",
-    "cardTitle": "More energy",
     "goals": [
       "energy",
       "weight"
@@ -3433,7 +3368,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Super-Flora",
     "headline": "Super-Flora",
     "category": "Digestive",
-    "cardTitle": "",
     "goals": [
       "detox"
     ],
@@ -3474,7 +3408,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Ultimate Max",
     "headline": "Ultimate Max",
     "category": "Vitamins",
-    "cardTitle": "",
     "goals": [
       "immune"
     ],
@@ -3519,7 +3452,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Visi-Prime",
     "headline": "Visi-Prime",
     "category": "Vitamins",
-    "cardTitle": "",
     "goals": [
       "energy"
     ],
@@ -3564,7 +3496,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Zaferan",
     "headline": "Zaferan",
     "category": "Phytonutrients",
-    "cardTitle": "",
     "goals": [
       "detox"
     ],
@@ -3601,7 +3532,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "name": "Zinc Methionine 25 mg",
     "headline": "Zinc Methionine 25 mg",
     "category": "Phytonutrients",
-    "cardTitle": "",
     "goals": [
       "skin"
     ],

@@ -51,10 +51,6 @@ collections:
         label: "Категория (для тегов)"
         widget: string
 
-      - name: cardTitle
-        label: "Строка цели на карточке"
-        widget: string
-
       - name: goals
         label: "Цели (для подбора в квизе)"
         widget: select

@@ -70,7 +70,6 @@ export type ProductContent = {
   name: string;
   headline: string;
   category: string;
-  cardTitle: string;
   goals: Goal[];
   coralId?: string;
   description: string;
@@ -107,8 +106,6 @@ export type Product = {
   headline: string;
   /** Category pill. */
   category: string;
-  /** Short line shown on the carousel card — the goal the product serves. */
-  cardTitle: string;
   /** Scenarios this product supports, most relevant first. */
   goals: Goal[];
   description: string;
@@ -184,7 +181,6 @@ function fromContent(c: ProductContent): Product {
     coralId: c.coralId || undefined,
     headline: c.headline,
     category: c.category,
-    cardTitle: c.cardTitle,
     goals: c.goals ?? [],
     description: c.description,
     carouselImages,
@@ -237,7 +233,6 @@ export type PhaseProductCard = {
   name: string;
   headline: string;
   category: string;
-  title: string;
   price: string;
   /** Struck-through "was" price on the card (= the club price). */
   priceWas: string;
@@ -406,7 +401,6 @@ function toCard(p: Product): PhaseProductCard {
     name: p.name,
     headline: p.headline,
     category: shortCategory(p.category),
-    title: p.cardTitle,
     // main price = club (sale); struck-through "was" price = regular
     price: p.prices[0].price,
     priceWas: p.prices[1].price,
