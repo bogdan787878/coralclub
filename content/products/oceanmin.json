@@ -9,46 +9,37 @@
     "energy"
   ],
   "coralId": "225115",
-  "description": "A deep-sea mineral concentrate in ionic form — magnesium-dominant, drawn from 662 m down in the Pacific. Steady energy and balance for every day.",
   "price": "$23.75",
   "clubPrice": "$19",
+  "description": "A deep-sea mineral concentrate in ionic form — magnesium-dominant, drawn from 662 m down in the Pacific. Steady energy and balance for every day.",
   "carouselImages": [
-    "/images/products/oceanmin.png"
+    "/images/products/xs-1.png"
   ],
   "pdpImages": [
-    "/images/products/oceanmin.png"
+    "/images/products/1-2.png",
+    "/images/products/2-2.png",
+    "/images/products/3-1.png",
+    "/images/products/4-1.png"
   ],
-  "rating": 4.6,
-  "ratingsCount": 41,
-  "reviewsCount": 18,
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
-  "elements": [
-    {
-      "symbol": "Mg",
-      "name": "Magnesium"
-    },
-    {
-      "symbol": "K",
-      "name": "Potassium"
-    },
-    {
-      "symbol": "Na",
-      "name": "Sodium"
-    },
-    {
-      "symbol": "Ca",
-      "name": "Calcium"
-    }
-  ],
   "manufacturing": {
-    "countryOfOrigin": "Taiwan",
+    "countryOfOrigin": "",
     "shippingWeight": "",
     "expiration": "2 years from the date of manufacture",
     "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
     "ingredients": "",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "test",
+          "amount": "test",
+          "dv": ""
+        }
+      ]
     }
-  }
+  },
+  "rating": 4.6,
+  "ratingsCount": 41,
+  "reviewsCount": 18
 }
