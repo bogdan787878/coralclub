@@ -9,28 +9,35 @@
     "hydration"
   ],
   "coralId": "2141",
-  "description": "A soluble potassium and magnesium drink that supports heart rhythm, muscle function and healthy blood pressure — part of the daily hydration layer.",
   "price": "$16.25",
   "clubPrice": "$13",
+  "description": "A soluble potassium and magnesium drink that supports heart rhythm, muscle function and healthy blood pressure — part of the daily hydration layer.",
   "carouselImages": [
-    "/images/products/pentokan.png"
+    "/images/products/xs.png"
   ],
   "pdpImages": [
-    "/images/products/pentokan.png"
+    "/images/products/1-1.png",
+    "/images/products/2-1.png"
   ],
-  "rating": 4.5,
-  "ratingsCount": 33,
-  "reviewsCount": 14,
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
   "manufacturing": {
-    "countryOfOrigin": "Germany",
+    "countryOfOrigin": "",
     "shippingWeight": "",
     "expiration": "2 years from the date of manufacture",
     "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
-    "ingredients": "Potassium, inulin, vitamin C, D-ribose, excipients.",
+    "ingredients": "",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "test",
+          "amount": "test",
+          "dv": ""
+        }
+      ]
     }
-  }
+  },
+  "rating": 4.5,
+  "ratingsCount": 33,
+  "reviewsCount": 14
 }
