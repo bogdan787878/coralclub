@@ -37,7 +37,10 @@ export default function cloudflareImageLoader({
   const id = IDS[manifestKey(src)];
   if (!id || !HASH) return local(src);
 
-  const q = quality ?? 82;
+  // Packshot sources are small (~500px), so most images end up upscaled in
+  // the layout; a high quality keeps the AVIF/WebP re-encode from adding
+  // visible mush on top of that. Still only tens of KB per image.
+  const q = quality ?? 90;
   const opts = `w=${width},q=${q},format=auto,fit=scale-down`;
   return `https://imagedelivery.net/${HASH}/${encodeURI(id)}/${opts}`;
 }
