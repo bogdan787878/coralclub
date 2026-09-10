@@ -35,7 +35,7 @@ export function DomainCarousel({ domains, value, onChange }: DomainCarouselProps
           >
             <span className={styles.shape}>
               <Image
-                src={`${asset(`/images/domains/${d.id}.png`)}?v=2`}
+                src={`${asset(`/images/domains/${d.id}.png`)}?v=3`}
                 alt=""
                 width={88}
                 height={88}
