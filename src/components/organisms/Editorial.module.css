@@ -6,7 +6,7 @@
   margin-top: var(--gap-base); /* image → heading */
 }
 .body {
-  margin-top: var(--space-8); /* heading → body */
+  margin-top: var(--space-16); /* heading → body */
 }
 
 .title {
