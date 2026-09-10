@@ -20,6 +20,12 @@
     "/images/products/2-1.png"
   ],
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+  "elements": [
+    {
+      "symbol": "K",
+      "name": "Potassium"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",

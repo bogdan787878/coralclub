@@ -47,6 +47,14 @@ export type SupplementFacts = {
   rows: SupplementFactRow[];
 };
 
+/** A single active element shown as a periodic-table-style tile on the PDP. */
+export type ElementInfo = {
+  /** Element symbol, e.g. "Ca". */
+  symbol: string;
+  /** Full name, e.g. "Calcium". */
+  name: string;
+};
+
 export type Manufacturing = {
   countryOfOrigin: string;
   shippingWeight: string;
@@ -70,6 +78,8 @@ export type ProductContent = {
   clubPrice: string;
   carouselImages: string[];
   pdpImages: string[];
+  /** Active elements — periodic-table tiles on the PDP. */
+  elements?: ElementInfo[];
   /** Deprecated — reviews were removed from the PDP and the CMS. */
   rating?: number;
   ratingsCount?: number;
@@ -106,6 +116,8 @@ export type Product = {
   carouselImages: string[];
   /** Packshots for the PDP image slider. */
   pdpImages: string[];
+  /** Active elements — periodic-table tiles on the PDP. */
+  elements: ElementInfo[];
   /** First carousel image — convenience for single-image spots. */
   image?: string;
   /** Deprecated — reviews were removed from the PDP and the CMS. */
@@ -177,6 +189,7 @@ function fromContent(c: ProductContent): Product {
     description: c.description,
     carouselImages,
     pdpImages,
+    elements: c.elements ?? [],
     image: carouselImages[0],
     rating: c.rating,
     ratingsCount: c.ratingsCount,

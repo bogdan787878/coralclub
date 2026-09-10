@@ -17,6 +17,12 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1-2 capsules a day with food.",
+  "elements": [
+    {
+      "symbol": "Mg",
+      "name": "Magnesium"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

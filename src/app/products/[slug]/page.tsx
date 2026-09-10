@@ -5,6 +5,7 @@ import {
   BuyBox,
   ImageSlider,
   InfoAccordion,
+  PeriodicElements,
   ProductCard,
 } from "@/components/organisms";
 import { CartDrawerHost } from "@/components/cart/CartDrawerHost";
@@ -87,6 +88,10 @@ export default async function ProductPage({
                   treat, cure, or prevent any disease.
                 </p>
               </div>
+
+              {product.elements.length > 0 && (
+                <PeriodicElements items={product.elements} />
+              )}
 
               <InfoAccordion
                 items={[

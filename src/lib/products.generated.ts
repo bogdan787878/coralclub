@@ -749,6 +749,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1-2 capsules a day with food.",
+    "elements": [
+      {
+        "symbol": "Mg",
+        "name": "Magnesium"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -776,12 +782,28 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "clubPrice": "$21",
     "description": "Coral-Mine is a naturally derived mineral product sourced from deep-sea coral formations in the Sea of Japan near the Okinawa and Tokunoshima islands. Its unique mineral composition helps enrich water and supports hydration, normal mineral balance, and overall well-being.",
     "carouselImages": [
-      "/images/products/coral-mine-silver.png"
+      "/images/products/1.png"
     ],
     "pdpImages": [
-      "/images/products/coral-mine-silver.png"
+      "/images/products/2.png",
+      "/images/products/3.png",
+      "/images/products/4.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+    "elements": [
+      {
+        "symbol": "Ca",
+        "name": "Calcium"
+      },
+      {
+        "symbol": "Mg",
+        "name": "Magnesium"
+      },
+      {
+        "symbol": "Ag",
+        "name": "Silver"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -1215,6 +1237,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule once a day with food.",
+    "elements": [
+      {
+        "symbol": "Fe",
+        "name": "Iron"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1684,6 +1712,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 41,
     "reviewsCount": 18,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+    "elements": [
+      {
+        "symbol": "Mg",
+        "name": "Magnesium"
+      },
+      {
+        "symbol": "K",
+        "name": "Potassium"
+      },
+      {
+        "symbol": "Na",
+        "name": "Sodium"
+      },
+      {
+        "symbol": "Ca",
+        "name": "Calcium"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
@@ -1864,30 +1910,43 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "hydration"
     ],
     "coralId": "2141",
-    "description": "A soluble potassium and magnesium drink that supports heart rhythm, muscle function and healthy blood pressure — part of the daily hydration layer.",
     "price": "$16.25",
     "clubPrice": "$13",
+    "description": "A soluble potassium and magnesium drink that supports heart rhythm, muscle function and healthy blood pressure — part of the daily hydration layer.",
     "carouselImages": [
-      "/images/products/pentokan.png"
+      "/images/products/xs.png"
     ],
     "pdpImages": [
-      "/images/products/pentokan.png"
+      "/images/products/1-1.png",
+      "/images/products/2-1.png"
     ],
-    "rating": 4.5,
-    "ratingsCount": 33,
-    "reviewsCount": 14,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+    "elements": [
+      {
+        "symbol": "K",
+        "name": "Potassium"
+      }
+    ],
     "manufacturing": {
-      "countryOfOrigin": "Germany",
+      "countryOfOrigin": "",
       "shippingWeight": "",
       "expiration": "2 years from the date of manufacture",
       "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
-      "ingredients": "Potassium, inulin, vitamin C, D-ribose, excipients.",
+      "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "test",
+            "amount": "test",
+            "dv": ""
+          }
+        ]
       }
-    }
+    },
+    "rating": 4.5,
+    "ratingsCount": 33,
+    "reviewsCount": 14
   },
   {
     "slug": "phytomix-for-women-new",
@@ -2372,6 +2431,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule once a day with food.",
+    "elements": [
+      {
+        "symbol": "Se",
+        "name": "Selenium"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -2621,6 +2686,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule a day with food.",
+    "elements": [
+      {
+        "symbol": "Zn",
+        "name": "Zinc"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Spain",
       "shippingWeight": "",

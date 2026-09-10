@@ -118,6 +118,15 @@ collections:
         widget: text
         required: false
 
+      - name: elements
+        label: "Элементы состава (плитки как в таблице Менделеева, после FDA-блока)"
+        widget: list
+        required: false
+        summary: "{{fields.symbol}} — {{fields.name}}"
+        fields:
+          - { name: symbol, label: "Символ (Ca, Mg, K…)", widget: string }
+          - { name: name, label: "Название (Calcium…)", widget: string }
+
       - name: manufacturing
         label: "Manufacturing detail"
         widget: object
