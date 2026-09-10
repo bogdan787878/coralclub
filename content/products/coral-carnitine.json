@@ -3,23 +3,25 @@
   "name": "Coral Carnitine",
   "headline": "Coral Carnitine",
   "category": "More Energy",
-  "cardTitle": "",
+  "cardTitle": "More Energy",
   "goals": [
     "energy"
   ],
   "coralId": "91890",
-  "description": "Carnitine helps restore the body's energy reserves after physical exertion and supports stamina and performance. It also helps keep weight in a normal range and reduce fatty deposits on blood vessel walls.",
   "price": "$33.75",
   "clubPrice": "$27",
-  "carouselImages": [],
-  "pdpImages": [],
-  "rating": 4.5,
-  "ratingsCount": 0,
-  "reviewsCount": 0,
+  "description": "Carnitine helps restore the body's energy reserves after physical exertion and supports stamina and performance. It also helps keep weight in a normal range and reduce fatty deposits on blood vessel walls.",
+  "carouselImages": [
+    "/images/products/xs-4.png"
+  ],
+  "pdpImages": [
+    "/images/products/1-6.png",
+    "/images/products/2-6.png"
+  ],
   "howToUse": "Adults – 1 capsule twice a day with food. Course: 1 month.",
   "elements": [
     {
-      "symbol": "Car",
+      "symbol": "Lc",
       "name": "L-Carnitine"
     }
   ],
@@ -31,7 +33,16 @@
     "ingredients": "Acetyl-L-carnitine, capsule (hydroxypropyl methylcellulose), microcrystalline cellulose (emulsifier), silicon dioxide (anti-caking agent), magnesium salt of stearic acid (stabiliser).",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "Test",
+          "amount": "Test",
+          "dv": "Test"
+        }
+      ]
     }
-  }
+  },
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0
 }
