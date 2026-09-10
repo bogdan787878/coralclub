@@ -87,11 +87,11 @@ export default async function ProductPage({
                 </span>
                 <Heading className={styles.name}>{product.name}</Heading>
                 <BodyLong>{product.description}</BodyLong>
-                {product.elements.length > 0 && (
-                  <PeriodicElements items={product.elements} />
-                )}
                 {product.dietaryBadges.length > 0 && (
                   <DietaryBadges items={product.dietaryBadges} />
+                )}
+                {product.elements.length > 0 && (
+                  <PeriodicElements items={product.elements} />
                 )}
                 <p className={styles.disclaimer}>
                   This statement has not been evaluated by the Food and Drug
