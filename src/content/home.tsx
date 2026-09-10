@@ -58,7 +58,7 @@ const HYDRATION: HomePhase = {
     ],
     cta: { label: "Build my set", href: "/quiz" },
     image: {
-      src: `${asset("/images/hero-hydration.png")}?v=2`,
+      src: `${asset("/images/hero-hydration.png")}?v=3`,
       alt: "Coral-Mine Silver sachet beside a glass of mineralized water",
     },
   },
