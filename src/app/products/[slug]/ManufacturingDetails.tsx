@@ -14,11 +14,24 @@ function Fact({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
+/** Real rows only — drops empty and leftover "Test" placeholder rows. */
+function realRows(data: Manufacturing["supplementFacts"]) {
+  return (data?.rows ?? []).filter((r) => {
+    const n = r.name?.trim().toLowerCase();
+    return n && n !== "test";
+  });
+}
+
+/** Whether the product has a Supplement Facts table worth showing. */
+export function hasSupplementFacts(data: Manufacturing["supplementFacts"]) {
+  return realRows(data).length > 0;
+}
+
 export function SupplementFacts({ data }: { data: Manufacturing["supplementFacts"] }) {
-  if (!data?.rows?.length) return null;
+  const rows = realRows(data);
+  if (!rows.length) return null;
   return (
     <div>
-      <p className={styles.factsTitle}>Supplement Facts</p>
       <div className={styles.tableWrap}>
         <table className={styles.table}>
           <thead>
@@ -33,7 +46,7 @@ export function SupplementFacts({ data }: { data: Manufacturing["supplementFacts
             </tr>
           </thead>
           <tbody>
-            {data.rows.map((row, i) => (
+            {rows.map((row, i) => (
               <tr key={i}>
                 <td>{row.name}</td>
                 <td className={styles.num}>{row.amount}</td>
@@ -58,8 +71,6 @@ export function ManufacturingDetails({ data }: { data: Manufacturing }) {
       <Fact label="Expiration date">{data.expiration}</Fact>
       <Fact label="Storage method">{data.storage}</Fact>
       <Fact label="Ingredient list">{data.ingredients}</Fact>
-
-      <SupplementFacts data={data.supplementFacts} />
     </div>
   );
 }

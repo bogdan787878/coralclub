@@ -30,15 +30,6 @@
   text-decoration: underline;
 }
 
-.factsTitle {
-  font-family: var(--font-sans);
-  font-size: var(--text-button-size);
-  line-height: var(--text-button-line);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text);
-  margin-bottom: var(--space-8);
-}
-
 .tableWrap {
   overflow-x: auto;
   border: 1px solid var(--color-border);

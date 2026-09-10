@@ -18,7 +18,11 @@ import {
 } from "@/lib/products";
 import { BackButton } from "./BackButton";
 import { ShareButton } from "./ShareButton";
-import { ManufacturingDetails } from "./ManufacturingDetails";
+import {
+  ManufacturingDetails,
+  SupplementFacts,
+  hasSupplementFacts,
+} from "./ManufacturingDetails";
 import styles from "./page.module.css";
 
 type Params = { slug: string };
@@ -108,6 +112,18 @@ export default async function ProductPage({
                       <ManufacturingDetails data={product.manufacturing} />
                     ),
                   },
+                  ...(hasSupplementFacts(product.manufacturing.supplementFacts)
+                    ? [
+                        {
+                          title: "Supplement Facts",
+                          content: (
+                            <SupplementFacts
+                              data={product.manufacturing.supplementFacts}
+                            />
+                          ),
+                        },
+                      ]
+                    : []),
                 ]}
               />
             </Stack>
