@@ -1,12 +1,34 @@
 .footer {
   padding-top: var(--space-40);
-  padding-bottom: calc(var(--space-64) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(var(--space-48) + env(safe-area-inset-bottom, 0px));
 }
 
-.cols {
+.address {
+  font-style: normal;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--color-text-on-primary);
+}
+
+.muted {
+  color: var(--color-text-on-primary-muted);
+}
+
+/* two columns: [phone, e-mail] | [hours, messengers] */
+.grid {
+  margin-top: var(--space-28, 28px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--space-20);
+  row-gap: var(--space-24);
+}
+
+.col {
   display: flex;
   flex-direction: column;
-  gap: var(--space-28, 28px);
+  gap: var(--space-24);
+  min-width: 0;
 }
 
 .group {
@@ -25,29 +47,15 @@
   color: var(--color-text-on-primary-muted);
 }
 
-.address {
-  font-style: normal;
-  font-family: var(--font-sans);
-  font-size: 0.9375rem;
-  line-height: 1.4;
-  color: var(--color-text-on-primary);
-}
-
-.muted {
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: 0.8125rem;
-  line-height: 1.25rem;
-  color: var(--color-text-on-primary-muted);
-}
-
 .link {
   width: fit-content;
+  max-width: 100%;
   font-family: var(--font-sans);
   font-size: 0.9375rem;
   line-height: 1.375rem;
   color: var(--color-text-on-primary);
   text-decoration: none;
+  word-break: break-word;
 }
 .link:hover {
   text-decoration: underline;
@@ -67,67 +75,34 @@
   color: var(--color-text-on-primary-muted);
 }
 
+/* bottom bar: copyright | Legal Info */
 .legal {
+  margin-top: var(--space-32);
+  padding-top: var(--space-16);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-16);
   flex-wrap: wrap;
-  gap: var(--space-8) var(--space-20);
-  margin-top: var(--space-4);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--color-text-on-primary-muted);
 }
 .legal a {
-  font-family: var(--font-sans);
-  font-size: 0.8125rem;
-  color: var(--color-text-on-primary-muted);
+  color: var(--color-text-on-primary);
   text-decoration: none;
+  white-space: nowrap;
 }
 .legal a:hover {
-  color: var(--color-text-on-primary);
+  text-decoration: underline;
 }
 
-/* ---------- brand lockup ---------- */
-.mark {
-  margin-top: var(--space-48);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-8);
-  color: var(--color-text-on-primary);
-  text-align: center;
-}
-
-.wordmark {
-  font-family: var(--font-sans);
-  font-size: 0.875rem;
-  font-weight: var(--font-weight-bold);
-  letter-spacing: -0.01em;
-}
-
-.lockup {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: baseline;
-  gap: 0.05em 0.22em;
-  max-width: 11em;
-}
-.lockup b {
-  font-family: var(--font-sans);
-  font-weight: var(--font-weight-bold);
-  font-size: 1.375rem;
-  line-height: 1;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-}
-.lockup i {
-  font-family: var(--font-accent);
-  font-style: italic;
-  font-size: 2.375rem;
-  line-height: 0.9;
-}
-
-.year {
-  font-family: var(--font-sans);
-  font-size: 0.6875rem;
-  letter-spacing: 0.34em;
-  color: var(--color-text-on-primary-muted);
-  padding-left: 0.34em; /* balance the tracking */
+/* the "art of being healthy" line */
+.line {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: var(--space-40);
 }
