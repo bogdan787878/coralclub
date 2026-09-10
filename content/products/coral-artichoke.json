@@ -17,6 +17,24 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule twice a day with food.",
+  "elements": [
+    {
+      "symbol": "Art",
+      "name": "Artichoke"
+    },
+    {
+      "symbol": "Sil",
+      "name": "Silymarin"
+    },
+    {
+      "symbol": "Bet",
+      "name": "Betaine"
+    },
+    {
+      "symbol": "Dan",
+      "name": "Dandelion"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

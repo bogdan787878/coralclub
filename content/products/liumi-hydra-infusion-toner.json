@@ -18,6 +18,16 @@
     "/images/products/mggdb8ewyfftlrghif56x7tb0ejz2j7m 1.png"
   ],
   "howToUse": "After cleansing, pat a few drops over the face with your hands until absorbed.",
+  "elements": [
+    {
+      "symbol": "HA",
+      "name": "Hyaluronic"
+    },
+    {
+      "symbol": "Pan",
+      "name": "Panthenol"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "South Korea",
     "shippingWeight": "",

@@ -17,6 +17,24 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 5 tablets a day with food, with a glass of water. Course: 1 month, repeated if needed.",
+  "elements": [
+    {
+      "symbol": "AA",
+      "name": "Amino Acids"
+    },
+    {
+      "symbol": "Leu",
+      "name": "L-Leucine"
+    },
+    {
+      "symbol": "Arg",
+      "name": "L-Arginine"
+    },
+    {
+      "symbol": "Gln",
+      "name": "L-Glutamine"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

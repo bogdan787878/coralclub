@@ -17,6 +17,24 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Apply as the last step of your routine, morning and evening.",
+  "elements": [
+    {
+      "symbol": "HA",
+      "name": "Hyaluronic"
+    },
+    {
+      "symbol": "Nia",
+      "name": "Niacinamide"
+    },
+    {
+      "symbol": "Cer",
+      "name": "Ceramide"
+    },
+    {
+      "symbol": "Ect",
+      "name": "Ectoin"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "South Korea",
     "shippingWeight": "",

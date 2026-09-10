@@ -17,6 +17,24 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Read the instructions inside the pack before use. Programme duration: 30 days.",
+  "elements": [
+    {
+      "symbol": "Enz",
+      "name": "Enzymes"
+    },
+    {
+      "symbol": "PC",
+      "name": "Lecithin"
+    },
+    {
+      "symbol": "Ca",
+      "name": "Calcium"
+    },
+    {
+      "symbol": "Mg",
+      "name": "Magnesium"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA, Russia, Japan",
     "shippingWeight": "",

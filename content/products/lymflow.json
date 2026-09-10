@@ -17,6 +17,20 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule three times a day with food.",
+  "elements": [
+    {
+      "symbol": "Dio",
+      "name": "Diosmin"
+    },
+    {
+      "symbol": "Bil",
+      "name": "Bilberry"
+    },
+    {
+      "symbol": "Prs",
+      "name": "Parsley"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

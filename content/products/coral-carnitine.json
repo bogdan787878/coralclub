@@ -17,6 +17,12 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule twice a day with food. Course: 1 month.",
+  "elements": [
+    {
+      "symbol": "Car",
+      "name": "L-Carnitine"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

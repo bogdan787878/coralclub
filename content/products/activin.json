@@ -17,6 +17,16 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "",
+  "elements": [
+    {
+      "symbol": "OPC",
+      "name": "Grape Seed"
+    },
+    {
+      "symbol": "Rsv",
+      "name": "Resveratrol"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",

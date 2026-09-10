@@ -17,6 +17,12 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 tablet in the evening with food.",
+  "elements": [
+    {
+      "symbol": "Cas",
+      "name": "Cascara"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

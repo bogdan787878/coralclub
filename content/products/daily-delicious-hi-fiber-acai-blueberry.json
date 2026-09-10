@@ -17,6 +17,24 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Stir 1 scoop of powder (9 g) into 150 ml of water. Adults – once a day, followed by a glass of water.",
+  "elements": [
+    {
+      "symbol": "Fib",
+      "name": "Fiber"
+    },
+    {
+      "symbol": "Inu",
+      "name": "Inulin"
+    },
+    {
+      "symbol": "Pec",
+      "name": "Pectin"
+    },
+    {
+      "symbol": "Aca",
+      "name": "Acai"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

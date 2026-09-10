@@ -17,6 +17,24 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Women – 1 capsule three times a day with food. Course: 10-30 days.",
+  "elements": [
+    {
+      "symbol": "Ala",
+      "name": "B-Alanine"
+    },
+    {
+      "symbol": "Hop",
+      "name": "Hops"
+    },
+    {
+      "symbol": "Fx",
+      "name": "Flaxseed"
+    },
+    {
+      "symbol": "Saf",
+      "name": "Saffron"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

@@ -17,6 +17,24 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule twice a day with food, in the morning and midday.",
+  "elements": [
+    {
+      "symbol": "Pom",
+      "name": "Pomegranate"
+    },
+    {
+      "symbol": "Aca",
+      "name": "Acai"
+    },
+    {
+      "symbol": "Coc",
+      "name": "Cocoa"
+    },
+    {
+      "symbol": "Ros",
+      "name": "Rosemary"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

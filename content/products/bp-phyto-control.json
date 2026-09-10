@@ -17,6 +17,24 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 2 capsules in the first half of the day, with food.",
+  "elements": [
+    {
+      "symbol": "Haw",
+      "name": "Hawthorn"
+    },
+    {
+      "symbol": "Mw",
+      "name": "Motherwort"
+    },
+    {
+      "symbol": "Hib",
+      "name": "Hibiscus"
+    },
+    {
+      "symbol": "Sk",
+      "name": "Skullcap"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

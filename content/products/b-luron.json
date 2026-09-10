@@ -18,6 +18,12 @@
     "/images/products/6lz3zje3xybabziihe259f4ipi6v2o2z.webp"
   ],
   "howToUse": "",
+  "elements": [
+    {
+      "symbol": "HA",
+      "name": "Hyaluronic"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",

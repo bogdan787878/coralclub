@@ -17,6 +17,24 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 stick sachet twice a day with food, neat or dissolved in half a glass of water.",
+  "elements": [
+    {
+      "symbol": "Man",
+      "name": "Mandarin"
+    },
+    {
+      "symbol": "Car",
+      "name": "L-Carnitine"
+    },
+    {
+      "symbol": "GT",
+      "name": "Green Tea"
+    },
+    {
+      "symbol": "Non",
+      "name": "Noni"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Taiwan",
     "shippingWeight": "",

@@ -17,6 +17,20 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule twice a day with food.",
+  "elements": [
+    {
+      "symbol": "Vit",
+      "name": "Vitamins"
+    },
+    {
+      "symbol": "Min",
+      "name": "Minerals"
+    },
+    {
+      "symbol": "Phy",
+      "name": "Phytonutr."
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

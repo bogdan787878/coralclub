@@ -18,6 +18,20 @@
   "ratingsCount": 47,
   "reviewsCount": 22,
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+  "elements": [
+    {
+      "symbol": "Fib",
+      "name": "Fiber"
+    },
+    {
+      "symbol": "Enz",
+      "name": "Enzymes"
+    },
+    {
+      "symbol": "Prb",
+      "name": "Probiotics"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",

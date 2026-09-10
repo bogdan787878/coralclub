@@ -17,6 +17,20 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule once a day with food.",
+  "elements": [
+    {
+      "symbol": "Enz",
+      "name": "Enzymes"
+    },
+    {
+      "symbol": "A",
+      "name": "Vitamin A"
+    },
+    {
+      "symbol": "D3",
+      "name": "Vitamin D"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

@@ -17,6 +17,16 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "",
+  "elements": [
+    {
+      "symbol": "Col",
+      "name": "Collagen"
+    },
+    {
+      "symbol": "HA",
+      "name": "Hyaluronic"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",

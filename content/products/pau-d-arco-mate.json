@@ -17,6 +17,20 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 3 capsules once a day in the first half of the day, with food.",
+  "elements": [
+    {
+      "symbol": "PdA",
+      "name": "Pau d'Arco"
+    },
+    {
+      "symbol": "Olv",
+      "name": "Olive Leaf"
+    },
+    {
+      "symbol": "Mat",
+      "name": "Yerba Mate"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

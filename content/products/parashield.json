@@ -18,6 +18,20 @@
   "ratingsCount": 19,
   "reviewsCount": 8,
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+  "elements": [
+    {
+      "symbol": "BW",
+      "name": "Blk Walnut"
+    },
+    {
+      "symbol": "Clv",
+      "name": "Clove"
+    },
+    {
+      "symbol": "Wor",
+      "name": "Wormwood"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA, Japan",
     "shippingWeight": "",

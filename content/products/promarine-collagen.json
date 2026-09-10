@@ -17,6 +17,12 @@
   "ratingsCount": 52,
   "reviewsCount": 24,
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+  "elements": [
+    {
+      "symbol": "Col",
+      "name": "Collagen"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",

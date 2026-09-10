@@ -17,6 +17,16 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 2 capsules twice a day with food.",
+  "elements": [
+    {
+      "symbol": "Alf",
+      "name": "Alfalfa"
+    },
+    {
+      "symbol": "Ca",
+      "name": "Calcium"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

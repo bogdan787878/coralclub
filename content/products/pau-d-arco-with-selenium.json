@@ -17,6 +17,20 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1-2 capsules a day with food.",
+  "elements": [
+    {
+      "symbol": "Se",
+      "name": "Selenium"
+    },
+    {
+      "symbol": "C",
+      "name": "Vitamin C"
+    },
+    {
+      "symbol": "PdA",
+      "name": "Pau d'Arco"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

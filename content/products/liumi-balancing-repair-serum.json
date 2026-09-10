@@ -18,6 +18,16 @@
     "/images/products/z441940waifbg54rqvq7bs4z1y9zcn2b 1.png"
   ],
   "howToUse": "Apply a few drops to clean skin morning and evening, before moisturiser.",
+  "elements": [
+    {
+      "symbol": "Nia",
+      "name": "Niacinamide"
+    },
+    {
+      "symbol": "Cer",
+      "name": "Ceramide"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "South Korea",
     "shippingWeight": "",

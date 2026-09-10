@@ -17,6 +17,16 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Shake the bottle before use. Adults – 5 ml once a day with food, neat or added to a glass of water or juice. Measuring cap included.",
+  "elements": [
+    {
+      "symbol": "Cur",
+      "name": "Curcumin"
+    },
+    {
+      "symbol": "PC",
+      "name": "Lecithin"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Netherlands",
     "shippingWeight": "",

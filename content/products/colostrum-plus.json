@@ -17,6 +17,16 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 2 capsules twice a day with food.",
+  "elements": [
+    {
+      "symbol": "Cst",
+      "name": "Colostrum"
+    },
+    {
+      "symbol": "bG",
+      "name": "Beta-glucan"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

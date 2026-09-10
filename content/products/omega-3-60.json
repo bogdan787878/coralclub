@@ -18,6 +18,20 @@
   "ratingsCount": 38,
   "reviewsCount": 16,
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+  "elements": [
+    {
+      "symbol": "w3",
+      "name": "Omega-3"
+    },
+    {
+      "symbol": "EPA",
+      "name": "EPA"
+    },
+    {
+      "symbol": "DHA",
+      "name": "DHA"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",

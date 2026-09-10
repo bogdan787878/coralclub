@@ -17,6 +17,12 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule 2-3 times a day with food.",
+  "elements": [
+    {
+      "symbol": "PC",
+      "name": "Lecithin"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

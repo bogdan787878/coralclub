@@ -17,6 +17,20 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Apply a generous layer as the last step of your evening routine.",
+  "elements": [
+    {
+      "symbol": "Col",
+      "name": "Collagen"
+    },
+    {
+      "symbol": "Nia",
+      "name": "Niacinamide"
+    },
+    {
+      "symbol": "Cer",
+      "name": "Ceramide"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "South Korea",
     "shippingWeight": "",

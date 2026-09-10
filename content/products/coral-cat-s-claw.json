@@ -17,6 +17,20 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule three times a day with food.",
+  "elements": [
+    {
+      "symbol": "Unc",
+      "name": "Cat's Claw"
+    },
+    {
+      "symbol": "Bur",
+      "name": "Burdock"
+    },
+    {
+      "symbol": "GT",
+      "name": "Green Tea"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

@@ -17,6 +17,20 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule a day with food.",
+  "elements": [
+    {
+      "symbol": "5HTP",
+      "name": "5-HTP"
+    },
+    {
+      "symbol": "B6",
+      "name": "Vitamin B6"
+    },
+    {
+      "symbol": "B12",
+      "name": "Vitamin B12"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

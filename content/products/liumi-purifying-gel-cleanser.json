@@ -18,6 +18,16 @@
     "/images/products/1co007ou3lf8sbvxwnk6lzokeyqsrwzn 1.png"
   ],
   "howToUse": "Morning and evening, massage a small amount over damp skin, then rinse with lukewarm water.",
+  "elements": [
+    {
+      "symbol": "Gly",
+      "name": "Glycerin"
+    },
+    {
+      "symbol": "Pan",
+      "name": "Panthenol"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "South Korea",
     "shippingWeight": "",

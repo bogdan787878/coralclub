@@ -17,6 +17,28 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "",
+  "elements": [
+    {
+      "symbol": "w3",
+      "name": "Omega-3"
+    },
+    {
+      "symbol": "PC",
+      "name": "Lecithin"
+    },
+    {
+      "symbol": "Gk",
+      "name": "Ginkgo"
+    },
+    {
+      "symbol": "AA",
+      "name": "Amino Acids"
+    },
+    {
+      "symbol": "B",
+      "name": "B-Complex"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA, Slovenia, Spain, Japan",
     "shippingWeight": "",

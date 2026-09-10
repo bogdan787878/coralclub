@@ -24,6 +24,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "",
+    "elements": [
+      {
+        "symbol": "OPC",
+        "name": "Grape Seed"
+      },
+      {
+        "symbol": "Rsv",
+        "name": "Resveratrol"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -55,6 +65,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule twice a day with food, in the morning and midday.",
+    "elements": [
+      {
+        "symbol": "Pom",
+        "name": "Pomegranate"
+      },
+      {
+        "symbol": "Aca",
+        "name": "Acai"
+      },
+      {
+        "symbol": "Coc",
+        "name": "Cocoa"
+      },
+      {
+        "symbol": "Ros",
+        "name": "Rosemary"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -86,6 +114,20 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule once a day with food.",
+    "elements": [
+      {
+        "symbol": "Enz",
+        "name": "Enzymes"
+      },
+      {
+        "symbol": "A",
+        "name": "Vitamin A"
+      },
+      {
+        "symbol": "D3",
+        "name": "Vitamin D"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -118,6 +160,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "/images/products/6lz3zje3xybabziihe259f4ipi6v2o2z.webp"
     ],
     "howToUse": "",
+    "elements": [
+      {
+        "symbol": "HA",
+        "name": "Hyaluronic"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -215,6 +263,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 2 capsules in the first half of the day, with food.",
+    "elements": [
+      {
+        "symbol": "Haw",
+        "name": "Hawthorn"
+      },
+      {
+        "symbol": "Mw",
+        "name": "Motherwort"
+      },
+      {
+        "symbol": "Hib",
+        "name": "Hibiscus"
+      },
+      {
+        "symbol": "Sk",
+        "name": "Skullcap"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -332,6 +398,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 tablet in the evening with food.",
+    "elements": [
+      {
+        "symbol": "Cas",
+        "name": "Cascara"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -363,6 +435,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule in the first half of the day, with food.",
+    "elements": [
+      {
+        "symbol": "Dio",
+        "name": "Diosmin"
+      },
+      {
+        "symbol": "GtK",
+        "name": "Gotu Kola"
+      },
+      {
+        "symbol": "HC",
+        "name": "H. Chestnut"
+      },
+      {
+        "symbol": "Gk",
+        "name": "Ginkgo"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -394,6 +484,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule a day with food. Course: 1 month.",
+    "elements": [
+      {
+        "symbol": "Q10",
+        "name": "Coq10"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -426,6 +522,20 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 47,
     "reviewsCount": 22,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+    "elements": [
+      {
+        "symbol": "Fib",
+        "name": "Fiber"
+      },
+      {
+        "symbol": "Enz",
+        "name": "Enzymes"
+      },
+      {
+        "symbol": "Prb",
+        "name": "Probiotics"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -457,6 +567,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 2 capsules twice a day with food.",
+    "elements": [
+      {
+        "symbol": "Cst",
+        "name": "Colostrum"
+      },
+      {
+        "symbol": "bG",
+        "name": "Beta-glucan"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -488,6 +608,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 2 capsules twice a day with food.",
+    "elements": [
+      {
+        "symbol": "Alf",
+        "name": "Alfalfa"
+      },
+      {
+        "symbol": "Ca",
+        "name": "Calcium"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -519,6 +649,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule twice a day with food.",
+    "elements": [
+      {
+        "symbol": "Art",
+        "name": "Artichoke"
+      },
+      {
+        "symbol": "Sil",
+        "name": "Silymarin"
+      },
+      {
+        "symbol": "Bet",
+        "name": "Betaine"
+      },
+      {
+        "symbol": "Dan",
+        "name": "Dandelion"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -550,6 +698,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule three times a day with food.",
+    "elements": [
+      {
+        "symbol": "BA",
+        "name": "Boswellia"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -581,6 +735,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule three times a day with food.",
+    "elements": [
+      {
+        "symbol": "Bur",
+        "name": "Burdock"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -612,6 +772,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule twice a day with food. Course: 1 month.",
+    "elements": [
+      {
+        "symbol": "Car",
+        "name": "L-Carnitine"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -643,6 +809,20 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule three times a day with food.",
+    "elements": [
+      {
+        "symbol": "Unc",
+        "name": "Cat's Claw"
+      },
+      {
+        "symbol": "Bur",
+        "name": "Burdock"
+      },
+      {
+        "symbol": "GT",
+        "name": "Green Tea"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -675,6 +855,28 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 28,
     "reviewsCount": 11,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+    "elements": [
+      {
+        "symbol": "Enz",
+        "name": "Enzymes"
+      },
+      {
+        "symbol": "PC",
+        "name": "Lecithin"
+      },
+      {
+        "symbol": "Fib",
+        "name": "Fiber"
+      },
+      {
+        "symbol": "Ca",
+        "name": "Calcium"
+      },
+      {
+        "symbol": "K",
+        "name": "Potassium"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA, Russia, Germany, Japan",
       "shippingWeight": "",
@@ -706,6 +908,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Read the instructions inside the pack before use. Programme duration: 30 days.",
+    "elements": [
+      {
+        "symbol": "Enz",
+        "name": "Enzymes"
+      },
+      {
+        "symbol": "PC",
+        "name": "Lecithin"
+      },
+      {
+        "symbol": "Ca",
+        "name": "Calcium"
+      },
+      {
+        "symbol": "Mg",
+        "name": "Magnesium"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA, Russia, Japan",
       "shippingWeight": "",
@@ -737,6 +957,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule 2-3 times a day with food.",
+    "elements": [
+      {
+        "symbol": "PC",
+        "name": "Lecithin"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -768,6 +994,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule twice a day with food.",
+    "elements": [
+      {
+        "symbol": "Lic",
+        "name": "Licorice"
+      },
+      {
+        "symbol": "Gin",
+        "name": "Ginger"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -899,6 +1135,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule a day with food.",
+    "elements": [
+      {
+        "symbol": "Tau",
+        "name": "Taurine"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1024,6 +1266,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Stir 1 scoop of powder (9 g) into 150 ml of water. Adults – once a day, followed by a glass of water.",
+    "elements": [
+      {
+        "symbol": "Fib",
+        "name": "Fiber"
+      },
+      {
+        "symbol": "Inu",
+        "name": "Inulin"
+      },
+      {
+        "symbol": "Pec",
+        "name": "Pectin"
+      },
+      {
+        "symbol": "Aca",
+        "name": "Acai"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1207,6 +1467,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule twice a day with food.",
+    "elements": [
+      {
+        "symbol": "GtK",
+        "name": "Gotu Kola"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1238,6 +1504,20 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule a day with food.",
+    "elements": [
+      {
+        "symbol": "5HTP",
+        "name": "5-HTP"
+      },
+      {
+        "symbol": "B6",
+        "name": "Vitamin B6"
+      },
+      {
+        "symbol": "B12",
+        "name": "Vitamin B12"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1420,6 +1700,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Shake the bottle before use. Adults – 5 ml once a day with food, neat or added to a glass of water or juice. Measuring cap included.",
+    "elements": [
+      {
+        "symbol": "Cur",
+        "name": "Curcumin"
+      },
+      {
+        "symbol": "PC",
+        "name": "Lecithin"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Netherlands",
       "shippingWeight": "",
@@ -1451,6 +1741,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 stick sachet twice a day with food, neat or dissolved in half a glass of water.",
+    "elements": [
+      {
+        "symbol": "Man",
+        "name": "Mandarin"
+      },
+      {
+        "symbol": "Car",
+        "name": "L-Carnitine"
+      },
+      {
+        "symbol": "GT",
+        "name": "Green Tea"
+      },
+      {
+        "symbol": "Non",
+        "name": "Noni"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
@@ -1483,6 +1791,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "/images/products/z441940waifbg54rqvq7bs4z1y9zcn2b 1.png"
     ],
     "howToUse": "Apply a few drops to clean skin morning and evening, before moisturiser.",
+    "elements": [
+      {
+        "symbol": "Nia",
+        "name": "Niacinamide"
+      },
+      {
+        "symbol": "Cer",
+        "name": "Ceramide"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "South Korea",
       "shippingWeight": "",
@@ -1523,6 +1841,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "In the evening, roll the microneedle applicator over the target area, then press in the serum.",
+    "elements": [
+      {
+        "symbol": "Bak",
+        "name": "Bakuchiol"
+      },
+      {
+        "symbol": "Pep",
+        "name": "Peptides"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "South Korea",
       "shippingWeight": "",
@@ -1554,6 +1882,20 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Apply a generous layer as the last step of your evening routine.",
+    "elements": [
+      {
+        "symbol": "Col",
+        "name": "Collagen"
+      },
+      {
+        "symbol": "Nia",
+        "name": "Niacinamide"
+      },
+      {
+        "symbol": "Cer",
+        "name": "Ceramide"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "South Korea",
       "shippingWeight": "",
@@ -1585,6 +1927,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Apply as the last step of your routine, morning and evening.",
+    "elements": [
+      {
+        "symbol": "HA",
+        "name": "Hyaluronic"
+      },
+      {
+        "symbol": "Nia",
+        "name": "Niacinamide"
+      },
+      {
+        "symbol": "Cer",
+        "name": "Ceramide"
+      },
+      {
+        "symbol": "Ect",
+        "name": "Ectoin"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "South Korea",
       "shippingWeight": "",
@@ -1617,6 +1977,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "/images/products/mggdb8ewyfftlrghif56x7tb0ejz2j7m 1.png"
     ],
     "howToUse": "After cleansing, pat a few drops over the face with your hands until absorbed.",
+    "elements": [
+      {
+        "symbol": "HA",
+        "name": "Hyaluronic"
+      },
+      {
+        "symbol": "Pan",
+        "name": "Panthenol"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "South Korea",
       "shippingWeight": "",
@@ -1658,6 +2028,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "/images/products/1co007ou3lf8sbvxwnk6lzokeyqsrwzn 1.png"
     ],
     "howToUse": "Morning and evening, massage a small amount over damp skin, then rinse with lukewarm water.",
+    "elements": [
+      {
+        "symbol": "Gly",
+        "name": "Glycerin"
+      },
+      {
+        "symbol": "Pan",
+        "name": "Panthenol"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "South Korea",
       "shippingWeight": "",
@@ -1698,6 +2078,20 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule three times a day with food.",
+    "elements": [
+      {
+        "symbol": "Dio",
+        "name": "Diosmin"
+      },
+      {
+        "symbol": "Bil",
+        "name": "Bilberry"
+      },
+      {
+        "symbol": "Prs",
+        "name": "Parsley"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1778,6 +2172,28 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule a day with food.",
+    "elements": [
+      {
+        "symbol": "Car",
+        "name": "L-Carnitine"
+      },
+      {
+        "symbol": "Gk",
+        "name": "Ginkgo"
+      },
+      {
+        "symbol": "GtK",
+        "name": "Gotu Kola"
+      },
+      {
+        "symbol": "The",
+        "name": "L-Theanine"
+      },
+      {
+        "symbol": "Tyr",
+        "name": "L-Tyrosine"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1955,6 +2371,20 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 38,
     "reviewsCount": 16,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+    "elements": [
+      {
+        "symbol": "w3",
+        "name": "Omega-3"
+      },
+      {
+        "symbol": "EPA",
+        "name": "EPA"
+      },
+      {
+        "symbol": "DHA",
+        "name": "DHA"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -1986,6 +2416,28 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "",
+    "elements": [
+      {
+        "symbol": "w3",
+        "name": "Omega-3"
+      },
+      {
+        "symbol": "PC",
+        "name": "Lecithin"
+      },
+      {
+        "symbol": "Gk",
+        "name": "Ginkgo"
+      },
+      {
+        "symbol": "AA",
+        "name": "Amino Acids"
+      },
+      {
+        "symbol": "B",
+        "name": "B-Complex"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA, Slovenia, Spain, Japan",
       "shippingWeight": "",
@@ -2018,6 +2470,20 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 19,
     "reviewsCount": 8,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+    "elements": [
+      {
+        "symbol": "BW",
+        "name": "Blk Walnut"
+      },
+      {
+        "symbol": "Clv",
+        "name": "Clove"
+      },
+      {
+        "symbol": "Wor",
+        "name": "Wormwood"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA, Japan",
       "shippingWeight": "",
@@ -2049,6 +2515,20 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 3 capsules once a day in the first half of the day, with food.",
+    "elements": [
+      {
+        "symbol": "PdA",
+        "name": "Pau d'Arco"
+      },
+      {
+        "symbol": "Olv",
+        "name": "Olive Leaf"
+      },
+      {
+        "symbol": "Mat",
+        "name": "Yerba Mate"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -2080,6 +2560,20 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1-2 capsules a day with food.",
+    "elements": [
+      {
+        "symbol": "Se",
+        "name": "Selenium"
+      },
+      {
+        "symbol": "C",
+        "name": "Vitamin C"
+      },
+      {
+        "symbol": "PdA",
+        "name": "Pau d'Arco"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -2168,6 +2662,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Women – 1 capsule three times a day with food. Course: 10-30 days.",
+    "elements": [
+      {
+        "symbol": "Ala",
+        "name": "B-Alanine"
+      },
+      {
+        "symbol": "Hop",
+        "name": "Hops"
+      },
+      {
+        "symbol": "Fx",
+        "name": "Flaxseed"
+      },
+      {
+        "symbol": "Saf",
+        "name": "Saffron"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -2294,6 +2806,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "/images/products/goqzq4n5v259ejmg41ur3rnbcbojlid9 1.png"
     ],
     "howToUse": "Apply to damp skin, massage gently for 30–60 seconds avoiding the eye area, then rinse.",
+    "elements": [
+      {
+        "symbol": "Cof",
+        "name": "Coffee"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -2335,6 +2853,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "/images/products/h0i19ii9cmsivn9nzcfl4q90i75ikrkd 1.png"
     ],
     "howToUse": "Apply a few drops to clean skin morning and evening, before moisturiser.",
+    "elements": [
+      {
+        "symbol": "Pep",
+        "name": "Peptides"
+      },
+      {
+        "symbol": "HA",
+        "name": "Hyaluronic"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -2376,6 +2904,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "/images/products/108uk7bysn2yju4eloz3f0e5ykli3xk4 1.png"
     ],
     "howToUse": "Morning and evening, massage over dry or damp skin, then rinse or wipe off with a cotton pad.",
+    "elements": [
+      {
+        "symbol": "Cof",
+        "name": "Coffee"
+      },
+      {
+        "symbol": "Gly",
+        "name": "Glycerin"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -2416,6 +2954,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Collagen peptides: adults – 50 ml (1 bottle) once a day with food, for 1 month, repeated if needed. Mask: on cleansed skin, apply the mask, remove the film from one side, smooth it onto the face, remove the second film and leave for 15-20 minutes, then pat in the remaining essence.",
+    "elements": [
+      {
+        "symbol": "Col",
+        "name": "Collagen"
+      },
+      {
+        "symbol": "HA",
+        "name": "Hyaluronic"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -2447,6 +2995,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "",
+    "elements": [
+      {
+        "symbol": "Col",
+        "name": "Collagen"
+      },
+      {
+        "symbol": "HA",
+        "name": "Hyaluronic"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -2576,6 +3134,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 52,
     "reviewsCount": 24,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+    "elements": [
+      {
+        "symbol": "Col",
+        "name": "Collagen"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -2607,6 +3171,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 5 tablets a day with food, with a glass of water. Course: 1 month, repeated if needed.",
+    "elements": [
+      {
+        "symbol": "AA",
+        "name": "Amino Acids"
+      },
+      {
+        "symbol": "Leu",
+        "name": "L-Leucine"
+      },
+      {
+        "symbol": "Arg",
+        "name": "L-Arginine"
+      },
+      {
+        "symbol": "Gln",
+        "name": "L-Glutamine"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -2865,6 +3447,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule once a day with food, as a dietary supplement.",
+    "elements": [
+      {
+        "symbol": "Prb",
+        "name": "Probiotics"
+      },
+      {
+        "symbol": "Inu",
+        "name": "Inulin"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -2896,6 +3488,20 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule twice a day with food.",
+    "elements": [
+      {
+        "symbol": "Vit",
+        "name": "Vitamins"
+      },
+      {
+        "symbol": "Min",
+        "name": "Minerals"
+      },
+      {
+        "symbol": "Phy",
+        "name": "Phytonutr."
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -2972,6 +3578,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule once a day with food.",
+    "elements": [
+      {
+        "symbol": "Cur",
+        "name": "Curcumin"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",

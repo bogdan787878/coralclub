@@ -17,6 +17,24 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule in the first half of the day, with food.",
+  "elements": [
+    {
+      "symbol": "Dio",
+      "name": "Diosmin"
+    },
+    {
+      "symbol": "GtK",
+      "name": "Gotu Kola"
+    },
+    {
+      "symbol": "HC",
+      "name": "H. Chestnut"
+    },
+    {
+      "symbol": "Gk",
+      "name": "Ginkgo"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

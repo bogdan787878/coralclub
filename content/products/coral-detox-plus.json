@@ -18,6 +18,28 @@
   "ratingsCount": 28,
   "reviewsCount": 11,
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+  "elements": [
+    {
+      "symbol": "Enz",
+      "name": "Enzymes"
+    },
+    {
+      "symbol": "PC",
+      "name": "Lecithin"
+    },
+    {
+      "symbol": "Fib",
+      "name": "Fiber"
+    },
+    {
+      "symbol": "Ca",
+      "name": "Calcium"
+    },
+    {
+      "symbol": "K",
+      "name": "Potassium"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA, Russia, Germany, Japan",
     "shippingWeight": "",

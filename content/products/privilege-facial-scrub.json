@@ -18,6 +18,12 @@
     "/images/products/goqzq4n5v259ejmg41ur3rnbcbojlid9 1.png"
   ],
   "howToUse": "Apply to damp skin, massage gently for 30–60 seconds avoiding the eye area, then rinse.",
+  "elements": [
+    {
+      "symbol": "Cof",
+      "name": "Coffee"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",

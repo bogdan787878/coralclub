@@ -18,6 +18,16 @@
     "/images/products/h0i19ii9cmsivn9nzcfl4q90i75ikrkd 1.png"
   ],
   "howToUse": "Apply a few drops to clean skin morning and evening, before moisturiser.",
+  "elements": [
+    {
+      "symbol": "Pep",
+      "name": "Peptides"
+    },
+    {
+      "symbol": "HA",
+      "name": "Hyaluronic"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",

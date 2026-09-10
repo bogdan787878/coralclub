@@ -17,6 +17,16 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "In the evening, roll the microneedle applicator over the target area, then press in the serum.",
+  "elements": [
+    {
+      "symbol": "Bak",
+      "name": "Bakuchiol"
+    },
+    {
+      "symbol": "Pep",
+      "name": "Peptides"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "South Korea",
     "shippingWeight": "",

@@ -17,6 +17,16 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule once a day with food, as a dietary supplement.",
+  "elements": [
+    {
+      "symbol": "Prb",
+      "name": "Probiotics"
+    },
+    {
+      "symbol": "Inu",
+      "name": "Inulin"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",
