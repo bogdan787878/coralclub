@@ -80,19 +80,16 @@
   );
 }
 
-/* children in order: category → name → description → disclaimer */
+/* children: category → name → description → [key elements] → disclaimer */
 .headGroup {
   display: flex;
   flex-direction: column;
 }
-.headGroup > :nth-child(2) {
-  margin-top: var(--space-8); /* category → name */
+.headGroup > * + * {
+  margin-top: var(--space-16);
 }
-.headGroup > :nth-child(3) {
-  margin-top: var(--space-16); /* name → description */
-}
-.headGroup > :nth-child(4) {
-  margin-top: var(--space-8); /* description → disclaimer */
+.headGroup > .name {
+  margin-top: var(--space-8); /* category → name, tighter */
 }
 
 /* category tag above the title — plain bold accent text, like the carousel */

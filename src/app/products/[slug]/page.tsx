@@ -82,16 +82,15 @@ export default async function ProductPage({
                 </span>
                 <Heading className={styles.name}>{product.name}</Heading>
                 <BodyLong>{product.description}</BodyLong>
+                {product.elements.length > 0 && (
+                  <PeriodicElements items={product.elements} />
+                )}
                 <p className={styles.disclaimer}>
                   This statement has not been evaluated by the Food and Drug
                   Administration. This product is not intended to diagnose,
                   treat, cure, or prevent any disease.
                 </p>
               </div>
-
-              {product.elements.length > 0 && (
-                <PeriodicElements items={product.elements} />
-              )}
 
               <InfoAccordion
                 items={[

@@ -4,14 +4,13 @@
   gap: var(--space-12);
 }
 
+/* matches the InfoAccordion row title ("How to Use") */
 .heading {
   font-family: var(--font-sans);
-  font-size: 0.875rem; /* 14 */
-  line-height: 1rem;
+  font-size: var(--text-button-size); /* 16 */
+  line-height: var(--text-button-line); /* 24 */
   font-weight: var(--font-weight-medium);
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   margin: 0;
 }
 

@@ -15,7 +15,7 @@ export type PeriodicElementsProps = {
  */
 export function PeriodicElements({
   items,
-  heading = "Key elements",
+  heading = "Key Elements",
 }: PeriodicElementsProps) {
   if (!items.length) return null;
 
