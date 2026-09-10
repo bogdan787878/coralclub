@@ -40,6 +40,8 @@ export type { PeriodicElementsProps } from "./PeriodicElements";
 export { DietaryBadges } from "./DietaryBadges";
 export type { DietaryBadgesProps } from "./DietaryBadges";
 
+export { SiteFooter } from "./SiteFooter";
+
 export { Editorial } from "./Editorial";
 export type { EditorialProps, EditorialImage } from "./Editorial";
 

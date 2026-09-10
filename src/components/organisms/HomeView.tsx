@@ -16,6 +16,7 @@ import { Editorial } from "./Editorial";
 import { HeroCarousel } from "./HeroCarousel";
 import { PhasesSection } from "./PhasesSection";
 import { SeriesShowcase } from "./SeriesShowcase";
+import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
 import styles from "./HomeView.module.css";
 
@@ -127,6 +128,8 @@ function HomeContent({
 
         <Reels content={c.reels} />
       </div>
+
+      <SiteFooter />
 
       <CartBar />
     </main>
