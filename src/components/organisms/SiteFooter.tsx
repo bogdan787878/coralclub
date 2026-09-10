@@ -12,11 +12,6 @@ export function SiteFooter() {
   return (
     <Section as="footer" tone="primary" className={styles.footer}>
       <Container>
-        <address className={styles.address}>
-          5260 W Sunset Rd, Las Vegas, Nevada 89118
-          <span className={styles.muted}> · Closed until 09:00</span>
-        </address>
-
         <div className={styles.grid}>
           <div className={styles.col}>
             <div className={styles.group}>
@@ -33,6 +28,12 @@ export function SiteFooter() {
               >
                 support.us@coral-club.com
               </a>
+            </div>
+            <div className={styles.group}>
+              <p className={styles.label}>Address</p>
+              <address className={styles.addr}>
+                5260 W Sunset Rd, Las Vegas, Nevada 89118
+              </address>
             </div>
           </div>
 
