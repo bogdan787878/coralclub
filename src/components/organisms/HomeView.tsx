@@ -120,6 +120,7 @@ function HomeContent({
               image={s.image}
               badge={badgeNode(s.badge)}
               body={paras(s.body)}
+              shape={s.shape}
             />
           );
         })}

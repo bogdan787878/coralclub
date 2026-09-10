@@ -19,9 +19,11 @@ export type HeroContent = {
 export type EditorialItem = {
   kind: "editorial";
   title: { lead: string; accent: string };
-  image: { src: string; alt: string };
+  image: { src: string; alt: string; tint?: string };
   body: string[];
   badge?: { flag: string; text: string };
+  /** "band" (default full-bleed strip) or "petal" (clover-clipped, in-column). */
+  shape?: "band" | "petal";
 };
 
 export type SeriesItem = { kind: "series"; id: string };
@@ -126,10 +128,12 @@ const RESTART: HomePhase = {
   sections: [
     {
       kind: "editorial",
+      shape: "petal",
       title: { lead: "A Detox Is a Burst.", accent: "A Reset Is a Sequence." },
       image: {
         src: `${asset("/images/restart-detox-vs-reset.png")}?v=1`,
         alt: "Coral Detox Plus, ParaShield and Colo-Vada in sequence",
+        tint: "var(--color-primary-30)",
       },
       badge: { flag: "↺", text: "≈ 3 months · 3 steps" },
       body: [
