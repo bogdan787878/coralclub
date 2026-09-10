@@ -89,7 +89,7 @@ const HYDRATION: HomePhase = {
         accent: "where people live to 100",
       },
       image: {
-        src: `${asset("/images/minerals-japan.png")}?v=2`,
+        src: `${asset("/images/minerals-japan.png")}?v=3`,
         alt: "Sango fossil coral off the coast of Okinawa",
         width: 1324,
         height: 1324,
