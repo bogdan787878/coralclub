@@ -8,8 +8,9 @@ type Tone = "default" | "surface" | "primary";
 export type EditorialImage = {
   src: string;
   alt: string;
-  /** object-position for the cover crop. */
-  position?: string;
+  /** Intrinsic pixel size — the block shows the whole image at this ratio. */
+  width: number;
+  height: number;
 };
 
 export type EditorialProps = {
@@ -24,7 +25,7 @@ export type EditorialProps = {
 
 /**
  * Editorial — a statement block: heading (sans + Newton-italic accent),
- * a full-bleed square image and supporting body copy.
+ * a full-width image (shown whole, its own aspect) and supporting body copy.
  */
 export function Editorial({
   title,
@@ -40,15 +41,12 @@ export function Editorial({
           <div className={styles.media}>
             {image.src ? (
               <Image
+                className={styles.mediaImg}
                 src={image.src}
                 alt={image.alt}
-                fill
-                sizes="(max-width: 480px) 100vw, 480px"
-                style={
-                  image.position
-                    ? { objectPosition: image.position }
-                    : undefined
-                }
+                width={image.width}
+                height={image.height}
+                sizes="(max-width: 480px) calc(100vw - 32px), 448px"
               />
             ) : (
               <span className={styles.placeholder} aria-hidden="true" />

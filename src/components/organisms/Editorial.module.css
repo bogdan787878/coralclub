@@ -16,23 +16,19 @@
 
 .media {
   position: relative;
-  overflow: hidden;
   width: 100%; /* inside the column — respects the side padding */
 }
-/* square box — % padding resolves against the element's width */
-.media::before {
-  content: "";
-  display: block;
-  padding-top: 100%;
-}
 
-.media :global(img) {
-  object-fit: cover;
+.mediaImg {
+  display: block;
+  width: 100%;
+  height: auto; /* whole image, its own aspect — no crop */
 }
 
 .placeholder {
-  position: absolute;
-  inset: 0;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   background: linear-gradient(
     135deg,
     var(--color-primary-10),

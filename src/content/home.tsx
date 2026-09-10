@@ -19,7 +19,7 @@ export type HeroContent = {
 export type EditorialItem = {
   kind: "editorial";
   title: { lead: string; accent: string };
-  image: { src: string; alt: string };
+  image: { src: string; alt: string; width: number; height: number };
   body: string[];
   /** Tag over the image. `flag` is an optional leading emoji, "" for none. */
   badge?: { flag: string; text: string };
@@ -72,6 +72,8 @@ const HYDRATION: HomePhase = {
       image: {
         src: `${asset("/images/you-are-90-water.png")}?v=3`,
         alt: "Woman drinking a glass of water",
+        width: 1363,
+        height: 1203,
       },
       badge: { flag: "", text: "90% water" },
       body: [
@@ -89,6 +91,8 @@ const HYDRATION: HomePhase = {
       image: {
         src: `${asset("/images/minerals-japan.png")}?v=2`,
         alt: "Sango fossil coral off the coast of Okinawa",
+        width: 1324,
+        height: 1324,
       },
       badge: { flag: "🇯🇵", text: "Okinawa, Japan" },
       body: [
@@ -132,6 +136,8 @@ const RESTART: HomePhase = {
       image: {
         src: `${asset("/images/restart-detox-vs-reset.png")}?v=2`,
         alt: "Coral Detox Plus, ParaShield and Colo-Vada in sequence",
+        width: 1372,
+        height: 1369,
       },
       badge: { flag: "", text: "3 months · 3 steps" },
       body: [
@@ -145,6 +151,8 @@ const RESTART: HomePhase = {
       image: {
         src: `${asset("/images/body-rebuilds-layers.png")}?v=2`,
         alt: "Water, then load, then targeted work — the layers of the routine",
+        width: 1360,
+        height: 1395,
       },
       badge: { flag: "", text: "Layer by layer" },
       body: [
