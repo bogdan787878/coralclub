@@ -3,11 +3,11 @@
   flex-direction: column;
   gap: var(--gap-base);
 }
-/* petal variant sits tighter — image, one-line heading, body close together */
-.petalInner {
+/* cutout variant sits tighter — image, one-line heading, body close together */
+.cutoutInner {
   gap: var(--space-16);
 }
-.petalInner .title {
+.cutoutInner .title {
   text-wrap: pretty;
 }
 
@@ -34,46 +34,25 @@
   object-fit: cover;
 }
 
-/* ---------- petal variant: clover-clipped image + blob, inside the column ---------- */
-.petalDefs {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-}
-
-.petal {
+/* ---------- cutout variant: pre-shaped transparent image, in the column ---------- */
+.cutout {
   position: relative;
   width: 100%; /* respects the column's side padding — not full-bleed */
 }
-.petal::before {
+.cutout::before {
   content: "";
   display: block;
-  padding-top: 100%; /* square box; clover fits inside it */
+  padding-top: 100%; /* square box; the image fits inside it */
 }
 
-.petalBlob,
-.petalImg {
+.cutoutImg {
   position: absolute;
   inset: 0;
-  clip-path: url(#editorialPetal);
-  -webkit-clip-path: url(#editorialPetal);
+  object-fit: contain; /* show the whole cutout, don't crop */
 }
 
-/* blob: same shape, nudged up-left + a touch larger so a soft halo of it
-   shows around the photo (mostly top-left) */
-.petalBlob {
-  background: var(--petal-tint, var(--color-primary-50));
-  transform: translate(-2%, -2.5%) scale(1.03);
-  transform-origin: 55% 60%;
-}
-
-.petalImg {
-  object-fit: cover;
-}
-
-/* solid navy pill, bottom-left, overlapping the shape edge */
-.petalBadge {
+/* solid navy pill, bottom-left, overlapping the image */
+.cutoutBadge {
   position: absolute;
   left: 0;
   bottom: var(--space-24);
