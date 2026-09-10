@@ -4,7 +4,7 @@ on:
     branches: [main]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 concurrency:
@@ -13,6 +13,11 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # Empty when the repo secrets aren't set yet — the sync step is skipped
+      # and the build falls back to the committed manifest / local images.
+      CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+      CF_IMAGES_TOKEN: ${{ secrets.CF_IMAGES_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -20,9 +25,27 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+
+      - name: Sync images to Cloudflare Images
+        if: ${{ env.CF_IMAGES_TOKEN != '' }}
+        run: npm run images:sync
+
       - run: npm run build
         env:
           GITHUB_PAGES: "true"
+
+      - name: Persist refreshed image manifest
+        if: ${{ env.CF_IMAGES_TOKEN != '' }}
+        continue-on-error: true
+        run: |
+          if ! git diff --quiet -- src/lib/image-manifest.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add src/lib/image-manifest.json
+            git commit -m "images: sync manifest [skip ci]"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
+
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
