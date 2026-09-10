@@ -15,8 +15,6 @@
   position: relative;
   overflow: hidden;
   aspect-ratio: 1 / 1;
-  /* inner padding so the packshot doesn't touch the frame edges */
-  padding: var(--space-48);
   background: var(--color-primary-30);
   /* full-bleed to the screen edges, flush to the top (no header) */
   margin-inline: calc(-1 * var(--page-padding-inline));
@@ -61,7 +59,7 @@
   transform: scale(0.94);
 }
 
-/* the fill image respects the frame padding via this inner box */
+/* holds the fill image at the full size of the frame */
 .mediaInner {
   position: relative;
   width: 100%;
