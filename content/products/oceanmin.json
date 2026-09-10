@@ -22,6 +22,24 @@
     "/images/products/4-2.png"
   ],
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+  "elements": [
+    {
+      "symbol": "Mg",
+      "name": "Magnesium"
+    },
+    {
+      "symbol": "K",
+      "name": "Potassium"
+    },
+    {
+      "symbol": "Na",
+      "name": "Sodium"
+    },
+    {
+      "symbol": "Ca",
+      "name": "Calcium"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",

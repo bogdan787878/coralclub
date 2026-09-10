@@ -20,6 +20,20 @@
     "/images/products/2-5.png"
   ],
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+  "elements": [
+    {
+      "symbol": "K",
+      "name": "Potassium"
+    },
+    {
+      "symbol": "Mg",
+      "name": "Magnesium"
+    },
+    {
+      "symbol": "C",
+      "name": "Vitamin C"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",

@@ -832,12 +832,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "clubPrice": "$21",
     "description": "Coral-Mine is a naturally derived mineral product sourced from deep-sea coral formations in the Sea of Japan near the Okinawa and Tokunoshima islands. Its unique mineral composition helps enrich water and supports hydration, normal mineral balance, and overall well-being.",
     "carouselImages": [
-      "/images/products/1.png"
+      "/images/products/1-4.png"
     ],
     "pdpImages": [
-      "/images/products/2.png",
-      "/images/products/3.png",
-      "/images/products/4.png"
+      "/images/products/2-4.png",
+      "/images/products/3-3.png",
+      "/images/products/4-3.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
@@ -1887,13 +1887,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "clubPrice": "$19",
     "description": "A deep-sea mineral concentrate in ionic form — magnesium-dominant, drawn from 662 m down in the Pacific. Steady energy and balance for every day.",
     "carouselImages": [
-      "/images/products/xs-1.png"
+      "/images/products/xs-2.png"
     ],
     "pdpImages": [
-      "/images/products/1-2.png",
-      "/images/products/2-2.png",
-      "/images/products/3-1.png",
-      "/images/products/4-1.png"
+      "/images/products/1-3.png",
+      "/images/products/2-3.png",
+      "/images/products/3-2.png",
+      "/images/products/4-2.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
@@ -2107,11 +2107,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "clubPrice": "$13",
     "description": "A soluble potassium and magnesium drink that supports heart rhythm, muscle function and healthy blood pressure — part of the daily hydration layer.",
     "carouselImages": [
-      "/images/products/xs.png"
+      "/images/products/xs-3.png"
     ],
     "pdpImages": [
-      "/images/products/1-1.png",
-      "/images/products/2-1.png"
+      "/images/products/1-5.png",
+      "/images/products/2-5.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
