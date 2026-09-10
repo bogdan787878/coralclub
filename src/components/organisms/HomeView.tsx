@@ -49,7 +49,8 @@ const paras = (body: string[]) => (
 const badgeNode = (b: EditorialItem["badge"]) =>
   b ? (
     <>
-      <span aria-hidden="true">{b.flag}</span> {b.text}
+      {b.flag ? <span aria-hidden="true">{b.flag} </span> : null}
+      {b.text}
     </>
   ) : undefined;
 

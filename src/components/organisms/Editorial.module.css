@@ -3,6 +3,13 @@
   flex-direction: column;
   gap: var(--gap-base);
 }
+/* petal variant sits tighter — image, one-line heading, body close together */
+.petalInner {
+  gap: var(--space-16);
+}
+.petalInner .title {
+  text-wrap: pretty;
+}
 
 .title {
   font-family: var(--font-sans);
@@ -53,42 +60,36 @@
   -webkit-clip-path: url(#editorialPetal);
 }
 
-/* pastel blob, rotated so its lobes peek out from behind the photo clover */
+/* blob: same shape, nudged up-left + a touch larger so a soft halo of it
+   shows around the photo (mostly top-left) */
 .petalBlob {
-  background: var(--petal-tint, var(--color-primary-30));
-  transform: rotate(10deg);
+  background: var(--petal-tint, var(--color-primary-50));
+  transform: translate(-2%, -2.5%) scale(1.03);
+  transform-origin: 55% 60%;
 }
 
 .petalImg {
   object-fit: cover;
 }
 
+/* solid navy pill, bottom-left, overlapping the shape edge */
 .petalBadge {
   position: absolute;
-  top: var(--space-24);
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  bottom: var(--space-24);
   z-index: 2;
   display: inline-flex;
   align-items: center;
   gap: var(--space-8);
-  padding: var(--space-8) var(--space-12);
+  padding: var(--space-8) var(--space-16);
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(1, 17, 48, 0.4);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: var(--color-primary-100);
   color: #ffffff;
   font-family: var(--font-sans);
   font-size: 0.875rem;
-  line-height: 1;
+  line-height: 1.25rem;
   font-weight: var(--font-weight-medium);
   white-space: nowrap;
-}
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .petalBadge {
-    background: rgba(1, 17, 48, 0.6);
-  }
 }
 
 .placeholder {

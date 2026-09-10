@@ -133,12 +133,11 @@ const RESTART: HomePhase = {
       image: {
         src: `${asset("/images/restart-detox-vs-reset.png")}?v=1`,
         alt: "Coral Detox Plus, ParaShield and Colo-Vada in sequence",
-        tint: "var(--color-primary-30)",
+        tint: "var(--color-primary-50)",
       },
-      badge: { flag: "↺", text: "≈ 3 months · 3 steps" },
+      badge: { flag: "", text: "3 months · 3 steps" },
       body: [
-        "Most cleanses are a few days of effort and a swing back to where you started.",
-        "Restart is the opposite. Coral Detox Plus opens the phase gently, ParaShield does the targeted middle work, Colo-Vada is the deep finish — one sequence of increasing depth, each step resting on the one before it.",
+        "Water first. Then the internal load comes down. Only then the targeted, personal work. Restart is the middle layer — and the Hydrostack you built in phase one keeps running underneath it the whole time.",
       ],
     },
     {
