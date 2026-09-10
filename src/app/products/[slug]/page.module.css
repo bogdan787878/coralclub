@@ -87,7 +87,7 @@
   );
 }
 
-/* children: category → name → description → [key elements] → disclaimer */
+/* children: category → name → description → [badges] → [key elements] → disclaimer */
 .headGroup {
   display: flex;
   flex-direction: column;
@@ -97,6 +97,11 @@
 }
 .headGroup > .name {
   margin-top: var(--space-8); /* category → name, tighter */
+}
+/* the badge row / Key Elements module sit a bit further from the text */
+.headGroup > ul,
+.headGroup > section {
+  margin-top: var(--space-24);
 }
 
 /* category tag above the title — plain bold accent text, like the carousel */
