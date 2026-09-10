@@ -47,10 +47,10 @@
   flex: 0 0 100%;
   scroll-snap-align: start;
 }
-/* packshot fills the tile edge to edge */
+/* full-bleed width; vertical inset keeps the whole packshot inside the tile */
 .frame {
   position: absolute;
-  inset: 0;
+  inset: var(--space-16) 0;
 }
 .frame :global(img) {
   object-fit: contain;
