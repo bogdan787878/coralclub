@@ -21,9 +21,8 @@ export type EditorialItem = {
   title: { lead: string; accent: string };
   image: { src: string; alt: string };
   body: string[];
+  /** Tag over the image. `flag` is an optional leading emoji, "" for none. */
   badge?: { flag: string; text: string };
-  /** "band" (default full-bleed strip) or "cutout" (pre-shaped image, in-column). */
-  shape?: "band" | "cutout";
 };
 
 export type SeriesItem = { kind: "series"; id: string };
@@ -74,6 +73,7 @@ const HYDRATION: HomePhase = {
         src: `${asset("/images/you-are-90-water.png")}?v=2`,
         alt: "Woman drinking a glass of water",
       },
+      badge: { flag: "", text: "90% water" },
       body: [
         "Most supplements skip the first step of your routine: the water you drink every day.",
         "You can take the best supplements, but if you're dehydrated, your body doesn't actually use them. That's why Coral Club starts with what matters first: the water you drink daily. Everything else builds on top of that.",
@@ -87,7 +87,7 @@ const HYDRATION: HomePhase = {
         accent: "where people live to 100",
       },
       image: {
-        src: `${asset("/images/minerals-japan.png")}?v=1`,
+        src: `${asset("/images/minerals-japan.png")}?v=2`,
         alt: "Sango fossil coral off the coast of Okinawa",
       },
       badge: { flag: "🇯🇵", text: "Okinawa, Japan" },
@@ -128,15 +128,15 @@ const RESTART: HomePhase = {
   sections: [
     {
       kind: "editorial",
-      shape: "cutout",
       title: { lead: "A Detox Is a Burst.", accent: "A Reset Is a Sequence." },
       image: {
-        src: `${asset("/images/restart-detox-vs-reset.png")}?v=1`,
+        src: `${asset("/images/restart-detox-vs-reset.png")}?v=2`,
         alt: "Coral Detox Plus, ParaShield and Colo-Vada in sequence",
       },
       badge: { flag: "", text: "3 months · 3 steps" },
       body: [
-        "Water first. Then the internal load comes down. Only then the targeted, personal work. Restart is the middle layer — and the Hydrostack you built in phase one keeps running underneath it the whole time.",
+        "Most cleanses are a few days of effort and a swing back to where you started.",
+        "Restart is the opposite. Coral Detox Plus opens the phase gently, ParaShield does the targeted middle work, Colo-Vada is the deep finish — one sequence of increasing depth, each step resting on the one before it.",
       ],
     },
     {
@@ -146,6 +146,7 @@ const RESTART: HomePhase = {
         src: `${asset("/images/body-rebuilds-layers.png")}?v=1`,
         alt: "Water, then load, then targeted work — the layers of the routine",
       },
+      badge: { flag: "", text: "Layer by layer" },
       body: [
         "Water first. Then the internal load comes down. Only then the targeted, personal work.",
         "Restart is the middle layer — and the Hydrostack you built in phase one keeps running underneath it the whole time.",

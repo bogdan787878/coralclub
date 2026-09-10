@@ -3,13 +3,6 @@
   flex-direction: column;
   gap: var(--gap-base);
 }
-/* cutout variant sits tighter — image, one-line heading, body close together */
-.cutoutInner {
-  gap: var(--space-16);
-}
-.cutoutInner .title {
-  text-wrap: pretty;
-}
 
 .title {
   font-family: var(--font-sans);
@@ -24,38 +17,36 @@
 .media {
   position: relative;
   overflow: hidden;
-  height: 264px;
   background: var(--color-primary-30);
   /* full-bleed to the column edges, no rounded corners */
   margin-inline: calc(-1 * var(--page-padding-inline));
+}
+/* square box — % padding resolves against the real (post-margin) width */
+.media::before {
+  content: "";
+  display: block;
+  padding-top: 100%;
 }
 
 .media :global(img) {
   object-fit: cover;
 }
 
-/* ---------- cutout variant: pre-shaped transparent image, in the column ---------- */
-.cutout {
-  position: relative;
-  width: 100%; /* respects the column's side padding — not full-bleed */
-}
-.cutout::before {
-  content: "";
-  display: block;
-  padding-top: 100%; /* square box; the image fits inside it */
-}
-
-.cutoutImg {
+.placeholder {
   position: absolute;
   inset: 0;
-  object-fit: contain; /* show the whole cutout, don't crop */
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-10),
+    var(--color-primary-30)
+  );
 }
 
-/* solid navy pill, bottom-left, overlapping the image */
-.cutoutBadge {
+/* solid navy tag, bottom-left, slight tilt */
+.badge {
   position: absolute;
-  left: 0;
-  bottom: var(--space-24);
+  left: var(--page-padding-inline);
+  bottom: var(--space-16);
   z-index: 2;
   display: inline-flex;
   align-items: center;
@@ -69,43 +60,7 @@
   line-height: 1.25rem;
   font-weight: var(--font-weight-medium);
   white-space: nowrap;
-}
-
-.placeholder {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    var(--color-primary-10),
-    var(--color-primary-30)
-  );
-}
-
-/* frosted tag in the image's top-left corner */
-.badge {
-  position: absolute;
-  top: var(--space-12);
-  left: var(--space-12);
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-8);
-  padding: var(--space-8) var(--space-12);
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(1, 17, 48, 0.4);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #ffffff;
-  font-family: var(--font-sans);
-  font-size: 0.875rem;
-  line-height: 1;
-  font-weight: var(--font-weight-medium);
-}
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .badge {
-    background: rgba(1, 17, 48, 0.6);
-  }
+  transform: rotate(-2deg);
 }
 
 .body {
