@@ -17,6 +17,24 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 bottle (50 ml) a day with food. Course: 10-30 days, repeated if needed.",
+  "elements": [
+    {
+      "symbol": "C",
+      "name": "Vitamin C"
+    },
+    {
+      "symbol": "B2",
+      "name": "Vitamin B2"
+    },
+    {
+      "symbol": "B6",
+      "name": "Vitamin B6"
+    },
+    {
+      "symbol": "B7",
+      "name": "Biotin"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Taiwan",
     "shippingWeight": "",

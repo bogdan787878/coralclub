@@ -17,6 +17,12 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 pastille a day with food. Course: 1 month, repeated if needed.",
+  "elements": [
+    {
+      "symbol": "D3",
+      "name": "Vitamin D"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Norway",
     "shippingWeight": "",

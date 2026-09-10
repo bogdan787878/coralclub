@@ -19,6 +19,24 @@
     "/images/products/image7.png"
   ],
   "howToUse": "Read the instructions inside the package before use. Program duration — 30 days.",
+  "elements": [
+    {
+      "symbol": "Ca",
+      "name": "Calcium"
+    },
+    {
+      "symbol": "Mg",
+      "name": "Magnesium"
+    },
+    {
+      "symbol": "K",
+      "name": "Potassium"
+    },
+    {
+      "symbol": "Na",
+      "name": "Sodium"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Japan, USA, Taiwan, Germany",
     "shippingWeight": "",

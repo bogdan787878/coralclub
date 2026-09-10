@@ -17,6 +17,16 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule twice a day with food.",
+  "elements": [
+    {
+      "symbol": "Mn",
+      "name": "Manganese"
+    },
+    {
+      "symbol": "C",
+      "name": "Vitamin C"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

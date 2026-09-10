@@ -17,6 +17,24 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 bottle a day in the morning with food. Course: 30 days.",
+  "elements": [
+    {
+      "symbol": "C",
+      "name": "Vitamin C"
+    },
+    {
+      "symbol": "B2",
+      "name": "Vitamin B2"
+    },
+    {
+      "symbol": "B6",
+      "name": "Vitamin B6"
+    },
+    {
+      "symbol": "B7",
+      "name": "Biotin"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Taiwan",
     "shippingWeight": "",

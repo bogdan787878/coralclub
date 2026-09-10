@@ -17,6 +17,24 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule a day with food, morning or midday. Course: 1 month.",
+  "elements": [
+    {
+      "symbol": "B12",
+      "name": "Vitamin B12"
+    },
+    {
+      "symbol": "B6",
+      "name": "Vitamin B6"
+    },
+    {
+      "symbol": "B9",
+      "name": "Folate"
+    },
+    {
+      "symbol": "Zn",
+      "name": "Zinc"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Slovenia",
     "shippingWeight": "",

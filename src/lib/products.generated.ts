@@ -158,6 +158,32 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 stick sachet a day after food. Pour the contents straight into the mouth and let it dissolve before swallowing; no water needed.",
+    "elements": [
+      {
+        "symbol": "B2",
+        "name": "Vitamin B2"
+      },
+      {
+        "symbol": "B3",
+        "name": "Niacin"
+      },
+      {
+        "symbol": "B5",
+        "name": "Vitamin B5"
+      },
+      {
+        "symbol": "B6",
+        "name": "Vitamin B6"
+      },
+      {
+        "symbol": "B9",
+        "name": "Folate"
+      },
+      {
+        "symbol": "B12",
+        "name": "Vitamin B12"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Slovenia",
       "shippingWeight": "",
@@ -220,6 +246,20 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults and children over 14 – 2 capsules twice a day with food. Course: 1 month, repeated if needed.",
+    "elements": [
+      {
+        "symbol": "Ca",
+        "name": "Calcium"
+      },
+      {
+        "symbol": "Mg",
+        "name": "Magnesium"
+      },
+      {
+        "symbol": "D3",
+        "name": "Vitamin D"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Slovenia",
       "shippingWeight": "",
@@ -251,6 +291,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Read the instructions inside the pack before use. Course: 60 days.",
+    "elements": [
+      {
+        "symbol": "K",
+        "name": "Potassium"
+      },
+      {
+        "symbol": "Mg",
+        "name": "Magnesium"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Germany, USA",
       "shippingWeight": "",
@@ -880,6 +930,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 spray (0.06 ml) once a day with food.",
+    "elements": [
+      {
+        "symbol": "D3",
+        "name": "Vitamin D"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Slovenia",
       "shippingWeight": "",
@@ -911,6 +967,32 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Take 25 g of powder (2 heaped scoops) a day, dissolved in 250 ml of low-fat (1.5%) milk.",
+    "elements": [
+      {
+        "symbol": "C",
+        "name": "Vitamin C"
+      },
+      {
+        "symbol": "E",
+        "name": "Vitamin E"
+      },
+      {
+        "symbol": "A",
+        "name": "Vitamin A"
+      },
+      {
+        "symbol": "B7",
+        "name": "Biotin"
+      },
+      {
+        "symbol": "Se",
+        "name": "Selenium"
+      },
+      {
+        "symbol": "Cu",
+        "name": "Copper"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Germany",
       "shippingWeight": "",
@@ -973,6 +1055,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 pastille a day with food. Course: 1 month, repeated if needed.",
+    "elements": [
+      {
+        "symbol": "D3",
+        "name": "Vitamin D"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Norway",
       "shippingWeight": "",
@@ -1004,6 +1092,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule once a day with food, in the second half of the day.",
+    "elements": [
+      {
+        "symbol": "Mg",
+        "name": "Magnesium"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1035,6 +1129,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1-2 sachets a day after food, dissolved in 100 ml of water.",
+    "elements": [
+      {
+        "symbol": "C",
+        "name": "Vitamin C"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "South Korea",
       "shippingWeight": "",
@@ -1066,6 +1166,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule twice a day with food.",
+    "elements": [
+      {
+        "symbol": "Mn",
+        "name": "Manganese"
+      },
+      {
+        "symbol": "C",
+        "name": "Vitamin C"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1164,6 +1274,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 63,
     "reviewsCount": 29,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+    "elements": [
+      {
+        "symbol": "K",
+        "name": "Potassium"
+      },
+      {
+        "symbol": "Mg",
+        "name": "Magnesium"
+      },
+      {
+        "symbol": "Na",
+        "name": "Sodium"
+      },
+      {
+        "symbol": "Si",
+        "name": "Silicon"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1197,6 +1325,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "/images/products/image7.png"
     ],
     "howToUse": "Read the instructions inside the package before use. Program duration — 30 days.",
+    "elements": [
+      {
+        "symbol": "Ca",
+        "name": "Calcium"
+      },
+      {
+        "symbol": "Mg",
+        "name": "Magnesium"
+      },
+      {
+        "symbol": "K",
+        "name": "Potassium"
+      },
+      {
+        "symbol": "Na",
+        "name": "Sodium"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Japan, USA, Taiwan, Germany",
       "shippingWeight": "",
@@ -1583,6 +1729,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule a day with food, morning or midday. Course: 1 month.",
+    "elements": [
+      {
+        "symbol": "B12",
+        "name": "Vitamin B12"
+      },
+      {
+        "symbol": "B6",
+        "name": "Vitamin B6"
+      },
+      {
+        "symbol": "B9",
+        "name": "Folate"
+      },
+      {
+        "symbol": "Zn",
+        "name": "Zinc"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Slovenia",
       "shippingWeight": "",
@@ -1645,6 +1809,20 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule a day with food. Course: 1 month, repeated if needed.",
+    "elements": [
+      {
+        "symbol": "S",
+        "name": "Sulfur"
+      },
+      {
+        "symbol": "C",
+        "name": "Vitamin C"
+      },
+      {
+        "symbol": "B7",
+        "name": "Biotin"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1676,6 +1854,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults and children over 14 – 1 capsule three times a day with food. Course: 1 month, repeated if needed.",
+    "elements": [
+      {
+        "symbol": "E",
+        "name": "Vitamin E"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Spain",
       "shippingWeight": "",
@@ -1699,18 +1883,18 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "225115",
-    "description": "A deep-sea mineral concentrate in ionic form — magnesium-dominant, drawn from 662 m down in the Pacific. Steady energy and balance for every day.",
     "price": "$23.75",
     "clubPrice": "$19",
+    "description": "A deep-sea mineral concentrate in ionic form — magnesium-dominant, drawn from 662 m down in the Pacific. Steady energy and balance for every day.",
     "carouselImages": [
-      "/images/products/oceanmin.png"
+      "/images/products/xs-1.png"
     ],
     "pdpImages": [
-      "/images/products/oceanmin.png"
+      "/images/products/1-2.png",
+      "/images/products/2-2.png",
+      "/images/products/3-1.png",
+      "/images/products/4-1.png"
     ],
-    "rating": 4.6,
-    "ratingsCount": 41,
-    "reviewsCount": 18,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
       {
@@ -1731,16 +1915,25 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       }
     ],
     "manufacturing": {
-      "countryOfOrigin": "Taiwan",
+      "countryOfOrigin": "",
       "shippingWeight": "",
       "expiration": "2 years from the date of manufacture",
       "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "test",
+            "amount": "test",
+            "dv": ""
+          }
+        ]
       }
-    }
+    },
+    "rating": 4.6,
+    "ratingsCount": 41,
+    "reviewsCount": 18
   },
   {
     "slug": "omega-3-60",
@@ -1925,6 +2118,14 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       {
         "symbol": "K",
         "name": "Potassium"
+      },
+      {
+        "symbol": "Mg",
+        "name": "Magnesium"
+      },
+      {
+        "symbol": "C",
+        "name": "Vitamin C"
       }
     ],
     "manufacturing": {
@@ -1998,6 +2199,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule twice a day with food.",
+    "elements": [
+      {
+        "symbol": "E",
+        "name": "Vitamin E"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Spain",
       "shippingWeight": "",
@@ -2029,6 +2236,32 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule once a day with food.",
+    "elements": [
+      {
+        "symbol": "D3",
+        "name": "Vitamin D"
+      },
+      {
+        "symbol": "B9",
+        "name": "Folate"
+      },
+      {
+        "symbol": "I",
+        "name": "Iodine"
+      },
+      {
+        "symbol": "Zn",
+        "name": "Zinc"
+      },
+      {
+        "symbol": "Se",
+        "name": "Selenium"
+      },
+      {
+        "symbol": "E",
+        "name": "Vitamin E"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Germany",
       "shippingWeight": "",
@@ -2245,6 +2478,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 bottle (50 ml) a day with food. Course: 10-30 days, repeated if needed.",
+    "elements": [
+      {
+        "symbol": "C",
+        "name": "Vitamin C"
+      },
+      {
+        "symbol": "B2",
+        "name": "Vitamin B2"
+      },
+      {
+        "symbol": "B6",
+        "name": "Vitamin B6"
+      },
+      {
+        "symbol": "B7",
+        "name": "Biotin"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
@@ -2276,6 +2527,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 bottle a day in the morning with food. Course: 30 days.",
+    "elements": [
+      {
+        "symbol": "C",
+        "name": "Vitamin C"
+      },
+      {
+        "symbol": "B2",
+        "name": "Vitamin B2"
+      },
+      {
+        "symbol": "B6",
+        "name": "Vitamin B6"
+      },
+      {
+        "symbol": "B7",
+        "name": "Biotin"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
@@ -2369,6 +2638,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Take 1 capsule a day with or straight after food.",
+    "elements": [
+      {
+        "symbol": "C",
+        "name": "Vitamin C"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -2400,6 +2675,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule a day with food. Course: 1 month.",
+    "elements": [
+      {
+        "symbol": "Zn",
+        "name": "Zinc"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Slovenia",
       "shippingWeight": "",
@@ -2435,6 +2716,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       {
         "symbol": "Se",
         "name": "Selenium"
+      },
+      {
+        "symbol": "C",
+        "name": "Vitamin C"
       }
     ],
     "manufacturing": {
@@ -2468,6 +2753,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule a day. Course: 1 month, repeated if needed.",
+    "elements": [
+      {
+        "symbol": "E",
+        "name": "Vitamin E"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Spain",
       "shippingWeight": "",
@@ -2499,6 +2790,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 stick sachet once a day during or after food, dissolved in 250 ml of warm water.",
+    "elements": [
+      {
+        "symbol": "C",
+        "name": "Vitamin C"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "South Korea",
       "shippingWeight": "",
@@ -2531,6 +2828,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 41,
     "reviewsCount": 17,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+    "elements": [
+      {
+        "symbol": "Fe",
+        "name": "Iron"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -2624,6 +2927,20 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "ratingsCount": 0,
     "reviewsCount": 0,
     "howToUse": "Adults – 1 capsule a day with food.",
+    "elements": [
+      {
+        "symbol": "E",
+        "name": "Vitamin E"
+      },
+      {
+        "symbol": "B2",
+        "name": "Vitamin B2"
+      },
+      {
+        "symbol": "Zn",
+        "name": "Zinc"
+      }
+    ],
     "manufacturing": {
       "countryOfOrigin": "Germany",
       "shippingWeight": "",

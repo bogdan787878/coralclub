@@ -17,6 +17,12 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule a day. Course: 1 month, repeated if needed.",
+  "elements": [
+    {
+      "symbol": "E",
+      "name": "Vitamin E"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Spain",
     "shippingWeight": "",

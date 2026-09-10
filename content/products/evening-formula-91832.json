@@ -17,6 +17,12 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule once a day with food, in the second half of the day.",
+  "elements": [
+    {
+      "symbol": "Mg",
+      "name": "Magnesium"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

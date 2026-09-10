@@ -17,6 +17,32 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 stick sachet a day after food. Pour the contents straight into the mouth and let it dissolve before swallowing; no water needed.",
+  "elements": [
+    {
+      "symbol": "B2",
+      "name": "Vitamin B2"
+    },
+    {
+      "symbol": "B3",
+      "name": "Niacin"
+    },
+    {
+      "symbol": "B5",
+      "name": "Vitamin B5"
+    },
+    {
+      "symbol": "B6",
+      "name": "Vitamin B6"
+    },
+    {
+      "symbol": "B9",
+      "name": "Folate"
+    },
+    {
+      "symbol": "B12",
+      "name": "Vitamin B12"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Slovenia",
     "shippingWeight": "",

@@ -17,6 +17,12 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 spray (0.06 ml) once a day with food.",
+  "elements": [
+    {
+      "symbol": "D3",
+      "name": "Vitamin D"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Slovenia",
     "shippingWeight": "",

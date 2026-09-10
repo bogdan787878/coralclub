@@ -17,6 +17,12 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule a day with food. Course: 1 month.",
+  "elements": [
+    {
+      "symbol": "Zn",
+      "name": "Zinc"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Slovenia",
     "shippingWeight": "",

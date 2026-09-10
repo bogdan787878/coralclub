@@ -17,6 +17,20 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule a day with food. Course: 1 month, repeated if needed.",
+  "elements": [
+    {
+      "symbol": "S",
+      "name": "Sulfur"
+    },
+    {
+      "symbol": "C",
+      "name": "Vitamin C"
+    },
+    {
+      "symbol": "B7",
+      "name": "Biotin"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

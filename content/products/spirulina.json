@@ -18,6 +18,12 @@
   "ratingsCount": 41,
   "reviewsCount": 17,
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+  "elements": [
+    {
+      "symbol": "Fe",
+      "name": "Iron"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",

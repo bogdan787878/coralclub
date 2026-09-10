@@ -17,6 +17,20 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults and children over 14 – 2 capsules twice a day with food. Course: 1 month, repeated if needed.",
+  "elements": [
+    {
+      "symbol": "Ca",
+      "name": "Calcium"
+    },
+    {
+      "symbol": "Mg",
+      "name": "Magnesium"
+    },
+    {
+      "symbol": "D3",
+      "name": "Vitamin D"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Slovenia",
     "shippingWeight": "",

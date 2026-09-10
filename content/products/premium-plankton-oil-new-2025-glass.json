@@ -17,6 +17,12 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule twice a day with food.",
+  "elements": [
+    {
+      "symbol": "E",
+      "name": "Vitamin E"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Spain",
     "shippingWeight": "",

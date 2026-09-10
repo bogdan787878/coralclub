@@ -17,6 +17,32 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 capsule once a day with food.",
+  "elements": [
+    {
+      "symbol": "D3",
+      "name": "Vitamin D"
+    },
+    {
+      "symbol": "B9",
+      "name": "Folate"
+    },
+    {
+      "symbol": "I",
+      "name": "Iodine"
+    },
+    {
+      "symbol": "Zn",
+      "name": "Zinc"
+    },
+    {
+      "symbol": "Se",
+      "name": "Selenium"
+    },
+    {
+      "symbol": "E",
+      "name": "Vitamin E"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Germany",
     "shippingWeight": "",

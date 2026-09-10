@@ -17,6 +17,16 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Read the instructions inside the pack before use. Course: 60 days.",
+  "elements": [
+    {
+      "symbol": "K",
+      "name": "Potassium"
+    },
+    {
+      "symbol": "Mg",
+      "name": "Magnesium"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Germany, USA",
     "shippingWeight": "",

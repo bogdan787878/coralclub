@@ -17,6 +17,32 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Take 25 g of powder (2 heaped scoops) a day, dissolved in 250 ml of low-fat (1.5%) milk.",
+  "elements": [
+    {
+      "symbol": "C",
+      "name": "Vitamin C"
+    },
+    {
+      "symbol": "E",
+      "name": "Vitamin E"
+    },
+    {
+      "symbol": "A",
+      "name": "Vitamin A"
+    },
+    {
+      "symbol": "B7",
+      "name": "Biotin"
+    },
+    {
+      "symbol": "Se",
+      "name": "Selenium"
+    },
+    {
+      "symbol": "Cu",
+      "name": "Copper"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Germany",
     "shippingWeight": "",

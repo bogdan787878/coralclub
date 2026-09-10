@@ -17,6 +17,12 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults and children over 14 – 1 capsule three times a day with food. Course: 1 month, repeated if needed.",
+  "elements": [
+    {
+      "symbol": "E",
+      "name": "Vitamin E"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "Spain",
     "shippingWeight": "",

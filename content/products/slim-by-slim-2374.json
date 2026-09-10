@@ -17,6 +17,12 @@
   "ratingsCount": 0,
   "reviewsCount": 0,
   "howToUse": "Adults – 1 stick sachet once a day during or after food, dissolved in 250 ml of warm water.",
+  "elements": [
+    {
+      "symbol": "C",
+      "name": "Vitamin C"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "South Korea",
     "shippingWeight": "",

@@ -22,6 +22,24 @@
   "ratingsCount": 63,
   "reviewsCount": 29,
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+  "elements": [
+    {
+      "symbol": "K",
+      "name": "Potassium"
+    },
+    {
+      "symbol": "Mg",
+      "name": "Magnesium"
+    },
+    {
+      "symbol": "Na",
+      "name": "Sodium"
+    },
+    {
+      "symbol": "Si",
+      "name": "Silicon"
+    }
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",
