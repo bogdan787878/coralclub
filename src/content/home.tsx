@@ -127,7 +127,10 @@ const RESTART: HomePhase = {
     {
       kind: "editorial",
       title: { lead: "A Detox Is a Burst.", accent: "A Reset Is a Sequence." },
-      image: { src: "", alt: "Coral Detox Plus, ParaShield and Colo-Vada in sequence" },
+      image: {
+        src: `${asset("/images/restart-detox-vs-reset.png")}?v=1`,
+        alt: "Coral Detox Plus, ParaShield and Colo-Vada in sequence",
+      },
       badge: { flag: "↺", text: "≈ 3 months · 3 steps" },
       body: [
         "Most cleanses are a few days of effort and a swing back to where you started.",
