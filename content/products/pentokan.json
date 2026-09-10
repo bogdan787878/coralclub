@@ -13,27 +13,13 @@
   "clubPrice": "$13",
   "description": "A soluble potassium and magnesium drink that supports heart rhythm, muscle function and healthy blood pressure — part of the daily hydration layer.",
   "carouselImages": [
-    "/images/products/xs.png"
+    "/images/products/xs-3.png"
   ],
   "pdpImages": [
-    "/images/products/1-1.png",
-    "/images/products/2-1.png"
+    "/images/products/1-5.png",
+    "/images/products/2-5.png"
   ],
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
-  "elements": [
-    {
-      "symbol": "K",
-      "name": "Potassium"
-    },
-    {
-      "symbol": "Mg",
-      "name": "Magnesium"
-    },
-    {
-      "symbol": "C",
-      "name": "Vitamin C"
-    }
-  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",
