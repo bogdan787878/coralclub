@@ -70,7 +70,7 @@ const HYDRATION: HomePhase = {
         accent: "Everything Else Depends On It.",
       },
       image: {
-        src: `${asset("/images/you-are-90-water.png")}?v=2`,
+        src: `${asset("/images/you-are-90-water.png")}?v=3`,
         alt: "Woman drinking a glass of water",
       },
       badge: { flag: "", text: "90% water" },
@@ -143,7 +143,7 @@ const RESTART: HomePhase = {
       kind: "editorial",
       title: { lead: "The Body Rebuilds", accent: "in Layers." },
       image: {
-        src: `${asset("/images/body-rebuilds-layers.png")}?v=1`,
+        src: `${asset("/images/body-rebuilds-layers.png")}?v=2`,
         alt: "Water, then load, then targeted work — the layers of the routine",
       },
       badge: { flag: "", text: "Layer by layer" },

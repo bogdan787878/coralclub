@@ -17,11 +17,9 @@
 .media {
   position: relative;
   overflow: hidden;
-  background: var(--color-primary-30);
-  /* full-bleed to the column edges, no rounded corners */
-  margin-inline: calc(-1 * var(--page-padding-inline));
+  width: 100%; /* inside the column — respects the side padding */
 }
-/* square box — % padding resolves against the real (post-margin) width */
+/* square box — % padding resolves against the element's width */
 .media::before {
   content: "";
   display: block;
@@ -45,7 +43,7 @@
 /* solid navy tag, bottom-left, slight tilt */
 .badge {
   position: absolute;
-  left: var(--page-padding-inline);
+  left: 0;
   bottom: var(--space-16);
   z-index: 2;
   display: inline-flex;
