@@ -15,8 +15,8 @@
   position: relative;
   overflow: hidden;
   aspect-ratio: 1 / 1;
-  /* full-bleed width, but keep the packshot's top/bottom inside the frame */
-  padding-block: var(--space-48);
+  /* inset so the whole packshot stays inside the frame on every side */
+  padding: var(--space-48);
   background: var(--color-primary-30);
   /* full-bleed to the screen edges, flush to the top (no header) */
   margin-inline: calc(-1 * var(--page-padding-inline));
