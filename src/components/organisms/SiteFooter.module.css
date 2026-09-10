@@ -70,16 +70,16 @@
   color: var(--color-text-on-primary-muted);
 }
 
-/* the "art of being healthy" line */
+/* the "art of being healthy" line — sits at the top of the footer */
 .line {
   display: block;
   width: 100%;
   height: auto;
-  margin-top: var(--space-40);
+  margin-bottom: var(--space-32);
 }
 
 .copyright {
-  margin: var(--space-20) 0 0;
+  margin: var(--space-32) 0 0;
   text-align: center;
   font-family: var(--font-sans);
   font-size: 0.75rem;

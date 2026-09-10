@@ -125,7 +125,7 @@ const RESTART: HomePhase = {
     ],
     cta: { label: "Start the reset", href: "/quiz" },
     image: {
-      src: `${asset("/images/hero-restart.png")}?v=2`,
+      src: `${asset("/images/hero-restart.png")}?v=3`,
       alt: "Coral Detox Plus, ParaShield and Colo-Vada boxes on studio podiums",
     },
   },
