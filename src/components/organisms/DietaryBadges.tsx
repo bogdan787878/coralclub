@@ -19,41 +19,35 @@ const BADGES: Record<string, { icon: string; label: string }> = {
 export type DietaryBadgesProps = {
   /** Badge slugs, in order. */
   items: string[];
-  heading?: string;
 };
 
 /**
  * DietaryBadges — a row of dietary / manufacturing badges (gluten-free,
- * soy-free, capsule type, halal…) with the coralclub.us icons. Sits under
- * Key Elements on the PDP. Renders nothing when there are no known badges.
+ * soy-free, capsule type, halal…) with the coralclub.us icons, recoloured
+ * to navy. Sits under Key Elements on the PDP. Renders nothing when there
+ * are no known badges.
  */
-export function DietaryBadges({
-  items,
-  heading = "Good to know",
-}: DietaryBadgesProps) {
+export function DietaryBadges({ items }: DietaryBadgesProps) {
   const badges = items
     .map((slug) => BADGES[slug])
     .filter((b): b is { icon: string; label: string } => Boolean(b));
   if (!badges.length) return null;
 
   return (
-    <section className={styles.wrap}>
-      <h3 className={styles.heading}>{heading}</h3>
-      <ul className={styles.list}>
-        {badges.map((b) => (
-          <li className={styles.badge} key={b.icon}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              className={styles.icon}
-              src={asset(`/images/badges/${b.icon}.svg`)}
-              alt=""
-              width={28}
-              height={28}
-            />
-            <span className={styles.label}>{b.label}</span>
-          </li>
-        ))}
-      </ul>
-    </section>
+    <ul className={styles.list}>
+      {badges.map((b) => (
+        <li className={styles.badge} key={b.icon}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className={styles.icon}
+            src={asset(`/images/badges/${b.icon}.svg`)}
+            alt=""
+            width={28}
+            height={28}
+          />
+          <span className={styles.label}>{b.label}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
