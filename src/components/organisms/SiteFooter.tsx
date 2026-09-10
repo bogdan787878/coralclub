@@ -6,7 +6,7 @@ const ext = { target: "_blank", rel: "noopener noreferrer" } as const;
 
 /**
  * SiteFooter — company contact block on navy, two columns, closing with the
- * "The Art of Being Healthy" line.
+ * "The Art of Being Healthy" line and a centred copyright.
  */
 export function SiteFooter() {
   return (
@@ -49,6 +49,15 @@ export function SiteFooter() {
               </p>
             </div>
             <div className={styles.group}>
+              <p className={styles.label}>Legal</p>
+              <a href="https://coralclub.us/faq/privacy/" className={styles.link} {...ext}>
+                Privacy policy
+              </a>
+              <a href="https://coralclub.us/faq/terms/" className={styles.link} {...ext}>
+                Terms and conditions
+              </a>
+            </div>
+            <div className={styles.group}>
               <p className={styles.label}>Messengers</p>
               <a href="https://wa.me/14372293572" className={styles.link} {...ext}>
                 WhatsApp
@@ -64,13 +73,6 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className={styles.legal}>
-          <span>1999 – 2026 © Coral Club. All rights reserved</span>
-          <a href="https://coralclub.us/faq/privacy/" {...ext}>
-            Legal Info
-          </a>
-        </div>
-
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className={styles.line}
@@ -79,6 +81,10 @@ export function SiteFooter() {
           width={375}
           height={193}
         />
+
+        <p className={styles.copyright}>
+          1999 – 2026 © Coral Club. All rights reserved
+        </p>
       </Container>
     </Section>
   );
