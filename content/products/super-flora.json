@@ -26,6 +26,13 @@
       "name": "Inulin"
     }
   ],
+  "dietaryBadges": [
+    "gluten-free",
+    "halal",
+    "plant-capsule",
+    "soy-free",
+    "vegetarian"
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

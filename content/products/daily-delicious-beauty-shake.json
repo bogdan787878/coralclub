@@ -42,6 +42,9 @@
       "name": "Copper"
     }
   ],
+  "dietaryBadges": [
+    "contains-lactose"
+  ],
   "manufacturing": {
     "countryOfOrigin": "Germany",
     "shippingWeight": "",

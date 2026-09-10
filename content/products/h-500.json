@@ -39,6 +39,11 @@
       "name": "Silicon"
     }
   ],
+  "dietaryBadges": [
+    "gluten-free",
+    "beef-gelatin",
+    "soy-free"
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

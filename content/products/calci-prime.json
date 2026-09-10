@@ -30,6 +30,10 @@
       "name": "Vitamin D"
     }
   ],
+  "dietaryBadges": [
+    "plant-capsule",
+    "soy-free"
+  ],
   "manufacturing": {
     "countryOfOrigin": "Slovenia",
     "shippingWeight": "",

@@ -123,6 +123,24 @@ collections:
           - { name: symbol, label: "Символ (Ca, Mg, K…)", widget: string }
           - { name: name, label: "Название (Calcium…)", widget: string }
 
+      - name: dietaryBadges
+        label: "Бейджи (после Key Elements): без глютена, без сои, тип капсулы и т.д."
+        widget: select
+        multiple: true
+        required: false
+        options:
+          - { label: "Gluten-free", value: "gluten-free" }
+          - { label: "Soy-free", value: "soy-free" }
+          - { label: "Lactose-free", value: "lactose-free" }
+          - { label: "Contains lactose", value: "contains-lactose" }
+          - { label: "Plant-based capsule", value: "plant-capsule" }
+          - { label: "Beef gelatin capsule", value: "beef-gelatin" }
+          - { label: "Fish gelatin capsule", value: "fish-gelatin" }
+          - { label: "Vegetarian", value: "vegetarian" }
+          - { label: "Pescatarian", value: "pescatarian" }
+          - { label: "Halal certified", value: "halal" }
+          - { label: "Kosher certified", value: "kosher" }
+
       - name: manufacturing
         label: "Manufacturing detail"
         widget: object

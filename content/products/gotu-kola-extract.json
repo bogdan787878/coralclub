@@ -22,6 +22,11 @@
       "name": "Gotu Kola"
     }
   ],
+  "dietaryBadges": [
+    "plant-capsule",
+    "soy-free",
+    "vegetarian"
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

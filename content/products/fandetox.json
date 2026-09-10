@@ -22,6 +22,9 @@
       "name": "Vitamin C"
     }
   ],
+  "dietaryBadges": [
+    "vegetarian"
+  ],
   "manufacturing": {
     "countryOfOrigin": "South Korea",
     "shippingWeight": "",

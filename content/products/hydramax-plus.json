@@ -36,6 +36,9 @@
       "name": "Sodium"
     }
   ],
+  "dietaryBadges": [
+    "soy-free"
+  ],
   "manufacturing": {
     "countryOfOrigin": "Japan, USA, Taiwan, Germany",
     "shippingWeight": "",

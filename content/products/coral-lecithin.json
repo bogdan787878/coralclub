@@ -22,6 +22,9 @@
       "name": "Lecithin"
     }
   ],
+  "dietaryBadges": [
+    "beef-gelatin"
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

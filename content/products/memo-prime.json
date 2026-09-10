@@ -34,6 +34,12 @@
       "name": "Zinc"
     }
   ],
+  "dietaryBadges": [
+    "gluten-free",
+    "plant-capsule",
+    "soy-free",
+    "vegetarian"
+  ],
   "manufacturing": {
     "countryOfOrigin": "Slovenia",
     "shippingWeight": "",

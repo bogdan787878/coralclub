@@ -30,6 +30,10 @@
       "name": "Zinc"
     }
   ],
+  "dietaryBadges": [
+    "gluten-free",
+    "beef-gelatin"
+  ],
   "manufacturing": {
     "countryOfOrigin": "Germany",
     "shippingWeight": "",

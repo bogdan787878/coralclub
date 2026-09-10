@@ -22,6 +22,11 @@
       "name": "Iron"
     }
   ],
+  "dietaryBadges": [
+    "plant-capsule",
+    "soy-free",
+    "vegetarian"
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

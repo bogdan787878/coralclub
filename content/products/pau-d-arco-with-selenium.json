@@ -30,6 +30,12 @@
       "name": "Pau d'Arco"
     }
   ],
+  "dietaryBadges": [
+    "gluten-free",
+    "plant-capsule",
+    "soy-free",
+    "vegetarian"
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

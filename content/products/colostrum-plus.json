@@ -26,6 +26,12 @@
       "name": "Beta-glucan"
     }
   ],
+  "dietaryBadges": [
+    "gluten-free",
+    "plant-capsule",
+    "contains-lactose",
+    "soy-free"
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

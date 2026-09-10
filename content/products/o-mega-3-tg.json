@@ -22,6 +22,9 @@
       "name": "Vitamin E"
     }
   ],
+  "dietaryBadges": [
+    "beef-gelatin"
+  ],
   "manufacturing": {
     "countryOfOrigin": "Spain",
     "shippingWeight": "",

@@ -31,6 +31,9 @@
       "name": "Wormwood"
     }
   ],
+  "dietaryBadges": [
+    "soy-free"
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA, Japan",
     "shippingWeight": "",

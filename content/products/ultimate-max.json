@@ -30,6 +30,10 @@
       "name": "Phytonutr."
     }
   ],
+  "dietaryBadges": [
+    "plant-capsule",
+    "soy-free"
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

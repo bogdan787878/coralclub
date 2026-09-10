@@ -30,6 +30,11 @@
       "name": "Vitamin D"
     }
   ],
+  "dietaryBadges": [
+    "gluten-free",
+    "plant-capsule",
+    "soy-free"
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

@@ -37,6 +37,9 @@ export type { InfoAccordionProps, InfoSection } from "./InfoAccordion";
 export { PeriodicElements } from "./PeriodicElements";
 export type { PeriodicElementsProps } from "./PeriodicElements";
 
+export { DietaryBadges } from "./DietaryBadges";
+export type { DietaryBadgesProps } from "./DietaryBadges";
+
 export { Editorial } from "./Editorial";
 export type { EditorialProps, EditorialImage } from "./Editorial";
 

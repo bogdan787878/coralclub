@@ -34,6 +34,12 @@
       "name": "Biotin"
     }
   ],
+  "dietaryBadges": [
+    "lactose-free",
+    "halal",
+    "soy-free",
+    "pescatarian"
+  ],
   "manufacturing": {
     "countryOfOrigin": "Taiwan",
     "shippingWeight": "",

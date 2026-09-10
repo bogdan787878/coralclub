@@ -42,6 +42,10 @@
       "name": "Vitamin E"
     }
   ],
+  "dietaryBadges": [
+    "gluten-free",
+    "beef-gelatin"
+  ],
   "manufacturing": {
     "countryOfOrigin": "Germany",
     "shippingWeight": "",

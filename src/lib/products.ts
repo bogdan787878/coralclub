@@ -79,6 +79,8 @@ export type ProductContent = {
   pdpImages: string[];
   /** Active elements — periodic-table tiles on the PDP. */
   elements?: ElementInfo[];
+  /** Dietary / manufacturing badge slugs (see DietaryBadges component). */
+  dietaryBadges?: string[];
   /** Deprecated — reviews were removed from the PDP and the CMS. */
   rating?: number;
   ratingsCount?: number;
@@ -115,6 +117,8 @@ export type Product = {
   pdpImages: string[];
   /** Active elements — periodic-table tiles on the PDP. */
   elements: ElementInfo[];
+  /** Dietary / manufacturing badge slugs (see DietaryBadges component). */
+  dietaryBadges: string[];
   /** First carousel image — convenience for single-image spots. */
   image?: string;
   /** Deprecated — reviews were removed from the PDP and the CMS. */
@@ -186,6 +190,7 @@ function fromContent(c: ProductContent): Product {
     carouselImages,
     pdpImages,
     elements: c.elements ?? [],
+    dietaryBadges: c.dietaryBadges ?? [],
     image: carouselImages[0],
     rating: c.rating,
     ratingsCount: c.ratingsCount,

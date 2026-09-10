@@ -30,6 +30,12 @@
       "name": "Yerba Mate"
     }
   ],
+  "dietaryBadges": [
+    "lactose-free",
+    "plant-capsule",
+    "soy-free",
+    "vegetarian"
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

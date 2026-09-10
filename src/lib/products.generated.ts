@@ -33,6 +33,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Resveratrol"
       }
     ],
+    "dietaryBadges": [
+      "gluten-free",
+      "plant-capsule",
+      "soy-free"
+    ],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -167,6 +172,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Rosemary"
       }
     ],
+    "dietaryBadges": [
+      "gluten-free",
+      "plant-capsule",
+      "soy-free",
+      "vegetarian"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -231,6 +242,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "D3",
         "name": "Vitamin D"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "plant-capsule",
+      "soy-free"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -319,6 +335,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "HA",
         "name": "Hyaluronic"
       }
+    ],
+    "dietaryBadges": [
+      "halal",
+      "soy-free",
+      "pescatarian"
     ],
     "manufacturing": {
       "countryOfOrigin": "",
@@ -425,6 +446,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Vitamin B12"
       }
     ],
+    "dietaryBadges": [
+      "gluten-free",
+      "vegetarian"
+    ],
     "manufacturing": {
       "countryOfOrigin": "Slovenia",
       "shippingWeight": "",
@@ -524,6 +549,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Skullcap"
       }
     ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin",
+      "soy-free"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -594,6 +624,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Vitamin D"
       }
     ],
+    "dietaryBadges": [
+      "plant-capsule",
+      "soy-free"
+    ],
     "manufacturing": {
       "countryOfOrigin": "Slovenia",
       "shippingWeight": "",
@@ -634,6 +668,9 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Magnesium"
       }
     ],
+    "dietaryBadges": [
+      "soy-free"
+    ],
     "manufacturing": {
       "countryOfOrigin": "Germany, USA",
       "shippingWeight": "",
@@ -670,6 +707,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Cascara"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -717,6 +755,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Gk",
         "name": "Ginkgo"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin",
+      "soy-free"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -785,6 +828,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Coq10"
       }
     ],
+    "dietaryBadges": [
+      "gluten-free",
+      "plant-capsule",
+      "vegetarian"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -846,6 +894,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Probiotics"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -885,6 +934,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "bG",
         "name": "Beta-glucan"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "plant-capsule",
+      "contains-lactose",
+      "soy-free"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -936,6 +991,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Ca",
         "name": "Calcium"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "halal",
+      "beef-gelatin",
+      "soy-free"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -996,6 +1057,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Dandelion"
       }
     ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin",
+      "soy-free"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1053,6 +1119,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Boswellia"
       }
     ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin",
+      "soy-free"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1094,6 +1165,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Bur",
         "name": "Burdock"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "halal",
+      "beef-gelatin",
+      "soy-free"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -1143,6 +1220,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Lc",
         "name": "L-Carnitine"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "soy-free"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -1196,6 +1277,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "GT",
         "name": "Green Tea"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin",
+      "soy-free"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -1271,6 +1357,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Potassium"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "USA, Russia, Germany, Japan",
       "shippingWeight": "",
@@ -1319,6 +1406,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Magnesium"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "USA, Russia, Japan",
       "shippingWeight": "",
@@ -1354,6 +1442,9 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "PC",
         "name": "Lecithin"
       }
+    ],
+    "dietaryBadges": [
+      "beef-gelatin"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -1431,6 +1522,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Ginger"
       }
     ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin",
+      "soy-free"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1482,6 +1578,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Mg",
         "name": "Magnesium"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin",
+      "soy-free"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -1537,6 +1638,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Silver"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -1587,6 +1689,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Taurine"
       }
     ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin",
+      "soy-free"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1628,6 +1735,9 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "D3",
         "name": "Vitamin D"
       }
+    ],
+    "dietaryBadges": [
+      "soy-free"
     ],
     "manufacturing": {
       "countryOfOrigin": "Slovenia",
@@ -1684,6 +1794,9 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Cu",
         "name": "Copper"
       }
+    ],
+    "dietaryBadges": [
+      "contains-lactose"
     ],
     "manufacturing": {
       "countryOfOrigin": "Germany",
@@ -1824,6 +1937,9 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Acai"
       }
     ],
+    "dietaryBadges": [
+      "vegetarian"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1921,6 +2037,9 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Vitamin D"
       }
     ],
+    "dietaryBadges": [
+      "soy-free"
+    ],
     "manufacturing": {
       "countryOfOrigin": "Norway",
       "shippingWeight": "",
@@ -1956,6 +2075,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Mg",
         "name": "Magnesium"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin",
+      "soy-free"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -2023,6 +2147,9 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "C",
         "name": "Vitamin C"
       }
+    ],
+    "dietaryBadges": [
+      "vegetarian"
     ],
     "manufacturing": {
       "countryOfOrigin": "South Korea",
@@ -2120,6 +2247,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Vitamin C"
       }
     ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin",
+      "soy-free"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -2187,6 +2319,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Gotu Kola"
       }
     ],
+    "dietaryBadges": [
+      "plant-capsule",
+      "soy-free",
+      "vegetarian"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -2236,6 +2373,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "B12",
         "name": "Vitamin B12"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin",
+      "soy-free"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -2306,6 +2448,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Silicon"
       }
     ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin",
+      "soy-free"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -2362,6 +2509,9 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Sodium"
       }
     ],
+    "dietaryBadges": [
+      "soy-free"
+    ],
     "manufacturing": {
       "countryOfOrigin": "Japan, USA, Taiwan, Germany",
       "shippingWeight": "",
@@ -2406,6 +2556,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Fe",
         "name": "Iron"
       }
+    ],
+    "dietaryBadges": [
+      "plant-capsule",
+      "soy-free",
+      "vegetarian"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -2452,6 +2607,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "PC",
         "name": "Lecithin"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "vegetarian"
     ],
     "manufacturing": {
       "countryOfOrigin": "Netherlands",
@@ -2526,6 +2685,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Non",
         "name": "Noni"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "vegetarian"
     ],
     "manufacturing": {
       "countryOfOrigin": "Taiwan",
@@ -2604,6 +2767,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Ceramide"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "South Korea",
       "shippingWeight": "",
@@ -2653,6 +2817,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Peptides"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "South Korea",
       "shippingWeight": "",
@@ -2697,6 +2862,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Ceramide"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "South Korea",
       "shippingWeight": "",
@@ -2745,6 +2911,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Ectoin"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "South Korea",
       "shippingWeight": "",
@@ -2786,6 +2953,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Panthenol"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "South Korea",
       "shippingWeight": "",
@@ -2836,6 +3004,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Panthenol"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "South Korea",
       "shippingWeight": "",
@@ -2888,6 +3057,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Prs",
         "name": "Parsley"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin",
+      "soy-free"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -2957,6 +3131,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Zn",
         "name": "Zinc"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "plant-capsule",
+      "soy-free",
+      "vegetarian"
     ],
     "manufacturing": {
       "countryOfOrigin": "Slovenia",
@@ -3040,6 +3220,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Tyr",
         "name": "L-Tyrosine"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin",
+      "soy-free"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -3156,6 +3341,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Biotin"
       }
     ],
+    "dietaryBadges": [
+      "gluten-free",
+      "halal",
+      "plant-capsule",
+      "vegetarian"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -3207,6 +3398,9 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "E",
         "name": "Vitamin E"
       }
+    ],
+    "dietaryBadges": [
+      "beef-gelatin"
     ],
     "manufacturing": {
       "countryOfOrigin": "Spain",
@@ -3282,6 +3476,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Calcium"
       }
     ],
+    "dietaryBadges": [
+      "gluten-free",
+      "soy-free",
+      "vegetarian"
+    ],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -3336,6 +3535,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "DHA"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -3388,6 +3588,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "B-Complex"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "USA, Slovenia, Spain, Japan",
       "shippingWeight": "",
@@ -3433,6 +3634,9 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Wormwood"
       }
     ],
+    "dietaryBadges": [
+      "soy-free"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA, Japan",
       "shippingWeight": "",
@@ -3476,6 +3680,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Mat",
         "name": "Yerba Mate"
       }
+    ],
+    "dietaryBadges": [
+      "lactose-free",
+      "plant-capsule",
+      "soy-free",
+      "vegetarian"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -3536,6 +3746,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "PdA",
         "name": "Pau d'Arco"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "plant-capsule",
+      "soy-free",
+      "vegetarian"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -3605,6 +3821,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Vitamin C"
       }
     ],
+    "dietaryBadges": [
+      "kosher",
+      "soy-free",
+      "vegetarian"
+    ],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -3672,6 +3893,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Saffron"
       }
     ],
+    "dietaryBadges": [
+      "gluten-free",
+      "plant-capsule",
+      "soy-free",
+      "vegetarian"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -3729,6 +3956,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Vitamin E"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "Spain",
       "shippingWeight": "",
@@ -3784,6 +4012,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "E",
         "name": "Vitamin E"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin"
     ],
     "manufacturing": {
       "countryOfOrigin": "Germany",
@@ -3903,6 +4135,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Coffee"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -3953,6 +4186,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Hyaluronic"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -4003,6 +4237,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Glycerin"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -4052,6 +4287,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Hyaluronic"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -4092,6 +4328,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Hyaluronic"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -4139,6 +4376,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "B7",
         "name": "Biotin"
       }
+    ],
+    "dietaryBadges": [
+      "lactose-free",
+      "halal",
+      "soy-free",
+      "pescatarian"
     ],
     "manufacturing": {
       "countryOfOrigin": "Taiwan",
@@ -4239,6 +4482,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Biotin"
       }
     ],
+    "dietaryBadges": [
+      "lactose-free",
+      "halal",
+      "soy-free",
+      "pescatarian"
+    ],
     "manufacturing": {
       "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
@@ -4275,6 +4524,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Collagen"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -4322,6 +4572,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Gln",
         "name": "L-Glutamine"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "soy-free"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -4470,6 +4724,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Vitamin C"
       }
     ],
+    "dietaryBadges": [
+      "soy-free",
+      "vegetarian"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -4505,6 +4763,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Zn",
         "name": "Zinc"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "plant-capsule",
+      "vegetarian"
     ],
     "manufacturing": {
       "countryOfOrigin": "Slovenia",
@@ -4562,6 +4825,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Vitamin C"
       }
     ],
+    "dietaryBadges": [
+      "plant-capsule",
+      "soy-free",
+      "vegetarian"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -4609,6 +4877,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Vitamin E"
       }
     ],
+    "dietaryBadges": [
+      "fish-gelatin",
+      "pescatarian"
+    ],
     "manufacturing": {
       "countryOfOrigin": "Spain",
       "shippingWeight": "",
@@ -4645,6 +4917,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Vitamin C"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "South Korea",
       "shippingWeight": "",
@@ -4682,6 +4955,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Iron"
       }
     ],
+    "dietaryBadges": [],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -4721,6 +4995,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Inu",
         "name": "Inulin"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "halal",
+      "plant-capsule",
+      "soy-free",
+      "vegetarian"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -4781,6 +5062,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Phy",
         "name": "Phytonutr."
       }
+    ],
+    "dietaryBadges": [
+      "plant-capsule",
+      "soy-free"
     ],
     "manufacturing": {
       "countryOfOrigin": "USA",
@@ -4957,6 +5242,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Zinc"
       }
     ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin"
+    ],
     "manufacturing": {
       "countryOfOrigin": "Germany",
       "shippingWeight": "",
@@ -5049,6 +5338,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Curcumin"
       }
     ],
+    "dietaryBadges": [
+      "gluten-free",
+      "beef-gelatin",
+      "soy-free"
+    ],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -5090,6 +5384,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "symbol": "Zn",
         "name": "Zinc"
       }
+    ],
+    "dietaryBadges": [
+      "gluten-free",
+      "soy-free",
+      "vegetarian"
     ],
     "manufacturing": {
       "countryOfOrigin": "Spain",

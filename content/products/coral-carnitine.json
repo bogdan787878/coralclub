@@ -24,6 +24,10 @@
       "name": "L-Carnitine"
     }
   ],
+  "dietaryBadges": [
+    "gluten-free",
+    "soy-free"
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

@@ -4,6 +4,7 @@ import { BodyLong, Container, Heading, Section, Stack } from "@/components/ui";
 import {
   BuyBox,
   ImageSlider,
+  DietaryBadges,
   InfoAccordion,
   PeriodicElements,
   ProductCard,
@@ -88,6 +89,9 @@ export default async function ProductPage({
                 <BodyLong>{product.description}</BodyLong>
                 {product.elements.length > 0 && (
                   <PeriodicElements items={product.elements} />
+                )}
+                {product.dietaryBadges.length > 0 && (
+                  <DietaryBadges items={product.dietaryBadges} />
                 )}
                 <p className={styles.disclaimer}>
                   This statement has not been evaluated by the Food and Drug

@@ -39,6 +39,11 @@
       "name": "Calcium"
     }
   ],
+  "dietaryBadges": [
+    "gluten-free",
+    "soy-free",
+    "vegetarian"
+  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",

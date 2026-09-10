@@ -26,6 +26,11 @@
       "name": "Vitamin C"
     }
   ],
+  "dietaryBadges": [
+    "plant-capsule",
+    "soy-free",
+    "vegetarian"
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

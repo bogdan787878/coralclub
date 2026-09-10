@@ -30,6 +30,11 @@
       "name": "Vitamin B12"
     }
   ],
+  "dietaryBadges": [
+    "gluten-free",
+    "beef-gelatin",
+    "soy-free"
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

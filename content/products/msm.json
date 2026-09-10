@@ -30,6 +30,12 @@
       "name": "Biotin"
     }
   ],
+  "dietaryBadges": [
+    "gluten-free",
+    "halal",
+    "plant-capsule",
+    "vegetarian"
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

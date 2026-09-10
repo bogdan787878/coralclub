@@ -26,6 +26,9 @@
       "name": "Magnesium"
     }
   ],
+  "dietaryBadges": [
+    "soy-free"
+  ],
   "manufacturing": {
     "countryOfOrigin": "Germany, USA",
     "shippingWeight": "",

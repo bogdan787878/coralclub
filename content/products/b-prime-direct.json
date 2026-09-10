@@ -42,6 +42,10 @@
       "name": "Vitamin B12"
     }
   ],
+  "dietaryBadges": [
+    "gluten-free",
+    "vegetarian"
+  ],
   "manufacturing": {
     "countryOfOrigin": "Slovenia",
     "shippingWeight": "",

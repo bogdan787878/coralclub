@@ -22,6 +22,9 @@
       "name": "Vitamin D"
     }
   ],
+  "dietaryBadges": [
+    "soy-free"
+  ],
   "manufacturing": {
     "countryOfOrigin": "Norway",
     "shippingWeight": "",

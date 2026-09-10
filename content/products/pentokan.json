@@ -33,6 +33,11 @@
       "name": "Vitamin C"
     }
   ],
+  "dietaryBadges": [
+    "kosher",
+    "soy-free",
+    "vegetarian"
+  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",

@@ -26,6 +26,12 @@
       "name": "Calcium"
     }
   ],
+  "dietaryBadges": [
+    "gluten-free",
+    "halal",
+    "beef-gelatin",
+    "soy-free"
+  ],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

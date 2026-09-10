@@ -26,6 +26,11 @@
       "name": "Resveratrol"
     }
   ],
+  "dietaryBadges": [
+    "gluten-free",
+    "plant-capsule",
+    "soy-free"
+  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",

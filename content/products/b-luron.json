@@ -23,6 +23,11 @@
       "name": "Hyaluronic"
     }
   ],
+  "dietaryBadges": [
+    "halal",
+    "soy-free",
+    "pescatarian"
+  ],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",
