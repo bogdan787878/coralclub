@@ -37,8 +37,24 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "Pau d'arco (lapacho) bark extract, olive leaf extract, yerba mate leaf extract, excipients.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 3Capsules",
+      "rows": [
+        {
+          "name": "Pau D`Arco (Tabebuia impetiginosa) bark extract (4:1)",
+          "amount": "600 mg",
+          "dv": ""
+        },
+        {
+          "name": "Olive (Olea europaea) leaf extract (min. 40% Oleuropein)",
+          "amount": "210 mg",
+          "dv": ""
+        },
+        {
+          "name": "Mate (llex Paraguariensis) extract (4:1)",
+          "amount": "90 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

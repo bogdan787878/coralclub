@@ -38,7 +38,28 @@
     "ingredients": "Cat's claw bark extract, burdock root extract, green tea leaf extract, excipients.",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "Active Ingredients",
+          "amount": "1 capsule",
+          "dv": "% DV*%"
+        },
+        {
+          "name": "Cat's Claw (Uncaria tomentosa) bark extract",
+          "amount": "300 mg",
+          "dv": ""
+        },
+        {
+          "name": "Burdock (Arctium lappa) root extract",
+          "amount": "100 mg",
+          "dv": ""
+        },
+        {
+          "name": "Green tea (Camellia sinensis) leaf extract",
+          "amount": "100 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

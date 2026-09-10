@@ -31,12 +31,12 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "Acetyl-L-carnitine, capsule (hydroxypropyl methylcellulose), microcrystalline cellulose (emulsifier), silicon dioxide (anti-caking agent), magnesium salt of stearic acid (stabiliser).",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
+      "servingLabel": "Amount Per Serving — 1 capsule",
       "rows": [
         {
-          "name": "Test",
-          "amount": "Test",
-          "dv": "Test"
+          "name": "Acetyl-L-Carnitine",
+          "amount": "400 mg",
+          "dv": ""
         }
       ]
     }

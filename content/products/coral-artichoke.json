@@ -41,8 +41,29 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "Artichoke leaf extract, betaine hydrochloride, milk thistle seed extract, dandelion root extract, excipients.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 1 capsule",
+      "rows": [
+        {
+          "name": "Artichoke (Cynara scolymus) herb extract",
+          "amount": "300 mg",
+          "dv": ""
+        },
+        {
+          "name": "Milk Thistle (Silybum marianum) seed extract",
+          "amount": "40 mg",
+          "dv": ""
+        },
+        {
+          "name": "Dandelion (Taraxacum officinale) root extract",
+          "amount": "20 mg",
+          "dv": ""
+        },
+        {
+          "name": "Betaine HCl",
+          "amount": "50 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

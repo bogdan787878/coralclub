@@ -29,8 +29,39 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "Theanine, lemon balm leaf extract, hop flower extract, St John's wort extract, magnesium, skullcap root extract, excipients.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 1 capsules",
+      "rows": [
+        {
+          "name": "Magnesium (as glycinate)",
+          "amount": "75 mg",
+          "dv": "18%"
+        },
+        {
+          "name": "L-Theanine",
+          "amount": "100 mg",
+          "dv": ""
+        },
+        {
+          "name": "Lemon balm (Melissa oficinalis) leaf extract",
+          "amount": "100 mg",
+          "dv": ""
+        },
+        {
+          "name": "Hops (Humulus lupulus) flowers extract",
+          "amount": "100 mg",
+          "dv": ""
+        },
+        {
+          "name": "St. John wort (Hypericum perforatum) herb extract",
+          "amount": "100 mg",
+          "dv": ""
+        },
+        {
+          "name": "Skullcap (Scutellaria Baicalensis) root extract",
+          "amount": "50 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

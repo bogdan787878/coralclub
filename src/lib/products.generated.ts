@@ -40,8 +40,94 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "",
       "ingredients": "",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Vitamin C (Calcium ascorbate)",
+            "amount": "60 mg",
+            "dv": "67%"
+          },
+          {
+            "name": "Vitamin E (Tocopheryl acetate)",
+            "amount": "10 mg",
+            "dv": "67%"
+          },
+          {
+            "name": "Zinc (L-Methionine)",
+            "amount": "15 mg",
+            "dv": "136%"
+          },
+          {
+            "name": "Selenium (L-Selenomethionine)",
+            "amount": "35 mcg",
+            "dv": "64%"
+          },
+          {
+            "name": "Copper (Citrate)",
+            "amount": "40 mcg",
+            "dv": "4%"
+          },
+          {
+            "name": "Manganese (Aspartate)",
+            "amount": "250 mcg",
+            "dv": "11%"
+          },
+          {
+            "name": "Chromium (Picolinate)",
+            "amount": "100 mcg",
+            "dv": "286%"
+          },
+          {
+            "name": "Molybdenum (Sodium molybdate)",
+            "amount": "25 mcg",
+            "dv": "56%"
+          },
+          {
+            "name": "Inulin (from Chicory root)",
+            "amount": "200 mg",
+            "dv": ""
+          },
+          {
+            "name": "ActiVin (Grape seed extract)",
+            "amount": "150 mg",
+            "dv": ""
+          },
+          {
+            "name": "Muira Puama (Liriosma ovata) root",
+            "amount": "50 mg",
+            "dv": ""
+          },
+          {
+            "name": "Eleuthero (Eleutherococcus senticosus) root",
+            "amount": "25 mg",
+            "dv": ""
+          },
+          {
+            "name": "Dunaliella (Dunaliella salina) whole plant",
+            "amount": "15 mg",
+            "dv": ""
+          },
+          {
+            "name": "Royal Jelly (Bees milk)",
+            "amount": "10 mg",
+            "dv": ""
+          },
+          {
+            "name": "Milk Thistle (Silybum marianum) extract",
+            "amount": "5 mg",
+            "dv": ""
+          },
+          {
+            "name": "Ginkgo (Ginkgo biloba) extract",
+            "amount": "5 mg",
+            "dv": ""
+          },
+          {
+            "name": "Green Tea (Camellia sinensis) extract",
+            "amount": "5 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -88,8 +174,29 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Pomegranate fruit extract, acai fruit extract, cocoa bean extract, rosemary leaf extract, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Pomegranate (Punica granatum) fruit extract",
+            "amount": "200 mg",
+            "dv": ""
+          },
+          {
+            "name": "Acai (Euterpe oleracea) fruit extract",
+            "amount": "200 mg",
+            "dv": ""
+          },
+          {
+            "name": "Cocoa (Theobroma cacao L.) bean extract",
+            "amount": "40 mg",
+            "dv": ""
+          },
+          {
+            "name": "Rosemary (Rosmarinus officinalis) leaves extract",
+            "amount": "20 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -132,8 +239,59 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Enzyme blend (protease, amylase, lipase, maltase, lactase, papain, bromelain, cellulase), vitamins A and D, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Vitamin A",
+            "amount": "344 mcg",
+            "dv": "38%"
+          },
+          {
+            "name": "Vitamin D3",
+            "amount": "5 mcg",
+            "dv": "25%"
+          },
+          {
+            "name": "Protease",
+            "amount": "30000 HUT",
+            "dv": ""
+          },
+          {
+            "name": "Amylase",
+            "amount": "8000 DU",
+            "dv": ""
+          },
+          {
+            "name": "Lactase",
+            "amount": "400 LACU",
+            "dv": ""
+          },
+          {
+            "name": "Cellulase",
+            "amount": "200 CU",
+            "dv": ""
+          },
+          {
+            "name": "Maltase",
+            "amount": "150 DP",
+            "dv": ""
+          },
+          {
+            "name": "Lipase",
+            "amount": "50 LU",
+            "dv": ""
+          },
+          {
+            "name": "Papain (from papaya)",
+            "amount": "600000 PU",
+            "dv": ""
+          },
+          {
+            "name": "Bromelain (from pineapple)",
+            "amount": "300000 PU",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -172,9 +330,49 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "servingLabel": "Amount Per Serving",
         "rows": [
           {
-            "name": "test",
-            "amount": "test",
+            "name": "Active Ingredients",
+            "amount": "Amount per dose (30 ml)",
+            "dv": "% DV*%"
+          },
+          {
+            "name": "Vitamin E (as dl-alpha tocopheryl acetate)",
+            "amount": "15 mg (15 IU)",
+            "dv": "100%"
+          },
+          {
+            "name": "Chondroitin Sulfate",
+            "amount": "300 mg",
             "dv": ""
+          },
+          {
+            "name": "Hyaluronic Acid",
+            "amount": "150 mg",
+            "dv": ""
+          },
+          {
+            "name": "Supplement Facts",
+            "amount": "Amount per dose (30 ml)",
+            "dv": "% DV*%"
+          },
+          {
+            "name": "Calories",
+            "amount": "60",
+            "dv": ""
+          },
+          {
+            "name": "Total Carbohydrates",
+            "amount": "13 g",
+            "dv": "5%*%"
+          },
+          {
+            "name": "Total Sugars",
+            "amount": "13 g",
+            "dv": ""
+          },
+          {
+            "name": "Includes 1 g Added Sugars",
+            "amount": "",
+            "dv": "2%*%"
           }
         ]
       }
@@ -234,8 +432,59 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Sorbitol (sweetener), choline (choline citrate), inositol (myo-inositol), sodium chloride, vitamin B3 (niacinamide), orange flavouring, biotin (D-biotin), vitamin B5 (calcium D-pantothenate), vitamin B12 (methylcobalamin), vitamin B2 (sodium riboflavin 5'-phosphate), vitamin B1 (thiamine hydrochloride) and other B vitamins.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 stick pack (2g)",
+        "rows": [
+          {
+            "name": "Vitamin B1 (as thiamine hydrochloride)",
+            "amount": "5 mg",
+            "dv": "417%"
+          },
+          {
+            "name": "Vitamin B2 (as riboflavin 5'-phosphate sodium)",
+            "amount": "6 mg",
+            "dv": "462%"
+          },
+          {
+            "name": "Niacin (as nicotinamide)",
+            "amount": "30 mg",
+            "dv": "188%"
+          },
+          {
+            "name": "Vitamin B6 (as pyridoxal 5'-phosphate)",
+            "amount": "3.5 mg",
+            "dv": "206%"
+          },
+          {
+            "name": "Folic acid (as L-methylfolate calcium EXTRAfolate-STM)",
+            "amount": "200 μg",
+            "dv": "85%"
+          },
+          {
+            "name": "Vitamin B12 (as methylcobalamin)",
+            "amount": "9 μg",
+            "dv": "375%"
+          },
+          {
+            "name": "Biotin (as D-biotin)",
+            "amount": "150 μg",
+            "dv": "500%"
+          },
+          {
+            "name": "Pantothenic acid (as calcium D-pantothenate)",
+            "amount": "10 mg",
+            "dv": "200%"
+          },
+          {
+            "name": "Choline (as choline citrate)",
+            "amount": "100 mg",
+            "dv": "18%"
+          },
+          {
+            "name": "Inositol (as myo-inositol)",
+            "amount": "75 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -282,8 +531,34 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Hawthorn fruit extract, motherwort leaf extract, hibiscus flower extract, green coffee bean extract, skullcap root extract, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "AmountPer Serving(1 capsule)",
+        "rows": [
+          {
+            "name": "Hawthorn (Crataegus pinnatifida) berry extract",
+            "amount": "200 mg",
+            "dv": ""
+          },
+          {
+            "name": "Motherwort (Leonurus cardiaca) leaf extract",
+            "amount": "130 mg",
+            "dv": ""
+          },
+          {
+            "name": "Hibiscus (Rosa sinensis) flower extract",
+            "amount": "100 mg",
+            "dv": ""
+          },
+          {
+            "name": "Coffee (Coffea arabica) green seed extract",
+            "amount": "70 mg",
+            "dv": ""
+          },
+          {
+            "name": "Skullcap (Scutellaria baicalensis) root extract",
+            "amount": "30 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -450,8 +725,39 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Diosmin, gotu kola extract, horse chestnut seed extract, blueberry extract, hawthorn fruit extract, ginkgo biloba leaf extract, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Diosmine (from Hesperidin)",
+            "amount": "250 mg",
+            "dv": ""
+          },
+          {
+            "name": "Gotu kola (Centella asiatica) whole plant extract",
+            "amount": "100 mg",
+            "dv": ""
+          },
+          {
+            "name": "Horse Chestnut (Aesculus hippocastanum) seed extract",
+            "amount": "100 mg",
+            "dv": ""
+          },
+          {
+            "name": "Blueberry (Vaccinium corymbosum) fruit extract",
+            "amount": "100 mg",
+            "dv": ""
+          },
+          {
+            "name": "Hawthorn (Crataegus pinnatifida) berry extract",
+            "amount": "60 mg",
+            "dv": ""
+          },
+          {
+            "name": "Ginkgo (Ginkgo biloba) leaf extract",
+            "amount": "40 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -487,7 +793,23 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "Chicory root inulin, Kaneka Q10 coenzyme (ubiquinone), medium-chain triglycerides from coconut oil, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "Inulin (from chicory root)",
+            "amount": "125 mg",
+            "dv": "**%"
+          },
+          {
+            "name": "Coenzyme Q10 (Kaneka Q10®)",
+            "amount": "100 mg",
+            "dv": "**%"
+          },
+          {
+            "name": "MCT oil powder",
+            "amount": "5 mg",
+            "dv": "**%"
+          }
+        ]
       }
     }
   },
@@ -571,8 +893,19 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Bovine colostrum 250 mg, beta-glucans (beta-1,3/1,6-glucans) 50 mg, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 2 Capsules",
+        "rows": [
+          {
+            "name": "Bovine Colostrum",
+            "amount": "500 mg",
+            "dv": ""
+          },
+          {
+            "name": "Beta-Glucans (Beta-1,3 / 1,6-glucans from Baker's yeast)",
+            "amount": "100 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -611,8 +944,19 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Concentrated alfalfa grass juice, alfalfa grass, calcium carbonate, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 2 capsules",
+        "rows": [
+          {
+            "name": "Alfalfa (Medicago sativa) juice powder",
+            "amount": "500 mg",
+            "dv": ""
+          },
+          {
+            "name": "Alfalfa (Medicago sativa) leaf powder",
+            "amount": "300 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -659,8 +1003,29 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Artichoke leaf extract, betaine hydrochloride, milk thistle seed extract, dandelion root extract, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Artichoke (Cynara scolymus) herb extract",
+            "amount": "300 mg",
+            "dv": ""
+          },
+          {
+            "name": "Milk Thistle (Silybum marianum) seed extract",
+            "amount": "40 mg",
+            "dv": ""
+          },
+          {
+            "name": "Dandelion (Taraxacum officinale) root extract",
+            "amount": "20 mg",
+            "dv": ""
+          },
+          {
+            "name": "Betaine HCl",
+            "amount": "50 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -695,8 +1060,14 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Boswellia extract, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Boswellia extract (Boswellia serrata)",
+            "amount": "400 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -731,8 +1102,19 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Burdock root, burdock root extract, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Burdock (Arctium lappa) root powder",
+            "amount": "500 mg",
+            "dv": ""
+          },
+          {
+            "name": "Burdock (Arctium lappa) root extract",
+            "amount": "100 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -769,12 +1151,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Acetyl-L-carnitine, capsule (hydroxypropyl methylcellulose), microcrystalline cellulose (emulsifier), silicon dioxide (anti-caking agent), magnesium salt of stearic acid (stabiliser).",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
+        "servingLabel": "Amount Per Serving — 1 capsule",
         "rows": [
           {
-            "name": "Test",
-            "amount": "Test",
-            "dv": "Test"
+            "name": "Acetyl-L-Carnitine",
+            "amount": "400 mg",
+            "dv": ""
           }
         ]
       }
@@ -823,7 +1205,28 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "Cat's claw bark extract, burdock root extract, green tea leaf extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "Active Ingredients",
+            "amount": "1 capsule",
+            "dv": "% DV*%"
+          },
+          {
+            "name": "Cat's Claw (Uncaria tomentosa) bark extract",
+            "amount": "300 mg",
+            "dv": ""
+          },
+          {
+            "name": "Burdock (Arctium lappa) root extract",
+            "amount": "100 mg",
+            "dv": ""
+          },
+          {
+            "name": "Green tea (Camellia sinensis) leaf extract",
+            "amount": "100 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -959,8 +1362,44 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Lecithin, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Calories",
+            "amount": "10",
+            "dv": ""
+          },
+          {
+            "name": "Calories from Fat",
+            "amount": "10",
+            "dv": ""
+          },
+          {
+            "name": "Total Fat",
+            "amount": "1 g",
+            "dv": "1%"
+          },
+          {
+            "name": "Lecithin (from Soy)",
+            "amount": "1200 mg",
+            "dv": ""
+          },
+          {
+            "name": "Total Polar Lipids",
+            "amount": "680 mg",
+            "dv": ""
+          },
+          {
+            "name": "Total Phosphatides",
+            "amount": "600 mg",
+            "dv": ""
+          },
+          {
+            "name": "Total Phospholipids (incl. phosphatidylcholine, phosphatidylethanolamine, phosphatidylinositol, phosphatidic acid)",
+            "amount": "515 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -999,8 +1438,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Deglycyrrhizinated licorice root extract, licorice root extract, ginger root extract, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Deglycyrrhizinated Licorice (Glycyrrhiza glabra) root extract",
+            "amount": "300 mg",
+            "dv": ""
+          },
+          {
+            "name": "Licorice (Glycyrrhiza glabra) root extract",
+            "amount": "80 mg",
+            "dv": ""
+          },
+          {
+            "name": "Ginger (Zingiber officinale) root extract",
+            "amount": "20 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -1035,8 +1490,14 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Magnesium taurate and magnesium glycinate, gelatin (capsule), magnesium salt of stearic acid (stabiliser).",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Magnesium (as taurate and glycinate)",
+            "amount": "150 mg",
+            "dv": "36%"
+          }
+        ]
       }
     }
   },
@@ -1133,8 +1594,14 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Taurine, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Taurine",
+            "amount": "850 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -1225,8 +1692,99 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Vitamin A, vitamin C, vitamin E, niacin, folate (folic acid), biotin, pantothenic acid, magnesium (magnesium citrate), selenium (L-selenomethionine), copper, branched-chain amino acids (L-isoleucine, L-leucine, L-valine), PABA (para-aminobenzoic acid), excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 25 g",
+        "rows": [
+          {
+            "name": "Vitamin A (as retinyl acetate)",
+            "amount": "1068 IU",
+            "dv": "21%"
+          },
+          {
+            "name": "Vitamin C (as sodium L-ascorbate)",
+            "amount": "145.5 mg",
+            "dv": "243%"
+          },
+          {
+            "name": "Vitamin E (as d-alpha tocopheryl acetate)",
+            "amount": "5.5 IU",
+            "dv": "18%"
+          },
+          {
+            "name": "Niacin (as niacinamide)",
+            "amount": "4.75 mg",
+            "dv": "24%"
+          },
+          {
+            "name": "Folate (as folic acid)",
+            "amount": "128.5 mcg",
+            "dv": "32%"
+          },
+          {
+            "name": "Biotin",
+            "amount": "41 mcg",
+            "dv": "14%"
+          },
+          {
+            "name": "Pantothenic Acid (as calcium-D-pantothenate)",
+            "amount": "4 mg",
+            "dv": "40%"
+          },
+          {
+            "name": "Magnesium (as magnesium citrate)",
+            "amount": "50 mg",
+            "dv": "12%"
+          },
+          {
+            "name": "Selenium (as L-selenium methionine)",
+            "amount": "50 mcg",
+            "dv": "71%"
+          },
+          {
+            "name": "Copper",
+            "amount": "0.5 mg",
+            "dv": "25%"
+          },
+          {
+            "name": "Sodium",
+            "amount": "55 mg",
+            "dv": ""
+          },
+          {
+            "name": "L-Isoleucine, L-Leucine, L-Valine",
+            "amount": "2.5 mg",
+            "dv": ""
+          },
+          {
+            "name": "PABA para-aminobenzoic acid",
+            "amount": "25 mg",
+            "dv": ""
+          },
+          {
+            "name": "Supplement Facts",
+            "amount": "Per serving 25 g",
+            "dv": "%Daily Value%"
+          },
+          {
+            "name": "Calories",
+            "amount": "80",
+            "dv": ""
+          },
+          {
+            "name": "Total Carbohydrate",
+            "amount": "8 g",
+            "dv": "3%*%"
+          },
+          {
+            "name": "Sugars",
+            "amount": "< 1 g",
+            "dv": ""
+          },
+          {
+            "name": "Protein",
+            "amount": "13 g",
+            "dv": "26%*%"
+          }
+        ]
       }
     }
   },
@@ -1274,7 +1832,68 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "Apple fibre, inulin, rice bran, L-glutamine, apple pectin, plum, pineapple, acai extract, blueberry, aloe vera gel, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "Ingrediente active",
+            "amount": "Serving Size - 1 measuring spoon (9 g)",
+            "dv": "% DV*%"
+          },
+          {
+            "name": "Apple fiber",
+            "amount": "3000 mg",
+            "dv": ""
+          },
+          {
+            "name": "Inulin",
+            "amount": "2790 mg",
+            "dv": ""
+          },
+          {
+            "name": "Rice bran",
+            "amount": "500 mg",
+            "dv": ""
+          },
+          {
+            "name": "L-glutamine",
+            "amount": "200 mg",
+            "dv": ""
+          },
+          {
+            "name": "Glucomannan",
+            "amount": "200 mg",
+            "dv": ""
+          },
+          {
+            "name": "Plum fruit powder",
+            "amount": "200 mg",
+            "dv": ""
+          },
+          {
+            "name": "Pineapple fruit powder",
+            "amount": "100 mg",
+            "dv": ""
+          },
+          {
+            "name": "Blueberry fruit powder",
+            "amount": "100 mg",
+            "dv": ""
+          },
+          {
+            "name": "Acai berry extract",
+            "amount": "100 mg",
+            "dv": ""
+          },
+          {
+            "name": "Apple pectin",
+            "amount": "50 mg",
+            "dv": ""
+          },
+          {
+            "name": "Aloe vera gel powder",
+            "amount": "30 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -1345,8 +1964,39 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Theanine, lemon balm leaf extract, hop flower extract, St John's wort extract, magnesium, skullcap root extract, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsules",
+        "rows": [
+          {
+            "name": "Magnesium (as glycinate)",
+            "amount": "75 mg",
+            "dv": "18%"
+          },
+          {
+            "name": "L-Theanine",
+            "amount": "100 mg",
+            "dv": ""
+          },
+          {
+            "name": "Lemon balm (Melissa oficinalis) leaf extract",
+            "amount": "100 mg",
+            "dv": ""
+          },
+          {
+            "name": "Hops (Humulus lupulus) flowers extract",
+            "amount": "100 mg",
+            "dv": ""
+          },
+          {
+            "name": "St. John wort (Hypericum perforatum) herb extract",
+            "amount": "100 mg",
+            "dv": ""
+          },
+          {
+            "name": "Skullcap (Scutellaria Baicalensis) root extract",
+            "amount": "50 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -1381,8 +2031,64 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Persimmon fruit extract, goji berry extract, mandarin peel extract, buckwheat extract, soy sprout extract, vitamin C, taurine, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 stick pack (4.5 g)",
+        "rows": [
+          {
+            "name": "Calories",
+            "amount": "15",
+            "dv": ""
+          },
+          {
+            "name": "Total Carbohydrate",
+            "amount": "4 g",
+            "dv": "1%"
+          },
+          {
+            "name": "Sugar",
+            "amount": "< 1 g",
+            "dv": ""
+          },
+          {
+            "name": "Protein",
+            "amount": "0 g",
+            "dv": ""
+          },
+          {
+            "name": "Vitamin C (as ascorbic acid)",
+            "amount": "10 mg",
+            "dv": "17%"
+          },
+          {
+            "name": "Taurine",
+            "amount": "50 mg",
+            "dv": ""
+          },
+          {
+            "name": "Persimmon fruit extract",
+            "amount": "280 mg",
+            "dv": ""
+          },
+          {
+            "name": "Goji berry extract",
+            "amount": "210 mg",
+            "dv": ""
+          },
+          {
+            "name": "Citrus peel extract",
+            "amount": "210 mg",
+            "dv": ""
+          },
+          {
+            "name": "Buckwheat extract",
+            "amount": "210 mg",
+            "dv": ""
+          },
+          {
+            "name": "Soybean sprout extract",
+            "amount": "70 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -1421,8 +2127,39 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Vitamin C (ascorbyl palmitate)",
+            "amount": "50 mg",
+            "dv": "56%"
+          },
+          {
+            "name": "Manganese (manganese gluconate)",
+            "amount": "0.3 mg",
+            "dv": "13%"
+          },
+          {
+            "name": "Bamboo (Bambusa vulgaris) extract",
+            "amount": "7.5 mg",
+            "dv": ""
+          },
+          {
+            "name": "Glucosamine HCl",
+            "amount": "300 mg",
+            "dv": ""
+          },
+          {
+            "name": "Chondroitin sulfate",
+            "amount": "250 mg",
+            "dv": ""
+          },
+          {
+            "name": "MSM (methylsulfonylmethane)",
+            "amount": "200 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -1457,8 +2194,14 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Gotu kola extract, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Gotu Kola (Centella asiatica) herb Extract",
+            "amount": "120 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -1501,8 +2244,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Griffonia seed extract, vitamins B6 and B12, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Vitamin B6 (as pyridoxine HCl)",
+            "amount": "2 mg",
+            "dv": "118%"
+          },
+          {
+            "name": "Vitamin B12 (as methylcobalamin)",
+            "amount": "3 mcg",
+            "dv": "125%"
+          },
+          {
+            "name": "Griffonia (Griffonia simplicifolia) seed extract",
+            "amount": "50 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -1554,8 +2313,14 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
       "ingredients": "H-500 blend (potassium citrate, magnesium citrate, potassium ascorbate, sodium borate, silicon dioxide), excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "H-500 Proprietary Blend (Potassium citrate, Magnesium citrate, Potassium ascorbate, Silicon dioxide, Sodium Borate)",
+            "amount": "300 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -1649,8 +2414,14 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Iron (iron bisglycinate), excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Iron (as Ferrous Bisglycinate)",
+            "amount": "14 mg",
+            "dv": "78%"
+          }
+        ]
       }
     }
   },
@@ -1689,8 +2460,34 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C. After opening, keep the bottle in the refrigerator.",
       "ingredients": "Purified water, xylitol, lecithin, glycerin, turmeric root extract in liposomal form, xanthan gum, potassium sorbate, steviol glycosides, alpha-tocopherol.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 5 ml",
+        "rows": [
+          {
+            "name": "Calories",
+            "amount": "5",
+            "dv": ""
+          },
+          {
+            "name": "Total Fat",
+            "amount": "0.5 g",
+            "dv": "1%"
+          },
+          {
+            "name": "Total Carbohydrate",
+            "amount": "1 g",
+            "dv": "0%"
+          },
+          {
+            "name": "Cureit™ (Curcuma longa rhizome extract)",
+            "amount": "100 mg",
+            "dv": ""
+          },
+          {
+            "name": "Curcumin",
+            "amount": "50 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -1738,7 +2535,43 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "Per 15 ml sachet: fermented mandarin peel (Citrus reticulata) 5 g, noni fruit juice (Morinda citrifolia) 300 mg, L-carnitine 50 mg, green tea leaf extract (Camellia sinensis) 26 mg, green coffee bean extract (Coffea arabica) 5 mg, greater burdock root (Arctium lappa), black pepper extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "Tangerine (Citrus reticulata) peel fermented, mg",
+            "amount": "5 000",
+            "dv": ""
+          },
+          {
+            "name": "Noni (Morinda citrifolia) fruit juice, mg",
+            "amount": "300",
+            "dv": ""
+          },
+          {
+            "name": "L-Carnitine, mg",
+            "amount": "50",
+            "dv": ""
+          },
+          {
+            "name": "Green Tea (Camellia sinensis) leaf extract, mg",
+            "amount": "26",
+            "dv": ""
+          },
+          {
+            "name": "Green coffee (Coffea arabica) bean extract, mg",
+            "amount": "5",
+            "dv": ""
+          },
+          {
+            "name": "Black Pepper (Piper nigrum) fruit extract, mg",
+            "amount": "1",
+            "dv": ""
+          },
+          {
+            "name": "Burdock (Arctium lappa) root powder, mg",
+            "amount": "1",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -2063,8 +2896,29 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Cherry (Prunus cerasus) pedicle extract",
+            "amount": "150 mg",
+            "dv": ""
+          },
+          {
+            "name": "Black Currant (Ribes nigrum) leaf extract",
+            "amount": "150 mg",
+            "dv": ""
+          },
+          {
+            "name": "Parsley (Petroselinum sativum) leaf extract",
+            "amount": "75 mg",
+            "dv": ""
+          },
+          {
+            "name": "Hibiscus (Hibiscus rosa-sinensis) flower extract",
+            "amount": "50 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -2111,8 +2965,39 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Memophenol (French grape and wild Canadian blueberry extract) 300 mg, green tea extract 50 mg, vitamin B12 (methylcobalamin) 3 mcg, zinc 2.3 mg, vitamin B6 (pyridoxal 5-phosphate) 2 mg, vitamin B9 (calcium L-methylfolate Extrafolate-S) 100 mcg, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Vitamin B6 (Pyridoxal 5-phosphate)",
+            "amount": "2 mg",
+            "dv": "118%"
+          },
+          {
+            "name": "Folic Acid (L-Methylfolate Ca as Extrafolate-S™)",
+            "amount": "100 mcg",
+            "dv": "25%"
+          },
+          {
+            "name": "Vitamin B12 (Methylcobalamin)",
+            "amount": "3 mcg",
+            "dv": "125%"
+          },
+          {
+            "name": "Zinc (as zinc oxide from capsule shell)",
+            "amount": "2.3 mg",
+            "dv": "21%"
+          },
+          {
+            "name": "Memophenol™French grape (Vitis vinifera L.) fruit extractWild blueberry (Vaccinium angustifolium A.) fruit extract",
+            "amount": "300 mg",
+            "dv": ""
+          },
+          {
+            "name": "Green tea (Camellia sinensis) leaf extract",
+            "amount": "50 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -2163,8 +3048,79 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Acetyl-L-carnitine, St John's wort extract, gotu kola leaf extract, tyrosine, theanine, reishi fruiting body extract, reishi mycelium extract, lipoic acid, ginger root extract, ginkgo biloba leaf extract, rosemary leaf extract, vitamins B6 and B12, folic acid, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Vitamin B6 (Pyridoxal-5'-Phosphate)",
+            "amount": "2 mg",
+            "dv": "118%"
+          },
+          {
+            "name": "Folic acid",
+            "amount": "50 mcg",
+            "dv": "13%"
+          },
+          {
+            "name": "Vitamin B12 (Methylcobalamin)",
+            "amount": "3 mcg",
+            "dv": "125%"
+          },
+          {
+            "name": "Acetyl-L-Carnitine Hydrochloride",
+            "amount": "250 mg",
+            "dv": ""
+          },
+          {
+            "name": "St John's Wort (Hypericum perforatum) herb extract",
+            "amount": "75 mg",
+            "dv": ""
+          },
+          {
+            "name": "Gotu Kola (Centella asiatica) leaf extract",
+            "amount": "50 mg",
+            "dv": ""
+          },
+          {
+            "name": "L-Tyrosine",
+            "amount": "50 mg",
+            "dv": ""
+          },
+          {
+            "name": "L-Theanine",
+            "amount": "40 mg",
+            "dv": ""
+          },
+          {
+            "name": "Reishi (Ganoderma lucidum) mushroom extract",
+            "amount": "30 mg",
+            "dv": ""
+          },
+          {
+            "name": "Reishi (Ganoderma lucidum) mycelium extract",
+            "amount": "20 mg",
+            "dv": ""
+          },
+          {
+            "name": "Alpha-Lipoic acid",
+            "amount": "20 mg",
+            "dv": ""
+          },
+          {
+            "name": "Ginger (Zingiber officinale) root extract",
+            "amount": "15 mg",
+            "dv": ""
+          },
+          {
+            "name": "Ginkgo (Ginkgo biloba) leaf extract",
+            "amount": "12 mg",
+            "dv": ""
+          },
+          {
+            "name": "Rosemary (Rosmarinus officinalis) leaf extract",
+            "amount": "5 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -2207,8 +3163,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Methylsulfonylmethane, vitamin C, biotin, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "AmountPer Serving(1 capsule)",
+        "rows": [
+          {
+            "name": "MSM (Methylsulfonylmethane), mg",
+            "amount": "750",
+            "dv": ""
+          },
+          {
+            "name": "Vitamin C (as Magnesium ascorbate), mg",
+            "amount": "50",
+            "dv": "56.00%"
+          },
+          {
+            "name": "Biotin, mcg",
+            "amount": "50",
+            "dv": "167.00%"
+          }
+        ]
       }
     }
   },
@@ -2244,7 +3216,28 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "Omega-3 concentrate 650 mg from ocean fish oil (anchovy, sardine, mackerel, tuna), including EPA (eicosapentaenoic acid) 360 mg and DHA (docosahexaenoic acid) 240 mg, vitamin E (D-alpha-tocopherol) 6.71 mg.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "Active Ingredients",
+            "amount": "1 capsule",
+            "dv": "% DV*%"
+          },
+          {
+            "name": "Vitamin E (as D-alpha-tocopherol)",
+            "amount": "6.71 mg",
+            "dv": "45%"
+          },
+          {
+            "name": "Omega 3 Fish Oil Omega-3 Fatty Acids EPA (Eicosapentaenoic acid) DHA (Docosahexaenoic acid)",
+            "amount": "1000 mg650 mg360 mg 240 mg",
+            "dv": "――――%"
+          },
+          {
+            "name": "Mixed tocopherols",
+            "amount": "4 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -2491,8 +3484,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Pau d'arco (lapacho) bark extract, olive leaf extract, yerba mate leaf extract, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 3Capsules",
+        "rows": [
+          {
+            "name": "Pau D`Arco (Tabebuia impetiginosa) bark extract (4:1)",
+            "amount": "600 mg",
+            "dv": ""
+          },
+          {
+            "name": "Olive (Olea europaea) leaf extract (min. 40% Oleuropein)",
+            "amount": "210 mg",
+            "dv": ""
+          },
+          {
+            "name": "Mate (llex Paraguariensis) extract (4:1)",
+            "amount": "90 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -2535,8 +3544,29 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Pau d'arco bark 500 mg, vitamin C 60 mg, selenium 30 mcg, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsules",
+        "rows": [
+          {
+            "name": "Total carbohydrate",
+            "amount": "< 1 g",
+            "dv": ""
+          },
+          {
+            "name": "Vitamin C (as ascorbic acid)",
+            "amount": "60 mg",
+            "dv": "67%"
+          },
+          {
+            "name": "Selenium (as L-Selenomethionine)",
+            "amount": "30 mcg",
+            "dv": "55%"
+          },
+          {
+            "name": "Pau D'Arco (Tabebuia impetiginosa) bark powder",
+            "amount": "500 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -2582,11 +3612,21 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
       "ingredients": "",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
+        "servingLabel": "Amount Per Serving — 1 effervescent tablet",
         "rows": [
           {
-            "name": "test",
-            "amount": "test",
+            "name": "Vitamin C (as L-ascorbic acid)",
+            "amount": "100 mg",
+            "dv": "111%"
+          },
+          {
+            "name": "Potassium (as potassium bicarbonate)",
+            "amount": "420 mg",
+            "dv": "9%"
+          },
+          {
+            "name": "Ribose (as D-ribose)",
+            "amount": "20 mg",
             "dv": ""
           }
         ]
@@ -2640,7 +3680,28 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "Beta-alanine, hop cone extract, flax seed extract, saffron extract, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "Β-Alanine",
+            "amount": "400 mg",
+            "dv": ""
+          },
+          {
+            "name": "Lifenol® Hops (Humulus lupulus) extract",
+            "amount": "100 mg",
+            "dv": ""
+          },
+          {
+            "name": "Flax (Linum usitatissimum) seed lignan complex",
+            "amount": "30 mg",
+            "dv": ""
+          },
+          {
+            "name": "Saffron (Crocus sativus) flower extract",
+            "amount": "20 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -2731,8 +3792,89 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Omega-3 fatty acids, vitamin E, niacinamide, pantothenic acid, vitamin B12, zinc, vitamin B6, selenium, vitamin B1, vitamin B2, folic acid, iodine, vitamin D3, biotin, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Calories",
+            "amount": "5",
+            "dv": ""
+          },
+          {
+            "name": "Total Fat",
+            "amount": "< 1 g",
+            "dv": "1%"
+          },
+          {
+            "name": "Vitamin D3 (as cholecalciferol)",
+            "amount": "5 mcg",
+            "dv": "33%"
+          },
+          {
+            "name": "Vitamin E (as d-α-tocopherol)",
+            "amount": "13 mg",
+            "dv": "68%"
+          },
+          {
+            "name": "Vitamin B1 (as thiamin mononitrate)",
+            "amount": "1.2 mg",
+            "dv": "86%"
+          },
+          {
+            "name": "Vitamin B2 (as riboflavin)",
+            "amount": "1.5 mg",
+            "dv": "94%"
+          },
+          {
+            "name": "Niacin (as nicotinamide)",
+            "amount": "15 mg",
+            "dv": "83%"
+          },
+          {
+            "name": "Vitamin B6 (as pyridoxine HCl)",
+            "amount": "1.9 mg",
+            "dv": "95%"
+          },
+          {
+            "name": "Folate (as folic acid)",
+            "amount": "400 mcg",
+            "dv": "67%"
+          },
+          {
+            "name": "Vitamin B12 (as cyanocobalamin)",
+            "amount": "3.5 mcg",
+            "dv": "125%"
+          },
+          {
+            "name": "Biotin",
+            "amount": "50 mcg",
+            "dv": "143%"
+          },
+          {
+            "name": "Pantothenic acid (as Calcium-D-Pantothenate)",
+            "amount": "6 mg",
+            "dv": "86%"
+          },
+          {
+            "name": "Iodine (as potassium iodate)",
+            "amount": "150 mcg",
+            "dv": "52%"
+          },
+          {
+            "name": "Zinc (as zinc oxide)",
+            "amount": "2.25 mg",
+            "dv": "17%"
+          },
+          {
+            "name": "Selenium (as sodium selenate)",
+            "amount": "30 mcg",
+            "dv": "43%"
+          },
+          {
+            "name": "DHA (from fish oil)",
+            "amount": "200 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -3005,8 +4147,59 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "MaxiCollagen liquid hydrolysed fish collagen with tripeptides, hibiscus flower extract, white currant fruit extract, vitamin C (L-ascorbic acid), hyaluronic acid, vitamin B6 (pyridoxine hydrochloride), vitamin B2 (riboflavin), spinach leaf, biotin, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 vial (50 ml)",
+        "rows": [
+          {
+            "name": "Vitamin C (as L-ascorbic acid)",
+            "amount": "100 mg",
+            "dv": "111%"
+          },
+          {
+            "name": "Riboflavin (Vitamin B2)",
+            "amount": "1.7 mg",
+            "dv": "131%"
+          },
+          {
+            "name": "Vitamin B6 (as pyridoxine hydrochloride)",
+            "amount": "1.8 mg",
+            "dv": "106%"
+          },
+          {
+            "name": "Biotin",
+            "amount": "50 mcg",
+            "dv": "167%"
+          },
+          {
+            "name": "Hydrolized fish collagen (as MAXICOLLAGEN) containing",
+            "amount": "15 g",
+            "dv": ""
+          },
+          {
+            "name": "Tripeptides",
+            "amount": "3.5 g",
+            "dv": ""
+          },
+          {
+            "name": "Hibiscus (Hibiscus sabdariffa) flower extract",
+            "amount": "1.5 g",
+            "dv": ""
+          },
+          {
+            "name": "White Versaillies (Ribes rubrum) fruit extract",
+            "amount": "700 mg",
+            "dv": ""
+          },
+          {
+            "name": "Hyaluronic Acid (as Sodium Hyaluronate)",
+            "amount": "72 mg",
+            "dv": ""
+          },
+          {
+            "name": "Spinach (Spinacia oleracea) leaf",
+            "amount": "1 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -3137,8 +4330,119 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "L-leucine 250 mg, L-isoleucine 125 mg, L-valine 125 mg, L-lysine hydrochloride 120 mg, L-arginine 100 mg, L-phenylalanine 100 mg, L-glutamine 100 mg, citrulline 80 mg, L-threonine 60 mg, L-histidine 40 mg, L-cysteine 20 mg, excipients: microcrystalline cellulose, stearic acid, hydroxypropyl methylcellulose.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 5 Caplets",
+        "rows": [
+          {
+            "name": "L-Leucine",
+            "amount": "1.25 g",
+            "dv": ""
+          },
+          {
+            "name": "L-Isoleucine",
+            "amount": "625 mg",
+            "dv": ""
+          },
+          {
+            "name": "L-Valine",
+            "amount": "625 mg",
+            "dv": ""
+          },
+          {
+            "name": "L-Lysine hydrochloride",
+            "amount": "600 mg",
+            "dv": ""
+          },
+          {
+            "name": "L-Arginine",
+            "amount": "500 mg",
+            "dv": ""
+          },
+          {
+            "name": "L-Phenylalanine",
+            "amount": "500 mg",
+            "dv": ""
+          },
+          {
+            "name": "L-Glutamine",
+            "amount": "500 mg",
+            "dv": ""
+          },
+          {
+            "name": "Citrulline",
+            "amount": "400 mg",
+            "dv": ""
+          },
+          {
+            "name": "L-Threonine",
+            "amount": "300 mg",
+            "dv": ""
+          },
+          {
+            "name": "L-Histidine (hydrochloride)",
+            "amount": "200 mg",
+            "dv": ""
+          },
+          {
+            "name": "L-Cysteine",
+            "amount": "100 mg",
+            "dv": ""
+          },
+          {
+            "name": "Supplement Facts",
+            "amount": "Serving Size (5 Caplets)",
+            "dv": "%Daily Value%"
+          },
+          {
+            "name": "Calories",
+            "amount": "35",
+            "dv": ""
+          },
+          {
+            "name": "Total Fat",
+            "amount": "0.5 g",
+            "dv": "<1 %*%"
+          },
+          {
+            "name": "Saturated fat",
+            "amount": "0.5 g",
+            "dv": "2 %*%"
+          },
+          {
+            "name": "Trans fat",
+            "amount": "",
+            "dv": "0 %*%"
+          },
+          {
+            "name": "Cholesterol",
+            "amount": "0 mg",
+            "dv": "0 %*%"
+          },
+          {
+            "name": "Total Carbohydrate",
+            "amount": "2 g",
+            "dv": "<1 %*%"
+          },
+          {
+            "name": "Dietary Fiber",
+            "amount": "1 g",
+            "dv": "4 %*%"
+          },
+          {
+            "name": "Total Sugars",
+            "amount": "0 g",
+            "dv": ""
+          },
+          {
+            "name": "Includes 0 g Added Sugars",
+            "amount": "",
+            "dv": "0 %*%"
+          },
+          {
+            "name": "Protein",
+            "amount": "5 g",
+            "dv": "10%"
+          }
+        ]
       }
     }
   },
@@ -3209,8 +4513,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from light, out of reach of children, at a temperature of 15-25°C.",
       "ingredients": "Inositol (myo-inositol) 350 mg, saffron stigma extract Safr'Inside 30 mg, zinc (zinc oxide in the capsule shell) 2.3 mg, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Inositol (Myo-Inositol)",
+            "amount": "350 mg",
+            "dv": ""
+          },
+          {
+            "name": "Saffron (Crocus sativus L.) stigma extract (Safr'lnside™)",
+            "amount": "30 mg",
+            "dv": ""
+          },
+          {
+            "name": "Zinc (as zinc oxide)",
+            "amount": "2.3 mg",
+            "dv": "23%"
+          }
+        ]
       }
     }
   },
@@ -3249,8 +4569,19 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Selenium, vitamin C, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Vitamin C (Ascorbic acid)",
+            "amount": "75 mg",
+            "dv": "83%"
+          },
+          {
+            "name": "Selenium (L-Selenomethionine)",
+            "amount": "75 mcg",
+            "dv": "136%"
+          }
+        ]
       }
     }
   },
@@ -3399,7 +4730,23 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "Freeze-dried bifidobacteria and lactobacteria cultures, inulin, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "Bifidobacterium longum 100 Billion cfu/g",
+            "amount": "33 mg",
+            "dv": ""
+          },
+          {
+            "name": "Lactobacillus acidophilus 200 Billion cfu/g",
+            "amount": "11 mg",
+            "dv": ""
+          },
+          {
+            "name": "Inulin",
+            "amount": "25 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -3442,8 +4789,139 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "AmountPer Serving(1 capsules)",
+        "rows": [
+          {
+            "name": "Vitamin A (beta-carotene)",
+            "amount": "900 mcg",
+            "dv": "100%"
+          },
+          {
+            "name": "Vitamin C (calcium ascorbate and magnesium ascorbate)",
+            "amount": "80 mg",
+            "dv": "89%"
+          },
+          {
+            "name": "Vitamin D (cholecalciferol)",
+            "amount": "5 mcg (200IU)",
+            "dv": "25%"
+          },
+          {
+            "name": "Vitamin E (D-alpha tocopheryl succinate and tocotrienols)",
+            "amount": "20 mg",
+            "dv": "133%"
+          },
+          {
+            "name": "Thiamine (thiamin hydrochloride)",
+            "amount": "1.1 mg",
+            "dv": "92%"
+          },
+          {
+            "name": "Riboflavin (riboflavin 5-phosphate)",
+            "amount": "1.4 mg",
+            "dv": "108%"
+          },
+          {
+            "name": "Niacin (niacinamide)",
+            "amount": "8 mgNE",
+            "dv": "50%"
+          },
+          {
+            "name": "Vitamin B6 (pyridoxal-5-phoshate)",
+            "amount": "1.4 mg",
+            "dv": "82%"
+          },
+          {
+            "name": "Folic Acid (Metafolin®)",
+            "amount": "100 mcgDEF",
+            "dv": "25%"
+          },
+          {
+            "name": "Vitamin B12 (methylcobalamin)",
+            "amount": "2 mcg",
+            "dv": "83%"
+          },
+          {
+            "name": "Biotin (d-biotin)",
+            "amount": "50 mcg",
+            "dv": "167%"
+          },
+          {
+            "name": "Pantothenic Acid (d-calcium pantothenate)",
+            "amount": "5 mg",
+            "dv": "100%"
+          },
+          {
+            "name": "Choline (bitartrate)",
+            "amount": "50 mg",
+            "dv": "9%"
+          },
+          {
+            "name": "Iodine (Laminaria digitata)",
+            "amount": "50 mcg",
+            "dv": "33%"
+          },
+          {
+            "name": "Magnesium (magnesium citrate)",
+            "amount": "20 mg",
+            "dv": "5%"
+          },
+          {
+            "name": "Zinc (zinc citrate)",
+            "amount": "5 mg",
+            "dv": "45%"
+          },
+          {
+            "name": "Selenium (L-Selenomethionine)",
+            "amount": "50 mcg",
+            "dv": "91%"
+          },
+          {
+            "name": "Copper (copper bisglycinate)",
+            "amount": "0.5 mg",
+            "dv": "56%"
+          },
+          {
+            "name": "Manganese (manganese gluconate)",
+            "amount": "1 mg",
+            "dv": "43%"
+          },
+          {
+            "name": "Chromium (chromium picolinate)",
+            "amount": "40 mcg",
+            "dv": "114%"
+          },
+          {
+            "name": "Molybdenum (sodium molybdate)",
+            "amount": "12 mcg",
+            "dv": "27%"
+          },
+          {
+            "name": "Potassium (potassium citrate)",
+            "amount": "10 mg",
+            "dv": "<1%"
+          },
+          {
+            "name": "Inositol",
+            "amount": "50 mg",
+            "dv": ""
+          },
+          {
+            "name": "PABA (para-aminobenzoic acid)",
+            "amount": "50 mg",
+            "dv": ""
+          },
+          {
+            "name": "Citrus Bioflavonoid Complex (Lemon (Citrus limon), Grapefruit (Citrus paradisi), Orange (Citrus sinensis), Key lime (Citrus aurantifolia), and Mandarin (Citrus reticulata))",
+            "amount": "50 mg",
+            "dv": ""
+          },
+          {
+            "name": "Proprietary herbal blend (Hesperidin (Citrus spp.), Bilberry (Vaccinium myrtillus) fruit extract, Acai (Euterpe oleracea), and Tomato (Lycopersicon esculentum) powder)",
+            "amount": "20 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -3486,8 +4964,64 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Omega-3 fatty acids (from fish oil), lutein, zeaxanthin, vitamins E and B2, zinc, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Calories",
+            "amount": "5",
+            "dv": ""
+          },
+          {
+            "name": "Total Fat",
+            "amount": "0.5 g",
+            "dv": "< 1%"
+          },
+          {
+            "name": "Vitamin E (as d-a-tocopherol)",
+            "amount": "12 mg / 18 IU",
+            "dv": "80%"
+          },
+          {
+            "name": "Riboflavin",
+            "amount": "1.4 mg",
+            "dv": "108%"
+          },
+          {
+            "name": "Zinc (as gluconate)",
+            "amount": "10 mg",
+            "dv": "91%"
+          },
+          {
+            "name": "Lutein",
+            "amount": "10 mg",
+            "dv": ""
+          },
+          {
+            "name": "Zeaxanthin",
+            "amount": "2 mg",
+            "dv": ""
+          },
+          {
+            "name": "Fish Oil",
+            "amount": "500 mg",
+            "dv": ""
+          },
+          {
+            "name": "Omega 3 Fatty Acids",
+            "amount": "300 mg",
+            "dv": ""
+          },
+          {
+            "name": "DHA (Docosahexaenoic acid)",
+            "amount": "250 mg",
+            "dv": ""
+          },
+          {
+            "name": "EPA (Eicosapentaenoic acid)",
+            "amount": "30 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -3522,8 +5056,14 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
       "ingredients": "Turmeric extract, excipients.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 capsule",
+        "rows": [
+          {
+            "name": "Curcuma (Curcuma longa) extract",
+            "amount": "120 mg",
+            "dv": ""
+          }
+        ]
       }
     }
   },
@@ -3559,7 +5099,18 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "Zinc, excipients.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "Active Ingredients",
+            "amount": "1 Capsule",
+            "dv": "% DV*%"
+          },
+          {
+            "name": "Zinc (as zinc mono-L-methionine sulphate)",
+            "amount": "25 mg",
+            "dv": "227%"
+          }
+        ]
       }
     }
   }

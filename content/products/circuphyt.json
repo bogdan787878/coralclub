@@ -41,8 +41,39 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "Diosmin, gotu kola extract, horse chestnut seed extract, blueberry extract, hawthorn fruit extract, ginkgo biloba leaf extract, excipients.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 1 capsule",
+      "rows": [
+        {
+          "name": "Diosmine (from Hesperidin)",
+          "amount": "250 mg",
+          "dv": ""
+        },
+        {
+          "name": "Gotu kola (Centella asiatica) whole plant extract",
+          "amount": "100 mg",
+          "dv": ""
+        },
+        {
+          "name": "Horse Chestnut (Aesculus hippocastanum) seed extract",
+          "amount": "100 mg",
+          "dv": ""
+        },
+        {
+          "name": "Blueberry (Vaccinium corymbosum) fruit extract",
+          "amount": "100 mg",
+          "dv": ""
+        },
+        {
+          "name": "Hawthorn (Crataegus pinnatifida) berry extract",
+          "amount": "60 mg",
+          "dv": ""
+        },
+        {
+          "name": "Ginkgo (Ginkgo biloba) leaf extract",
+          "amount": "40 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

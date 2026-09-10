@@ -49,8 +49,89 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "Omega-3 fatty acids, vitamin E, niacinamide, pantothenic acid, vitamin B12, zinc, vitamin B6, selenium, vitamin B1, vitamin B2, folic acid, iodine, vitamin D3, biotin, excipients.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 1 capsule",
+      "rows": [
+        {
+          "name": "Calories",
+          "amount": "5",
+          "dv": ""
+        },
+        {
+          "name": "Total Fat",
+          "amount": "< 1 g",
+          "dv": "1%"
+        },
+        {
+          "name": "Vitamin D3 (as cholecalciferol)",
+          "amount": "5 mcg",
+          "dv": "33%"
+        },
+        {
+          "name": "Vitamin E (as d-α-tocopherol)",
+          "amount": "13 mg",
+          "dv": "68%"
+        },
+        {
+          "name": "Vitamin B1 (as thiamin mononitrate)",
+          "amount": "1.2 mg",
+          "dv": "86%"
+        },
+        {
+          "name": "Vitamin B2 (as riboflavin)",
+          "amount": "1.5 mg",
+          "dv": "94%"
+        },
+        {
+          "name": "Niacin (as nicotinamide)",
+          "amount": "15 mg",
+          "dv": "83%"
+        },
+        {
+          "name": "Vitamin B6 (as pyridoxine HCl)",
+          "amount": "1.9 mg",
+          "dv": "95%"
+        },
+        {
+          "name": "Folate (as folic acid)",
+          "amount": "400 mcg",
+          "dv": "67%"
+        },
+        {
+          "name": "Vitamin B12 (as cyanocobalamin)",
+          "amount": "3.5 mcg",
+          "dv": "125%"
+        },
+        {
+          "name": "Biotin",
+          "amount": "50 mcg",
+          "dv": "143%"
+        },
+        {
+          "name": "Pantothenic acid (as Calcium-D-Pantothenate)",
+          "amount": "6 mg",
+          "dv": "86%"
+        },
+        {
+          "name": "Iodine (as potassium iodate)",
+          "amount": "150 mcg",
+          "dv": "52%"
+        },
+        {
+          "name": "Zinc (as zinc oxide)",
+          "amount": "2.25 mg",
+          "dv": "17%"
+        },
+        {
+          "name": "Selenium (as sodium selenate)",
+          "amount": "30 mcg",
+          "dv": "43%"
+        },
+        {
+          "name": "DHA (from fish oil)",
+          "amount": "200 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

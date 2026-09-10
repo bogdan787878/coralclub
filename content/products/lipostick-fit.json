@@ -42,7 +42,43 @@
     "ingredients": "Per 15 ml sachet: fermented mandarin peel (Citrus reticulata) 5 g, noni fruit juice (Morinda citrifolia) 300 mg, L-carnitine 50 mg, green tea leaf extract (Camellia sinensis) 26 mg, green coffee bean extract (Coffea arabica) 5 mg, greater burdock root (Arctium lappa), black pepper extract, excipients.",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "Tangerine (Citrus reticulata) peel fermented, mg",
+          "amount": "5 000",
+          "dv": ""
+        },
+        {
+          "name": "Noni (Morinda citrifolia) fruit juice, mg",
+          "amount": "300",
+          "dv": ""
+        },
+        {
+          "name": "L-Carnitine, mg",
+          "amount": "50",
+          "dv": ""
+        },
+        {
+          "name": "Green Tea (Camellia sinensis) leaf extract, mg",
+          "amount": "26",
+          "dv": ""
+        },
+        {
+          "name": "Green coffee (Coffea arabica) bean extract, mg",
+          "amount": "5",
+          "dv": ""
+        },
+        {
+          "name": "Black Pepper (Piper nigrum) fruit extract, mg",
+          "amount": "1",
+          "dv": ""
+        },
+        {
+          "name": "Burdock (Arctium lappa) root powder, mg",
+          "amount": "1",
+          "dv": ""
+        }
+      ]
     }
   }
 }

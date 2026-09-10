@@ -33,8 +33,19 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "Concentrated alfalfa grass juice, alfalfa grass, calcium carbonate, excipients.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 2 capsules",
+      "rows": [
+        {
+          "name": "Alfalfa (Medicago sativa) juice powder",
+          "amount": "500 mg",
+          "dv": ""
+        },
+        {
+          "name": "Alfalfa (Medicago sativa) leaf powder",
+          "amount": "300 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

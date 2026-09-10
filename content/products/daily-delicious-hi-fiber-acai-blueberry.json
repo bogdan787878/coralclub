@@ -42,7 +42,68 @@
     "ingredients": "Apple fibre, inulin, rice bran, L-glutamine, apple pectin, plum, pineapple, acai extract, blueberry, aloe vera gel, excipients.",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "Ingrediente active",
+          "amount": "Serving Size - 1 measuring spoon (9 g)",
+          "dv": "% DV*%"
+        },
+        {
+          "name": "Apple fiber",
+          "amount": "3000 mg",
+          "dv": ""
+        },
+        {
+          "name": "Inulin",
+          "amount": "2790 mg",
+          "dv": ""
+        },
+        {
+          "name": "Rice bran",
+          "amount": "500 mg",
+          "dv": ""
+        },
+        {
+          "name": "L-glutamine",
+          "amount": "200 mg",
+          "dv": ""
+        },
+        {
+          "name": "Glucomannan",
+          "amount": "200 mg",
+          "dv": ""
+        },
+        {
+          "name": "Plum fruit powder",
+          "amount": "200 mg",
+          "dv": ""
+        },
+        {
+          "name": "Pineapple fruit powder",
+          "amount": "100 mg",
+          "dv": ""
+        },
+        {
+          "name": "Blueberry fruit powder",
+          "amount": "100 mg",
+          "dv": ""
+        },
+        {
+          "name": "Acai berry extract",
+          "amount": "100 mg",
+          "dv": ""
+        },
+        {
+          "name": "Apple pectin",
+          "amount": "50 mg",
+          "dv": ""
+        },
+        {
+          "name": "Aloe vera gel powder",
+          "amount": "30 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

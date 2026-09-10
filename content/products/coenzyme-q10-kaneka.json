@@ -30,7 +30,23 @@
     "ingredients": "Chicory root inulin, Kaneka Q10 coenzyme (ubiquinone), medium-chain triglycerides from coconut oil, excipients.",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "Inulin (from chicory root)",
+          "amount": "125 mg",
+          "dv": "**%"
+        },
+        {
+          "name": "Coenzyme Q10 (Kaneka Q10®)",
+          "amount": "100 mg",
+          "dv": "**%"
+        },
+        {
+          "name": "MCT oil powder",
+          "amount": "5 mg",
+          "dv": "**%"
+        }
+      ]
     }
   }
 }

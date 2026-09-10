@@ -33,8 +33,39 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 1 capsule",
+      "rows": [
+        {
+          "name": "Vitamin C (ascorbyl palmitate)",
+          "amount": "50 mg",
+          "dv": "56%"
+        },
+        {
+          "name": "Manganese (manganese gluconate)",
+          "amount": "0.3 mg",
+          "dv": "13%"
+        },
+        {
+          "name": "Bamboo (Bambusa vulgaris) extract",
+          "amount": "7.5 mg",
+          "dv": ""
+        },
+        {
+          "name": "Glucosamine HCl",
+          "amount": "300 mg",
+          "dv": ""
+        },
+        {
+          "name": "Chondroitin sulfate",
+          "amount": "250 mg",
+          "dv": ""
+        },
+        {
+          "name": "MSM (methylsulfonylmethane)",
+          "amount": "200 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

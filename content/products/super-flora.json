@@ -34,7 +34,23 @@
     "ingredients": "Freeze-dried bifidobacteria and lactobacteria cultures, inulin, excipients.",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "Bifidobacterium longum 100 Billion cfu/g",
+          "amount": "33 mg",
+          "dv": ""
+        },
+        {
+          "name": "Lactobacillus acidophilus 200 Billion cfu/g",
+          "amount": "11 mg",
+          "dv": ""
+        },
+        {
+          "name": "Inulin",
+          "amount": "25 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

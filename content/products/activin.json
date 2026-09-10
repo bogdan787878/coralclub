@@ -33,8 +33,94 @@
     "storage": "",
     "ingredients": "",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 1 capsule",
+      "rows": [
+        {
+          "name": "Vitamin C (Calcium ascorbate)",
+          "amount": "60 mg",
+          "dv": "67%"
+        },
+        {
+          "name": "Vitamin E (Tocopheryl acetate)",
+          "amount": "10 mg",
+          "dv": "67%"
+        },
+        {
+          "name": "Zinc (L-Methionine)",
+          "amount": "15 mg",
+          "dv": "136%"
+        },
+        {
+          "name": "Selenium (L-Selenomethionine)",
+          "amount": "35 mcg",
+          "dv": "64%"
+        },
+        {
+          "name": "Copper (Citrate)",
+          "amount": "40 mcg",
+          "dv": "4%"
+        },
+        {
+          "name": "Manganese (Aspartate)",
+          "amount": "250 mcg",
+          "dv": "11%"
+        },
+        {
+          "name": "Chromium (Picolinate)",
+          "amount": "100 mcg",
+          "dv": "286%"
+        },
+        {
+          "name": "Molybdenum (Sodium molybdate)",
+          "amount": "25 mcg",
+          "dv": "56%"
+        },
+        {
+          "name": "Inulin (from Chicory root)",
+          "amount": "200 mg",
+          "dv": ""
+        },
+        {
+          "name": "ActiVin (Grape seed extract)",
+          "amount": "150 mg",
+          "dv": ""
+        },
+        {
+          "name": "Muira Puama (Liriosma ovata) root",
+          "amount": "50 mg",
+          "dv": ""
+        },
+        {
+          "name": "Eleuthero (Eleutherococcus senticosus) root",
+          "amount": "25 mg",
+          "dv": ""
+        },
+        {
+          "name": "Dunaliella (Dunaliella salina) whole plant",
+          "amount": "15 mg",
+          "dv": ""
+        },
+        {
+          "name": "Royal Jelly (Bees milk)",
+          "amount": "10 mg",
+          "dv": ""
+        },
+        {
+          "name": "Milk Thistle (Silybum marianum) extract",
+          "amount": "5 mg",
+          "dv": ""
+        },
+        {
+          "name": "Ginkgo (Ginkgo biloba) extract",
+          "amount": "5 mg",
+          "dv": ""
+        },
+        {
+          "name": "Green Tea (Camellia sinensis) extract",
+          "amount": "5 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

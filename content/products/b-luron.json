@@ -33,9 +33,49 @@
       "servingLabel": "Amount Per Serving",
       "rows": [
         {
-          "name": "test",
-          "amount": "test",
+          "name": "Active Ingredients",
+          "amount": "Amount per dose (30 ml)",
+          "dv": "% DV*%"
+        },
+        {
+          "name": "Vitamin E (as dl-alpha tocopheryl acetate)",
+          "amount": "15 mg (15 IU)",
+          "dv": "100%"
+        },
+        {
+          "name": "Chondroitin Sulfate",
+          "amount": "300 mg",
           "dv": ""
+        },
+        {
+          "name": "Hyaluronic Acid",
+          "amount": "150 mg",
+          "dv": ""
+        },
+        {
+          "name": "Supplement Facts",
+          "amount": "Amount per dose (30 ml)",
+          "dv": "% DV*%"
+        },
+        {
+          "name": "Calories",
+          "amount": "60",
+          "dv": ""
+        },
+        {
+          "name": "Total Carbohydrates",
+          "amount": "13 g",
+          "dv": "5%*%"
+        },
+        {
+          "name": "Total Sugars",
+          "amount": "13 g",
+          "dv": ""
+        },
+        {
+          "name": "Includes 1 g Added Sugars",
+          "amount": "",
+          "dv": "2%*%"
         }
       ]
     }

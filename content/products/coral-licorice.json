@@ -33,8 +33,24 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "Deglycyrrhizinated licorice root extract, licorice root extract, ginger root extract, excipients.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 1 capsule",
+      "rows": [
+        {
+          "name": "Deglycyrrhizinated Licorice (Glycyrrhiza glabra) root extract",
+          "amount": "300 mg",
+          "dv": ""
+        },
+        {
+          "name": "Licorice (Glycyrrhiza glabra) root extract",
+          "amount": "80 mg",
+          "dv": ""
+        },
+        {
+          "name": "Ginger (Zingiber officinale) root extract",
+          "amount": "20 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

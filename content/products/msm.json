@@ -37,8 +37,24 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "Methylsulfonylmethane, vitamin C, biotin, excipients.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "AmountPer Serving(1 capsule)",
+      "rows": [
+        {
+          "name": "MSM (Methylsulfonylmethane), mg",
+          "amount": "750",
+          "dv": ""
+        },
+        {
+          "name": "Vitamin C (as Magnesium ascorbate), mg",
+          "amount": "50",
+          "dv": "56.00%"
+        },
+        {
+          "name": "Biotin, mcg",
+          "amount": "50",
+          "dv": "167.00%"
+        }
+      ]
     }
   }
 }

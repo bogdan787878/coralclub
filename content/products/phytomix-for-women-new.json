@@ -42,7 +42,28 @@
     "ingredients": "Beta-alanine, hop cone extract, flax seed extract, saffron extract, excipients.",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "Β-Alanine",
+          "amount": "400 mg",
+          "dv": ""
+        },
+        {
+          "name": "Lifenol® Hops (Humulus lupulus) extract",
+          "amount": "100 mg",
+          "dv": ""
+        },
+        {
+          "name": "Flax (Linum usitatissimum) seed lignan complex",
+          "amount": "30 mg",
+          "dv": ""
+        },
+        {
+          "name": "Saffron (Crocus sativus) flower extract",
+          "amount": "20 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

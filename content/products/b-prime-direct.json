@@ -49,8 +49,59 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "Sorbitol (sweetener), choline (choline citrate), inositol (myo-inositol), sodium chloride, vitamin B3 (niacinamide), orange flavouring, biotin (D-biotin), vitamin B5 (calcium D-pantothenate), vitamin B12 (methylcobalamin), vitamin B2 (sodium riboflavin 5'-phosphate), vitamin B1 (thiamine hydrochloride) and other B vitamins.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 1 stick pack (2g)",
+      "rows": [
+        {
+          "name": "Vitamin B1 (as thiamine hydrochloride)",
+          "amount": "5 mg",
+          "dv": "417%"
+        },
+        {
+          "name": "Vitamin B2 (as riboflavin 5'-phosphate sodium)",
+          "amount": "6 mg",
+          "dv": "462%"
+        },
+        {
+          "name": "Niacin (as nicotinamide)",
+          "amount": "30 mg",
+          "dv": "188%"
+        },
+        {
+          "name": "Vitamin B6 (as pyridoxal 5'-phosphate)",
+          "amount": "3.5 mg",
+          "dv": "206%"
+        },
+        {
+          "name": "Folic acid (as L-methylfolate calcium EXTRAfolate-STM)",
+          "amount": "200 μg",
+          "dv": "85%"
+        },
+        {
+          "name": "Vitamin B12 (as methylcobalamin)",
+          "amount": "9 μg",
+          "dv": "375%"
+        },
+        {
+          "name": "Biotin (as D-biotin)",
+          "amount": "150 μg",
+          "dv": "500%"
+        },
+        {
+          "name": "Pantothenic acid (as calcium D-pantothenate)",
+          "amount": "10 mg",
+          "dv": "200%"
+        },
+        {
+          "name": "Choline (as choline citrate)",
+          "amount": "100 mg",
+          "dv": "18%"
+        },
+        {
+          "name": "Inositol (as myo-inositol)",
+          "amount": "75 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

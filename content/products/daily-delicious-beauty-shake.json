@@ -49,8 +49,99 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "Vitamin A, vitamin C, vitamin E, niacin, folate (folic acid), biotin, pantothenic acid, magnesium (magnesium citrate), selenium (L-selenomethionine), copper, branched-chain amino acids (L-isoleucine, L-leucine, L-valine), PABA (para-aminobenzoic acid), excipients.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 25 g",
+      "rows": [
+        {
+          "name": "Vitamin A (as retinyl acetate)",
+          "amount": "1068 IU",
+          "dv": "21%"
+        },
+        {
+          "name": "Vitamin C (as sodium L-ascorbate)",
+          "amount": "145.5 mg",
+          "dv": "243%"
+        },
+        {
+          "name": "Vitamin E (as d-alpha tocopheryl acetate)",
+          "amount": "5.5 IU",
+          "dv": "18%"
+        },
+        {
+          "name": "Niacin (as niacinamide)",
+          "amount": "4.75 mg",
+          "dv": "24%"
+        },
+        {
+          "name": "Folate (as folic acid)",
+          "amount": "128.5 mcg",
+          "dv": "32%"
+        },
+        {
+          "name": "Biotin",
+          "amount": "41 mcg",
+          "dv": "14%"
+        },
+        {
+          "name": "Pantothenic Acid (as calcium-D-pantothenate)",
+          "amount": "4 mg",
+          "dv": "40%"
+        },
+        {
+          "name": "Magnesium (as magnesium citrate)",
+          "amount": "50 mg",
+          "dv": "12%"
+        },
+        {
+          "name": "Selenium (as L-selenium methionine)",
+          "amount": "50 mcg",
+          "dv": "71%"
+        },
+        {
+          "name": "Copper",
+          "amount": "0.5 mg",
+          "dv": "25%"
+        },
+        {
+          "name": "Sodium",
+          "amount": "55 mg",
+          "dv": ""
+        },
+        {
+          "name": "L-Isoleucine, L-Leucine, L-Valine",
+          "amount": "2.5 mg",
+          "dv": ""
+        },
+        {
+          "name": "PABA para-aminobenzoic acid",
+          "amount": "25 mg",
+          "dv": ""
+        },
+        {
+          "name": "Supplement Facts",
+          "amount": "Per serving 25 g",
+          "dv": "%Daily Value%"
+        },
+        {
+          "name": "Calories",
+          "amount": "80",
+          "dv": ""
+        },
+        {
+          "name": "Total Carbohydrate",
+          "amount": "8 g",
+          "dv": "3%*%"
+        },
+        {
+          "name": "Sugars",
+          "amount": "< 1 g",
+          "dv": ""
+        },
+        {
+          "name": "Protein",
+          "amount": "13 g",
+          "dv": "26%*%"
+        }
+      ]
     }
   }
 }

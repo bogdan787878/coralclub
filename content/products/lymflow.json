@@ -37,8 +37,29 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 1 capsule",
+      "rows": [
+        {
+          "name": "Cherry (Prunus cerasus) pedicle extract",
+          "amount": "150 mg",
+          "dv": ""
+        },
+        {
+          "name": "Black Currant (Ribes nigrum) leaf extract",
+          "amount": "150 mg",
+          "dv": ""
+        },
+        {
+          "name": "Parsley (Petroselinum sativum) leaf extract",
+          "amount": "75 mg",
+          "dv": ""
+        },
+        {
+          "name": "Hibiscus (Hibiscus rosa-sinensis) flower extract",
+          "amount": "50 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

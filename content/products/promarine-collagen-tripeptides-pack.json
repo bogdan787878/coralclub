@@ -41,8 +41,59 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "MaxiCollagen liquid hydrolysed fish collagen with tripeptides, hibiscus flower extract, white currant fruit extract, vitamin C (L-ascorbic acid), hyaluronic acid, vitamin B6 (pyridoxine hydrochloride), vitamin B2 (riboflavin), spinach leaf, biotin, excipients.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 1 vial (50 ml)",
+      "rows": [
+        {
+          "name": "Vitamin C (as L-ascorbic acid)",
+          "amount": "100 mg",
+          "dv": "111%"
+        },
+        {
+          "name": "Riboflavin (Vitamin B2)",
+          "amount": "1.7 mg",
+          "dv": "131%"
+        },
+        {
+          "name": "Vitamin B6 (as pyridoxine hydrochloride)",
+          "amount": "1.8 mg",
+          "dv": "106%"
+        },
+        {
+          "name": "Biotin",
+          "amount": "50 mcg",
+          "dv": "167%"
+        },
+        {
+          "name": "Hydrolized fish collagen (as MAXICOLLAGEN) containing",
+          "amount": "15 g",
+          "dv": ""
+        },
+        {
+          "name": "Tripeptides",
+          "amount": "3.5 g",
+          "dv": ""
+        },
+        {
+          "name": "Hibiscus (Hibiscus sabdariffa) flower extract",
+          "amount": "1.5 g",
+          "dv": ""
+        },
+        {
+          "name": "White Versaillies (Ribes rubrum) fruit extract",
+          "amount": "700 mg",
+          "dv": ""
+        },
+        {
+          "name": "Hyaluronic Acid (as Sodium Hyaluronate)",
+          "amount": "72 mg",
+          "dv": ""
+        },
+        {
+          "name": "Spinach (Spinacia oleracea) leaf",
+          "amount": "1 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

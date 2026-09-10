@@ -30,7 +30,28 @@
     "ingredients": "Omega-3 concentrate 650 mg from ocean fish oil (anchovy, sardine, mackerel, tuna), including EPA (eicosapentaenoic acid) 360 mg and DHA (docosahexaenoic acid) 240 mg, vitamin E (D-alpha-tocopherol) 6.71 mg.",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "Active Ingredients",
+          "amount": "1 capsule",
+          "dv": "% DV*%"
+        },
+        {
+          "name": "Vitamin E (as D-alpha-tocopherol)",
+          "amount": "6.71 mg",
+          "dv": "45%"
+        },
+        {
+          "name": "Omega 3 Fish Oil Omega-3 Fatty Acids EPA (Eicosapentaenoic acid) DHA (Docosahexaenoic acid)",
+          "amount": "1000 mg650 mg360 mg 240 mg",
+          "dv": "――――%"
+        },
+        {
+          "name": "Mixed tocopherols",
+          "amount": "4 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

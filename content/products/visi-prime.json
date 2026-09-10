@@ -37,8 +37,64 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "Omega-3 fatty acids (from fish oil), lutein, zeaxanthin, vitamins E and B2, zinc, excipients.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 1 capsule",
+      "rows": [
+        {
+          "name": "Calories",
+          "amount": "5",
+          "dv": ""
+        },
+        {
+          "name": "Total Fat",
+          "amount": "0.5 g",
+          "dv": "< 1%"
+        },
+        {
+          "name": "Vitamin E (as d-a-tocopherol)",
+          "amount": "12 mg / 18 IU",
+          "dv": "80%"
+        },
+        {
+          "name": "Riboflavin",
+          "amount": "1.4 mg",
+          "dv": "108%"
+        },
+        {
+          "name": "Zinc (as gluconate)",
+          "amount": "10 mg",
+          "dv": "91%"
+        },
+        {
+          "name": "Lutein",
+          "amount": "10 mg",
+          "dv": ""
+        },
+        {
+          "name": "Zeaxanthin",
+          "amount": "2 mg",
+          "dv": ""
+        },
+        {
+          "name": "Fish Oil",
+          "amount": "500 mg",
+          "dv": ""
+        },
+        {
+          "name": "Omega 3 Fatty Acids",
+          "amount": "300 mg",
+          "dv": ""
+        },
+        {
+          "name": "DHA (Docosahexaenoic acid)",
+          "amount": "250 mg",
+          "dv": ""
+        },
+        {
+          "name": "EPA (Eicosapentaenoic acid)",
+          "amount": "30 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

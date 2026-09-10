@@ -41,8 +41,34 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "Hawthorn fruit extract, motherwort leaf extract, hibiscus flower extract, green coffee bean extract, skullcap root extract, excipients.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "AmountPer Serving(1 capsule)",
+      "rows": [
+        {
+          "name": "Hawthorn (Crataegus pinnatifida) berry extract",
+          "amount": "200 mg",
+          "dv": ""
+        },
+        {
+          "name": "Motherwort (Leonurus cardiaca) leaf extract",
+          "amount": "130 mg",
+          "dv": ""
+        },
+        {
+          "name": "Hibiscus (Rosa sinensis) flower extract",
+          "amount": "100 mg",
+          "dv": ""
+        },
+        {
+          "name": "Coffee (Coffea arabica) green seed extract",
+          "amount": "70 mg",
+          "dv": ""
+        },
+        {
+          "name": "Skullcap (Scutellaria baicalensis) root extract",
+          "amount": "30 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

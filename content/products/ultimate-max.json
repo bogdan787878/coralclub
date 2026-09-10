@@ -37,8 +37,139 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "AmountPer Serving(1 capsules)",
+      "rows": [
+        {
+          "name": "Vitamin A (beta-carotene)",
+          "amount": "900 mcg",
+          "dv": "100%"
+        },
+        {
+          "name": "Vitamin C (calcium ascorbate and magnesium ascorbate)",
+          "amount": "80 mg",
+          "dv": "89%"
+        },
+        {
+          "name": "Vitamin D (cholecalciferol)",
+          "amount": "5 mcg (200IU)",
+          "dv": "25%"
+        },
+        {
+          "name": "Vitamin E (D-alpha tocopheryl succinate and tocotrienols)",
+          "amount": "20 mg",
+          "dv": "133%"
+        },
+        {
+          "name": "Thiamine (thiamin hydrochloride)",
+          "amount": "1.1 mg",
+          "dv": "92%"
+        },
+        {
+          "name": "Riboflavin (riboflavin 5-phosphate)",
+          "amount": "1.4 mg",
+          "dv": "108%"
+        },
+        {
+          "name": "Niacin (niacinamide)",
+          "amount": "8 mgNE",
+          "dv": "50%"
+        },
+        {
+          "name": "Vitamin B6 (pyridoxal-5-phoshate)",
+          "amount": "1.4 mg",
+          "dv": "82%"
+        },
+        {
+          "name": "Folic Acid (Metafolin®)",
+          "amount": "100 mcgDEF",
+          "dv": "25%"
+        },
+        {
+          "name": "Vitamin B12 (methylcobalamin)",
+          "amount": "2 mcg",
+          "dv": "83%"
+        },
+        {
+          "name": "Biotin (d-biotin)",
+          "amount": "50 mcg",
+          "dv": "167%"
+        },
+        {
+          "name": "Pantothenic Acid (d-calcium pantothenate)",
+          "amount": "5 mg",
+          "dv": "100%"
+        },
+        {
+          "name": "Choline (bitartrate)",
+          "amount": "50 mg",
+          "dv": "9%"
+        },
+        {
+          "name": "Iodine (Laminaria digitata)",
+          "amount": "50 mcg",
+          "dv": "33%"
+        },
+        {
+          "name": "Magnesium (magnesium citrate)",
+          "amount": "20 mg",
+          "dv": "5%"
+        },
+        {
+          "name": "Zinc (zinc citrate)",
+          "amount": "5 mg",
+          "dv": "45%"
+        },
+        {
+          "name": "Selenium (L-Selenomethionine)",
+          "amount": "50 mcg",
+          "dv": "91%"
+        },
+        {
+          "name": "Copper (copper bisglycinate)",
+          "amount": "0.5 mg",
+          "dv": "56%"
+        },
+        {
+          "name": "Manganese (manganese gluconate)",
+          "amount": "1 mg",
+          "dv": "43%"
+        },
+        {
+          "name": "Chromium (chromium picolinate)",
+          "amount": "40 mcg",
+          "dv": "114%"
+        },
+        {
+          "name": "Molybdenum (sodium molybdate)",
+          "amount": "12 mcg",
+          "dv": "27%"
+        },
+        {
+          "name": "Potassium (potassium citrate)",
+          "amount": "10 mg",
+          "dv": "<1%"
+        },
+        {
+          "name": "Inositol",
+          "amount": "50 mg",
+          "dv": ""
+        },
+        {
+          "name": "PABA (para-aminobenzoic acid)",
+          "amount": "50 mg",
+          "dv": ""
+        },
+        {
+          "name": "Citrus Bioflavonoid Complex (Lemon (Citrus limon), Grapefruit (Citrus paradisi), Orange (Citrus sinensis), Key lime (Citrus aurantifolia), and Mandarin (Citrus reticulata))",
+          "amount": "50 mg",
+          "dv": ""
+        },
+        {
+          "name": "Proprietary herbal blend (Hesperidin (Citrus spp.), Bilberry (Vaccinium myrtillus) fruit extract, Acai (Euterpe oleracea), and Tomato (Lycopersicon esculentum) powder)",
+          "amount": "20 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

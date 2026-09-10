@@ -33,8 +33,19 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "Selenium, vitamin C, excipients.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 1 capsule",
+      "rows": [
+        {
+          "name": "Vitamin C (Ascorbic acid)",
+          "amount": "75 mg",
+          "dv": "83%"
+        },
+        {
+          "name": "Selenium (L-Selenomethionine)",
+          "amount": "75 mcg",
+          "dv": "136%"
+        }
+      ]
     }
   }
 }

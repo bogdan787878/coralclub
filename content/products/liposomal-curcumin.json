@@ -33,8 +33,34 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C. After opening, keep the bottle in the refrigerator.",
     "ingredients": "Purified water, xylitol, lecithin, glycerin, turmeric root extract in liposomal form, xanthan gum, potassium sorbate, steviol glycosides, alpha-tocopherol.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 5 ml",
+      "rows": [
+        {
+          "name": "Calories",
+          "amount": "5",
+          "dv": ""
+        },
+        {
+          "name": "Total Fat",
+          "amount": "0.5 g",
+          "dv": "1%"
+        },
+        {
+          "name": "Total Carbohydrate",
+          "amount": "1 g",
+          "dv": "0%"
+        },
+        {
+          "name": "Cureit™ (Curcuma longa rhizome extract)",
+          "amount": "100 mg",
+          "dv": ""
+        },
+        {
+          "name": "Curcumin",
+          "amount": "50 mg",
+          "dv": ""
+        }
+      ]
     }
   }
 }

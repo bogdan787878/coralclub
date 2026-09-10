@@ -30,7 +30,18 @@
     "ingredients": "Zinc, excipients.",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "Active Ingredients",
+          "amount": "1 Capsule",
+          "dv": "% DV*%"
+        },
+        {
+          "name": "Zinc (as zinc mono-L-methionine sulphate)",
+          "amount": "25 mg",
+          "dv": "227%"
+        }
+      ]
     }
   }
 }

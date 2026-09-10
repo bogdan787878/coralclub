@@ -41,8 +41,119 @@
     "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
     "ingredients": "L-leucine 250 mg, L-isoleucine 125 mg, L-valine 125 mg, L-lysine hydrochloride 120 mg, L-arginine 100 mg, L-phenylalanine 100 mg, L-glutamine 100 mg, citrulline 80 mg, L-threonine 60 mg, L-histidine 40 mg, L-cysteine 20 mg, excipients: microcrystalline cellulose, stearic acid, hydroxypropyl methylcellulose.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
+      "servingLabel": "Amount Per Serving — 5 Caplets",
+      "rows": [
+        {
+          "name": "L-Leucine",
+          "amount": "1.25 g",
+          "dv": ""
+        },
+        {
+          "name": "L-Isoleucine",
+          "amount": "625 mg",
+          "dv": ""
+        },
+        {
+          "name": "L-Valine",
+          "amount": "625 mg",
+          "dv": ""
+        },
+        {
+          "name": "L-Lysine hydrochloride",
+          "amount": "600 mg",
+          "dv": ""
+        },
+        {
+          "name": "L-Arginine",
+          "amount": "500 mg",
+          "dv": ""
+        },
+        {
+          "name": "L-Phenylalanine",
+          "amount": "500 mg",
+          "dv": ""
+        },
+        {
+          "name": "L-Glutamine",
+          "amount": "500 mg",
+          "dv": ""
+        },
+        {
+          "name": "Citrulline",
+          "amount": "400 mg",
+          "dv": ""
+        },
+        {
+          "name": "L-Threonine",
+          "amount": "300 mg",
+          "dv": ""
+        },
+        {
+          "name": "L-Histidine (hydrochloride)",
+          "amount": "200 mg",
+          "dv": ""
+        },
+        {
+          "name": "L-Cysteine",
+          "amount": "100 mg",
+          "dv": ""
+        },
+        {
+          "name": "Supplement Facts",
+          "amount": "Serving Size (5 Caplets)",
+          "dv": "%Daily Value%"
+        },
+        {
+          "name": "Calories",
+          "amount": "35",
+          "dv": ""
+        },
+        {
+          "name": "Total Fat",
+          "amount": "0.5 g",
+          "dv": "<1 %*%"
+        },
+        {
+          "name": "Saturated fat",
+          "amount": "0.5 g",
+          "dv": "2 %*%"
+        },
+        {
+          "name": "Trans fat",
+          "amount": "",
+          "dv": "0 %*%"
+        },
+        {
+          "name": "Cholesterol",
+          "amount": "0 mg",
+          "dv": "0 %*%"
+        },
+        {
+          "name": "Total Carbohydrate",
+          "amount": "2 g",
+          "dv": "<1 %*%"
+        },
+        {
+          "name": "Dietary Fiber",
+          "amount": "1 g",
+          "dv": "4 %*%"
+        },
+        {
+          "name": "Total Sugars",
+          "amount": "0 g",
+          "dv": ""
+        },
+        {
+          "name": "Includes 0 g Added Sugars",
+          "amount": "",
+          "dv": "0 %*%"
+        },
+        {
+          "name": "Protein",
+          "amount": "5 g",
+          "dv": "10%"
+        }
+      ]
     }
   }
 }
