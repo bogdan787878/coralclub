@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "gen": "node scripts/gen-products.mjs",
+    "images:sync": "node scripts/sync-images.mjs",
     "predev": "npm run gen",
     "dev": "next dev",
     "prebuild": "npm run gen",

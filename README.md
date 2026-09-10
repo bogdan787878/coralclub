@@ -20,6 +20,38 @@ npm run dev        # http://localhost:3000  (в этом окружении — 
 
 Прочие команды: `npm run build`, `npm run lint`.
 
+## Картинки — Cloudflare Images
+
+Растровые картинки из `public/images/**` (`.png/.jpg/.webp`) отдаются через
+**Cloudflare Images** с ресайзом и `format=auto` (WebP/AVIF). Всё остальное —
+HTML/JS/SVG и `public/reels/**` — по-прежнему с GitHub Pages.
+
+Как это устроено:
+
+- `src/lib/cf-image-loader.ts` — кастомный loader для `next/image`. Если картинка
+  есть в манифесте — URL вида `imagedelivery.net/<hash>/<id>/w=…,format=auto`;
+  если нет (или манифест пустой) — фолбэк на оригинал в `/public`.
+- `src/lib/image-manifest.json` — карта `путь → id` + хэши. **Коммитится.**
+- `scripts/sync-images.mjs` (`npm run images:sync`) — заливает изменённые файлы
+  в Cloudflare Images и обновляет манифест. Запускается **локально**, не в CI.
+
+Первичная настройка (один раз):
+
+1. Cloudflare Dashboard → **Images → Variants** → включить **Flexible variants**.
+2. **My Profile → API Tokens → Create Token** → права
+   *Account › Cloudflare Images › Edit*. Сохранить токен (в CI не нужен).
+3. Узнать **Account ID** (в URL дашборда).
+
+Каждый раз при изменении картинок:
+
+```bash
+CF_ACCOUNT_ID=xxx CF_IMAGES_TOKEN=yyy npm run images:sync
+git add src/lib/image-manifest.json && git commit -m "images: sync"
+```
+
+Токен нигде не хранится в репозитории — только в переменных окружения при ручном
+запуске скрипта.
+
 ## Дизайн-система
 
 | Слой | Файл |

@@ -11,12 +11,19 @@ const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
   images: {
-    // The Next.js image optimizer needs a server; serve the originals.
-    unoptimized: true,
+    // Raster images are resized + reformatted by Cloudflare Images; the
+    // loader falls back to the original /public file for anything not yet
+    // uploaded (see src/lib/cf-image-loader.ts). No Next.js image server.
+    loader: "custom",
+    loaderFile: "./src/lib/cf-image-loader.ts",
+    // Column is 480px wide — cap the srcset so we don't pay Cloudflare for
+    // transformation variants nobody downloads (2x of 480 ≈ 960).
+    deviceSizes: [360, 480, 720, 960, 1280],
+    imageSizes: [96, 128, 256],
   },
   ...(isGithubPages ? { basePath, assetPrefix: basePath } : {}),
-  // Exposed to the client so `asset()` can prefix /public paths
-  // (next/image with `unoptimized` does not apply basePath itself).
+  // Exposed to the client so `asset()` / the image loader can prefix
+  // /public paths (next/image with a custom loader does not apply basePath).
   env: { NEXT_PUBLIC_BASE_PATH: basePath },
 };
 
