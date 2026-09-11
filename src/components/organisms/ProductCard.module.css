@@ -47,8 +47,10 @@
   flex: 0 0 100%;
   scroll-snap-align: start;
 }
-/* full-bleed width; vertical inset keeps the whole packshot inside the tile */
+/* full-bleed width; vertical inset keeps the whole packshot inside the tile.
+   It's an <a> (see ProductCard.tsx) so it needs block display. */
 .frame {
+  display: block;
   position: absolute;
   inset: var(--space-16) 0;
 }

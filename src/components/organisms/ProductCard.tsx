@@ -92,7 +92,12 @@ export function ProductCard({
           {images.length ? (
             images.map((img, i) => (
               <span className={styles.slide} key={i}>
-                <span className={styles.frame}>
+                {/* Link lives inside the scroll track (a real descendant of
+                    it, not an overlay sibling) so the browser can tell a
+                    tap from a drag on its own — an overlay on top of the
+                    track would intercept the swipe instead of passing it
+                    through. */}
+                <Link href={href} className={styles.frame} tabIndex={-1}>
                   <Image
                     src={img.src}
                     alt={img.alt}
@@ -100,17 +105,15 @@ export function ProductCard({
                     sizes="150px"
                     style={img.position ? { objectPosition: img.position } : undefined}
                   />
-                </span>
+                </Link>
               </span>
             ))
           ) : (
-            <span className={`${styles.slide} ${styles.slideEmpty}`} aria-hidden="true" />
+            <span className={`${styles.slide} ${styles.slideEmpty}`} aria-hidden="true">
+              <Link href={href} className={styles.mediaLink} aria-hidden="true" tabIndex={-1} />
+            </span>
           )}
         </div>
-
-        {!multi && (
-          <Link href={href} className={styles.mediaLink} aria-hidden="true" tabIndex={-1} />
-        )}
 
         {onAddToCart ? (
           cartQty > 0 ? (
