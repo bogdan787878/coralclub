@@ -223,8 +223,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A blend of digestive enzymes with vitamins A and D. It supports better absorption of nutrients from food and helps reduce discomfort in the stomach and intestines.",
     "price": "$36.25",
     "clubPrice": "$29",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/assimilator.png"
+    ],
+    "pdpImages": [
+      "/images/products/assimilator.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -1474,8 +1478,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A source of phosphatidylcholine, a key building block of every cell membrane in the body. It is also a precursor of choline, which supports metabolism in nerve tissue and brain cells, and the body needs it throughout life.",
     "price": "$19",
     "clubPrice": "$15",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/coral-lecithin.png"
+    ],
+    "pdpImages": [
+      "/images/products/coral-lecithin.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -5949,6 +5957,20 @@ export const GENERATED_DOMAINS: DomainContent[] = [
 ];
 
 export const GENERATED_SERIES: SeriesContent[] = [
+  {
+    "id": "coral-detox",
+    "titleLead": "Four products, one job.",
+    "titleAccent": "Clear the internal load.",
+    "blurb": "Coral Detox bundles enzymes, antioxidant support, deep-sea minerals and a lecithin-based binder — the 30-day set that opens the Restart phase.",
+    "features": [],
+    "image": "/images/products/coral-detox-plus-set.png",
+    "products": [
+      "assimilator",
+      "h-500",
+      "coral-mine-silver",
+      "coral-lecithin"
+    ]
+  },
   {
     "id": "go-detox",
     "titleLead": "What's actually in the box.",
