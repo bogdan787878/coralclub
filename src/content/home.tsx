@@ -70,7 +70,7 @@ const HYDRATION: HomePhase = {
         accent: "Everything Else Depends On It.",
       },
       image: {
-        src: `${asset("/images/you-are-90-water.png")}?v=3`,
+        src: `${asset("/images/you-are-90-water.png")}?v=4`,
         alt: "Woman drinking a glass of water",
         width: 1363,
         height: 1203,
