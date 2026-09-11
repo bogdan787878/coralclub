@@ -1660,14 +1660,14 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
   },
   {
     "slug": "coral-mine-silver",
-    "name": "Coral Mine Silver",
+    "name": "Coral-Mine",
     "headline": "Coral Mine — deep-sea minerals",
     "category": "Foundation",
     "goals": [
       "hydration",
       "energy"
     ],
-    "coralId": "2221",
+    "coralId": "2220",
     "price": "$26.25",
     "clubPrice": "$21",
     "description": "Coral-Mine is a naturally derived mineral product sourced from deep-sea coral formations in the Sea of Japan near the Okinawa and Tokunoshima islands. Its unique mineral composition helps enrich water and supports hydration, normal mineral balance, and overall well-being.",
@@ -1676,7 +1676,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "/images/products/ChatGPT Image Sep 11, 2026 at 01_00_32 PM.png"
     ],
     "pdpImages": [
-      "/images/products/2-4.png",
+      "/images/products/coral-mine-silver.png",
       "/images/products/ChatGPT Image Sep 11, 2026 at 12_57_05 PM.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
@@ -1688,10 +1688,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       {
         "symbol": "Mg",
         "name": "Magnesium"
-      },
-      {
-        "symbol": "Ag",
-        "name": "Silver"
       }
     ],
     "dietaryBadges": [],
@@ -2304,10 +2300,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "price": "$41.25",
     "clubPrice": "$33",
     "carouselImages": [
-      "/images/products/flexicor.webp"
+      "/images/products/flexicor.png"
     ],
     "pdpImages": [
-      "/images/products/flexicor.webp"
+      "/images/products/flexicor.png"
     ],
     "rating": 4.5,
     "ratingsCount": 0,
