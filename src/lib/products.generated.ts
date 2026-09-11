@@ -882,7 +882,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "weight",
       "detox"
     ],
-    "coralId": "1200",
+    "coralId": "1210",
     "price": "$111.38",
     "clubPrice": "$89.10",
     "description": "A structured 14-day programme in three stages — preparation, active cleanse and recovery — for a thorough reset of the digestive tract.",
@@ -891,7 +891,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     ],
     "pdpImages": [
       "/images/products/colo-vada-plus.png",
-      "/images/products/ChatGPT Image Sep 11, 2026 at 12_28_27 PM.png"
+      "/images/products/colo-vada-plus-set.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
@@ -1361,18 +1361,17 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "weight"
     ],
     "coralId": "8036007",
-    "description": "A seven-day pack that supports the body's natural cleansing — antioxidants, fibre and a lecithin-based binder that eases the internal load before you go deeper.",
     "price": "$152.50",
     "clubPrice": "$122",
+    "description": "A seven-day pack that supports the body's natural cleansing — antioxidants, fibre and a lecithin-based binder that eases the internal load before you go deeper.",
     "carouselImages": [
-      "/images/products/coral-detox-plus.png"
+      "/images/products/coral-detox-plus.png",
+      "/images/products/ChatGPT Image Sep 11, 2026 at 10_51_36 PM.png"
     ],
     "pdpImages": [
-      "/images/products/coral-detox-plus.png"
+      "/images/products/coral-detox-plus.png",
+      "/images/products/ChatGPT Image Sep 11, 2026 at 10_51_36 PM.png"
     ],
-    "rating": 4.4,
-    "ratingsCount": 28,
-    "reviewsCount": 11,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
       {
@@ -1405,9 +1404,18 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "Assimilator ×1 (90 veg capsules), H-500 ×1 (60 capsules), Coral Alfalfa ×1 (120 capsules), Sunflower Lecithin ×1 (120 veg capsules), PentoKan ×2 (40 effervescent tablets), Coral-Mine ×3 (30 sachets).",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "–",
+            "amount": "–",
+            "dv": ""
+          }
+        ]
       }
-    }
+    },
+    "rating": 4.4,
+    "ratingsCount": 28,
+    "reviewsCount": 11
   },
   {
     "slug": "coral-detox",
