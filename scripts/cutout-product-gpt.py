@@ -130,13 +130,23 @@ def gpt_cutout(api_key: str, raw_bytes: bytes) -> Image.Image:
     return Image.open(io.BytesIO(png_bytes)).convert("RGBA")
 
 
+BBOX_ALPHA_THRESHOLD = 24  # ignore near-invisible haze when finding the crop box
+
+
 def frame(img: Image.Image) -> Image.Image:
     """Contain-fit onto a FIXED canvas (same size for every product) — a
     per-product canvas size makes object-fit:contain scale/center each
     packshot differently in the carousel/PDP frame, so products end up at
     inconsistent sizes and vertical positions ("jumping")."""
     alpha = img.split()[-1]
-    bbox = alpha.getbbox()
+    # gpt-image-1/2.5's "transparent background" isn't always a clean 0 —
+    # there's often a barely-visible haze/shadow across part of the canvas
+    # (invisible to the eye, but PIL's getbbox() treats any alpha>0 as
+    # content). Left uncorrected this silently widens the crop on whichever
+    # side has the haze, so the actual visible product ends up off-center
+    # once that wider crop gets centered on the fixed canvas — threshold
+    # the alpha before measuring the box, not before compositing.
+    bbox = alpha.point(lambda p: 255 if p >= BBOX_ALPHA_THRESHOLD else 0).getbbox()
     if not bbox:
         return img
     cropped = img.crop(bbox)

@@ -1060,8 +1060,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "Plant-based liver support — artichoke and milk thistle extracts with dandelion extract and betaine — that helps protect the liver and clear it of toxins. Useful for city dwellers, smokers and anyone who tends to over-do alcohol, fatty or spicy food.",
     "price": "$22.50",
     "clubPrice": "$18",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/coral-artichoke.png"
+    ],
+    "pdpImages": [
+      "/images/products/coral-artichoke.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -1961,8 +1965,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A good-tasting source of soluble and insoluble fibre plus extra plant components that supply enzymes, amino acids, minerals and vitamins. It supports the removal of toxins, a healthy gut microflora and regular motility, and helps curb appetite.",
     "price": "$25",
     "clubPrice": "$20",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/daily-delicious-hi-fiber-acai-blueberry.png"
+    ],
+    "pdpImages": [
+      "/images/products/daily-delicious-hi-fiber-acai-blueberry.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -2184,8 +2192,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A complex of tropical-plant and citrus extracts that helps restore liver cells and protect them from toxic effects. It supports well-being and healthy cholesterol levels, and comes as a powder to dissolve in water in single-serve foil stick sachets.",
     "price": "$65",
     "clubPrice": "$52",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/fandetox.png"
+    ],
+    "pdpImages": [
+      "/images/products/fandetox.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -2718,8 +2730,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "An innovative product for getting into shape. It helps speed up metabolism and raise energy expenditure; naturally derived components and liposomal technology give it high efficacy, safety and bioavailability.",
     "price": "$23.80",
     "clubPrice": "$19",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/lipostick-fit.png"
+    ],
+    "pdpImages": [
+      "/images/products/lipostick-fit.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -4020,8 +4036,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "Contains calanus oil — a source of a rare form of omega-3 from Arctic zooplankton. This fully natural product from the cold, clean waters of the North Atlantic delivers omega-3 and other lipids in the rare wax-ester form, plus astaxanthin, with 500 mg of calanus oil per capsule.",
     "price": "$47.50",
     "clubPrice": "$38",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/premium-plankton-oil-new-2025-glass.png"
+    ],
+    "pdpImages": [
+      "/images/products/premium-plankton-oil-new-2025-glass.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -4889,8 +4909,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A combination of the bioavailable organic form of selenium (L-selenomethionine) with vitamin C, to support immune activity, normal endocrine and cardiovascular function and the condition of skin, hair and nails.",
     "price": "$16.25",
     "clubPrice": "$13",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/selenium.png"
+    ],
+    "pdpImages": [
+      "/images/products/selenium.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -4985,8 +5009,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A balanced complex for digestion and metabolism. Its 6 plant extracts, the amino acid taurine and vitamin C take part in regulating metabolic processes and help keep a feeling of fullness after eating.",
     "price": "$75",
     "clubPrice": "$60",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/slim-by-slim-2374.png"
+    ],
+    "pdpImages": [
+      "/images/products/slim-by-slim-2374.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -5023,8 +5051,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A dense whole-food source of plant protein, chlorophyll and iron — an easy daily top-up for a personalised nutrition plan.",
     "price": "$31.25",
     "clubPrice": "$25",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/spirulina.png"
+    ],
+    "pdpImages": [
+      "/images/products/spirulina.png"
+    ],
     "rating": 4.4,
     "ratingsCount": 41,
     "reviewsCount": 17,

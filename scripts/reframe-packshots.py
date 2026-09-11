@@ -31,11 +31,17 @@ FIXED_W = 1000
 FIXED_H = 1400  # 5:7, matches ProductCard.module.css aspect-ratio
 VPAD_FRAC = 0.04
 HPAD_FRAC = 0.08
+BBOX_ALPHA_THRESHOLD = 24  # ignore near-invisible haze when finding the crop box
 
 
 def reframe(path: Path) -> str:
     im = Image.open(path).convert("RGBA")
-    bbox = im.split()[-1].getbbox()
+    # gpt-image output often has a barely-visible haze/shadow (alpha>0 but
+    # invisible) that widens getbbox() asymmetrically, off-centering the
+    # actual visible product once that wider box gets centered — threshold
+    # first so only genuinely visible content sets the crop box.
+    alpha = im.split()[-1]
+    bbox = alpha.point(lambda p: 255 if p >= BBOX_ALPHA_THRESHOLD else 0).getbbox()
     if not bbox:
         return "NO_CONTENT"
     content = im.crop(bbox)
