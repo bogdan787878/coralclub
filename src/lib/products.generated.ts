@@ -883,18 +883,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "detox"
     ],
     "coralId": "1200",
-    "description": "A structured 14-day programme in three stages — preparation, active cleanse and recovery — for a thorough reset of the digestive tract.",
     "price": "$111.38",
     "clubPrice": "$89.10",
+    "description": "A structured 14-day programme in three stages — preparation, active cleanse and recovery — for a thorough reset of the digestive tract.",
     "carouselImages": [
       "/images/products/colo-vada-plus.png"
     ],
     "pdpImages": [
-      "/images/products/colo-vada-plus.png"
+      "/images/products/colo-vada-plus.png",
+      "/images/products/ChatGPT Image Sep 11, 2026 at 12_28_27 PM.png"
     ],
-    "rating": 4.6,
-    "ratingsCount": 47,
-    "reviewsCount": 22,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
       {
@@ -919,9 +917,18 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "test",
+            "amount": "test",
+            "dv": ""
+          }
+        ]
       }
-    }
+    },
+    "rating": 4.6,
+    "ratingsCount": 47,
+    "reviewsCount": 22
   },
   {
     "slug": "colostrum-plus",
@@ -1648,12 +1655,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "clubPrice": "$21",
     "description": "Coral-Mine is a naturally derived mineral product sourced from deep-sea coral formations in the Sea of Japan near the Okinawa and Tokunoshima islands. Its unique mineral composition helps enrich water and supports hydration, normal mineral balance, and overall well-being.",
     "carouselImages": [
-      "/images/products/1-4.png"
+      "/images/products/1-4.png",
+      "/images/products/ChatGPT Image Sep 11, 2026 at 01_00_32 PM.png"
     ],
     "pdpImages": [
       "/images/products/2-4.png",
       "/images/products/3-3.png",
-      "/images/products/4-3.png"
+      "/images/products/ChatGPT Image Sep 11, 2026 at 12_57_05 PM.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
@@ -2271,8 +2279,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "Supports joint mobility and flexibility and helps reduce stiffness. It combines active components known for strengthening the musculoskeletal system: glucosamine, chondroitin, MSM, manganese, bamboo extract and vitamin C.",
     "price": "$41.25",
     "clubPrice": "$33",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/flexicor.webp"
+    ],
+    "pdpImages": [
+      "/images/products/flexicor.webp"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
