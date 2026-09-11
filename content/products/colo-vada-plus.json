@@ -8,14 +8,16 @@
     "detox"
   ],
   "coralId": "1200",
-  "description": "A structured 14-day programme in three stages — preparation, active cleanse and recovery — for a thorough reset of the digestive tract.",
   "price": "$111.38",
   "clubPrice": "$89.10",
-  "carouselImages": ["/images/products/colo-vada-plus.png"],
-  "pdpImages": ["/images/products/colo-vada-plus.png"],
-  "rating": 4.6,
-  "ratingsCount": 47,
-  "reviewsCount": 22,
+  "description": "A structured 14-day programme in three stages — preparation, active cleanse and recovery — for a thorough reset of the digestive tract.",
+  "carouselImages": [
+    "/images/products/colo-vada-plus.png"
+  ],
+  "pdpImages": [
+    "/images/products/colo-vada-plus.png",
+    "/images/products/ChatGPT Image Sep 11, 2026 at 11_48_05 AM.png"
+  ],
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
   "elements": [
     {
@@ -40,7 +42,16 @@
     "ingredients": "",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "test",
+          "amount": "test",
+          "dv": ""
+        }
+      ]
     }
-  }
+  },
+  "rating": 4.6,
+  "ratingsCount": 47,
+  "reviewsCount": 22
 }
