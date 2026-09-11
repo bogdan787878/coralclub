@@ -42,9 +42,10 @@ UA = {"User-Agent": "Mozilla/5.0"}
 REPO = Path(__file__).resolve().parent.parent
 OUT_DIR = REPO / "public/images/products"
 
-CANVAS_H = 1400          # matches the tallest existing packshots (upscaled)
+CANVAS_W = 1000          # fixed for EVERY product — see frame()
+CANVAS_H = 1400          # 5:7, matches ProductCard's frame
 VPAD_FRAC = 0.04         # top/bottom breathing room inside the canvas
-SIDE_PAD_PX = 40         # left/right breathing room
+HPAD_FRAC = 0.08         # left/right breathing room
 
 
 def fetch(url: str) -> bytes:
@@ -87,20 +88,26 @@ def cutout(session, raw_bytes: bytes, tmp: Path) -> Image.Image:
 
 
 def frame(img: Image.Image) -> Image.Image:
+    """Contain-fit the product onto a canvas of FIXED size (same for every
+    product). A per-product canvas size (the old behavior) makes
+    object-fit:contain scale/center each packshot differently in the
+    carousel/PDP frame, so products appear at inconsistent sizes and
+    vertical positions ("jumping") — fixed dimensions for every output
+    file is what keeps them all aligned."""
     alpha = img.split()[-1]
     bbox = alpha.getbbox()
     if not bbox:
         return img
     cropped = img.crop(bbox)
-    content_h = CANVAS_H * (1 - 2 * VPAD_FRAC)
-    scale = content_h / cropped.height
+    avail_w = CANVAS_W * (1 - 2 * HPAD_FRAC)
+    avail_h = CANVAS_H * (1 - 2 * VPAD_FRAC)
+    scale = min(avail_w / cropped.width, avail_h / cropped.height)
     new_w = max(1, round(cropped.width * scale))
     new_h = max(1, round(cropped.height * scale))
     resized = cropped.resize((new_w, new_h), Image.LANCZOS)
-    canvas_w = new_w + 2 * SIDE_PAD_PX
-    canvas = Image.new("RGBA", (canvas_w, CANVAS_H), (0, 0, 0, 0))
-    x = (canvas_w - new_w) // 2
-    y = round(CANVAS_H * VPAD_FRAC)
+    canvas = Image.new("RGBA", (CANVAS_W, CANVAS_H), (0, 0, 0, 0))
+    x = (CANVAS_W - new_w) // 2
+    y = (CANVAS_H - new_h) // 2
     canvas.paste(resized, (x, y), resized)
     return canvas
 
