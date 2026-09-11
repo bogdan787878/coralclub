@@ -108,14 +108,6 @@ export function ProductCard({
           )}
         </div>
 
-        {multi && (
-          <span className={styles.dots} aria-hidden="true">
-            {images.map((_, i) => (
-              <span key={i} className={`${styles.dot} ${i === active ? styles.dotOn : ""}`} />
-            ))}
-          </span>
-        )}
-
         {!multi && (
           <Link href={href} className={styles.mediaLink} aria-hidden="true" tabIndex={-1} />
         )}
@@ -176,6 +168,14 @@ export function ProductCard({
           </Link>
         )}
       </div>
+
+      {multi && (
+        <span className={styles.dots} aria-hidden="true">
+          {images.map((_, i) => (
+            <span key={i} className={`${styles.dot} ${i === active ? styles.dotOn : ""}`} />
+          ))}
+        </span>
+      )}
 
       <div className={styles.info}>
         {category && <span className={styles.category}>{category}</span>}
