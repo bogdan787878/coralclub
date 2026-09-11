@@ -141,6 +141,13 @@ collections:
           - { label: "Halal certified", value: "halal" }
           - { label: "Kosher certified", value: "kosher" }
 
+      - name: topSeller
+        label: "Top Seller"
+        widget: boolean
+        required: false
+        default: false
+        hint: "Shows the \"Top Seller\" plate on the PDP — only check this if the product carries the same badge on its real coralclub.us page."
+
       - name: manufacturing
         label: "Manufacturing detail"
         widget: object

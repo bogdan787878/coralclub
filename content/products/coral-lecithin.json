@@ -10,8 +10,12 @@
   "description": "A source of phosphatidylcholine, a key building block of every cell membrane in the body. It is also a precursor of choline, which supports metabolism in nerve tissue and brain cells, and the body needs it throughout life.",
   "price": "$19",
   "clubPrice": "$15",
-  "carouselImages": ["/images/products/coral-lecithin.png"],
-  "pdpImages": ["/images/products/coral-lecithin.png"],
+  "carouselImages": [
+    "/images/products/coral-lecithin.png"
+  ],
+  "pdpImages": [
+    "/images/products/coral-lecithin.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -71,5 +75,6 @@
         }
       ]
     }
-  }
+  },
+  "topSeller": true
 }

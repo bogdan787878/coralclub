@@ -10,8 +10,12 @@
   "description": "A blend of digestive enzymes with vitamins A and D. It supports better absorption of nutrients from food and helps reduce discomfort in the stomach and intestines.",
   "price": "$36.25",
   "clubPrice": "$29",
-  "carouselImages": ["/images/products/assimilator.png"],
-  "pdpImages": ["/images/products/assimilator.png"],
+  "carouselImages": [
+    "/images/products/assimilator.png"
+  ],
+  "pdpImages": [
+    "/images/products/assimilator.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -96,5 +100,6 @@
         }
       ]
     }
-  }
+  },
+  "topSeller": true
 }

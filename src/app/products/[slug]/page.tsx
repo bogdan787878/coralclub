@@ -8,6 +8,7 @@ import {
   InfoAccordion,
   PeriodicElements,
   ProductCard,
+  TopSellerBadge,
 } from "@/components/organisms";
 import { CartDrawerHost } from "@/components/cart/CartDrawerHost";
 import {
@@ -87,6 +88,7 @@ export default async function ProductPage({
                 </span>
                 <Heading className={styles.name}>{product.name}</Heading>
                 <BodyLong>{product.description}</BodyLong>
+                {product.topSeller && <TopSellerBadge />}
                 {product.dietaryBadges.length > 0 && (
                   <DietaryBadges items={product.dietaryBadges} />
                 )}

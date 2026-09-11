@@ -1,0 +1,27 @@
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  width: 100%;
+  padding-block: var(--space-8);
+  padding-inline: var(--space-16);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.leaf {
+  flex: none;
+  width: 16px;
+  height: auto;
+  display: block;
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--text-button-size); /* 16 */
+  line-height: var(--text-button-line); /* 20 */
+  font-weight: var(--font-weight-medium);
+  color: var(--color-special);
+  white-space: nowrap;
+}

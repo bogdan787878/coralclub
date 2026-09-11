@@ -39,6 +39,7 @@ export type { PeriodicElementsProps } from "./PeriodicElements";
 
 export { DietaryBadges } from "./DietaryBadges";
 export type { DietaryBadgesProps } from "./DietaryBadges";
+export { TopSellerBadge } from "./TopSellerBadge";
 
 export { SiteFooter } from "./SiteFooter";
 

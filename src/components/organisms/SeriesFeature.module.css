@@ -11,9 +11,14 @@
   text-wrap: balance;
 }
 
-/* image tile with the slider inside */
+/* image tile with the slider inside — above the stretched .name::after
+   link (z-index 1) so a swipe over the picture scrolls the slider's own
+   track instead of hitting that transparent overlay first. Tapping the
+   image no longer falls through to the block-level link; the heading,
+   name and price row below still do. */
 .media {
   position: relative;
+  z-index: 2;
   overflow: hidden;
   border-radius: var(--radius-base);
   background: var(--color-neutral-30);
@@ -22,9 +27,6 @@
 .mediaInner {
   position: absolute;
   inset: 0;
-}
-.mediaInner :global(img) {
-  object-fit: cover;
 }
 
 .name {

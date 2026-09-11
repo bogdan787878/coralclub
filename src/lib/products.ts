@@ -81,6 +81,9 @@ export type ProductContent = {
   elements?: ElementInfo[];
   /** Dietary / manufacturing badge slugs (see DietaryBadges component). */
   dietaryBadges?: string[];
+  /** Shows the "Top Seller" plate on the PDP — set for products that
+   *  carry the same badge on the real coralclub.us product page. */
+  topSeller?: boolean;
   /** Deprecated — reviews were removed from the PDP and the CMS. */
   rating?: number;
   ratingsCount?: number;
@@ -119,6 +122,8 @@ export type Product = {
   elements: ElementInfo[];
   /** Dietary / manufacturing badge slugs (see DietaryBadges component). */
   dietaryBadges: string[];
+  /** Shows the "Top Seller" plate on the PDP. */
+  topSeller: boolean;
   /** First carousel image — convenience for single-image spots. */
   image?: string;
   /** Deprecated — reviews were removed from the PDP and the CMS. */
@@ -199,6 +204,7 @@ function fromContent(c: ProductContent): Product {
     pdpImages,
     elements: c.elements ?? [],
     dietaryBadges: c.dietaryBadges ?? [],
+    topSeller: c.topSeller ?? false,
     image: carouselImages[0],
     rating: c.rating,
     ratingsCount: c.ratingsCount,
