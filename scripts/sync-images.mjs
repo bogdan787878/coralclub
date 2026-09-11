@@ -123,9 +123,13 @@ for (const abs of files) {
 
   const id = toId(srcKey);
   process.stdout.write(`  ↑ ${srcKey}  (${sizeKb} KB) … `);
-  if (manifest.ids[srcKey] || manifest.digests[srcKey]) {
-    await deleteImage(manifest.ids[srcKey] ?? id); // replace in place
-  }
+  // Always delete-before-upload, not just when the manifest already knew
+  // about this id. deleteImage() treats 404 as a no-op, so this is free
+  // when the id is genuinely new — and it self-heals the case where a
+  // prior run uploaded to Cloudflare but got interrupted (e.g. a push
+  // race) before committing the manifest, which otherwise makes the next
+  // upload fail with "already exists" and blocks the whole deploy.
+  await deleteImage(manifest.ids[srcKey] ?? id);
   const result = await uploadImage(id, buf, rel);
 
   manifest.ids[srcKey] = result.id;
