@@ -1,4 +1,21 @@
 {
+  "items": [
+    {
+      "id": "hydration",
+      "desktop": "/images/hero-hydration.png",
+      "mobile": "/images/hero-hydration.png"
+    },
+    {
+      "id": "restart",
+      "desktop": "/images/hero-restart.png",
+      "mobile": "/images/hero-restart.png"
+    },
+    {
+      "id": "personalisation",
+      "desktop": "/images/hero/7thawijnhc7txn8fr3g9t84om0r38bjr.webp",
+      "mobile": "/images/hero/7thawijnhc7txn8fr3g9t84om0r38bjr.webp"
+    }
+  ],
   "hydration": {
     "desktop": "/images/hero/hero-hydration.png",
     "mobile": "/images/hero/hero-hydration.png"
@@ -6,17 +23,5 @@
   "restart": {
     "desktop": "/images/hero/hero-restart.png",
     "mobile": "/images/hero/hero-restart.png"
-  },
-  "items": [
-    {
-      "desktop": "/images/hero-hydration.png",
-      "id": "hydration",
-      "mobile": "/images/hero-hydration.png"
-    },
-    {
-      "desktop": "/images/hero-restart.png",
-      "id": "restart",
-      "mobile": "/images/hero-restart.png"
-    }
-  ]
+  }
 }
