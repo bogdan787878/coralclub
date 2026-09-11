@@ -34,7 +34,7 @@
      tint in that role; Blue itself is kept above for anything that still
      wants the brand-blue tint deliberately). */
   --color-neutral-white: #ffffff;
-  --color-neutral-30: #efefef;
+  --color-neutral-30: #f6f6f6;
 
   /* Special — warm tan accent for category tags */
   --color-special: #cb8d52;
