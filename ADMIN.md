@@ -74,14 +74,19 @@ the Hydration area.
 
 ### Hero images
 
-The **"Hero images"** collection edits `content/hero-images.json` — the
-background photo behind each phase's hero panel (Hydration, Restart). Each
-phase has two image slots: **Desktop image** and **Mobile image**. Below
-768px wide the site shows the mobile image; at 768px and up, the desktop
-one. Upload the same photo to both if you don't have a dedicated mobile
-crop — that's the default until someone uploads a real one. Uploads go to
-`public/images/hero/`. The hero's title/body/CTA text is still in code
-(`src/content/home.tsx`), not editable here yet.
+The **"Hero images"** collection edits `content/hero-images.json` — a list
+of **"Hero blocks"**, each the background photo behind one phase's hero
+panel (Hydration, Restart). Click **Add** to add a block, or open an
+existing one to edit it. Each block has an **ID** (must match a phase —
+currently `hydration` or `restart`) and two image slots, **Desktop image**
+and **Mobile image**. Below 768px wide the site shows the mobile image; at
+768px and up, the desktop one. Upload the same photo to both if you don't
+have a dedicated mobile crop. Uploads go to `public/images/hero/`. If a
+block has no image yet, the panel just shows a plain gray background
+instead of erroring. The hero's title/body/CTA text is still in code
+(`src/content/home.tsx`), not editable here yet — and adding a new ID here
+alone won't make a new phase appear on the site, that needs a code change
+too.
 
 ## 2. Straight in GitHub (zero setup)
 

@@ -18,16 +18,18 @@ export type HeroContent = {
 };
 
 /** Builds a hero's `image` field from content/hero-images.json (editable
- *  in the CMS — separate desktop/mobile uploads), base-path-prefixed and
- *  cache-busted the same way the hardcoded paths used to be. */
-function heroImage(
-  key: keyof typeof heroImages,
-  alt: string,
-): HeroContent["image"] {
-  const { desktop, mobile } = heroImages[key];
+ *  in the CMS — an "items" list, each with an id + separate desktop/mobile
+ *  uploads; new blocks get added there with the CMS's own "Add" button),
+ *  base-path-prefixed and cache-busted the same way the hardcoded paths
+ *  used to be. Falls back to an empty src (renders the neutral-gray panel
+ *  background) if the id isn't in the list yet. */
+function heroImage(id: string, alt: string): HeroContent["image"] {
+  const entry = heroImages.items.find((i) => i.id === id);
+  const desktop = entry?.desktop ?? "";
+  const mobile = entry?.mobile || desktop;
   return {
-    desktopSrc: `${asset(desktop)}?v=3`,
-    mobileSrc: `${asset(mobile)}?v=3`,
+    desktopSrc: desktop ? `${asset(desktop)}?v=3` : "",
+    mobileSrc: mobile ? `${asset(mobile)}?v=3` : "",
     alt,
   };
 }

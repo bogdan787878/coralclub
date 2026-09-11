@@ -40,27 +40,30 @@ export function Hero({
 }: HeroProps) {
   return (
     <section className={styles.panel}>
-      {renderImage && (
-        <>
-          <Image
-            className={`${styles.bg} ${styles.bgMobile}`}
-            src={image.mobileSrc}
-            alt={image.alt}
-            fill
-            priority={priority}
-            loading={priority ? undefined : "lazy"}
-            sizes="100vw"
-          />
-          <Image
-            className={`${styles.bg} ${styles.bgDesktop}`}
-            src={image.desktopSrc}
-            alt={image.alt}
-            fill
-            priority={priority}
-            loading={priority ? undefined : "lazy"}
-            sizes="100vw"
-          />
-        </>
+      {/* No src yet (a hero block with a missing/not-yet-uploaded image) —
+          skip <Image> entirely and let the neutral-gray .panel background
+          show through, instead of passing next/image an empty src. */}
+      {renderImage && image.mobileSrc && (
+        <Image
+          className={`${styles.bg} ${styles.bgMobile}`}
+          src={image.mobileSrc}
+          alt={image.alt}
+          fill
+          priority={priority}
+          loading={priority ? undefined : "lazy"}
+          sizes="100vw"
+        />
+      )}
+      {renderImage && image.desktopSrc && (
+        <Image
+          className={`${styles.bg} ${styles.bgDesktop}`}
+          src={image.desktopSrc}
+          alt={image.alt}
+          fill
+          priority={priority}
+          loading={priority ? undefined : "lazy"}
+          sizes="100vw"
+        />
       )}
 
       {/* Progressive blur, top 200px, mobile only (Hero.module.css hides it

@@ -256,31 +256,19 @@ collections:
       - name: heroImages
         label: "Hero background — desktop / mobile"
         file: content/hero-images.json
-        description: "The background photo behind each phase's hero panel. Upload a version cropped for desktop and, optionally, a separate one cropped for mobile — below 768px wide the mobile image is used instead."
+        description: "The background photo behind each phase's hero panel. Click \"Add\" below to add a hero block, or edit an existing one. Upload a version cropped for desktop and, optionally, a separate one cropped for mobile — below 768px wide the mobile image is used instead. The ID must match the phase that should use it (currently \"hydration\" or \"restart\" — adding a new ID here alone won't make a new phase appear on the site, that needs a code change too)."
         media_folder: "/public/images/hero"
         public_folder: "/images/hero"
         fields:
-          - name: hydration
-            label: "Hydration phase"
-            widget: object
+          - name: items
+            label: "Hero blocks"
+            widget: list
+            summary: "{{fields.id}}"
             fields:
-              - name: desktop
-                label: "Desktop image"
-                widget: image
-                media_library:
-                  config:
-                    max_file_size: 5000000
-              - name: mobile
-                label: "Mobile image"
-                widget: image
-                hint: "Shown below 768px wide. Leave the same as desktop if there's no dedicated mobile crop."
-                media_library:
-                  config:
-                    max_file_size: 5000000
-          - name: restart
-            label: "Restart phase"
-            widget: object
-            fields:
+              - name: id
+                label: "ID (matches a phase — hydration / restart)"
+                widget: string
+                pattern: ["^[a-z0-9]+(?:-[a-z0-9]+)*$", "lowercase letters, digits and dashes only"]
               - name: desktop
                 label: "Desktop image"
                 widget: image

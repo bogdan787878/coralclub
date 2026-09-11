@@ -4,7 +4,7 @@
   isolation: isolate;
   overflow: hidden;
   min-height: min(78svh, 620px);
-  background: var(--color-primary-100);
+  background: var(--color-neutral-30);
   color: var(--color-text-on-primary);
 }
 
