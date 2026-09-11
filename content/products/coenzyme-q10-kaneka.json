@@ -10,8 +10,12 @@
   "description": "A source of ubiquinone, needed for energy production in cells and for overall vitality. It uses Kaneka's patented active form of coenzyme Q10, produced by yeast fermentation and considered identical to the CoQ10 the body makes itself.",
   "price": "$37.50",
   "clubPrice": "$30",
-  "carouselImages": [],
-  "pdpImages": [],
+  "carouselImages": [
+    "/images/products/coenzyme-q10-kaneka.png"
+  ],
+  "pdpImages": [
+    "/images/products/coenzyme-q10-kaneka.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,

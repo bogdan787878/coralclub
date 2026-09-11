@@ -10,8 +10,12 @@
   "description": "Helps improve memory and concentration, supporting more effective mental work.",
   "price": "$30",
   "clubPrice": "$24",
-  "carouselImages": [],
-  "pdpImages": [],
+  "carouselImages": [
+    "/images/products/memo-prime.png"
+  ],
+  "pdpImages": [
+    "/images/products/memo-prime.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,

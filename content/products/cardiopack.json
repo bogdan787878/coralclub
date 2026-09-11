@@ -10,8 +10,12 @@
   "description": "A set for heart health. Its combination of components nourishes and energises the cells of the heart and supports the normal work of the cardiovascular system.",
   "price": "$111.25",
   "clubPrice": "$89",
-  "carouselImages": [],
-  "pdpImages": [],
+  "carouselImages": [
+    "/images/products/cardiopack.png"
+  ],
+  "pdpImages": [
+    "/images/products/cardiopack.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,

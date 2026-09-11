@@ -414,8 +414,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A modern B-complex with 10 B vitamins in highly bioavailable forms, to top up deficiencies and support the whole body. It comes as single-dose stick sachets of powder that dissolve in the mouth, with a citrus taste and no sugar.",
     "price": "$19",
     "clubPrice": "$15.20",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/b-prime-direct.png"
+    ],
+    "pdpImages": [
+      "/images/products/b-prime-direct.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -652,8 +656,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A set for heart health. Its combination of components nourishes and energises the cells of the heart and supports the normal work of the cardiovascular system.",
     "price": "$111.25",
     "clubPrice": "$89",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/cardiopack.png"
+    ],
+    "pdpImages": [
+      "/images/products/cardiopack.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -816,8 +824,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A source of ubiquinone, needed for energy production in cells and for overall vitality. It uses Kaneka's patented active form of coenzyme Q10, produced by yeast fermentation and considered identical to the CoQ10 the body makes itself.",
     "price": "$37.50",
     "clubPrice": "$30",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/coenzyme-q10-kaneka.png"
+    ],
+    "pdpImages": [
+      "/images/products/coenzyme-q10-kaneka.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -1763,8 +1775,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "",
     "price": "$43.75",
     "clubPrice": "$35",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/daily-delicious-beauty-shake.png"
+    ],
+    "pdpImages": [
+      "/images/products/daily-delicious-beauty-shake.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -3108,8 +3124,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "Helps improve memory and concentration, supporting more effective mental work.",
     "price": "$30",
     "clubPrice": "$24",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/memo-prime.png"
+    ],
+    "pdpImages": [
+      "/images/products/memo-prime.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -4549,8 +4569,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A complex of 11 essential and non-essential amino acids to complement and enrich the daily diet. It helps make up a protein shortfall, optimise metabolism, recover muscles, joints and ligaments, build muscle, support immunity and raise stamina. Free from GMOs, soy and gluten.",
     "price": "$51.25",
     "clubPrice": "$41",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/protivity-ultra.png"
+    ],
+    "pdpImages": [
+      "/images/products/protivity-ultra.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,

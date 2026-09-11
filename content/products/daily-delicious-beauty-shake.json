@@ -10,8 +10,12 @@
   "description": "",
   "price": "$43.75",
   "clubPrice": "$35",
-  "carouselImages": [],
-  "pdpImages": [],
+  "carouselImages": [
+    "/images/products/daily-delicious-beauty-shake.png"
+  ],
+  "pdpImages": [
+    "/images/products/daily-delicious-beauty-shake.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
