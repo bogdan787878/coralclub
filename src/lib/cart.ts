@@ -1,9 +1,14 @@
 /**
  * Local cart — no backend. Everything the shopper adds on our site is kept
- * in localStorage. We don't check out here: the cart hands off to
- * coralclub.us's basket via their share-cart link, which accepts every
- * `id=qty` pair in one URL, tagged with our referral member/code so the
- * order attributes back to us (see `basketHandoffUrl`).
+ * in localStorage. We don't have a checkout API to hand off to yet, so the
+ * cart instead reuses coralclub.us's own "share your cart" link — the
+ * mechanism their site offers for sending someone a cart pre-filled with
+ * specific products, which accepts every `id=qty` pair in one URL (see
+ * `basketHandoffUrl`). REF_MEMBER/REF_CODE/TYPE are hardcoded parameters
+ * that link requires to work at all — they are NOT an affiliate/referral
+ * commission mechanism, just how coralclub.us's share-cart feature is
+ * addressed. We're building our own funnel on top of this borrowed
+ * mechanism until we have a real checkout integration.
  *
  * TODO(backend): mirror writes to a real cart API once it exists.
  */
@@ -15,6 +20,8 @@ import { useSyncExternalStore } from "react";
 const STORAGE_KEY = "coralclub.cart";
 const EVENT = "coralclub:cart";
 const CORAL_SHOP = "https://coralclub.us/shop/";
+/** Hardcoded — required by coralclub.us's share-cart link format, not a
+ *  referral/commission mechanism. See file header. */
 const REF_MEMBER = "2804051";
 const REF_CODE = "722779981462";
 
@@ -154,9 +161,10 @@ export function formatUsd(value: number): string {
 /**
  * One URL that drops the whole cart into coralclub.us's basket, using their
  * share-cart link format: `shop_basket.php?<id1>=<q1>&<id2>=<q2>&REF_MEMBER=
- * ...&REF_CODE=...&TYPE=REF-BASKET&utm...`. The REF_MEMBER/REF_CODE pair
- * attributes the order to us; without it the sale isn't tracked as ours.
- * Lines without a coralId can't be handed off and are skipped.
+ * ...&REF_CODE=...&TYPE=REF-BASKET&utm...`. REF_MEMBER/REF_CODE/TYPE are
+ * hardcoded — required by that link format, not a referral/commission
+ * mechanism (see the file header). Lines without a coralId can't be handed
+ * off and are skipped.
  */
 export function basketHandoffUrl(lines: CartLine[]): string {
   const pairs = lines

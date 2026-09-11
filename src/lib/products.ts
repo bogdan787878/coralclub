@@ -131,12 +131,17 @@ export type Product = {
 };
 
 /**
- * The live Coral Club store. We don't run our own cart — "Add to Cart" drops
- * the shopper into coralclub.us's basket with the product pre-added, using
- * their share-cart link format, tagged with our referral member/code so the
- * order attributes back to us. `coralId` is the product's id in that store.
+ * The live Coral Club store. We don't have a checkout API yet, so "Add to
+ * Cart" reuses coralclub.us's own "share your cart" link to drop the
+ * shopper into their basket with the product pre-added. `coralId` is the
+ * product's id in that store. REF_MEMBER/REF_CODE/TYPE below are hardcoded
+ * parameters that link format requires to work at all — not an
+ * affiliate/referral commission mechanism (see src/lib/cart.ts for the
+ * fuller explanation).
  */
 const CORAL_SHOP = "https://coralclub.us/shop/";
+/** Hardcoded — required by coralclub.us's share-cart link format, not a
+ *  referral/commission mechanism. */
 const REF_MEMBER = "2804051";
 const REF_CODE = "722779981462";
 
