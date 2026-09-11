@@ -22,10 +22,20 @@
   --color-peach-30: #f5d2ac;
   --color-peach-10: #faeee2;
 
-  /* Malachite — brandbook "зелень", a dark bluish-green — Personalization phase */
+  /* Forest — legacy 3-step interface tint (dark bluish-green) —
+     Personalization phase. See Malachite below for the full brandbook scale. */
   --color-forest-100: #03211d;
   --color-forest-30: #b9e0d6;
   --color-forest-10: #e3f2ee;
+
+  /* Malachite — full 7-step brandbook scale */
+  --color-malachite-100: #002022;
+  --color-malachite-90: #004144;
+  --color-malachite-70: #007d79;
+  --color-malachite-50: #08bdba;
+  --color-malachite-30: #92cbca;
+  --color-malachite-20: #bededd;
+  --color-malachite-10: #e3f7fa;
 
   --color-white: #ffffff;
   --color-black: #000000;
