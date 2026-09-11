@@ -15,6 +15,7 @@ import { CommunityReels } from "./CommunityReels";
 import { Editorial } from "./Editorial";
 import { HeroCarousel } from "./HeroCarousel";
 import { PhasesSection } from "./PhasesSection";
+import { QuizPromo } from "./QuizPromo";
 import { SeriesShowcase } from "./SeriesShowcase";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
@@ -114,6 +115,9 @@ function HomeContent({
             return series ? (
               <SeriesShowcase key={`series-${s.id}`} series={series} />
             ) : null;
+          }
+          if (s.kind === "quiz") {
+            return <QuizPromo key="quiz" />;
           }
           return (
             <Editorial

@@ -27,7 +27,9 @@ export type EditorialItem = {
 
 export type SeriesItem = { kind: "series"; id: string };
 
-export type HomeSection = EditorialItem | SeriesItem;
+export type QuizItem = { kind: "quiz" };
+
+export type HomeSection = EditorialItem | SeriesItem | QuizItem;
 
 export type ReelsContent = {
   title: { lead: string; accent: string };
@@ -81,7 +83,7 @@ const HYDRATION: HomePhase = {
         "You can take the best supplements, but if you're dehydrated, your body doesn't actually use them. That's why Coral Club starts with what matters first: the water you drink daily. Everything else builds on top of that.",
       ],
     },
-    { kind: "series", id: "liumi" },
+    { kind: "quiz" },
     {
       kind: "editorial",
       title: {
