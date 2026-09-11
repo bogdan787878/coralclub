@@ -891,11 +891,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "clubPrice": "$89.10",
     "description": "A structured 14-day programme in three stages — preparation, active cleanse and recovery — for a thorough reset of the digestive tract.",
     "carouselImages": [
-      "/images/products/colo-vada-plus.png"
+      "/images/products/colo-vada-plus.png",
+      "/images/products/ChatGPT Image Sep 12, 2026 at 12_27_54 AM.png"
     ],
     "pdpImages": [
       "/images/products/colo-vada-plus.png",
-      "/images/products/colo-vada-plus-set.png"
+      "/images/products/ChatGPT Image Sep 12, 2026 at 12_24_42 AM.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
@@ -1370,7 +1371,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A 30-day set that supports the body's natural detox processes — enzymes, antioxidant support, deep-sea minerals and a lecithin-based binder that eases the internal load before you go deeper.",
     "carouselImages": [
       "/images/products/coral-detox-plus.png",
-      "/images/products/ChatGPT Image Sep 11, 2026 at 11_19_19 PM.png?fit=cover"
+      "/images/products/ChatGPT Image Sep 11, 2026 at 11_19_19 PM.png"
     ],
     "pdpImages": [
       "/images/products/coral-detox-plus.png",
@@ -1672,7 +1673,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "Coral-Mine is a naturally derived mineral product sourced from deep-sea coral formations in the Sea of Japan near the Okinawa and Tokunoshima islands. Its unique mineral composition helps enrich water and supports hydration, normal mineral balance, and overall well-being.",
     "carouselImages": [
       "/images/products/1-4.png",
-      "/images/products/ChatGPT Image Sep 11, 2026 at 01_00_32 PM.png?fit=cover"
+      "/images/products/ChatGPT Image Sep 11, 2026 at 01_00_32 PM.png"
     ],
     "pdpImages": [
       "/images/products/2-4.png",
@@ -2762,7 +2763,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A 30-day program that optimizes hydration with the minerals and electrolytes your body actually uses — supporting water balance, steady energy and overall well-being. It bundles the whole hydration layer in one pack: Coral Mine ×3, PentoKan ×3, H-500 ×1 and Oceanmin ×1.",
     "carouselImages": [
       "/images/products/hydramax.png",
-      "/images/products/ChatGPT Image Sep 11, 2026 at 10_43_09 PM.png?fit=cover"
+      "/images/products/ChatGPT Image Sep 11, 2026 at 10_43_09 PM.png"
     ],
     "pdpImages": [
       "/images/products/ChatGPT Image Sep 11, 2026 at 07_05_08 PM.png",
@@ -5963,7 +5964,7 @@ export const GENERATED_SERIES: SeriesContent[] = [
     "titleAccent": "Clear the internal load.",
     "blurb": "Coral Detox bundles enzymes, antioxidant support, deep-sea minerals and a lecithin-based binder — the 30-day set that opens the Restart phase.",
     "features": [],
-    "image": "/images/products/coral-detox-plus-set.png",
+    "image": "/images/series/ChatGPT Image Sep 11, 2026 at 11_21_21 PM.png",
     "products": [
       "assimilator",
       "h-500",
@@ -5977,7 +5978,7 @@ export const GENERATED_SERIES: SeriesContent[] = [
     "titleAccent": "Three stages, one sequence.",
     "blurb": "The 14-day Go Detox set breaks down into three daily packets — one per stage — plus a fiber drink mix and a probiotic that runs the whole way through.",
     "features": [],
-    "image": "/images/products/colo-vada-plus-set.png",
+    "image": "/images/series/hero-restart.png",
     "products": [
       "go-detox-packet-1",
       "go-detox-packet-2",

@@ -16,21 +16,29 @@ export type ProductImage = {
  * A plain packshot (product centered on its own transparent canvas) needs
  * object-fit:contain to show accurately. A full lifestyle-style photo
  * (different composition, not on our packshot canvas convention) looks
- * tiny/off-center under contain — it needs cover instead. Rather than a
- * schema change across every place carouselImages/pdpImages get read,
- * a slide opts into cover by appending `?fit=cover` to its path in
- * content/products/<slug>.json — this strips that marker back out before
- * it reaches <Image>, so the loader/manifest lookup sees the clean path.
+ * tiny/off-center under contain — it needs cover instead.
+ *
+ * Defaults by slide position: the first slide (the packshot every product
+ * has) is contain; every slide after it defaults to cover, since in
+ * practice that's almost always a lifestyle photo added after the
+ * packshot — so uploading a second image in the CMS doesn't also require
+ * remembering to tag it. A slide can still override the default by
+ * appending `?fit=cover` or `?fit=contain` to its path in
+ * content/products/<slug>.json (e.g. a second packshot angle wants
+ * contain) — this strips that marker back out before it reaches <Image>,
+ * so the loader/manifest lookup sees the clean path.
  */
-function resolveFit(src: string): { src: string; fit: "contain" | "cover" } {
+function resolveFit(src: string, index: number): { src: string; fit: "contain" | "cover" } {
   const qIndex = src.indexOf("?");
-  if (qIndex === -1) return { src, fit: "contain" };
+  const byPosition = index === 0 ? "contain" : "cover";
+  if (qIndex === -1) return { src, fit: byPosition };
   const base = src.slice(0, qIndex);
   const params = new URLSearchParams(src.slice(qIndex + 1));
-  const cover = params.get("fit") === "cover";
+  const override = params.get("fit");
+  const fit = override === "cover" || override === "contain" ? override : byPosition;
   params.delete("fit");
   const rest = params.toString();
-  return { src: rest ? `${base}?${rest}` : base, fit: cover ? "cover" : "contain" };
+  return { src: rest ? `${base}?${rest}` : base, fit };
 }
 
 export type ProductCardProps = {
@@ -112,7 +120,7 @@ export function ProductCard({
         <div className={styles.track} ref={trackRef} onScroll={multi ? onScroll : undefined}>
           {images.length ? (
             images.map((img, i) => {
-              const { src, fit } = resolveFit(img.src);
+              const { src, fit } = resolveFit(img.src, i);
               return (
               <span className={styles.slide} key={i}>
                 {/* Link lives inside the scroll track (a real descendant of
