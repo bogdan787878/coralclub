@@ -886,8 +886,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A structured 14-day programme in three stages — preparation, active cleanse and recovery — for a thorough reset of the digestive tract.",
     "price": "$111.38",
     "clubPrice": "$89.10",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/colo-vada-plus.png"
+    ],
+    "pdpImages": [
+      "/images/products/colo-vada-plus.png"
+    ],
     "rating": 4.6,
     "ratingsCount": 47,
     "reviewsCount": 22,
@@ -1341,8 +1345,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A seven-day pack that supports the body's natural cleansing — antioxidants, fibre and a lecithin-based binder that eases the internal load before you go deeper.",
     "price": "$152.50",
     "clubPrice": "$122",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/coral-detox-plus.png"
+    ],
+    "pdpImages": [
+      "/images/products/coral-detox-plus.png"
+    ],
     "rating": 4.4,
     "ratingsCount": 28,
     "reviewsCount": 11,
@@ -3634,8 +3642,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A concentrated blend of black walnut, clove and wormwood — traditional botanicals used to keep the gut environment inhospitable to unwanted guests.",
     "price": "$105",
     "clubPrice": "$84",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/parashield.png"
+    ],
+    "pdpImages": [
+      "/images/products/parashield.png"
+    ],
     "rating": 4.3,
     "ratingsCount": 19,
     "reviewsCount": 8,
