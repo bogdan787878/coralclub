@@ -21,7 +21,8 @@
   font-family: var(--font-sans);
   font-size: var(--text-button-size); /* 16 */
   line-height: var(--text-button-line); /* 20 */
-  font-weight: var(--font-weight-medium);
+  letter-spacing: -0.04em; /* -4% */
+  font-weight: var(--font-weight-bold);
   color: var(--color-special);
   white-space: nowrap;
 }
