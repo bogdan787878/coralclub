@@ -892,11 +892,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A structured 14-day programme in three stages — preparation, active cleanse and recovery — for a thorough reset of the digestive tract.",
     "carouselImages": [
       "/images/products/colo-vada-plus.png",
-      "/images/products/ChatGPT Image Sep 12, 2026 at 12_27_54 AM.png"
+      "/images/products/ChatGPT Image Sep 12, 2026 at 12_40_05 AM.png"
     ],
     "pdpImages": [
       "/images/products/colo-vada-plus.png",
-      "/images/products/ChatGPT Image Sep 12, 2026 at 12_24_42 AM.png"
+      "/images/products/ChatGPT Image Sep 11, 2026 at 11_25_22 PM.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
@@ -1672,12 +1672,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "clubPrice": "$21",
     "description": "Coral-Mine is a naturally derived mineral product sourced from deep-sea coral formations in the Sea of Japan near the Okinawa and Tokunoshima islands. Its unique mineral composition helps enrich water and supports hydration, normal mineral balance, and overall well-being.",
     "carouselImages": [
-      "/images/products/1-4.png",
+      "/images/products/coral-mine-silver.png",
       "/images/products/ChatGPT Image Sep 11, 2026 at 01_00_32 PM.png"
     ],
     "pdpImages": [
       "/images/products/2-4.png",
-      "/images/products/3-3.png",
       "/images/products/ChatGPT Image Sep 11, 2026 at 12_57_05 PM.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
@@ -2762,12 +2761,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "clubPrice": "$117",
     "description": "A 30-day program that optimizes hydration with the minerals and electrolytes your body actually uses — supporting water balance, steady energy and overall well-being. It bundles the whole hydration layer in one pack: Coral Mine ×3, PentoKan ×3, H-500 ×1 and Oceanmin ×1.",
     "carouselImages": [
-      "/images/products/hydramax.png",
-      "/images/products/ChatGPT Image Sep 11, 2026 at 10_43_09 PM.png"
+      "/images/products/hydramax-plus.png"
     ],
     "pdpImages": [
-      "/images/products/ChatGPT Image Sep 11, 2026 at 07_05_08 PM.png",
-      "/images/products/ChatGPT Image Sep 11, 2026 at 10_43_09 PM.png"
+      "/images/products/hydramax-plus.png"
     ],
     "howToUse": "Read the instructions inside the package before use. Program duration — 30 days.",
     "elements": [
@@ -3740,13 +3737,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "clubPrice": "$19",
     "description": "A deep-sea mineral concentrate in ionic form — magnesium-dominant, drawn from 662 m down in the Pacific. Steady energy and balance for every day.",
     "carouselImages": [
-      "/images/products/xs-2.png"
+      "/images/products/oceanmin.png"
     ],
     "pdpImages": [
-      "/images/products/1-3.png",
-      "/images/products/2-3.png",
-      "/images/products/3-2.png",
-      "/images/products/4-2.png"
+      "/images/products/oceanmin.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
@@ -4107,11 +4101,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "clubPrice": "$13",
     "description": "A soluble potassium and magnesium drink that supports heart rhythm, muscle function and healthy blood pressure — part of the daily hydration layer.",
     "carouselImages": [
-      "/images/products/xs-3.png"
+      "/images/products/pentokan.png"
     ],
     "pdpImages": [
-      "/images/products/1-5.png",
-      "/images/products/2-5.png"
+      "/images/products/pentokan.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
@@ -5978,7 +5971,7 @@ export const GENERATED_SERIES: SeriesContent[] = [
     "titleAccent": "Three stages, one sequence.",
     "blurb": "The 14-day Go Detox set breaks down into three daily packets — one per stage — plus a fiber drink mix and a probiotic that runs the whole way through.",
     "features": [],
-    "image": "/images/series/hero-restart.png",
+    "image": "/images/series/ChatGPT Image Sep 12, 2026 at 12_24_42 AM.png",
     "products": [
       "go-detox-packet-1",
       "go-detox-packet-2",
