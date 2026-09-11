@@ -1,0 +1,47 @@
+{
+  "slug": "go-detox-powder",
+  "name": "Go Detox Mix",
+  "headline": "Go Detox Mix — 16 packets",
+  "category": "Restart",
+  "goals": [
+    "detox"
+  ],
+  "coralId": "913050",
+  "price": "$47.50",
+  "clubPrice": "$38.00",
+  "description": "Psyllium, kaolin, citrus bioflavonoids and prune powder in a drinkable mix — gentle cleansing and digestive support during the program's active elimination stage.",
+  "carouselImages": [
+    "/images/products/go-detox-powder.png"
+  ],
+  "pdpImages": [
+    "/images/products/go-detox-powder.png"
+  ],
+  "howToUse": "Mix one pouch into a glass of water or unsweetened juice, drink immediately, then follow with a glass of water. Take 4 times a day, about every 3.5 hours.",
+  "elements": [
+    {
+      "symbol": "Fib",
+      "name": "Fiber"
+    }
+  ],
+  "dietaryBadges": [],
+  "manufacturing": {
+    "countryOfOrigin": "USA",
+    "shippingWeight": "",
+    "expiration": "2 years from the date of manufacture",
+    "storage": "Store in a dry place at a temperature not exceeding 25°C. Keep out of reach of children.",
+    "ingredients": "Psyllium husk, kaolin, citrus bioflavonoids, prune powder — 16 pouches.",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": [
+        {
+          "name": "–",
+          "amount": "–",
+          "dv": ""
+        }
+      ]
+    }
+  },
+  "rating": 4.6,
+  "ratingsCount": 0,
+  "reviewsCount": 0
+}

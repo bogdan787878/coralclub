@@ -1353,24 +1353,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
   },
   {
     "slug": "coral-detox-plus",
-    "name": "Coral Detox Plus",
-    "headline": "Coral Detox Plus — 7-day cleanse",
+    "name": "Coral Detox",
+    "headline": "Coral Detox — 30-day cleanse",
     "category": "Restart",
     "goals": [
       "detox",
       "weight"
     ],
-    "coralId": "8036007",
-    "price": "$152.50",
-    "clubPrice": "$122",
-    "description": "A seven-day pack that supports the body's natural cleansing — antioxidants, fibre and a lecithin-based binder that eases the internal load before you go deeper.",
+    "coralId": "803503",
+    "price": "$115.00",
+    "clubPrice": "$92.00",
+    "description": "A 30-day set that supports the body's natural detox processes — enzymes, antioxidant support, deep-sea minerals and a lecithin-based binder that eases the internal load before you go deeper.",
     "carouselImages": [
       "/images/products/coral-detox-plus.png",
-      "/images/products/ChatGPT Image Sep 11, 2026 at 10_51_36 PM.png"
+      "/images/products/coral-detox-plus-set.png"
     ],
     "pdpImages": [
       "/images/products/coral-detox-plus.png",
-      "/images/products/ChatGPT Image Sep 11, 2026 at 10_51_36 PM.png"
+      "/images/products/coral-detox-plus-set.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
@@ -1383,25 +1383,21 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "name": "Lecithin"
       },
       {
-        "symbol": "Fib",
-        "name": "Fiber"
-      },
-      {
         "symbol": "Ca",
         "name": "Calcium"
       },
       {
-        "symbol": "K",
-        "name": "Potassium"
+        "symbol": "Mg",
+        "name": "Magnesium"
       }
     ],
     "dietaryBadges": [],
     "manufacturing": {
-      "countryOfOrigin": "USA, Russia, Germany, Japan",
+      "countryOfOrigin": "USA, Japan",
       "shippingWeight": "",
       "expiration": "2 years from the date of manufacture",
       "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
-      "ingredients": "Assimilator ×1 (90 veg capsules), H-500 ×1 (60 capsules), Coral Alfalfa ×1 (120 capsules), Sunflower Lecithin ×1 (120 veg capsules), PentoKan ×2 (40 effervescent tablets), Coral-Mine ×3 (30 sachets).",
+      "ingredients": "Assimilator ×1 (90 capsules), H-500 ×1 (60 capsules), Coral-Mine ×1 (30 sachets), Coral Lecithin ×1 (120 capsules).",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": [
@@ -2366,6 +2362,206 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         ]
       }
     }
+  },
+  {
+    "slug": "go-detox-packet-1",
+    "name": "Go Detox Packet #1",
+    "headline": "Go Detox Packet #1 — stage 1, preparation",
+    "category": "Restart",
+    "goals": [
+      "detox"
+    ],
+    "coralId": "913020",
+    "price": "$40.00",
+    "clubPrice": "$32.00",
+    "description": "The first 7 days of the Go Detox program — Ultimate, Vitamin C, Alfalfa, Cascara Sagrada, Combination Two and Black Walnut Leaves in one daily packet, preparing the body for the cleanse ahead.",
+    "carouselImages": [
+      "/images/products/go-detox-packet-1.png"
+    ],
+    "pdpImages": [
+      "/images/products/go-detox-packet-1.png"
+    ],
+    "howToUse": "Days 1–7: take one packet plus one Super-Flora capsule with the morning meal, and one packet plus one Super-Flora capsule with the evening meal.",
+    "elements": [
+      {
+        "symbol": "C",
+        "name": "Vitamin C"
+      },
+      {
+        "symbol": "Fib",
+        "name": "Fiber"
+      }
+    ],
+    "dietaryBadges": [],
+    "manufacturing": {
+      "countryOfOrigin": "USA",
+      "shippingWeight": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place at a temperature not exceeding 25°C. Keep out of reach of children.",
+      "ingredients": "Ultimate (1 tablet), Vitamin C (1 tablet), Alfalfa (2 capsules), Cascara Sagrada (1 tablet), Combination Two (2 capsules), Black Walnut Leaves (2 tablets) — per packet, 14 packets.",
+      "supplementFacts": {
+        "servingLabel": "Amount Per Serving",
+        "rows": [
+          {
+            "name": "–",
+            "amount": "–",
+            "dv": ""
+          }
+        ]
+      }
+    },
+    "rating": 4.6,
+    "ratingsCount": 0,
+    "reviewsCount": 0
+  },
+  {
+    "slug": "go-detox-packet-2",
+    "name": "Go Detox Packet #2",
+    "headline": "Go Detox Packet #2 — stage 2, elimination",
+    "category": "Restart",
+    "goals": [
+      "detox"
+    ],
+    "coralId": "913030",
+    "price": "$22.50",
+    "clubPrice": "$18.00",
+    "description": "Days 8–11 of the Go Detox program — the same daily complex as stage 1, paired with Go Detox Powder for the program's most active elimination window.",
+    "carouselImages": [
+      "/images/products/go-detox-packet-2.png"
+    ],
+    "pdpImages": [
+      "/images/products/go-detox-packet-2.png"
+    ],
+    "howToUse": "Days 8–11: take one packet plus one Super-Flora capsule with the morning meal, and one packet plus one Super-Flora capsule with the evening meal, alongside 4 servings of Go Detox Powder through the day.",
+    "elements": [
+      {
+        "symbol": "C",
+        "name": "Vitamin C"
+      },
+      {
+        "symbol": "Fib",
+        "name": "Fiber"
+      }
+    ],
+    "dietaryBadges": [],
+    "manufacturing": {
+      "countryOfOrigin": "USA",
+      "shippingWeight": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place at a temperature not exceeding 25°C. Keep out of reach of children.",
+      "ingredients": "Ultimate (1 tablet), Vitamin C (1 tablet), Alfalfa (2 capsules), Cascara Sagrada (1 tablet), Combination Two (1 capsule), Black Walnut Leaves (1 tablet) — per packet, 8 packets.",
+      "supplementFacts": {
+        "servingLabel": "Amount Per Serving",
+        "rows": [
+          {
+            "name": "–",
+            "amount": "–",
+            "dv": ""
+          }
+        ]
+      }
+    },
+    "rating": 4.6,
+    "ratingsCount": 0,
+    "reviewsCount": 0
+  },
+  {
+    "slug": "go-detox-packet-3",
+    "name": "Go Detox Packet #3",
+    "headline": "Go Detox Packet #3 — stage 3, restoration",
+    "category": "Restart",
+    "goals": [
+      "detox"
+    ],
+    "coralId": "913040",
+    "price": "$17.50",
+    "clubPrice": "$14.00",
+    "description": "The final 3 days of the Go Detox program — a lighter daily complex with DigestAble in place of the earlier stages' herbal blend, easing the body back to normal.",
+    "carouselImages": [
+      "/images/products/go-detox-packet-3.png"
+    ],
+    "pdpImages": [
+      "/images/products/go-detox-packet-3.png"
+    ],
+    "howToUse": "Day 12: one packet with the morning meal and one with the evening meal, plus Super-Flora 4× daily. Days 13–14: one packet plus one Super-Flora capsule with each meal.",
+    "elements": [
+      {
+        "symbol": "C",
+        "name": "Vitamin C"
+      },
+      {
+        "symbol": "Enz",
+        "name": "Enzymes"
+      }
+    ],
+    "dietaryBadges": [],
+    "manufacturing": {
+      "countryOfOrigin": "USA",
+      "shippingWeight": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place at a temperature not exceeding 25°C. Keep out of reach of children.",
+      "ingredients": "Ultimate (1 tablet), Vitamin C (1 tablet), Alfalfa (2 capsules), Cascara Sagrada (1 tablet), DigestAble (1 capsule) — per packet, 6 packets.",
+      "supplementFacts": {
+        "servingLabel": "Amount Per Serving",
+        "rows": [
+          {
+            "name": "–",
+            "amount": "–",
+            "dv": ""
+          }
+        ]
+      }
+    },
+    "rating": 4.6,
+    "ratingsCount": 0,
+    "reviewsCount": 0
+  },
+  {
+    "slug": "go-detox-powder",
+    "name": "Go Detox Mix",
+    "headline": "Go Detox Mix — 16 packets",
+    "category": "Restart",
+    "goals": [
+      "detox"
+    ],
+    "coralId": "913050",
+    "price": "$47.50",
+    "clubPrice": "$38.00",
+    "description": "Psyllium, kaolin, citrus bioflavonoids and prune powder in a drinkable mix — gentle cleansing and digestive support during the program's active elimination stage.",
+    "carouselImages": [
+      "/images/products/go-detox-powder.png"
+    ],
+    "pdpImages": [
+      "/images/products/go-detox-powder.png"
+    ],
+    "howToUse": "Mix one pouch into a glass of water or unsweetened juice, drink immediately, then follow with a glass of water. Take 4 times a day, about every 3.5 hours.",
+    "elements": [
+      {
+        "symbol": "Fib",
+        "name": "Fiber"
+      }
+    ],
+    "dietaryBadges": [],
+    "manufacturing": {
+      "countryOfOrigin": "USA",
+      "shippingWeight": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place at a temperature not exceeding 25°C. Keep out of reach of children.",
+      "ingredients": "Psyllium husk, kaolin, citrus bioflavonoids, prune powder — 16 pouches.",
+      "supplementFacts": {
+        "servingLabel": "Amount Per Serving",
+        "rows": [
+          {
+            "name": "–",
+            "amount": "–",
+            "dv": ""
+          }
+        ]
+      }
+    },
+    "rating": 4.6,
+    "ratingsCount": 0,
+    "reviewsCount": 0
   },
   {
     "slug": "gotu-kola-extract",
@@ -5753,6 +5949,21 @@ export const GENERATED_DOMAINS: DomainContent[] = [
 ];
 
 export const GENERATED_SERIES: SeriesContent[] = [
+  {
+    "id": "go-detox",
+    "titleLead": "What's actually in the box.",
+    "titleAccent": "Three stages, one sequence.",
+    "blurb": "The 14-day Go Detox set breaks down into three daily packets — one per stage — plus a fiber drink mix and a probiotic that runs the whole way through.",
+    "features": [],
+    "image": "/images/products/colo-vada-plus-set.png",
+    "products": [
+      "go-detox-packet-1",
+      "go-detox-packet-2",
+      "go-detox-packet-3",
+      "go-detox-powder",
+      "super-flora"
+    ]
+  },
   {
     "id": "liumi",
     "titleLead": "Your skin is a water barrier too.",

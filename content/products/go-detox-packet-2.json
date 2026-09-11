@@ -1,0 +1,51 @@
+{
+  "slug": "go-detox-packet-2",
+  "name": "Go Detox Packet #2",
+  "headline": "Go Detox Packet #2 — stage 2, elimination",
+  "category": "Restart",
+  "goals": [
+    "detox"
+  ],
+  "coralId": "913030",
+  "price": "$22.50",
+  "clubPrice": "$18.00",
+  "description": "Days 8–11 of the Go Detox program — the same daily complex as stage 1, paired with Go Detox Powder for the program's most active elimination window.",
+  "carouselImages": [
+    "/images/products/go-detox-packet-2.png"
+  ],
+  "pdpImages": [
+    "/images/products/go-detox-packet-2.png"
+  ],
+  "howToUse": "Days 8–11: take one packet plus one Super-Flora capsule with the morning meal, and one packet plus one Super-Flora capsule with the evening meal, alongside 4 servings of Go Detox Powder through the day.",
+  "elements": [
+    {
+      "symbol": "C",
+      "name": "Vitamin C"
+    },
+    {
+      "symbol": "Fib",
+      "name": "Fiber"
+    }
+  ],
+  "dietaryBadges": [],
+  "manufacturing": {
+    "countryOfOrigin": "USA",
+    "shippingWeight": "",
+    "expiration": "2 years from the date of manufacture",
+    "storage": "Store in a dry place at a temperature not exceeding 25°C. Keep out of reach of children.",
+    "ingredients": "Ultimate (1 tablet), Vitamin C (1 tablet), Alfalfa (2 capsules), Cascara Sagrada (1 tablet), Combination Two (1 capsule), Black Walnut Leaves (1 tablet) — per packet, 8 packets.",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": [
+        {
+          "name": "–",
+          "amount": "–",
+          "dv": ""
+        }
+      ]
+    }
+  },
+  "rating": 4.6,
+  "ratingsCount": 0,
+  "reviewsCount": 0
+}

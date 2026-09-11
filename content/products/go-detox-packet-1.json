@@ -1,0 +1,51 @@
+{
+  "slug": "go-detox-packet-1",
+  "name": "Go Detox Packet #1",
+  "headline": "Go Detox Packet #1 — stage 1, preparation",
+  "category": "Restart",
+  "goals": [
+    "detox"
+  ],
+  "coralId": "913020",
+  "price": "$40.00",
+  "clubPrice": "$32.00",
+  "description": "The first 7 days of the Go Detox program — Ultimate, Vitamin C, Alfalfa, Cascara Sagrada, Combination Two and Black Walnut Leaves in one daily packet, preparing the body for the cleanse ahead.",
+  "carouselImages": [
+    "/images/products/go-detox-packet-1.png"
+  ],
+  "pdpImages": [
+    "/images/products/go-detox-packet-1.png"
+  ],
+  "howToUse": "Days 1–7: take one packet plus one Super-Flora capsule with the morning meal, and one packet plus one Super-Flora capsule with the evening meal.",
+  "elements": [
+    {
+      "symbol": "C",
+      "name": "Vitamin C"
+    },
+    {
+      "symbol": "Fib",
+      "name": "Fiber"
+    }
+  ],
+  "dietaryBadges": [],
+  "manufacturing": {
+    "countryOfOrigin": "USA",
+    "shippingWeight": "",
+    "expiration": "2 years from the date of manufacture",
+    "storage": "Store in a dry place at a temperature not exceeding 25°C. Keep out of reach of children.",
+    "ingredients": "Ultimate (1 tablet), Vitamin C (1 tablet), Alfalfa (2 capsules), Cascara Sagrada (1 tablet), Combination Two (2 capsules), Black Walnut Leaves (2 tablets) — per packet, 14 packets.",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": [
+        {
+          "name": "–",
+          "amount": "–",
+          "dv": ""
+        }
+      ]
+    }
+  },
+  "rating": 4.6,
+  "ratingsCount": 0,
+  "reviewsCount": 0
+}

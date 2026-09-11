@@ -1,0 +1,51 @@
+{
+  "slug": "go-detox-packet-3",
+  "name": "Go Detox Packet #3",
+  "headline": "Go Detox Packet #3 — stage 3, restoration",
+  "category": "Restart",
+  "goals": [
+    "detox"
+  ],
+  "coralId": "913040",
+  "price": "$17.50",
+  "clubPrice": "$14.00",
+  "description": "The final 3 days of the Go Detox program — a lighter daily complex with DigestAble in place of the earlier stages' herbal blend, easing the body back to normal.",
+  "carouselImages": [
+    "/images/products/go-detox-packet-3.png"
+  ],
+  "pdpImages": [
+    "/images/products/go-detox-packet-3.png"
+  ],
+  "howToUse": "Day 12: one packet with the morning meal and one with the evening meal, plus Super-Flora 4× daily. Days 13–14: one packet plus one Super-Flora capsule with each meal.",
+  "elements": [
+    {
+      "symbol": "C",
+      "name": "Vitamin C"
+    },
+    {
+      "symbol": "Enz",
+      "name": "Enzymes"
+    }
+  ],
+  "dietaryBadges": [],
+  "manufacturing": {
+    "countryOfOrigin": "USA",
+    "shippingWeight": "",
+    "expiration": "2 years from the date of manufacture",
+    "storage": "Store in a dry place at a temperature not exceeding 25°C. Keep out of reach of children.",
+    "ingredients": "Ultimate (1 tablet), Vitamin C (1 tablet), Alfalfa (2 capsules), Cascara Sagrada (1 tablet), DigestAble (1 capsule) — per packet, 6 packets.",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": [
+        {
+          "name": "–",
+          "amount": "–",
+          "dv": ""
+        }
+      ]
+    }
+  },
+  "rating": 4.6,
+  "ratingsCount": 0,
+  "reviewsCount": 0
+}
