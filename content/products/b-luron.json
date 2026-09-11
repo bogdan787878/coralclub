@@ -6,21 +6,29 @@
   "goals": [
     "energy"
   ],
-  "coralId": "91814",
+  "coralId": "918141",
   "price": "$281.25",
   "clubPrice": "$225",
-  "description": "Test",
+  "description": "A hyaluronic acid and chondroitin complex developed in Germany — nourishes and restores cartilage tissue, activates the body's own synovial fluid, and eases joint stiffness. One course's benefits last up to 5 months.",
   "carouselImages": [
     "/images/products/bar6cmifim4pgndxjdg81o4qipfeydot.webp"
   ],
   "pdpImages": [
     "/images/products/6lz3zje3xybabziihe259f4ipi6v2o2z.webp"
   ],
-  "howToUse": "",
+  "howToUse": "One measuring cup (30 ml) once a day after a meal.",
   "elements": [
     {
       "symbol": "HA",
       "name": "Hyaluronic"
+    },
+    {
+      "symbol": "Chn",
+      "name": "Chondroitin"
+    },
+    {
+      "symbol": "E",
+      "name": "Vitamin E"
     }
   ],
   "dietaryBadges": [
@@ -29,11 +37,11 @@
     "pescatarian"
   ],
   "manufacturing": {
-    "countryOfOrigin": "",
+    "countryOfOrigin": "Germany",
     "shippingWeight": "",
-    "expiration": "",
-    "storage": "",
-    "ingredients": "",
+    "expiration": "2 years from the date of manufacture",
+    "storage": "Keep out of reach of children. Protect from heat, light, and moisture. Store in a dry place at no more than +25 °C. Refrigerate after opening.",
+    "ingredients": "Vitamin E (as dl-alpha tocopheryl acetate), chondroitin sulfate, hyaluronic acid, other ingredients.",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
       "rows": [
