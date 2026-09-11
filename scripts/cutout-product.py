@@ -8,11 +8,13 @@ slider elsewhere in the app).
 
 Usage:
     python3 scripts/cutout-product.py <slug> [<slug> ...]
-    python3 scripts/cutout-product.py --url <slug> <image-url>
+    python3 scripts/cutout-product.py --url <image-url> <slug>
 
 One-time setup:
-    pip3 install rembg onnxruntime pillow
-    (first run downloads the ~176 MB u2net model to ~/.u2net, cached after)
+    pip3 install rembg onnxruntime pillow pymatting
+    (first run downloads the ~179 MB isnet-general-use model to ~/.u2net,
+    cached after. pymatting powers the alpha-matting edge refinement —
+    without it the edges are visibly softer.)
 
 What it does NOT do:
 - Wire the result into content/products/<slug>.json (carouselImages /
@@ -32,6 +34,7 @@ import sys
 import time
 import urllib.request
 from pathlib import Path
+from typing import Optional, Tuple
 
 from PIL import Image
 
@@ -50,7 +53,7 @@ def fetch(url: str) -> bytes:
         return r.read()
 
 
-def first_gallery_image(slug: str) -> str | None:
+def first_gallery_image(slug: str) -> Optional[str]:
     """Best-effort: the page's default/selected gallery photo. For
     multi-variant products this can be the wrong flavour/colour — verify."""
     html = fetch(f"https://coralclub.us/shop/{slug}.html").decode("utf-8", "ignore")
@@ -64,13 +67,23 @@ def first_gallery_image(slug: str) -> str | None:
     return f"https://coralclub.us{m.group(1)}" if m else None
 
 
+MODEL = "isnet-general-use"  # sharper edges than u2net — much less halo/blur
+
+
 def cutout(session, raw_bytes: bytes, tmp: Path) -> Image.Image:
     from rembg import remove
 
     tmp.write_bytes(raw_bytes)
     im = Image.open(tmp).convert("RGB")
     im.save(tmp)  # normalise format for rembg
-    return remove(Image.open(tmp), session=session)
+    return remove(
+        Image.open(tmp),
+        session=session,
+        alpha_matting=True,
+        alpha_matting_foreground_threshold=240,
+        alpha_matting_background_threshold=10,
+        alpha_matting_erode_size=5,
+    )
 
 
 def frame(img: Image.Image) -> Image.Image:
@@ -92,7 +105,7 @@ def frame(img: Image.Image) -> Image.Image:
     return canvas
 
 
-def process(slug: str, url: str | None, session, workdir: Path) -> tuple[str, str]:
+def process(slug: str, url: Optional[str], session, workdir: Path) -> Tuple[str, str]:
     url = url or first_gallery_image(slug)
     if not url:
         return "NO_IMAGE_FOUND", ""
@@ -114,7 +127,7 @@ def main() -> None:
 
     from rembg import new_session
 
-    session = new_session("u2net")
+    session = new_session(MODEL)
     workdir = REPO / ".cutout-tmp"
     workdir.mkdir(exist_ok=True)
 
