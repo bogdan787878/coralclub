@@ -41,7 +41,7 @@
   );
 }
 
-/* solid navy tag, bottom-left, slight tilt */
+/* solid malachite tag, bottom-left, slight tilt */
 .badge {
   position: absolute;
   left: 0;
@@ -52,7 +52,7 @@
   gap: var(--space-8);
   padding: var(--space-8) var(--space-16);
   border-radius: var(--radius-pill);
-  background: var(--color-primary-100);
+  background: var(--color-malachite-100);
   color: #ffffff;
   font-family: var(--font-sans);
   font-size: 0.875rem;
