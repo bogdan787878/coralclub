@@ -2536,9 +2536,9 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     }
   },
   {
-    "slug": "hydramax",
-    "name": "Hydramax",
-    "headline": "Hydramax — the 30-day hydration set",
+    "slug": "hydramax-plus",
+    "name": "Hydramax Plus",
+    "headline": "Hydramax Plus — the 30-day hydration set",
     "category": "Foundation",
     "goals": [
       "hydration",
@@ -2549,10 +2549,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "clubPrice": "$117",
     "description": "A 30-day program that optimizes hydration with the minerals and electrolytes your body actually uses — supporting water balance, steady energy and overall well-being. It bundles the whole hydration layer in one pack: Coral Mine ×3, PentoKan ×3, H-500 ×1 and Oceanmin ×1.",
     "carouselImages": [
-      "/images/products/ChatGPT Image Sep 11, 2026 at 07_05_08 PM.png"
+      "/images/products/hydramax.png",
+      "/images/products/ChatGPT Image Sep 11, 2026 at 10_43_09 PM.png"
     ],
     "pdpImages": [
-      "/images/products/ChatGPT Image Sep 11, 2026 at 07_05_08 PM.png"
+      "/images/products/ChatGPT Image Sep 11, 2026 at 07_05_08 PM.png",
+      "/images/products/ChatGPT Image Sep 11, 2026 at 10_43_09 PM.png"
     ],
     "howToUse": "Read the instructions inside the package before use. Program duration — 30 days.",
     "elements": [

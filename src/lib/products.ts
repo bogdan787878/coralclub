@@ -289,7 +289,7 @@ const PHASE_DEFS: Array<
       lead: "Water alone doesn't hydrate.",
       accent: "Minerals do.",
     },
-    seriesSlug: "hydramax",
+    seriesSlug: "hydramax-plus",
     slugs: ["coral-mine-silver", "pentokan", "oceanmin", "h-500"],
   },
   {
