@@ -2644,8 +2644,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A new curcumin formula with exceptional efficacy. Combining liposomal encapsulation with the enhanced Cureit formula significantly raises the bioavailability of curcumin.",
     "price": "$31.25",
     "clubPrice": "$25",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/liposomal-curcumin.png"
+    ],
+    "pdpImages": [
+      "/images/products/liposomal-curcumin.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -5056,8 +5060,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A balanced combination of probiotics (bifidobacteria and lactobacteria) with the prebiotic inulin, to help normalise the gut microflora. More beneficial bacteria in the gut supports better digestion and stronger immunity.",
     "price": "$22.50",
     "clubPrice": "$18",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/super-flora.png"
+    ],
+    "pdpImages": [
+      "/images/products/super-flora.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
