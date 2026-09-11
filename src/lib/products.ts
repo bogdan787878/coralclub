@@ -432,8 +432,11 @@ export function getPhases(): PhaseView[] {
       .map((slug) => getProduct(slug))
       .filter((p): p is Product => Boolean(p))
       .map(toCard),
-    seriesProduct:
-      getProduct(phase.seriesSlug ?? slugs[0] ?? "") ?? null,
+    // Only renders the SeriesFeature block when a phase opts in with an
+    // explicit seriesSlug — no fallback to the first product, so phases
+    // without one (e.g. Restart, which uses a `kind: "series"` section
+    // instead) don't get an unintended single-product showcase.
+    seriesProduct: phase.seriesSlug ? (getProduct(phase.seriesSlug) ?? null) : null,
   }));
 }
 

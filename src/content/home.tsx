@@ -150,6 +150,7 @@ const RESTART: HomePhase = {
     ),
   },
   sections: [
+    { kind: "series", id: "go-detox" },
     {
       kind: "editorial",
       title: { lead: "A Detox Is a Burst.", accent: "A Reset Is a Sequence." },
@@ -165,7 +166,6 @@ const RESTART: HomePhase = {
         "Restart is the opposite. Coral Detox Plus opens the phase gently, ParaShield does the targeted middle work, Colo-Vada is the deep finish — one sequence of increasing depth, each step resting on the one before it.",
       ],
     },
-    { kind: "series", id: "go-detox" },
     {
       kind: "editorial",
       title: { lead: "The Body Rebuilds", accent: "in Layers." },
