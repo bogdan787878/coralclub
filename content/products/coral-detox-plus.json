@@ -8,14 +8,17 @@
     "weight"
   ],
   "coralId": "8036007",
-  "description": "A seven-day pack that supports the body's natural cleansing — antioxidants, fibre and a lecithin-based binder that eases the internal load before you go deeper.",
   "price": "$152.50",
   "clubPrice": "$122",
-  "carouselImages": ["/images/products/coral-detox-plus.png"],
-  "pdpImages": ["/images/products/coral-detox-plus.png"],
-  "rating": 4.4,
-  "ratingsCount": 28,
-  "reviewsCount": 11,
+  "description": "A seven-day pack that supports the body's natural cleansing — antioxidants, fibre and a lecithin-based binder that eases the internal load before you go deeper.",
+  "carouselImages": [
+    "/images/products/coral-detox-plus.png",
+    "/images/products/ChatGPT Image Sep 11, 2026 at 10_51_36 PM.png"
+  ],
+  "pdpImages": [
+    "/images/products/coral-detox-plus.png",
+    "/images/products/ChatGPT Image Sep 11, 2026 at 10_51_36 PM.png"
+  ],
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
   "elements": [
     {
@@ -48,7 +51,16 @@
     "ingredients": "Assimilator ×1 (90 veg capsules), H-500 ×1 (60 capsules), Coral Alfalfa ×1 (120 capsules), Sunflower Lecithin ×1 (120 veg capsules), PentoKan ×2 (40 effervescent tablets), Coral-Mine ×3 (30 sachets).",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "–",
+          "amount": "–",
+          "dv": ""
+        }
+      ]
     }
-  }
+  },
+  "rating": 4.4,
+  "ratingsCount": 28,
+  "reviewsCount": 11
 }
