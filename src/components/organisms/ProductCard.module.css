@@ -47,15 +47,15 @@
   flex: 0 0 100%;
   scroll-snap-align: start;
 }
-/* full-bleed width; vertical inset keeps the whole packshot inside the tile.
-   It's an <a> (see ProductCard.tsx) so it needs block display. */
+/* Vertical inset keeps a contain-fit packshot off the tile's edges; a
+   cover-fit slide (full lifestyle photo, see resolveFit in ProductCard.tsx)
+   overrides this to 0 inline so it goes full-bleed instead. It's an <a>
+   (see ProductCard.tsx) so it needs block display. object-fit itself is
+   set inline per-slide, not here. */
 .frame {
   display: block;
   position: absolute;
   inset: var(--space-16) 0;
-}
-.frame :global(img) {
-  object-fit: contain;
 }
 .slideEmpty {
   background: linear-gradient(

@@ -12,6 +12,27 @@ export type ProductImage = {
   position?: string;
 };
 
+/**
+ * A plain packshot (product centered on its own transparent canvas) needs
+ * object-fit:contain to show accurately. A full lifestyle-style photo
+ * (different composition, not on our packshot canvas convention) looks
+ * tiny/off-center under contain — it needs cover instead. Rather than a
+ * schema change across every place carouselImages/pdpImages get read,
+ * a slide opts into cover by appending `?fit=cover` to its path in
+ * content/products/<slug>.json — this strips that marker back out before
+ * it reaches <Image>, so the loader/manifest lookup sees the clean path.
+ */
+function resolveFit(src: string): { src: string; fit: "contain" | "cover" } {
+  const qIndex = src.indexOf("?");
+  if (qIndex === -1) return { src, fit: "contain" };
+  const base = src.slice(0, qIndex);
+  const params = new URLSearchParams(src.slice(qIndex + 1));
+  const cover = params.get("fit") === "cover";
+  params.delete("fit");
+  const rest = params.toString();
+  return { src: rest ? `${base}?${rest}` : base, fit: cover ? "cover" : "contain" };
+}
+
 export type ProductCardProps = {
   /** Two-line product name. */
   title: ReactNode;
@@ -90,24 +111,35 @@ export function ProductCard({
       <div className={styles.media}>
         <div className={styles.track} ref={trackRef} onScroll={multi ? onScroll : undefined}>
           {images.length ? (
-            images.map((img, i) => (
+            images.map((img, i) => {
+              const { src, fit } = resolveFit(img.src);
+              return (
               <span className={styles.slide} key={i}>
                 {/* Link lives inside the scroll track (a real descendant of
                     it, not an overlay sibling) so the browser can tell a
                     tap from a drag on its own — an overlay on top of the
                     track would intercept the swipe instead of passing it
                     through. */}
-                <Link href={href} className={styles.frame} tabIndex={-1}>
+                <Link
+                  href={href}
+                  className={styles.frame}
+                  tabIndex={-1}
+                  style={fit === "cover" ? { inset: 0 } : undefined}
+                >
                   <Image
-                    src={img.src}
+                    src={src}
                     alt={img.alt}
                     fill
                     sizes="150px"
-                    style={img.position ? { objectPosition: img.position } : undefined}
+                    style={{
+                      objectFit: fit,
+                      ...(img.position ? { objectPosition: img.position } : {}),
+                    }}
                   />
                 </Link>
               </span>
-            ))
+              );
+            })
           ) : (
             <span className={`${styles.slide} ${styles.slideEmpty}`} aria-hidden="true">
               <Link href={href} className={styles.mediaLink} aria-hidden="true" tabIndex={-1} />

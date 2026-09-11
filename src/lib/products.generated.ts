@@ -1656,7 +1656,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "Coral-Mine is a naturally derived mineral product sourced from deep-sea coral formations in the Sea of Japan near the Okinawa and Tokunoshima islands. Its unique mineral composition helps enrich water and supports hydration, normal mineral balance, and overall well-being.",
     "carouselImages": [
       "/images/products/1-4.png",
-      "/images/products/ChatGPT Image Sep 11, 2026 at 01_00_32 PM.png"
+      "/images/products/ChatGPT Image Sep 11, 2026 at 01_00_32 PM.png?fit=cover"
     ],
     "pdpImages": [
       "/images/products/2-4.png",
