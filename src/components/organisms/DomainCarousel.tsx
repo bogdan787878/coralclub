@@ -20,7 +20,7 @@ export function DomainCarousel({ domains, value, onChange }: DomainCarouselProps
     <div
       className={styles.track}
       role="tablist"
-      aria-label="Personalization domains"
+      aria-label="Personalisation domains"
     >
       {domains.map((d) => {
         const active = d.id === value;

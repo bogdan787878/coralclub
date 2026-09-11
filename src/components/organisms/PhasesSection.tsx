@@ -102,7 +102,7 @@ export function PhasesSection({
         {isPersonalization && domain ? (
           <Carousel
             key={domain.id}
-            label={`Personalization — ${domain.label}`}
+            label={`Personalisation — ${domain.label}`}
             title={
               <>
                 Your route for <Accent>{domain.label.toLowerCase()}</Accent>

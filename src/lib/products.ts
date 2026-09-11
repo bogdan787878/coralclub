@@ -298,7 +298,7 @@ const PHASE_DEFS: Array<
   {
     id: "personalization",
     index: 3,
-    name: "Personalization",
+    name: "Personalisation",
     image: "/images/phase-personalization.png",
     headline: {
       lead: "Generic nutrition doesn't fit you.",
