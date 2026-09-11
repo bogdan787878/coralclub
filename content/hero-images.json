@@ -1,13 +1,21 @@
 {
+  "hydration": {
+    "desktop": "/images/hero/hero-hydration.png",
+    "mobile": "/images/hero/hero-hydration.png"
+  },
+  "restart": {
+    "desktop": "/images/hero/hero-restart.png",
+    "mobile": "/images/hero/hero-restart.png"
+  },
   "items": [
     {
-      "id": "hydration",
       "desktop": "/images/hero-hydration.png",
+      "id": "hydration",
       "mobile": "/images/hero-hydration.png"
     },
     {
-      "id": "restart",
       "desktop": "/images/hero-restart.png",
+      "id": "restart",
       "mobile": "/images/hero-restart.png"
     }
   ]
