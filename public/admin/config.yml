@@ -187,16 +187,20 @@ collections:
       - name: id
         label: "ID (URL-safe)"
         widget: string
+        required: false
         pattern: ["^[a-z0-9]+(?:-[a-z0-9]+)*$", "lowercase letters, digits and dashes only"]
       - name: titleLead
         label: "Heading — line 1"
         widget: string
+        required: false
       - name: titleAccent
         label: "Heading — line 2 (italic accent)"
         widget: string
+        required: false
       - name: blurb
         label: "Blurb (paragraph under the heading)"
         widget: text
+        required: false
         hint: "Shown only when the Feature row below is empty."
       - name: features
         label: "Feature row (icon + label, replaces the blurb)"
@@ -207,12 +211,14 @@ collections:
           - name: icon
             label: "Icon (~24px wide)"
             widget: image
+            required: false
             media_library:
               config:
                 max_file_size: 1000000
           - name: text
             label: "Label (16/20)"
             widget: string
+            required: false
       - name: image
         label: "Large image"
         widget: image
@@ -223,8 +229,9 @@ collections:
       - name: products
         label: "Product slugs (carousel order)"
         widget: list
+        required: false
         summary: "{{fields.slug}}"
-        field: { name: slug, label: "Slug", widget: string }
+        field: { name: slug, label: "Slug", widget: string, required: false }
 
   - name: personalization
     label: "Personalization"

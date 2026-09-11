@@ -1366,11 +1366,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A 30-day set that supports the body's natural detox processes — enzymes, antioxidant support, deep-sea minerals and a lecithin-based binder that eases the internal load before you go deeper.",
     "carouselImages": [
       "/images/products/coral-detox-plus.png",
-      "/images/products/coral-detox-plus-set.png"
+      "/images/products/ChatGPT Image Sep 11, 2026 at 11_19_19 PM.png?fit=cover"
     ],
     "pdpImages": [
       "/images/products/coral-detox-plus.png",
-      "/images/products/coral-detox-plus-set.png"
+      "/images/products/ChatGPT Image Sep 11, 2026 at 11_21_21 PM.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
@@ -2754,7 +2754,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A 30-day program that optimizes hydration with the minerals and electrolytes your body actually uses — supporting water balance, steady energy and overall well-being. It bundles the whole hydration layer in one pack: Coral Mine ×3, PentoKan ×3, H-500 ×1 and Oceanmin ×1.",
     "carouselImages": [
       "/images/products/hydramax.png",
-      "/images/products/ChatGPT Image Sep 11, 2026 at 10_43_09 PM.png"
+      "/images/products/ChatGPT Image Sep 11, 2026 at 10_43_09 PM.png?fit=cover"
     ],
     "pdpImages": [
       "/images/products/ChatGPT Image Sep 11, 2026 at 07_05_08 PM.png",
