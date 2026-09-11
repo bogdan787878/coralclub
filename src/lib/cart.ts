@@ -1,8 +1,9 @@
 /**
  * Local cart — no backend. Everything the shopper adds on our site is kept
  * in localStorage. We don't check out here: the cart hands off to
- * coralclub.ru's basket via their share-cart link, which accepts every
- * `id=qty` pair in one URL (see `basketHandoffUrl`).
+ * coralclub.us's basket via their share-cart link, which accepts every
+ * `id=qty` pair in one URL, tagged with our referral member/code so the
+ * order attributes back to us (see `basketHandoffUrl`).
  *
  * TODO(backend): mirror writes to a real cart API once it exists.
  */
@@ -13,10 +14,12 @@ import { useSyncExternalStore } from "react";
 
 const STORAGE_KEY = "coralclub.cart";
 const EVENT = "coralclub:cart";
-const CORAL_SHOP = "https://coralclub.ru/shop/";
+const CORAL_SHOP = "https://coralclub.us/shop/";
+const REF_MEMBER = "2804051";
+const REF_CODE = "722779981462";
 
 export type CartLine = {
-  /** coralclub.ru product id — required to hand the line off to their basket. */
+  /** coralclub.us product id — required to hand the line off to their basket. */
   coralId: string;
   slug: string;
   name: string;
@@ -149,17 +152,24 @@ export function formatUsd(value: number): string {
 }
 
 /**
- * One URL that drops the whole cart into coralclub.ru's basket, using their
- * share-cart link format: `shop_basket.php?<id1>=<q1>&<id2>=<q2>&utm...`.
+ * One URL that drops the whole cart into coralclub.us's basket, using their
+ * share-cart link format: `shop_basket.php?<id1>=<q1>&<id2>=<q2>&REF_MEMBER=
+ * ...&REF_CODE=...&TYPE=REF-BASKET&utm...`. The REF_MEMBER/REF_CODE pair
+ * attributes the order to us; without it the sale isn't tracked as ours.
  * Lines without a coralId can't be handed off and are skipped.
  */
 export function basketHandoffUrl(lines: CartLine[]): string {
   const pairs = lines
     .filter((l) => l.coralId && l.qty > 0)
     .map((l) => `${l.coralId}=${l.qty}`);
-  const query = [...pairs, "utm_source=copy-link", "utm_medium=cart-recom"].join(
-    "&",
-  );
+  const query = [
+    ...pairs,
+    `REF_MEMBER=${REF_MEMBER}`,
+    `REF_CODE=${REF_CODE}`,
+    "TYPE=REF-BASKET",
+    "utm_source=copy-link",
+    "utm_medium=cart-recom",
+  ].join("&");
   return `${CORAL_SHOP}shop_basket.php?${query}`;
 }
 

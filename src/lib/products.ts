@@ -102,7 +102,7 @@ export type PriceOption = {
 export type Product = {
   slug: string;
   name: string;
-  /** Product id in the coralclub.ru store — powers the cart hand-off. */
+  /** Product id in the coralclub.us store — powers the cart hand-off. */
   coralId?: string;
   /** Big two-line title on the carousel card. */
   headline: string;
@@ -132,13 +132,16 @@ export type Product = {
 
 /**
  * The live Coral Club store. We don't run our own cart — "Add to Cart" drops
- * the shopper into coralclub.ru's basket with the product pre-added, using
- * their share-cart link format. `coralId` is the product's id in that store.
+ * the shopper into coralclub.us's basket with the product pre-added, using
+ * their share-cart link format, tagged with our referral member/code so the
+ * order attributes back to us. `coralId` is the product's id in that store.
  */
-const CORAL_SHOP = "https://coralclub.ru/shop/";
+const CORAL_SHOP = "https://coralclub.us/shop/";
+const REF_MEMBER = "2804051";
+const REF_CODE = "722779981462";
 
 export function basketUrl(coralId: string, qty = 1): string {
-  return `${CORAL_SHOP}shop_basket.php?${coralId}=${qty}&utm_source=copy-link&utm_medium=cart-recom`;
+  return `${CORAL_SHOP}shop_basket.php?${coralId}=${qty}&REF_MEMBER=${REF_MEMBER}&REF_CODE=${REF_CODE}&TYPE=REF-BASKET&utm_source=copy-link&utm_medium=cart-recom`;
 }
 
 const numeric = (s: string): number => {
@@ -281,7 +284,7 @@ const PHASE_DEFS: Array<
       lead: "Water alone doesn't hydrate.",
       accent: "Minerals do.",
     },
-    seriesSlug: "hydramax-plus",
+    seriesSlug: "hydramax",
     slugs: ["coral-mine-silver", "pentokan", "oceanmin", "h-500"],
   },
   {

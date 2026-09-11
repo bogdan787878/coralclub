@@ -22,7 +22,7 @@ export type CartDrawerProps = {
 
 /**
  * CartDrawer — the local cart. Lines live in localStorage; checkout hands
- * the whole cart to coralclub.ru's basket in one link.
+ * the whole cart to coralclub.us's basket in one link.
  */
 export function CartDrawer({ open, onClose }: CartDrawerProps) {
   const lines = useCart();
@@ -133,7 +133,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
             onClick={checkout}
             disabled={lines.length === 0}
           >
-            Open basket on coralclub.ru
+            Open basket on coralclub.us
           </button>
           {lines.length > 0 && (
             <button type="button" className={styles.clear} onClick={clearCart}>

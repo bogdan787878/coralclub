@@ -2536,23 +2536,23 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     }
   },
   {
-    "slug": "hydramax-plus",
-    "name": "Hydramax Plus",
-    "headline": "Hydramax Plus — the 30-day hydration set",
+    "slug": "hydramax",
+    "name": "Hydramax",
+    "headline": "Hydramax — the 30-day hydration set",
     "category": "Foundation",
     "goals": [
       "hydration",
       "energy"
     ],
-    "coralId": "80720",
+    "coralId": "807201",
     "price": "$146.25",
     "clubPrice": "$117",
     "description": "A 30-day program that optimizes hydration with the minerals and electrolytes your body actually uses — supporting water balance, steady energy and overall well-being. It bundles the whole hydration layer in one pack: Coral Mine ×3, PentoKan ×3, H-500 ×1 and Oceanmin ×1.",
     "carouselImages": [
-      "/images/products/image7.png"
+      "/images/products/ChatGPT Image Sep 11, 2026 at 07_05_08 PM.png"
     ],
     "pdpImages": [
-      "/images/products/image7.png"
+      "/images/products/ChatGPT Image Sep 11, 2026 at 07_05_08 PM.png"
     ],
     "howToUse": "Read the instructions inside the package before use. Program duration — 30 days.",
     "elements": [
@@ -5778,7 +5778,7 @@ export const GENERATED_SERIES: SeriesContent[] = [
     "titleAccent": "Privilege goes further.",
     "blurb": "The premium anti-aging line, built on coffee oil and extract — cleanse, exfoliate and treat for firmer, more even, more resilient skin.",
     "features": [],
-    "image": "",
+    "image": "/images/series/privilege.png",
     "products": [
       "privilege-milk-cleanser",
       "privilege-facial-scrub",
