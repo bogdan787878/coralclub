@@ -26,7 +26,7 @@
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-base);
-  background: var(--color-primary-10);
+  background: var(--color-neutral-white);
 }
 
 .tile :global(img) {
@@ -52,8 +52,8 @@
   inset: 0;
   background: linear-gradient(
     135deg,
-    var(--color-primary-10),
-    var(--color-primary-30)
+    var(--color-neutral-white),
+    var(--color-neutral-30)
   );
 }
 

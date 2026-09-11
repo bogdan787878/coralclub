@@ -46,7 +46,7 @@ body {
 }
 @media (min-width: 481px) {
   body {
-    background: var(--color-primary-10);
+    background: var(--color-bg);
   }
 }
 

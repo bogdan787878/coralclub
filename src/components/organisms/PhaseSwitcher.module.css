@@ -22,7 +22,7 @@
   max-width: 132px;
   aspect-ratio: 1 / 1;
   border-radius: var(--radius-pill);
-  background: var(--color-primary-30);
+  background: var(--color-neutral-30);
   overflow: hidden;
   transition: box-shadow var(--duration-base) var(--ease-standard);
 }

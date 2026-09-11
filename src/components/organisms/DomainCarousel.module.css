@@ -25,12 +25,12 @@
   gap: 0;
   border: 0;
   border-radius: 32px;
-  background: var(--color-primary-10);
+  background: var(--color-neutral-white);
   cursor: pointer;
   transition: background-color 0.18s var(--ease-standard);
 }
 .itemOn {
-  background: var(--color-primary-30);
+  background: var(--color-neutral-30);
 }
 
 /* 80×80 frame with 4px padding all round → the icon renders at 72×72 */

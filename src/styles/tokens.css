@@ -30,13 +30,19 @@
   --color-white: #ffffff;
   --color-black: #000000;
 
+  /* Neutral — surfaces/backgrounds/card backdrops (replaces the Blue -10/-30
+     tint in that role; Blue itself is kept above for anything that still
+     wants the brand-blue tint deliberately). */
+  --color-neutral-white: #ffffff;
+  --color-neutral-30: #efefef;
+
   /* Special — warm tan accent for category tags */
   --color-special: #cb8d52;
 
   /* ---------- Color · semantic ---------- */
   --color-bg: var(--color-white);
-  --color-surface: var(--color-primary-10);
-  --color-border: var(--color-primary-30);
+  --color-surface: var(--color-neutral-white);
+  --color-border: var(--color-neutral-30);
 
   --color-text: var(--color-primary-100);
   --color-text-muted: rgba(1, 17, 48, 0.6);

@@ -69,7 +69,7 @@
   aspect-ratio: 9 / 16;
   object-fit: cover;
   border-radius: var(--radius-base);
-  background: var(--color-primary-30);
+  background: var(--color-neutral-30);
   cursor: pointer;
 }
 

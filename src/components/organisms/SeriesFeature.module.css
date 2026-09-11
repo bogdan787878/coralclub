@@ -16,7 +16,7 @@
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-base);
-  background: var(--color-primary-30);
+  background: var(--color-neutral-30);
   aspect-ratio: 4 / 3;
 }
 .mediaInner {
@@ -150,7 +150,7 @@
   color: inherit;
 }
 .stepper button:active {
-  background: var(--color-primary-10);
+  background: var(--color-neutral-white);
 }
 .stepperCount {
   min-width: 18px;

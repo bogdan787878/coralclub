@@ -42,18 +42,18 @@
 }
 
 .secondary {
-  background: var(--color-primary-10);
+  background: var(--color-neutral-white);
   color: var(--color-primary-100);
 }
 .secondary:hover {
-  background: var(--color-primary-30);
+  background: var(--color-neutral-30);
 }
 
 .ghost {
   background: transparent;
   color: var(--color-primary-100);
-  border-color: var(--color-primary-30);
+  border-color: var(--color-neutral-30);
 }
 .ghost:hover {
-  background: var(--color-primary-10);
+  background: var(--color-neutral-white);
 }

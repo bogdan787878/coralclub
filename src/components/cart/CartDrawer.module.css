@@ -49,7 +49,7 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-20) var(--space-24);
-  border-bottom: 1px solid var(--color-primary-10);
+  border-bottom: 1px solid var(--color-neutral-white);
 }
 
 .title {
@@ -65,7 +65,7 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-pill);
-  background: var(--color-primary-10);
+  background: var(--color-neutral-white);
   color: var(--color-text);
 }
 .close svg {
@@ -95,7 +95,7 @@
   grid-template-columns: 64px 1fr auto;
   gap: var(--space-16);
   padding: var(--space-16) 0;
-  border-bottom: 1px solid var(--color-primary-10);
+  border-bottom: 1px solid var(--color-neutral-white);
 }
 
 .thumb {
@@ -103,7 +103,7 @@
   width: 64px;
   height: 64px;
   border-radius: var(--radius-md);
-  background: var(--color-primary-30);
+  background: var(--color-neutral-30);
   overflow: hidden;
 }
 .thumb :global(img) {
@@ -138,7 +138,7 @@
   align-self: flex-start;
   padding: 4px;
   border-radius: var(--radius-pill);
-  background: var(--color-primary-10);
+  background: var(--color-neutral-white);
 }
 .qty button {
   width: 24px;
@@ -176,7 +176,7 @@
 
 .foot {
   padding: var(--space-20) var(--space-24) calc(var(--space-24) + env(safe-area-inset-bottom, 0px));
-  border-top: 1px solid var(--color-primary-10);
+  border-top: 1px solid var(--color-neutral-white);
   display: flex;
   flex-direction: column;
   gap: var(--space-12);
