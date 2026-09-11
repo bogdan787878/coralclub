@@ -8,13 +8,29 @@
  */
 import { asset } from "@/lib/asset";
 import type { PhaseId } from "@/lib/phase";
+import heroImages from "../../content/hero-images.json";
 
 export type HeroContent = {
   title: { lead: string; accent: string };
   body: string[];
   cta: { label: string; href: string };
-  image: { src: string; alt: string };
+  image: { desktopSrc: string; mobileSrc: string; alt: string };
 };
+
+/** Builds a hero's `image` field from content/hero-images.json (editable
+ *  in the CMS — separate desktop/mobile uploads), base-path-prefixed and
+ *  cache-busted the same way the hardcoded paths used to be. */
+function heroImage(
+  key: keyof typeof heroImages,
+  alt: string,
+): HeroContent["image"] {
+  const { desktop, mobile } = heroImages[key];
+  return {
+    desktopSrc: `${asset(desktop)}?v=3`,
+    mobileSrc: `${asset(mobile)}?v=3`,
+    alt,
+  };
+}
 
 export type EditorialItem = {
   kind: "editorial";
@@ -59,10 +75,10 @@ const HYDRATION: HomePhase = {
       "Hydration is step one of your Coral Club routine — the phase everything else builds on.",
     ],
     cta: { label: "Build my set", href: "/quiz" },
-    image: {
-      src: `${asset("/images/hero-hydration.png")}?v=3`,
-      alt: "Coral-Mine Silver sachet beside a glass of mineralized water",
-    },
+    image: heroImage(
+      "hydration",
+      "Coral-Mine Silver sachet beside a glass of mineralized water",
+    ),
   },
   sections: [
     {
@@ -126,10 +142,10 @@ const RESTART: HomePhase = {
       "The internal load comes down in three guided steps over about three months.",
     ],
     cta: { label: "Start the reset", href: "/quiz" },
-    image: {
-      src: `${asset("/images/hero-restart.png")}?v=3`,
-      alt: "Coral Detox Plus, ParaShield and Colo-Vada boxes on studio podiums",
-    },
+    image: heroImage(
+      "restart",
+      "Coral Detox Plus, ParaShield and Colo-Vada boxes on studio podiums",
+    ),
   },
   sections: [
     {

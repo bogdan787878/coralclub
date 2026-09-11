@@ -1,0 +1,10 @@
+{
+  "hydration": {
+    "desktop": "/images/hero-hydration.png",
+    "mobile": "/images/hero-hydration.png"
+  },
+  "restart": {
+    "desktop": "/images/hero-restart.png",
+    "mobile": "/images/hero-restart.png"
+  }
+}

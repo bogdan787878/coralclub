@@ -249,3 +249,48 @@ collections:
                 label: "Product slugs"
                 widget: list
                 field: { name: slug, label: "Slug", widget: string }
+
+  - name: hero
+    label: "Hero images"
+    files:
+      - name: heroImages
+        label: "Hero background — desktop / mobile"
+        file: content/hero-images.json
+        description: "The background photo behind each phase's hero panel. Upload a version cropped for desktop and, optionally, a separate one cropped for mobile — below 768px wide the mobile image is used instead."
+        media_folder: "/public/images/hero"
+        public_folder: "/images/hero"
+        fields:
+          - name: hydration
+            label: "Hydration phase"
+            widget: object
+            fields:
+              - name: desktop
+                label: "Desktop image"
+                widget: image
+                media_library:
+                  config:
+                    max_file_size: 5000000
+              - name: mobile
+                label: "Mobile image"
+                widget: image
+                hint: "Shown below 768px wide. Leave the same as desktop if there's no dedicated mobile crop."
+                media_library:
+                  config:
+                    max_file_size: 5000000
+          - name: restart
+            label: "Restart phase"
+            widget: object
+            fields:
+              - name: desktop
+                label: "Desktop image"
+                widget: image
+                media_library:
+                  config:
+                    max_file_size: 5000000
+              - name: mobile
+                label: "Mobile image"
+                widget: image
+                hint: "Shown below 768px wide. Leave the same as desktop if there's no dedicated mobile crop."
+                media_library:
+                  config:
+                    max_file_size: 5000000

@@ -14,6 +14,59 @@
   z-index: 0;
 }
 
+/* two <Image>s (art direction — a dedicated mobile crop, not just a
+   repositioned desktop one); only one is ever in layout at a time. */
+.bgDesktop {
+  display: none;
+}
+.bgMobile {
+  display: block;
+}
+
+/* Progressive blur over the top 200px, mobile only — softens the photo
+   right under the status bar / header so the hero reads clearly even
+   before the title's own text-shadow kicks in. 4 bands, each blurred a
+   different amount and faded in/out at a different depth, approximate a
+   smooth 20px (top) -> 0px (200px down) falloff — backdrop-filter can't
+   vary its own blur radius across space, so a single layer can't do this. */
+.topBlur {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 200px;
+  z-index: 1;
+  pointer-events: none;
+}
+.topBlurLayer {
+  position: absolute;
+  inset: 0;
+}
+/* blur amount itself is set inline in Hero.tsx (see comment there) — only
+   the fade-in/out mask lives here. */
+.topBlurLayer:nth-child(1) {
+  mask-image: linear-gradient(to bottom, black 0%, black 10%, transparent 30%);
+}
+.topBlurLayer:nth-child(2) {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20%,
+    black 35%,
+    transparent 55%
+  );
+}
+.topBlurLayer:nth-child(3) {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 25%,
+    black 45%,
+    black 60%,
+    transparent 80%
+  );
+}
+.topBlurLayer:nth-child(4) {
+  mask-image: linear-gradient(to bottom, transparent 50%, black 70%, black 85%, transparent 100%);
+}
+
 .content {
   position: relative;
   z-index: 2;
@@ -64,6 +117,17 @@
 
   .bg {
     object-position: 62% 42%;
+  }
+
+  .bgMobile {
+    display: none;
+  }
+  .bgDesktop {
+    display: block;
+  }
+
+  .topBlur {
+    display: none;
   }
 
   /* contain + centre the hero content on wide screens;

@@ -72,6 +72,17 @@ Rendered on the homepage by `SeriesShowcase`; the `liumi` and `privilege`
 blocks are wired in right now (`src/app/page.tsx`), one after the other in
 the Hydration area.
 
+### Hero images
+
+The **"Hero images"** collection edits `content/hero-images.json` — the
+background photo behind each phase's hero panel (Hydration, Restart). Each
+phase has two image slots: **Desktop image** and **Mobile image**. Below
+768px wide the site shows the mobile image; at 768px and up, the desktop
+one. Upload the same photo to both if you don't have a dedicated mobile
+crop — that's the default until someone uploads a real one. Uploads go to
+`public/images/hero/`. The hero's title/body/CTA text is still in code
+(`src/content/home.tsx`), not editable here yet.
+
 ## 2. Straight in GitHub (zero setup)
 
 Edit `content/products/<slug>.json` in the GitHub web editor (or locally),
