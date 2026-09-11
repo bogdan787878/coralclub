@@ -935,8 +935,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A synergistic complex of bovine colostrum and beta-glucans for immune support. It helps strengthen immunity, raise the body's resistance to pathogens, speed up regeneration and protect and restore the lining of the digestive tract.",
     "price": "$38.75",
     "clubPrice": "$31",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/colostrum-plus.png"
+    ],
+    "pdpImages": [
+      "/images/products/colostrum-plus.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -1274,8 +1278,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "The Peruvian plant cat's claw has anti-inflammatory and immune-activating properties. Combined with burdock root and green tea it helps raise vitality and is useful during fatigue and general weakness.",
     "price": "$28.75",
     "clubPrice": "$23",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/coral-cat-s-claw.png"
+    ],
+    "pdpImages": [
+      "/images/products/coral-cat-s-claw.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -1526,8 +1534,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "Licorice root extract with ginger root extract has a soothing effect on the respiratory tract and the digestive system and helps strengthen the body's defences.",
     "price": "$13.75",
     "clubPrice": "$11",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/coral-licorice.png"
+    ],
+    "pdpImages": [
+      "/images/products/coral-licorice.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -1744,8 +1756,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "High-dose vitamin D3 in a convenient spray — one press delivers 50 mcg / 2000 IU, with about 170 doses per bottle. MCT coconut-oil fatty acids improve absorption; vitamin D3 helps regulate calcium, magnesium and phosphorus metabolism and supports bone density.",
     "price": "$15",
     "clubPrice": "$12",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/d-spray-2000.png"
+    ],
+    "pdpImages": [
+      "/images/products/d-spray-2000.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -3543,8 +3559,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "High-concentration fish oil — 60% omega-3 — for heart, brain and joint support once your hydration and cleansing layers are in place.",
     "price": "$10",
     "clubPrice": "$8",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/omega-3-60.png"
+    ],
+    "pdpImages": [
+      "/images/products/omega-3-60.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 38,
     "reviewsCount": 16,
@@ -3693,8 +3713,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "Pau d'arco (lapacho) bark extract with olive leaf and yerba mate extracts helps activate the body's immunity, raise vitality and give a feeling of energy.",
     "price": "$18.75",
     "clubPrice": "$15",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/pau-d-arco-mate.png"
+    ],
+    "pdpImages": [
+      "/images/products/pau-d-arco-mate.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -3759,8 +3783,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "Pau d'arco bark powder with selenium and vitamin C helps strengthen immunity by stimulating the body's own defences. Selenium and vitamin C, two strong antioxidants, help protect cells from harmful internal and external effects.",
     "price": "$18.75",
     "clubPrice": "$15",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/pau-d-arco-with-selenium.png"
+    ],
+    "pdpImages": [
+      "/images/products/pau-d-arco-with-selenium.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -5079,8 +5107,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A balanced complex of vitamins, minerals and phytonutrients in active, bioavailable form to make up shortfalls in the diet. It helps balance vitamin and mineral status, strengthen immunity, raise performance and vitality and support healthy longevity.",
     "price": "$27.50",
     "clubPrice": "$22",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/ultimate-max.png"
+    ],
+    "pdpImages": [
+      "/images/products/ultimate-max.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
