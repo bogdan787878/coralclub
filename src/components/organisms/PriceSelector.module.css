@@ -20,11 +20,11 @@
 }
 
 .option:hover {
-  border-color: var(--color-primary-90);
+  border-color: var(--color-malachite-90);
 }
 
 .selected {
-  border-color: var(--color-primary-100);
+  border-color: var(--color-text);
   background: var(--color-neutral-white);
 }
 

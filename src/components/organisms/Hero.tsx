@@ -59,8 +59,7 @@ export function Hero({
 
         <Container>
           <Button
-            variant="primary"
-            block
+            variant="secondary"
             href={cta.href}
             className={styles.cta}
           >

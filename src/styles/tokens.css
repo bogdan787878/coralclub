@@ -54,14 +54,17 @@
   --color-surface: var(--color-neutral-white);
   --color-border: var(--color-neutral-30);
 
-  --color-text: var(--color-primary-100);
-  --color-text-muted: rgba(1, 17, 48, 0.6);
+  /* Text/action accent: dark Malachite (replaces the Blue navy in that
+     role; Blue itself is kept above for anything that still wants the
+     brand-blue tint deliberately). */
+  --color-text: var(--color-malachite-100);
+  --color-text-muted: rgba(0, 32, 34, 0.6);
   --color-text-on-primary: var(--color-white);
   --color-text-on-primary-muted: rgba(255, 255, 255, 0.72);
 
-  /* primary button: darkest navy at rest, lifts to the mid navy on hover */
-  --color-action: var(--color-primary-100);
-  --color-action-hover: var(--color-primary-90);
+  /* primary button: darkest malachite at rest, lifts to the mid malachite on hover */
+  --color-action: var(--color-malachite-100);
+  --color-action-hover: var(--color-malachite-90);
   --color-action-contrast: var(--color-white);
 
   /* ---------- Typography · families ---------- */

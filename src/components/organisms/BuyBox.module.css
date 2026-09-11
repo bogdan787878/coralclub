@@ -114,7 +114,7 @@
   padding: 0 6px;
   border-radius: var(--radius-pill);
   background: #ffffff;
-  color: var(--color-primary-100);
+  color: var(--color-text);
   border: 1px solid var(--color-neutral-30);
   box-shadow: 0 8px 24px rgba(1, 17, 48, 0.12);
   transform-origin: right center;

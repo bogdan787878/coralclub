@@ -32,7 +32,7 @@
 }
 
 .tab[aria-selected="true"] .circle {
-  box-shadow: 0 0 0 2px var(--color-primary-100);
+  box-shadow: 0 0 0 2px var(--color-text);
 }
 
 .label {

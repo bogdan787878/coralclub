@@ -108,7 +108,7 @@
 }
 .tabOn {
   background: #ffffff;
-  color: var(--color-primary-100);
+  color: var(--color-text);
 }
 
 .input {
@@ -210,7 +210,7 @@
   justify-content: center;
   border-radius: 14px;
   background: #ffffff;
-  color: var(--color-primary-100);
+  color: var(--color-text);
   overflow: hidden;
   transition: width 0.18s var(--ease-standard), margin-left 0.18s var(--ease-standard),
     opacity 0.15s var(--ease-standard), transform 0.18s var(--ease-standard);
@@ -243,7 +243,7 @@
   min-height: 52px;
   border-radius: var(--radius-pill);
   background: #ffffff;
-  color: var(--color-primary-100);
+  color: var(--color-text);
   font-size: 1rem;
   font-weight: var(--font-weight-medium);
 }

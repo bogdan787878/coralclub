@@ -114,7 +114,7 @@
   justify-content: center;
   border-radius: var(--radius-pill);
   background: #ffffff;
-  color: var(--color-primary-100);
+  color: var(--color-text);
   box-shadow: 0 8px 20px rgba(1, 17, 48, 0.14);
   transition: transform 0.12s var(--ease-standard);
 }
@@ -134,7 +134,7 @@
   padding: 0 4px;
   border-radius: var(--radius-pill);
   background: #ffffff;
-  color: var(--color-primary-100);
+  color: var(--color-text);
   box-shadow: 0 8px 20px rgba(1, 17, 48, 0.14);
   transform-origin: right center;
 }
