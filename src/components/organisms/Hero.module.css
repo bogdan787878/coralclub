@@ -6,6 +6,12 @@
   min-height: min(78svh, 620px);
   background: var(--color-neutral-30);
   color: var(--color-text-on-primary);
+  /* full-bleed breakout — reach the true viewport edges regardless of
+     how narrow/wide the centered --container-max column around it is.
+     Needs body's overflow-x:clip to sit at the viewport edge (not
+     .appShell's own, narrower one) for this to have somewhere to go. */
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
 }
 
 .bg {
@@ -85,6 +91,12 @@
   flex: 1 1 auto;
 }
 
+/* flat 16px gutter, not the growing --container-max column the rest of
+   the page uses at wider breakpoints — see .body below for why */
+.inset {
+  padding-inline: var(--page-padding-inline);
+}
+
 .title {
   color: var(--color-text-on-primary);
   text-wrap: balance;
@@ -96,7 +108,7 @@
   color: var(--color-text-on-primary); /* solid white, no opacity */
   font-size: var(--text-button-size); /* 16 */
   line-height: var(--text-button-line); /* 24 */
-  /* same inline gutter as the title Container (16 mobile → 32 desktop) */
+  /* same flat 16px inline gutter as .inset above */
   padding-inline: var(--page-padding-inline);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.22), 0 4px 16px rgba(0, 0, 0, 0.28);
 }
@@ -130,13 +142,8 @@
     display: none;
   }
 
-  /* contain + centre the hero content on wide screens;
-     the body still gets its 16px gutter inside this column */
   .content {
     justify-content: center;
-    width: 100%;
-    max-width: var(--container-max);
-    margin-inline: auto;
   }
 
   .copy {

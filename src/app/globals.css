@@ -32,20 +32,24 @@ body {
   /* kill the horizontal rubber-band: a nested carousel must never let the
      whole page pan/wobble sideways on touch */
   overscroll-behavior: none;
+  /* clip (not hidden) at the true viewport edge — contains any sideways
+     overflow from a carousel without creating a scroll container (so the
+     sticky header still works), while still letting an intentional
+     full-bleed element (Hero — see its own width:100vw breakout) reach
+     all the way to this same edge instead of .appShell's narrower one. */
+  overflow-x: clip;
 }
 
-/* The shop (home + PDP) column. --container-max has no real cap on any
-   normal screen (see tokens.css), so this just runs full width with the
-   16px page gutter from Container's own padding — not a centered narrower
-   column. Account and quiz screens render outside this wrapper entirely
-   (see their own layouts). */
+/* The shop (home + PDP) column, capped at --container-max — mobile-width
+   on a phone, growing at each breakpoint (see tokens.css) so it reads as
+   a real desktop layout rather than a stretched phone screen. Hero opts
+   out of this cap deliberately (see Hero.module.css) to stay full-bleed.
+   Account and quiz screens render outside this wrapper entirely — see
+   their own layouts. */
 .appShell {
   width: 100%;
   max-width: var(--container-max);
   margin-inline: auto;
-  /* clip (not hidden) — contains any sideways overflow from a carousel
-     without creating a scroll container, so the sticky header still works */
-  overflow-x: clip;
 }
 
 img,

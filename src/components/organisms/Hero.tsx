@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
-import { BodyLong, Button, Container, Heading } from "@/components/ui";
+import { BodyLong, Button, Heading } from "@/components/ui";
 import styles from "./Hero.module.css";
 
 export type HeroImage = {
@@ -86,14 +86,17 @@ export function Hero({
 
       <div className={styles.content}>
         <div className={styles.copy}>
-          <Container>
+          {/* full width of the panel, flat 16px side gutters — Hero
+              deliberately doesn't use <Container>/--container-max, so it
+              stays full-bleed even where the rest of the page centers
+              into a narrower column on wide screens */}
+          <div className={styles.inset}>
             <Heading className={styles.title}>{title}</Heading>
-          </Container>
-          {/* full width of the panel, 16px side gutters */}
+          </div>
           <BodyLong as="div" className={styles.body}>{body}</BodyLong>
         </div>
 
-        <Container>
+        <div className={styles.inset}>
           <Button
             variant="secondary"
             href={cta.href}
@@ -101,7 +104,7 @@ export function Hero({
           >
             {cta.label}
           </Button>
-        </Container>
+        </div>
       </div>
     </section>
   );
