@@ -8,14 +8,17 @@
     "immune"
   ],
   "coralId": "80320",
-  "description": "A concentrated blend of black walnut, clove and wormwood — traditional botanicals used to keep the gut environment inhospitable to unwanted guests.",
   "price": "$105",
   "clubPrice": "$84",
-  "carouselImages": ["/images/products/parashield.png"],
-  "pdpImages": ["/images/products/parashield.png"],
-  "rating": 4.3,
-  "ratingsCount": 19,
-  "reviewsCount": 8,
+  "description": "A concentrated blend of black walnut, clove and wormwood — traditional botanicals used to keep the gut environment inhospitable to unwanted guests.",
+  "carouselImages": [
+    "/images/products/parashield.png",
+    "/images/products/ChatGPT Image Sep 12, 2026 at 03_15_06 AM.png"
+  ],
+  "pdpImages": [
+    "/images/products/parashield.png",
+    "/images/products/ChatGPT Image Sep 12, 2026 at 03_14_14 AM.png"
+  ],
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
   "elements": [
     {
@@ -34,6 +37,7 @@
   "dietaryBadges": [
     "soy-free"
   ],
+  "topSeller": false,
   "manufacturing": {
     "countryOfOrigin": "USA, Japan",
     "shippingWeight": "",
@@ -42,7 +46,16 @@
     "ingredients": "",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "–",
+          "amount": "–",
+          "dv": ""
+        }
+      ]
     }
-  }
+  },
+  "rating": 4.3,
+  "ratingsCount": 19,
+  "reviewsCount": 8
 }
