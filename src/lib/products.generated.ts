@@ -666,7 +666,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "80370",
-    "description": "A set for heart health. Its combination of components nourishes and energises the cells of the heart and supports the normal work of the cardiovascular system. Includes PentoKan, Coenzyme Q10, Coral Taurine and Coral Magnesium in one pack.",
+    "description": "A set for heart health. Its combination of components nourishes and energises the cells of the heart and supports the normal work of the cardiovascular system.\n\nIncludes PentoKan, Coenzyme Q10, Coral Taurine and Coral Magnesium in one pack.",
     "price": "$111.25",
     "clubPrice": "$89",
     "carouselImages": [
@@ -898,7 +898,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "coralId": "1210",
     "price": "$111.38",
     "clubPrice": "$89.10",
-    "description": "A structured 14-day programme in three stages — preparation, active cleanse and recovery — for a thorough reset of the digestive tract. Includes three daily packets (one per stage), Go Detox Powder and Super-Flora in one pack.",
+    "description": "A structured 14-day programme in three stages — preparation, active cleanse and recovery — for a thorough reset of the digestive tract.\n\nIncludes three daily packets (one per stage), Go Detox Powder and Super-Flora in one pack.",
     "carouselImages": [
       "/images/products/colo-vada-plus.png",
       "/images/products/ChatGPT Image Sep 12, 2026 at 12_40_05 AM.png"
@@ -1377,7 +1377,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "coralId": "803503",
     "price": "$115.00",
     "clubPrice": "$92.00",
-    "description": "A 30-day set that supports the body's natural detox processes — enzymes, antioxidant support, deep-sea minerals and a lecithin-based binder that eases the internal load before you go deeper. Includes Assimilator, H-500, Coral-Mine and Coral Lecithin in one pack.",
+    "description": "A 30-day set that supports the body's natural detox processes — enzymes, antioxidant support, deep-sea minerals and a lecithin-based binder that eases the internal load before you go deeper.\n\nIncludes Assimilator, H-500, Coral-Mine and Coral Lecithin in one pack.",
     "carouselImages": [
       "/images/products/coral-detox-plus.png",
       "/images/products/ChatGPT Image Sep 11, 2026 at 11_19_19 PM.png"
@@ -2723,7 +2723,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "coralId": "807201",
     "price": "$146.25",
     "clubPrice": "$117",
-    "description": "A 30-day program that optimizes hydration with the minerals and electrolytes your body actually uses — supporting water balance, steady energy and overall well-being. It bundles the whole hydration layer in one pack: Coral Mine ×3, PentoKan ×3, H-500 ×1 and Oceanmin ×1.",
+    "description": "A 30-day program that optimizes hydration with the minerals and electrolytes your body actually uses — supporting water balance, steady energy and overall well-being.\n\nIncludes Coral Mine ×3, PentoKan ×3, H-500 ×1 and Oceanmin ×1 in one pack.",
     "carouselImages": [
       "/images/products/hydramax-plus.png",
       "/images/products/ChatGPT Image Sep 12, 2026 at 12_51_19 AM.png"

@@ -87,7 +87,9 @@ export default async function ProductPage({
                   {shortCategory(product.category)}
                 </span>
                 <Heading className={styles.name}>{product.name}</Heading>
-                <BodyLong>{product.description}</BodyLong>
+                {product.description.split("\n\n").map((paragraph, i) => (
+                  <BodyLong key={i}>{paragraph}</BodyLong>
+                ))}
                 {product.topSeller && <TopSellerBadge />}
                 {product.dietaryBadges.length > 0 && (
                   <DietaryBadges items={product.dietaryBadges} />
