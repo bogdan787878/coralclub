@@ -70,11 +70,10 @@
   }
 }
 
+/* desktop: a static 5-up grid instead of a horizontally-scrolling row —
+   no more swipe/click paging needed, so the chevrons (mobile/tablet only
+   used swipe anyway) simply don't render at this breakpoint */
 @media (min-width: 1024px) {
-  .root {
-    --carousel-item-size: 248px;
-  }
-
   /* full screen width instead of aligning to the reading-width container
      — a product row can use the whole desktop viewport even where the
      rest of the page stays centered */
@@ -83,55 +82,19 @@
   }
 
   .viewport {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: var(--space-8);
-    scroll-padding-inline: var(--space-32);
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .item {
+    flex: initial;
+    scroll-snap-align: none;
   }
 
   .arrow {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 4;
-    width: 44px;
-    height: 44px;
-    border-radius: var(--radius-pill);
-    background: #ffffff;
-    color: var(--color-text);
-    box-shadow: 0 8px 24px rgba(1, 17, 48, 0.18);
-    /* hidden until the shopper hovers the row — a mouse (not a finger)
-       is exactly the case that needs a click target instead of swipe */
-    opacity: 0;
-    pointer-events: none;
-    transition:
-      opacity 0.15s var(--ease-standard),
-      transform 0.15s var(--ease-standard);
-  }
-  .scroller:hover .arrow:not(:disabled) {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  .arrow:hover {
-    transform: translateY(-50%) scale(1.05);
-  }
-  .arrow:active {
-    transform: translateY(-50%) scale(0.96);
-  }
-  .arrow:disabled {
-    opacity: 0;
-    pointer-events: none;
-  }
-  .arrow svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .arrowPrev {
-    left: calc(var(--space-32) + var(--space-8));
-  }
-  .arrowNext {
-    right: calc(var(--space-32) + var(--space-8));
+    display: none;
   }
 }

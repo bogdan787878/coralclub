@@ -66,6 +66,20 @@ export type ProductCardProps = {
   fluid?: boolean;
 };
 
+function ChevronIcon({ direction }: { direction: "left" | "right" }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d={direction === "left" ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7"}
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 function CartIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -114,6 +128,12 @@ export function ProductCard({
 
   const multi = images.length > 1;
 
+  const page = (dir: 1 | -1) => {
+    const el = trackRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * el.clientWidth, behavior: "smooth" });
+  };
+
   return (
     <article className={`${styles.card}${fluid ? ` ${styles.fluid}` : ""}`}>
       <div className={styles.media}>
@@ -154,6 +174,34 @@ export function ProductCard({
             </span>
           )}
         </div>
+
+        {/* desktop only, and only when there's something to page through
+            (see .arrow) — revealed on hovering the tile, since a mouse
+            has no swipe gesture to fall back on */}
+        {multi && (
+          <>
+            <button
+              type="button"
+              className={`${styles.arrow} ${styles.arrowPrev}`}
+              onClick={() => page(-1)}
+              aria-label="Previous image"
+              disabled={active === 0}
+              tabIndex={-1}
+            >
+              <ChevronIcon direction="left" />
+            </button>
+            <button
+              type="button"
+              className={`${styles.arrow} ${styles.arrowNext}`}
+              onClick={() => page(1)}
+              aria-label="Next image"
+              disabled={active === images.length - 1}
+              tabIndex={-1}
+            >
+              <ChevronIcon direction="right" />
+            </button>
+          </>
+        )}
 
         {onAddToCart ? (
           cartQty > 0 ? (
