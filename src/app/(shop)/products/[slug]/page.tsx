@@ -9,6 +9,7 @@ import {
   InfoAccordion,
   PeriodicElements,
   ProductCard,
+  SiteHeader,
   TopSellerBadge,
 } from "@/components/organisms";
 import { CartDrawerHost } from "@/components/cart/CartDrawerHost";
@@ -63,6 +64,12 @@ export default async function ProductPage({
 
   return (
     <main className={styles.page}>
+      {/* desktop only (see .desktopHeader) — on mobile/tablet the floating
+          back + share controls below do this job instead */}
+      <div className={styles.desktopHeader}>
+        <SiteHeader />
+      </div>
+
       <div className={styles.imageControls}>
         <BackButton className={styles.circleBtn} />
         <ShareButton className={styles.circleBtn} title={product.name} />
@@ -78,13 +85,20 @@ export default async function ProductPage({
                     src,
                     alt: product.name,
                   }))}
-                  sizes="(max-width: 1023px) 100vw, 480px"
+                  sizes="(max-width: 1023px) 100vw, 400px"
                   priority
                 />
               </div>
+              {/* desktop only — replaces the floating .imageControls share
+                  button, which is hidden at this breakpoint (no back button
+                  here: the header above already gets you home) */}
+              <ShareButton
+                className={`${styles.circleBtn} ${styles.mediaShare}`}
+                title={product.name}
+              />
             </div>
 
-            <Stack gap="base">
+            <Stack gap="base" className={styles.infoCol}>
               <div className={styles.headGroup}>
                 <span className={styles.category}>
                   {shortCategory(product.category)}
@@ -139,6 +153,18 @@ export default async function ProductPage({
                 ]}
               />
             </Stack>
+
+            {/* mobile/tablet: fixed bottom bar (see .bar); desktop: sticky
+                3rd column beside the details (see page.module.css) */}
+            <BuyBox
+              options={product.prices}
+              product={{
+                coralId: product.coralId,
+                slug: product.slug,
+                name: product.name,
+                image: product.image,
+              }}
+            />
           </div>
         </Container>
       </Section>
@@ -167,16 +193,6 @@ export default async function ProductPage({
           </Container>
         </Section>
       )}
-
-      <BuyBox
-        options={product.prices}
-        product={{
-          coralId: product.coralId,
-          slug: product.slug,
-          name: product.name,
-          image: product.image,
-        }}
-      />
 
       <CartDrawerHost />
     </main>

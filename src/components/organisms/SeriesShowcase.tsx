@@ -27,61 +27,69 @@ export function SeriesShowcase({ series, tone = "surface" }: SeriesShowcaseProps
     <Section tone={tone}>
       <div className={styles.inner}>
         <Container>
-          <div className={styles.media}>
-            {image ? (
-              <Image
-                src={image}
-                alt={titleLead}
-                fill
-                sizes="(max-width: 480px) 100vw, 480px"
-              />
-            ) : (
-              <span className={styles.placeholder} aria-hidden="true" />
-            )}
+          {/* on mobile just two more flow children (display:contents below
+              1024px); on desktop this becomes a 2-col row, image on the
+              right, text on the left — the carousel below stays full-bleed
+              and unchanged either way */}
+          <div className={styles.head}>
+            <div className={styles.media}>
+              {image ? (
+                <Image
+                  src={image}
+                  alt={titleLead}
+                  fill
+                  sizes="(max-width: 480px) 100vw, 480px"
+                />
+              ) : (
+                <span className={styles.placeholder} aria-hidden="true" />
+              )}
 
-            {features.length > 0 && (
-              <ul className={styles.features}>
-                {features.map((f, i) => {
-                  const [first, ...rest] = f.text.split(" ");
-                  return (
-                    <Fragment key={i}>
-                      {i > 0 && (
-                        <li className={styles.divider} aria-hidden="true" />
-                      )}
-                      <li className={styles.feature}>
-                        {f.icon && (
-                          /* eslint-disable-next-line @next/next/no-img-element */
-                          <img
-                            className={styles.featureIcon}
-                            src={`${f.icon}?v=3`}
-                            alt=""
-                            width={24}
-                          />
+              {features.length > 0 && (
+                <ul className={styles.features}>
+                  {features.map((f, i) => {
+                    const [first, ...rest] = f.text.split(" ");
+                    return (
+                      <Fragment key={i}>
+                        {i > 0 && (
+                          <li className={styles.divider} aria-hidden="true" />
                         )}
-                        <span className={styles.featureText}>
-                          {first}
-                          {rest.length > 0 && (
-                            <>
-                              <br />
-                              {rest.join(" ")}
-                            </>
+                        <li className={styles.feature}>
+                          {f.icon && (
+                            /* eslint-disable-next-line @next/next/no-img-element */
+                            <img
+                              className={styles.featureIcon}
+                              src={`${f.icon}?v=3`}
+                              alt=""
+                              width={24}
+                            />
                           )}
-                        </span>
-                      </li>
-                    </Fragment>
-                  );
-                })}
-              </ul>
-            )}
+                          <span className={styles.featureText}>
+                            {first}
+                            {rest.length > 0 && (
+                              <>
+                                <br />
+                                {rest.join(" ")}
+                              </>
+                            )}
+                          </span>
+                        </li>
+                      </Fragment>
+                    );
+                  })}
+                </ul>
+              )}
+            </div>
+
+            <div className={styles.copy}>
+              <h2 className={styles.title}>
+                {titleLead}
+                <br />
+                <Accent>{titleAccent}</Accent>
+              </h2>
+
+              {blurb && <p className={styles.blurb}>{blurb}</p>}
+            </div>
           </div>
-
-          <h2 className={styles.title}>
-            {titleLead}
-            <br />
-            <Accent>{titleAccent}</Accent>
-          </h2>
-
-          {blurb && <p className={styles.blurb}>{blurb}</p>}
         </Container>
 
         <Carousel label={`${titleAccent} products`}>

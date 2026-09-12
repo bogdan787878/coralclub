@@ -146,3 +146,43 @@
     animation: none;
   }
 }
+
+/* desktop: a sticky sidebar card (3rd column of the PDP grid) instead of
+   a bar fixed to the bottom of the viewport */
+@media (min-width: 1024px) {
+  .bar {
+    position: sticky;
+    top: calc(var(--space-24) + env(safe-area-inset-top, 0px));
+    left: auto;
+    right: auto;
+    bottom: auto;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    align-self: start;
+    border: 1px solid var(--color-neutral-30);
+    border-radius: var(--radius-base);
+    box-shadow: 0 8px 24px rgba(1, 17, 48, 0.1);
+    padding: var(--space-24);
+  }
+
+  .inner {
+    max-width: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-16);
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .goCart {
+    flex: 1;
+  }
+
+  .action {
+    width: 100%;
+    padding-inline: var(--space-16);
+  }
+}

@@ -4,6 +4,13 @@
   /* clear the fixed buy bar */
   padding-bottom: 150px;
 }
+@media (min-width: 1024px) {
+  .page {
+    /* the buy box is a sticky column now, not a fixed bar — no bottom
+       clearance needed */
+    padding-bottom: 0;
+  }
+}
 
 .layout {
   display: flex;
@@ -29,22 +36,67 @@
   padding-top: 100%;
 }
 
-/* desktop: image and details sit side by side instead of stacking, the
-   image column sticks while the (usually taller) details column scrolls */
+/* desktop: image and details sit side by side instead of stacking (each
+   half the row), the buy box becomes a 3rd sticky column instead of a
+   fixed bottom bar; the image column also sticks */
 @media (min-width: 1024px) {
   .layout {
     display: grid;
-    grid-template-columns: minmax(0, 480px) 1fr;
+    grid-template-columns: 1fr 1fr minmax(260px, 300px);
     align-items: start;
-    gap: var(--space-48);
+    gap: var(--space-32);
   }
 
   .media {
     /* no more full-bleed edge-to-edge — it now lives inside its own column */
     margin: 0;
+    min-width: 0;
     border-radius: var(--radius-base);
     position: sticky;
     top: calc(var(--space-24) + env(safe-area-inset-top, 0px));
+  }
+
+  /* grid items default to min-width:auto — the details column's own
+     min-content includes IncludedProducts' horizontally-scrolling row
+     (its cards' full unwrapped width), which otherwise wins over the
+     image column and breaks the 50/50 split. Force it down so the two
+     1fr tracks actually share the row evenly. */
+  .infoCol {
+    min-width: 0;
+  }
+}
+
+/* desktop-only real header — replaces the floating back/share controls
+   (see .imageControls, hidden at this breakpoint below) */
+.desktopHeader {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .desktopHeader {
+    display: block;
+  }
+}
+
+/* share button pinned to the image's own corner on desktop, replacing
+   the floating .imageControls pair (no back button here — the header's
+   logo already gets you home). Compound selector throughout — .circleBtn
+   sets its own unconditional `display`, and equal-specificity rules are
+   decided by source order, so a plain `.mediaShare` rule can't be
+   trusted to win either way. */
+.circleBtn.mediaShare {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .circleBtn.mediaShare {
+    display: inline-flex;
+    z-index: 5;
+  }
+  /* compound selector so this beats .circleBtn's own position:relative
+     (equal specificity would otherwise be decided by source order) */
+  .circleBtn.mediaShare {
+    position: absolute;
+    top: var(--space-16);
+    right: var(--space-16);
   }
 }
 
@@ -64,6 +116,13 @@
 }
 .imageControls > * {
   pointer-events: auto;
+}
+/* mobile/tablet only — desktop shows a real header (.desktopHeader) and
+   the share button moves onto the image card (.mediaShare) instead */
+@media (min-width: 1024px) {
+  .imageControls {
+    display: none;
+  }
 }
 
 .circleBtn {

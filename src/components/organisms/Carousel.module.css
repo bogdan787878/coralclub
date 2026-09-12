@@ -20,6 +20,11 @@
   composes: gutter;
 }
 
+/* anchors the desktop chevron buttons over the track */
+.scroller {
+  position: relative;
+}
+
 /* Full-bleed scroller; first slide aligns to the container, next slide peeks in. */
 .viewport {
   composes: gutter;
@@ -50,6 +55,12 @@
   width: 100%;
 }
 
+/* click-to-page chevrons — hidden on touch breakpoints, where swipe
+   already does the job; shown once there's a mouse to hover them */
+.arrow {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .root {
     --carousel-item-size: 220px;
@@ -64,6 +75,52 @@
     --carousel-item-size: 248px;
   }
   .viewport {
-    gap: var(--space-24);
+    gap: var(--space-8);
+  }
+
+  .arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-pill);
+    background: #ffffff;
+    color: var(--color-text);
+    box-shadow: 0 8px 24px rgba(1, 17, 48, 0.18);
+    transition:
+      opacity 0.15s var(--ease-standard),
+      transform 0.15s var(--ease-standard);
+  }
+  .arrow:hover {
+    transform: translateY(-50%) scale(1.05);
+  }
+  .arrow:active {
+    transform: translateY(-50%) scale(0.96);
+  }
+  .arrow:disabled {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .arrow svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .arrowPrev {
+    left: max(
+      calc(var(--page-padding-inline) + var(--space-8)),
+      calc((100% - var(--container-max)) / 2 + var(--space-8))
+    );
+  }
+  .arrowNext {
+    right: max(
+      calc(var(--page-padding-inline) + var(--space-8)),
+      calc((100% - var(--container-max)) / 2 + var(--space-8))
+    );
   }
 }

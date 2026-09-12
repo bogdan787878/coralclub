@@ -54,13 +54,17 @@ export function Editorial({
             {badge && <span className={styles.badge}>{badge}</span>}
           </div>
 
-          <h2 className={styles.title}>
-            {title.lead}
-            <br />
-            <Accent>{title.accent}</Accent>
-          </h2>
+          {/* on mobile just two more flow children (display:contents below
+              1024px); on desktop this becomes the text column beside .media */}
+          <div className={styles.copy}>
+            <h2 className={styles.title}>
+              {title.lead}
+              <br />
+              <Accent>{title.accent}</Accent>
+            </h2>
 
-          <div className={styles.body}>{body}</div>
+            <div className={styles.body}>{body}</div>
+          </div>
         </div>
       </Container>
     </Section>

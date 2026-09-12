@@ -5,6 +5,12 @@
 }
 
 /* large lead image, same framing as the Editorial block but taller */
+/* mobile: no-op wrapper, .media/.copy stay direct flow children of the
+   Container exactly as before; desktop turns it into a 2-col row */
+.head {
+  display: contents;
+}
+
 .media {
   position: relative;
   overflow: hidden;
@@ -96,4 +102,26 @@
   font-size: 0.875rem; /* 14 */
   line-height: 1rem; /* 16 */
   color: #ffffff;
+}
+
+/* image right, text left — carousel below is untouched full-bleed markup */
+@media (min-width: 1024px) {
+  .head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    column-gap: var(--space-48);
+  }
+
+  .media {
+    grid-column: 2;
+    margin-bottom: 0;
+  }
+
+  .copy {
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }

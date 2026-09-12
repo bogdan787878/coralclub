@@ -9,6 +9,12 @@
   margin-top: var(--space-16); /* heading → body */
 }
 
+/* mobile: no-op wrapper, .title/.body stay direct flex children of
+   .inner exactly as before; desktop turns it into the text column */
+.copy {
+  display: contents;
+}
+
 .title {
   font-family: var(--font-sans);
   font-size: var(--text-h2-size); /* 28 */
@@ -74,4 +80,24 @@
 
 .body p {
   margin: 0;
+}
+
+/* image left, text right */
+@media (min-width: 1024px) {
+  .inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    column-gap: var(--space-48);
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .title {
+    margin-top: 0;
+  }
 }
