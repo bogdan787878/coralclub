@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./ImageSlider.module.css";
 
 export type SliderImage = {
@@ -19,6 +20,14 @@ export type ImageSliderProps = {
   fit?: "contain" | "cover";
   /** Preload the first frame (only when the slider is above the fold). */
   priority?: boolean;
+  /** When set, each slide also opens this URL on tap. The link lives
+   *  inside the scroll track (a descendant, not an overlay on top of
+   *  it) so the browser can still tell a tap from a drag — an overlay
+   *  would intercept the swipe instead of passing it through. Skip this
+   *  when a caller already covers the image with its own click target
+   *  (e.g. a stretched card link) sitting above the slider in stacking
+   *  order. */
+  href?: string;
 };
 
 /**
@@ -30,6 +39,7 @@ export function ImageSlider({
   sizes = "100vw",
   fit = "contain",
   priority = false,
+  href,
 }: ImageSliderProps) {
   const [active, setActive] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -52,8 +62,8 @@ export function ImageSlider({
         ref={trackRef}
         onScroll={multi ? onScroll : undefined}
       >
-        {images.map((img, i) => (
-          <div className={styles.slide} key={i}>
+        {images.map((img, i) => {
+          const image = (
             <Image
               src={img.src}
               alt={img.alt}
@@ -66,8 +76,19 @@ export function ImageSlider({
                 ...(img.position ? { objectPosition: img.position } : {}),
               }}
             />
-          </div>
-        ))}
+          );
+          return (
+            <div className={styles.slide} key={i}>
+              {href ? (
+                <Link href={href} className={styles.slideLink} tabIndex={-1}>
+                  {image}
+                </Link>
+              ) : (
+                image
+              )}
+            </div>
+          );
+        })}
       </div>
 
       {multi && (

@@ -81,7 +81,7 @@ export function SeriesFeature({
 
         <div className={styles.media}>
           <div className={styles.mediaInner}>
-            <ImageSlider images={images} sizes="100vw" fit="cover" />
+            <ImageSlider images={images} sizes="100vw" fit="cover" href={href} />
           </div>
         </div>
 

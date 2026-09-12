@@ -33,6 +33,15 @@
   scroll-snap-align: start;
 }
 
+/* only rendered when ImageSlider gets an `href` — a real descendant of
+   the scroll track (not an overlay on top of it), so a swipe still
+   reaches the track instead of being swallowed by the link. */
+.slideLink {
+  display: block;
+  position: absolute;
+  inset: 0;
+}
+
 .dots {
   position: absolute;
   left: 0;
