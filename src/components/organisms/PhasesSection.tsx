@@ -53,6 +53,7 @@ export function PhasesSection({
   const renderCard = (p: PhaseProductCard) => (
     <ProductCard
       key={p.slug}
+      fluid
       title={p.headline}
       category={p.category}
       price={p.price}

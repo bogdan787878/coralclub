@@ -90,7 +90,7 @@ export function Hero({
             <Heading className={styles.title}>{title}</Heading>
           </Container>
           {/* full width of the panel, 16px side gutters */}
-          <BodyLong className={styles.body}>{body}</BodyLong>
+          <BodyLong as="div" className={styles.body}>{body}</BodyLong>
         </div>
 
         <Container>

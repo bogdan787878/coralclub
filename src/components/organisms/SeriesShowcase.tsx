@@ -88,6 +88,7 @@ export function SeriesShowcase({ series, tone = "surface" }: SeriesShowcaseProps
           {products.map((p) => (
             <ProductCard
               key={p.slug}
+              fluid
               title={p.headline}
               category={p.category}
               price={p.prices[0].price}

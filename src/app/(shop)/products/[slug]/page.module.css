@@ -29,6 +29,25 @@
   padding-top: 100%;
 }
 
+/* desktop: image and details sit side by side instead of stacking, the
+   image column sticks while the (usually taller) details column scrolls */
+@media (min-width: 1024px) {
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 480px) 1fr;
+    align-items: start;
+    gap: var(--space-48);
+  }
+
+  .media {
+    /* no more full-bleed edge-to-edge — it now lives inside its own column */
+    margin: 0;
+    border-radius: var(--radius-base);
+    position: sticky;
+    top: calc(var(--space-24) + env(safe-area-inset-top, 0px));
+  }
+}
+
 /* round controls pinned to the top corners — back (left) + cart (right) */
 .imageControls {
   position: fixed;
@@ -36,7 +55,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 480px;
+  max-width: var(--container-max);
   padding-inline: var(--space-16);
   z-index: 30;
   display: flex;
@@ -127,9 +146,7 @@
   color: var(--color-text-muted);
 }
 
-/* single-column at every width — the site is a mobile-width column */
-
-/* "More in <category>" — 2-up grid instead of a carousel */
+/* "More in <category>" — 2-up grid on mobile, more columns as the page grows */
 .moreTitle {
   color: var(--color-text);
   margin-bottom: var(--space-16);
@@ -138,4 +155,16 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-24) var(--space-12);
+}
+
+@media (min-width: 768px) {
+  .moreGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .moreGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }

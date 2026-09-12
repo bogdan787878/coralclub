@@ -123,7 +123,7 @@
   --gap-text: var(--space-16); /* text rhythm   = 16 */
 
   /* ---------- Layout ---------- */
-  --container-max: 480px; /* mobile-first canvas */
+  --container-max: 480px; /* mobile canvas; widens at the breakpoints below */
   --body-max-width: 60ch; /* readable measure for long text */
 
   /* ---------- Radius ---------- */
@@ -139,8 +139,32 @@
 }
 
 /* ============================================================
-   The site renders at the mobile scale on every screen — on
-   desktop it's a centred mobile-width column (see .appShell).
-   No responsive token bumps.
+   Responsive token bumps — the mobile scale above stays the base;
+   only these are overridden per breakpoint. Everything reading
+   var(--container-max) (Container, .appShell, Carousel/Section
+   gutters, IncludedProducts' track, …) grows automatically.
    ============================================================ */
+@media (min-width: 768px) {
+  :root {
+    --container-max: 720px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --container-max: 960px;
+
+    /* h1/h2 stay mobile-sized up to tablet, then step up once there's
+       room for the extra line-length without hurting the phone-style
+       measure the rest of the type scale is tuned for. */
+    --text-h1-size: 3rem; /* 48px */
+    --text-h1-line: 3.25rem; /* 52px */
+    --text-h2-size: 2.125rem; /* 34px */
+    --text-h2-line: 2.5rem; /* 40px */
+  }
+}
+@media (min-width: 1440px) {
+  :root {
+    --container-max: 1200px;
+  }
+}
 

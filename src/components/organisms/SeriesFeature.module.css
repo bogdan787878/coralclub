@@ -29,6 +29,46 @@
   inset: 0;
 }
 
+/* mobile: no-op wrapper, .name/.priceRow stay direct flex children of
+   .block exactly as before; desktop turns it into the text column */
+.info {
+  display: contents;
+}
+
+/* desktop: image beside the text instead of a full-bleed 4:3 banner —
+   at container widths ≥1024 a full-width image would balloon past a
+   sensible height, so it moves into its own fixed-width column. */
+@media (min-width: 1024px) {
+  .block {
+    display: grid;
+    grid-template-columns: minmax(0, 460px) 1fr;
+    column-gap: var(--space-40);
+    row-gap: var(--space-16);
+    align-items: start;
+  }
+
+  .title {
+    grid-column: 1 / -1;
+  }
+
+  .media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-16);
+    align-self: stretch;
+  }
+
+  .name {
+    font-size: 1.75rem;
+    line-height: 2.25rem;
+  }
+}
+
 .name {
   display: block;
   font-family: var(--font-sans);

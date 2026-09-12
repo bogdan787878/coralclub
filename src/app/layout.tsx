@@ -17,9 +17,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="ru">
-      <body>
-        <div className="appShell">{children}</div>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

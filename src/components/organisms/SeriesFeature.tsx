@@ -85,65 +85,69 @@ export function SeriesFeature({
           </div>
         </div>
 
-        {/* stretched link — covers the whole block */}
-        <Link href={href} className={styles.name}>
-          {product.headline}
-        </Link>
+        {/* on mobile just two more flex children (display:contents below
+            1024px); on desktop this becomes the text column beside .media */}
+        <div className={styles.info}>
+          {/* stretched link — covers the whole block */}
+          <Link href={href} className={styles.name}>
+            {product.headline}
+          </Link>
 
-        <div className={styles.priceRow}>
-          <p className={styles.price}>
-            <span className={styles.now}>{club}</span>
-            <span className={styles.was}>{regular}</span>
-          </p>
+          <div className={styles.priceRow}>
+            <p className={styles.price}>
+              <span className={styles.now}>{club}</span>
+              <span className={styles.was}>{regular}</span>
+            </p>
 
-          {coralId ? (
-            qty > 0 ? (
-              <span className={styles.stepper + anim}>
-                <button
-                  type="button"
-                  aria-label="Remove one"
-                  onClick={() => {
-                    setActed(true);
-                    setQty(coralId, qty - 1);
-                  }}
-                >
-                  −
-                </button>
-                <span className={styles.stepperCount} aria-live="polite">
-                  {qty}
+            {coralId ? (
+              qty > 0 ? (
+                <span className={styles.stepper + anim}>
+                  <button
+                    type="button"
+                    aria-label="Remove one"
+                    onClick={() => {
+                      setActed(true);
+                      setQty(coralId, qty - 1);
+                    }}
+                  >
+                    −
+                  </button>
+                  <span className={styles.stepperCount} aria-live="polite">
+                    {qty}
+                  </span>
+                  <button
+                    type="button"
+                    aria-label="Add one"
+                    onClick={() => {
+                      setActed(true);
+                      setQty(coralId, qty + 1);
+                    }}
+                  >
+                    +
+                  </button>
                 </span>
+              ) : (
                 <button
                   type="button"
-                  aria-label="Add one"
-                  onClick={() => {
-                    setActed(true);
-                    setQty(coralId, qty + 1);
-                  }}
+                  className={styles.cart + anim}
+                  onClick={add}
+                  aria-label="Add to cart"
                 >
-                  +
+                  <CartIcon />
                 </button>
-              </span>
+              )
             ) : (
-              <button
-                type="button"
-                className={styles.cart + anim}
-                onClick={add}
+              <a
+                className={styles.cart}
+                href={shopHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Add to cart"
               >
                 <CartIcon />
-              </button>
-            )
-          ) : (
-            <a
-              className={styles.cart}
-              href={shopHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Add to cart"
-            >
-              <CartIcon />
-            </a>
-          )}
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </Container>

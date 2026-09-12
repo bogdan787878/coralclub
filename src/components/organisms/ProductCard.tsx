@@ -138,7 +138,7 @@ export function ProductCard({
                     src={src}
                     alt={img.alt}
                     fill
-                    sizes="150px"
+                    sizes="(max-width: 767px) 150px, 250px"
                     style={{
                       objectFit: fit,
                       ...(img.position ? { objectPosition: img.position } : {}),

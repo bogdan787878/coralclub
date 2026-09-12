@@ -34,20 +34,17 @@ body {
   overscroll-behavior: none;
 }
 
-/* On any screen wider than mobile the whole site stays a centred
-   mobile-width column; the surrounding gutter takes the surface tint. */
+/* The shop (home + PDP) column, capped at --container-max — mobile-width
+   on a phone, growing at each breakpoint (see tokens.css) so it reads as
+   a real desktop layout rather than a stretched phone screen. Account
+   and quiz screens render outside this wrapper (see their own layouts). */
 .appShell {
   width: 100%;
-  max-width: 480px;
+  max-width: var(--container-max);
   margin-inline: auto;
   /* clip (not hidden) — contains any sideways overflow from a carousel
      without creating a scroll container, so the sticky header still works */
   overflow-x: clip;
-}
-@media (min-width: 481px) {
-  body {
-    background: var(--color-bg);
-  }
 }
 
 img,
