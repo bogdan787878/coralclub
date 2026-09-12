@@ -34,10 +34,11 @@ body {
   overscroll-behavior: none;
 }
 
-/* The shop (home + PDP) column, capped at --container-max — mobile-width
-   on a phone, growing at each breakpoint (see tokens.css) so it reads as
-   a real desktop layout rather than a stretched phone screen. Account
-   and quiz screens render outside this wrapper (see their own layouts). */
+/* The shop (home + PDP) column. --container-max has no real cap on any
+   normal screen (see tokens.css), so this just runs full width with the
+   16px page gutter from Container's own padding — not a centered narrower
+   column. Account and quiz screens render outside this wrapper entirely
+   (see their own layouts). */
 .appShell {
   width: 100%;
   max-width: var(--container-max);
