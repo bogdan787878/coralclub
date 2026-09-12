@@ -76,9 +76,9 @@
 @media (min-width: 1024px) {
   /* full screen width instead of aligning to the reading-width container
      — a product row can use the whole desktop viewport even where the
-     rest of the page stays centered */
+     rest of the page stays centered — same 16px edge gutter as mobile */
   .gutter {
-    padding-inline: var(--space-32);
+    padding-inline: var(--page-padding-inline);
   }
 
   .viewport {
