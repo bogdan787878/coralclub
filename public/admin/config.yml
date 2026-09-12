@@ -149,6 +149,14 @@ collections:
         default: false
         hint: "Shows the \"Top Seller\" plate on the PDP — only check this if the product carries the same badge on its real coralclub.us page."
 
+      - name: includedProducts
+        label: "Included Products (for sets/bundles)"
+        widget: list
+        required: false
+        summary: "{{fields.slug}}"
+        hint: "Only for sets — the slug of each individual product the pack is made of, shown as a small clickable strip on the PDP under Key Elements."
+        field: { name: slug, label: "Slug", widget: string }
+
       - name: manufacturing
         label: "Manufacturing detail"
         widget: object

@@ -84,6 +84,9 @@ export type ProductContent = {
   /** Shows the "Top Seller" plate on the PDP — set for products that
    *  carry the same badge on the real coralclub.us product page. */
   topSeller?: boolean;
+  /** For a set/bundle: slugs of the individual products it's made of —
+   *  shown as a mini carousel on the PDP (see IncludedProducts). */
+  includedProducts?: string[];
   /** Deprecated — reviews were removed from the PDP and the CMS. */
   rating?: number;
   ratingsCount?: number;
@@ -124,6 +127,8 @@ export type Product = {
   dietaryBadges: string[];
   /** Shows the "Top Seller" plate on the PDP. */
   topSeller: boolean;
+  /** For a set/bundle: slugs of the individual products it's made of. */
+  includedProducts: string[];
   /** First carousel image — convenience for single-image spots. */
   image?: string;
   /** Deprecated — reviews were removed from the PDP and the CMS. */
@@ -205,6 +210,7 @@ function fromContent(c: ProductContent): Product {
     elements: c.elements ?? [],
     dietaryBadges: c.dietaryBadges ?? [],
     topSeller: c.topSeller ?? false,
+    includedProducts: c.includedProducts ?? [],
     image: carouselImages[0],
     rating: c.rating,
     ratingsCount: c.ratingsCount,
@@ -411,6 +417,27 @@ export function getSeries(id: string): SeriesView | undefined {
       // pre-shorten the category tag so the (client) showcase needs no helper
       .map((p) => ({ ...p, category: shortCategory(p.category) })),
   };
+}
+
+/** Minimal card for the PDP's "Included Products" strip — image + name +
+ *  link only, no price/cart (see IncludedProducts). */
+export type IncludedProductCard = {
+  slug: string;
+  name: string;
+  image?: { src: string; alt: string };
+};
+
+/** Resolves a set's `includedProducts` slugs to real catalogue entries,
+ *  dropping any that don't (or no longer) exist. */
+export function resolveIncludedProducts(slugs: string[]): IncludedProductCard[] {
+  return slugs
+    .map((slug) => getProduct(slug))
+    .filter((p): p is Product => Boolean(p))
+    .map((p) => ({
+      slug: p.slug,
+      name: p.name,
+      image: p.carouselImages[0] ? { src: p.carouselImages[0], alt: p.name } : undefined,
+    }));
 }
 
 /** A resolved Product → the serialisable card the (client) carousels render. */

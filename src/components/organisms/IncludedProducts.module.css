@@ -1,0 +1,62 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+/* matches PeriodicElements' "Key Elements" heading */
+.heading {
+  font-family: var(--font-sans);
+  font-size: var(--text-button-size); /* 16 */
+  line-height: var(--text-button-line); /* 24 */
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.track {
+  display: flex;
+  gap: var(--space-16);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  /* bleed to the page edge like the other PDP/homepage carousels — the
+     Container that wraps this section is padded by --page-padding-inline,
+     so cancel it out and re-add it as scroll padding. */
+  margin-inline: calc(var(--page-padding-inline) * -1);
+  padding-inline: var(--page-padding-inline);
+  scroll-padding-inline: var(--page-padding-inline);
+}
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  flex: 0 0 auto;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  color: inherit;
+  text-decoration: none;
+}
+
+.media {
+  position: relative;
+  display: block;
+  width: 120px;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-md);
+  background: var(--color-neutral-30);
+}
+
+.name {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem; /* 13 */
+  line-height: 1rem;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

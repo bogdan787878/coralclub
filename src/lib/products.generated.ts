@@ -678,6 +678,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
+    "includedProducts": [
+      "pentokan",
+      "coenzyme-q10-kaneka",
+      "coral-taurine",
+      "coral-magnesium"
+    ],
     "howToUse": "Read the instructions inside the pack before use. Course: 60 days.",
     "elements": [
       {
@@ -906,6 +912,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "pdpImages": [
       "/images/products/colo-vada-plus.png",
       "/images/products/ChatGPT Image Sep 11, 2026 at 11_25_22 PM.png"
+    ],
+    "includedProducts": [
+      "go-detox-packet-1",
+      "go-detox-packet-2",
+      "go-detox-packet-3",
+      "go-detox-powder",
+      "super-flora"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
@@ -1386,6 +1399,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "/images/products/coral-detox-plus.png",
       "/images/products/ChatGPT Image Sep 11, 2026 at 11_21_21 PM.png"
     ],
+    "includedProducts": [
+      "assimilator",
+      "h-500",
+      "coral-mine-silver",
+      "coral-lecithin"
+    ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
       {
@@ -1585,8 +1604,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A source of magnesium, one of the body's most important minerals. It has a calming effect on the nervous system and helps regulate muscle tone and heart rhythm; the organic glycinate and taurate forms used here give it good bioavailability.",
     "price": "$22.50",
     "clubPrice": "$18",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/coral-magnesium.png"
+    ],
+    "pdpImages": [
+      "/images/products/coral-magnesium.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -1688,12 +1711,16 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "goals": [
       "energy"
     ],
-    "coralId": "2101",
+    "coralId": "2501",
     "description": "A source of taurine, an amino acid that supports the normal work of the cardiovascular system and the health of eye tissue.",
     "price": "$20",
     "clubPrice": "$16",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/coral-taurine.png"
+    ],
+    "pdpImages": [
+      "/images/products/coral-taurine.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -2731,6 +2758,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "pdpImages": [
       "/images/products/ChatGPT Image Sep 12, 2026 at 01_40_55 AM.png",
       "/images/products/ChatGPT Image Sep 12, 2026 at 01_00_26 AM.png"
+    ],
+    "includedProducts": [
+      "coral-mine-silver",
+      "pentokan",
+      "h-500",
+      "oceanmin"
     ],
     "howToUse": "Read the instructions inside the package before use. Program duration — 30 days.",
     "elements": [

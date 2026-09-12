@@ -5,6 +5,7 @@ import {
   BuyBox,
   ImageSlider,
   DietaryBadges,
+  IncludedProducts,
   InfoAccordion,
   PeriodicElements,
   ProductCard,
@@ -16,6 +17,7 @@ import {
   getProduct,
   productHref,
   relatedProducts,
+  resolveIncludedProducts,
   shortCategory,
 } from "@/lib/products";
 import { BackButton } from "./BackButton";
@@ -57,6 +59,7 @@ export default async function ProductPage({
   if (!product) notFound();
 
   const related = relatedProducts(slug);
+  const includedProducts = resolveIncludedProducts(product.includedProducts);
 
   return (
     <main className={styles.page}>
@@ -102,6 +105,7 @@ export default async function ProductPage({
                   Administration. This product is not intended to diagnose,
                   treat, cure, or prevent any disease.
                 </p>
+                <IncludedProducts items={includedProducts} />
               </div>
 
               <InfoAccordion

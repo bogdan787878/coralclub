@@ -6,12 +6,16 @@
   "goals": [
     "energy"
   ],
-  "coralId": "2101",
+  "coralId": "2501",
   "description": "A source of taurine, an amino acid that supports the normal work of the cardiovascular system and the health of eye tissue.",
   "price": "$20",
   "clubPrice": "$16",
-  "carouselImages": [],
-  "pdpImages": [],
+  "carouselImages": [
+    "/images/products/coral-taurine.png"
+  ],
+  "pdpImages": [
+    "/images/products/coral-taurine.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
