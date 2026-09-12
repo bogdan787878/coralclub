@@ -74,8 +74,17 @@
   .root {
     --carousel-item-size: 248px;
   }
+
+  /* full screen width instead of aligning to the reading-width container
+     — a product row can use the whole desktop viewport even where the
+     rest of the page stays centered */
+  .gutter {
+    padding-inline: var(--space-32);
+  }
+
   .viewport {
     gap: var(--space-8);
+    scroll-padding-inline: var(--space-32);
   }
 
   .arrow {
@@ -92,9 +101,17 @@
     background: #ffffff;
     color: var(--color-text);
     box-shadow: 0 8px 24px rgba(1, 17, 48, 0.18);
+    /* hidden until the shopper hovers the row — a mouse (not a finger)
+       is exactly the case that needs a click target instead of swipe */
+    opacity: 0;
+    pointer-events: none;
     transition:
       opacity 0.15s var(--ease-standard),
       transform 0.15s var(--ease-standard);
+  }
+  .scroller:hover .arrow:not(:disabled) {
+    opacity: 1;
+    pointer-events: auto;
   }
   .arrow:hover {
     transform: translateY(-50%) scale(1.05);
@@ -112,15 +129,9 @@
   }
 
   .arrowPrev {
-    left: max(
-      calc(var(--page-padding-inline) + var(--space-8)),
-      calc((100% - var(--container-max)) / 2 + var(--space-8))
-    );
+    left: calc(var(--space-32) + var(--space-8));
   }
   .arrowNext {
-    right: max(
-      calc(var(--page-padding-inline) + var(--space-8)),
-      calc((100% - var(--container-max)) / 2 + var(--space-8))
-    );
+    right: calc(var(--space-32) + var(--space-8));
   }
 }
