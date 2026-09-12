@@ -16,7 +16,7 @@
 
 .track {
   display: flex;
-  gap: var(--space-16);
+  gap: var(--space-8);
   overflow-x: auto;
   overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
