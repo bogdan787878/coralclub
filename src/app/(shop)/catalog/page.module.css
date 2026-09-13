@@ -1,0 +1,111 @@
+.page {
+  min-height: 100dvh;
+  background: var(--color-surface);
+}
+
+.title {
+  color: var(--color-text);
+}
+
+.intro {
+  margin-top: var(--space-8);
+  max-width: 44ch;
+  font-family: var(--font-sans);
+  font-size: var(--text-button-size);
+  line-height: var(--text-button-line);
+  color: var(--color-text-muted);
+}
+
+/* ---------- Bento grid ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-12);
+  margin-top: var(--space-24);
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  padding: var(--space-24) var(--space-12);
+  border-radius: var(--radius-base);
+  background: var(--color-neutral-30);
+  text-align: center;
+  transition: background-color 0.15s var(--ease-standard);
+}
+.tile:hover {
+  background: var(--color-surface);
+}
+.tile:focus-visible {
+  outline: 2px solid var(--color-action);
+  outline-offset: 2px;
+}
+
+/* a couple of wider tiles for visual variety — a real "bento" mix instead
+   of a flat uniform grid */
+.tile:nth-child(6n + 1) {
+  grid-column: span 2;
+}
+
+.tileIcon {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+.tileIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.tileLabel {
+  font-family: var(--font-sans);
+  font-size: var(--text-button-size);
+  line-height: var(--text-button-line);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-16);
+  }
+  .tileIcon {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* ---------- Per-domain product sections ---------- */
+.sectionTitle {
+  color: var(--color-text);
+  margin-bottom: var(--space-16);
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-24) var(--space-12);
+}
+
+@media (min-width: 768px) {
+  .productGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .productGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

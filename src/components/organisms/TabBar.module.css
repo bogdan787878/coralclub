@@ -1,0 +1,71 @@
+/* Keeps the page's last section clear of the fixed bar. */
+.spacer {
+  height: calc(64px + env(safe-area-inset-bottom, 0px));
+}
+
+.bar {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 100%;
+  max-width: var(--container-max);
+  z-index: 45;
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-neutral-30);
+  box-shadow: 0 -8px 24px rgba(1, 17, 48, 0.08);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: var(--space-8) 0;
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.6875rem; /* 11 */
+  line-height: 0.875rem; /* 14 */
+  font-weight: var(--font-weight-medium);
+}
+.tab svg {
+  width: 24px;
+  height: 24px;
+}
+.tabOn {
+  color: var(--color-text);
+}
+
+.iconWithBadge {
+  position: relative;
+  display: inline-flex;
+}
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -8px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--color-action);
+  color: #ffffff;
+  font-size: 0.625rem;
+  line-height: 16px;
+  text-align: center;
+  font-weight: var(--font-weight-medium);
+}
+
+/* desktop: these four destinations live in SiteHeader instead */
+@media (min-width: 1024px) {
+  .spacer,
+  .bar {
+    display: none;
+  }
+}

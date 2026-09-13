@@ -12,7 +12,6 @@ import {
   SiteHeader,
   TopSellerBadge,
 } from "@/components/organisms";
-import { CartDrawerHost } from "@/components/cart/CartDrawerHost";
 import {
   PRODUCTS,
   getProduct,
@@ -193,8 +192,6 @@ export default async function ProductPage({
           </Container>
         </Section>
       )}
-
-      <CartDrawerHost />
     </main>
   );
 }

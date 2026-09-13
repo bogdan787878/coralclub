@@ -1,7 +1,6 @@
 "use client";
 
 import { Accent } from "@/components/ui";
-import { CartBar } from "@/components/cart/CartBar";
 import { HOME_CONTENT, type EditorialItem, type ReelsContent } from "@/content/home";
 import { PhaseProvider, usePhase } from "@/lib/phase";
 import type {
@@ -19,6 +18,7 @@ import { QuizPromo } from "./QuizPromo";
 import { SeriesShowcase } from "./SeriesShowcase";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
+import { TabBar } from "./TabBar";
 import styles from "./HomeView.module.css";
 
 export type HomeViewProps = {
@@ -79,7 +79,7 @@ function HomeContent({
 
   return (
     <main>
-      <SiteHeader cart={false} />
+      <SiteHeader />
 
       <HeroCarousel
         activeIndex={phaseIds.indexOf(phase)}
@@ -135,7 +135,7 @@ function HomeContent({
 
       <SiteFooter />
 
-      <CartBar />
+      <TabBar />
     </main>
   );
 }

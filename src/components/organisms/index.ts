@@ -55,3 +55,5 @@ export type { CommunityReelsProps, Reel } from "./CommunityReels";
 
 export { HomeView } from "./HomeView";
 export type { HomeViewProps } from "./HomeView";
+
+export { TabBar } from "./TabBar";
