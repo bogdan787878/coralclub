@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Accent, BodyLong, Container, Heading } from "@/components/ui";
 import { addItem, useCart, setQty } from "@/lib/cart";
@@ -17,11 +16,14 @@ export type SeriesFeatureProps = {
    *  blurbTitle is set. */
   heading?: ReactNode;
   /** The product that represents the set. Omit for a product LINE with no
-   *  single bundle SKU (e.g. Privilege) — pass `image` instead and the
-   *  name/price/cart row is skipped. */
+   *  single bundle SKU (e.g. Privilege) — the name/price/cart row is
+   *  skipped. */
   product?: Product | null;
-  /** Fallback single image, used only when there's no product. */
-  image?: { src: string; alt: string };
+  /** Big-card photos — typically the series' own CMS-uploaded images
+   *  (Series Blocks), independent of the product's own PDP packshots.
+   *  Omit (or pass an empty list) to fall back to the product's PDP
+   *  images, or a placeholder when there's no product either. */
+  images?: { src: string; alt: string }[];
   /** Replaces the generic heading with the phase's own — sans lead +
    *  Newton-italic accent, same convention as Hero/Editorial — plus an
    *  optional body paragraph under it, both above the image. Also switches
@@ -61,7 +63,7 @@ export function SeriesFeature({
   seriesName,
   heading,
   product,
-  image,
+  images: customImages,
   blurbTitle,
   blurbBody,
   carouselItems,
@@ -73,7 +75,12 @@ export function SeriesFeature({
   const club = product?.prices[0]?.price;
   const regular = product?.prices[1]?.price;
   const shopHref = product?.prices[1]?.cta.href;
-  const images = product ? product.pdpImages.map((src) => ({ src, alt: product.name })) : [];
+  const images =
+    customImages && customImages.length > 0
+      ? customImages
+      : product
+        ? product.pdpImages.map((src) => ({ src, alt: product.name }))
+        : [];
 
   const coralId = product?.coralId;
   const qty = coralId
@@ -115,16 +122,8 @@ export function SeriesFeature({
         <div className={styles.cardWrap}>
           <div className={styles.media}>
             <div className={styles.mediaInner}>
-              {product ? (
+              {images.length > 0 ? (
                 <ImageSlider images={images} sizes="100vw" fit="cover" href={href} />
-              ) : image ? (
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  sizes="100vw"
-                  style={{ objectFit: "cover" }}
-                />
               ) : (
                 <span className={styles.mediaEmpty} aria-hidden="true" />
               )}

@@ -190,7 +190,7 @@ collections:
     label_singular: "Series block"
     identifier_field: id
     summary: "{{fields.titleLead}} ({{fields.products.length}})"
-    description: "Standalone homepage blocks: a large image, a heading and a carousel of products (e.g. LIŪMI in the Hydration area)."
+    description: "Standalone SeriesFeature blocks: a heading, your own big-card photos, and a carousel of products (Hydration, Restart's Detox/Go Detox, Privilege)."
     folder: content/series
     create: true
     delete: true
@@ -217,61 +217,25 @@ collections:
         label: "Blurb (paragraph under the heading)"
         widget: text
         required: false
-        hint: "Shown only when the Feature row below is empty."
-      - name: features
-        label: "Feature row (icon + label, replaces the blurb)"
+      - name: images
+        label: "Картинки — большая карточка"
         widget: list
         required: false
-        summary: "{{fields.text}}"
-        fields:
-          - name: icon
-            label: "Icon (~24px wide)"
-            widget: image
-            required: false
-            media_library:
-              config:
-                max_file_size: 1000000
-          - name: text
-            label: "Label (16/20)"
-            widget: string
-            required: false
-      - name: image
-        label: "Large image"
-        widget: image
-        required: false
-        media_library:
-          config:
-            max_file_size: 5000000
+        summary: "{{fields.image}}"
+        hint: "Свои фото сета для большой карточки — независимо от фото товара. Пусто → показываем фото товара."
+        field:
+          name: image
+          label: Image
+          widget: image
+          media_library:
+            config:
+              max_file_size: 5000000
       - name: products
         label: "Product slugs (carousel order)"
         widget: list
         required: false
         summary: "{{fields.slug}}"
         field: { name: slug, label: "Slug", widget: string, required: false }
-
-  - name: personalization
-    label: "Personalization"
-    files:
-      - name: domains
-        label: "Domain sets"
-        file: content/domains.json
-        description: "12 health domains, each with its list of product slugs (a slug must match a product's Slug field)."
-        fields:
-          - name: domains
-            label: "Domains"
-            widget: list
-            summary: "{{fields.label}} ({{fields.products.length}})"
-            fields:
-              - { name: id, label: "ID", widget: string }
-              - { name: label, label: "Label (EN)", widget: string }
-              - name: goal
-                label: "Quiz goal"
-                widget: select
-                options: [energy, sleep, skin, detox, weight, immune, hydration]
-              - name: products
-                label: "Product slugs"
-                widget: list
-                field: { name: slug, label: "Slug", widget: string }
 
   - name: hero
     label: "Hero images"

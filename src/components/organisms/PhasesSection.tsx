@@ -114,19 +114,24 @@ export function PhasesSection({
           </Carousel>
         )}
 
-        {/* Hydration (the only phase with a seriesProduct): heading +
-            description live in SeriesFeature's own intro now, above its
-            image, and the product carousel moves inside it too (see
+        {/* Hydration (the only phase with a series block): heading +
+            description come from its content/series/*.json entry, above
+            the image, and the product carousel moves inside it too (see
             carouselItems) — on desktop that puts text on the left, card +
-            carousel on the right. Restart (no seriesProduct) keeps the
-            heading on its own carousel, same as before. */}
+            carousel on the right. Restart (no series block here — its own
+            series render further down the homepage) keeps the heading on
+            its own carousel, same as before. */}
         {!isPersonalization &&
-          (phase.seriesProduct ? (
+          (phase.series ? (
             <SeriesFeature
               seriesName={phase.name}
-              product={phase.seriesProduct}
-              blurbTitle={phase.headline}
-              blurbBody={phase.seriesBlurb}
+              product={phase.series.product}
+              images={phase.series.images.map((src) => ({
+                src,
+                alt: phase.series!.titleLead,
+              }))}
+              blurbTitle={{ lead: phase.series.titleLead, accent: phase.series.titleAccent }}
+              blurbBody={phase.series.blurb}
               carouselItems={cards.map(renderCard)}
             />
           ) : (

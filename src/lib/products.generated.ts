@@ -5964,18 +5964,19 @@ export const GENERATED_DOMAINS: DomainContent[] = [
 export const GENERATED_SERIES: SeriesContent[] = [
   {
     "id": "coral-detox",
-    "product": "coral-detox-plus",
     "titleLead": "Four products, one job.",
     "titleAccent": "Clear the internal load.",
     "blurb": "Coral Detox bundles enzymes, antioxidant support, deep-sea minerals and a lecithin-based binder — the 30-day set that opens the Restart phase.",
-    "features": [],
-    "image": "/images/series/ChatGPT Image Sep 11, 2026 at 11_21_21 PM.png",
+    "images": [
+      "/images/series/ChatGPT Image Sep 11, 2026 at 11_21_21 PM.png"
+    ],
     "products": [
-      "assimilator",
-      "h-500",
+      "coral-lecithin",
       "coral-mine-silver",
-      "coral-lecithin"
-    ]
+      "assimilator",
+      "h-500"
+    ],
+    "product": "coral-detox-plus"
   },
   {
     "id": "go-detox",
@@ -5983,8 +5984,9 @@ export const GENERATED_SERIES: SeriesContent[] = [
     "titleLead": "What's actually in the box.",
     "titleAccent": "Three stages, one sequence.",
     "blurb": "The 14-day Go Detox set breaks down into three daily packets — one per stage — plus a fiber drink mix and a probiotic that runs the whole way through.",
-    "features": [],
-    "image": "/images/series/ChatGPT Image Sep 12, 2026 at 12_24_42 AM.png",
+    "images": [
+      "/images/series/ChatGPT Image Sep 12, 2026 at 12_24_42 AM.png"
+    ],
     "products": [
       "go-detox-packet-1",
       "go-detox-packet-2",
@@ -5994,25 +5996,27 @@ export const GENERATED_SERIES: SeriesContent[] = [
     ]
   },
   {
+    "id": "hydramax-plus",
+    "product": "hydramax-plus",
+    "titleLead": "Water alone doesn't hydrate.",
+    "titleAccent": "Minerals do.",
+    "blurb": "Plain water moves through you fast — minerals and electrolytes are what make it stay. Hydramax Plus pairs Coral-Mine, PentoKan, H-500 and Oceanmin into one 30-day set built around exactly that.",
+    "images": [],
+    "products": [
+      "coral-mine-silver",
+      "pentokan",
+      "oceanmin",
+      "h-500"
+    ]
+  },
+  {
     "id": "liumi",
     "titleLead": "Your skin is a water barrier too.",
     "titleAccent": "LIŪMI keeps it sealed.",
     "blurb": "A focused skincare line built around the same idea as the rest of your routine: hold water in, keep the barrier strong. Six steps, from a gentle cleanse to an overnight seal.",
-    "features": [
-      {
-        "icon": "/images/series/liumi-h1.svg",
-        "text": "Hydro Capture"
-      },
-      {
-        "icon": "/images/series/liumi-h2.svg",
-        "text": "Hydro Retention"
-      },
-      {
-        "icon": "/images/series/liumi-h3.svg",
-        "text": "Hydro Protection"
-      }
+    "images": [
+      "/images/series/2098tdfapsf3otbz3l6c0297y1hii4kq.webp"
     ],
-    "image": "/images/series/2098tdfapsf3otbz3l6c0297y1hii4kq.webp",
     "products": [
       "liumi-purifying-gel-cleanser",
       "liumi-hydra-infusion-toner",
@@ -6027,8 +6031,9 @@ export const GENERATED_SERIES: SeriesContent[] = [
     "titleLead": "When hydration isn't enough.",
     "titleAccent": "Privilege goes further.",
     "blurb": "The premium anti-aging line, built on coffee oil and extract — cleanse, exfoliate and treat for firmer, more even, more resilient skin.",
-    "features": [],
-    "image": "/images/series/privilege.png",
+    "images": [
+      "/images/series/privilege.png"
+    ],
     "products": [
       "privilege-milk-cleanser",
       "privilege-facial-scrub",

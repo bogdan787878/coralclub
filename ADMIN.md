@@ -61,16 +61,23 @@ you're done.
 
 ### Series blocks
 
-The **"Series blocks"** collection edits `content/series/*.json` — the
-standalone homepage blocks (large image + heading + a carousel of products),
-e.g. **LIŪMI** in the Hydration area, rendered right after the "You Are 90%
-Water" block. Fields: an `id`, a two-line heading (`titleLead` + italic
-`titleAccent`), a `blurb` paragraph, one large image (optional — a gradient
-placeholder shows until you add one; uploads go to `public/images/series/`),
-and an ordered list of product slugs (each must match a product's Slug).
-Rendered on the homepage by `SeriesShowcase`; the `liumi` and `privilege`
-blocks are wired in right now (`src/app/page.tsx`), one after the other in
-the Hydration area.
+The **"Series blocks"** collection edits `content/series/*.json` — each
+file drives one `SeriesFeature` block: a heading, a big card (your own
+photos + optionally a bundle product's price/cart) and a carousel of
+products. Fields: an `id`, a two-line heading (`titleLead` + italic
+`titleAccent`), a `blurb` paragraph, an ordered list of **big-card images**
+(optional — leave empty to fall back to the linked product's own PDP
+photos, or a gradient placeholder if there's no product either; uploads go
+to `public/images/series/`), and an ordered list of product slugs (each
+must match a product's Slug) for the carousel below the card. An optional
+`product` slug makes the big card a real bundle SKU with its own price and
+cart button (e.g. `hydramax-plus`, `coral-detox-plus`, `colo-vada-plus`);
+leave it blank for a product line with no single bundle SKU (e.g.
+Privilege) — the card then just shows the images, no price/cart.
+Currently wired in: `hydramax-plus` (Hydration's own block, rendered by
+`PhasesSection`), and `coral-detox` / `go-detox` / `privilege` (rendered by
+`HomeView`, in Restart's and Hydration's tail sections). `liumi` exists as
+content but isn't linked into a page yet.
 
 ### Hero images
 

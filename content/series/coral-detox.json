@@ -3,8 +3,7 @@
   "titleLead": "Four products, one job.",
   "titleAccent": "Clear the internal load.",
   "blurb": "Coral Detox bundles enzymes, antioxidant support, deep-sea minerals and a lecithin-based binder — the 30-day set that opens the Restart phase.",
-  "features": [],
-  "image": "/images/series/ChatGPT Image Sep 11, 2026 at 11_21_21 PM.png",
+  "images": ["/images/series/ChatGPT Image Sep 11, 2026 at 11_21_21 PM.png"],
   "products": [
     "coral-lecithin",
     "coral-mine-silver",

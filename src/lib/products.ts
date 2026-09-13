@@ -277,21 +277,23 @@ export type PhaseView = {
   name: string;
   /** Circular thumbnail for the phase switcher. */
   image: { src: string; alt: string };
-  /** Carousel heading for this phase: sans lead + a Newton-italic accent. */
+  /** Carousel heading for this phase: sans lead + a Newton-italic accent.
+   *  Also the fallback SeriesFeature title when `series` has no titleLead
+   *  (shouldn't happen in practice, but keeps the type simple). */
   headline: { lead: string; accent: string };
-  /** The single product that represents the set (SeriesFeature block). */
-  seriesSlug?: string;
+  /** id of a content/series/*.json block (Series Blocks in the CMS) to
+   *  show as this phase's own SeriesFeature card, above the phase's
+   *  product carousel. Omit for a phase with no such block (e.g. Restart,
+   *  which shows a plain carousel here instead — its own series blocks
+   *  render further down the homepage, see content/home.tsx). */
+  seriesId?: string;
   products: PhaseProductCard[];
-  /** Resolved rep product for the SeriesFeature block (fixed phases only). */
-  seriesProduct: Product | null;
-  /** Body copy for SeriesFeature's own intro block, above its image —
-   *  this phase's headline doubles as that block's title. Fixed phases
-   *  only. */
-  seriesBlurb?: string;
+  /** Resolved series block for this phase (see seriesId), or null. */
+  series: SeriesView | null;
 };
 
 const PHASE_DEFS: Array<
-  Omit<PhaseView, "products" | "image" | "seriesProduct"> & {
+  Omit<PhaseView, "products" | "image" | "series"> & {
     slugs: string[];
     image: string;
   }
@@ -305,9 +307,7 @@ const PHASE_DEFS: Array<
       lead: "Water alone doesn't hydrate.",
       accent: "Minerals do.",
     },
-    seriesSlug: "hydramax-plus",
-    seriesBlurb:
-      "Plain water moves through you fast — minerals and electrolytes are what make it stay. Hydramax Plus pairs Coral-Mine, PentoKan, H-500 and Oceanmin into one 30-day set built around exactly that.",
+    seriesId: "hydramax-plus",
     slugs: ["coral-mine-silver", "pentokan", "oceanmin", "h-500"],
   },
   {
@@ -367,14 +367,6 @@ export function getDomains(): DomainContent[] {
 /* Data from content/series/*.json, editable in the CMS.                      */
 /* -------------------------------------------------------------------------- */
 
-/** One icon + label shown under the series heading (instead of a blurb). */
-export type SeriesFeatureItem = {
-  /** Small icon, ~24px wide (path under /public). */
-  icon: string;
-  /** Label, rendered at 16/20. */
-  text: string;
-};
-
 /** The raw shape of a content/series/*.json file. */
 export type SeriesContent = {
   id: string;
@@ -382,18 +374,19 @@ export type SeriesContent = {
   titleLead: string;
   /** Heading — Newton-italic accent line. */
   titleAccent: string;
-  /** Supporting paragraph under the heading. Used only when `features` is empty. */
+  /** Supporting paragraph under the heading. */
   blurb: string;
-  /** Icon + label row shown under the heading, in place of the blurb. */
-  features?: SeriesFeatureItem[];
-  /** Large image at the top of the block. Empty → placeholder tile. */
-  image: string;
+  /** Big-card photos (own upload via the CMS, not the product's PDP
+   *  photos) — a swipeable slider when there's more than one. Empty →
+   *  falls back to the product's own PDP images, or a placeholder tile
+   *  when there's no product either. */
+  images?: string[];
   /** Product slugs shown in the carousel, in order. */
   products: string[];
   /** Slug of the single sellable product that represents this series as a
    *  bundle (its own price/cart), for the SeriesFeature-style card. Omit
    *  for a product LINE with no single bundle SKU (e.g. Privilege) — the
-   *  card then falls back to `image` with no price/cart row. */
+   *  card then falls back to `images` with no price/cart row. */
   product?: string;
 };
 
@@ -402,10 +395,8 @@ export type SeriesView = {
   titleLead: string;
   titleAccent: string;
   blurb: string;
-  /** Asset-wrapped icon paths. */
-  features: SeriesFeatureItem[];
-  /** Asset-prefixed image src, or "" for the placeholder. */
-  image: string;
+  /** Asset-prefixed big-card photos (see SeriesContent.images). */
+  images: string[];
   /** Resolved, asset-wrapped products. */
   products: Product[];
   /** Resolved bundle product, or null when there isn't one (see SeriesContent.product). */
@@ -420,10 +411,7 @@ export function getSeries(id: string): SeriesView | undefined {
     titleLead: c.titleLead,
     titleAccent: c.titleAccent,
     blurb: c.blurb,
-    features: (c.features ?? [])
-      .filter((f) => f.text || f.icon)
-      .map((f) => ({ icon: f.icon ? asset(f.icon) : "", text: f.text })),
-    image: c.image ? asset(c.image) : "",
+    images: (c.images ?? []).map((p) => asset(p)),
     products: c.products
       .map((slug) => getProduct(slug))
       .filter((p): p is Product => Boolean(p))
@@ -474,10 +462,10 @@ function toCard(p: Product): PhaseProductCard {
 export function getPhases(): PhaseView[] {
   return PHASE_DEFS.map(({ slugs, image, ...phase }) => {
     // Only renders the SeriesFeature block when a phase opts in with an
-    // explicit seriesSlug — no fallback to the first product, so phases
-    // without one (e.g. Restart, which uses a `kind: "series"` section
-    // instead) don't get an unintended single-product showcase.
-    const series = phase.seriesSlug ? getProduct(phase.seriesSlug) : undefined;
+    // explicit seriesId — no fallback, so phases without one (e.g.
+    // Restart, which uses a `kind: "series"` section instead) don't get
+    // an unintended showcase.
+    const series = phase.seriesId ? (getSeries(phase.seriesId) ?? null) : null;
     return {
       ...phase,
       image: { src: asset(image), alt: `Coral Club ${phase.name} phase` },
@@ -485,7 +473,7 @@ export function getPhases(): PhaseView[] {
         .map((slug) => getProduct(slug))
         .filter((p): p is Product => Boolean(p))
         .map(toCard),
-      seriesProduct: series ?? null,
+      series,
     };
   });
 }

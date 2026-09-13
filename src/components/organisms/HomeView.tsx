@@ -81,7 +81,7 @@ function SeriesBlock({ series }: { series: SeriesView }) {
     <SeriesFeature
       seriesName={series.titleLead}
       product={series.product}
-      image={series.product ? undefined : { src: series.image, alt: series.titleLead }}
+      images={series.images.map((src) => ({ src, alt: series.titleLead }))}
       blurbTitle={{ lead: series.titleLead, accent: series.titleAccent }}
       blurbBody={series.blurb}
       carouselItems={series.products.map(seriesCard)}

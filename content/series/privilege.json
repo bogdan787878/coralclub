@@ -3,8 +3,7 @@
   "titleLead": "When hydration isn't enough.",
   "titleAccent": "Privilege goes further.",
   "blurb": "The premium anti-aging line, built on coffee oil and extract — cleanse, exfoliate and treat for firmer, more even, more resilient skin.",
-  "features": [],
-  "image": "/images/series/privilege.png",
+  "images": ["/images/series/privilege.png"],
   "products": [
     "privilege-milk-cleanser",
     "privilege-facial-scrub",
