@@ -145,21 +145,22 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "skin"
     ],
     "coralId": "610105",
-    "description": "A biocellulose mask with collagen tripeptides, seawater, NARA-5 peptides and argireline, aimed at intensive nourishment and combating signs of aging — reducing the look of wrinkles and fine lines, supporting elasticity and firmness, and promoting the skin's own collagen synthesis. Lipomask liposomal technology carries the active ingredients up to 10 times deeper, while the biocellulose base holds up to 3 times more serum for even, long-lasting delivery.",
     "price": "$43.75",
     "clubPrice": "$35",
+    "description": "A biocellulose mask with collagen tripeptides, seawater, NARA-5 peptides and argireline, aimed at intensive nourishment and combating signs of aging — reducing the look of wrinkles and fine lines, supporting elasticity and firmness, and promoting the skin's own collagen synthesis. Lipomask liposomal technology carries the active ingredients up to 10 times deeper, while the biocellulose base holds up to 3 times more serum for even, long-lasting delivery.",
     "carouselImages": [
-      "/images/products/advanced-collagen-biocellulose-facial-mask.png"
+      "/images/products/advanced-collagen-biocellulose-facial-mask.png",
+      "/images/products/ChatGPT Image Sep 13, 2026 at 11_11_58 PM 1.png"
     ],
     "pdpImages": [
-      "/images/products/advanced-collagen-biocellulose-facial-mask.png"
+      "/images/products/advanced-collagen-biocellulose-facial-mask.png",
+      "/images/products/ChatGPT Image Sep 13, 2026 at 11_11_58 PM.png"
     ],
-    "rating": 4.5,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
     "howToUse": "Use 2-3 times a week on a clean face, preferably in the evening. Leave on for 15-20 minutes, then remove and massage the remaining serum into the skin.",
     "elements": [],
     "dietaryBadges": [],
+    "topSeller": false,
+    "includedProducts": [],
     "manufacturing": {
       "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
@@ -168,9 +169,18 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "—",
+            "amount": "—",
+            "dv": "—"
+          }
+        ]
       }
-    }
+    },
+    "rating": 4.5,
+    "ratingsCount": 0,
+    "reviewsCount": 0
   },
   {
     "slug": "aquaox",
@@ -5264,21 +5274,22 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "skin"
     ],
     "coralId": "610305",
-    "description": "A biocellulose mask with seawater, metabiotics, ceramides, moringa seed and seaweed extracts that gently revitalizes skin that's lost some of its tone — soothing, evening out texture, and protecting against environmental stressors. Lipomask liposomal technology carries the active ingredients up to 10 times deeper than a regular mask, while the biocellulose base holds up to 3 times more serum, conforming closely to the face for even, long-lasting hydration.",
     "price": "$43.75",
     "clubPrice": "$35",
+    "description": "A biocellulose mask with seawater, metabiotics, ceramides, moringa seed and seaweed extracts that gently revitalizes skin that's lost some of its tone — soothing, evening out texture, and protecting against environmental stressors. Lipomask liposomal technology carries the active ingredients up to 10 times deeper than a regular mask, while the biocellulose base holds up to 3 times more serum, conforming closely to the face for even, long-lasting hydration.",
     "carouselImages": [
-      "/images/products/skin-harmony-biocellulose-facial-mask.png"
+      "/images/products/skin-harmony-biocellulose-facial-mask.png",
+      "/images/products/ChatGPT Image Sep 13, 2026 at 11_05_49 PM.png"
     ],
     "pdpImages": [
-      "/images/products/skin-harmony-biocellulose-facial-mask.png"
+      "/images/products/skin-harmony-biocellulose-facial-mask.png",
+      "/images/products/ChatGPT Image Sep 13, 2026 at 11_07_00 PM.png"
     ],
-    "rating": 4.5,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
     "howToUse": "Use 2-3 times a week on a clean face, preferably in the evening. Leave on for 15-20 minutes, then remove and massage the remaining serum into the skin.",
     "elements": [],
     "dietaryBadges": [],
+    "topSeller": false,
+    "includedProducts": [],
     "manufacturing": {
       "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
@@ -5287,9 +5298,18 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "—",
+            "amount": "—",
+            "dv": "—"
+          }
+        ]
       }
-    }
+    },
+    "rating": 4.5,
+    "ratingsCount": 0,
+    "reviewsCount": 0
   },
   {
     "slug": "slim-by-slim-2374",
