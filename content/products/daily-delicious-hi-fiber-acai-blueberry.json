@@ -37,6 +37,7 @@
   "dietaryBadges": [
     "vegetarian"
   ],
+  "topSeller": true,
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

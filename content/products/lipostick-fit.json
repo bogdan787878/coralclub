@@ -38,6 +38,7 @@
     "gluten-free",
     "vegetarian"
   ],
+  "topSeller": true,
   "manufacturing": {
     "countryOfOrigin": "Taiwan",
     "shippingWeight": "",

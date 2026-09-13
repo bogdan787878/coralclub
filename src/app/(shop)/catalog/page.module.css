@@ -22,10 +22,6 @@
   border-radius: var(--radius-base);
   background: var(--color-neutral-30);
   text-align: center;
-  transition: background-color 0.15s var(--ease-standard);
-}
-.tile:hover {
-  background: var(--color-surface);
 }
 .tile:focus-visible {
   outline: 2px solid var(--color-action);
@@ -60,8 +56,8 @@
 
 .tileLabel {
   font-family: var(--font-sans);
-  font-size: var(--text-button-size);
-  line-height: var(--text-button-line);
+  font-size: var(--text-body-long-size);
+  line-height: var(--text-body-long-line);
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
 }

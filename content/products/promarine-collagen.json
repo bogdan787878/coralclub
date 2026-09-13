@@ -23,6 +23,7 @@
     }
   ],
   "dietaryBadges": [],
+  "topSeller": true,
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",

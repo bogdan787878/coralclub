@@ -133,6 +133,7 @@ export function PhasesSection({
               blurbTitle={{ lead: phase.series.titleLead, accent: phase.series.titleAccent }}
               blurbBody={phase.series.blurb}
               carouselItems={cards.map(renderCard)}
+              tightTop
             />
           ) : (
             <Carousel

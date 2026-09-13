@@ -25,6 +25,7 @@
   "dietaryBadges": [
     "soy-free"
   ],
+  "topSeller": true,
   "manufacturing": {
     "countryOfOrigin": "Slovenia",
     "shippingWeight": "",

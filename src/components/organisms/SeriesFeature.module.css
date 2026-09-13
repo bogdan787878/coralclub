@@ -9,6 +9,14 @@
   margin-bottom: var(--space-8);
 }
 
+/* for callers already inside a flex column with its own gap right after a
+   sibling (PhasesSection's PhaseSwitcher) — drops the self margin-top so
+   the gap above matches a plain <Carousel> there (no margin of its own,
+   same flex gap only), instead of stacking on top of it */
+.block.tightTop {
+  margin-top: 0;
+}
+
 /* whichever heading variant sits directly in .block (the plain .title,
    or .intro wrapping .title + a body paragraph) — + .block's own 16px
    gap above = 24 before the image. A plain `.title` selector would also

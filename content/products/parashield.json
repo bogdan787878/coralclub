@@ -37,7 +37,7 @@
   "dietaryBadges": [
     "soy-free"
   ],
-  "topSeller": false,
+  "topSeller": true,
   "manufacturing": {
     "countryOfOrigin": "USA, Japan",
     "shippingWeight": "",

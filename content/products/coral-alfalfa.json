@@ -32,6 +32,7 @@
     "beef-gelatin",
     "soy-free"
   ],
+  "topSeller": true,
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

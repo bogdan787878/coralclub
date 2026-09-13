@@ -34,6 +34,7 @@
     "plant-capsule",
     "soy-free"
   ],
+  "topSeller": true,
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",

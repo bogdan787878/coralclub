@@ -36,6 +36,10 @@ export type SeriesFeatureProps = {
    *  under the card — this row lives inside the card's own column, not a
    *  full-bleed edge-to-edge row like the shared <Carousel>. */
   carouselItems?: ReactNode[];
+  /** Drops the block's own top margin — for callers that already sit in a
+   *  flex column with its own gap right after a sibling (e.g. PhasesSection's
+   *  PhaseSwitcher), where the self-margin would double up on that gap. */
+  tightTop?: boolean;
 };
 
 function CartIcon() {
@@ -67,6 +71,7 @@ export function SeriesFeature({
   blurbTitle,
   blurbBody,
   carouselItems,
+  tightTop,
 }: SeriesFeatureProps) {
   const cart = useCart();
   const [acted, setActed] = useState(false);
@@ -105,7 +110,9 @@ export function SeriesFeature({
 
   return (
     <Container>
-      <div className={`${styles.block}${split ? ` ${styles.blockSplit}` : ""}`}>
+      <div
+        className={`${styles.block}${split ? ` ${styles.blockSplit}` : ""}${tightTop ? ` ${styles.tightTop}` : ""}`}
+      >
         {blurbTitle ? (
           <div className={styles.intro}>
             <Heading as="h2" className={styles.title}>

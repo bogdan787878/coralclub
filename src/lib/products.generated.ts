@@ -1052,6 +1052,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "beef-gelatin",
       "soy-free"
     ],
+    "topSeller": true,
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -1785,6 +1786,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "dietaryBadges": [
       "soy-free"
     ],
+    "topSeller": true,
     "manufacturing": {
       "countryOfOrigin": "Slovenia",
       "shippingWeight": "",
@@ -1994,6 +1996,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "dietaryBadges": [
       "vegetarian"
     ],
+    "topSeller": true,
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -2973,6 +2976,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "gluten-free",
       "vegetarian"
     ],
+    "topSeller": true,
     "manufacturing": {
       "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
@@ -3878,6 +3882,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       }
     ],
     "dietaryBadges": [],
+    "topSeller": true,
     "manufacturing": {
       "countryOfOrigin": "USA, Slovenia, Spain, Japan",
       "shippingWeight": "",
@@ -3929,7 +3934,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "dietaryBadges": [
       "soy-free"
     ],
-    "topSeller": false,
+    "topSeller": true,
     "manufacturing": {
       "countryOfOrigin": "USA, Japan",
       "shippingWeight": "",
@@ -3993,6 +3998,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "soy-free",
       "vegetarian"
     ],
+    "topSeller": true,
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -4165,7 +4171,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 33,
     "reviewsCount": 14,
-    "topSeller": true
+    "topSeller": false
   },
   {
     "slug": "phytomix-for-women-new",
@@ -4839,6 +4845,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       }
     ],
     "dietaryBadges": [],
+    "topSeller": true,
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -5286,6 +5293,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       }
     ],
     "dietaryBadges": [],
+    "topSeller": true,
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -5364,7 +5372,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         ]
       }
     },
-    "topSeller": true
+    "topSeller": false
   },
   {
     "slug": "ultimate-max",
@@ -5406,6 +5414,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "plant-capsule",
       "soy-free"
     ],
+    "topSeller": true,
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -5989,11 +5998,11 @@ export const GENERATED_SERIES: SeriesContent[] = [
       "/images/series/ChatGPT Image Sep 11, 2026 at 11_25_22 PM.png"
     ],
     "products": [
+      "super-flora",
       "go-detox-packet-1",
       "go-detox-packet-2",
-      "go-detox-packet-3",
       "go-detox-powder",
-      "super-flora"
+      "go-detox-packet-3"
     ],
     "product": "colo-vada-plus"
   },
