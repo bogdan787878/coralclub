@@ -3,6 +3,7 @@
 import Image from "next/image";
 import type { DomainContent } from "@/lib/products";
 import { asset } from "@/lib/asset";
+import { DOMAIN_ICONS } from "./domainIcons";
 import styles from "./DomainCarousel.module.css";
 
 export type DomainCarouselProps = {
@@ -10,6 +11,11 @@ export type DomainCarouselProps = {
   value: string;
   onChange: (id: string) => void;
 };
+
+/** Flip to false to bring back the uploaded glass-style PNGs
+ *  (/images/domains/<id>.png) instead of the line icons below —
+ *  nothing else needs to change. */
+const USE_LINE_ICONS = true;
 
 /**
  * DomainCarousel — the row of category icons under the Personalization
@@ -34,12 +40,19 @@ export function DomainCarousel({ domains, value, onChange }: DomainCarouselProps
             onClick={() => onChange(d.id)}
           >
             <span className={styles.shape}>
-              <Image
-                src={`${asset(`/images/domains/${d.id}.png`)}?v=3`}
-                alt=""
-                width={88}
-                height={88}
-              />
+              {USE_LINE_ICONS ? (
+                (() => {
+                  const Icon = DOMAIN_ICONS[d.id];
+                  return Icon ? <Icon className={styles.icon} /> : null;
+                })()
+              ) : (
+                <Image
+                  src={`${asset(`/images/domains/${d.id}.png`)}?v=3`}
+                  alt=""
+                  width={88}
+                  height={88}
+                />
+              )}
             </span>
             <span className={styles.label}>{d.label}</span>
           </button>
