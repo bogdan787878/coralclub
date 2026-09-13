@@ -10,8 +10,9 @@ import styles from "./TabBar.module.css";
 /**
  * TabBar — bottom tab navigation (mobile/tablet; hidden at desktop, where
  * the same four destinations live in <SiteHeader> instead). Rendered on
- * the home, catalog and account screens — not the PDP, which has its own
- * buy bar. The Cart tab has no drawer of its own — it just calls
+ * the home, catalog, account and PDP screens — on the PDP, BuyBox's own
+ * fixed bar sits just above it (see BuyBox.module.css), not competing for
+ * the same spot. The Cart tab has no drawer of its own — it just calls
  * openCart(), and relies on SiteHeader's CartButton (always mounted, even
  * where its icon row is hidden by CSS) to actually host the drawer.
  */

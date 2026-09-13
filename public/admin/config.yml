@@ -205,6 +205,12 @@ collections:
         widget: string
         required: false
         pattern: ["^[a-z0-9]+(?:-[a-z0-9]+)*$", "lowercase letters, digits and dashes only"]
+      - name: enabled
+        label: "Show this pack"
+        widget: boolean
+        required: false
+        default: true
+        hint: "Turn off to unpublish without deleting — hides it everywhere it's referenced (a homepage section, another pack's carousel, or its own page if it's a sellable SKU)."
       - name: heading
         label: "Bare heading (no description) — e.g. \"The B-Luron Course\""
         widget: string

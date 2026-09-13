@@ -10,6 +10,7 @@ import {
   PeriodicElements,
   ProductCard,
   SiteHeader,
+  TabBar,
   TopSellerBadge,
 } from "@/components/organisms";
 import {
@@ -194,6 +195,8 @@ export default async function ProductPage({
           </Container>
         </Section>
       )}
+
+      <TabBar />
     </main>
   );
 }

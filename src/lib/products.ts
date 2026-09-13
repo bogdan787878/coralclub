@@ -164,13 +164,13 @@ const numeric = (s: string): number => {
   return Number.isFinite(n) ? n : 0;
 };
 
-/** Whole-percent club saving vs the regular price, e.g. "Member price −20%". */
+/** Whole-percent club saving vs the regular price, e.g. "Subscription price −20%". */
 function savingNote(regular: string, club: string): string | undefined {
   const r = numeric(regular);
   const c = numeric(club);
   if (r <= 0 || c <= 0 || c >= r) return undefined;
   const pct = Math.round((1 - c / r) * 100);
-  return pct > 0 ? `Member price −${pct}%` : undefined;
+  return pct > 0 ? `Subscription price −${pct}%` : undefined;
 }
 
 function pricesFor(c: {
@@ -240,7 +240,7 @@ const EMPTY_MANUFACTURING: Manufacturing = {
  *  pack's `id`). Returns null for a pack that's just a marketing block
  *  (no coralId), which is the common case. */
 function packAsProduct(c: SeriesContent): Product | null {
-  if (!c.coralId) return null;
+  if (!c.coralId || c.enabled === false) return null;
   const images = c.images ?? [];
   const name = c.name ?? c.heading ?? c.titleLead ?? c.id;
   return {
@@ -457,6 +457,11 @@ export function getDomains(): DomainContent[] {
  */
 export type SeriesContent = {
   id: string;
+  /** Show this pack at all — anywhere it's referenced (a homepage
+   *  section, another pack's carousel, its own PDP if it's a sellable
+   *  SKU). Defaults to shown when omitted; set to false to unpublish a
+   *  pack without deleting it. */
+  enabled?: boolean;
   /** Two-line heading — sans lead + italic accent. Switches the desktop
    *  layout to text-left/card-right (see SeriesFeature's `blurbTitle`).
    *  Mutually exclusive with `heading`; ignored if both are set. */
@@ -521,7 +526,7 @@ export type SeriesView = {
 
 export function getSeries(id: string): SeriesView | undefined {
   const c = (GENERATED_SERIES as SeriesContent[]).find((s) => s.id === id);
-  if (!c) return undefined;
+  if (!c || c.enabled === false) return undefined;
   return {
     id: c.id,
     titleLead: c.titleLead ?? "",

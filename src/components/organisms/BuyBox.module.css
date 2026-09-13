@@ -1,17 +1,18 @@
-/* Pinned buy bar: price on the left, one action on the right. */
+/* Pinned buy bar: price on the left, one action on the right. Sits just
+   above the bottom TabBar (also on the PDP now), not at the very bottom
+   of the viewport — same height as TabBar's own .spacer. */
 .bar {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
   max-width: var(--container-max);
-  bottom: 0;
+  bottom: calc(64px + env(safe-area-inset-bottom, 0px));
   z-index: 40;
   background: var(--color-surface);
   border-top: 1px solid var(--color-neutral-white);
   box-shadow: 0 -8px 24px rgba(1, 17, 48, 0.08);
-  padding: var(--space-16) var(--page-padding-inline)
-    calc(var(--space-16) + env(safe-area-inset-bottom, 0px));
+  padding: var(--space-16) var(--page-padding-inline);
 }
 
 .inner {
@@ -23,7 +24,7 @@
   gap: var(--space-12);
 }
 
-/* right cluster once the product is in the cart: stepper + "Go to Cart" */
+/* right cluster once the product is in the cart: just the stepper */
 .actions {
   flex: none;
   display: flex;
@@ -31,18 +32,11 @@
   gap: var(--space-8);
 }
 
-.goCart {
-  flex: none;
-  min-height: 52px;
-  padding-inline: var(--space-16);
-  white-space: nowrap;
-}
-
 .priceBlock {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 4px;
+  gap: 2px;
   min-width: 0;
 }
 
@@ -175,10 +169,6 @@
 
   .actions {
     width: 100%;
-  }
-
-  .goCart {
-    flex: 1;
   }
 
   .action {

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui";
-import { addItem, openCart, setQty, useCart } from "@/lib/cart";
+import { addItem, setQty, useCart } from "@/lib/cart";
 import styles from "./BuyBox.module.css";
 
 export type BuyBoxOption = {
@@ -28,8 +28,8 @@ export type BuyBoxProps = {
 /**
  * BuyBox — pinned bottom bar: club price (regular price struck through +
  * savings tag) on the left; on the right an "Add to Cart" button that,
- * once the product is in the cart, is joined by a "− N +" stepper and
- * relabelled to open the cart.
+ * once the product is in the cart, is replaced by a "− N +" stepper (the
+ * bottom TabBar's own Cart tab is how you get to the drawer from here).
  */
 export function BuyBox({ options, product }: BuyBoxProps) {
   const cart = useCart();
@@ -90,13 +90,6 @@ export function BuyBox({ options, product }: BuyBoxProps) {
                 +
               </button>
             </div>
-            <Button
-              variant="primary"
-              className={styles.goCart}
-              onClick={openCart}
-            >
-              Cart
-            </Button>
           </div>
         ) : canAddToCart ? (
           <Button

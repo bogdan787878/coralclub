@@ -178,17 +178,20 @@
   flex: 0 0 150px;
 }
 
-/* name + price, stacked — a shared frame, gap 8, with the cart control
-   beside it (see .priceRow) rather than sharing a frame with the price */
+/* name + price + savings tag, stacked — a shared frame, with the cart
+   control beside it (see .priceRow) rather than sharing a frame with the
+   price. Base gap 2 (price -> savings tag); .name's own margin-bottom
+   tops that up to 8 for name -> price specifically. */
 .nameFrame {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
+  gap: 2px;
   min-width: 0;
 }
 
 .name {
   display: block;
+  margin-bottom: 6px;
   font-family: var(--font-sans);
   font-size: var(--text-button-size); /* 16 */
   line-height: var(--text-button-line); /* 24 */
