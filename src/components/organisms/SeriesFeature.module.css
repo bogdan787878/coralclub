@@ -233,6 +233,16 @@
   gap: var(--space-12);
 }
 
+/* fixed width, sized for the stepper (the widest of cart/stepper/link) —
+   .nameFrame's own width stays constant whichever one is showing, so its
+   text doesn't reflow when a cart button swaps for a stepper */
+.actionSlot {
+  flex: none;
+  width: 112px;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .price {
   display: flex;
   align-items: baseline;

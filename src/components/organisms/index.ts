@@ -54,3 +54,5 @@ export { HomeView } from "./HomeView";
 export type { HomeViewProps } from "./HomeView";
 
 export { TabBar } from "./TabBar";
+
+export { DomainProductGrid } from "./DomainProductGrid";

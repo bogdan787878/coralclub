@@ -157,54 +157,59 @@ export function SeriesFeature({
                   {clubNote && <span className={styles.savings}>{clubNote}</span>}
                 </div>
 
-                {coralId ? (
-                  qty > 0 ? (
-                    <span className={styles.stepper + anim}>
-                      <button
-                        type="button"
-                        aria-label="Remove one"
-                        onClick={() => {
-                          setActed(true);
-                          setQty(coralId, qty - 1);
-                        }}
-                      >
-                        −
-                      </button>
-                      <span className={styles.stepperCount} aria-live="polite">
-                        {qty}
+                {/* fixed-width slot, sized for the stepper (the widest of
+                    the three states) so the name column beside it doesn't
+                    reflow when a cart button swaps for a stepper */}
+                <div className={styles.actionSlot}>
+                  {coralId ? (
+                    qty > 0 ? (
+                      <span className={styles.stepper + anim}>
+                        <button
+                          type="button"
+                          aria-label="Remove one"
+                          onClick={() => {
+                            setActed(true);
+                            setQty(coralId, qty - 1);
+                          }}
+                        >
+                          −
+                        </button>
+                        <span className={styles.stepperCount} aria-live="polite">
+                          {qty}
+                        </span>
+                        <button
+                          type="button"
+                          aria-label="Add one"
+                          onClick={() => {
+                            setActed(true);
+                            setQty(coralId, qty + 1);
+                          }}
+                        >
+                          +
+                        </button>
                       </span>
+                    ) : (
                       <button
                         type="button"
-                        aria-label="Add one"
-                        onClick={() => {
-                          setActed(true);
-                          setQty(coralId, qty + 1);
-                        }}
+                        className={styles.cart + anim}
+                        onClick={add}
+                        aria-label="Add to cart"
                       >
-                        +
+                        <CartIcon />
                       </button>
-                    </span>
+                    )
                   ) : (
-                    <button
-                      type="button"
-                      className={styles.cart + anim}
-                      onClick={add}
+                    <a
+                      className={styles.cart}
+                      href={shopHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label="Add to cart"
                     >
                       <CartIcon />
-                    </button>
-                  )
-                ) : (
-                  <a
-                    className={styles.cart}
-                    href={shopHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Add to cart"
-                  >
-                    <CartIcon />
-                  </a>
-                )}
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           )}

@@ -6139,9 +6139,13 @@ export const GENERATED_SERIES: SeriesContent[] = [
   },
   {
     "id": "liumi",
+    "enabled": false,
+    "heading": "",
     "titleLead": "Your skin is a water barrier too.",
     "titleAccent": "LIŪMI keeps it sealed.",
     "blurb": "A focused skincare line built around the same idea as the rest of your routine: hold water in, keep the barrier strong. Six steps, from a gentle cleanse to an overnight seal.",
+    "product": "",
+    "weight": null,
     "images": [
       "/images/series/2098tdfapsf3otbz3l6c0297y1hii4kq.webp"
     ],

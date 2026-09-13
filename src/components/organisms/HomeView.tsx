@@ -8,6 +8,7 @@ import {
   type ReelsContent,
   type SeriesItem,
 } from "@/content/home";
+import { addItem, setQty, useCart } from "@/lib/cart";
 import { productHref } from "@/lib/catalog";
 import { PhaseProvider, usePhase } from "@/lib/phase";
 import type {
@@ -65,10 +66,20 @@ const badgeNode = (b: EditorialItem["badge"]) =>
     </>
   ) : undefined;
 
-/** Dumb link-only card for a series' own "what's in it" row — no local
- *  cart wiring, matching how these homepage series blocks always worked. */
-function seriesCard(p: Product) {
-  return (
+/** Renders a resolved pack (content/series/<id>.json) — either a full
+ *  pack with its own heading/description/carousel (`titleLead` set), or a
+ *  bare spotlight with just a plain heading and a product card, nothing
+ *  else (`heading` set instead — e.g. B-Luron, Women's Balance). */
+function SeriesBlock({ series }: { series: SeriesView }) {
+  const cart = useCart();
+  const qtyOf = (coralId?: string) =>
+    coralId ? (cart.find((l) => l.coralId === coralId)?.qty ?? 0) : 0;
+
+  // The "what's in it" row's own cards — local-cart-wired like every
+  // other product card on the site (used to be a dumb link-only card
+  // that always sent taps out to coralclub.us, even for a product that
+  // has a coralId and could add to our own cart instead).
+  const seriesCard = (p: Product) => (
     <ProductCard
       key={p.slug}
       fluid
@@ -78,16 +89,24 @@ function seriesCard(p: Product) {
       priceWas={p.prices[1].price}
       href={productHref(p.slug)}
       cartHref={p.prices[1].cta.href}
+      onAddToCart={
+        p.coralId
+          ? () =>
+              addItem({
+                coralId: p.coralId as string,
+                slug: p.slug,
+                name: p.name,
+                price: p.prices[0].price,
+                image: p.carouselImages[0],
+              })
+          : undefined
+      }
+      cartQty={qtyOf(p.coralId)}
+      onSetQty={p.coralId ? (n) => setQty(p.coralId as string, n) : undefined}
       images={p.carouselImages.map((src) => ({ src, alt: p.name }))}
     />
   );
-}
 
-/** Renders a resolved pack (content/series/<id>.json) — either a full
- *  pack with its own heading/description/carousel (`titleLead` set), or a
- *  bare spotlight with just a plain heading and a product card, nothing
- *  else (`heading` set instead — e.g. B-Luron, Women's Balance). */
-function SeriesBlock({ series }: { series: SeriesView }) {
   const name = series.titleLead || series.heading || series.id;
   return (
     <SeriesFeature

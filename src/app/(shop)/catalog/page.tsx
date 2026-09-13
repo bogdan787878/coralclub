@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Container, Heading, Section } from "@/components/ui";
-import { ProductCard, SiteFooter, SiteHeader, TabBar } from "@/components/organisms";
+import { DomainProductGrid, SiteFooter, SiteHeader, TabBar } from "@/components/organisms";
 import { asset } from "@/lib/asset";
-import { getDomainCards, getDomains, productHref } from "@/lib/products";
+import { getDomainCards, getDomains } from "@/lib/products";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -58,21 +58,7 @@ export default function CatalogPage() {
               <Heading as="h2" className={styles.sectionTitle}>
                 {d.label}
               </Heading>
-              <div className={styles.productGrid}>
-                {cards.map((p) => (
-                  <ProductCard
-                    key={p.slug}
-                    fluid
-                    title={p.headline}
-                    category={p.category}
-                    price={p.price}
-                    priceWas={p.priceWas}
-                    href={productHref(p.slug)}
-                    cartHref={p.cartHref}
-                    images={p.images}
-                  />
-                ))}
-              </div>
+              <DomainProductGrid cards={cards} />
             </Container>
           </Section>
         );

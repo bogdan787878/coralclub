@@ -489,7 +489,7 @@ export type SeriesContent = {
   /** Controls display order when several packs render together in the
    *  same spot (ascending, lower first). Packs without a weight sort
    *  after ones that have one, in their existing relative order. */
-  weight?: number;
+  weight?: number | null;
 
   /** Set `coralId` (and the rest of these) to make this pack a real,
    *  standalone sellable SKU with its own PDP page and cart button —

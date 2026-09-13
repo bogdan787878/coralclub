@@ -13,6 +13,10 @@
   bottom: 0;
   width: 100%;
   max-width: var(--container-max);
+  /* matches .spacer exactly (border-box) — anything else fixed above
+     this bar (BuyBox's own bar on the PDP) can offset by the same
+     64px + safe-area figure and land flush, no gap */
+  height: calc(64px + env(safe-area-inset-bottom, 0px));
   z-index: 45;
   display: flex;
   justify-content: space-around;
