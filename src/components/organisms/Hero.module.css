@@ -116,14 +116,20 @@
   padding-inline: var(--page-padding-inline);
 }
 
-.title {
+/* tag-qualified (h1.title / div.body, not just .title/.body) so this
+   deterministically beats Text.module.css's own same-specificity
+   `.h1 { color: inherit }` regardless of which CSS chunk the production
+   bundler happens to load last — with two single-class selectors tied on
+   specificity, whichever chunk loads later in the document wins, and
+   that order isn't guaranteed to match the dev server's. */
+h1.title {
   color: var(--color-text-on-primary);
   text-wrap: balance;
   /* soft dark backdrop so the white title stays legible over any photo */
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.22), 0 4px 16px rgba(0, 0, 0, 0.28);
 }
 
-.body {
+div.body {
   color: var(--color-text-on-primary); /* solid white, no opacity */
   font-size: var(--text-button-size); /* 16 */
   line-height: var(--text-button-line); /* 24 */
@@ -237,8 +243,8 @@
     flex: 1 1 auto;
   }
 
-  .title,
-  .body {
+  h1.title,
+  div.body {
     color: var(--color-text);
     text-shadow: none;
   }
