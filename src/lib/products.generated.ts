@@ -157,14 +157,14 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Use 2-3 times a week on a clean face, preferably in the evening. Leave on for 15-20 minutes, then remove and massage the remaining serum into the skin.",
     "elements": [],
     "dietaryBadges": [],
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
+      "expiration": "2 years from manufacturing date",
+      "storage": "In a dry place at room temperature (45°F to 75°F). Avoid exposure to heat and direct sunlight. Keep away from children.",
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
@@ -2868,14 +2868,14 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Use 2-3 times a week on a clean face, preferably in the evening. Leave on for 15-20 minutes, then remove and massage the remaining serum into the skin.",
     "elements": [],
     "dietaryBadges": [],
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
+      "expiration": "2 years from manufacturing date",
+      "storage": "In a dry place at room temperature (45°F to 75°F). Avoid exposure to heat and direct sunlight. Keep away from children.",
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
@@ -4833,24 +4833,54 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.7,
     "ratingsCount": 52,
     "reviewsCount": 24,
-    "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+    "howToUse": "Adults – 1 bottle (50 ml) a day, taken directly or mixed with water or juice.",
     "elements": [
       {
         "symbol": "Col",
         "name": "Collagen"
       }
     ],
-    "dietaryBadges": [],
+    "dietaryBadges": [
+      "gluten-free",
+      "soy-free",
+      "pescatarian"
+    ],
     "topSeller": true,
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
       "expiration": "2 years from the date of manufacture",
       "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
-      "ingredients": "",
+      "ingredients": "Hydrolyzed fish (cod, pollock, haddock) collagen, vitamin C (ascorbic acid), vitamin B6 (pyridoxine hydrochloride), spinach (Spinacia oleracea) leaf powder, biotin, excipients (water, erythritol, citric acid, apple juice concentrate, natural orange flavor, natural lemon flavor, pectin, natural apple flavor, blueberry juice concentrate, steviol glycosides).",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
+        "servingLabel": "Amount Per Serving — 1 bottle (50 ml)",
+        "rows": [
+          {
+            "name": "Hydrolyzed fish (cod, pollock, haddock) collagen",
+            "amount": "10 g",
+            "dv": ""
+          },
+          {
+            "name": "Vitamin C (as ascorbic acid)",
+            "amount": "100 mg",
+            "dv": "125%"
+          },
+          {
+            "name": "Vitamin B6 (as pyridoxine hydrochloride)",
+            "amount": "1.4 mg",
+            "dv": "100%"
+          },
+          {
+            "name": "Spinach (Spinacia oleracea) leaf powder",
+            "amount": "1 mg",
+            "dv": ""
+          },
+          {
+            "name": "Biotin",
+            "amount": "50 mcg",
+            "dv": "100%"
+          }
+        ]
       }
     }
   },
@@ -5239,14 +5269,14 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "howToUse": "",
+    "howToUse": "Use 2-3 times a week on a clean face, preferably in the evening. Leave on for 15-20 minutes, then remove and massage the remaining serum into the skin.",
     "elements": [],
     "dietaryBadges": [],
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
+      "expiration": "2 years from manufacturing date",
+      "storage": "In a dry place at room temperature (45°F to 75°F). Avoid exposure to heat and direct sunlight. Keep away from children.",
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
