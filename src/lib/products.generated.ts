@@ -2866,21 +2866,22 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "skin"
     ],
     "coralId": "610205",
-    "description": "A biocellulose mask with sea water, 3D hyaluronic acid, seaweed and metabiotic that deeply moisturizes and combats dryness, flaking and the first signs of aging. Lipomask liposomal technology carries the active ingredients through the skin surface for enhanced hydration, while the biocellulose base holds up to 3 times more serum, conforming closely to the face for even, long-lasting delivery.",
     "price": "$43.75",
     "clubPrice": "$35",
+    "description": "A biocellulose mask with sea water, 3D hyaluronic acid, seaweed and metabiotic that deeply moisturizes and combats dryness, flaking and the first signs of aging. Lipomask liposomal technology carries the active ingredients through the skin surface for enhanced hydration, while the biocellulose base holds up to 3 times more serum, conforming closely to the face for even, long-lasting delivery.",
     "carouselImages": [
-      "/images/products/hydro-boost-biocellulose-facial-mask.png"
+      "/images/products/hydro-boost-biocellulose-facial-mask.png",
+      "/images/products/ChatGPT Image Sep 13, 2026 at 11_19_40 PM.png"
     ],
     "pdpImages": [
-      "/images/products/hydro-boost-biocellulose-facial-mask.png"
+      "/images/products/hydro-boost-biocellulose-facial-mask.png",
+      "/images/products/ChatGPT Image Sep 13, 2026 at 11_19_40 PM 1.png"
     ],
-    "rating": 4.5,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
     "howToUse": "Use 2-3 times a week on a clean face, preferably in the evening. Leave on for 15-20 minutes, then remove and massage the remaining serum into the skin.",
     "elements": [],
     "dietaryBadges": [],
+    "topSeller": false,
+    "includedProducts": [],
     "manufacturing": {
       "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
@@ -2889,9 +2890,18 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
-        "rows": []
+        "rows": [
+          {
+            "name": "—",
+            "amount": "—",
+            "dv": ""
+          }
+        ]
       }
-    }
+    },
+    "rating": 4.5,
+    "ratingsCount": 0,
+    "reviewsCount": 0
   },
   {
     "slug": "immunity-pack",
