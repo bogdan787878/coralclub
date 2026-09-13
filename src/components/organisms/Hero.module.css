@@ -203,6 +203,8 @@
     grid-column: 2;
     grid-row: 1;
     min-width: 0;
+    overflow: hidden;
+    border-radius: var(--radius-base);
   }
 
   .content {
@@ -213,7 +215,8 @@
     justify-content: flex-start;
   }
 
-  .inset {
+  .inset,
+  .body {
     padding-inline: 56px;
   }
 
