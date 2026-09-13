@@ -1,15 +1,17 @@
 {
   "id": "go-detox",
-  "product": "colo-vada-plus",
   "titleLead": "What's actually in the box.",
   "titleAccent": "Three stages, one sequence.",
   "blurb": "The 14-day Go Detox set breaks down into three daily packets — one per stage — plus a fiber drink mix and a probiotic that runs the whole way through.",
-  "images": ["/images/series/ChatGPT Image Sep 12, 2026 at 12_24_42 AM.png"],
+  "images": [
+    "/images/series/ChatGPT Image Sep 11, 2026 at 11_25_22 PM.png"
+  ],
   "products": [
     "go-detox-packet-1",
     "go-detox-packet-2",
     "go-detox-packet-3",
     "go-detox-powder",
     "super-flora"
-  ]
+  ],
+  "product": "colo-vada-plus"
 }
