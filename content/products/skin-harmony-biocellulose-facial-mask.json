@@ -1,0 +1,36 @@
+{
+  "slug": "skin-harmony-biocellulose-facial-mask",
+  "name": "Skin Harmony Biocellulose Facial Mask",
+  "headline": "Skin Harmony Biocellulose Facial Mask, 5x0.85 fl. oz Sachets in a Box",
+  "category": "Beauty",
+  "goals": [
+    "skin"
+  ],
+  "coralId": "610305",
+  "description": "A biocellulose mask with seawater, metabiotics, ceramides, moringa seed and seaweed extracts that gently revitalizes skin that's lost some of its tone — soothing, evening out texture, and protecting against environmental stressors. Lipomask liposomal technology carries the active ingredients up to 10 times deeper than a regular mask, while the biocellulose base holds up to 3 times more serum, conforming closely to the face for even, long-lasting hydration.",
+  "price": "$43.75",
+  "clubPrice": "$35",
+  "carouselImages": [
+    "/images/products/skin-harmony-biocellulose-facial-mask.png"
+  ],
+  "pdpImages": [
+    "/images/products/skin-harmony-biocellulose-facial-mask.png"
+  ],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "elements": [],
+  "dietaryBadges": [],
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

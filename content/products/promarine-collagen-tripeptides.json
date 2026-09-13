@@ -10,8 +10,12 @@
   "description": "",
   "price": "$237.50",
   "clubPrice": "$190",
-  "carouselImages": [],
-  "pdpImages": [],
+  "carouselImages": [
+    "/images/products/promarine-collagen-tripeptides.png"
+  ],
+  "pdpImages": [
+    "/images/products/promarine-collagen-tripeptides.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,

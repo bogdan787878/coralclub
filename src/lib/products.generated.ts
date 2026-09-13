@@ -4714,8 +4714,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A modern, high-tech form of collagen for easier absorption, enriched with a complex of plant extracts, vitamins and hyaluronic acid for smooth, radiant skin and strong hair and nails.",
     "price": "$81.25",
     "clubPrice": "$65",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/promarine-collagen-tripeptides-pack.png"
+    ],
+    "pdpImages": [
+      "/images/products/promarine-collagen-tripeptides-pack.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -4819,8 +4823,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "",
     "price": "$237.50",
     "clubPrice": "$190",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/promarine-collagen-tripeptides.png"
+    ],
+    "pdpImages": [
+      "/images/products/promarine-collagen-tripeptides.png"
+    ],
     "rating": 4.5,
     "ratingsCount": 0,
     "reviewsCount": 0,
@@ -4873,8 +4881,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "Marine collagen peptides as a daily drink — for skin, hair and joints. Part of your daily beauty ritual, built on proper hydration.",
     "price": "$68.75",
     "clubPrice": "$55",
-    "carouselImages": [],
-    "pdpImages": [],
+    "carouselImages": [
+      "/images/products/promarine-collagen.png"
+    ],
+    "pdpImages": [
+      "/images/products/promarine-collagen.png"
+    ],
     "rating": 4.7,
     "ratingsCount": 52,
     "reviewsCount": 24,
@@ -5256,6 +5268,42 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "shippingWeight": "",
       "expiration": "3 years from the date of manufacture",
       "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C. After opening, keep the bottle in the refrigerator.",
+      "ingredients": "",
+      "supplementFacts": {
+        "servingLabel": "Amount Per Serving",
+        "rows": []
+      }
+    }
+  },
+  {
+    "slug": "skin-harmony-biocellulose-facial-mask",
+    "name": "Skin Harmony Biocellulose Facial Mask",
+    "headline": "Skin Harmony Biocellulose Facial Mask, 5x0.85 fl. oz Sachets in a Box",
+    "category": "Beauty",
+    "goals": [
+      "skin"
+    ],
+    "coralId": "610305",
+    "description": "A biocellulose mask with seawater, metabiotics, ceramides, moringa seed and seaweed extracts that gently revitalizes skin that's lost some of its tone — soothing, evening out texture, and protecting against environmental stressors. Lipomask liposomal technology carries the active ingredients up to 10 times deeper than a regular mask, while the biocellulose base holds up to 3 times more serum, conforming closely to the face for even, long-lasting hydration.",
+    "price": "$43.75",
+    "clubPrice": "$35",
+    "carouselImages": [
+      "/images/products/skin-harmony-biocellulose-facial-mask.png"
+    ],
+    "pdpImages": [
+      "/images/products/skin-harmony-biocellulose-facial-mask.png"
+    ],
+    "rating": 4.5,
+    "ratingsCount": 0,
+    "reviewsCount": 0,
+    "howToUse": "",
+    "elements": [],
+    "dietaryBadges": [],
+    "manufacturing": {
+      "countryOfOrigin": "",
+      "shippingWeight": "",
+      "expiration": "",
+      "storage": "",
       "ingredients": "",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",

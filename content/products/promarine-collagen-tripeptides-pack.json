@@ -10,8 +10,12 @@
   "description": "A modern, high-tech form of collagen for easier absorption, enriched with a complex of plant extracts, vitamins and hyaluronic acid for smooth, radiant skin and strong hair and nails.",
   "price": "$81.25",
   "clubPrice": "$65",
-  "carouselImages": [],
-  "pdpImages": [],
+  "carouselImages": [
+    "/images/products/promarine-collagen-tripeptides-pack.png"
+  ],
+  "pdpImages": [
+    "/images/products/promarine-collagen-tripeptides-pack.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
