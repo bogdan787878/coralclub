@@ -3,10 +3,13 @@
   padding-bottom: calc(var(--space-48) + env(safe-area-inset-bottom, 0px));
   /* full-bleed breakout — the dark band should reach the true viewport
      edges regardless of .appShell's own centered --container-max column
-     (same trick as Hero's own .panel); the <Container> inside still
-     keeps the actual content centered and readable. */
+     (same trick as Hero's own .panel, see there for why left+transform
+     instead of margin-inline: calc(50% - 50vw)); the <Container> inside
+     still keeps the actual content centered and readable. */
+  position: relative;
   width: 100vw;
-  margin-inline: calc(50% - 50vw);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .addr {

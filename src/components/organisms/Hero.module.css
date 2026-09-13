@@ -9,9 +9,16 @@
   /* full-bleed breakout — reach the true viewport edges regardless of
      how narrow/wide the centered --container-max column around it is.
      Needs body's overflow-x:clip to sit at the viewport edge (not
-     .appShell's own, narrower one) for this to have somewhere to go. */
+     .appShell's own, narrower one) for this to have somewhere to go.
+     left:50% + translateX(-50%) instead of the more common
+     margin-inline: calc(50% - 50vw) — that combines a % (against
+     .appShell, itself sized off a --container-max custom property) and
+     a vw in one calc(), which some Safari versions get wrong when the
+     % side depends on a custom property. Splitting the two into
+     separate, single-unit operations sidesteps that. */
   width: 100vw;
-  margin-inline: calc(50% - 50vw);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .bg {
