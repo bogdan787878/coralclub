@@ -12,10 +12,12 @@
   "clubPrice": "$19",
   "description": "A deep-sea mineral concentrate in ionic form — magnesium-dominant, drawn from 662 m down in the Pacific. Steady energy and balance for every day.",
   "carouselImages": [
-    "/images/products/oceanmin.png"
+    "/images/products/oceanmin.png",
+    "/images/products/ChatGPT Image Sep 14, 2026 at 12_11_43 AM.png"
   ],
   "pdpImages": [
-    "/images/products/oceanmin.png"
+    "/images/products/oceanmin.png",
+    "/images/products/ChatGPT Image Sep 14, 2026 at 12_10_53 AM.png"
   ],
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
   "elements": [
@@ -41,6 +43,8 @@
     "soy-free",
     "vegetarian"
   ],
+  "topSeller": true,
+  "includedProducts": [],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",
@@ -60,6 +64,5 @@
   },
   "rating": 4.6,
   "ratingsCount": 41,
-  "reviewsCount": 18,
-  "topSeller": true
+  "reviewsCount": 18
 }
