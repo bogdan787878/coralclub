@@ -108,6 +108,7 @@
   color: var(--color-text-on-primary); /* solid white, no opacity */
   font-size: var(--text-button-size); /* 16 */
   line-height: var(--text-button-line); /* 24 */
+  text-wrap: pretty;
   /* same flat 16px inline gutter as .inset above */
   padding-inline: var(--page-padding-inline);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.22), 0 4px 16px rgba(0, 0, 0, 0.28);

@@ -28,6 +28,10 @@ export type ImageSliderProps = {
    *  (e.g. a stretched card link) sitting above the slider in stacking
    *  order. */
   href?: string;
+  /** White dots instead of the default dark ones — for a full-bleed photo
+   *  background (e.g. SeriesFeature's big card) where dark dots at low
+   *  opacity can disappear against the image. */
+  lightDots?: boolean;
 };
 
 /**
@@ -40,6 +44,7 @@ export function ImageSlider({
   fit = "contain",
   priority = false,
   href,
+  lightDots = false,
 }: ImageSliderProps) {
   const [active, setActive] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -92,7 +97,10 @@ export function ImageSlider({
       </div>
 
       {multi && (
-        <span className={styles.dots} aria-hidden="true">
+        <span
+          className={`${styles.dots}${lightDots ? ` ${styles.dotsLight}` : ""}`}
+          aria-hidden="true"
+        >
           {images.map((_, i) => (
             <span
               key={i}

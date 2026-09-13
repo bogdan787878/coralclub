@@ -130,7 +130,7 @@ export function SeriesFeature({
           <div className={styles.media}>
             <div className={styles.mediaInner}>
               {images.length > 0 ? (
-                <ImageSlider images={images} sizes="100vw" fit="cover" href={href} />
+                <ImageSlider images={images} sizes="100vw" fit="cover" href={href} lightDots />
               ) : (
                 <span className={styles.mediaEmpty} aria-hidden="true" />
               )}

@@ -62,3 +62,10 @@
 .dotOn {
   background: var(--color-primary-100);
 }
+
+.dotsLight .dot {
+  background: rgba(255, 255, 255, 0.5);
+}
+.dotsLight .dotOn {
+  background: var(--color-white);
+}

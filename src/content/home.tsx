@@ -72,7 +72,7 @@ const REELS = [
 
 const HYDRATION: HomePhase = {
   hero: {
-    title: { lead: "Your health starts", accent: "with water" },
+    title: { lead: "Your morning starts", accent: "with water" },
     body: [
       "Hydration is step one of your Coral Club routine — the phase everything else builds on.",
     ],
