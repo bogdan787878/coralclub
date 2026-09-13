@@ -157,8 +157,57 @@
   }
 }
 
+/* ---------- Desktop (1024px+): split panel ----------
+   Photo overlay + white copy (mobile/tablet) gives way to a plain text
+   column beside the photo instead — the image no longer spans the whole
+   panel, just the right-hand cell, so the copy needs no shadow/backdrop
+   to stay legible. */
 @media (min-width: 1024px) {
   .panel {
     min-height: min(82vh, 720px);
+    display: grid;
+    grid-template-columns: minmax(0, 460px) 1fr;
+    /* a single explicit row stretched to the panel's full height (auto
+       row-sizing would instead shrink to .content's own content height,
+       since the absolutely-positioned .bgDesktop doesn't contribute to
+       it), so the right column's fill <Image> has real height to cover */
+    grid-template-rows: 1fr;
+    background: var(--color-surface);
+  }
+
+  /* an absolutely-positioned grid item placed into a named cell (via
+     grid-column) is sized against that cell, not the whole grid — so
+     the fill <Image> covers just the right-hand column */
+  .bgDesktop {
+    grid-column: 2;
+  }
+
+  .content {
+    grid-column: 1;
+    justify-content: flex-start;
+  }
+
+  /* back to growing to push the CTA down, like mobile — the 768px rule
+     above shrink-wraps it for the centered photo-overlay layout, which
+     no longer applies here */
+  .copy {
+    flex: 1 1 auto;
+  }
+
+  .title,
+  .body {
+    color: var(--color-text);
+    text-shadow: none;
+  }
+
+  /* dark pill instead of the white one that reads on a photo — .content
+     doubles the class specificity needed to beat Button's own .secondary */
+  .content .cta {
+    background: var(--color-action);
+    color: var(--color-action-contrast);
+    box-shadow: none;
+  }
+  .content .cta:hover {
+    background: var(--color-action-hover);
   }
 }

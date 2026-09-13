@@ -22,6 +22,21 @@
   scroll-snap-align: start;
 }
 
+/* Hero's own full-bleed breakout (escaping this track's container-max
+   cap to reach the true viewport edges) is meant for the active slide
+   only. Below 1024px it's harmless on an inactive slide too — it's
+   still covered edge-to-edge by that slide's own photo. At 1024px+,
+   Hero's left column is a plain text panel instead of a photo, so an
+   inactive slide breaking out the same way would visibly spill its
+   text/button into the active slide's space; confine it to this
+   slide's own (Container-capped) width instead. */
+@media (min-width: 1024px) {
+  .slide[aria-hidden="true"] :global(section) {
+    width: 100%;
+    margin-inline: 0;
+  }
+}
+
 /* phase dots — over the hero, just below the CTA */
 .dots {
   position: absolute;
