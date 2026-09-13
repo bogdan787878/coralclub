@@ -3884,10 +3884,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "clubPrice": "$19",
     "description": "A deep-sea mineral concentrate in ionic form — magnesium-dominant, drawn from 662 m down in the Pacific. Steady energy and balance for every day.",
     "carouselImages": [
-      "/images/products/oceanmin.png"
+      "/images/products/oceanmin.png",
+      "/images/products/ChatGPT Image Sep 14, 2026 at 12_11_43 AM.png"
     ],
     "pdpImages": [
-      "/images/products/oceanmin.png"
+      "/images/products/oceanmin.png",
+      "/images/products/ChatGPT Image Sep 14, 2026 at 12_10_53 AM.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
@@ -3913,6 +3915,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "soy-free",
       "vegetarian"
     ],
+    "topSeller": true,
+    "includedProducts": [],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -3932,8 +3936,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     },
     "rating": 4.6,
     "ratingsCount": 41,
-    "reviewsCount": 18,
-    "topSeller": true
+    "reviewsCount": 18
   },
   {
     "slug": "omega-3-60",
@@ -4260,10 +4263,12 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "clubPrice": "$13",
     "description": "A soluble potassium and magnesium drink that supports heart rhythm, muscle function and healthy blood pressure — part of the daily hydration layer.",
     "carouselImages": [
-      "/images/products/pentokan.png"
+      "/images/products/pentokan.png",
+      "/images/products/ChatGPT Image Sep 13, 2026 at 11_47_49 PM.png"
     ],
     "pdpImages": [
-      "/images/products/pentokan.png"
+      "/images/products/pentokan.png",
+      "/images/products/ChatGPT Image Sep 13, 2026 at 11_45_44 PM.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
@@ -4285,6 +4290,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "soy-free",
       "vegetarian"
     ],
+    "topSeller": false,
+    "includedProducts": [],
     "manufacturing": {
       "countryOfOrigin": "",
       "shippingWeight": "",
@@ -4314,8 +4321,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     },
     "rating": 4.5,
     "ratingsCount": 33,
-    "reviewsCount": 14,
-    "topSeller": false
+    "reviewsCount": 14
   },
   {
     "slug": "phytomix-for-women-new",
