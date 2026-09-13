@@ -5972,6 +5972,17 @@ export const GENERATED_DOMAINS: DomainContent[] = [
 
 export const GENERATED_SERIES: SeriesContent[] = [
   {
+    "id": "collagen-sets",
+    "titleLead": "Collagen isn't one thing.",
+    "titleAccent": "Pick the depth that matches your goal.",
+    "blurb": "Promarine Collagen Peptides keeps skin, joints and gut lining supported day to day. Promarine Collagen Tripeptides goes further — smaller peptides, faster absorption — for anyone working toward a specific, visible result.",
+    "images": [],
+    "products": [
+      "promarine-collagen",
+      "promarine-collagen-tripeptides-pack"
+    ]
+  },
+  {
     "id": "coral-detox",
     "titleLead": "Four products, one job.",
     "titleAccent": "Clear the internal load.",

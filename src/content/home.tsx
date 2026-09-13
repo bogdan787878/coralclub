@@ -163,7 +163,7 @@ const RESTART: HomePhase = {
       badge: { flag: "", text: "3 months · 3 steps" },
       body: [
         "Most cleanses are a few days of effort and a swing back to where you started.",
-        "Restart is the opposite. Coral Detox Plus opens the phase gently, ParaShield does the targeted middle work, Colo-Vada is the deep finish — one sequence of increasing depth, each step resting on the one before it.",
+        "Restart works the other way: a sequence that goes deeper in stages, so your body has room to adjust before the next stage asks more of it. Each step rests on the one before it — steady progress instead of one hard week that fades right back.",
       ],
     },
     { kind: "series", id: "go-detox" },
@@ -190,17 +190,20 @@ const RESTART: HomePhase = {
   },
 };
 
-// TODO(copy): Personalization-specific hero copy + sections. Placeholder =
-// Hydration's title/body/sections, but its own hero image (id
-// "personalization" in content/hero-images.json, editable in the CMS) —
-// it was previously stuck reusing Hydration's photo too, since this whole
-// object was just `= HYDRATION` with no override.
+// TODO(copy): Personalization-specific hero copy. Placeholder = Hydration's
+// title/body, but its own hero image (id "personalization" in
+// content/hero-images.json, editable in the CMS).
 const PERSONALIZATION: HomePhase = {
   ...HYDRATION,
   hero: {
     ...HYDRATION.hero,
     image: heroImage("personalization", "Coral Club Personalisation phase"),
   },
+  // Own sections, not Hydration's: no editorial blocks (those tell the
+  // Hydration story specifically) and no Privilege (Hydration's own
+  // series) — a series block of the two Promarine Collagen sets instead,
+  // in the same slot as Hydration's opening editorial.
+  sections: [{ kind: "series", id: "collagen-sets" }, { kind: "quiz" }],
 };
 
 export const HOME_CONTENT: Record<PhaseId, HomePhase> = {
