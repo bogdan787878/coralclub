@@ -7,21 +7,20 @@
     "skin"
   ],
   "coralId": "610305",
-  "description": "A biocellulose mask with seawater, metabiotics, ceramides, moringa seed and seaweed extracts that gently revitalizes skin that's lost some of its tone — soothing, evening out texture, and protecting against environmental stressors. Lipomask liposomal technology carries the active ingredients up to 10 times deeper than a regular mask, while the biocellulose base holds up to 3 times more serum, conforming closely to the face for even, long-lasting hydration.",
   "price": "$43.75",
   "clubPrice": "$35",
+  "description": "A biocellulose mask with seawater, metabiotics, ceramides, moringa seed and seaweed extracts that gently revitalizes skin that's lost some of its tone — soothing, evening out texture, and protecting against environmental stressors. Lipomask liposomal technology carries the active ingredients up to 10 times deeper than a regular mask, while the biocellulose base holds up to 3 times more serum, conforming closely to the face for even, long-lasting hydration.",
   "carouselImages": [
     "/images/products/skin-harmony-biocellulose-facial-mask.png"
   ],
   "pdpImages": [
     "/images/products/skin-harmony-biocellulose-facial-mask.png"
   ],
-  "rating": 4.5,
-  "ratingsCount": 0,
-  "reviewsCount": 0,
   "howToUse": "Use 2-3 times a week on a clean face, preferably in the evening. Leave on for 15-20 minutes, then remove and massage the remaining serum into the skin.",
   "elements": [],
   "dietaryBadges": [],
+  "topSeller": false,
+  "includedProducts": [],
   "manufacturing": {
     "countryOfOrigin": "Taiwan",
     "shippingWeight": "",
@@ -30,7 +29,16 @@
     "ingredients": "",
     "supplementFacts": {
       "servingLabel": "Amount Per Serving",
-      "rows": []
+      "rows": [
+        {
+          "name": "—",
+          "amount": "—",
+          "dv": "—"
+        }
+      ]
     }
-  }
+  },
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0
 }
