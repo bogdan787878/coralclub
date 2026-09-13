@@ -186,6 +186,7 @@
     min-height: min(82vh, 720px);
     display: grid;
     grid-template-columns: minmax(0, 460px) 1fr;
+    column-gap: 24px;
     /* a single explicit row stretched to the panel's full height (auto
        row-sizing would instead shrink to .content's own content height,
        since the absolutely-positioned .bgDesktop doesn't contribute to

@@ -9,6 +9,12 @@
   scrollbar-width: none;
   padding-inline: var(--page-padding-inline);
 }
+
+@media (min-width: 1024px) {
+  .track {
+    justify-content: center;
+  }
+}
 .track::-webkit-scrollbar {
   display: none;
 }
