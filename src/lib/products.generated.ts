@@ -4662,6 +4662,47 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     }
   },
   {
+    "slug": "promarine-collagen-tripeptides-advanced-collagen-biocellulose-facial-mask",
+    "name": "Promarin Collagen Tripeptides Set (1-month course) & Bio-cellulose Face Masks Advanced Collagen (5 sachets)",
+    "headline": "Promarin Collagen Tripeptides Set (1-month course) & Bio-cellulose Face Masks Advanced Collagen (5 sachets)",
+    "category": "Health",
+    "goals": [
+      "skin"
+    ],
+    "coralId": "2270315",
+    "description": "A modern, high-tech form of collagen for easier absorption, enriched with plant extracts, vitamins and hyaluronic acid for smooth, radiant skin and stronger hair and nails. Paired with the Advanced Collagen biocellulose mask — collagen tripeptides, seawater, NARA-5 peptides and argireline — for intensive nourishment against signs of aging.",
+    "price": "$281.25",
+    "clubPrice": "$225",
+    "carouselImages": [],
+    "pdpImages": [],
+    "rating": 4.5,
+    "ratingsCount": 0,
+    "reviewsCount": 0,
+    "howToUse": "",
+    "elements": [
+      {
+        "symbol": "Col",
+        "name": "Collagen"
+      },
+      {
+        "symbol": "HA",
+        "name": "Hyaluronic"
+      }
+    ],
+    "dietaryBadges": [],
+    "manufacturing": {
+      "countryOfOrigin": "",
+      "shippingWeight": "",
+      "expiration": "",
+      "storage": "",
+      "ingredients": "",
+      "supplementFacts": {
+        "servingLabel": "Amount Per Serving",
+        "rows": []
+      }
+    }
+  },
+  {
     "slug": "promarine-collagen-tripeptides-pack",
     "name": "Promarine Collagen Tripeptides",
     "headline": "Promarine Collagen Tripeptides",
@@ -5975,11 +6016,11 @@ export const GENERATED_SERIES: SeriesContent[] = [
     "id": "collagen-sets",
     "titleLead": "Collagen isn't one thing.",
     "titleAccent": "Pick the depth that matches your goal.",
-    "blurb": "Promarine Collagen Peptides keeps skin, joints and gut lining supported day to day. Promarine Collagen Tripeptides goes further — smaller peptides, faster absorption — for anyone working toward a specific, visible result.",
+    "blurb": "Each set pairs a month of Promarine Collagen with its own biocellulose face mask. Peptides comes with the Skin Harmony mask, for everyday smoothness. Tripeptides — the deeper, faster-absorbing form — comes with the Advanced Collagen mask, for more intensive care.",
     "images": [],
     "products": [
-      "promarine-collagen",
-      "promarine-collagen-tripeptides-pack"
+      "promarine-collagen-peptides-skin-harmony-biocellulose-facial-mask",
+      "promarine-collagen-tripeptides-advanced-collagen-biocellulose-facial-mask"
     ]
   },
   {
