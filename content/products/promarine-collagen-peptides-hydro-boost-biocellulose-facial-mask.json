@@ -10,8 +10,12 @@
   "description": "Marine collagen peptides support the skin's firmness and smoothness and the health of hair and nails, replacing what the body makes less of with age. Paired with the Hydro Boost biocellulose mask — with sea water, 3D hyaluronic acid, seaweed and a metabiotic — for intensive hydration.",
   "price": "$243.75",
   "clubPrice": "$195",
-  "carouselImages": [],
-  "pdpImages": [],
+  "carouselImages": [
+    "/images/products/promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask.png"
+  ],
+  "pdpImages": [
+    "/images/products/promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,

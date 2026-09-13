@@ -1,0 +1,36 @@
+{
+  "slug": "hydro-boost-biocellulose-facial-mask",
+  "name": "Hydro Boost Biocellulose Facial Mask",
+  "headline": "Hydro Boost Biocellulose Facial Mask, 5x0.85 fl. oz Sachets in a Box",
+  "category": "Beauty",
+  "goals": [
+    "skin"
+  ],
+  "coralId": "610205",
+  "description": "A biocellulose mask with sea water, 3D hyaluronic acid, seaweed and metabiotic that deeply moisturizes and combats dryness, flaking and the first signs of aging. Lipomask liposomal technology carries the active ingredients through the skin surface for enhanced hydration, while the biocellulose base holds up to 3 times more serum, conforming closely to the face for even, long-lasting delivery.",
+  "price": "$43.75",
+  "clubPrice": "$35",
+  "carouselImages": [
+    "/images/products/hydro-boost-biocellulose-facial-mask.png"
+  ],
+  "pdpImages": [
+    "/images/products/hydro-boost-biocellulose-facial-mask.png"
+  ],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "howToUse": "",
+  "elements": [],
+  "dietaryBadges": [],
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}
