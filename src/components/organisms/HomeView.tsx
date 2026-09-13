@@ -2,6 +2,7 @@
 
 import { Accent } from "@/components/ui";
 import { HOME_CONTENT, type EditorialItem, type ReelsContent } from "@/content/home";
+import { productHref } from "@/lib/catalog";
 import { PhaseProvider, usePhase } from "@/lib/phase";
 import type {
   DomainContent,
@@ -14,8 +15,9 @@ import { CommunityReels } from "./CommunityReels";
 import { Editorial } from "./Editorial";
 import { HeroCarousel } from "./HeroCarousel";
 import { PhasesSection } from "./PhasesSection";
+import { ProductCard } from "./ProductCard";
 import { QuizPromo } from "./QuizPromo";
-import { SeriesShowcase } from "./SeriesShowcase";
+import { SeriesFeature } from "./SeriesFeature";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
 import { TabBar } from "./TabBar";
@@ -55,6 +57,37 @@ const badgeNode = (b: EditorialItem["badge"]) =>
       {b.text}
     </>
   ) : undefined;
+
+/** Dumb link-only card for a series' own "what's in it" row — no local
+ *  cart wiring, matching how these homepage series blocks always worked. */
+function seriesCard(p: Product) {
+  return (
+    <ProductCard
+      key={p.slug}
+      fluid
+      title={p.headline}
+      category={p.category}
+      price={p.prices[0].price}
+      priceWas={p.prices[1].price}
+      href={productHref(p.slug)}
+      cartHref={p.prices[1].cta.href}
+      images={p.carouselImages.map((src) => ({ src, alt: p.name }))}
+    />
+  );
+}
+
+function SeriesBlock({ series }: { series: SeriesView }) {
+  return (
+    <SeriesFeature
+      seriesName={series.titleLead}
+      product={series.product}
+      image={series.product ? undefined : { src: series.image, alt: series.titleLead }}
+      blurbTitle={{ lead: series.titleLead, accent: series.titleAccent }}
+      blurbBody={series.blurb}
+      carouselItems={series.products.map(seriesCard)}
+    />
+  );
+}
 
 function Reels({ content }: { content: ReelsContent }) {
   return (
@@ -112,9 +145,7 @@ function HomeContent({
         {c.sections.map((s, i) => {
           if (s.kind === "series") {
             const series = seriesById[s.id];
-            return series ? (
-              <SeriesShowcase key={`series-${s.id}`} series={series} />
-            ) : null;
+            return series ? <SeriesBlock key={`series-${s.id}`} series={series} /> : null;
           }
           if (s.kind === "quiz") {
             return <QuizPromo key="quiz" />;

@@ -5964,6 +5964,7 @@ export const GENERATED_DOMAINS: DomainContent[] = [
 export const GENERATED_SERIES: SeriesContent[] = [
   {
     "id": "coral-detox",
+    "product": "coral-detox-plus",
     "titleLead": "Four products, one job.",
     "titleAccent": "Clear the internal load.",
     "blurb": "Coral Detox bundles enzymes, antioxidant support, deep-sea minerals and a lecithin-based binder — the 30-day set that opens the Restart phase.",
@@ -5978,6 +5979,7 @@ export const GENERATED_SERIES: SeriesContent[] = [
   },
   {
     "id": "go-detox",
+    "product": "colo-vada-plus",
     "titleLead": "What's actually in the box.",
     "titleAccent": "Three stages, one sequence.",
     "blurb": "The 14-day Go Detox set breaks down into three daily packets — one per stage — plus a fiber drink mix and a probiotic that runs the whole way through.",

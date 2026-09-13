@@ -116,20 +116,19 @@ export function PhasesSection({
 
         {/* Hydration (the only phase with a seriesProduct): heading +
             description live in SeriesFeature's own intro now, above its
-            image, so the product carousel below it renders bare — no
-            second heading. Restart (no seriesProduct) keeps the heading
-            on its own carousel, same as before. */}
+            image, and the product carousel moves inside it too (see
+            carouselItems) — on desktop that puts text on the left, card +
+            carousel on the right. Restart (no seriesProduct) keeps the
+            heading on its own carousel, same as before. */}
         {!isPersonalization &&
           (phase.seriesProduct ? (
-            <>
-              <SeriesFeature
-                seriesName={phase.name}
-                product={phase.seriesProduct}
-                blurbTitle={phase.headline}
-                blurbBody={phase.seriesBlurb}
-              />
-              <Carousel label={phase.name}>{cards.map(renderCard)}</Carousel>
-            </>
+            <SeriesFeature
+              seriesName={phase.name}
+              product={phase.seriesProduct}
+              blurbTitle={phase.headline}
+              blurbBody={phase.seriesBlurb}
+              carouselItems={cards.map(renderCard)}
+            />
           ) : (
             <Carousel
               label={phase.name}

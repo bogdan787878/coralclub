@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Accent, BodyLong, Container, Heading } from "@/components/ui";
 import { addItem, useCart, setQty } from "@/lib/cart";
@@ -15,13 +16,24 @@ export type SeriesFeatureProps = {
   /** Overrides the default "The {seriesName} Series" heading. Ignored when
    *  blurbTitle is set. */
   heading?: ReactNode;
-  /** The product that represents the set. */
-  product: Product;
+  /** The product that represents the set. Omit for a product LINE with no
+   *  single bundle SKU (e.g. Privilege) — pass `image` instead and the
+   *  name/price/cart row is skipped. */
+  product?: Product | null;
+  /** Fallback single image, used only when there's no product. */
+  image?: { src: string; alt: string };
   /** Replaces the generic heading with the phase's own — sans lead +
    *  Newton-italic accent, same convention as Hero/Editorial — plus an
-   *  optional body paragraph under it, both above the image. */
+   *  optional body paragraph under it, both above the image. Also switches
+   *  to the desktop layout: text on the left, the card + carousel on the
+   *  right (see .blockSplit) — the generic heading keeps the older
+   *  image-beside-text layout instead. */
   blurbTitle?: { lead: string; accent: string };
   blurbBody?: string;
+  /** Pre-rendered "what's in it" cards, shown in their own scroll row
+   *  under the card — this row lives inside the card's own column, not a
+   *  full-bleed edge-to-edge row like the shared <Carousel>. */
+  carouselItems?: ReactNode[];
 };
 
 function CartIcon() {
@@ -41,48 +53,52 @@ function CartIcon() {
 }
 
 /**
- * SeriesFeature — spotlights the set as a whole: a heading, an image
- * slider, and the set product's name + price with a floating cart button
- * on the image (same control as the carousel cards). Shown only for the
- * fixed phase sets.
+ * SeriesFeature — spotlights a set as a whole: a heading, an image, and
+ * (when there's a single bundle product) its name + price with a floating
+ * cart button, plus an optional row of "what's in it" cards.
  */
 export function SeriesFeature({
   seriesName,
   heading,
   product,
+  image,
   blurbTitle,
   blurbBody,
+  carouselItems,
 }: SeriesFeatureProps) {
   const cart = useCart();
   const [acted, setActed] = useState(false);
   const anim = acted ? ` ${styles.animIn}` : "";
 
-  const club = product.prices[0].price;
-  const regular = product.prices[1].price;
-  const shopHref = product.prices[1].cta.href;
-  const images = product.pdpImages.map((src) => ({ src, alt: product.name }));
+  const club = product?.prices[0]?.price;
+  const regular = product?.prices[1]?.price;
+  const shopHref = product?.prices[1]?.cta.href;
+  const images = product ? product.pdpImages.map((src) => ({ src, alt: product.name })) : [];
 
-  const coralId = product.coralId;
+  const coralId = product?.coralId;
   const qty = coralId
     ? (cart.find((l) => l.coralId === coralId)?.qty ?? 0)
     : 0;
 
-  const href = productHref(product.slug);
+  const href = product ? productHref(product.slug) : undefined;
 
   const add = () => {
+    if (!product) return;
     setActed(true);
     addItem({
       coralId: coralId as string,
       slug: product.slug,
       name: product.name,
-      price: club,
+      price: club as string,
       image: images[0]?.src,
     });
   };
 
+  const split = Boolean(blurbTitle);
+
   return (
     <Container>
-      <div className={styles.block}>
+      <div className={`${styles.block}${split ? ` ${styles.blockSplit}` : ""}`}>
         {blurbTitle ? (
           <div className={styles.intro}>
             <Heading as="h2" className={styles.title}>
@@ -96,78 +112,105 @@ export function SeriesFeature({
           </Heading>
         )}
 
-        <div className={styles.media}>
-          <div className={styles.mediaInner}>
-            <ImageSlider images={images} sizes="100vw" fit="cover" href={href} />
-          </div>
-        </div>
-
-        {/* on mobile just two more flex children (display:contents below
-            1024px); on desktop this becomes the text column beside .media */}
-        <div className={styles.info}>
-          <div className={styles.priceRow}>
-            {/* name + price share one frame; the stretched link still
-                covers the whole block via .name::after */}
-            <div className={styles.nameFrame}>
-              <Link href={href} className={styles.name}>
-                {product.headline}
-              </Link>
-              <p className={styles.price}>
-                <span className={styles.now}>{club}</span>
-                <span className={styles.was}>{regular}</span>
-              </p>
-            </div>
-
-            {coralId ? (
-              qty > 0 ? (
-                <span className={styles.stepper + anim}>
-                  <button
-                    type="button"
-                    aria-label="Remove one"
-                    onClick={() => {
-                      setActed(true);
-                      setQty(coralId, qty - 1);
-                    }}
-                  >
-                    −
-                  </button>
-                  <span className={styles.stepperCount} aria-live="polite">
-                    {qty}
-                  </span>
-                  <button
-                    type="button"
-                    aria-label="Add one"
-                    onClick={() => {
-                      setActed(true);
-                      setQty(coralId, qty + 1);
-                    }}
-                  >
-                    +
-                  </button>
-                </span>
+        <div className={styles.cardWrap}>
+          <div className={styles.media}>
+            <div className={styles.mediaInner}>
+              {product ? (
+                <ImageSlider images={images} sizes="100vw" fit="cover" href={href} />
+              ) : image ? (
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes="100vw"
+                  style={{ objectFit: "cover" }}
+                />
               ) : (
-                <button
-                  type="button"
-                  className={styles.cart + anim}
-                  onClick={add}
-                  aria-label="Add to cart"
-                >
-                  <CartIcon />
-                </button>
-              )
-            ) : (
-              <a
-                className={styles.cart}
-                href={shopHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Add to cart"
-              >
-                <CartIcon />
-              </a>
-            )}
+                <span className={styles.mediaEmpty} aria-hidden="true" />
+              )}
+            </div>
           </div>
+
+          {/* on mobile just two more flex children (display:contents below
+              1024px); on desktop this becomes the text column beside .media
+              (generic heading) or stays stacked under it (blurbTitle) */}
+          {product && (
+            <div className={styles.info}>
+              <div className={styles.priceRow}>
+                {/* name + price share one frame; the stretched link still
+                    covers the whole card via .name::after */}
+                <div className={styles.nameFrame}>
+                  <Link href={href as string} className={styles.name}>
+                    {product.headline}
+                  </Link>
+                  <p className={styles.price}>
+                    <span className={styles.now}>{club}</span>
+                    <span className={styles.was}>{regular}</span>
+                  </p>
+                </div>
+
+                {coralId ? (
+                  qty > 0 ? (
+                    <span className={styles.stepper + anim}>
+                      <button
+                        type="button"
+                        aria-label="Remove one"
+                        onClick={() => {
+                          setActed(true);
+                          setQty(coralId, qty - 1);
+                        }}
+                      >
+                        −
+                      </button>
+                      <span className={styles.stepperCount} aria-live="polite">
+                        {qty}
+                      </span>
+                      <button
+                        type="button"
+                        aria-label="Add one"
+                        onClick={() => {
+                          setActed(true);
+                          setQty(coralId, qty + 1);
+                        }}
+                      >
+                        +
+                      </button>
+                    </span>
+                  ) : (
+                    <button
+                      type="button"
+                      className={styles.cart + anim}
+                      onClick={add}
+                      aria-label="Add to cart"
+                    >
+                      <CartIcon />
+                    </button>
+                  )
+                ) : (
+                  <a
+                    className={styles.cart}
+                    href={shopHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Add to cart"
+                  >
+                    <CartIcon />
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
         </div>
+
+        {carouselItems && carouselItems.length > 0 && (
+          <div className={styles.carouselSlot}>
+            {carouselItems.map((item, i) => (
+              <div key={i} className={styles.carouselItem}>
+                {item}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </Container>
   );

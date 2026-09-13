@@ -390,6 +390,11 @@ export type SeriesContent = {
   image: string;
   /** Product slugs shown in the carousel, in order. */
   products: string[];
+  /** Slug of the single sellable product that represents this series as a
+   *  bundle (its own price/cart), for the SeriesFeature-style card. Omit
+   *  for a product LINE with no single bundle SKU (e.g. Privilege) — the
+   *  card then falls back to `image` with no price/cart row. */
+  product?: string;
 };
 
 export type SeriesView = {
@@ -403,6 +408,8 @@ export type SeriesView = {
   image: string;
   /** Resolved, asset-wrapped products. */
   products: Product[];
+  /** Resolved bundle product, or null when there isn't one (see SeriesContent.product). */
+  product: Product | null;
 };
 
 export function getSeries(id: string): SeriesView | undefined {
@@ -422,6 +429,7 @@ export function getSeries(id: string): SeriesView | undefined {
       .filter((p): p is Product => Boolean(p))
       // pre-shorten the category tag so the (client) showcase needs no helper
       .map((p) => ({ ...p, category: shortCategory(p.category) })),
+    product: c.product ? (getProduct(c.product) ?? null) : null,
   };
 }
 

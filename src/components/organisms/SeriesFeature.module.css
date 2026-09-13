@@ -28,6 +28,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--gap-text); /* 16 — heading to description */
+  min-width: 0;
 }
 
 /* same type style as Editorial's own body copy */
@@ -37,6 +38,12 @@
   line-height: var(--text-button-line); /* 24 */
   color: var(--color-text);
   max-width: 60ch;
+}
+
+/* groups media + info so the default desktop grid can treat them as one
+   pair of grid cells, and the split layout can treat them as one column */
+.cardWrap {
+  display: contents;
 }
 
 /* image tile with the slider inside — above the stretched .name::after
@@ -56,18 +63,29 @@
   position: absolute;
   inset: 0;
 }
+.mediaEmpty {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-neutral-white),
+    var(--color-neutral-30)
+  );
+}
 
 /* mobile: no-op wrapper, .name/.priceRow stay direct flex children of
-   .block exactly as before; desktop turns it into the text column */
+   .block exactly as before; desktop turns it into the text column
+   (default layout) or stays stacked under the image (split layout) */
 .info {
   display: contents;
 }
 
-/* desktop: image beside the text instead of a full-bleed 4:3 banner —
-   at container widths ≥1024 a full-width image would balloon past a
-   sensible height, so it moves into its own fixed-width column. */
+/* ---------- desktop: default layout (generic heading, e.g. B-Luron) ----
+   image beside the text instead of a full-bleed 4:3 banner — at container
+   widths ≥1024 a full-width image would balloon past a sensible height,
+   so it moves into its own fixed-width column. */
 @media (min-width: 1024px) {
-  .block {
+  .block:not(.blockSplit) {
     display: grid;
     grid-template-columns: minmax(0, 460px) 1fr;
     column-gap: var(--space-40);
@@ -75,22 +93,75 @@
     align-items: start;
   }
 
-  .title,
-  .intro {
+  .block:not(.blockSplit) > .title {
     grid-column: 1 / -1;
   }
 
-  .media {
-    aspect-ratio: 4 / 3;
-  }
-
-  .info {
+  .block:not(.blockSplit) .info {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: var(--space-16);
     align-self: stretch;
   }
+}
+
+/* ---------- desktop: split layout (blurbTitle set) ----------
+   text on the left, spanning the full height; the card and the "what's
+   in it" carousel stacked on the right. Explicit column/row placement
+   throughout — relying on grid auto-placement here previously landed
+   text and image in separate rows instead of side by side. */
+@media (min-width: 1024px) {
+  .blockSplit {
+    display: grid;
+    grid-template-columns: minmax(0, 340px) 1fr;
+    grid-template-rows: auto auto;
+    column-gap: var(--space-40);
+    row-gap: var(--space-16);
+    align-items: start;
+  }
+
+  .blockSplit > .intro {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+
+  .blockSplit > .cardWrap {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+
+  .blockSplit .info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+
+  .blockSplit > .carouselSlot {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+/* "what's in it" — a plain scroll row confined to the card's own column,
+   not the shared <Carousel>'s full-bleed-to-the-screen-edge treatment */
+.carouselSlot {
+  display: flex;
+  gap: var(--space-8);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  min-width: 0;
+}
+.carouselSlot::-webkit-scrollbar {
+  display: none;
+}
+.carouselItem {
+  flex: 0 0 150px;
 }
 
 /* name + price, stacked — a shared frame, gap 8, with the cart control

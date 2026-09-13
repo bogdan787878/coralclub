@@ -47,9 +47,6 @@ export { SiteFooter } from "./SiteFooter";
 export { Editorial } from "./Editorial";
 export type { EditorialProps, EditorialImage } from "./Editorial";
 
-export { SeriesShowcase } from "./SeriesShowcase";
-export type { SeriesShowcaseProps } from "./SeriesShowcase";
-
 export { CommunityReels } from "./CommunityReels";
 export type { CommunityReelsProps, Reel } from "./CommunityReels";
 
