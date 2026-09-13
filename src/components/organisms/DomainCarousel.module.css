@@ -1,6 +1,6 @@
 .track {
   display: flex;
-  gap: 4px;
+  gap: 0;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x proximity;
@@ -33,11 +33,11 @@
   background: var(--color-neutral-30);
 }
 
-/* 80×80 frame with 4px padding all round → the icon renders at 72×72 */
+/* 56×56 frame, matching the icon's own size exactly */
 .shape {
-  width: 80px;
-  height: 80px;
-  padding: 4px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;

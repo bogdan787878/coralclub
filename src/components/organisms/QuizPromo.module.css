@@ -39,6 +39,10 @@
     max-width: none;
   }
 
+  section.section {
+    padding-block: 56px;
+  }
+
   .card {
     padding: 56px;
   }

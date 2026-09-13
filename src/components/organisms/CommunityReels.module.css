@@ -1,3 +1,12 @@
+@media (min-width: 1024px) {
+  /* tag-qualified so this reliably beats Section's own same-specificity
+     single-class rule regardless of CSS module bundling order — see
+     Editorial.module.css for the same trick */
+  section.section {
+    padding-block: 56px;
+  }
+}
+
 /* Align the header to the page container, like the Carousel. */
 .gutter {
   padding-inline: max(

@@ -12,6 +12,13 @@
   transform: translateX(-50%);
 }
 
+@media (min-width: 1024px) {
+  .footer {
+    padding-top: 56px;
+    padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 .addr {
   font-style: normal;
   font-family: var(--font-sans);

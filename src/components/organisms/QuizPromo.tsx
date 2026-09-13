@@ -7,7 +7,7 @@ import styles from "./QuizPromo.module.css";
  */
 export function QuizPromo() {
   return (
-    <Section tone="surface">
+    <Section tone="surface" className={styles.section}>
       <Container className={styles.container}>
         <div className={styles.card}>
           <h2 className={styles.title}>

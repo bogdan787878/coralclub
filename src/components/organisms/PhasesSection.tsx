@@ -83,7 +83,7 @@ export function PhasesSection({
     isPersonalization && domain ? (domainCards[domain.id] ?? []) : phase.products;
 
   return (
-    <Section tone="surface">
+    <Section tone="surface" className={styles.section}>
       <div className={styles.inner}>
         <Container>
           <PhaseSwitcher
