@@ -30,8 +30,12 @@
   gap: var(--gap-text); /* 16 — heading to description */
 }
 
+/* same type style as Editorial's own body copy */
 .introBody {
-  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-button-size); /* 16 */
+  line-height: var(--text-button-line); /* 24 */
+  color: var(--color-text);
   max-width: 60ch;
 }
 
