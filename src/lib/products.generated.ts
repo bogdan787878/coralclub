@@ -140,7 +140,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "slug": "advanced-collagen-biocellulose-facial-mask",
     "name": "Advanced Collagen Biocellulose Facial Mask",
     "headline": "Advanced Collagen Biocellulose Facial Mask, 5x0.85 fl. oz Sachets in a Box",
-    "category": "Beauty",
+    "category": "Skin, Hair & Nails",
     "goals": [
       "skin"
     ],
@@ -2851,7 +2851,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "slug": "hydro-boost-biocellulose-facial-mask",
     "name": "Hydro Boost Biocellulose Facial Mask",
     "headline": "Hydro Boost Biocellulose Facial Mask, 5x0.85 fl. oz Sachets in a Box",
-    "category": "Beauty",
+    "category": "Skin, Hair & Nails",
     "goals": [
       "skin"
     ],
@@ -4707,7 +4707,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "slug": "promarine-collagen-tripeptides-pack",
     "name": "Promarine Collagen Tripeptides",
     "headline": "Promarine Collagen Tripeptides",
-    "category": "Special Care",
+    "category": "Skin, Hair & Nails",
     "goals": [
       "skin"
     ],
@@ -4816,7 +4816,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "slug": "promarine-collagen",
     "name": "Promarine Collagen",
     "headline": "Promarine Collagen — marine peptides",
-    "category": "Skin & hair",
+    "category": "Skin, Hair & Nails",
     "goals": [
       "skin"
     ],
@@ -5252,7 +5252,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "slug": "skin-harmony-biocellulose-facial-mask",
     "name": "Skin Harmony Biocellulose Facial Mask",
     "headline": "Skin Harmony Biocellulose Facial Mask, 5x0.85 fl. oz Sachets in a Box",
-    "category": "Beauty",
+    "category": "Skin, Hair & Nails",
     "goals": [
       "skin"
     ],
@@ -6095,11 +6095,15 @@ export const GENERATED_SERIES: SeriesContent[] = [
   },
   {
     "id": "collagen-sets",
+    "enabled": true,
+    "heading": "",
     "titleLead": "Collagen isn't one thing.",
     "titleAccent": "Pick the depth that matches your goal.",
     "blurb": "Each set pairs a month of Promarine Collagen with its own biocellulose face mask. Peptides comes with the Skin Harmony mask, for everyday smoothness. Tripeptides — the deeper, faster-absorbing form — comes with the Advanced Collagen mask, for more intensive care.",
+    "product": "",
+    "weight": 0,
     "images": [
-      "/images/products/promarine-collagen.png"
+      "/images/series/ChatGPT Image Sep 13, 2026 at 06_30_10 PM.png"
     ],
     "products": [
       "promarine-collagen",
@@ -6107,8 +6111,7 @@ export const GENERATED_SERIES: SeriesContent[] = [
       "advanced-collagen-biocellulose-facial-mask",
       "hydro-boost-biocellulose-facial-mask",
       "skin-harmony-biocellulose-facial-mask"
-    ],
-    "weight": 0
+    ]
   },
   {
     "id": "coral-detox",
