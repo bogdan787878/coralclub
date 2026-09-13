@@ -213,6 +213,10 @@
     justify-content: flex-start;
   }
 
+  .inset {
+    padding-inline: 56px;
+  }
+
   /* back to growing to push the CTA down, like mobile — the 768px rule
      above shrink-wraps it for the centered photo-overlay layout, which
      no longer applies here */

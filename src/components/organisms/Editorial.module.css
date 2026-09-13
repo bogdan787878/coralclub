@@ -92,6 +92,7 @@
     padding-block: 56px;
   }
   div.container {
+    max-width: none;
     padding-inline: 56px;
   }
 

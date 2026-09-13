@@ -133,12 +133,19 @@
     padding-block: 56px;
   }
 
+  /* both need an explicit grid-row, not just grid-column — otherwise
+     the auto-placement cursor, having placed .intro in column 2, has
+     already advanced past column 1 in row 1 and won't backfill it for
+     .cardWrap, pushing it down into its own second row instead of
+     sitting beside .intro */
   .blockSplit > .intro {
     grid-column: 2;
+    grid-row: 1;
   }
 
   .blockSplit > .cardWrap {
     grid-column: 1;
+    grid-row: 1;
     display: flex;
     flex-direction: column;
     gap: var(--space-16);
@@ -152,8 +159,12 @@
 
   /* tag-qualified so this reliably beats Container's own same-specificity
      single-class rule regardless of CSS module bundling order — see
-     Editorial.module.css for the same trick */
+     Editorial.module.css for the same trick. max-width:none because
+     Container's own max-width: var(--container-max) was still capping
+     and centering the block well inside the padded area at wide
+     viewports — the 56px padding alone doesn't undo that cap. */
   div.container {
+    max-width: none;
     padding-inline: 56px;
   }
 

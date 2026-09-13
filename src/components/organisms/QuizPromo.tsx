@@ -8,7 +8,7 @@ import styles from "./QuizPromo.module.css";
 export function QuizPromo() {
   return (
     <Section tone="surface">
-      <Container>
+      <Container className={styles.container}>
         <div className={styles.card}>
           <h2 className={styles.title}>
             Not sure where to start?

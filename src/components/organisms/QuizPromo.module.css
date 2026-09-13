@@ -29,6 +29,16 @@
 }
 
 @media (min-width: 1024px) {
+  /* tag-qualified so this reliably beats Container's own same-specificity
+     single-class rule regardless of CSS module bundling order — see
+     SeriesFeature.module.css's ".content .cta" for the same trick.
+     max-width:none: Container's own max-width: var(--container-max) was
+     otherwise still capping/centering this block well inside its own
+     56px padding at wide viewports. */
+  div.container {
+    max-width: none;
+  }
+
   .card {
     padding: 56px;
   }
