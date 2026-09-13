@@ -120,6 +120,7 @@ export function PhasesSection({
                 {phase.headline.lead} <Accent>{phase.headline.accent}</Accent>
               </>
             }
+            description={phase.seriesBlurb}
           >
             {cards.map(renderCard)}
           </Carousel>
@@ -129,8 +130,6 @@ export function PhasesSection({
           <SeriesFeature
             seriesName={phase.name}
             product={phase.seriesProduct}
-            blurbTitle={phase.headline}
-            blurbBody={phase.seriesBlurb}
             includedProducts={phase.seriesIncluded}
           />
         )}

@@ -14,6 +14,8 @@ import styles from "./Carousel.module.css";
 export type CarouselProps = {
   /** Optional heading shown above the scroller. */
   title?: ReactNode;
+  /** Optional short copy under the title, above the scroller. */
+  description?: ReactNode;
   /** Slides — each child is wrapped in a snap item. */
   children: ReactNode;
   /**
@@ -47,6 +49,7 @@ function ChevronIcon({ direction }: { direction: "left" | "right" }) {
  */
 export function Carousel({
   title,
+  description,
   children,
   itemWidth,
   label = "Products",
@@ -79,6 +82,7 @@ export function Carousel({
       {title != null && (
         <div className={styles.head}>
           <Heading as="h2">{title}</Heading>
+          {description != null && <p className={styles.description}>{description}</p>}
         </div>
       )}
 

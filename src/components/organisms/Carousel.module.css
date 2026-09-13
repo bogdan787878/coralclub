@@ -20,6 +20,15 @@
   composes: gutter;
 }
 
+.description {
+  margin-top: var(--space-8);
+  max-width: 44ch;
+  font-family: var(--font-sans);
+  font-size: var(--text-button-size);
+  line-height: var(--text-button-line);
+  color: var(--color-text-muted);
+}
+
 /* anchors the desktop chevron buttons over the track */
 .scroller {
   position: relative;

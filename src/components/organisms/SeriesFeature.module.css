@@ -216,33 +216,9 @@
   }
 }
 
-/* ---------- text block + "what's in the pack" carousel ----------
-   A plain sibling of .block, not a grid cell inside it — full width at
-   every breakpoint, no column math to get wrong. */
+/* "what's in the pack" carousel — a plain sibling of .block, not a grid
+   cell inside it, so it's full width at every breakpoint with no column
+   math to get wrong. */
 .extra {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-24);
   margin-top: var(--space-24);
-}
-
-.blurb {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-text);
-}
-
-.blurbTitle {
-  font-family: var(--font-sans);
-  font-size: var(--text-h2-size);
-  line-height: var(--text-h2-line);
-  letter-spacing: var(--text-h2-tracking);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text);
-  text-wrap: balance;
-}
-
-.blurbBody {
-  max-width: 60ch;
-  color: var(--color-text);
 }

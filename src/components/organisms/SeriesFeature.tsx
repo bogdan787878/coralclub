@@ -2,7 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
-import { Accent, BodyLong, Container, Heading } from "@/components/ui";
+import { Container, Heading } from "@/components/ui";
 import { addItem, useCart, setQty } from "@/lib/cart";
 import { productHref } from "@/lib/catalog";
 import { ImageSlider } from "./ImageSlider";
@@ -17,12 +17,7 @@ export type SeriesFeatureProps = {
   heading?: ReactNode;
   /** The product that represents the set. */
   product: Product;
-  /** Title for the text block below the card — sans lead + Newton-italic
-   *  accent, same convention as Hero/Editorial. Omit to skip that block. */
-  blurbTitle?: { lead: string; accent: string };
-  /** Body copy for that same block. */
-  blurbBody?: string;
-  /** "What's in the pack" carousel under the text block. Omit/empty skips it. */
+  /** "What's in the pack" carousel under the card. Omit/empty skips it. */
   includedProducts?: IncludedProductCard[];
 };
 
@@ -46,15 +41,13 @@ function CartIcon() {
  * SeriesFeature — the block under the phase carousel that spotlights the set
  * as a whole: title, an image slider, the set product's name + price and a
  * floating cart button on the image (same control as the carousel cards) —
- * then, optionally, a text block about the series and a small carousel of
- * what's actually in the pack. Shown only for the fixed phase sets.
+ * then, optionally, a small carousel of what's actually in the pack. Shown
+ * only for the fixed phase sets.
  */
 export function SeriesFeature({
   seriesName,
   heading,
   product,
-  blurbTitle,
-  blurbBody,
   includedProducts,
 }: SeriesFeatureProps) {
   const cart = useCart();
@@ -163,20 +156,9 @@ export function SeriesFeature({
         </div>
       </div>
 
-      {(blurbTitle || (includedProducts && includedProducts.length > 0)) && (
+      {includedProducts && includedProducts.length > 0 && (
         <div className={styles.extra}>
-          {blurbTitle && (
-            <div className={styles.blurb}>
-              <Heading as="h3" className={styles.blurbTitle}>
-                {blurbTitle.lead} <Accent>{blurbTitle.accent}</Accent>
-              </Heading>
-              {blurbBody && <BodyLong className={styles.blurbBody}>{blurbBody}</BodyLong>}
-            </div>
-          )}
-
-          {includedProducts && includedProducts.length > 0 && (
-            <IncludedProducts items={includedProducts} heading="What's in the pack" />
-          )}
+          <IncludedProducts items={includedProducts} heading="What's in the pack" />
         </div>
       )}
     </Container>
