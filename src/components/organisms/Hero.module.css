@@ -218,7 +218,13 @@
 
   .inset,
   .body {
-    padding-inline: 56px;
+    padding-left: 56px;
+    padding-right: 0;
+  }
+
+  .body {
+    font-size: 20px;
+    line-height: 24px;
   }
 
   /* back to growing to push the CTA down, like mobile — the 768px rule
