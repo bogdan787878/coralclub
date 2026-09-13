@@ -100,7 +100,7 @@ export function PhasesSection({
           />
         )}
 
-        {isPersonalization && domain ? (
+        {isPersonalization && domain && (
           <Carousel
             key={domain.id}
             label={`Personalisation — ${domain.label}`}
@@ -112,27 +112,36 @@ export function PhasesSection({
           >
             {cards.map(renderCard)}
           </Carousel>
-        ) : (
-          <Carousel
-            label={phase.name}
-            title={
-              <>
-                {phase.headline.lead} <Accent>{phase.headline.accent}</Accent>
-              </>
-            }
-            description={phase.seriesBlurb}
-          >
-            {cards.map(renderCard)}
-          </Carousel>
         )}
 
-        {!isPersonalization && phase.seriesProduct && (
-          <SeriesFeature
-            seriesName={phase.name}
-            product={phase.seriesProduct}
-            includedProducts={phase.seriesIncluded}
-          />
-        )}
+        {/* Hydration (the only phase with a seriesProduct): heading +
+            description live in SeriesFeature's own intro now, above its
+            image, so the product carousel below it renders bare — no
+            second heading. Restart (no seriesProduct) keeps the heading
+            on its own carousel, same as before. */}
+        {!isPersonalization &&
+          (phase.seriesProduct ? (
+            <>
+              <SeriesFeature
+                seriesName={phase.name}
+                product={phase.seriesProduct}
+                blurbTitle={phase.headline}
+                blurbBody={phase.seriesBlurb}
+              />
+              <Carousel label={phase.name}>{cards.map(renderCard)}</Carousel>
+            </>
+          ) : (
+            <Carousel
+              label={phase.name}
+              title={
+                <>
+                  {phase.headline.lead} <Accent>{phase.headline.accent}</Accent>
+                </>
+              }
+            >
+              {cards.map(renderCard)}
+            </Carousel>
+          ))}
 
         {isPersonalization && featureProduct && (
           <SeriesFeature

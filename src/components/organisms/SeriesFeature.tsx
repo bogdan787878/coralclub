@@ -2,23 +2,26 @@
 
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
-import { Container, Heading } from "@/components/ui";
+import { Accent, BodyLong, Container, Heading } from "@/components/ui";
 import { addItem, useCart, setQty } from "@/lib/cart";
 import { productHref } from "@/lib/catalog";
 import { ImageSlider } from "./ImageSlider";
-import { IncludedProducts } from "./IncludedProducts";
-import type { IncludedProductCard, Product } from "@/lib/products";
+import type { Product } from "@/lib/products";
 import styles from "./SeriesFeature.module.css";
 
 export type SeriesFeatureProps = {
   /** Name of the set, e.g. "Hydration" → "The Hydration Series". */
   seriesName: string;
-  /** Overrides the default "The {seriesName} Series" heading. */
+  /** Overrides the default "The {seriesName} Series" heading. Ignored when
+   *  blurbTitle is set. */
   heading?: ReactNode;
   /** The product that represents the set. */
   product: Product;
-  /** "What's in the pack" carousel under the card. Omit/empty skips it. */
-  includedProducts?: IncludedProductCard[];
+  /** Replaces the generic heading with the phase's own — sans lead +
+   *  Newton-italic accent, same convention as Hero/Editorial — plus an
+   *  optional body paragraph under it, both above the image. */
+  blurbTitle?: { lead: string; accent: string };
+  blurbBody?: string;
 };
 
 function CartIcon() {
@@ -38,17 +41,17 @@ function CartIcon() {
 }
 
 /**
- * SeriesFeature — the block under the phase carousel that spotlights the set
- * as a whole: title, an image slider, the set product's name + price and a
- * floating cart button on the image (same control as the carousel cards) —
- * then, optionally, a small carousel of what's actually in the pack. Shown
- * only for the fixed phase sets.
+ * SeriesFeature — spotlights the set as a whole: a heading, an image
+ * slider, and the set product's name + price with a floating cart button
+ * on the image (same control as the carousel cards). Shown only for the
+ * fixed phase sets.
  */
 export function SeriesFeature({
   seriesName,
   heading,
   product,
-  includedProducts,
+  blurbTitle,
+  blurbBody,
 }: SeriesFeatureProps) {
   const cart = useCart();
   const [acted, setActed] = useState(false);
@@ -80,9 +83,18 @@ export function SeriesFeature({
   return (
     <Container>
       <div className={styles.block}>
-        <Heading as="h2" className={styles.title}>
-          {heading ?? `The ${seriesName} Series`}
-        </Heading>
+        {blurbTitle ? (
+          <div className={styles.intro}>
+            <Heading as="h2" className={styles.title}>
+              {blurbTitle.lead} <Accent>{blurbTitle.accent}</Accent>
+            </Heading>
+            {blurbBody && <BodyLong className={styles.introBody}>{blurbBody}</BodyLong>}
+          </div>
+        ) : (
+          <Heading as="h2" className={styles.title}>
+            {heading ?? `The ${seriesName} Series`}
+          </Heading>
+        )}
 
         <div className={styles.media}>
           <div className={styles.mediaInner}>
@@ -155,12 +167,6 @@ export function SeriesFeature({
           </div>
         </div>
       </div>
-
-      {includedProducts && includedProducts.length > 0 && (
-        <div className={styles.extra}>
-          <IncludedProducts items={includedProducts} heading="What's in the pack" />
-        </div>
-      )}
     </Container>
   );
 }

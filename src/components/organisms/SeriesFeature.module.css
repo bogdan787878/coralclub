@@ -11,6 +11,17 @@
   text-wrap: balance;
 }
 
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-text);
+}
+
+.introBody {
+  color: var(--color-text-muted);
+  max-width: 60ch;
+}
+
 /* image tile with the slider inside — above the stretched .name::after
    link (z-index 1) so a swipe over the picture scrolls the slider's own
    track instead of hitting that transparent overlay first. Tapping the
@@ -47,7 +58,8 @@
     align-items: start;
   }
 
-  .title {
+  .title,
+  .intro {
     grid-column: 1 / -1;
   }
 
@@ -62,18 +74,13 @@
     gap: var(--space-16);
     align-self: stretch;
   }
-
-  .name {
-    font-size: 1.75rem;
-    line-height: 2.25rem;
-  }
 }
 
 .name {
   display: block;
   font-family: var(--font-sans);
-  font-size: 1.375rem;
-  line-height: 1.75rem;
+  font-size: var(--text-button-size); /* 16 */
+  line-height: var(--text-button-line); /* 24 */
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
   text-decoration: none;
@@ -113,13 +120,13 @@
   font-family: var(--font-sans);
 }
 .now {
-  font-size: 1.375rem;
-  line-height: 1.75rem;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
   font-weight: var(--font-weight-bold);
   color: var(--color-text);
 }
 .was {
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1.25rem;
   color: var(--color-text-muted);
   text-decoration: line-through;
@@ -149,8 +156,8 @@
 
 .cart {
   flex: none;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -161,8 +168,8 @@
   transition: transform 0.12s var(--ease-standard);
 }
 .cart svg {
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
 }
 .cart:active {
   transform: scale(0.94);
@@ -172,7 +179,7 @@
   flex: none;
   display: inline-flex;
   align-items: center;
-  height: 48px;
+  height: 40px;
   padding: 0 4px;
   border-radius: var(--radius-pill);
   background: #ffffff;
@@ -181,13 +188,13 @@
   transform-origin: right center;
 }
 .stepper button {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-pill);
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   line-height: 1;
   color: inherit;
 }
@@ -214,11 +221,4 @@
   .stepper.animIn {
     animation: none;
   }
-}
-
-/* "what's in the pack" carousel — a plain sibling of .block, not a grid
-   cell inside it, so it's full width at every breakpoint with no column
-   math to get wrong. */
-.extra {
-  margin-top: var(--space-24);
 }

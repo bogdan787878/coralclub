@@ -284,17 +284,14 @@ export type PhaseView = {
   products: PhaseProductCard[];
   /** Resolved rep product for the SeriesFeature block (fixed phases only). */
   seriesProduct: Product | null;
-  /** That product's own included-products, resolved (SeriesFeature's
-   *  "what's in the pack" carousel). Empty when there's no seriesProduct. */
-  seriesIncluded: IncludedProductCard[];
-  /** Body copy for the text block under the SeriesFeature card, below the
-   *  card's own name/price/cart — this phase's headline doubles as that
-   *  block's title. Fixed phases only. */
+  /** Body copy for SeriesFeature's own intro block, above its image —
+   *  this phase's headline doubles as that block's title. Fixed phases
+   *  only. */
   seriesBlurb?: string;
 };
 
 const PHASE_DEFS: Array<
-  Omit<PhaseView, "products" | "image" | "seriesProduct" | "seriesIncluded"> & {
+  Omit<PhaseView, "products" | "image" | "seriesProduct"> & {
     slugs: string[];
     image: string;
   }
@@ -481,7 +478,6 @@ export function getPhases(): PhaseView[] {
         .filter((p): p is Product => Boolean(p))
         .map(toCard),
       seriesProduct: series ?? null,
-      seriesIncluded: resolveIncludedProducts(series?.includedProducts ?? []),
     };
   });
 }
