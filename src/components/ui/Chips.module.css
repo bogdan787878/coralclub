@@ -1,0 +1,49 @@
+.row {
+  display: flex;
+  gap: var(--space-8);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.row::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-neutral-white);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-long-size);
+  line-height: var(--text-body-long-line);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard);
+}
+.chip:hover {
+  background: var(--color-neutral-30);
+}
+.chip:focus-visible {
+  outline: 2px solid var(--color-action);
+  outline-offset: 2px;
+}
+
+.chipActive {
+  background: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-neutral-white);
+}
+.chipActive:hover {
+  background: var(--color-text);
+}

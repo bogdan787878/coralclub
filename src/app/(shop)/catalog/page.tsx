@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Container, Heading, Section } from "@/components/ui";
+import { Chip, Chips, Container, Heading, Section } from "@/components/ui";
 import { DomainProductGrid, SiteFooter, SiteHeader, TabBar } from "@/components/organisms";
 import { asset } from "@/lib/asset";
 import { getDomainCards, getDomains } from "@/lib/products";
@@ -44,6 +44,21 @@ export default function CatalogPage() {
         </Container>
       </Section>
 
+      {/* Sticky category nav — the bento grid above scrolls out of view
+          quickly, so once it does this compact chip row takes over as the
+          way back to any category, staying pinned just under the header
+          (top matches SiteHeader's own 56px rendered height) for the rest
+          of the page. */}
+      <div className={styles.stickyNav}>
+        <Chips className={styles.stickyNavRow} aria-label="Jump to category">
+          {domains.map((d) => (
+            <Chip key={d.id} href={`#${d.id}`}>
+              {d.label}
+            </Chip>
+          ))}
+        </Chips>
+      </div>
+
       {domains.map((d, i) => {
         const cards = domainCards[d.id] ?? [];
         if (cards.length === 0) return null;
@@ -52,7 +67,10 @@ export default function CatalogPage() {
             key={d.id}
             id={d.id}
             tone={i % 2 === 0 ? "surface" : "default"}
-            style={{ scrollMarginTop: 88 }}
+            // clears both sticky bars above (header 56px + chip nav
+            // 63px) plus a little breathing room, so a chip jump doesn't
+            // land the heading right under them
+            style={{ scrollMarginTop: 135 }}
           >
             <Container>
               <Heading as="h2" className={styles.sectionTitle}>

@@ -8,3 +8,5 @@ export type { RatingProps } from "./Rating";
 export { Accordion, AccordionItem } from "./Accordion";
 export { Sheet } from "./Sheet";
 export type { SheetProps } from "./Sheet";
+export { Chips, Chip } from "./Chips";
+export type { ChipsProps, ChipProps } from "./Chips";
