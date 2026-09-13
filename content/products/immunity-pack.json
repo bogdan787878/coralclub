@@ -1,0 +1,52 @@
+{
+  "slug": "immunity-pack",
+  "name": "Immunity Pack",
+  "headline": "Immunity Pack — set of products",
+  "category": "Immune support",
+  "goals": [
+    "immune"
+  ],
+  "coralId": "80390109",
+  "description": "A set that supports the body's natural defenses, its response to everyday environmental stressors, and healthy tissue, skin and mucous membrane recovery.\n\nIncludes Pure-C, D-Spray 2000, Pau D'Arco with Selenium, Shark Liver Oil Plus and Coral-Mine in one pack.",
+  "price": "$107.50",
+  "clubPrice": "$86",
+  "carouselImages": [
+    "/images/products/immunity-pack.png"
+  ],
+  "pdpImages": [
+    "/images/products/immunity-pack.png"
+  ],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "includedProducts": [
+    "pure-c",
+    "d-spray-2000",
+    "pau-d-arco-with-selenium",
+    "shark-liver-oil-plus",
+    "coral-mine-silver"
+  ],
+  "howToUse": "Read the instructions inside the pack before use.",
+  "elements": [
+    {
+      "symbol": "C",
+      "name": "Vitamin C"
+    },
+    {
+      "symbol": "D3",
+      "name": "Vitamin D3"
+    }
+  ],
+  "dietaryBadges": [],
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

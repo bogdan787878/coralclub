@@ -2884,6 +2884,58 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     }
   },
   {
+    "slug": "immunity-pack",
+    "name": "Immunity Pack",
+    "headline": "Immunity Pack — set of products",
+    "category": "Immune support",
+    "goals": [
+      "immune"
+    ],
+    "coralId": "80390109",
+    "description": "A set that supports the body's natural defenses, its response to everyday environmental stressors, and healthy tissue, skin and mucous membrane recovery.\n\nIncludes Pure-C, D-Spray 2000, Pau D'Arco with Selenium, Shark Liver Oil Plus and Coral-Mine in one pack.",
+    "price": "$107.50",
+    "clubPrice": "$86",
+    "carouselImages": [
+      "/images/products/immunity-pack.png"
+    ],
+    "pdpImages": [
+      "/images/products/immunity-pack.png"
+    ],
+    "rating": 4.5,
+    "ratingsCount": 0,
+    "reviewsCount": 0,
+    "includedProducts": [
+      "pure-c",
+      "d-spray-2000",
+      "pau-d-arco-with-selenium",
+      "shark-liver-oil-plus",
+      "coral-mine-silver"
+    ],
+    "howToUse": "Read the instructions inside the pack before use.",
+    "elements": [
+      {
+        "symbol": "C",
+        "name": "Vitamin C"
+      },
+      {
+        "symbol": "D3",
+        "name": "Vitamin D3"
+      }
+    ],
+    "dietaryBadges": [],
+    "manufacturing": {
+      "countryOfOrigin": "",
+      "shippingWeight": "",
+      "expiration": "",
+      "storage": "",
+      "ingredients": "",
+      "supplementFacts": {
+        "servingLabel": "Amount Per Serving",
+        "rows": []
+      }
+    }
+  },
+  {
     "slug": "iron",
     "name": "Iron",
     "headline": "Iron",
@@ -5926,6 +5978,60 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     }
   },
   {
+    "slug": "womens-balance",
+    "name": "Women's Balance",
+    "headline": "Women's Balance — 30-day set",
+    "category": "Women's Health",
+    "goals": [
+      "sleep",
+      "energy",
+      "skin"
+    ],
+    "coralId": "807301",
+    "description": "A 30-day set for everyday balance — supporting emotional resilience, restful sleep and steady energy, plus key nutrients for skin, hair and nails.\n\nIncludes Protivity Ultra, Safrino, O!Mega-3 TG, Coenzyme Q10 and Coral Magnesium in one pack.",
+    "price": "$168.75",
+    "clubPrice": "$135",
+    "carouselImages": [
+      "/images/products/womens-balance.png"
+    ],
+    "pdpImages": [
+      "/images/products/womens-balance.png"
+    ],
+    "rating": 4.5,
+    "ratingsCount": 0,
+    "reviewsCount": 0,
+    "includedProducts": [
+      "protivity-ultra",
+      "safrino",
+      "o-mega-3-tg",
+      "coenzyme-q10-kaneka",
+      "coral-magnesium"
+    ],
+    "howToUse": "Read the instructions inside the pack before use. Program duration: 30 days.",
+    "elements": [
+      {
+        "symbol": "Mg",
+        "name": "Magnesium"
+      },
+      {
+        "symbol": "Q10",
+        "name": "Coenzyme Q10"
+      }
+    ],
+    "dietaryBadges": [],
+    "manufacturing": {
+      "countryOfOrigin": "",
+      "shippingWeight": "",
+      "expiration": "",
+      "storage": "",
+      "ingredients": "",
+      "supplementFacts": {
+        "servingLabel": "Amount Per Serving",
+        "rows": []
+      }
+    }
+  },
+  {
     "slug": "zaferan",
     "name": "Zaferan",
     "headline": "Zaferan",
@@ -6092,7 +6198,8 @@ export const GENERATED_DOMAINS: DomainContent[] = [
       "coral-licorice",
       "ultimate-max",
       "omega-3-60",
-      "super-flora"
+      "super-flora",
+      "immunity-pack"
     ]
   },
   {
@@ -6228,7 +6335,8 @@ export const GENERATED_DOMAINS: DomainContent[] = [
       "d-spray-2000",
       "promarine-collagen-peptides-skin-harmony-biocellulose-facial-mask",
       "promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask",
-      "promarine-collagen"
+      "promarine-collagen",
+      "womens-balance"
     ]
   }
 ];

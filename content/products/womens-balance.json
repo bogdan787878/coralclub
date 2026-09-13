@@ -1,0 +1,54 @@
+{
+  "slug": "womens-balance",
+  "name": "Women's Balance",
+  "headline": "Women's Balance — 30-day set",
+  "category": "Women's Health",
+  "goals": [
+    "sleep",
+    "energy",
+    "skin"
+  ],
+  "coralId": "807301",
+  "description": "A 30-day set for everyday balance — supporting emotional resilience, restful sleep and steady energy, plus key nutrients for skin, hair and nails.\n\nIncludes Protivity Ultra, Safrino, O!Mega-3 TG, Coenzyme Q10 and Coral Magnesium in one pack.",
+  "price": "$168.75",
+  "clubPrice": "$135",
+  "carouselImages": [
+    "/images/products/womens-balance.png"
+  ],
+  "pdpImages": [
+    "/images/products/womens-balance.png"
+  ],
+  "rating": 4.5,
+  "ratingsCount": 0,
+  "reviewsCount": 0,
+  "includedProducts": [
+    "protivity-ultra",
+    "safrino",
+    "o-mega-3-tg",
+    "coenzyme-q10-kaneka",
+    "coral-magnesium"
+  ],
+  "howToUse": "Read the instructions inside the pack before use. Program duration: 30 days.",
+  "elements": [
+    {
+      "symbol": "Mg",
+      "name": "Magnesium"
+    },
+    {
+      "symbol": "Q10",
+      "name": "Coenzyme Q10"
+    }
+  ],
+  "dietaryBadges": [],
+  "manufacturing": {
+    "countryOfOrigin": "",
+    "shippingWeight": "",
+    "expiration": "",
+    "storage": "",
+    "ingredients": "",
+    "supplementFacts": {
+      "servingLabel": "Amount Per Serving",
+      "rows": []
+    }
+  }
+}

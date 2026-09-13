@@ -47,7 +47,19 @@ export type SeriesItem = { kind: "series"; id: string };
 
 export type QuizItem = { kind: "quiz" };
 
-export type HomeSection = EditorialItem | SeriesItem | QuizItem;
+/** A single-product SeriesFeature spotlight, B-Luron-style — a generic
+ *  heading, the product's own card, no intro text and no carousel. */
+export type SpotlightItem = {
+  kind: "spotlight";
+  /** content/products/<slug>.json */
+  slug: string;
+  /** e.g. "Women's Balance" — used only for the component's a11y label. */
+  seriesName: string;
+  /** Replaces the default "The {seriesName} Series" heading. */
+  heading: string;
+};
+
+export type HomeSection = EditorialItem | SeriesItem | QuizItem | SpotlightItem;
 
 export type ReelsContent = {
   title: { lead: string; accent: string };
@@ -203,7 +215,22 @@ const PERSONALIZATION: HomePhase = {
   // Hydration story specifically) and no Privilege (Hydration's own
   // series) — a series block of the two Promarine Collagen sets instead,
   // in the same slot as Hydration's opening editorial.
-  sections: [{ kind: "series", id: "collagen-sets" }, { kind: "quiz" }],
+  sections: [
+    { kind: "series", id: "collagen-sets" },
+    {
+      kind: "spotlight",
+      slug: "womens-balance",
+      seriesName: "Women's Balance",
+      heading: "The Women's Balance Set",
+    },
+    {
+      kind: "spotlight",
+      slug: "immunity-pack",
+      seriesName: "Immunity Pack",
+      heading: "The Immunity Pack",
+    },
+    { kind: "quiz" },
+  ],
 };
 
 export const HOME_CONTENT: Record<PhaseId, HomePhase> = {

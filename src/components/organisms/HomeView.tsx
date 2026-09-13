@@ -1,7 +1,12 @@
 "use client";
 
 import { Accent } from "@/components/ui";
-import { HOME_CONTENT, type EditorialItem, type ReelsContent } from "@/content/home";
+import {
+  HOME_CONTENT,
+  type EditorialItem,
+  type ReelsContent,
+  type SpotlightItem,
+} from "@/content/home";
 import { productHref } from "@/lib/catalog";
 import { PhaseProvider, usePhase } from "@/lib/phase";
 import type {
@@ -32,6 +37,9 @@ export type HomeViewProps = {
   featureProduct: Product | null;
   /** Every series id referenced by any phase, pre-resolved on the server. */
   seriesById: Record<string, SeriesView | null>;
+  /** Every product slug a "spotlight" section references, pre-resolved on
+   *  the server (see SpotlightItem). */
+  spotlightBySlug: Record<string, Product | null>;
 };
 
 const titleNode = (t: { lead: string; accent: string }) => (
@@ -99,12 +107,23 @@ function Reels({ content }: { content: ReelsContent }) {
   );
 }
 
+function Spotlight({ item, product }: { item: SpotlightItem; product: Product }) {
+  return (
+    <SeriesFeature
+      seriesName={item.seriesName}
+      heading={item.heading}
+      product={product}
+    />
+  );
+}
+
 function HomeContent({
   phases,
   domains,
   domainCards,
   featureProduct,
   seriesById,
+  spotlightBySlug,
 }: HomeViewProps) {
   const { phase, setPhase } = usePhase();
   const c = HOME_CONTENT[phase];
@@ -146,6 +165,12 @@ function HomeContent({
           if (s.kind === "series") {
             const series = seriesById[s.id];
             return series ? <SeriesBlock key={`series-${s.id}`} series={series} /> : null;
+          }
+          if (s.kind === "spotlight") {
+            const product = spotlightBySlug[s.slug];
+            return product ? (
+              <Spotlight key={`spotlight-${s.slug}`} item={s} product={product} />
+            ) : null;
           }
           if (s.kind === "quiz") {
             return <QuizPromo key="quiz" />;
