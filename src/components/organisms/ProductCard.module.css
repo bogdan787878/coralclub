@@ -17,6 +17,17 @@
   aspect-ratio: 5 / 7;
 }
 
+/* inside a <Carousel> on desktop — fixed-height frame, full column width,
+   instead of the 5:7-ratio tile used everywhere else .fluid appears
+   (catalog grids, PDP's "More" section) */
+@media (min-width: 1024px) {
+  [data-carousel-item] .fluid .media {
+    width: 100%;
+    height: 324px;
+    aspect-ratio: auto;
+  }
+}
+
 /* ---------- Packshot tile — the only blue surface ---------- */
 .media {
   position: relative;

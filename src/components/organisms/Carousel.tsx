@@ -107,7 +107,7 @@ export function Carousel({
           role="list"
         >
           {Children.map(children, (child, i) => (
-            <li className={styles.item} key={i}>
+            <li className={styles.item} data-carousel-item key={i}>
               {child}
             </li>
           ))}
