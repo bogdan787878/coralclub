@@ -8,18 +8,16 @@
     "energy"
   ],
   "coralId": "91800",
-  "description": "An alkaline-mineral effervescent tablet. Your daily water, taken further — one of the strongest antioxidant drinks you can make at home.",
   "price": "$72.50",
   "clubPrice": "$58",
+  "description": "An alkaline-mineral effervescent tablet. Your daily water, taken further — one of the strongest antioxidant drinks you can make at home.",
   "carouselImages": [
-    "/images/products/h-500.png"
+    "/images/products/h-500.png",
+    "/images/products/ChatGPT Image Sep 14, 2026 at 12_13_44 AM.png"
   ],
   "pdpImages": [
     "/images/products/h-500.png"
   ],
-  "rating": 4.8,
-  "ratingsCount": 63,
-  "reviewsCount": 29,
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
   "elements": [
     {
@@ -44,6 +42,8 @@
     "beef-gelatin",
     "soy-free"
   ],
+  "topSeller": true,
+  "includedProducts": [],
   "manufacturing": {
     "countryOfOrigin": "USA",
     "shippingWeight": "",
@@ -61,5 +61,7 @@
       ]
     }
   },
-  "topSeller": true
+  "rating": 4.8,
+  "ratingsCount": 63,
+  "reviewsCount": 29
 }
