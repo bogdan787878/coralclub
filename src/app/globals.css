@@ -36,7 +36,12 @@ body {
      overflow from a carousel without creating a scroll container (so the
      sticky header still works), while still letting an intentional
      full-bleed element (Hero — see its own width:100vw breakout) reach
-     all the way to this same edge instead of .appShell's narrower one. */
+     all the way to this same edge instead of .appShell's narrower one.
+     `hidden` first as a fallback for Safari <16 (added clip in 16.0) —
+     without it, any overflow from the width:100vw breakout tricks below
+     is left fully unclipped there, which can shift the whole page into
+     a horizontal scroll and throw off what's actually visible at x:0. */
+  overflow-x: hidden;
   overflow-x: clip;
 }
 
