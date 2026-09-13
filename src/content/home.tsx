@@ -11,7 +11,10 @@ import type { PhaseId } from "@/lib/phase";
 import heroImages from "../../content/hero-images.json";
 
 export type HeroContent = {
-  title: { lead: string; accent: string };
+  /** `lead` is one or more plain lines above the italic `accent` line
+   *  (each on its own line via a hard break) — a single string for the
+   *  usual two-line title, an array for a longer multi-beat one. */
+  title: { lead: string | string[]; accent: string };
   body: string[];
   cta: { label: string; href: string };
   image: { desktopSrc: string; mobileSrc: string; alt: string };
@@ -196,7 +199,10 @@ const RESTART: HomePhase = {
 const PERSONALIZATION: HomePhase = {
   ...HYDRATION,
   hero: {
-    title: { lead: "Same system,", accent: "your own route" },
+    title: {
+      lead: ["Understand yourself.", "Choose your path."],
+      accent: "Feel better.",
+    },
     body: [
       "Hydration and reset are behind you — now pick from 14 health domains and build your own route.",
     ],

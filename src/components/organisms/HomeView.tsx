@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import { Accent } from "@/components/ui";
 import {
   HOME_CONTENT,
@@ -42,10 +43,14 @@ export type HomeViewProps = {
   seriesById: Record<string, SeriesView | null>;
 };
 
-const titleNode = (t: { lead: string; accent: string }) => (
+const titleNode = (t: { lead: string | string[]; accent: string }) => (
   <>
-    {t.lead}
-    <br />
+    {(Array.isArray(t.lead) ? t.lead : [t.lead]).map((line, i) => (
+      <Fragment key={i}>
+        {line}
+        <br />
+      </Fragment>
+    ))}
     <Accent>{t.accent}</Accent>
   </>
 );
