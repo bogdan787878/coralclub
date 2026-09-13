@@ -78,6 +78,7 @@ export function SeriesFeature({
   const anim = acted ? ` ${styles.animIn}` : "";
 
   const club = product?.prices[0]?.price;
+  const clubNote = product?.prices[0]?.note;
   const regular = product?.prices[1]?.price;
   const shopHref = product?.prices[1]?.cta.href;
   const images =
@@ -153,6 +154,7 @@ export function SeriesFeature({
                     <span className={styles.now}>{club}</span>
                     <span className={styles.was}>{regular}</span>
                   </p>
+                  {clubNote && <span className={styles.savings}>{clubNote}</span>}
                 </div>
 
                 {coralId ? (

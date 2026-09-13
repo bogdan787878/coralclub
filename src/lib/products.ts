@@ -164,13 +164,13 @@ const numeric = (s: string): number => {
   return Number.isFinite(n) ? n : 0;
 };
 
-/** Whole-percent club saving vs the regular price, e.g. "20% Savings". */
+/** Whole-percent club saving vs the regular price, e.g. "Member price −20%". */
 function savingNote(regular: string, club: string): string | undefined {
   const r = numeric(regular);
   const c = numeric(club);
   if (r <= 0 || c <= 0 || c >= r) return undefined;
   const pct = Math.round((1 - c / r) * 100);
-  return pct > 0 ? `${pct}% Savings` : undefined;
+  return pct > 0 ? `Member price −${pct}%` : undefined;
 }
 
 function pricesFor(c: ProductContent): PriceOption[] {

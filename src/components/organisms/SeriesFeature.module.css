@@ -250,6 +250,19 @@
   text-decoration: line-through;
 }
 
+/* hug-content pill under the price, same treatment as BuyBox's own */
+.savings {
+  align-self: flex-start;
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-pill);
+  background: var(--color-special);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: var(--font-weight-medium);
+}
+
 /* round cart control at the price level — same visual as the carousel cards */
 @keyframes cartSwapIn {
   from {
