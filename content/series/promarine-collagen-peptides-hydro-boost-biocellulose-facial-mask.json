@@ -1,5 +1,5 @@
 {
-  "slug": "promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask",
+  "id": "promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask",
   "name": "Promarine Collagen Peptides Set (1-month course) & Bio-cellulose Face Masks Hydro Boost (5 sachets)",
   "headline": "Promarine Collagen Peptides Set (1-month course) & Bio-cellulose Face Masks Hydro Boost (5 sachets)",
   "category": "Health",
@@ -10,36 +10,9 @@
   "description": "Marine collagen peptides support the skin's firmness and smoothness and the health of hair and nails, replacing what the body makes less of with age. Paired with the Hydro Boost biocellulose mask — with sea water, 3D hyaluronic acid, seaweed and a metabiotic — for intensive hydration.",
   "price": "$243.75",
   "clubPrice": "$195",
-  "carouselImages": [
-    "/images/products/promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask.png"
-  ],
-  "pdpImages": [
-    "/images/products/promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask.png"
-  ],
-  "rating": 4.5,
-  "ratingsCount": 0,
-  "reviewsCount": 0,
   "howToUse": "Collagen peptides: adults – 50 ml (1 bottle) once a day with food, for 1 month, repeated if needed. Mask: on cleansed skin, apply the mask, remove the film from one side, smooth it onto the face, remove the second film and leave for 15-20 minutes, then pat in the remaining essence.",
-  "elements": [
-    {
-      "symbol": "Col",
-      "name": "Collagen"
-    },
-    {
-      "symbol": "HA",
-      "name": "Hyaluronic"
-    }
+  "images": [
+    "/images/products/promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask.png"
   ],
-  "dietaryBadges": [],
-  "manufacturing": {
-    "countryOfOrigin": "",
-    "shippingWeight": "",
-    "expiration": "2 years from the date of manufacture",
-    "storage": "Store in a dry place at room temperature, away from heat and direct sunlight, out of reach of children.",
-    "ingredients": "",
-    "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
-      "rows": []
-    }
-  }
+  "products": []
 }

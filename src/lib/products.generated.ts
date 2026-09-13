@@ -4704,186 +4704,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "reviewsCount": 0
   },
   {
-    "slug": "promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask",
-    "name": "Promarine Collagen Peptides Set (1-month course) & Bio-cellulose Face Masks Hydro Boost (5 sachets)",
-    "headline": "Promarine Collagen Peptides Set (1-month course) & Bio-cellulose Face Masks Hydro Boost (5 sachets)",
-    "category": "Health",
-    "goals": [
-      "skin"
-    ],
-    "coralId": "22600302",
-    "description": "Marine collagen peptides support the skin's firmness and smoothness and the health of hair and nails, replacing what the body makes less of with age. Paired with the Hydro Boost biocellulose mask — with sea water, 3D hyaluronic acid, seaweed and a metabiotic — for intensive hydration.",
-    "price": "$243.75",
-    "clubPrice": "$195",
-    "carouselImages": [
-      "/images/products/promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask.png"
-    ],
-    "pdpImages": [
-      "/images/products/promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask.png"
-    ],
-    "rating": 4.5,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
-    "howToUse": "Collagen peptides: adults – 50 ml (1 bottle) once a day with food, for 1 month, repeated if needed. Mask: on cleansed skin, apply the mask, remove the film from one side, smooth it onto the face, remove the second film and leave for 15-20 minutes, then pat in the remaining essence.",
-    "elements": [
-      {
-        "symbol": "Col",
-        "name": "Collagen"
-      },
-      {
-        "symbol": "HA",
-        "name": "Hyaluronic"
-      }
-    ],
-    "dietaryBadges": [],
-    "manufacturing": {
-      "countryOfOrigin": "",
-      "shippingWeight": "",
-      "expiration": "2 years from the date of manufacture",
-      "storage": "Store in a dry place at room temperature, away from heat and direct sunlight, out of reach of children.",
-      "ingredients": "",
-      "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
-      }
-    }
-  },
-  {
-    "slug": "promarine-collagen-peptides-skin-harmony-biocellulose-facial-mask",
-    "name": "Promarin Collagen Peptides Set (1-month course) & Bio-cellulose Face Masks Skin Harmony (5 sachets)",
-    "headline": "Promarin Collagen Peptides Set (1-month course) & Bio-cellulose Face Masks Skin Harmony (5 sachets)",
-    "category": "Health",
-    "goals": [
-      "skin"
-    ],
-    "coralId": "22600303",
-    "description": "Marine collagen peptides support the skin's firmness and smoothness and the health of hair and nails, replacing what the body makes less of with age. Paired with the Skin Harmony biocellulose mask — with sea water, metabiotics, ceramides and moringa seed and seaweed extracts — to soothe and rebalance.",
-    "price": "$243.75",
-    "clubPrice": "$195",
-    "carouselImages": [
-      "/images/products/promarine-collagen-peptides-skin-harmony-biocellulose-facial-mask.png"
-    ],
-    "pdpImages": [
-      "/images/products/promarine-collagen-peptides-skin-harmony-biocellulose-facial-mask.png"
-    ],
-    "rating": 4.5,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
-    "howToUse": "",
-    "elements": [
-      {
-        "symbol": "Col",
-        "name": "Collagen"
-      },
-      {
-        "symbol": "HA",
-        "name": "Hyaluronic"
-      }
-    ],
-    "dietaryBadges": [],
-    "manufacturing": {
-      "countryOfOrigin": "",
-      "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
-      "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
-      }
-    }
-  },
-  {
-    "slug": "promarine-collagen-tripeptides-advanced-collagen-biocellulose-facial-mask",
-    "name": "Promarin Collagen Tripeptides Set (1-month course) & Bio-cellulose Face Masks Advanced Collagen (5 sachets)",
-    "headline": "Promarin Collagen Tripeptides Set (1-month course) & Bio-cellulose Face Masks Advanced Collagen (5 sachets)",
-    "category": "Health",
-    "goals": [
-      "skin"
-    ],
-    "coralId": "2270315",
-    "description": "A modern, high-tech form of collagen for easier absorption, enriched with plant extracts, vitamins and hyaluronic acid for smooth, radiant skin and stronger hair and nails. Paired with the Advanced Collagen biocellulose mask — collagen tripeptides, seawater, NARA-5 peptides and argireline — for intensive nourishment against signs of aging.",
-    "price": "$281.25",
-    "clubPrice": "$225",
-    "carouselImages": [
-      "/images/products/promarine-collagen-tripeptides-advanced-collagen-biocellulose-facial-mask.png"
-    ],
-    "pdpImages": [
-      "/images/products/promarine-collagen-tripeptides-advanced-collagen-biocellulose-facial-mask.png"
-    ],
-    "rating": 4.5,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
-    "howToUse": "",
-    "elements": [
-      {
-        "symbol": "Col",
-        "name": "Collagen"
-      },
-      {
-        "symbol": "HA",
-        "name": "Hyaluronic"
-      }
-    ],
-    "dietaryBadges": [],
-    "manufacturing": {
-      "countryOfOrigin": "",
-      "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
-      "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
-      }
-    }
-  },
-  {
-    "slug": "promarine-collagen-tripeptides-hydro-boost-biocellulose-facial-mask",
-    "name": "Promarine Collagen Tripeptides Set (1-month course) & HydroBoost biocellulose face masks (5 sachets)",
-    "headline": "Promarine Collagen Tripeptides Set (1-month course) & HydroBoost biocellulose face masks (5 sachets)",
-    "category": "Health",
-    "goals": [
-      "skin"
-    ],
-    "coralId": "2270325",
-    "description": "A modern, high-tech form of collagen for easier absorption, enriched with plant extracts, vitamins and hyaluronic acid for smooth, radiant skin and stronger hair and nails. Paired with the Hydro Boost biocellulose mask — sea water, 3D hyaluronic acid, seaweed and metabiotic — for deep hydration against dryness and flaking.",
-    "price": "$281.25",
-    "clubPrice": "$225",
-    "carouselImages": [
-      "/images/products/promarine-collagen-tripeptides-hydro-boost-biocellulose-facial-mask.png"
-    ],
-    "pdpImages": [
-      "/images/products/promarine-collagen-tripeptides-hydro-boost-biocellulose-facial-mask.png"
-    ],
-    "rating": 4.5,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
-    "howToUse": "",
-    "elements": [
-      {
-        "symbol": "Col",
-        "name": "Collagen"
-      },
-      {
-        "symbol": "HA",
-        "name": "Hyaluronic"
-      }
-    ],
-    "dietaryBadges": [],
-    "manufacturing": {
-      "countryOfOrigin": "",
-      "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
-      "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
-      }
-    }
-  },
-  {
     "slug": "promarine-collagen-tripeptides-pack",
     "name": "Promarine Collagen Tripeptides",
     "headline": "Promarine Collagen Tripeptides",
@@ -4989,109 +4809,6 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
             "dv": ""
           }
         ]
-      }
-    }
-  },
-  {
-    "slug": "promarine-collagen-tripeptides-skin-harmony-biocellulose-facial-mask",
-    "name": "Promarine Collagen Tripeptides Set (1-month course) & Skin Harmony Biocellulose Facial Mask (5 sachets)",
-    "headline": "Promarine Collagen Tripeptides Set (1-month course) & Skin Harmony Biocellulose Facial Mask (5 sachets)",
-    "category": "Health",
-    "goals": [
-      "skin"
-    ],
-    "coralId": "2270335",
-    "description": "A modern, high-tech form of collagen for easier absorption, enriched with plant extracts, vitamins and hyaluronic acid for smooth, radiant skin and stronger hair and nails. Paired with the Skin Harmony biocellulose mask — sea water, metabiotics, ceramides and moringa seed and seaweed extracts — to soothe and rebalance.",
-    "price": "$281.25",
-    "clubPrice": "$225",
-    "carouselImages": [
-      "/images/products/promarine-collagen-tripeptides-skin-harmony-biocellulose-facial-mask.png"
-    ],
-    "pdpImages": [
-      "/images/products/promarine-collagen-tripeptides-skin-harmony-biocellulose-facial-mask.png"
-    ],
-    "rating": 4.5,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
-    "howToUse": "",
-    "elements": [
-      {
-        "symbol": "Col",
-        "name": "Collagen"
-      },
-      {
-        "symbol": "HA",
-        "name": "Hyaluronic"
-      }
-    ],
-    "dietaryBadges": [],
-    "manufacturing": {
-      "countryOfOrigin": "",
-      "shippingWeight": "",
-      "expiration": "",
-      "storage": "",
-      "ingredients": "",
-      "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
-      }
-    }
-  },
-  {
-    "slug": "promarine-collagen-tripeptides",
-    "name": "Promarine Collagen Tripeptides",
-    "headline": "Promarine Collagen Tripeptides",
-    "category": "Special Care",
-    "goals": [
-      "skin"
-    ],
-    "coralId": "227003",
-    "description": "",
-    "price": "$237.50",
-    "clubPrice": "$190",
-    "carouselImages": [
-      "/images/products/promarine-collagen-tripeptides.png"
-    ],
-    "pdpImages": [
-      "/images/products/promarine-collagen-tripeptides.png"
-    ],
-    "rating": 4.5,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
-    "howToUse": "Adults – 1 bottle a day in the morning with food. Course: 30 days.",
-    "elements": [
-      {
-        "symbol": "C",
-        "name": "Vitamin C"
-      },
-      {
-        "symbol": "B2",
-        "name": "Vitamin B2"
-      },
-      {
-        "symbol": "B6",
-        "name": "Vitamin B6"
-      },
-      {
-        "symbol": "B7",
-        "name": "Biotin"
-      }
-    ],
-    "dietaryBadges": [
-      "lactose-free",
-      "halal",
-      "soy-free",
-      "pescatarian"
-    ],
-    "manufacturing": {
-      "countryOfOrigin": "Taiwan",
-      "shippingWeight": "",
-      "expiration": "2 years from the date of manufacture",
-      "storage": "Store in a dry place, protected from direct sunlight, out of reach of children, at a temperature not above +25°C.",
-      "ingredients": "Liquid hydrolysed fish collagen (incl. MaxiCollagen 3.5 g) 15 g, hibiscus flower extract (Hibiscus sabdariffa) 1.5 g, white currant extract (Ribes rubrum) 700 mg, vitamin C (ascorbic acid) 100 mg, hyaluronic acid (sodium hyaluronate) 72 mg, vitamin B6 1.8 mg, vitamin B2 1.7 mg, biotin.",
-      "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
-        "rows": []
       }
     }
   },
@@ -6277,7 +5994,6 @@ export const GENERATED_DOMAINS: DomainContent[] = [
     "products": [
       "promarine-collagen",
       "promarine-collagen-tripeptides-pack",
-      "promarine-collagen-tripeptides",
       "msm",
       "ultimate-max",
       "prenatal",
@@ -6451,6 +6167,92 @@ export const GENERATED_SERIES: SeriesContent[] = [
       "privilege-facial-scrub",
       "privilege-intensive-facial-serum"
     ]
+  },
+  {
+    "id": "promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask",
+    "name": "Promarine Collagen Peptides Set (1-month course) & Bio-cellulose Face Masks Hydro Boost (5 sachets)",
+    "headline": "Promarine Collagen Peptides Set (1-month course) & Bio-cellulose Face Masks Hydro Boost (5 sachets)",
+    "category": "Health",
+    "goals": [
+      "skin"
+    ],
+    "coralId": "22600302",
+    "description": "Marine collagen peptides support the skin's firmness and smoothness and the health of hair and nails, replacing what the body makes less of with age. Paired with the Hydro Boost biocellulose mask — with sea water, 3D hyaluronic acid, seaweed and a metabiotic — for intensive hydration.",
+    "price": "$243.75",
+    "clubPrice": "$195",
+    "howToUse": "Collagen peptides: adults – 50 ml (1 bottle) once a day with food, for 1 month, repeated if needed. Mask: on cleansed skin, apply the mask, remove the film from one side, smooth it onto the face, remove the second film and leave for 15-20 minutes, then pat in the remaining essence.",
+    "images": [
+      "/images/products/promarine-collagen-peptides-hydro-boost-biocellulose-facial-mask.png"
+    ],
+    "products": []
+  },
+  {
+    "id": "promarine-collagen-peptides-skin-harmony-biocellulose-facial-mask",
+    "name": "Promarin Collagen Peptides Set (1-month course) & Bio-cellulose Face Masks Skin Harmony (5 sachets)",
+    "headline": "Promarin Collagen Peptides Set (1-month course) & Bio-cellulose Face Masks Skin Harmony (5 sachets)",
+    "category": "Health",
+    "goals": [
+      "skin"
+    ],
+    "coralId": "22600303",
+    "description": "Marine collagen peptides support the skin's firmness and smoothness and the health of hair and nails, replacing what the body makes less of with age. Paired with the Skin Harmony biocellulose mask — with sea water, metabiotics, ceramides and moringa seed and seaweed extracts — to soothe and rebalance.",
+    "price": "$243.75",
+    "clubPrice": "$195",
+    "images": [
+      "/images/products/promarine-collagen-peptides-skin-harmony-biocellulose-facial-mask.png"
+    ],
+    "products": []
+  },
+  {
+    "id": "promarine-collagen-tripeptides-advanced-collagen-biocellulose-facial-mask",
+    "name": "Promarin Collagen Tripeptides Set (1-month course) & Bio-cellulose Face Masks Advanced Collagen (5 sachets)",
+    "headline": "Promarin Collagen Tripeptides Set (1-month course) & Bio-cellulose Face Masks Advanced Collagen (5 sachets)",
+    "category": "Health",
+    "goals": [
+      "skin"
+    ],
+    "coralId": "2270315",
+    "description": "A modern, high-tech form of collagen for easier absorption, enriched with plant extracts, vitamins and hyaluronic acid for smooth, radiant skin and stronger hair and nails. Paired with the Advanced Collagen biocellulose mask — collagen tripeptides, seawater, NARA-5 peptides and argireline — for intensive nourishment against signs of aging.",
+    "price": "$281.25",
+    "clubPrice": "$225",
+    "images": [
+      "/images/products/promarine-collagen-tripeptides-advanced-collagen-biocellulose-facial-mask.png"
+    ],
+    "products": []
+  },
+  {
+    "id": "promarine-collagen-tripeptides-hydro-boost-biocellulose-facial-mask",
+    "name": "Promarine Collagen Tripeptides Set (1-month course) & HydroBoost biocellulose face masks (5 sachets)",
+    "headline": "Promarine Collagen Tripeptides Set (1-month course) & HydroBoost biocellulose face masks (5 sachets)",
+    "category": "Health",
+    "goals": [
+      "skin"
+    ],
+    "coralId": "2270325",
+    "description": "A modern, high-tech form of collagen for easier absorption, enriched with plant extracts, vitamins and hyaluronic acid for smooth, radiant skin and stronger hair and nails. Paired with the Hydro Boost biocellulose mask — sea water, 3D hyaluronic acid, seaweed and metabiotic — for deep hydration against dryness and flaking.",
+    "price": "$281.25",
+    "clubPrice": "$225",
+    "images": [
+      "/images/products/promarine-collagen-tripeptides-hydro-boost-biocellulose-facial-mask.png"
+    ],
+    "products": []
+  },
+  {
+    "id": "promarine-collagen-tripeptides-skin-harmony-biocellulose-facial-mask",
+    "name": "Promarine Collagen Tripeptides Set (1-month course) & Skin Harmony Biocellulose Facial Mask (5 sachets)",
+    "headline": "Promarine Collagen Tripeptides Set (1-month course) & Skin Harmony Biocellulose Facial Mask (5 sachets)",
+    "category": "Health",
+    "goals": [
+      "skin"
+    ],
+    "coralId": "2270335",
+    "description": "A modern, high-tech form of collagen for easier absorption, enriched with plant extracts, vitamins and hyaluronic acid for smooth, radiant skin and stronger hair and nails. Paired with the Skin Harmony biocellulose mask — sea water, metabiotics, ceramides and moringa seed and seaweed extracts — to soothe and rebalance.",
+    "price": "$281.25",
+    "clubPrice": "$225",
+    "images": [
+      "/images/products/promarine-collagen-tripeptides-skin-harmony-biocellulose-facial-mask.png"
+    ],
+    "products": []
   },
   {
     "id": "womens-balance",

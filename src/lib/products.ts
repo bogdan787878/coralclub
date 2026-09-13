@@ -173,7 +173,11 @@ function savingNote(regular: string, club: string): string | undefined {
   return pct > 0 ? `Member price −${pct}%` : undefined;
 }
 
-function pricesFor(c: ProductContent): PriceOption[] {
+function pricesFor(c: {
+  price: string;
+  clubPrice: string;
+  coralId?: string;
+}): PriceOption[] {
   return [
     {
       id: "club",
@@ -221,7 +225,55 @@ function fromContent(c: ProductContent): Product {
   };
 }
 
-export const PRODUCTS: Product[] = GENERATED_PRODUCTS.map(fromContent);
+const EMPTY_MANUFACTURING: Manufacturing = {
+  countryOfOrigin: "",
+  shippingWeight: "",
+  expiration: "",
+  storage: "",
+  ingredients: "",
+  supplementFacts: { servingLabel: "Amount Per Serving", rows: [] },
+};
+
+/** A pack (content/series/*.json) that set its own `coralId` — see
+ *  SeriesContent — becomes a real Product too, same as anything in
+ *  content/products/*.json: its own PDP page, cart button, and slug (the
+ *  pack's `id`). Returns null for a pack that's just a marketing block
+ *  (no coralId), which is the common case. */
+function packAsProduct(c: SeriesContent): Product | null {
+  if (!c.coralId) return null;
+  const images = c.images ?? [];
+  const name = c.name ?? c.heading ?? c.titleLead ?? c.id;
+  return {
+    slug: c.id,
+    name,
+    coralId: c.coralId,
+    headline: c.headline ?? name,
+    category: c.category ?? "Health",
+    goals: c.goals ?? [],
+    description: c.description ?? c.blurb ?? "",
+    carouselImages: images,
+    pdpImages: images,
+    elements: [],
+    dietaryBadges: [],
+    topSeller: false,
+    includedProducts: c.includedProducts ?? [],
+    image: images[0],
+    howToUse: c.howToUse ?? "",
+    manufacturing: EMPTY_MANUFACTURING,
+    prices: pricesFor({
+      price: c.price ?? "",
+      clubPrice: c.clubPrice ?? "",
+      coralId: c.coralId,
+    }),
+  };
+}
+
+export const PRODUCTS: Product[] = [
+  ...GENERATED_PRODUCTS.map(fromContent),
+  ...(GENERATED_SERIES as SeriesContent[])
+    .map(packAsProduct)
+    .filter((p): p is Product => Boolean(p)),
+];
 
 const withAssets = (paths: string[]) => paths.map((p) => asset(p));
 
@@ -236,16 +288,42 @@ export function getProduct(slug: string): Product | undefined {
   };
 }
 
-/** Other products sharing the same category, asset-wrapped, current one excluded. */
-export function relatedProducts(slug: string, limit = 12): Product[] {
+/** The PDP's "More in <label>" section: other products, asset-wrapped,
+ *  current one excluded. Prefers the first Personalization domain (the 12
+ *  categories with icons on /catalog — content/domains.json) that
+ *  includes this product, since that's a broader, curated grouping than
+ *  the product's own free-text `category` tag. Falls back to matching
+ *  that `category` tag when the product isn't in any domain (e.g. the
+ *  fixed Hydration/Restart phase products, or a pack with no domain
+ *  entry yet). Returns null when there's nothing to show either way. */
+export function relatedProducts(
+  slug: string,
+  limit = 12,
+): { label: string; products: Product[] } | null {
   const current = PRODUCTS.find((p) => p.slug === slug);
-  if (!current) return [];
-  return PRODUCTS.filter(
+  if (!current) return null;
+
+  const domain = (GENERATED_DOMAINS as DomainContent[]).find((d) =>
+    d.products.includes(slug),
+  );
+  if (domain) {
+    const products = domain.products
+      .filter((s) => s !== slug)
+      .map((s) => getProduct(s))
+      .filter((p): p is Product => Boolean(p))
+      .slice(0, limit);
+    if (products.length > 0) return { label: domain.label, products };
+  }
+
+  const products = PRODUCTS.filter(
     (p) => p.slug !== slug && p.category === current.category,
   )
     .slice(0, limit)
     .map((p) => getProduct(p.slug))
     .filter((p): p is Product => Boolean(p));
+  return products.length > 0
+    ? { label: shortCategory(current.category), products }
+    : null;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -407,6 +485,23 @@ export type SeriesContent = {
    *  same spot (ascending, lower first). Packs without a weight sort
    *  after ones that have one, in their existing relative order. */
   weight?: number;
+
+  /** Set `coralId` (and the rest of these) to make this pack a real,
+   *  standalone sellable SKU with its own PDP page and cart button —
+   *  instead of just referencing an existing one via `product`. For a
+   *  bundle that's sold as its own product on coralclub.us but doesn't
+   *  need its own separate content/products/*.json entry (e.g. the
+   *  Promarine Collagen mask sets). `id` becomes the PDP slug. */
+  coralId?: string;
+  price?: string;
+  clubPrice?: string;
+  name?: string;
+  headline?: string;
+  category?: string;
+  goals?: Goal[];
+  description?: string;
+  includedProducts?: string[];
+  howToUse?: string;
 };
 
 export type SeriesView = {

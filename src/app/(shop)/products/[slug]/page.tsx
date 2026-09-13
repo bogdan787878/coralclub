@@ -59,6 +59,8 @@ export default async function ProductPage({
   if (!product) notFound();
 
   const related = relatedProducts(slug);
+  const moreLabel = related?.label;
+  const moreProducts = related?.products ?? [];
   const includedProducts = resolveIncludedProducts(product.includedProducts);
 
   return (
@@ -168,14 +170,14 @@ export default async function ProductPage({
         </Container>
       </Section>
 
-      {related.length > 0 && (
+      {moreProducts.length > 0 && (
         <Section tone="surface">
           <Container>
             <Heading as="h2" className={styles.moreTitle}>
-              More in {shortCategory(product.category)}
+              More in {moreLabel}
             </Heading>
             <div className={styles.moreGrid}>
-              {related.map((p) => (
+              {moreProducts.map((p) => (
                 <ProductCard
                   key={p.slug}
                   fluid
