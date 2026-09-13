@@ -193,13 +193,14 @@ const RESTART: HomePhase = {
   },
 };
 
-// TODO(copy): Personalization-specific hero copy. Placeholder = Hydration's
-// title/body, but its own hero image (id "personalization" in
-// content/hero-images.json, editable in the CMS).
 const PERSONALIZATION: HomePhase = {
   ...HYDRATION,
   hero: {
-    ...HYDRATION.hero,
+    title: { lead: "Same system,", accent: "your own route" },
+    body: [
+      "Hydration and reset are behind you — now pick from 14 health domains and build your own route.",
+    ],
+    cta: { label: "Find my route", href: "/quiz" },
     image: heroImage("personalization", "Coral Club Personalisation phase"),
   },
   // Own sections, not Hydration's: no editorial blocks (those tell the
