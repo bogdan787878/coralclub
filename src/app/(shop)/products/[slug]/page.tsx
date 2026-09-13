@@ -89,6 +89,7 @@ export default async function ProductPage({
                   }))}
                   sizes="(max-width: 1023px) 100vw, 400px"
                   priority
+                  lightDots
                 />
               </div>
               {/* desktop only — replaces the floating .imageControls share
