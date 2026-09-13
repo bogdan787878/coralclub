@@ -4814,25 +4814,24 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
   },
   {
     "slug": "promarine-collagen",
-    "name": "Promarine Collagen",
+    "name": "Promarine Collagen Peptides",
     "headline": "Promarine Collagen — marine peptides",
     "category": "Skin, Hair & Nails",
     "goals": [
       "skin"
     ],
     "coralId": "2260",
-    "description": "Marine collagen peptides as a daily drink — for skin, hair and joints. Part of your daily beauty ritual, built on proper hydration.",
     "price": "$68.75",
     "clubPrice": "$55",
+    "description": "Marine collagen peptides as a daily drink — for skin, hair and joints. Part of your daily beauty ritual, built on proper hydration.",
     "carouselImages": [
-      "/images/products/promarine-collagen.png"
+      "/images/products/promarine-collagen.png",
+      "/images/products/ChatGPT Image Sep 13, 2026 at 06_51_20 PM.png"
     ],
     "pdpImages": [
-      "/images/products/promarine-collagen.png"
+      "/images/products/promarine-collagen.png",
+      "/images/products/ChatGPT Image Sep 13, 2026 at 06_51_01 PM.png"
     ],
-    "rating": 4.7,
-    "ratingsCount": 52,
-    "reviewsCount": 24,
     "howToUse": "Adults – 1 bottle (50 ml) a day, taken directly or mixed with water or juice.",
     "elements": [
       {
@@ -4846,6 +4845,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "pescatarian"
     ],
     "topSeller": true,
+    "includedProducts": [],
     "manufacturing": {
       "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
@@ -4882,7 +4882,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "rating": 4.7,
+    "ratingsCount": 52,
+    "reviewsCount": 24
   },
   {
     "slug": "protivity-ultra",

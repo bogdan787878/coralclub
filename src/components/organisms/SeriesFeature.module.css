@@ -115,34 +115,25 @@
 }
 
 /* ---------- desktop: split layout (blurbTitle set) ----------
-   text on the left, spanning the full height; the card and the "what's
-   in it" carousel stacked on the right. Explicit column/row placement
-   throughout — relying on grid auto-placement here previously landed
-   text and image in separate rows instead of side by side. */
+   the card on the left, the heading + description beside it on the
+   right — not sticky, it just scrolls with the page like everything
+   else. The "what's in it" carousel no longer lives in this grid at
+   all; at this breakpoint it renders as a separate full-bleed
+   <Carousel> below the whole block instead (see .desktopCarousel). */
 @media (min-width: 1024px) {
   .blockSplit {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-rows: auto auto;
     column-gap: var(--space-40);
-    row-gap: var(--space-16);
     align-items: start;
   }
 
-  /* sticks while the card + carousel column (its grid area spans both
-     rows, i.e. the same total height) scrolls past, releasing once that
-     column's bottom reaches it — the classic sticky-sidebar pattern. */
   .blockSplit > .intro {
-    grid-column: 1;
-    grid-row: 1 / 3;
-    position: sticky;
-    top: var(--space-24);
-    align-self: start;
+    grid-column: 2;
   }
 
   .blockSplit > .cardWrap {
-    grid-column: 2;
-    grid-row: 1;
+    grid-column: 1;
     display: flex;
     flex-direction: column;
     gap: var(--space-16);
@@ -153,15 +144,11 @@
     flex-direction: column;
     gap: var(--space-16);
   }
-
-  .blockSplit > .carouselSlot {
-    grid-column: 2;
-    grid-row: 2;
-  }
 }
 
-/* "what's in it" — a plain scroll row confined to the card's own column,
-   not the shared <Carousel>'s full-bleed-to-the-screen-edge treatment */
+/* "what's in it" on mobile/tablet — a plain scroll row confined to the
+   card's own column, not the shared <Carousel>'s full-bleed treatment.
+   Hidden at 1024px+, where .desktopCarousel takes over instead. */
 .carouselSlot {
   display: flex;
   gap: var(--space-8);
@@ -176,6 +163,25 @@
 }
 .carouselItem {
   flex: 0 0 150px;
+}
+
+@media (min-width: 1024px) {
+  .carouselSlot {
+    display: none;
+  }
+}
+
+/* "what's in it" on desktop — the shared full-bleed <Carousel>, same
+   treatment as Restart's own product carousel. Hidden below 1024px,
+   where .carouselSlot takes over instead. */
+.desktopCarousel {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .desktopCarousel {
+    display: block;
+    margin-top: var(--space-24);
+  }
 }
 
 /* name + price + savings tag, stacked — a shared frame, with the cart
