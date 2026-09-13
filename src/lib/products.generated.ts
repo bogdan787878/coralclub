@@ -6343,6 +6343,13 @@ export const GENERATED_DOMAINS: DomainContent[] = [
 
 export const GENERATED_SERIES: SeriesContent[] = [
   {
+    "id": "b-luron",
+    "heading": "The B-Luron Course",
+    "product": "b-luron",
+    "images": [],
+    "products": []
+  },
+  {
     "id": "collagen-sets",
     "titleLead": "Collagen isn't one thing.",
     "titleAccent": "Pick the depth that matches your goal.",
@@ -6351,7 +6358,8 @@ export const GENERATED_SERIES: SeriesContent[] = [
     "products": [
       "promarine-collagen-peptides-skin-harmony-biocellulose-facial-mask",
       "promarine-collagen-tripeptides-advanced-collagen-biocellulose-facial-mask"
-    ]
+    ],
+    "weight": 0
   },
   {
     "id": "coral-detox",
@@ -6406,6 +6414,14 @@ export const GENERATED_SERIES: SeriesContent[] = [
     "product": "hydramax-plus"
   },
   {
+    "id": "immunity-pack",
+    "heading": "The Immunity Pack",
+    "product": "immunity-pack",
+    "images": [],
+    "products": [],
+    "weight": 2
+  },
+  {
     "id": "liumi",
     "titleLead": "Your skin is a water barrier too.",
     "titleAccent": "LIŪMI keeps it sealed.",
@@ -6435,5 +6451,13 @@ export const GENERATED_SERIES: SeriesContent[] = [
       "privilege-facial-scrub",
       "privilege-intensive-facial-serum"
     ]
+  },
+  {
+    "id": "womens-balance",
+    "heading": "The Women's Balance Set",
+    "product": "womens-balance",
+    "images": [],
+    "products": [],
+    "weight": 1
   }
 ];

@@ -4,8 +4,9 @@ import { Accent } from "@/components/ui";
 import {
   HOME_CONTENT,
   type EditorialItem,
+  type HomeSection,
   type ReelsContent,
-  type SpotlightItem,
+  type SeriesItem,
 } from "@/content/home";
 import { productHref } from "@/lib/catalog";
 import { PhaseProvider, usePhase } from "@/lib/phase";
@@ -33,13 +34,11 @@ export type HomeViewProps = {
   domains: DomainContent[];
   /** Resolved product cards per personalization domain. */
   domainCards: Record<string, PhaseProductCard[]>;
-  /** Product spotlighted under the Personalization carousel. */
-  featureProduct: Product | null;
-  /** Every series id referenced by any phase, pre-resolved on the server. */
+  /** Pack spotlighted under the Personalization carousel (a bare
+   *  heading + product card, e.g. content/series/b-luron.json). */
+  bLuronPack: SeriesView | null;
+  /** Every pack id referenced by any phase, pre-resolved on the server. */
   seriesById: Record<string, SeriesView | null>;
-  /** Every product slug a "spotlight" section references, pre-resolved on
-   *  the server (see SpotlightItem). */
-  spotlightBySlug: Record<string, Product | null>;
 };
 
 const titleNode = (t: { lead: string; accent: string }) => (
@@ -84,15 +83,21 @@ function seriesCard(p: Product) {
   );
 }
 
+/** Renders a resolved pack (content/series/<id>.json) — either a full
+ *  pack with its own heading/description/carousel (`titleLead` set), or a
+ *  bare spotlight with just a plain heading and a product card, nothing
+ *  else (`heading` set instead — e.g. B-Luron, Women's Balance). */
 function SeriesBlock({ series }: { series: SeriesView }) {
+  const name = series.titleLead || series.heading || series.id;
   return (
     <SeriesFeature
-      seriesName={series.titleLead}
+      seriesName={name}
+      heading={series.titleLead ? undefined : series.heading}
       product={series.product}
-      images={series.images.map((src) => ({ src, alt: series.titleLead }))}
-      blurbTitle={{ lead: series.titleLead, accent: series.titleAccent }}
-      blurbBody={series.blurb}
-      carouselItems={series.products.map(seriesCard)}
+      images={series.images.map((src) => ({ src, alt: name }))}
+      blurbTitle={series.titleLead ? { lead: series.titleLead, accent: series.titleAccent } : undefined}
+      blurbBody={series.blurb || undefined}
+      carouselItems={series.products.length ? series.products.map(seriesCard) : undefined}
     />
   );
 }
@@ -107,27 +112,49 @@ function Reels({ content }: { content: ReelsContent }) {
   );
 }
 
-function Spotlight({ item, product }: { item: SpotlightItem; product: Product }) {
-  return (
-    <SeriesFeature
-      seriesName={item.seriesName}
-      heading={item.heading}
-      product={product}
-    />
-  );
+/** Packs (SeriesItem sections) shown back-to-back sort among themselves
+ *  by `weight` (ascending, no-weight last) — everything else (editorial,
+ *  quiz) stays exactly where it is. Keeps display order admin-editable
+ *  without touching this array. */
+function sortPackRuns(
+  sections: HomeSection[],
+  seriesById: Record<string, SeriesView | null>,
+): HomeSection[] {
+  const out = [...sections];
+  let i = 0;
+  while (i < out.length) {
+    if (out[i].kind !== "series") {
+      i++;
+      continue;
+    }
+    let j = i + 1;
+    while (j < out.length && out[j].kind === "series") j++;
+    const run = out.slice(i, j) as SeriesItem[];
+    run.sort((a, b) => {
+      const wa = seriesById[a.id]?.weight;
+      const wb = seriesById[b.id]?.weight;
+      if (wa == null && wb == null) return 0;
+      if (wa == null) return 1;
+      if (wb == null) return -1;
+      return wa - wb;
+    });
+    out.splice(i, j - i, ...run);
+    i = j;
+  }
+  return out;
 }
 
 function HomeContent({
   phases,
   domains,
   domainCards,
-  featureProduct,
+  bLuronPack,
   seriesById,
-  spotlightBySlug,
 }: HomeViewProps) {
   const { phase, setPhase } = usePhase();
   const c = HOME_CONTENT[phase];
   const phaseIds = phases.map((p) => p.id);
+  const sections = sortPackRuns(c.sections, seriesById);
 
   return (
     <main>
@@ -156,21 +183,15 @@ function HomeContent({
           phases={phases}
           domains={domains}
           domainCards={domainCards}
-          featureProduct={featureProduct}
+          bLuronPack={bLuronPack}
         />
       </div>
 
       <div key={`tail-${phase}`} className={styles.swap}>
-        {c.sections.map((s, i) => {
+        {sections.map((s, i) => {
           if (s.kind === "series") {
             const series = seriesById[s.id];
             return series ? <SeriesBlock key={`series-${s.id}`} series={series} /> : null;
-          }
-          if (s.kind === "spotlight") {
-            const product = spotlightBySlug[s.slug];
-            return product ? (
-              <Spotlight key={`spotlight-${s.slug}`} item={s} product={product} />
-            ) : null;
           }
           if (s.kind === "quiz") {
             return <QuizPromo key="quiz" />;

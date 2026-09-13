@@ -14,7 +14,7 @@ import type {
   DomainContent,
   PhaseProductCard,
   PhaseView,
-  Product,
+  SeriesView,
 } from "@/lib/products";
 import styles from "./PhasesSection.module.css";
 
@@ -23,8 +23,9 @@ export type PhasesSectionProps = {
   domains: DomainContent[];
   /** Resolved product cards per personalization domain (keyed by domain id). */
   domainCards: Record<string, PhaseProductCard[]>;
-  /** The product spotlighted under the Personalization carousel. */
-  featureProduct: Product | null;
+  /** The pack spotlighted under the Personalization carousel — a bare
+   *  heading + product card (content/series/b-luron.json). */
+  bLuronPack: SeriesView | null;
 };
 
 /**
@@ -38,7 +39,7 @@ export function PhasesSection({
   phases,
   domains,
   domainCards,
-  featureProduct,
+  bLuronPack,
 }: PhasesSectionProps) {
   const { phase: activeId, setPhase } = usePhase();
   const [domainId, setDomainId] = useState(domains[0]?.id);
@@ -148,11 +149,11 @@ export function PhasesSection({
             </Carousel>
           ))}
 
-        {isPersonalization && featureProduct && (
+        {isPersonalization && bLuronPack?.product && (
           <SeriesFeature
-            seriesName="B-Luron"
-            heading="The B-Luron Course"
-            product={featureProduct}
+            seriesName={bLuronPack.heading || bLuronPack.id}
+            heading={bLuronPack.heading || undefined}
+            product={bLuronPack.product}
           />
         )}
       </div>

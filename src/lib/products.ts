@@ -367,27 +367,46 @@ export function getDomains(): DomainContent[] {
 /* Data from content/series/*.json, editable in the CMS.                      */
 /* -------------------------------------------------------------------------- */
 
-/** The raw shape of a content/series/*.json file. */
+/**
+ * The raw shape of a content/series/*.json file — a "pack": a standalone
+ * SeriesFeature spotlight, editable in the CMS as its own entity rather
+ * than living in the Products collection. Every field below (besides
+ * `id`) is optional — fill in only what a given pack needs. Two shapes in
+ * practice: a full pack with a heading, description and a carousel of
+ * what's included (Coral Detox, Privilege, the Collagen sets), or a bare
+ * spotlight with just a heading and a product's own card, nothing else
+ * (B-Luron, Women's Balance, Immunity Pack).
+ */
 export type SeriesContent = {
   id: string;
-  /** Heading — sans lead line. */
-  titleLead: string;
-  /** Heading — Newton-italic accent line. */
-  titleAccent: string;
-  /** Supporting paragraph under the heading. */
-  blurb: string;
+  /** Two-line heading — sans lead + italic accent. Switches the desktop
+   *  layout to text-left/card-right (see SeriesFeature's `blurbTitle`).
+   *  Mutually exclusive with `heading`; ignored if both are set. */
+  titleLead?: string;
+  titleAccent?: string;
+  /** Supporting paragraph under `titleLead`/`titleAccent`. */
+  blurb?: string;
+  /** Plain single-line heading instead of titleLead/titleAccent — for a
+   *  bare spotlight with no description (e.g. "The B-Luron Course").
+   *  Keeps the older image-beside-text desktop layout, no split. */
+  heading?: string;
   /** Big-card photos (own upload via the CMS, not the product's PDP
    *  photos) — a swipeable slider when there's more than one. Empty →
    *  falls back to the product's own PDP images, or a placeholder tile
    *  when there's no product either. */
   images?: string[];
-  /** Product slugs shown in the carousel, in order. */
-  products: string[];
-  /** Slug of the single sellable product that represents this series as a
-   *  bundle (its own price/cart), for the SeriesFeature-style card. Omit
-   *  for a product LINE with no single bundle SKU (e.g. Privilege) — the
-   *  card then falls back to `images` with no price/cart row. */
+  /** Product slugs shown in the carousel, in order. Omit/empty for a
+   *  bare spotlight with no carousel. */
+  products?: string[];
+  /** Slug of the single sellable product that represents this pack (its
+   *  own price/cart), for the SeriesFeature-style card. Omit for a
+   *  product LINE with no single bundle SKU (e.g. Privilege) — the card
+   *  then falls back to `images` with no price/cart row. */
   product?: string;
+  /** Controls display order when several packs render together in the
+   *  same spot (ascending, lower first). Packs without a weight sort
+   *  after ones that have one, in their existing relative order. */
+  weight?: number;
 };
 
 export type SeriesView = {
@@ -395,12 +414,14 @@ export type SeriesView = {
   titleLead: string;
   titleAccent: string;
   blurb: string;
+  heading: string;
   /** Asset-prefixed big-card photos (see SeriesContent.images). */
   images: string[];
   /** Resolved, asset-wrapped products. */
   products: Product[];
   /** Resolved bundle product, or null when there isn't one (see SeriesContent.product). */
   product: Product | null;
+  weight: number | null;
 };
 
 export function getSeries(id: string): SeriesView | undefined {
@@ -408,16 +429,18 @@ export function getSeries(id: string): SeriesView | undefined {
   if (!c) return undefined;
   return {
     id: c.id,
-    titleLead: c.titleLead,
-    titleAccent: c.titleAccent,
-    blurb: c.blurb,
+    titleLead: c.titleLead ?? "",
+    titleAccent: c.titleAccent ?? "",
+    blurb: c.blurb ?? "",
+    heading: c.heading ?? "",
     images: (c.images ?? []).map((p) => asset(p)),
-    products: c.products
+    products: (c.products ?? [])
       .map((slug) => getProduct(slug))
       .filter((p): p is Product => Boolean(p))
       // pre-shorten the category tag so the (client) showcase needs no helper
       .map((p) => ({ ...p, category: shortCategory(p.category) })),
     product: c.product ? (getProduct(c.product) ?? null) : null,
+    weight: typeof c.weight === "number" ? c.weight : null,
   };
 }
 

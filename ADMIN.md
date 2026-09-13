@@ -59,25 +59,41 @@ you're done.
 | How to use | PDP accordion |
 | Manufacturing detail | PDP accordion, incl. the editable **Supplement Facts** row list |
 
-### Series blocks
+### Packs
 
-The **"Series blocks"** collection edits `content/series/*.json` — each
-file drives one `SeriesFeature` block: a heading, a big card (your own
-photos + optionally a bundle product's price/cart) and a carousel of
-products. Fields: an `id`, a two-line heading (`titleLead` + italic
-`titleAccent`), a `blurb` paragraph, an ordered list of **big-card images**
-(optional — leave empty to fall back to the linked product's own PDP
-photos, or a gradient placeholder if there's no product either; uploads go
-to `public/images/series/`), and an ordered list of product slugs (each
-must match a product's Slug) for the carousel below the card. An optional
-`product` slug makes the big card a real bundle SKU with its own price and
-cart button (e.g. `hydramax-plus`, `coral-detox-plus`, `colo-vada-plus`);
-leave it blank for a product line with no single bundle SKU (e.g.
-Privilege) — the card then just shows the images, no price/cart.
-Currently wired in: `hydramax-plus` (Hydration's own block, rendered by
-`PhasesSection`), and `coral-detox` / `go-detox` / `privilege` (rendered by
-`HomeView`, in Restart's and Hydration's tail sections). `liumi` exists as
-content but isn't linked into a page yet.
+The **"Packs"** collection edits `content/series/*.json` — each file
+drives one `SeriesFeature` block: a big card (your own photos or a linked
+product's) with, optionally, a heading and description above it and a
+carousel below. Every field but `id` is optional — fill in only what a
+given pack needs. Two shapes in practice:
+
+- **A full pack** — a two-line heading (`titleLead` + italic
+  `titleAccent`), a `blurb` paragraph, and an ordered list of product
+  slugs for the carousel below the card (Coral Detox, Go Detox, Privilege,
+  the Collagen sets).
+- **A bare spotlight** — just the single-line `heading` field (leave
+  `titleLead`/`blurb`/the product-slugs list empty) for a pack shown as
+  nothing but a heading and a product card, no description, no carousel
+  (B-Luron, Women's Balance, Immunity Pack).
+
+An optional **big-card images** list (uploads go to `public/images/series/`)
+gives the card its own photos; leave empty to fall back to the linked
+product's own PDP photos, or a gradient placeholder if there's no product
+either. The **linked product** field (a `content/products/<slug>.json`
+slug) makes the big card a real, sellable SKU with its own price and cart
+button (e.g. `hydramax-plus`, `coral-detox-plus`, `b-luron`); leave it
+blank for a product line with no single bundle SKU (e.g. Privilege) — the
+card then just shows the images, no price/cart. **Order** (`weight`, a
+plain number, lower first) controls display order when several packs
+render back-to-back in the same spot — leave it blank to sort after any
+pack that has a number set.
+
+Currently wired in: `hydramax-plus` and `b-luron` (rendered by
+`PhasesSection`, in Hydration's and Personalization's own carousels), and
+`coral-detox` / `go-detox` / `privilege` / `collagen-sets` /
+`womens-balance` / `immunity-pack` (rendered by `HomeView`, in each
+phase's tail sections). `liumi` exists as content but isn't linked into a
+page yet.
 
 ### Hero images
 

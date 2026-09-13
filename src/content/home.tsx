@@ -43,23 +43,14 @@ export type EditorialItem = {
   badge?: { flag: string; text: string };
 };
 
+/** References a content/series/<id>.json "pack" — a full pack with its
+ *  own heading/description/carousel, or a bare spotlight with just a
+ *  heading and a product card (e.g. B-Luron) — see SeriesContent. */
 export type SeriesItem = { kind: "series"; id: string };
 
 export type QuizItem = { kind: "quiz" };
 
-/** A single-product SeriesFeature spotlight, B-Luron-style — a generic
- *  heading, the product's own card, no intro text and no carousel. */
-export type SpotlightItem = {
-  kind: "spotlight";
-  /** content/products/<slug>.json */
-  slug: string;
-  /** e.g. "Women's Balance" — used only for the component's a11y label. */
-  seriesName: string;
-  /** Replaces the default "The {seriesName} Series" heading. */
-  heading: string;
-};
-
-export type HomeSection = EditorialItem | SeriesItem | QuizItem | SpotlightItem;
+export type HomeSection = EditorialItem | SeriesItem | QuizItem;
 
 export type ReelsContent = {
   title: { lead: string; accent: string };
@@ -217,18 +208,8 @@ const PERSONALIZATION: HomePhase = {
   // in the same slot as Hydration's opening editorial.
   sections: [
     { kind: "series", id: "collagen-sets" },
-    {
-      kind: "spotlight",
-      slug: "womens-balance",
-      seriesName: "Women's Balance",
-      heading: "The Women's Balance Set",
-    },
-    {
-      kind: "spotlight",
-      slug: "immunity-pack",
-      seriesName: "Immunity Pack",
-      heading: "The Immunity Pack",
-    },
+    { kind: "series", id: "womens-balance" },
+    { kind: "series", id: "immunity-pack" },
     { kind: "quiz" },
   ],
 };

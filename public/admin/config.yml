@@ -186,11 +186,11 @@ collections:
                   - { name: dv, label: "%DV", widget: string, required: false }
 
   - name: series
-    label: "Series blocks"
-    label_singular: "Series block"
+    label: "Packs"
+    label_singular: "Pack"
     identifier_field: id
-    summary: "{{fields.titleLead}} ({{fields.products.length}})"
-    description: "Standalone SeriesFeature blocks: a heading, your own big-card photos, and a carousel of products (Hydration, Restart's Detox/Go Detox, Privilege)."
+    summary: "{{fields.id}} — {{fields.heading}}{{fields.titleLead}}"
+    description: "Standalone SeriesFeature blocks — a big card (own photos or a linked product's), optionally a heading/description above it and a carousel below. Every field but the ID is optional: fill in only what this pack needs. Two shapes in practice — a full pack with a description and carousel of what's included (Coral Detox, Privilege, the Collagen sets), or a bare spotlight with just a heading and a product card, nothing else (B-Luron, Women's Balance, Immunity Pack)."
     folder: content/series
     create: true
     delete: true
@@ -205,18 +205,33 @@ collections:
         widget: string
         required: false
         pattern: ["^[a-z0-9]+(?:-[a-z0-9]+)*$", "lowercase letters, digits and dashes only"]
+      - name: heading
+        label: "Bare heading (no description) — e.g. \"The B-Luron Course\""
+        widget: string
+        required: false
+        hint: "For a pack shown as just a heading + product card, no description or carousel. Leave blank and fill in the two-line heading below instead for a full pack with a description."
       - name: titleLead
-        label: "Heading — line 1"
+        label: "Two-line heading — line 1"
         widget: string
         required: false
       - name: titleAccent
-        label: "Heading — line 2 (italic accent)"
+        label: "Two-line heading — line 2 (italic accent)"
         widget: string
         required: false
       - name: blurb
-        label: "Blurb (paragraph under the heading)"
+        label: "Blurb (paragraph under the two-line heading)"
         widget: text
         required: false
+      - name: product
+        label: "Linked product (slug)"
+        widget: string
+        required: false
+        hint: "A content/products/<slug>.json slug — its price, cart button and images (if this pack has none of its own below) show on the big card. Leave blank for a product LINE with no single bundle SKU (e.g. Privilege) — the card then just shows the images below, no price/cart."
+      - name: weight
+        label: "Order (lower shows first)"
+        widget: number
+        required: false
+        hint: "Controls display order when several packs render together in the same spot. Leave blank to sort after any pack that has a number set."
       - name: images
         label: "Картинки — большая карточка"
         widget: list
@@ -235,6 +250,7 @@ collections:
         widget: list
         required: false
         summary: "{{fields.slug}}"
+        hint: "Products shown in a scroll row below the big card. Leave empty for a bare spotlight with no carousel."
         field: { name: slug, label: "Slug", widget: string, required: false }
 
   - name: hero
