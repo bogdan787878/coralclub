@@ -18,6 +18,24 @@
   /* this screen is always dark — let native UI (Safari's <select> sheet,
      scrollbars, autofill) render dark instead of defaulting to white */
   color-scheme: dark;
+  /* AccountForm fills this as a flex child (flex:1 — see its own module)
+     so the TabBar's spacer below reserves its own room at the bottom
+     instead of AccountForm's independent min-height:100svh pushing it
+     off-screen */
+  display: flex;
+  flex-direction: column;
+}
+
+/* the TabBar itself already hides at >=1024px, but this screen switches
+   to a small floating "phone card" at >=768px — a full-viewport-width bar
+   would float disconnected below/around that card, not attached to it */
+.tabBarWrap {
+  display: contents;
+}
+@media (min-width: 768px) {
+  .tabBarWrap {
+    display: none;
+  }
 }
 
 @media (min-width: 768px) {

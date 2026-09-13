@@ -4,6 +4,7 @@ import Link from "next/link";
 import { asset } from "@/lib/asset";
 import { LegalNote } from "@/components/account/LegalNote";
 import { SocialButtons } from "@/components/account/SocialButtons";
+import { TabBar } from "@/components/organisms";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -58,6 +59,10 @@ export default function AccountLanding() {
 
           <SocialButtons />
           <LegalNote />
+        </div>
+
+        <div className={styles.tabBarWrap}>
+          <TabBar />
         </div>
       </main>
     </div>

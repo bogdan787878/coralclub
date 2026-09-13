@@ -1,10 +1,13 @@
 .screen {
   display: flex;
   flex-direction: column;
-  /* svh = the viewport with browser chrome shown (its smallest state) —
-     iOS Safari's floating toolbar is already excluded, so a bottom block
-     pinned to the end of this column lands above it. */
-  min-height: 100svh;
+  /* fills the page's own flex column (see account/create/page.module.css)
+     instead of an independent min-height:100svh, so the TabBar rendered
+     as its sibling there can reserve its own room at the bottom below
+     1024px — content taller than the available space still grows this
+     (flex-basis is auto, not 0), so long OTP/contact steps still scroll
+     the whole page normally. */
+  flex: 1 1 auto;
   padding: var(--space-16) var(--page-padding-inline)
     calc(var(--space-32) + env(safe-area-inset-bottom, 0px));
 }

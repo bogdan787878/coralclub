@@ -19,16 +19,9 @@
   justify-self: start;
 }
 
-/* right-aligned cluster: "Get start" — mobile/tablet only, see below */
-.actions {
-  justify-self: end;
-  display: flex;
-  align-items: center;
-  gap: var(--space-12);
-}
-
-/* desktop-only nav — replaces .actions with the same four destinations as
-   the mobile TabBar, since there's no bottom bar to hold them here */
+/* desktop-only nav — the same four destinations as the mobile TabBar,
+   since there's no bottom bar to hold them here. Mobile/tablet show
+   nothing in this slot — navigation is the TabBar instead. */
 .actionsDesktop {
   display: none;
 }
@@ -42,15 +35,9 @@
     grid-column: 2;
     justify-self: center;
   }
-  .actions {
-    grid-column: 3;
-  }
 }
 
 @media (min-width: 1024px) {
-  .actions {
-    display: none;
-  }
   .actionsDesktop {
     grid-column: 3;
     justify-self: end;
@@ -75,24 +62,6 @@
     width: 24px;
     height: 24px;
   }
-}
-
-.cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 36px;
-  padding: 0 var(--space-16);
-  border-radius: var(--radius-pill);
-  background: var(--color-action);
-  color: #fff;
-  font-family: var(--font-sans);
-  font-size: 0.8125rem;
-  font-weight: var(--font-weight-medium);
-  transition: background-color 0.15s var(--ease-standard);
-}
-.cta:hover {
-  background: var(--color-action-hover);
 }
 
 .brand {

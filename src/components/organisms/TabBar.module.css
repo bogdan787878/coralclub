@@ -1,5 +1,8 @@
-/* Keeps the page's last section clear of the fixed bar. */
+/* Keeps the page's last section clear of the fixed bar. flex-shrink:0 so
+   it holds its height even when it's a flex child fighting for space
+   (e.g. next to AccountForm in account/create/page.module.css). */
 .spacer {
+  flex-shrink: 0;
   height: calc(64px + env(safe-area-inset-bottom, 0px));
 }
 

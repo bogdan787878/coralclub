@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Container, Heading, Section } from "@/components/ui";
-import { ProductCard, SiteFooter, SiteHeader } from "@/components/organisms";
+import { ProductCard, SiteFooter, SiteHeader, TabBar } from "@/components/organisms";
 import { asset } from "@/lib/asset";
 import { getDomainCards, getDomains, productHref } from "@/lib/products";
 import styles from "./page.module.css";
@@ -26,12 +26,6 @@ export default function CatalogPage() {
 
       <Section tone="surface">
         <Container>
-          <Heading className={styles.title}>Catalog</Heading>
-          <p className={styles.intro}>
-            Shop the full range by health concern — the same categories as
-            Personalization, all in one place.
-          </p>
-
           <div className={styles.grid}>
             {domains.map((d) => (
               <a key={d.id} href={`#${d.id}`} className={styles.tile}>
@@ -85,6 +79,8 @@ export default function CatalogPage() {
       })}
 
       <SiteFooter />
+
+      <TabBar />
     </main>
   );
 }

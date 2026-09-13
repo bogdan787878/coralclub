@@ -11,10 +11,10 @@ export type SiteHeaderProps = {
 
 /**
  * SiteHeader — the centred brand lockup that sits above every page. Below
- * 1024px it's just the wordmark + a "Get start" link (mobile navigation is
- * the bottom TabBar instead, homepage-only). At >=1024px "Get start" is
- * replaced by the same four destinations as TabBar — Home, Catalog, Cart,
- * Sign in — as icon links, since there's no bottom tab bar on desktop.
+ * 1024px it's just the wordmark (mobile navigation is the bottom TabBar
+ * instead). At >=1024px the same four destinations as TabBar — Home,
+ * Catalog, Cart, Sign in — show as icon links, since there's no bottom
+ * tab bar on desktop.
  *
  * The desktop CartButton is the one and only cart-drawer host on any page
  * that renders this header (it's always mounted, even where its icon row
@@ -28,12 +28,6 @@ export function SiteHeader({ brand = "coralclub" }: SiteHeaderProps) {
         <Link href="/" className={styles.brand}>
           {brand}
         </Link>
-
-        <div className={styles.actions}>
-          <Link href="/account" className={styles.cta}>
-            Get start
-          </Link>
-        </div>
 
         <nav className={styles.actionsDesktop} aria-label="Primary">
           <Link href="/" className={styles.navIcon} aria-label="Home">

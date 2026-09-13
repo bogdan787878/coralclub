@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AccountForm } from "@/components/account/AccountForm";
+import { TabBar } from "@/components/organisms";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -12,6 +13,10 @@ export default function AccountCreatePage() {
     <div className={styles.backdrop}>
       <main className={styles.screen}>
         <AccountForm />
+
+        <div className={styles.tabBarWrap}>
+          <TabBar />
+        </div>
       </main>
     </div>
   );
