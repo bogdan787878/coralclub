@@ -284,10 +284,17 @@ export type PhaseView = {
   products: PhaseProductCard[];
   /** Resolved rep product for the SeriesFeature block (fixed phases only). */
   seriesProduct: Product | null;
+  /** That product's own included-products, resolved (SeriesFeature's
+   *  "what's in the pack" carousel). Empty when there's no seriesProduct. */
+  seriesIncluded: IncludedProductCard[];
+  /** Body copy for the text block under the SeriesFeature card, below the
+   *  card's own name/price/cart — this phase's headline doubles as that
+   *  block's title. Fixed phases only. */
+  seriesBlurb?: string;
 };
 
 const PHASE_DEFS: Array<
-  Omit<PhaseView, "products" | "image" | "seriesProduct"> & {
+  Omit<PhaseView, "products" | "image" | "seriesProduct" | "seriesIncluded"> & {
     slugs: string[];
     image: string;
   }
@@ -302,6 +309,8 @@ const PHASE_DEFS: Array<
       accent: "Minerals do.",
     },
     seriesSlug: "hydramax-plus",
+    seriesBlurb:
+      "Plain water moves through you fast — minerals and electrolytes are what make it stay. Hydramax Plus pairs Coral-Mine, PentoKan, H-500 and Oceanmin into one 30-day set built around exactly that.",
     slugs: ["coral-mine-silver", "pentokan", "oceanmin", "h-500"],
   },
   {
@@ -458,19 +467,23 @@ function toCard(p: Product): PhaseProductCard {
 }
 
 export function getPhases(): PhaseView[] {
-  return PHASE_DEFS.map(({ slugs, image, ...phase }) => ({
-    ...phase,
-    image: { src: asset(image), alt: `Coral Club ${phase.name} phase` },
-    products: slugs
-      .map((slug) => getProduct(slug))
-      .filter((p): p is Product => Boolean(p))
-      .map(toCard),
+  return PHASE_DEFS.map(({ slugs, image, ...phase }) => {
     // Only renders the SeriesFeature block when a phase opts in with an
     // explicit seriesSlug — no fallback to the first product, so phases
     // without one (e.g. Restart, which uses a `kind: "series"` section
     // instead) don't get an unintended single-product showcase.
-    seriesProduct: phase.seriesSlug ? (getProduct(phase.seriesSlug) ?? null) : null,
-  }));
+    const series = phase.seriesSlug ? getProduct(phase.seriesSlug) : undefined;
+    return {
+      ...phase,
+      image: { src: asset(image), alt: `Coral Club ${phase.name} phase` },
+      products: slugs
+        .map((slug) => getProduct(slug))
+        .filter((p): p is Product => Boolean(p))
+        .map(toCard),
+      seriesProduct: series ?? null,
+      seriesIncluded: resolveIncludedProducts(series?.includedProducts ?? []),
+    };
+  });
 }
 
 /**

@@ -126,7 +126,13 @@ export function PhasesSection({
         )}
 
         {!isPersonalization && phase.seriesProduct && (
-          <SeriesFeature seriesName={phase.name} product={phase.seriesProduct} />
+          <SeriesFeature
+            seriesName={phase.name}
+            product={phase.seriesProduct}
+            blurbTitle={phase.headline}
+            blurbBody={phase.seriesBlurb}
+            includedProducts={phase.seriesIncluded}
+          />
         )}
 
         {isPersonalization && featureProduct && (
