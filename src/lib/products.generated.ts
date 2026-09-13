@@ -4712,18 +4712,17 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "skin"
     ],
     "coralId": "2270",
-    "description": "A modern, high-tech form of collagen for easier absorption, enriched with a complex of plant extracts, vitamins and hyaluronic acid for smooth, radiant skin and strong hair and nails.",
     "price": "$81.25",
     "clubPrice": "$65",
+    "description": "A modern, high-tech form of collagen for easier absorption, enriched with a complex of plant extracts, vitamins and hyaluronic acid for smooth, radiant skin and strong hair and nails.",
     "carouselImages": [
-      "/images/products/promarine-collagen-tripeptides-pack.png"
+      "/images/products/promarine-collagen-tripeptides-pack.png",
+      "/images/products/ChatGPT Image Sep 13, 2026 at 06_54_33 PM.png"
     ],
     "pdpImages": [
-      "/images/products/promarine-collagen-tripeptides-pack.png"
+      "/images/products/promarine-collagen-tripeptides-pack.png",
+      "/images/products/ChatGPT Image Sep 13, 2026 at 06_56_10 PM.png"
     ],
-    "rating": 4.5,
-    "ratingsCount": 0,
-    "reviewsCount": 0,
     "howToUse": "Adults – 1 bottle (50 ml) a day with food. Course: 10-30 days, repeated if needed.",
     "elements": [
       {
@@ -4749,6 +4748,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "soy-free",
       "pescatarian"
     ],
+    "topSeller": false,
+    "includedProducts": [],
     "manufacturing": {
       "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
@@ -4810,7 +4811,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "rating": 4.5,
+    "ratingsCount": 0,
+    "reviewsCount": 0
   },
   {
     "slug": "promarine-collagen",
