@@ -4834,7 +4834,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     ],
     "pdpImages": [
       "/images/products/promarine-collagen.png",
-      "/images/products/ChatGPT Image Sep 13, 2026 at 06_51_01 PM.png"
+      "/images/products/ChatGPT Image Sep 13, 2026 at 07_00_15 PM.png"
     ],
     "howToUse": "Adults – 1 bottle (50 ml) a day, taken directly or mixed with water or juice.",
     "elements": [
@@ -6174,32 +6174,15 @@ export const GENERATED_SERIES: SeriesContent[] = [
   },
   {
     "id": "immunity-pack",
+    "enabled": true,
     "heading": "The Immunity Pack",
+    "titleLead": "",
+    "titleAccent": "",
+    "blurb": "",
     "product": "immunity-pack",
+    "weight": 2,
     "images": [],
-    "products": [],
-    "weight": 2
-  },
-  {
-    "id": "liumi",
-    "enabled": false,
-    "heading": "",
-    "titleLead": "Your skin is a water barrier too.",
-    "titleAccent": "LIŪMI keeps it sealed.",
-    "blurb": "A focused skincare line built around the same idea as the rest of your routine: hold water in, keep the barrier strong. Six steps, from a gentle cleanse to an overnight seal.",
-    "product": "",
-    "weight": null,
-    "images": [
-      "/images/series/2098tdfapsf3otbz3l6c0297y1hii4kq.webp"
-    ],
-    "products": [
-      "liumi-purifying-gel-cleanser",
-      "liumi-hydra-infusion-toner",
-      "liumi-balancing-repair-serum",
-      "liumi-hydra-barrier-gel-cream",
-      "liumi-contour-serum",
-      "liumi-deep-renewal-cream"
-    ]
+    "products": []
   },
   {
     "id": "privilege",
@@ -6217,10 +6200,14 @@ export const GENERATED_SERIES: SeriesContent[] = [
   },
   {
     "id": "womens-balance",
-    "heading": "The Women's Balance Set",
+    "enabled": true,
+    "heading": "",
+    "titleLead": "",
+    "titleAccent": "",
+    "blurb": "",
     "product": "womens-balance",
+    "weight": 1,
     "images": [],
-    "products": [],
-    "weight": 1
+    "products": []
   }
 ];
