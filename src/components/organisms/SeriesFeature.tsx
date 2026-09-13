@@ -105,16 +105,18 @@ export function SeriesFeature({
         {/* on mobile just two more flex children (display:contents below
             1024px); on desktop this becomes the text column beside .media */}
         <div className={styles.info}>
-          {/* stretched link — covers the whole block */}
-          <Link href={href} className={styles.name}>
-            {product.headline}
-          </Link>
-
           <div className={styles.priceRow}>
-            <p className={styles.price}>
-              <span className={styles.now}>{club}</span>
-              <span className={styles.was}>{regular}</span>
-            </p>
+            {/* name + price share one frame; the stretched link still
+                covers the whole block via .name::after */}
+            <div className={styles.nameFrame}>
+              <Link href={href} className={styles.name}>
+                {product.headline}
+              </Link>
+              <p className={styles.price}>
+                <span className={styles.now}>{club}</span>
+                <span className={styles.was}>{regular}</span>
+              </p>
+            </div>
 
             {coralId ? (
               qty > 0 ? (

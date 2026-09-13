@@ -4,6 +4,19 @@
   flex-direction: column;
   gap: var(--space-16);
   margin-top: var(--space-40);
+  /* + .inner's own 16px flex gap (PhasesSection.module.css) = 24 before
+     the product carousel that follows this block */
+  margin-bottom: var(--space-8);
+}
+
+/* whichever heading variant sits directly in .block (the plain .title,
+   or .intro wrapping .title + a body paragraph) — + .block's own 16px
+   gap above = 24 before the image. A plain `.title` selector would also
+   catch it nested one level down inside .intro, doubling the heading→
+   body gap there, so this is scoped to the direct child only. */
+.block > .title,
+.block > .intro {
+  margin-bottom: var(--space-8);
 }
 
 .title {
@@ -14,7 +27,7 @@
 .intro {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-text);
+  gap: var(--gap-text); /* 16 — heading to description */
 }
 
 .introBody {
@@ -74,6 +87,15 @@
     gap: var(--space-16);
     align-self: stretch;
   }
+}
+
+/* name + price, stacked — a shared frame, gap 8, with the cart control
+   beside it (see .priceRow) rather than sharing a frame with the price */
+.nameFrame {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  min-width: 0;
 }
 
 .name {
@@ -154,10 +176,11 @@
   }
 }
 
+/* same size as the carousel cards' own cart control (ProductCard.module.css) */
 .cart {
   flex: none;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -168,8 +191,8 @@
   transition: transform 0.12s var(--ease-standard);
 }
 .cart svg {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
 }
 .cart:active {
   transform: scale(0.94);
@@ -179,7 +202,7 @@
   flex: none;
   display: inline-flex;
   align-items: center;
-  height: 40px;
+  height: 48px;
   padding: 0 4px;
   border-radius: var(--radius-pill);
   background: #ffffff;
@@ -188,13 +211,13 @@
   transform-origin: right center;
 }
 .stepper button {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-pill);
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   line-height: 1;
   color: inherit;
 }
