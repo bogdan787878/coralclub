@@ -5980,12 +5980,11 @@ export const GENERATED_SERIES: SeriesContent[] = [
   },
   {
     "id": "go-detox",
-    "product": "colo-vada-plus",
     "titleLead": "What's actually in the box.",
     "titleAccent": "Three stages, one sequence.",
     "blurb": "The 14-day Go Detox set breaks down into three daily packets — one per stage — plus a fiber drink mix and a probiotic that runs the whole way through.",
     "images": [
-      "/images/series/ChatGPT Image Sep 12, 2026 at 12_24_42 AM.png"
+      "/images/series/ChatGPT Image Sep 11, 2026 at 11_25_22 PM.png"
     ],
     "products": [
       "go-detox-packet-1",
@@ -5993,21 +5992,25 @@ export const GENERATED_SERIES: SeriesContent[] = [
       "go-detox-packet-3",
       "go-detox-powder",
       "super-flora"
-    ]
+    ],
+    "product": "colo-vada-plus"
   },
   {
     "id": "hydramax-plus",
-    "product": "hydramax-plus",
     "titleLead": "Water alone doesn't hydrate.",
     "titleAccent": "Minerals do.",
     "blurb": "Plain water moves through you fast — minerals and electrolytes are what make it stay. Hydramax Plus pairs Coral-Mine, PentoKan, H-500 and Oceanmin into one 30-day set built around exactly that.",
-    "images": [],
+    "images": [
+      "/images/series/ChatGPT Image Sep 12, 2026 at 01_40_55 AM.png",
+      "/images/series/ChatGPT Image Sep 12, 2026 at 01_00_26 AM.png"
+    ],
     "products": [
       "coral-mine-silver",
       "pentokan",
       "oceanmin",
       "h-500"
-    ]
+    ],
+    "product": "hydramax-plus"
   },
   {
     "id": "liumi",

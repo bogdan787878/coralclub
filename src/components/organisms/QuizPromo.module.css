@@ -5,7 +5,7 @@
   gap: var(--space-16);
   padding: var(--page-padding-block) var(--page-padding-inline);
   border-radius: var(--radius-base); /* 32 */
-  background: var(--color-malachite-100);
+  background: var(--color-malachite-90);
   color: var(--color-white);
 }
 
