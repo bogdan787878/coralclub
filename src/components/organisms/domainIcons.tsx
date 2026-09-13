@@ -91,10 +91,12 @@ function HeartVesselsIcon({ className }: IconProps) {
 function BonesJointsIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <circle cx="17.3" cy="2.6" r="1.7" {...stroke} />
       <path
-        d="M6.2 6.2a2.1 2.1 0 1 1 3.5 1.5l4.6 4.6a2.1 2.1 0 1 1 1.5 3.5 2.1 2.1 0 0 1-3.5-1.5L7.7 9.7a2.1 2.1 0 0 1-1.5-3.5Z"
+        d="M19.6 0.3 C18.3 1.6 17.1 3.6 16.7 5.8 C16.2 8.4 14.9 10.7 13 13 C11.3 15 9.6 16.6 8 18.2 C7 19.2 6.2 19.8 5.2 20.6"
         {...stroke}
       />
+      <path d="M13 13 C16 13.7 18.6 14.9 21.2 16.5 L23 17.8" {...stroke} />
     </svg>
   );
 }
