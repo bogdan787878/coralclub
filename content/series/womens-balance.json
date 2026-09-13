@@ -1,8 +1,12 @@
 {
   "id": "womens-balance",
-  "heading": "The Women's Balance Set",
+  "enabled": true,
+  "heading": "",
+  "titleLead": "",
+  "titleAccent": "",
+  "blurb": "",
   "product": "womens-balance",
+  "weight": 1,
   "images": [],
-  "products": [],
-  "weight": 1
+  "products": []
 }
