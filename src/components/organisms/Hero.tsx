@@ -55,15 +55,17 @@ export function Hero({
         />
       )}
       {renderImage && image.desktopSrc && (
-        <Image
-          className={`${styles.bg} ${styles.bgDesktop}`}
-          src={image.desktopSrc}
-          alt={image.alt}
-          fill
-          priority={priority}
-          loading={priority ? undefined : "lazy"}
-          sizes="100vw"
-        />
+        <div className={styles.mediaCol}>
+          <Image
+            className={`${styles.bg} ${styles.bgDesktop}`}
+            src={image.desktopSrc}
+            alt={image.alt}
+            fill
+            priority={priority}
+            loading={priority ? undefined : "lazy"}
+            sizes="100vw"
+          />
+        </div>
       )}
 
       {/* Progressive blur, top 200px, mobile only (Hero.module.css hides it
