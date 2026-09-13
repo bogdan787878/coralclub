@@ -243,7 +243,7 @@ collections:
       - name: heroImages
         label: "Hero background — desktop / mobile"
         file: content/hero-images.json
-        description: "The background photo behind each phase's hero panel. Click \"Add\" below to add a hero block, or edit an existing one. Upload a version cropped for desktop and, optionally, a separate one cropped for mobile — below 768px wide the mobile image is used instead. The ID must match the phase that should use it (currently \"hydration\" or \"restart\" — adding a new ID here alone won't make a new phase appear on the site, that needs a code change too)."
+        description: "The background photo behind each phase's hero panel. Click \"Add\" below to add a hero block, or edit an existing one. Upload a version cropped for desktop and, optionally, a separate one cropped for mobile — below 768px wide the mobile image is used instead. The ID must match the phase that should use it — currently \"hydration\", \"restart\" or \"personalization\" (note the US spelling, not \"personalisation\" — it must match the id the code uses) — adding a new ID here alone won't make a new phase appear on the site, that needs a code change too."
         media_folder: "/public/images/hero"
         public_folder: "/images/hero"
         fields:

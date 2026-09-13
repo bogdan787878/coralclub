@@ -190,8 +190,18 @@ const RESTART: HomePhase = {
   },
 };
 
-// TODO(copy): Personalization-specific hero + sections. Placeholder = Hydration content.
-const PERSONALIZATION: HomePhase = HYDRATION;
+// TODO(copy): Personalization-specific hero copy + sections. Placeholder =
+// Hydration's title/body/sections, but its own hero image (id
+// "personalization" in content/hero-images.json, editable in the CMS) —
+// it was previously stuck reusing Hydration's photo too, since this whole
+// object was just `= HYDRATION` with no override.
+const PERSONALIZATION: HomePhase = {
+  ...HYDRATION,
+  hero: {
+    ...HYDRATION.hero,
+    image: heroImage("personalization", "Coral Club Personalisation phase"),
+  },
+};
 
 export const HOME_CONTENT: Record<PhaseId, HomePhase> = {
   hydration: HYDRATION,

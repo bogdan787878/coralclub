@@ -3899,7 +3899,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "detox",
       "immune"
     ],
-    "coralId": "80320",
+    "coralId": "803201",
     "price": "$105",
     "clubPrice": "$84",
     "description": "A concentrated blend of black walnut, clove and wormwood — traditional botanicals used to keep the gut environment inhospitable to unwanted guests.",
@@ -5968,6 +5968,7 @@ export const GENERATED_SERIES: SeriesContent[] = [
     "titleAccent": "Clear the internal load.",
     "blurb": "Coral Detox bundles enzymes, antioxidant support, deep-sea minerals and a lecithin-based binder — the 30-day set that opens the Restart phase.",
     "images": [
+      "/images/series/ChatGPT Image Sep 13, 2026 at 02_09_38 PM.png",
       "/images/series/ChatGPT Image Sep 11, 2026 at 11_21_21 PM.png"
     ],
     "products": [
@@ -5984,6 +5985,7 @@ export const GENERATED_SERIES: SeriesContent[] = [
     "titleAccent": "Three stages, one sequence.",
     "blurb": "The 14-day Go Detox set breaks down into three daily packets — one per stage — plus a fiber drink mix and a probiotic that runs the whole way through.",
     "images": [
+      "/images/series/ChatGPT Image Sep 12, 2026 at 12_24_42 AM.png",
       "/images/series/ChatGPT Image Sep 11, 2026 at 11_25_22 PM.png"
     ],
     "products": [
