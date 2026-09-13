@@ -193,6 +193,9 @@
        it), so the right column's fill <Image> has real height to cover */
     grid-template-rows: 1fr;
     background: var(--color-surface);
+    /* mirrors the text column's own 56px left inset, so the photo
+       doesn't run all the way to the true right edge either */
+    padding-right: 56px;
   }
 
   /* a normal (static/relative) grid item now, sized to the right-hand

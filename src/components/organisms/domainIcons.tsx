@@ -37,8 +37,11 @@ function WeightMetabolismIcon({ className }: IconProps) {
 function DigestionGutIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      {/* Archimedean spiral (~2.15 turns), coil/gut metaphor — smooth
+          cubic-bezier curve through the sampled points, not straight
+          line segments, so it reads as round rather than faceted */}
       <path
-        d="M8 4c-2.5 0-4 2-4 4.2 0 3 3 3.3 3 6 0 2 -1.5 2.8 -1.5 4.6 0 1.2 1 2.2 2.5 2.2s2.5-1.2 2.5-2.6c0-2.4-2-3-2-5.8 0-2.6 4-2.6 4-5.6C12.5 5 10.5 4 8 4Z"
+        d="M21.3 12.0 C20.99 12.83 20.45 15.64 19.45 16.96 C18.45 18.28 16.82 19.42 15.32 19.94 C13.82 20.46 11.91 20.5 10.43 20.11 C8.95 19.72 7.42 18.72 6.45 17.63 C5.48 16.54 4.79 14.93 4.6 13.54 C4.41 12.15 4.72 10.51 5.31 9.31 C5.9 8.11 7.02 6.98 8.12 6.34 C9.22 5.7 10.71 5.4 11.91 5.48 C13.12 5.56 14.45 6.12 15.35 6.82 C16.25 7.52 17.0 8.65 17.34 9.68 C17.68 10.71 17.66 11.99 17.39 12.97 C17.12 13.95 16.43 14.94 15.7 15.55 C14.97 16.16 13.92 16.56 13.04 16.66 C12.16 16.76 11.13 16.52 10.4 16.13 C9.67 15.74 9.02 15.02 8.66 14.35 C8.3 13.68 8.19 12.79 8.27 12.1 C8.35 11.41 8.72 10.68 9.13 10.2 C9.54 9.72 10.2 9.37 10.75 9.23 C11.3 9.09 11.96 9.16 12.44 9.34 C12.91 9.52 13.35 9.92 13.6 10.29 C13.85 10.66 13.95 11.16 13.94 11.54 C13.93 11.92 13.75 12.32 13.55 12.57 C13.35 12.82 12.89 12.97 12.76 13.05"
         {...stroke}
       />
     </svg>
@@ -91,12 +94,13 @@ function HeartVesselsIcon({ className }: IconProps) {
 function BonesJointsIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
-      <circle cx="17.3" cy="2.6" r="1.7" {...stroke} />
-      <path
-        d="M19.6 0.3 C18.3 1.6 17.1 3.6 16.7 5.8 C16.2 8.4 14.9 10.7 13 13 C11.3 15 9.6 16.6 8 18.2 C7 19.2 6.2 19.8 5.2 20.6"
-        {...stroke}
-      />
-      <path d="M13 13 C16 13.7 18.6 14.9 21.2 16.5 L23 17.8" {...stroke} />
+      {/* side-bend stretch, raised arm + wide stance — gymnastics/
+          flexibility metaphor, adapted from a reference pictogram */}
+      <circle cx="17" cy="9.5" r="1.8" {...stroke} />
+      <path d="M10.5 0.5 L10.5 7" {...stroke} />
+      <path d="M10.5 7 C12 9 15 10.5 12.5 14" {...stroke} />
+      <path d="M12.5 14 L5 21" {...stroke} />
+      <path d="M12.5 14 L20 21" {...stroke} />
     </svg>
   );
 }
