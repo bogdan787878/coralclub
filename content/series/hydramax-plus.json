@@ -1,8 +1,12 @@
 {
   "id": "hydramax-plus",
+  "enabled": true,
+  "heading": "",
   "titleLead": "Water alone doesn't hydrate.",
   "titleAccent": "Minerals do.",
-  "blurb": "Plain water moves through you fast — minerals and electrolytes are what make it stay. Hydramax Plus pairs Coral-Mine, PentoKan, H-500 and Oceanmin into one 30-day set built around exactly that.",
+  "blurb": "Plain water moves through you fast — minerals and electrolytes are what make it stay.",
+  "product": "hydramax-plus",
+  "weight": null,
   "images": [
     "/images/series/ChatGPT Image Sep 12, 2026 at 01_40_55 AM.png",
     "/images/series/ChatGPT Image Sep 12, 2026 at 01_00_26 AM.png"
@@ -12,6 +16,5 @@
     "pentokan",
     "oceanmin",
     "h-500"
-  ],
-  "product": "hydramax-plus"
+  ]
 }
