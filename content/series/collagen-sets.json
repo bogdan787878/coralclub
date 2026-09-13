@@ -3,10 +3,13 @@
   "titleLead": "Collagen isn't one thing.",
   "titleAccent": "Pick the depth that matches your goal.",
   "blurb": "Each set pairs a month of Promarine Collagen with its own biocellulose face mask. Peptides comes with the Skin Harmony mask, for everyday smoothness. Tripeptides — the deeper, faster-absorbing form — comes with the Advanced Collagen mask, for more intensive care.",
-  "images": [],
+  "images": ["/images/products/promarine-collagen.png"],
   "products": [
-    "promarine-collagen-peptides-skin-harmony-biocellulose-facial-mask",
-    "promarine-collagen-tripeptides-advanced-collagen-biocellulose-facial-mask"
+    "promarine-collagen",
+    "promarine-collagen-tripeptides-pack",
+    "advanced-collagen-biocellulose-facial-mask",
+    "hydro-boost-biocellulose-facial-mask",
+    "skin-harmony-biocellulose-facial-mask"
   ],
   "weight": 0
 }
