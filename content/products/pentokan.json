@@ -12,10 +12,12 @@
   "clubPrice": "$13",
   "description": "A soluble potassium and magnesium drink that supports heart rhythm, muscle function and healthy blood pressure — part of the daily hydration layer.",
   "carouselImages": [
-    "/images/products/pentokan.png"
+    "/images/products/pentokan.png",
+    "/images/products/ChatGPT Image Sep 13, 2026 at 11_47_49 PM.png"
   ],
   "pdpImages": [
-    "/images/products/pentokan.png"
+    "/images/products/pentokan.png",
+    "/images/products/ChatGPT Image Sep 13, 2026 at 11_45_44 PM.png"
   ],
   "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
   "elements": [
@@ -37,6 +39,8 @@
     "soy-free",
     "vegetarian"
   ],
+  "topSeller": false,
+  "includedProducts": [],
   "manufacturing": {
     "countryOfOrigin": "",
     "shippingWeight": "",
@@ -66,6 +70,5 @@
   },
   "rating": 4.5,
   "ratingsCount": 33,
-  "reviewsCount": 14,
-  "topSeller": false
+  "reviewsCount": 14
 }
