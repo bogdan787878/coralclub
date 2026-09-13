@@ -1,8 +1,12 @@
 {
-  "id": "immunity-pack",
+  "id": "",
+  "enabled": true,
   "heading": "The Immunity Pack",
+  "titleLead": "",
+  "titleAccent": "",
+  "blurb": "",
   "product": "immunity-pack",
+  "weight": 2,
   "images": [],
-  "products": [],
-  "weight": 2
+  "products": []
 }
