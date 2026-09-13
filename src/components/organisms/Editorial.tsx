@@ -35,8 +35,8 @@ export function Editorial({
   badge,
 }: EditorialProps) {
   return (
-    <Section tone={tone}>
-      <Container>
+    <Section tone={tone} className={styles.section}>
+      <Container className={styles.container}>
         <div className={styles.inner}>
           <div className={styles.media}>
             {image.src ? (

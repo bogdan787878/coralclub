@@ -144,6 +144,23 @@
     flex-direction: column;
     gap: var(--space-16);
   }
+
+  /* tag-qualified so this reliably beats Container's own same-specificity
+     single-class rule regardless of CSS module bundling order — see
+     Editorial.module.css for the same trick */
+  div.container {
+    padding-inline: 56px;
+  }
+
+  .title {
+    font-size: 56px;
+    line-height: 64px;
+  }
+
+  .introBody {
+    font-size: 20px;
+    line-height: 24px;
+  }
 }
 
 /* "what's in it" on mobile/tablet — a plain scroll row confined to the

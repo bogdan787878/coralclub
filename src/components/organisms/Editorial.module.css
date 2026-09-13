@@ -84,6 +84,17 @@
 
 /* image left, text right */
 @media (min-width: 1024px) {
+  /* tag-qualified so this reliably beats Section's/Container's own
+     same-specificity single-class rules regardless of CSS module
+     bundling order — see SeriesFeature.module.css's ".content .cta"
+     for the same trick used elsewhere in this codebase */
+  section.section {
+    padding-block: 56px;
+  }
+  div.container {
+    padding-inline: 56px;
+  }
+
   .inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -99,5 +110,12 @@
 
   .title {
     margin-top: 0;
+    font-size: 56px;
+    line-height: 64px;
+  }
+
+  .body {
+    font-size: 20px;
+    line-height: 24px;
   }
 }

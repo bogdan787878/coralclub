@@ -50,11 +50,19 @@ body {
    a real desktop layout rather than a stretched phone screen. Hero opts
    out of this cap deliberately (see Hero.module.css) to stay full-bleed.
    Account and quiz screens render outside this wrapper entirely — see
-   their own layouts. */
+   their own layouts. At 1024px+ the cap is dropped altogether — desktop
+   blocks (Editorial, SeriesFeature, QuizPromo) run edge to edge and
+   manage their own 56px inset instead of sitting in a centered column. */
 .appShell {
   width: 100%;
   max-width: var(--container-max);
   margin-inline: auto;
+}
+
+@media (min-width: 1024px) {
+  .appShell {
+    max-width: none;
+  }
 }
 
 img,

@@ -114,7 +114,7 @@ export function SeriesFeature({
 
   return (
     <>
-      <Container>
+      <Container className={styles.container}>
         <div
           className={`${styles.block}${split ? ` ${styles.blockSplit}` : ""}${tightTop ? ` ${styles.tightTop}` : ""}`}
         >

@@ -27,3 +27,19 @@
 .cta {
   margin-top: var(--space-8);
 }
+
+@media (min-width: 1024px) {
+  .card {
+    padding: 56px;
+  }
+
+  .title {
+    font-size: 56px;
+    line-height: 64px;
+  }
+
+  .body {
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
