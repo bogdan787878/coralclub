@@ -8,11 +8,14 @@
   --carousel-item-size: 150px;
 }
 
-/* Align the header and the scroller's first slide to the page container. */
+/* Align the header and the scroller's first slide to the page container.
+   --carousel-gutter overrides this — set it on an ancestor (see
+   SeriesFeature's .desktopCarousel) to align to a different inset than
+   the page's own container-max column. */
 .gutter {
-  padding-inline: max(
-    var(--page-padding-inline),
-    calc((100% - var(--container-max)) / 2)
+  padding-inline: var(
+    --carousel-gutter,
+    max(var(--page-padding-inline), calc((100% - var(--container-max)) / 2))
   );
 }
 
@@ -87,7 +90,10 @@
 @media (min-width: 1024px) {
   .viewport {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    /* however many items there are, up to 5 (see Carousel.tsx) — fewer
+       than 5 fills the row instead of leaving the unused columns as
+       dead space on the right */
+    grid-template-columns: repeat(var(--carousel-cols, 5), minmax(0, 1fr));
     gap: var(--space-8);
     overflow: visible;
     scroll-snap-type: none;

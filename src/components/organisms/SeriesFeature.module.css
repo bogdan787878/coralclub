@@ -125,7 +125,12 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     column-gap: var(--space-40);
-    align-items: start;
+    align-items: center;
+    /* replaces the margin-based mobile spacing with the block's own
+       56px top/bottom, matching Editorial/QuizPromo's desktop padding */
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-block: 56px;
   }
 
   .blockSplit > .intro {
@@ -198,6 +203,11 @@
   .desktopCarousel {
     display: block;
     margin-top: var(--space-24);
+    /* align the shared <Carousel>'s own full-bleed gutter to this
+       block's 56px inset instead of the page's usual container-max
+       column, so the product row's edges line up with the image/text
+       above it */
+    --carousel-gutter: 56px;
   }
 }
 

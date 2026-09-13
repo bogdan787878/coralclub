@@ -77,6 +77,12 @@ export function Carousel({
     el.scrollBy({ left: dir * el.clientWidth * 0.9, behavior: "smooth" });
   };
 
+  // desktop's static grid (see .viewport at 1024px+) defaults to 5 columns;
+  // fewer items than that would otherwise leave dead space on the right
+  // instead of the row filling the available width, so cap it to however
+  // many items there actually are.
+  const cols = Math.min(Children.count(children), 5);
+
   return (
     <div className={styles.root}>
       {title != null && (
@@ -92,9 +98,10 @@ export function Carousel({
           ref={trackRef}
           onScroll={updateArrows}
           style={
-            itemWidth
-              ? ({ ["--carousel-item-width"]: itemWidth } as CSSProperties)
-              : undefined
+            {
+              ...(itemWidth ? { "--carousel-item-width": itemWidth } : {}),
+              "--carousel-cols": cols,
+            } as CSSProperties
           }
           aria-label={label}
           role="list"
