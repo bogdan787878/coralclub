@@ -333,7 +333,8 @@ const priceValue = (s: string): number => {
   return Number.isFinite(n) ? n : 0;
 };
 const BUDGET_CAP: Record<string, number> = { low: 30, mid: 60, any: Infinity };
-const COUNT: Record<string, number> = { one: 2, few: 3, set: 5 };
+// always try to fill a full set — capped at 3 products regardless of answer
+const COUNT: Record<string, number> = { one: 2, few: 3, set: 3 };
 const ANIMAL = /collagen|omega|fish|colostrum|shark|liver|carnitine|dha|krill/i;
 const DRINK = /shake|mix|hi-fiber|powder|stick|spray|drink|protein|sagrada|pentokan|h-500|oceanmin/i;
 const AGE_DOMAINS = ["longevity", "bones-joints", "heart-vessels"];

@@ -59,19 +59,23 @@
   padding: 0;
 }
 
-.productLink {
+.product {
   display: flex;
   align-items: center;
-  gap: var(--space-16);
+  gap: var(--space-12);
   padding: var(--space-16);
   border: 1px solid var(--q-card-border);
   border-radius: var(--q-radius);
   background: var(--q-card);
-  color: inherit;
-  transition: background-color 0.15s var(--ease-standard);
 }
-.productLink:hover {
-  background: color-mix(in srgb, var(--q-fg) 12%, transparent);
+
+.productLink {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  color: inherit;
 }
 
 .productBody {
@@ -109,13 +113,118 @@
   text-decoration: line-through;
 }
 
-.chevron {
+/* ---------- Per-product add-to-cart ---------- */
+.addBtn {
   flex: none;
-  opacity: 0.5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 var(--space-16);
+  border-radius: var(--radius-pill);
+  background: var(--q-on);
+  color: var(--q-on-fg);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
-.chevron svg {
-  width: 18px;
-  height: 18px;
+
+.stepper {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 4px;
+  border-radius: var(--radius-pill);
+  background: var(--q-on);
+  color: var(--q-on-fg);
+}
+.stepper button {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  font-size: 1.125rem;
+  line-height: 1;
+  color: inherit;
+}
+.stepperCount {
+  min-width: 20px;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* ---------- Total bar (all products, PDP-style) ---------- */
+.totalBar {
+  position: sticky;
+  bottom: 0;
+  margin-top: var(--space-16);
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-16);
+  background: var(--q-bg);
+}
+
+.totalInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+  padding: var(--space-16);
+  border-radius: var(--q-radius);
+  background: var(--q-card);
+  border: 1px solid var(--q-card-border);
+}
+
+.totalPriceBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 0;
+}
+.totalPriceRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-8);
+}
+.totalNow {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.totalWas {
+  font-size: 0.875rem;
+  opacity: 0.55;
+  text-decoration: line-through;
+}
+.totalSavings {
+  align-self: flex-start;
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-pill);
+  background: var(--color-special);
+  color: #ffffff;
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.totalAction {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 var(--space-24);
+  border-radius: var(--radius-pill);
+  background: var(--q-on);
+  color: var(--q-on-fg);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.totalAction:disabled {
+  opacity: 0.5;
 }
 
 /* ---------- Actions ---------- */
