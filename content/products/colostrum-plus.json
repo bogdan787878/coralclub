@@ -10,8 +10,12 @@
   "description": "A synergistic complex of bovine colostrum and beta-glucans for immune support. It helps strengthen immunity, raise the body's resistance to pathogens, speed up regeneration and protect and restore the lining of the digestive tract.",
   "price": "$38.75",
   "clubPrice": "$31",
-  "carouselImages": ["/images/products/colostrum-plus.png"],
-  "pdpImages": ["/images/products/colostrum-plus.png"],
+  "carouselImages": [
+    "/images/products/colostrum-plus.png"
+  ],
+  "pdpImages": [
+    "/images/products/colostrum-plus.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -53,5 +57,6 @@
         }
       ]
     }
-  }
+  },
+  "fullDescription": "Bovine colostrum is a natural source of biologically active components, including immunoglobulins, lactoferrin, and transfer factors, which support immune function and overall health.* It also contains amino acids and growth factors that help support the body's recovery after physical exertion.\n\nBovine colostrum\n\nBeta-glucans\n\nWith this unique combination, Colostrum Plus supports the body's natural defenses, helps maintain gastrointestinal health, and supports the body's natural recovery processes.*\n\nColostrum Plus helps maintain immune and gastrointestinal health.*"
 }

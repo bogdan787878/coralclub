@@ -10,8 +10,12 @@
   "description": "Contains calanus oil — a source of a rare form of omega-3 from Arctic zooplankton. This fully natural product from the cold, clean waters of the North Atlantic delivers omega-3 and other lipids in the rare wax-ester form, plus astaxanthin, with 500 mg of calanus oil per capsule.",
   "price": "$47.50",
   "clubPrice": "$38",
-  "carouselImages": ["/images/products/premium-plankton-oil-new-2025-glass.png"],
-  "pdpImages": ["/images/products/premium-plankton-oil-new-2025-glass.png"],
+  "carouselImages": [
+    "/images/products/premium-plankton-oil-new-2025-glass.png"
+  ],
+  "pdpImages": [
+    "/images/products/premium-plankton-oil-new-2025-glass.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -33,5 +37,6 @@
       "servingLabel": "Amount Per Serving",
       "rows": []
     }
-  }
+  },
+  "fullDescription": "Calanus Oil is a source of a unique form of omega-3 obtained from Arctic zooplankton.\n\nCalanus Oil\n\nCalanus is a miniature crustacean and a representative of zooplankton widely found in the cold waters of the North Atlantic. Calanus Oil is a completely natural product. It contains unsaturated fats, primarily omega-3, and the carotenoid astaxanthin. The fats in calanus have a unique form of wax esters and are digested slowly, unlike the triglyceride, ethyl ester, and phospholipid forms commonly found in fish and krill oil. Due to its slow digestion, calanus oil reaches the lower parts of the intestine, where it can have an impact on maintaining normal metabolism. Astaxanthin belongs to the group of carotenoid pigments and gives calanus oil its vibrant red color.\n\nThe harvesting of calanus does not harm the population or marine environment, and the oil production process is chemical-free, making it an environmentally friendly product.\n\nVitamin E\n\nProtects cells from oxidative stress, which is why this vitamin is sometimes referred to as the \"youth vitamin.\""
 }

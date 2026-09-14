@@ -10,8 +10,12 @@
   "description": "A balanced complex of vitamins, minerals and phytonutrients in active, bioavailable form to make up shortfalls in the diet. It helps balance vitamin and mineral status, strengthen immunity, raise performance and vitality and support healthy longevity.",
   "price": "$27.50",
   "clubPrice": "$22",
-  "carouselImages": ["/images/products/ultimate-max.png"],
-  "pdpImages": ["/images/products/ultimate-max.png"],
+  "carouselImages": [
+    "/images/products/ultimate-max.png"
+  ],
+  "pdpImages": [
+    "/images/products/ultimate-max.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -176,5 +180,6 @@
         }
       ]
     }
-  }
+  },
+  "fullDescription": "Ultimate Max is a balanced complex of vitamins, minerals, antioxidants and phytonutrients to help replenish nutrients, support immunity, and healthy metabolism for overall health and well-being.\n\nVitamin A\n\nVitamin A is known as the \"\"vitamin of vision” because it supports retinal function and helps to adapt vision to low light conditions. It also promotes normal metabolism and supports the immune and reproductive systems. Ultimate Max includes vitamin A in the bioavailable form of beta-carotene.\n\nVitamin C\n\nVitamin C is one of the most important antioxidants for supporting the immune system and protecting cells from free radical damage. It is essential for the synthesis of collagen and helps heal wounds. The source of vitamin C in Ultimate Max is mineral ascorbates. Vitamin C in this form is more stable, is likely less irritating to the mucous membrane, and helps enrich the body with additional minerals.\n\nVitamins D and E\n\nThese naturally derived vitamins are necessary for optimal immune, nervous, cardiovascular, musculoskeletal, and reproductive system function.\n\nB Vitamins\n\nUltimate Max contains the entire spectrum of B vitamins. These are important for supporting optimal metabolism, nervous and cardiovascular system function, healthy digestion, skin, hair, and nails. The need for B vitamins increases during stressful situations and high physical exertion. Ultimate Max includes vitamin B6 as pyridoxal phosphate, B9 as the patented Metafolin®, and B12 as methylcobalamin. Methylcobalamin helps support normal sleep cycles.\n\nChromium, Selenium, Copper, Zinc, Manganese, Molybdenum\n\nThe minerals included in Ultimate Max are in the form of organic salts. Included in the product are zinc and magnesium citrates, chromium picolinate, copper bisglycinate, and manganese gluconate. These organic compounds have high bioavailability and efficiency.\n\nIodine\n\nThe iodine included in Ultimate Max is derived from brown seaweed kelp. Iodine is necessary to produce thyroid hormones, which regulate all types of metabolism in the body.\n\nPhytonutrient Complex\n\nThe citrus bioflavanoid complex from lemon, grapefruit, orange, lime, and mandarin derivatives, as well as a proprietary herbal blend, including forms of bilberry and acai, are indeed rich in phytonutrients - flavonoids, carotenoids, and phenolic acids - that fight oxidative stress and support cell protection."
 }

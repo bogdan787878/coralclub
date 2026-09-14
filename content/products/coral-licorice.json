@@ -10,8 +10,12 @@
   "description": "Licorice root extract with ginger root extract has a soothing effect on the respiratory tract and the digestive system and helps strengthen the body's defences.",
   "price": "$13.75",
   "clubPrice": "$11",
-  "carouselImages": ["/images/products/coral-licorice.png"],
-  "pdpImages": ["/images/products/coral-licorice.png"],
+  "carouselImages": [
+    "/images/products/coral-licorice.png"
+  ],
+  "pdpImages": [
+    "/images/products/coral-licorice.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -57,5 +61,6 @@
         }
       ]
     }
-  }
+  },
+  "fullDescription": "Coral Licorice Root is a versatile product derived from licorice root and ginger extracts. This multi-purpose product may support immune health and helps promote digestive comfort.*\n\nLICORICE ROOT\nLicorice Root is a botanical gem that contains naturally occurring compounds such as triterpenoid glycyrrhizin. Deglycyrrhized licorice (DGL) and other phytonutrients may help support digestive and respiratory health, as well as contribute to immune system health and overall hormonal balance*\n\nGINGER ROOT\nGinger is traditionally used and may help support vascular health and a healthy immune system.*\n\n*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
 }

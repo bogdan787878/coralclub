@@ -11,8 +11,12 @@
   "description": "A dense whole-food source of plant protein, chlorophyll and iron — an easy daily top-up for a personalised nutrition plan.",
   "price": "$31.25",
   "clubPrice": "$25",
-  "carouselImages": ["/images/products/spirulina.png"],
-  "pdpImages": ["/images/products/spirulina.png"],
+  "carouselImages": [
+    "/images/products/spirulina.png"
+  ],
+  "pdpImages": [
+    "/images/products/spirulina.png"
+  ],
   "rating": 4.4,
   "ratingsCount": 41,
   "reviewsCount": 17,
@@ -35,5 +39,6 @@
       "servingLabel": "Amount Per Serving",
       "rows": []
     }
-  }
+  },
+  "fullDescription": "Premium Spirulina is produced from Spirulina cultivated using organic methods.\n\nEach tablet contains 500 mg of pure Spirulina without any preservatives or fillers. It supports normal cholesterol levels already within the normal range, supports normal metabolism, and supports the body's natural detoxification processes as part of a healthy lifestyle.*\n\nSPIRULINA\nSpirulina combines the beneficial qualities of bacteria and blue-green algae in a nutrient-rich ingredient that supports immune health.* It provides naturally occurring phytonutrients, including carotenoids, that help support cellular energy production and the body’s natural antioxidant defenses.*"
 }

@@ -10,8 +10,12 @@
   "description": "A good-tasting source of soluble and insoluble fibre plus extra plant components that supply enzymes, amino acids, minerals and vitamins. It supports the removal of toxins, a healthy gut microflora and regular motility, and helps curb appetite.",
   "price": "$25",
   "clubPrice": "$20",
-  "carouselImages": ["/images/products/daily-delicious-hi-fiber-acai-blueberry.png"],
-  "pdpImages": ["/images/products/daily-delicious-hi-fiber-acai-blueberry.png"],
+  "carouselImages": [
+    "/images/products/daily-delicious-hi-fiber-acai-blueberry.png"
+  ],
+  "pdpImages": [
+    "/images/products/daily-delicious-hi-fiber-acai-blueberry.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -109,5 +113,6 @@
         }
       ]
     }
-  }
+  },
+  "fullDescription": "Hi-Fiber supports a balanced gut microflora and helps support healthy cholesterol and blood sugar levels already within the normal range.*\n\nSOLUBLE FIBER\nSourced from apples, inulin, and glucomannan, soluble fiber helps support healthy cholesterol levels already within the normal range, including LDL cholesterol (\"bad\" cholesterol).*\n\nINSOLUBLE FIBER\nInsoluble fiber, such as cellulose and rice bran, is recognized for its role in supporting digestive regularity and helping with occasional constipation.* It may also promote healthy movement during digestion and support a healthy metabolism.*\n\nGLUTAMINE\nSupplementation with the amino acid L-glutamine supports digestive and immune function and helps support the maintenance of muscle mass, especially during periods of intense exercise or recovery.*\n\nALOE VERA GEL\nAloe Vera gel contains naturally occurring plant compounds that support digestive health and bowel regularity.* The anthraquinones found in aloe vera help support healthy gastrointestinal function and occasional constipation.*"
 }

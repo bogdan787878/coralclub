@@ -73,6 +73,11 @@ export type ProductContent = {
   goals: Goal[];
   coralId?: string;
   description: string;
+  /** Full "Description" tab text scraped from the product's real
+   *  coralclub.us page (see scripts/scrape-full-description.py) — shown
+   *  as plain text on the PDP, after Supplement Facts. Not every product
+   *  has one (some real pages have no Description tab at all). */
+  fullDescription?: string;
   price: string;
   clubPrice: string;
   carouselImages: string[];
@@ -117,6 +122,9 @@ export type Product = {
   /** Scenarios this product supports, most relevant first. */
   goals: Goal[];
   description: string;
+  /** Full "Description" tab text scraped from coralclub.us — shown as
+   *  plain text on the PDP, after Supplement Facts. */
+  fullDescription?: string;
   /** Packshots for the carousel card's image slider. */
   carouselImages: string[];
   /** Packshots for the PDP image slider. */
@@ -209,6 +217,7 @@ function fromContent(c: ProductContent): Product {
     category: c.category,
     goals: c.goals ?? [],
     description: c.description,
+    fullDescription: c.fullDescription,
     carouselImages,
     pdpImages,
     elements: c.elements ?? [],

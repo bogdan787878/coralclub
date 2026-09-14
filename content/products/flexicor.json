@@ -10,8 +10,12 @@
   "description": "Supports joint mobility and flexibility and helps reduce stiffness. It combines active components known for strengthening the musculoskeletal system: glucosamine, chondroitin, MSM, manganese, bamboo extract and vitamin C.",
   "price": "$41.25",
   "clubPrice": "$33",
-  "carouselImages": ["/images/products/flexicor.png"],
-  "pdpImages": ["/images/products/flexicor.png"],
+  "carouselImages": [
+    "/images/products/flexicor.png"
+  ],
+  "pdpImages": [
+    "/images/products/flexicor.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -72,5 +76,6 @@
         }
       ]
     }
-  }
+  },
+  "fullDescription": "FlexiCor is a dietary supplement formulated to support calcium absorption and help maintain strong, healthy bones.*\n\nGlucosamine\nGlucosamine is a compound naturally found in cartilage and is commonly used to support joint health. It plays a role in the synthesis of hyaluronic acid, which contributes to the lubrication provided by synovial fluid and the cushioning of joints for comfortable movement.*\n\nChondroitin Sulfate\nChondroitin Sulfate is a key component of cartilage that contributes to its structure and resilience. It helps attract water into the cartilage, supporting its elasticity and compressibility--features that are important for cushioning joints and supporting their normal function.*\n\nMSM\nVitamin C is essential for collagen production, aiding in the formation of its structure. MSM provides sulfur, which plays a role in supporting the strength of connective tissues. Together, they support joint and tissue health.*\n\nManganese\nManganese is an essential mineral involved in the body's natural production of chondroitin, a compound that supports the integrity of joints and cartilage*.\n\nBamboo Extract\nBamboo extract is a natural source of silicon, a mineral that supports the strength and flexibility of joints and connective tissue.*"
 }

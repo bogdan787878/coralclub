@@ -10,8 +10,12 @@
   "description": "A new curcumin formula with exceptional efficacy. Combining liposomal encapsulation with the enhanced Cureit formula significantly raises the bioavailability of curcumin.",
   "price": "$31.25",
   "clubPrice": "$25",
-  "carouselImages": ["/images/products/liposomal-curcumin.png"],
-  "pdpImages": ["/images/products/liposomal-curcumin.png"],
+  "carouselImages": [
+    "/images/products/liposomal-curcumin.png"
+  ],
+  "pdpImages": [
+    "/images/products/liposomal-curcumin.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -66,5 +70,6 @@
         }
       ]
     }
-  }
+  },
+  "fullDescription": "Unlock the potential of curcumin with Liposomal Curcumin, a bioavailable form designed for enhanced absorption.*\n\nCurcumin, derived from the rhizome of turmeric, has been a prized spice and traditional herb in India and southern Asia for centuries. Curcumin provides antioxidant support to help protect cells from oxidative stress and supports immune health.* It also supports normal brain and nervous system function.* Moreover, curcumin supports cardiovascular health and helps maintain cholesterol, triglyceride, and blood sugar levels already within the normal range.* Discover the benefits of this remarkable herb for overall well-being.*\n\nUnlock the full potential of turmeric with our Liposomal Curcumin, formulated to help address the challenge of low bioavailability. Traditional curcumin supplements often have limited absorption and rapid breakdown in the body. Our Liposomal Curcumin uses innovative “PNS” (Polar–Non-polar Sandwiching) technology from Aurea Biolabs to support efficient delivery and stability of curcumin.* This advanced process creates a natural turmeric matrix with a concentrated curcumin complex, supporting optimal absorption and stability.* Experience the benefits of curcumin with this high-quality formulation, designed to support antioxidant protection and overall well-being.* Experience the advanced formulation of Cureit™ Curcumin, a next-generation innovation in curcumin delivery. Developed using patented PNS (Polar–Non-polar Sandwiching) technology, Cureit™ provides a full turmeric matrix extract designed to support optimal absorption and bioavailability.* This formulation helps support the body’s antioxidant defenses and overall well-being.*"
 }

@@ -10,8 +10,12 @@
   "description": "Pau d'arco (lapacho) bark extract with olive leaf and yerba mate extracts helps activate the body's immunity, raise vitality and give a feeling of energy.",
   "price": "$18.75",
   "clubPrice": "$15",
-  "carouselImages": ["/images/products/pau-d-arco-mate.png"],
-  "pdpImages": ["/images/products/pau-d-arco-mate.png"],
+  "carouselImages": [
+    "/images/products/pau-d-arco-mate.png"
+  ],
+  "pdpImages": [
+    "/images/products/pau-d-arco-mate.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -63,5 +67,6 @@
         }
       ]
     }
-  }
+  },
+  "fullDescription": "A natural complex based featuring Pau D’arco bark extract, Brazilian Mate, and Olive leaf extract. It supports the body's natural defenses and helps maintain energy and vitality*.\n\nPau D’arco bark extract is rich in natural compounds that support the body's natural defenses and overall well-being.* It helps maintain immune health and supports the body's resilience during occasional stress.*\n\nOlive extract provides antioxidant support, helping protect cells from oxidative stress and supporting the body's natural defenses.*\n\nYerba Mate (leaf extract), traditionally used in South America (Brazil, Paraguay, and neighboring regions), supports energy and mental alertness.* It helps reduce occasional fatigue, supports circulation, and promotes overall vitality.*"
 }

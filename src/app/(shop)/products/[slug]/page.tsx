@@ -153,6 +153,18 @@ export default async function ProductPage({
                         },
                       ]
                     : []),
+                  ...(product.fullDescription
+                    ? [
+                        {
+                          title: "Full Description",
+                          content: (
+                            <p style={{ whiteSpace: "pre-line" }}>
+                              {product.fullDescription}
+                            </p>
+                          ),
+                        },
+                      ]
+                    : []),
                 ]}
               />
             </Stack>

@@ -10,8 +10,12 @@
   "description": "An innovative product for getting into shape. It helps speed up metabolism and raise energy expenditure; naturally derived components and liposomal technology give it high efficacy, safety and bioavailability.",
   "price": "$23.80",
   "clubPrice": "$19",
-  "carouselImages": ["/images/products/lipostick-fit.png"],
-  "pdpImages": ["/images/products/lipostick-fit.png"],
+  "carouselImages": [
+    "/images/products/lipostick-fit.png"
+  ],
+  "pdpImages": [
+    "/images/products/lipostick-fit.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -85,5 +89,6 @@
         }
       ]
     }
-  }
+  },
+  "fullDescription": "Lipostick fit is an innovative formula featuring natural ingredients and advanced liposomal technology. It helps support healthy metabolism and energy production.* When combined with a balanced diet and regular physical activity, it supports metabolic processes involved in fat utilization, helping maintain a healthy weight and body composition.* Lipostick Fit also supports appetite balance and restful sleep for overall wellness and vitality.*\n\nLipostick Fit is an innovative formula featuring natural ingredients and advanced liposomal technology designed to support efficient nutrient delivery and absorption. It helps support healthy metabolism and energy production to complement an active lifestyle.* Ideal for individuals looking to support their wellness goals alongside balanced nutrition and regular physical activity.\n\nLipostick Fit 's patetented, tangerine Flavonoid Complex (Nobiletin & Hesperidin) provides plant-derived flavonoids that support healthy metabolic activity and energy expenditure as part of an active lifestyle.*\n\nGreen Coffee Bean Extract contains naturally occurring chlorogenic acids that support carbohydrate and fat metabolism and help maintain healthy blood glucose levels already within the normal range.*\n\nGreen Tea Extract delivers polyphenols and antioxidants that support metabolic health and cellular protection from oxidative stress.*\n\nL-Carnitine plays a role in cellular energy production and supports the body’s natural processes for converting fats into usable energy during physical activity.*\n\nNoni Juice provides phytonutrients, vitamins, and minerals that support digestion, nutrient absorption, and overall vitality.*\n\nBioPerine® (Black Pepper Extract) supports nutrient absorption and bioavailability to help optimize the effectiveness of the formula’s ingredients.*.\n\nLipostick Fit comes in convenient, ready-to-drink stick packs for easy use at home or on the go — simply open and enjoy."
 }

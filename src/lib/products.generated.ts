@@ -134,7 +134,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Grape Seed Extract\n\nGrape Seed Extract contains naturally occurring polyphenolic compounds that provide antioxidant support.* It helps protect cells from oxidative stress and supports healthy blood flow*.\n\nGinkgo Biloba and Green Tea\n\nBoth Ginkgo Biloba and Green Tea contain compounds to help protect cells from oxidative stress and help support healthy blood vessels, circulation, and blood flow. Ginkgo Biloba also provides antioxidant support and supports healthy cognitive function by helping maintain normal neurotransmitter activity.*\n\nEleuthero and Milk Thistle\n\nEleuthero and Milk Thistle contain natural components that help support energy and overall vitality.* Milk thistle is traditionally used to support normal liver function, particularly during exposure to environmental stressors.*\n\nChicory Root Inulin\n\nChicory Root Inulin is a dietary fiber that acts as a prebiotic, helping to nourish beneficial gut bacteria.* It supports normal digestion and nutrient absorption.* It is high in antioxidant vitamins C and E and an excellent source of zinc, selenium, and manganese.*\n\nDunaliella Salina Algae\n\nDunaliella Salina Algae is a type of green algae found in saltwater environments and contains phytonutrients that provide antioxidant support and help protect cells from oxidative stress."
   },
   {
     "slug": "advanced-collagen-biocellulose-facial-mask",
@@ -180,7 +181,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     },
     "rating": 4.5,
     "ratingsCount": 0,
-    "reviewsCount": 0
+    "reviewsCount": 0,
+    "fullDescription": "Biocellulose mask with collagen tripeptides, seawater, NARA-5 peptides and argireline. Aimed at intensive nourishment and combating signs of aging.\n\nUsing Lipomask™ liposomal technology, active ingredients penetrate the skin up to 10 times deeper than regular masks. Liposomes, which mimic the structure of cell membranes, allow ingredients to easily reach deeper skin layers, enhancing hydration and repair effects.\n\nThe “second skin” effect is created by biocellulose, which closely conforms to your face, replicating its contours. This material holds up to 3 times more serum than other bases, ensuring an even transfer of active ingredients and long-lasting hydration.\n\nPremium beauty ingredients: each mask contains a complex of marine minerals, exopolysaccharides, and antioxidants. Minerals strengthen the skin and help retain moisture. Exopolysaccharides protect skin from environmental factors, reduce fine lines, and create a smoothing effect. Algae antioxidants reduce oxidative stress and stimulate collagen synthesis, giving your skin a healthy, hydrated, and radiant look.\n\nHAPA-5 Peptide (S-OCTOPUS PENTAPEPTIDE-1 SP) is a synthetic analog inspired by the blue-ringed octopus secretion. It enhances the delivery of active ingredients, smooths wrinkles, provides antioxidant-like protection and supports collagen production.MAXICOLLAGEN features next-generation fish collagen tripeptides, which are significantly smaller than conventional collagen. It improves skin elasticity, provides deep hydration, and helps even out skin tone.\n\nFor comprehensive skincare, pair with our new Promarine Collagen Tripeptides containing MAXICOLLAGEN to maximize the benefits and ensure deeper nutrient penetration.Argireline, widely used in creams and serums, is known as a non-invasive alternative to Botox. It penetrates deeply to reduce the appearance of wrinkles and helps prevent new ones from forming.\n\nWe recommend using the mask with our new Promarine Collagen Tripeptides, which also contains MAXICOLLAGEN collagen tripeptides. The combination of products working from the inside out will enhance effectiveness, deliver maximum results quickly, and provide comprehensive care for your skin."
   },
   {
     "slug": "aquaox",
@@ -255,7 +257,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Harness the power of our phytonutrient-packed blend, featuring pomegranates, cocoa beans, acai berries, and rosemary! This formula provides antioxidant support to help protect against oxidative stress while supporting immune function, cardiovascular health, and cognitive performance.*\n\nPomegranate\n\nPomegranate is a source of polyphenols, anthocyanins, and tannins--plant compounds known for their antioxidant activity. It helps protect cells from oxidative stress and supports healthy blood vessels.*\n\nAcai Berry\n\nTraditionally used in Amazonian cultures, acai has been valued for promoting vitality and overall well-being. It is a small, purple fruit that grows in the Amazon rainforest. Acai provides antioxidant support to help protect against oxidative stress and support immune function, skin health, and overall well-being.*\n\nCacao beans\n\nCacao beans contain beneficial compounds, such as flavanols, which provide antioxidant support to help protect against oxidative stress and support healthy blood circulation.*\n\nRosemary\n\nRosemary contains compounds that may help support vascular tone, healthy blood flow, and the body's response to occasional stress.*"
   },
   {
     "slug": "assimilator",
@@ -360,7 +363,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         ]
       }
     },
-    "topSeller": true
+    "topSeller": true,
+    "fullDescription": "Assimilator is a plant-based enzyme supplement containing a blend of amylase, cellulase, maltase, and lactase to help break down carbohydrates and support healthy digestion.* With added vitamins A and D, Assimilator also supports gut health and contributes to a balanced microbiome.*\n\nEnzymes that Help Break Down Carbohydrates\n\nVitamins A and D\n\nThese vitamins help maintain the health of the gastrointestinal (GI) tract by supporting mucosal integrity and immune function.*\n\nEnzymes that Help Break Down Proteins\n\nProtease, papain, and bromelain are proteolytic enzymes that help break down proteins into amino acids. These enzymes are active in both acidic and alkaline environments of the GI tract.*\n\nEnzymes that Help Break Down Fats\n\nLipase is an enzyme that supports the digestion of dietary fats, aiding in their breakdown and absorption in the intestines.*"
   },
   {
     "slug": "b-luron",
@@ -574,7 +578,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "B-Prime Direct is a cutting-edge vitamin B complex in the most bioavailable forms, designed for efficient replenishment of deficiencies and comprehensive body support. The latest addition to the Coral Club product line comes in convenient single-dose stick packs with powder that dissolves directly in the mouth.\n\nB vitamins play a vital role in the body, supporting normal energy metabolism, maintaining the nervous system, enhancing cognitive abilities, and promoting healthy skin, hair, and nails. Regular intake is essential for an active lifestyle, overall well-being, immune support, and stress resilience.\n\nWhat sets B-Prime Direct apart is its high-potency doses and the use of advanced, highly bioavailable forms of vitamins. For example, vitamin B9 is presented in the patented form Extrafolate-S™, which requires no additional conversion in the body, unlike regular folic acid. This ensures greater effectiveness and faster action.\n\nThe Direct format is an innovative solution for convenient use. The powder dissolves in the mouth, enabling rapid absorption while bypassing the gastrointestinal tract, as it is not exposed to stomach acid. There’s no need to mix with water or swallow pills, making it an excellent choice for those on the go!"
   },
   {
     "slug": "bp-phyto-control",
@@ -653,7 +658,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "BP Phyto Control\nsupports cardiovascular health, helps maintain healthy blood circulation, and provides antioxidant support for overall wellness.*\n\nHawthorn Berry Extract\nContains flavonoids with antioxidant properties that support vascular health and circulatory function.*\n\nGreen coffee extract provides antioxidant support and helps maintain healthy blood flow and circulatory function.*\n\nMotherwort Leaf\nTraditionally used to support relaxation and help maintain healthy circulatory function.*\n\nSkullcap Root\nSkullcap is traditionally used to help promote relaxation, support hormonal balance, and encourage restful sleep.*\n\nHibiscus Flower\nProvides antioxidant support to help fight oxidative stress* and supports healthy blood vessels.*"
   },
   {
     "slug": "calci-prime",
@@ -701,7 +707,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "servingLabel": "Amount Per Serving",
         "rows": []
       }
-    }
+    },
+    "fullDescription": "Calcium is essential for maintaining strong bones and teeth. It also aids in muscle function, including the heart, and plays a role in blood clotting and energy production.\n\nAquamin™ is a source of natural calcium from North Atlantic seaweed. These algae are able to absorb minerals (mainly calcium and magnesium and trace amounts of other sea minerals) from seawater and incorporate them into the cells of their shells so that they become rock solid.\n\nVitamin D3 helps the body absorb calcium, promoting healthy bones, teeth, immune system, and muscle function.\n\nVitamin K2 (menaquinone) contains a clinically proven and patented form of vitamin K2 (MenaQ7®)**, supporting bone and dental health by forming new bone tissue.\n\nMagnesium contributes to bone and dental health, helps absorb calcium, and plays a role in collagen protein synthesis. Our product contains magnesium citrate from Aquamin™.\n\nZinc supports healthy bones, mineral metabolism, cell formation, immunity, and vitamin A absorption. Our product uses organic zinc citrate.\n\nManganese helps maintain healthy bones, joints, and skin by participating in connective tissue formation.\n\nSilicon is found mainly in connective tissue, comes from a naturally sourced product: horsetail.\n\nBoron, concentrated in the skeleton and teeth, is also included.\n\n*Aquamin™ is a registered trademark of Marigot Limited (Ireland).\n\n**MenaQ7® - registered trademark of NattoPharma AS (Norway)"
   },
   {
     "slug": "cardiopack",
@@ -754,7 +761,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "servingLabel": "Amount Per Serving",
         "rows": []
       }
-    }
+    },
+    "fullDescription": "Cardiopack is a comprehensive set designed to support cardiovascular health by providing key nutrients that help maintain normal heart function and promote healthy circulation.*\n\nPENTOKAN\nPentokan provides potassium, ribose, and vitamin C in convenient effervescent tablets designed for efficient absorption.* Potassium helps maintain normal fluid balance within cells and supports healthy muscle and nervous system function, while vitamin C contributes antioxidant support to help protect cells from oxidative stress.*\n\nCOENZYME Q10\nCoenzyme Q10 (CoQ10) is a naturally occurring compound found in the mitochondria—the “powerhouses” of cells that produce energy in the form of ATP. CoQ10 supports normal cellular energy production and helps protect cells from oxidative stress.* It also supports heart and circulatory function and may help maintain physical endurance during exercise.*\n\nCORAL TAURINE\nTaurine supports electrolyte balance (sodium, potassium, magnesium) and provides antioxidant support for cells.* It may help support normal cholesterol levels already within the healthy range and promote cardiovascular function with its role in vascular health.*\n\nCORAL MAGNESIUM\nCoral Magnesium provides well-absorbed forms of magnesium (taurate and glycinate) that support cardiovascular, muscular, and nervous system function.* Magnesium also contributes to normal energy metabolism and helps maintain electrolyte balance and proper cellular function.*"
   },
   {
     "slug": "cascara-sagrada-rbc",
@@ -791,7 +799,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "servingLabel": "Amount Per Serving",
         "rows": []
       }
-    }
+    },
+    "fullDescription": "Looking for gentle digestive support? Cascara Sagrada is a plant-based botanical traditionally used to help maintain regularity and support healthy intestinal function. It supports the body's natural elimination processes and overall digestive balance.\n\nDerived from the bark of the Cascara Buckthorn tree native to North America, Cascara Sagrada has been traditionally used to support digestive health and regularity. It provides gentle support for healthy bowel function, helping to promote comfortable elimination and overall digestive balance.* Cascara Sagrada contains naturally occurring plant compounds that support the body's normal intestinal processes and help maintain regular bowel movements.*"
   },
   {
     "slug": "circuphyt",
@@ -875,7 +884,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Introducing CircuPhyt, a plant-based complex featuring herbal ingredients traditionally used to support healthy circulation and vascular tone.* It helps maintain the integrity of blood vessel walls and supports lymphatic flow for overall leg wellness.*\n\nDiosmin\nDiosmin is a citrus-derived bioflavonoid traditionally used to support healthy venous tone and vascular elasticity.*\n\nHorse Chestnut Seed Extract\nTraditionally used to support healthy blood flow and maintain venous tone.*\n\nHawthorn Berry Extract\nContain flavonoids with antioxidant properties that support vascular health and circulatory function.*\n\nGotu Kola & Gingko Biloba Leaf Extracts\nThese extracts are traditionally used to support healthy circulation and maintain blood vessel integrity.*\n\nBlueberry Fruit Extract\nProvides antioxidant support and helps maintain the strength and integrity of veins and capillaries.*"
   },
   {
     "slug": "coenzyme-q10-kaneka",
@@ -936,7 +946,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Coenzyme Q10 (Ubiquinone) supports cellular energy production.* The Coenzyme Q10 in this formula is Kaneka Q10®, produced in Japan using a patented fermentation process developed by Kaneka Corporation. This naturally derived form is identical in structure to the CoQ10 found in the human body and helps support normal energy metabolism.*\n\nUbiquinone, also known as coenzyme Q10 (CoQ10), supports the body' natural energy producing processes at the cellular level.* It is a naturally occurring compound found throughout the body and plays an essential role in cellular energy metabolism.* The Coenzyme Q10 in this formula is Kaneka Q10®, a naturally fermented form produced in Japan using a patented process by Kaneka Corporation. It has the same molecular structure as the CoQ10 naturally produced in the body.* Medium-chain triglycerides (MCTs) from coconut oil help support the absorption and utilization of CoQ10 while the prebiotic inulin supports nutrient bioavailability and provides nourishment for beneficial gut bacteria.*\n\nThis product may help:\n\nCoenzyme Q10 is a vitamin-like compound found in every human cell. Hence its second name - \"ubiquinone\", from ubiquitous quinone, or \"ubiquitous quinone\". Ubiquinone is contained in cell's \"energy stations\" - mitochondria, where approximately 95% of all the body's energy (ATP) is produced through oxidative phosphorylation. In this process, it acts as an essential electron carrier. Ubiquinone supports cellular energy production and is an important contributor to body's defenses against oxidative stress, helping to protect cells from damage caused by free radicals.\n\nThe highest concentrations of ubiquinone are found in energy-demanding organs such as the heart, brain, liver, and lungs, where it helps support normal cellular energy production.*\n\nAs we age, the body's natural synthesis of ubiquinone and its absorption from food sources tend to decrease. Even in younger adults, dietary intake alone may not fully meet the body's needs for this nutrient. However, even at a young age, food intake cannot always compensate for the body's need for this valuable substance. For perspective, obtaining about 15 mg of ubiquinone per day, from food would require consuming roughly 1.5 kg (3.3 lbs) of baked trout, 500 g (1.1 lbs) of lean beef, or 600 g (1.3 lbs) of peanuts. The actual absorption of CoQ10 from food sources varies among individuals.*"
   },
   {
     "slug": "colo-vada-plus",
@@ -1062,7 +1073,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Bovine colostrum is a natural source of biologically active components, including immunoglobulins, lactoferrin, and transfer factors, which support immune function and overall health.* It also contains amino acids and growth factors that help support the body's recovery after physical exertion.\n\nBovine colostrum\n\nBeta-glucans\n\nWith this unique combination, Colostrum Plus supports the body's natural defenses, helps maintain gastrointestinal health, and supports the body's natural recovery processes.*\n\nColostrum Plus helps maintain immune and gastrointestinal health.*"
   },
   {
     "slug": "coral-alfalfa",
@@ -1120,7 +1132,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Coral Alfalfa is made from the leaves and juice concentrate of the alfalfa plant. The alfalfa plant contains naturally occurring phytonutrients and trace amounts of certain vitamins, minerals, and other plant compounds.* It has long been traditionally valued in herbal combinations to support general wellness.*\n\nAlfalfa\n\nAlfalfa extract provides phytonutrients that support healthy cholesterol levels and the body's natural elimination processes.*"
   },
   {
     "slug": "coral-artichoke",
@@ -1198,7 +1211,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Discover Coral Artichoke. This formula features a blend of carefully selected herbal ingredients that help support liver health, promote healthy bile flow, contribute to the body's natural detoxification processes, and support normal digestive function.*\n\nArtichoke\n\nArtichoke contains naturally occurring compounds such as quercetin, rutin, gallic acid, and cynarine. These bioactive compounds have been traditionally valued for supporting the health and function of the digestive tract and for helping maintain a healthy gut environment. It also helps support normal metabolic processes by providing your body with essential vitamins, minerals, and protein.*\n\nBetaine\n\nThe natural compound betaine helps support the body's natural detoxification processes, healthy lipid metabolism in the liver, and normal blood flow.*\n\nMilk Thistle\n\nMilk thistle is a natural botanical traditionally used to help support healthy liver function. It may help promote bile production and normal digestive processes. What's more, milk thistle seeds contain the phytochemical silymarin, which helps support the health of your liver cells against everyday stressors, both internal and external.*\n\nDandelion Root\n\nDandelion root is a bitter herb that provides support for your digestion. It helps maintain a healthy appetite and promotes normal bile flow contributing to healthy digestion and nutrient absorption.*"
   },
   {
     "slug": "coral-boswellia",
@@ -1245,7 +1259,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Boswellia is a natural supplement that contains aromatic resins rich in boswellic acids. These compounds help support joint comfort and mobility and contribute to the maintenance of healthy cartilage.*\n\nBOSWELLIA\n\nBoswellia Serrata is a natural supplement that contains aromatic resins rich in boswellic acids. These compounds help support joint comfort and mobility and contribute to the maintenance of healthy cartilage.* Boswellia also supports healthy blood vessels and microcirculation, promoting the delivery of nutrients to the tissues.* In addition, it provides antioxidant support and helps maintain a healthy immune response.*"
   },
   {
     "slug": "coral-burdock-root",
@@ -1298,7 +1313,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Unlock the secrets of nature's treasure trove with Coral Burdock Root. This unique herbal supplement combines crushed root powder and concentrated extracts to support healthy metabolism and the body's natural detoxification processes as part of overall wellness.*\n\nBURDOCK ROOT\nBurdock root is a natural source of inulin, a prebiotic fiber that nourishes beneficial gut bacteria and supports digestive health.* It contains phytonutrients that help maintain a healthy balance of gut microflora and promote overall digestive wellness.* It also supports the body's natural elimination processes and contributes to digestive and liver health.*"
   },
   {
     "slug": "coral-carnitine",
@@ -1349,7 +1365,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     },
     "rating": 4.5,
     "ratingsCount": 0,
-    "reviewsCount": 0
+    "reviewsCount": 0,
+    "fullDescription": "If you're looking to support your energy and overall wellness, Coral Carnitine is a great addition to your routine. It's formulated with ingredients that may help support immune health, mental and physical performance, and weight management when combined with a healthy diet and exercise regimen.*\n\nCARNITINE\n\nCarnitine is a nutrient that plays a key role in the production of energy in your body. By transporting long-chain fatty acids into mitochondria, it helps support cellular energy metabolism, which may help you feel energized throughout the day. What's more, Carnitine is naturally concentrated in muscle and heart tissues, making it a nutrient that may help support your cardiovascular health as part of a healthy lifestyle.*"
   },
   {
     "slug": "coral-cat-s-claw",
@@ -1423,7 +1440,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Coral Cat's Claw is a natural herbal supplement that combines cat's claw, burdock root, and green tea extracts. These botanicals help support the body's natural defenses and contribute to overall vitality, wellness, and natural energy levels.* They provide antioxidant support and help maintain the body's natural detoxification processes as part of a healthy lifestyle.* This supplement is crafted to support immune health and general wellness.*\n\nCat’s Claw\n\nCat's Claw is a woody vine traditionally used for its wellness-supporting properties. It contains natural compounds that provide antioxidant support and help the body manage oxidative stress.* It also supports immune health, joint comfort and mobility, and muscle relaxation.*\n\nGreen Tea\n\nGreen tea provides beneficial phytonutrients and naturally occurring antioxidants.* It supports energy and vitality as part of a healthy lifestyle.*\n\nBurdock Root\n\nBurdock root delivers naturally occurring plant compounds that help support th ebody's natural elimination processes and contribute to healthy fluid balance and overall wellness."
   },
   {
     "slug": "coral-detox-plus",
@@ -1492,7 +1510,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.4,
     "ratingsCount": 28,
     "reviewsCount": 11,
-    "topSeller": true
+    "topSeller": true,
+    "fullDescription": "Coral Detox Plus is an advanced evolution of our Coral Detox formula. It features a blend of ingredients designed to support the body’s natural detoxification processes, provide antioxidant support, and promote overall wellness. Formulated with ingredients selected for effective absorption, Coral Detox Plus helps support daily vitality and general well-being.*\n\nEnhanced cleansing and a high energy level!\n\nASSIMILATOR\ncontains a complex of plant-based enzymes along with vitamins A and D. It aids in the digestion process and helps reduce potential toxins from being created.\n\nH-500\nis an antioxidant that protects the organism from oxidative stress and increases stamina during workouts.\n\nCORAL-MINE\nis a product from Japan made of deep-sea coral sand (scleractinians). It enriches water with minerals, thereby promoting better hydration and supporting the detox process.\n\nCORAL LECITHIN\nis a source of natural phospholipids. It protects cell membranes from damage and supports healthy liver function.\n\nPENTOKAN\n– a unique combination of potassium, vitamin C, and ribose. It helps regulate your intracellular metabolism and boosts energy levels.\n\nCORAL ALFALFA\nis a dietary supplement based on the leaf and concentrated juice of the alfalfa plant. It contains biologically active substances that positively impact health, support the immune system, boost vitality, aid digestion, and offer cleansing benefits."
   },
   {
     "slug": "coral-lecithin",
@@ -1572,7 +1591,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         ]
       }
     },
-    "topSeller": true
+    "topSeller": true,
+    "fullDescription": "Coral Lecithin helps maintain bodily functions and systems, supports the central nervous system and the gastrointestinal tract. It also helps in the digestion and absorption of fats.\n\nLecithin\nLecithin contains phospholipids, fundamental components of cell membranes, including nerve cells in the Central Nervous System (CNS). Phospholipids are vitally important for brain function. In fact, phospholipids help release neurotransmitters, which help neurons (nerve or brain cells) communicate with one another. Lecithin may help improve memory, support a good mood. It contains choline, which the body converts into the neurotransmitter acetylcholine, that is involved in transmitting nerve signals. Acetylcholine plays a role in muscle movement, memory, and other functions."
   },
   {
     "slug": "coral-licorice",
@@ -1637,7 +1657,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Coral Licorice Root is a versatile product derived from licorice root and ginger extracts. This multi-purpose product may support immune health and helps promote digestive comfort.*\n\nLICORICE ROOT\nLicorice Root is a botanical gem that contains naturally occurring compounds such as triterpenoid glycyrrhizin. Deglycyrrhized licorice (DGL) and other phytonutrients may help support digestive and respiratory health, as well as contribute to immune system health and overall hormonal balance*\n\nGINGER ROOT\nGinger is traditionally used and may help support vascular health and a healthy immune system.*\n\n*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
   },
   {
     "slug": "coral-magnesium",
@@ -1688,7 +1709,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Coral Magnesium contains magnesium glycinate and magnesium taurate, which are easily absorbed by the body and are generally well tolerated. Magnesium is essential to the body to synthesize enzymes, thus playing a role in over 300 enzyme reactions in the body. Coral Magnesium helps maintain healthy muscle and nerve function as well as supports cardiovascular and neuromuscular tissue health. Magnesium regulates the essential calcium-sodium balance at the cellular level. Magnesium helps in the formation of proteins and DNA, and supports bone health.*\n\nMAGNESIUM\n\nMagnesium is an essential mineral that works together with calcium to support proper absorption and balance in the body.* It plays a role in supporting a healthy nervous system, including during periods of occasional stress, and helps maintain a sense of calm and relaxation.* Magnesium also supports healthy blood flow, contributes to the maintenance of normal blood vessels, and is involved in the formation of musculoskeletal tissues as well as the structural integrity of bones and tooth enamel.*"
   },
   {
     "slug": "coral-mine-silver",
@@ -1748,7 +1770,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 3.4,
     "ratingsCount": 25,
     "reviewsCount": 12,
-    "topSeller": true
+    "topSeller": true,
+    "fullDescription": "Coral-Mine is a naturally derived mineral product sourced from deep-sea coral formations in the Sea of Japan near the Okinawa and Tokunoshima islands. Its unique mineral composition helps enrich water and supports hydration, normal mineral balance, and overall well-being.*\n\nVitamin C\nVitamin C enhances the absorption of iron from plant-based foods. Iron is a component of hemoglobin, a protein that transports oxygen throughout the body. Vitamin C also supports the production of collagen, an important structural protein found in connective tissues such as blood vessels, cartilage, and skin.*\n\nCalcium\nCalcium is a mineral, and about 99% of the body's calcium is stored in bones and teeth. It plays an important role in maintaining bone structure and supports normal muscle function. Calcium also helps muscles and blood vessels contract and relax, supports nerve signaling, and contributes to normal enzyme activity and hormone secretion.*\n\nMagnesium\nMagnesium is involved in over 300 biochemical reactions in the body. It helps maintain normal muscle and nerve function, contributes to normal protein synthesis, and helps maintain normal heart rhythm.*"
   },
   {
     "slug": "coral-taurine",
@@ -1799,7 +1822,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Provides taurine, an amino acid naturally found throughout the body that helps support normal cardiovascular function.*\n\nTAURINE\n\nTaurine is naturally produced by the body and is found in the heart, brain, muscles, and eyes. It plays a role in many normal physiological processes including metabolic function and electrolyte balance. Taurine also plays a role in bile salt formation and supports normal digestion and the absorption of dietary fats. Taurine additionally provides antioxidant support to help protect cells from oxidative stress.*\n\n*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
   },
   {
     "slug": "d-spray-2000",
@@ -1843,7 +1867,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "servingLabel": "Amount Per Serving",
         "rows": []
       }
-    }
+    },
+    "fullDescription": "A high-dose vitamin D3 in a convenient, easy-to-use spray bottle. 1 spray = 50 µg (2000 IU).\n\nVitamin D3 helps support the metabolism of calcium, magnesium, and phosphorus and plays an important role in maintaining healthy bones and bone density.* In addition, vitamin D3 supports normal immune system function and contributes to overall wellness.* Vitamin D also plays a role in normal metabolic processes and supports normal nervous system function.*\n\nVitamin D3 is synthesized in the skin when exposed to ultraviolet light. Clothing, sunscreen, and environmental factors may limit the body’s ability to produce sufficient amounts. As a result, low vitamin D levels are common even in sunny regions.\n\nVitamin D3 is a fat-soluble vitamin. The spray format provides a fine dispersion that supports convenient use and precise dosing. The formula contains carefully selected ingredients that are well tolerated by the body. The product does not require refrigeration and is easy to take with you anywhere."
   },
   {
     "slug": "daily-delicious-beauty-shake",
@@ -2114,7 +2139,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Hi-Fiber supports a balanced gut microflora and helps support healthy cholesterol and blood sugar levels already within the normal range.*\n\nSOLUBLE FIBER\nSourced from apples, inulin, and glucomannan, soluble fiber helps support healthy cholesterol levels already within the normal range, including LDL cholesterol (\"bad\" cholesterol).*\n\nINSOLUBLE FIBER\nInsoluble fiber, such as cellulose and rice bran, is recognized for its role in supporting digestive regularity and helping with occasional constipation.* It may also promote healthy movement during digestion and support a healthy metabolism.*\n\nGLUTAMINE\nSupplementation with the amino acid L-glutamine supports digestive and immune function and helps support the maintenance of muscle mass, especially during periods of intense exercise or recovery.*\n\nALOE VERA GEL\nAloe Vera gel contains naturally occurring plant compounds that support digestive health and bowel regularity.* The anthraquinones found in aloe vera help support healthy gastrointestinal function and occasional constipation.*"
   },
   {
     "slug": "dha-d3-smart-chews",
@@ -2153,7 +2179,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "servingLabel": "Amount Per Serving",
         "rows": []
       }
-    }
+    },
+    "fullDescription": "Contributes to normal intellectual and physical development of children 4 years and older.\n\nMade from highly purified anchovy fish oil with ConCordix technology, which has been shown to enhance the bioavailability of certain fat-soluble ingredients by up to 44%.* DHA + D3 Smart Chews provide a convenient way to supplement the diet with omega-3 fatty acids and vitamin D3.\n\nDHA (docosahexaenoic acid) and EPA (eicosapentaenoic acid)\n\nCold-water fish is a natural source of healthy omega-3 PUFAs (EPA and DHA), which play important roles in normal growth and development during childhood.* Because the body produces only limited amounts of these fatty acids, they are primarily obtained through diet or supplementation.\n\nDHA is present in high concentrations in the gray matter of the brain and in the retina and contributes to normal brain and visual development and function.*\n\nOmega-3 fatty acids, including DHA and EPA, are important nutrients during childhood and adolescence, when growth and development occur rapidly. EPA and DHA also support normal physiological processes that contribute to overall wellness and normal nervous system function, which is important for cognitive processes related to learning and attention.*\n\nVitamin D3\n\nVitamin D3 supports normal bone growth and development and contributes to normal immune system function in children.*\n\nConCordix technology\n\nConCordix technology distributes fish oil into many small droplets within the chewable matrix, helping to mimic the natural dispersion of fats found in fish. This structure helps protect the oil from oxidation and supports improved dispersion and absorption compared with traditional oil formats.¹"
   },
   {
     "slug": "evening-formula-91832",
@@ -2225,7 +2252,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Experience peace of mind and support a more restful night's sleep with Evening Formula, a carefully crafted dietary supplement designed to help you unwind, manage occasional stress, support emotional well-being and promote restful sleep.*\n\nThe ingredients in Evening Formula include:\n\nTheanine\n\nTheanine helps support the central nervous system and healthy neurotransmitter activity, promoting relaxation, a positive mood, and a sense of calm.*\n\nLemon balm and hops\n\nWell-known for their calming effects, lemon balm and hops help promote relaxation, support vascular health, aid memory and cognitive function, and help promote a positive mood.* Lemon balm also helps support restful sleep, particularly for those experiencing occasional sleeplessness.*\n\nSt. John's Wort\n\nSt. John's Wort is an herb that has been traditionally used to support emotional well-being, promote a positive mood, and help maintain restful sleep during times of occasional stress.*\n\nSkullcap\n\nSkullcap is traditionally used to help promote relaxation, support hormonal balance, and encourage restful sleep.*\n\nMagnesium\n\nMagnesium is an essential mineral that helps the body respond to occasional stress by supporting the central nervous system, maintaining healthy nerve and muscle function, and promoting cognitive performance.*\n\nTogether, these ingredients help support mental and physical well-being, helping you feel more relaxed, calm, and centered.*"
   },
   {
     "slug": "fandetox",
@@ -2324,7 +2352,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "FanDetox™ is a dietary supplement formulatedto support healthy liver function and aid the body's natural detoxification processes, particularly during times of dietary or environmental stress.* Developed by Korean scientist, Song Hae Bok, Ph.D., this products features a unique blend of natural extracts traditionally used to help the body respond to dietary and environmental stressors.* FanDetox™ offers targeted support for those seeking to maintain liver health and overall wellness.*\n\nPersimmon\nPersimmon extract provides components that may support intestinal health and contribute to healthy bowel function.*movements.¹\n\nGoji Berry\nTraditionally used to support gastrointestinal health and regularity.*\n\nTaurine\nTaurine is an amino acid that helps stabilize cell membranes and supports liver health.*membranes.² It also helps maintain healthy carbohydrate and lipid metabolism.*\n\nBuckwheat and Soy Sprouts\nProvide nutrients that help support the liver's natural metabolic processes and fat metabolism.*\n\nCitrus Peel\nContains natural compounds that help maintain healthy cholesterol levels and provide antioxidant support.*\n\nVitamin C\nA good source of antioxidant vitamin C, which helps protect cells from free radicals and supports immune and liver function.*\n\n¹Antidiarrheal, antimicrobial, and antioxidant properties of the aqueous ... (n.d.). Retrieved November 2, 2022 from https://www.researchgate.net/publication/350214016_Antidiarrheal_Antimicrobial_and_Antioxidant_Properties_of_the_Aqueous_Extract_of_Tunisian_Persimmon_Diospyros_kaki_Thunb_Fruits.\n\n²MediLexicon International. (n.d.). What is taurine? benefits and side effects. Medical News Today. Retrieved November 2, 2022, from https://www.medicalnewstoday.com/articles/326476#what-is-taurine ."
   },
   {
     "slug": "flexicor",
@@ -2404,7 +2433,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "FlexiCor is a dietary supplement formulated to support calcium absorption and help maintain strong, healthy bones.*\n\nGlucosamine\nGlucosamine is a compound naturally found in cartilage and is commonly used to support joint health. It plays a role in the synthesis of hyaluronic acid, which contributes to the lubrication provided by synovial fluid and the cushioning of joints for comfortable movement.*\n\nChondroitin Sulfate\nChondroitin Sulfate is a key component of cartilage that contributes to its structure and resilience. It helps attract water into the cartilage, supporting its elasticity and compressibility--features that are important for cushioning joints and supporting their normal function.*\n\nMSM\nVitamin C is essential for collagen production, aiding in the formation of its structure. MSM provides sulfur, which plays a role in supporting the strength of connective tissues. Together, they support joint and tissue health.*\n\nManganese\nManganese is an essential mineral involved in the body's natural production of chondroitin, a compound that supports the integrity of joints and cartilage*.\n\nBamboo Extract\nBamboo extract is a natural source of silicon, a mineral that supports the strength and flexibility of joints and connective tissue.*"
   },
   {
     "slug": "go-detox-packet-1",
@@ -2456,7 +2486,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.6,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "topSeller": true
+    "topSeller": true,
+    "fullDescription": "Go Detox Packet #1 is the first stage of the Go Detox program, designed to prepare the body for the next phase of cleansing.\n\nIt includes Ultimate (1 tablet), Vitamin C (1 tablet), Alfalfa (2 capsules), Cascara Sagrada (1 tablet), Herbal Set No. 2 (2 capsules), and Black Walnut Leaves (2 tablets).\n\nThis vitamin and mineral complex helps support energy metabolism, normal enzyme function, and overall vitality.\n\nThe plant-based ingredients in the formula help support normal intestinal motility, improve digestive comfort, and promote a healthy internal environment."
   },
   {
     "slug": "go-detox-packet-2",
@@ -2508,7 +2539,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.6,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "topSeller": true
+    "topSeller": true,
+    "fullDescription": "Go Detox Packet #2 is the second stage of the Go Detox program, designed for comprehensive cleansing support.\n\nIt includes Ultimate (1 tablet), Vitamin C (1 tablet), Alfalfa (2 capsules), Cascara Sagrada (1 tablet), Herbal Set No. 2 (1 capsule), and Black Walnut Leaves (1 tablet).\n\nThis vitamin and mineral complex helps support energy metabolism, normal enzyme function, and overall vitality.\n\nThe plant-based ingredients in the formula help support normal intestinal motility, improve digestive comfort, and promote a healthy internal environment."
   },
   {
     "slug": "go-detox-packet-3",
@@ -2560,7 +2592,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.6,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "topSeller": true
+    "topSeller": true,
+    "fullDescription": "Go Detox Packet #3 is the final stage of the Go Detox program, designed to help support recovery.\n\nIt includes Ultimate (1 tablet), Vitamin C (1 tablet), Alfalfa (2 capsules), Cascara Sagrada (1 tablet), and DigestAble (1 capsule).\n\nThis vitamin and mineral complex helps support energy metabolism, normal enzyme function, and overall vitality.\n\nThe plant-based ingredients in the formula help support normal intestinal motility, improve digestive comfort, and promote a healthy internal environment."
   },
   {
     "slug": "go-detox-powder",
@@ -2608,7 +2641,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "rating": 4.6,
     "ratingsCount": 0,
     "reviewsCount": 0,
-    "topSeller": true
+    "topSeller": true,
+    "fullDescription": "Go Detox Powder is used during Phase 2 of the Go Detox program. It provides gentle cleansing and digestive support to help maintain digestive balance and overall well-being. The formula combines soluble plant fibers, mineral ingredients, and citrus bioflavonoids to support comfortable digestion and regularity.*\n\nActive Components and Their Roles\n\nPsyllium (Plantain seed husk)\n\nA source of soluble plant fiber that supports healthy digestion, promotes regularity, and helps maintain normal intestinal function.*\n\nKaolin\n\nA naturally occurring mineral known for its gentle binding properties that support digestive comfort and a feeling of lightness.*\n\nCitrus Bioflavonoids\n\nProvide antioxidant support and work alongside plant fibers to help maintain digestive balance.*\n\nPrune Powder\n\nGently supports regularity and promotes digestive comfort.*"
   },
   {
     "slug": "gotu-kola-extract",
@@ -2655,7 +2689,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "A plant traditionally used to support cognitive function, promote a sense of calm during occasional stress, and help maintain clarity. Rich in natural compounds such as triterpenoids and flavonoids, it provides antioxidant support and may help support healthy blood flow and vascular elasticity, contributing to overall wellness.*\n\nGotu Kola\n\nGotu Kola is a botanical traditionally used to support healthy circulation and vascular function. It contains triterpenoids, natural compounds that have been studied for their role in supporting blood vessel tone, integrity, and metabolic function, including glucose metabolism.* Gotu Kola is also valued for its traditional use in promoting cognitive performance and helping the body respond to occasional physical or mental stress by supporting blood flow and vascular stability.*"
   },
   {
     "slug": "griffonia",
@@ -2720,7 +2755,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "A core product for nervous system support, Griffonia combines a natural source of 5-HTP with vitamin B6 and B12 to support the nervous system, promote emotional balance, and help maintain quality sleep.\n\nGriffonia Seed and Vitamins B6 and B12\nGriffonia is a natural source of 5-HTP, which supports the nervous system, helps maintain the sleep-wake cycle, and promotes relaxation.* It supports serotonin production in the body, which may help promote emotional balance, reduce occasional stress, and support restful sleep. Griffonia also supports overall well being and helps reduce occasional fatigue.*\n\nVitamins B6 and B12\nThese vitamins contribute to normal nervous system function and energy metabolism.* They support emotional well-being, help reduce occasional tiredness and fatigue, and assist the body's response to everyday stress.*"
   },
   {
     "slug": "h-500",
@@ -2788,7 +2824,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     },
     "rating": 4.8,
     "ratingsCount": 63,
-    "reviewsCount": 29
+    "reviewsCount": 29,
+    "fullDescription": "H-500 is a natural dietary supplement designed to support physical and mental performance. It promotes post-workout recovery, supports muscle tone, and helps maintain energy levels.*\n\nThis powerful blend provides antioxidant support to help protect cells from oxidative stress and supports both physical and mental performance. It aids the body's natural ability to manage lactic acid buildup in muscles, promoting post-workout recovery and easing muscle tension.* H-500 also supports muscle tone and cellular energy production, helping maintain energy levels and overall performance.* Additionally, it helps maintain the body's natural pH balance and is ideal for those engaged in knowledge-based work, heavy industry, professional sports, or active lifestyles.*\n\n*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
   },
   {
     "slug": "hydramax-plus",
@@ -2858,7 +2895,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     },
     "rating": 4.7,
     "ratingsCount": 0,
-    "reviewsCount": 0
+    "reviewsCount": 0,
+    "fullDescription": "The extended “Hydramax” program is designed to optimize hydration with essential minerals and electrolytes, supporting water balance and promoting overall well-being.\n\nAn additional component—Oceanmin—is a concentrate of deep-sea minerals, primarily magnesium. It promotes electrolyte balance*, enhances cellular hydration*, and supports neuromuscular activity.* Regular use of Oceanmin helps reduce occasional fatigue*, supports optimal nervous system function*, and promotes stress resilience*, which is especially important during periods of high mental and physical exertion."
   },
   {
     "slug": "hydro-boost-biocellulose-facial-mask",
@@ -2904,7 +2942,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     },
     "rating": 4.5,
     "ratingsCount": 0,
-    "reviewsCount": 0
+    "reviewsCount": 0,
+    "fullDescription": "Biocellulose mask with sea water, 3D hyaluronic acid, seaweed and metabiotic. Deeply moisturizes and combats dryness, flaking and the first signs of aging.\n\nTechnology:\n\nUsing Lipomask™ liposomal technology, active ingredients are delivered through the skin surface to enhance hydration and smoothing effects.*\n\nThe “second skin” effect is created by biocellulose, which closely conforms to your face, replicating its contours. This material holds up to 3 times more serum than other bases, ensuring even delivery of active ingredients and long-lasting hydration.*\n\nPremium Ingredients:\n\nEach mask contains a complex of marine minerals, exopolysaccharides, and antioxidants.\n\nMinerals help retain moisture and support skin softness.*\n\nExopolysaccharides help defend the skin from environmental stressors, improve smoothness, and reduce the appearance of fine lines.*\n\nAlgae antioxidants help fight free radicals, supporting the skin’s natural appearance, firmness, and radiance.*\n\nHyaluronic Acid Complex:\n\nHyaluronic acid and sodium hyaluronate attract water to hydrate the skin. Advanced 3D hyaluronic acid helps provide prolonged hydration, releasing moisture gradually.*\n\nBotanical Extracts:\n\nBrown algae extract (Ascophyllum nodosum) helps moisturize the skin and provides antioxidant support.*\n\nSeagrape extract (Caulerpa lentillifera) supports skin hydration and helps reduce the visible effects of environmental stressors.*\n\nMetabiotic:\n\nHalobacillus bacterial lysate filtrate, an innovative metabiotic, helps reduce moisture loss and supports the skin’s natural barrier.*\n\nBeauty Pairing:\n\nFor a complete beauty routine, pair the Ocean Glow Mask with Promarine Collagen Tripeptides, featuring MAXICOLLAGEN tripeptides. This inside-out approach complements the mask by supporting your skin’s hydration and appearance from both topical and internal care.*"
   },
   {
     "slug": "immunity-pack",
@@ -2956,7 +2995,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "servingLabel": "Amount Per Serving",
         "rows": []
       }
-    }
+    },
+    "fullDescription": "Support your body's natural defenses with the Immunity Pack — a set of supplements and vitamins designed to help maintain immune health, support the body's resistance to everyday environmental stressors, and promote normal tissue regeneration as well as skin and mucous membrane health.*\n\nPURE C\n\nExperience the benefits of vitamin C with PureWay-C™, a well-absorbed and researched form of vitamin C.* Vitamin C supports normal immune system function and contributes to collagen formation for the maintenance of healthy skin, blood vessels, cartilage, bones, teeth, and gums.* As an antioxidant, it helps protect cells from oxidative stress and supports energy metabolism, helping reduce occasional tiredness and fatigue.*\n\nD-SPRAY 2000\n\nA high-potency vitamin D3 in a convenient, easy to use spray bottle. 1 spray = 50 µg/2000 IU.\n\nVitamin D₃ supports normal immune system function and contributes to the maintenance of healthy bones, teeth, and muscle function.* It also supports calcium and phosphorus absorption and helps maintain the body’s natural defenses, especially during limited sun exposure.*\n\nPAU D'ACRO WITH SELENIUM\n\nDerived from the inner bark of the ant tree (Tabebuia avellanedae), Pau D’Arco contains naturally occurring compounds such as naphthoquinones (lapachol, beta-lapachol, and xylodin) that have been traditionally used to support the body’s natural defenses.* Selenium, an essential trace element, supports normal immune system function and helps protect cells from oxidative stress.* Combined with vitamin C, this formula provides synergistic antioxidant support and helps maintain overall well-being.*\n\nSHARK LIVER OIL PLUS\n\nA natural source of beneficial compounds, including squalene and alkylglycerols, that help support the body’s natural defenses and overall vitality.* Squalene provides antioxidant support and helps protect cells from oxidative stress, while alkylglycerols support normal immune system function and general well-being.*\n\nCORAL-MINE\n\nA mineral blend derived from deep-sea coral, providing naturally occurring calcium and magnesium along with trace minerals.* When added to water, Coral-Mine helps improve taste while supporting healthy hydration and mineral balance as part of your daily routine.*"
   },
   {
     "slug": "iron",
@@ -3003,7 +3043,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Iron is an essential mineral, vital for blood cell formation and oxygen transport. Ferrous bisglycinate, a highly bioavailable form of iron, is used in this product. Iron is crucial for hemoglobin production, energy metabolism, and enzyme production to protect cells from free radical damage.\n\nIron (Bisglycinate)\n\nIron is an essential mineral that plays a critical role in many important bodily functions, including the production of hemoglobin, which carries oxygen from the lungs to all of the body's tissues and organs. Iron also helps to prevent iron-deficiency anemia, a condition that can lead to fatigue, weakness, and other symptoms. In addition to its role in hemoglobin production, iron is also important for the function of many enzymes and proteins that control various bodily processes, including cholesterol metabolism, immune system function, and oxidation-reduction reactions. Iron also participates in the synthesis of antioxidant enzymes, which help to protect the body's cells from damage caused by free radicals. As a result, iron can facilitate the growth and restoration of skin cells, improving the quality of hair and nails."
   },
   {
     "slug": "liposomal-curcumin",
@@ -3077,7 +3118,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Unlock the potential of curcumin with Liposomal Curcumin, a bioavailable form designed for enhanced absorption.*\n\nCurcumin, derived from the rhizome of turmeric, has been a prized spice and traditional herb in India and southern Asia for centuries. Curcumin provides antioxidant support to help protect cells from oxidative stress and supports immune health.* It also supports normal brain and nervous system function.* Moreover, curcumin supports cardiovascular health and helps maintain cholesterol, triglyceride, and blood sugar levels already within the normal range.* Discover the benefits of this remarkable herb for overall well-being.*\n\nUnlock the full potential of turmeric with our Liposomal Curcumin, formulated to help address the challenge of low bioavailability. Traditional curcumin supplements often have limited absorption and rapid breakdown in the body. Our Liposomal Curcumin uses innovative “PNS” (Polar–Non-polar Sandwiching) technology from Aurea Biolabs to support efficient delivery and stability of curcumin.* This advanced process creates a natural turmeric matrix with a concentrated curcumin complex, supporting optimal absorption and stability.* Experience the benefits of curcumin with this high-quality formulation, designed to support antioxidant protection and overall well-being.* Experience the advanced formulation of Cureit™ Curcumin, a next-generation innovation in curcumin delivery. Developed using patented PNS (Polar–Non-polar Sandwiching) technology, Cureit™ provides a full turmeric matrix extract designed to support optimal absorption and bioavailability.* This formulation helps support the body’s antioxidant defenses and overall well-being.*"
   },
   {
     "slug": "lipostick-fit",
@@ -3170,7 +3212,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Lipostick fit is an innovative formula featuring natural ingredients and advanced liposomal technology. It helps support healthy metabolism and energy production.* When combined with a balanced diet and regular physical activity, it supports metabolic processes involved in fat utilization, helping maintain a healthy weight and body composition.* Lipostick Fit also supports appetite balance and restful sleep for overall wellness and vitality.*\n\nLipostick Fit is an innovative formula featuring natural ingredients and advanced liposomal technology designed to support efficient nutrient delivery and absorption. It helps support healthy metabolism and energy production to complement an active lifestyle.* Ideal for individuals looking to support their wellness goals alongside balanced nutrition and regular physical activity.\n\nLipostick Fit 's patetented, tangerine Flavonoid Complex (Nobiletin & Hesperidin) provides plant-derived flavonoids that support healthy metabolic activity and energy expenditure as part of an active lifestyle.*\n\nGreen Coffee Bean Extract contains naturally occurring chlorogenic acids that support carbohydrate and fat metabolism and help maintain healthy blood glucose levels already within the normal range.*\n\nGreen Tea Extract delivers polyphenols and antioxidants that support metabolic health and cellular protection from oxidative stress.*\n\nL-Carnitine plays a role in cellular energy production and supports the body’s natural processes for converting fats into usable energy during physical activity.*\n\nNoni Juice provides phytonutrients, vitamins, and minerals that support digestion, nutrient absorption, and overall vitality.*\n\nBioPerine® (Black Pepper Extract) supports nutrient absorption and bioavailability to help optimize the effectiveness of the formula’s ingredients.*.\n\nLipostick Fit comes in convenient, ready-to-drink stick packs for easy use at home or on the go — simply open and enjoy."
   },
   {
     "slug": "liumi-balancing-repair-serum",
@@ -3528,7 +3571,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Experience the benefits of LymFlow, which supports healthy lymph circulation and overall lymphatic system function. It also assists the body's natural elimination processes and supports healthy urine flow.*\n\nCherry Pedicle\nSupports extracellular fluid (lymph) circulation*, healthy blood vessels*, and normal blood flow*, helping maintain overall circulatory health.*\n\nBlack currant leaf\nSupports vascular tone* and healthy blood flow*, while aiding the body's natural process of removing excess fluids.*\n\nParsley\nHelps support lymph vessels* and the body's natural elimination processes*, supporting healthy lymph circulation* and vascular strength and elasticity.*\n\nHibiscus Flower\nProvides antioxidant support to help fight oxidative stress* and supports healthy blood vessels.*"
   },
   {
     "slug": "memo-prime",
@@ -3617,7 +3661,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Supports memory and concentration for enhanced cognitive performance.*\n\nThe patented Memophenol™ complex\n\nThe Memophenol™ complex derived from French Grape and Wild Canadian Blueberry extracts is rich in naturally occurring polyphenols. It was developed by scientists in France and Canada based on observations of the beneficial effects of polyphenols and has been studied for its role in supporting memory, learning, and overall cognitive health.* In 2017, Memophenol™ was recognized as “Best Ingredient” at the NutraIngredients Awards in the “Healthy Aging” category for supporting short-term and long-term memory function.*\n\nGreen tea extract\n\nRich in plant polyphenols known as catechins and standardized to 95% epigallocatechin gallate (EGCG). Catechins provide antioxidant support and have been studied for their role in supporting normal brain function and cognitive performance.*\n\nB vitamins (B6, B9, and B12)\n\nThese vitamins support nervous system function and play a role in normal energy metabolism, including their function as cofactors in metabolic processes that help the body convert carbohydrates, fats, and amino acids into usable energy. This helps support overall energy levels throughout the day.* These B vitamins support normal nervous system function and normal neurotransmitter activity involved in communication between the brain and body, supporting cognitive function and mood balance.* The proprietary ingredients: Folic Acid Extrafolate-S® (Vitamin B9), Pyridoxal 5-Phosphate (Vitamin B6), and Methylcobalamin (Vitamin B12), are bioactive forms designed for enhanced absorption. Vitamin B12 also supports normal blood cell formation, which plays a role in oxygen transport in the body.*"
   },
   {
     "slug": "mindset",
@@ -3745,7 +3790,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Unlock your mind's full potential with MindSet - a powerful blend of natural ingredients that support focus, memory, and your body's response to occasional stress.*\n\nTyrosine and Theanine\n\nTyrosine and Theanine, the two amino acids in MindSet, help support focus, short- and long-term memory, and mental clarity.* They may also help maintain emotional balance and provide a calm, positive state of mind during occasional stress.*\n\nReishi mushroom\n\nReishi mushroom is considered an adaptogen, traditionally used to support the body's natural response to occasional stress.* It helps promote relaxation and overall vitality.*\n\nGinger Root, Ginkgo Biloba, and Rosemary provide antioxidant support and help maintain healthy circulation and vascular tone.* They also support relaxation and help reduce occasional fatigue.*\n\nVitamins (В6, B9, and B12)\n\nThe B vitamins (B6, B9, and B12) play a key role in supporting brain function and maintaining normal sleep patterns, helping you feel refreshed upon waking.*\n\nLipoic Acid\n\nLipoic Acid provides protective antioxidant support for cells, including neurons.*"
   },
   {
     "slug": "msm",
@@ -3811,7 +3857,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Experience MSM, a blend of bioavailable organic sulfur, biotin, and vitamin C. This trio works synergistically to nourish and support the health of your skin, hair, and nails.\n\nThis product helps:\n\nMETHYLSULFONYLMETHANE (MSM)\nSulfur, abundant in nails, hair, joints, and muscles, plays a vital role in maintaining their overall health. By supporting the formation of collagen, keratin, and glycosaminoglycans (the structural components of cartilage and tendons), sulfur helps strengthen and nourish the structural proteins of your skin, hair, nails, and cartilage. MSM improves nutrient delivery to muscles and helps accelerate post-workout recovery. Some research indicates that sulfur deficiency, though not common, may compromise the condition of your hair, nails, skin and joint mobility.\n\nBIOTIN\nBiotin (vitamin H, vitamin B7) promotes healthy skin and nails. Working in synergy with MSM, Biotin plays a vital role in the synthesis of collagen and keratin, essential structural components for strong vibrant hair and nails. Benefits include regulated fat metabolism and normalized sebaceous glands. Biotin helps maintain the natural color of hair. Biotin and MSM enhance vitality of hair, nails, and skin.\n\nVITAMIN C\nVitamin C plays an important role in the synthesis of collagen and elastin. Vitamin C is a key player in synthesizing these vital proteins, which form the foundation of сonnective tissue throughout the body."
   },
   {
     "slug": "o-mega-3-tg",
@@ -3871,7 +3918,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Essential Omega-3 polyunsaturated fatty acids in re-esterified triglyceride form. This form resembles the natural form and has a high concentration of Omega-3. With O!Mega-3 TG, maintaining a healthy lifestyle becomes easier.\n\nThe re-esterified triglyceride form of Omega-3 PUFAs mimics natural oils for easy absorption by the body. Flutex, an eco-friendly fish oil purification technology, guarantees product quality with a 65% concentration of Omega-3 PUFAs.\n\nDHA (docosahexaenoic acid) and EPA (eicosapentaenoic acid)\n\nCold-water sea fish fat is a primary source of high-value Omega-3 PUFAs (EPA and DHA). The body cannot produce these nutrients and they must come from food or supplements. Omega-3 PUFAs play crucial roles in maintaining heart, immune, nervous, and eye health.\n\nVitamin E\n\nVitamin E in its active form, D-alpha-tocopherol, protects cells from oxidative stress."
   },
   {
     "slug": "oceanmin",
@@ -3939,7 +3987,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     },
     "rating": 4.6,
     "ratingsCount": 41,
-    "reviewsCount": 18
+    "reviewsCount": 18,
+    "fullDescription": "A powerful concentrate of deep-sea minerals in ionic form that helps support vital body functions and contributes to cellular energy metabolism.*\n\nCrafted using D-MINNERALZ®, a patented technology that utilizes deep ocean water drawn from a depth of approximately 600 meters in the Pacific Ocean, Oceanmin provides a balanced complex of essential minerals in ionic form, including magnesium, calcium, potassium, and sodium. These naturally occurring minerals help support the body's normal electrolyte balance and contribute to energy-yielding metabolism.* Made using deep-ocean water with a naturally balanced composition of mineral elements. During the production process, the sodium content is reduced and the levels of other minerals are adjusted, making magnesium the primary mineral in the composition. The process of obtaining deep-ocean water follows environmentally responsible practices and utilizes a renewable marine source.*\n\nThe minerals in Oceanmin play an important role in overall health and wellness, including:\n\nWhen dissolved in water, the minerals in Oceanmin become available in ionic form (such as magnesium, potassium, sodium, and calcium ions), for efficient absorption and utilization by the body.*\n\nMAGNESIUM\nMagnesium is an essential mineral that plays an important role in supporting normal nervous system function, muscle relaxation, and energy metabolism.* It helps maintain healthy muscle and heart function and supports the body's natural response to physical activity and stress.*\n\nLow magnesium intake may be more common among individuals who:\n\nPOTASSIUM, SODIUM AND CALCIUM\nOceanmin provides essential electrolytes including potassium, sodium, and calcium, which help support normal hydration, electrolyte balance, and proper cellular function.* These minerals play important roles in maintaining normal muscular function, nerve signaling, and overall physiological balance.*\n\nMICROELEMENTS IN TRACE QUANTITIES\nTrace minerals naturally present in deep ocean water help support normal physiological functions and contribute to overall nutritional balance when consumed regularly.*\n\nOceanmin provides essential minerals that help support hydration, energy metabolism, and overall wellness as part of a balanced daily routine.*"
   },
   {
     "slug": "omega-3-60",
@@ -4043,7 +4092,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "servingLabel": "Amount Per Serving",
         "rows": []
       }
-    }
+    },
+    "fullDescription": "Individuals with known sensitivity to any of the components, as well as those who are pregnant or breastfeeding, should consult a healthcare professional before use. Individuals with thyroid conditions or those taking iodine-containing products should consult a healthcare professional before use.\n\nOur Mental Force program is a comprehensive 3-step program consisting of 8 products designed to support brain and nervous system health, vision, and psycho-emotional balance while helping to cope with increased mental and physical stress. The program contains plant extracts, amino acids, phospholipids, omega-3 PUFAs, B vitamins, and minerals.\n\nMental Force includes the following products:\n\nMEMO-PRIME\n\nA combination of the patented complex Memophenol™, green tea leaf extract, and B vitamins. This formula helps support memory, focus, and cognitive function, particularly during times of increased mental effort or stress.*\n\nCORAL CARNITINE\n\nAcetyl-L-carnitine is a vitamin-like nutrient that helps the body recover from occasional mental and physical stress by supporting cellular energy production.*\n\nCORAL LECITHIN\n\nLecithin is a source of phospholipids, particularly phosphatidylcholine, the main constituent of all human cell membranes.*\n\nCORAL MAGNESIUM\n\nMagnesium supports the normal function of the nervous system and helps the body respond to stress.* It contributes to the reduction of fatigue and tiredness and helps maintain normal energy levels and emotional balance.*\n\nCORAL TAURINE\n\nTaurine is an amino acid that supports the health of the brain, retina, and heart muscle (myocardium)*\n\nO!MEGA-3TG\n\nThis product provides omega-3 fatty acids (EPA and DHA) and vitamin E to support brain and heart health, help maintain healthy communication between neurons, and protect cells from oxidative stress.*\n\nGREENGREEN\n\nA source of naturally occurring flavonoids and phytonutrients from a variety of plant-based ingredients.*\n\nCORAL-MINE\n\nA natural mineral composition from ancient deep-sea corals containing beneficial macro- and microelements, including calcium, magnesium, potassium, and trace elements.*\n\nMental Force program is designed for a 30-day use."
   },
   {
     "slug": "parashield",
@@ -4104,7 +4154,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     },
     "rating": 4.3,
     "ratingsCount": 19,
-    "reviewsCount": 8
+    "reviewsCount": 8,
+    "fullDescription": "Get ready to support your body’s natural defenses with Parashield! This 30-day program is designed to help your body’s natural cleansing processes, support a healthy immune response, and maintain balanced intestinal microflora — so you can feel your best inside and out.*\n\nThis 30-day program assists with:\n\nPARAFIGHT\nis an antiparasitic synergistic combination of 12 plant extracts, including black walnut, cloves, chamomile, gentian, yarrow, oregano, thyme, garlic, and pepper. Their active components - juglone, tannins, organic acids, flavonoids, bitter glycosides, essential oils, allicin, and piperine - disrupt the lives of unwanted guests (parasites) at different stages of development and help to remove them from the body.\n\nCORAL BURDOCK ROOT\n- contains crushed root and burdock extract. Additionally, there are organic acids and tannins, which may help accelerate detoxification of the body and help inhibit the growth of undesirable bacteria and fungi.\n\nMSM\n- contains bioavailable organic sulfur, vitamin C, and biotin, which help remove environmentally unfriendly substances from the body, reduce sensitivities, and help improve skin, hair, and nails."
   },
   {
     "slug": "pau-d-arco-mate",
@@ -4175,7 +4226,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "A natural complex based featuring Pau D’arco bark extract, Brazilian Mate, and Olive leaf extract. It supports the body's natural defenses and helps maintain energy and vitality*.\n\nPau D’arco bark extract is rich in natural compounds that support the body's natural defenses and overall well-being.* It helps maintain immune health and supports the body's resilience during occasional stress.*\n\nOlive extract provides antioxidant support, helping protect cells from oxidative stress and supporting the body's natural defenses.*\n\nYerba Mate (leaf extract), traditionally used in South America (Brazil, Paraguay, and neighboring regions), supports energy and mental alertness.* It helps reduce occasional fatigue, supports circulation, and promotes overall vitality.*"
   },
   {
     "slug": "pau-d-arco-with-selenium",
@@ -4250,7 +4302,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Paul D'arco with Selenium combines Pau d’Arco Bark, vitamin C, and selenium to provide antioxidant support, helping protect cells from free radicals and supporting normal immune function.*\n\nPau D’Arco Bark\nPau d’Arco bark, sometimes called the \"\"divine tree\"\", contains naturally occurring bioactive compounds. It is traditionally used to support wellness and provides antioxidant support to help protect cells from oxidative stress.*\n\nVitamin C\nVitamin C is an essential nutrient and a recognized antioxidant vitamin. It helps protect cells from free radicals, supports collagen formation for healthy connective tissues and blood vessels, and contributes to normal immune function.*\n\nSelenium\nSelenium is an essential trace mineral that supports antioxidant activity in the body. It helps protect cells from oxidative stress and supports normal immune function, contributing to the body's natural defenses against everyday environmental stressors.*"
   },
   {
     "slug": "pentokan",
@@ -4324,7 +4377,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     },
     "rating": 4.5,
     "ratingsCount": 33,
-    "reviewsCount": 14
+    "reviewsCount": 14,
+    "fullDescription": "Pentokan supports energy, cellular metabolism, and cardiovascular health.\n\nPotassium\n\nPotassium helps keep the body's electrolyte balance and pH levels steady. Potassium is critical for many bodily functions, such as transmitting nerve signals, ensuring a steady heart rhythm, balancing fluid levels in the body, and streamlining cellular metabolism. Potassium carries out the most important and vital processes, such as nerve impulses (signals) in cells, ensuring a healthy heart rhythm, regulating water-salt balance, and optimizing cellular metabolism, making it a key nutrient in supporting heart health.\n\nVitamin C\n\nVitamin C plays a pivotal role in delivering oxygen to muscles and tissues. Additionally, it strengthens blood vessel walls and aids in the production of the body's protective proteins. The product is a potent source of the antioxidant Vitamin C.\n\nRibose\n\nRibose, a type of carbohydrate, contributes to the formation of ATP molecules (adenosine triphosphate). This is vital for storing and utilizing energy in biochemical reactions. Additionally, ribose is component in certain enzymes and a foundational piece of cell membranes. Pairing ribose with vitamin C helps ensure that the body's cellular system remains at its peak, especially during and following oxidative stress episodes."
   },
   {
     "slug": "phytomix-for-women-new",
@@ -4399,7 +4453,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "BP Phyto Control\nsupports cardiovascular health, helps maintain healthy blood circulation, and provides antioxidant support for overall wellness.*\n\nContains flavonoids with antioxidant properties that support vascular health and circulatory function.*\n\nGreen coffee extract provides antioxidant support and helps maintain healthy blood flow and circulatory function.*\n\nTraditionally used to support relaxation and help maintain healthy circulatory function.*\n\nSkullcap is traditionally used to help promote relaxation, support hormonal balance, and encourage restful sleep.*\n\nProvides antioxidant support to help fight oxidative stress* and supports healthy blood vessels.*"
   },
   {
     "slug": "premium-plankton-oil-new-2025-glass",
@@ -4440,7 +4495,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "servingLabel": "Amount Per Serving",
         "rows": []
       }
-    }
+    },
+    "fullDescription": "Calanus Oil is a source of a unique form of omega-3 obtained from Arctic zooplankton.\n\nCalanus Oil\n\nCalanus is a miniature crustacean and a representative of zooplankton widely found in the cold waters of the North Atlantic. Calanus Oil is a completely natural product. It contains unsaturated fats, primarily omega-3, and the carotenoid astaxanthin. The fats in calanus have a unique form of wax esters and are digested slowly, unlike the triglyceride, ethyl ester, and phospholipid forms commonly found in fish and krill oil. Due to its slow digestion, calanus oil reaches the lower parts of the intestine, where it can have an impact on maintaining normal metabolism. Astaxanthin belongs to the group of carotenoid pigments and gives calanus oil its vibrant red color.\n\nThe harvesting of calanus does not harm the population or marine environment, and the oil production process is chemical-free, making it an environmentally friendly product.\n\nVitamin E\n\nProtects cells from oxidative stress, which is why this vitamin is sometimes referred to as the \"youth vitamin.\""
   },
   {
     "slug": "prenatal",
@@ -4581,7 +4637,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Supports maternal health and contributes to the healthy development of the fetus. Provides key nutrients that help nourish both mother and baby during pregnancy.*\n\nOmega 3 polyunsaturated fatty acids are important for supporting the development of the fetal brain and nervous system. DHA is one of the key components that supports maternal health during pregnancy.*\n\nB-group vitamins support brain function and play an important role in energy metabolism. They contribute to red blood cell formation and the healthy growth and development of the fetus during pregnancy.*\n\nSelenium and zinc are essential minerals that support maternal health and contribute to normal fetal growth and development during pregnancy.*\n\nVitamin D plays an important role in calcium absorption, helping to support the development of strong bones and teeth. During pregnancy, it helps meet the nutritional needs of both mother and developing baby.*\n\nVitamin E is important for supporting fetal development and the normal function of the placenta. It also supports maternal reproductive health during pregnancy.*\n\nIodine is essential for normal thyroid function, which supports maternal health and the healthy development of the fetus during pregnancy.*"
   },
   {
     "slug": "privilege-facial-scrub",
@@ -4628,7 +4685,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     },
     "rating": 4.7,
     "ratingsCount": 0,
-    "reviewsCount": 0
+    "reviewsCount": 0,
+    "fullDescription": "Facial Scrub is formulated with finely ground beans and walnut shells that provide skincare benefits by removing dead skin cells. The skin looks and feels soft and supple with more radiance and luminosity.\n\nKona Coffee Extract\nA natural source of caffeine, Kona Coffee Extract helps revitalize the skin's appearance for a more energized look. It helps protect against environmental stressors and leaves the skin feeling soft and supple.\n\nKona Coffee Oil\nContaining phytosterols, essential fatty acids, and Vitamin E, Kona Coffee Oil nourishes and hydrates the skin. It helps support elasticity and contributes to smoother, more youthful-looking skin.\n\nMarine Collagen\nDerived from fish collagen, this ingredient contains amino acids that help support skin hydration and firmness.\n\nWalnut Shell\nWalnut shell provides gentle, natural exfoliation by helping remove dead skin cells, leaving the skin feeling refreshed.\n\nGround Kona Coffee Beans\nWith a mild, natural texture, ground Kona coffee beans provide gentle exfoliation to help remove surface impurities and dead skin cells. This supports healthy circulation and leaves the skin looking smooth and radiant.\n\nAloe Vera\nAloe Vera is known for its soothing properties. Aloe Vera helps hydrate the skin and supports a smooth, refreshed appearance.\n\nChamomile Flower Extract (organic)\nChamomile helps calm and soothe the skin, while also providing gentle hydrating and cleansing benefits.\n\nVitamin E (tocopheryl acetate)\nVitamin E is known for its antioxidant properties, which help protect the skin from free radicals and support overall skin health.*\n\nVitamin А (retinyl palmitate)\nVitamin A supports skin renewal and helps improve the look of smoothness and radiance. It also helps reduce the appearance of fine lines and wrinkles.\n\nSuperoxide dismutase and peroxidase\nThese enzymes provide antioxidant support to help protect the skin from oxidative stress and environmental factors."
   },
   {
     "slug": "privilege-intensive-facial-serum",
@@ -4679,7 +4737,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     },
     "rating": 4.7,
     "ratingsCount": 0,
-    "reviewsCount": 0
+    "reviewsCount": 0,
+    "fullDescription": "This unique formula helps minimize the appearance of visible signs of ageing, supporting a more youthful-looking complexion. It absorbs smoothly into the face and throat area, leaving a soft, silky finish\n\nKona Coffee Extract\nAs a natural source of caffeine, Kona Coffee extract helps revitalize the skin's appearance for a more energized look. It helps protect against environmental stressors and leaves the skin feeling soft and supple.*\n\nArgireline\nArgireline is a peptide that helps support the appearance of smoothness and firmness. It contributes to a more youthful-looking complexion by helping reduce the visible signs of fine lines and wrinkles and supports the appearance of healthy skin structure.*\n\nHyaluronic acid\nHyaluronic acid, also known as hyaluronan, is valued for its ability to attract and retain moisture. It helps keep the skin hydrated and supple, supporting elasticity and contributing to the appearance of smoother, healthier-looking skin.*\n\nMarine Collagen\nMarine Collagen, sourced from fish, is rich in amino acids and supports skin hydration visible firmness, and resilience.*\n\nSuperoxide dismutase and peroxidase\nThese enzymes provide antioxidant support to help defend the skin from oxidative stress and environmental factors. Superoxide dismutase and peroxidase help reduce visible signs of aging, such as wrinkles, fine lines, and age spots.*\n\nProline and threonine\nThreonine and proline are essential amino acids that play a role in supporting healthy skin structure. These amino acids contribute to the appearance of smoother skin and support resilience against visible damage.*\n\nSeaweed complex\nSeaweed complex is a natural source of proteins, vitamins, fiber, and amino acids. It helps support skin hydration and contributes to the appearance of healthy, refreshed skin.\n\nVitamin E (tocopheryl acetate)\nVitamin E provides antioxidant support, helping protect the skin from free radicals and supporting overall skin health.*\n\nVitamin А (retinyl palmitate)\nVitamin A supports skin renewal and helps improve the look of smoothness and radiance. It also helps reduce the appearance of fine lines and wrinkles.*\n\nVitamin С (3-O-Ethyl Ascorbic Acid)\nVitamin C helps improve the appearance of uneven skin tone, supports hydration, and provides a radiant, youthful glow. It also provides antioxidant support, helping to protect the skin from free radicals and the visible effects of environmental stressors for more youthful-appearing skin.*\n\nAloe Vera\nAloe Vera is a remarkable plant valued for its hydrating and soothing properties. It helps support skin moisture, contributes to a feeling of smoothness, and supports the appearance of elasticity and firmness.\n\nExtract of chamomile flowers (organic)\nChamomile is valued for its calming properties. It helps support skin hydration, contributes to a refreshed look, and helps soothe the skin's appearance.*"
   },
   {
     "slug": "privilege-milk-cleanser",
@@ -4730,7 +4789,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     },
     "rating": 4.7,
     "ratingsCount": 0,
-    "reviewsCount": 0
+    "reviewsCount": 0,
+    "fullDescription": "This gentle milk cleanser features naturally derived biodegradable cleansing agents designed for daily use, even on sensitive skin. Privilege Milk Cleanser is formulated to remove makeup, dirt, and environmental debris, while leaving the skin clean, soft and supple.\n\nKona Coffee Extract\nA natural source of caffeine, Kona Coffee extract helps revitalize the skin's appearance for a more energized look. It helps protect against environmental stressors and leaves the skin feeling soft and supple.\n\nKona Coffee Oil\n\nHyaluronic acid\nOne of the most effective hydrators in skincare, Hyaluronic Acid can hold many times its weight in water. It helps maintain the skin's natural moisture balance, leaving it plump, smooth, and refreshed.\n\nMarine Collagen\nMarine Collagen, sourced from fish, is rich in amino acids and supports skin hydration, visible firmness, and resilience.\n\nVitamin E (tocopheryl acetate)\nVitamin E is known for its antioxidant properties, which help protect the skin from free radical damage caused by environmental stressors.*\n\nVitamin А (retinyl palmitate)\nVitamin A is valued for its role in skin renewal. It helps improve the look of texture and reduces the visible signs of aging, such as fine lines and wrinkles.\n\nVitamin С (3-O-Ethyl Ascorbic Acid)\nVitamin C helps improve the appearance of uneven skin tone, supports hydration, and provides a radiant, youthful glow.\n\nAloe Vera\nAloe Vera is known for its softening and moisturizing properties. It helps comfort the skin, support elasticity, and promote a smoother, refreshed appearance.\n\nGreen Tea Extract\nGreen tea extract naturally contains antioxidants, which help protect against environmental stressors while supporting hydration and a healthier-looking complexion."
   },
   {
     "slug": "promarine-collagen-tripeptides-pack",
@@ -4843,7 +4903,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     },
     "rating": 4.5,
     "ratingsCount": 0,
-    "reviewsCount": 0
+    "reviewsCount": 0,
+    "fullDescription": "A modern high-tech form of collagen for easier absorption, enriched with a complex of plant extracts, vitamins and hyaluronic acid for smooth, radiant skin, strong hair and nails.\n\nMAXICOLLAGEN Tripeptides is the next step in the evolution of collagen supplements, which became the basis of Promarine Collagen Tripeptides. The tripeptides molecule is a sequence of 3 amino acids (glycine, proline, and hydroxyproline), making it ~600 times smaller than a collagen molecule and ~4 times smaller than a collagen peptide molecule. It is this molecule size that makes MAXICOLLGEN easier to absorb, resulting in smoother, firmer, and more moisturized skin faster, as well as improved hair and nail quality.\n\nExtracts of hibiscus flowers, white currant and spinach powder help to improve skin elasticity, reduce wrinkles and even out skin tone.\n\nB vitamins (B2, B6, B7) - Improve skin regeneration.\n\nVitamin C - Essential for collagen synthesis.\n\nHyaluronic Acid - Moisturizes the skin, making it smoother, fuller from within.\n\nIn addition, Promarine Collagen Tripeptides is convenient and easy to use. The liquid form allows for accurate dosing, quick ingestion, promotes rapid absorption and is convenient to take with you. Instead of sugar, we have added apple juice and blueberry juice concentrates, as well as natural flavorings and vegetable sweeteners to delight you with a pleasant taste.\n\nThe dark glass bottle is not only eco-friendly, but will also safely protect and preserve the unrivaled quality of the product.\n\nThe dark glass bottle is not only eco-friendly, but will also safely protect and preserve the unparalleled quality of the product."
   },
   {
     "slug": "promarine-collagen",
@@ -5085,7 +5146,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Protivity Ultra provides a blend of 11 essential and nonessential amino acids that help supplement dietary protein intake and support overall nutritional status.* This balanced formula supports the maintenance of healthy muscles, joints, connective tissues, and contributes to normal metabolic processes.* It also helps support physical performance, muscle recovery, and healthy immune function.* The product is formulated without GMOs, soy, or gluten.\n\nProtivity Ultra\n:\n\nProtein is one of the body's main building materials, forming the basis of all tissues and organs. For dietary protein to be absorbed, it must first be broken down into individual amino acids during digestion—a process that takes both time and energy.*\n\nProtivity Ultra provides amino acids in a readily available form that the body can readily utilize.* This balanced amino acid complex helps support healthy protein nutrition and may be used to supplement the diet when additional amino acids are desired.*"
   },
   {
     "slug": "pure-c",
@@ -5125,7 +5187,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "servingLabel": "Amount Per Serving",
         "rows": []
       }
-    }
+    },
+    "fullDescription": "All the valuable properties of vitamin C in a well-absorbed and safe form of PUREWAY-C™.\n\nPUREWAY-C™ is a modern, patented form of vitamin C with enhanced absorption. It contains vitamin C in the form of L-ascorbic acid, combined with a blend of plant fatty acids that facilitate delivery of vitamin C to cells, and citrus bioflavonoids that protect it from premature oxidation. PUREWAY-C™ has been scientifically proven to be retained 233% longer in the body than regular ascorbic acid, and is well tolerated.\n\nVitamin C is not synthesized in the human body and can only come from food and dietary supplements. Vitamin C is a water-soluble vitamin and the human body is not able to store it, so you need a regular intake of this essential substance. Vitamin C is a powerful antioxidant and protects cells from premature aging caused by oxidative stress. Vitamin C is involved in the synthesis of collagen, which is necessary for blood vessels, bones, teeth, cartilage, gums, an skin. It supports the immune and nervous systems, participates in cellular energy production and helps reduce fatigue."
   },
   {
     "slug": "safrino",
@@ -5182,7 +5245,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Helps support emotional balance during occasional stress and promotes a relaxed mood and restful sleep.*\n\nSafr'Inside™ - patented Saffron extract\n\nSafr'Inside™ is a patented extract developed by the French company Activ'Inside following scientific research. It is derived from Iranian Sargol saffron and standardized to naturally occurring compounds known as safromotivins (crocin, picrocrocin, and safranal), which have been studied for their role in supporting the body's healthy response to occasional stress.* The patented Tech'care Extraction™ process preserves a concentration of safromotivines and their unique, natural qualities.Safr'Inside™ was a finalist for the NutraIngredients Awards Asia in 2018 and a finalist for the NutraIngredients Awards Europe in 2021.According to the results of clinical observations, Safr'Inside™ supports normal serotonin activity involved in mood regulation and supports a healthy cortisol response within normal ranges.*\n\nMyo-Inositol\n\nThis is the active form of inositol and is easily absorbed by the body. Myo-Inositol is found in some fruits, legumes, and nuts. It is also synthesized by the body. It plays a supportive role in the metabolism of glucose (a source of energy for the brain), and helps support the physiological effects of serotonin and dopamine, which supports normal neurotransmitter activity involved in mood stability and emotional balance.*"
   },
   {
     "slug": "selenium",
@@ -5242,7 +5306,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Selenium is an essential trace element that plays a key role in many biological processes. Selenium supports the cardiovascular system, contributes to skin health, and helps protect cells from oxidative stress by supporting the body's defense against free radicals.*\n\nSelenium (L-selenomethionine)\nSelenium is a vital trace mineral that supports immune function and helps the body respond to occasional oxidative and environmental stress.* Selenium contributes to thyroid hormone metabolism, supports cardiovascular health by helping maintain healthy blood flow, and plays an important role in reproductive health for both men and women.*\n\nVitamin C\nVitamin C is an essential water-soluble nutrient and a strong antioxidant that helps protect cells from oxidative stress and supports healthy blood vessels. Because the body does not store it, vitamin C must be obtained daily through the diet or supplements. Together, selenium and vitamin C provide antioxidant support to help protect cells and promote overall cellular health.*"
   },
   {
     "slug": "shark-liver-oil-plus",
@@ -5282,7 +5347,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "servingLabel": "Amount Per Serving",
         "rows": []
       }
-    }
+    },
+    "fullDescription": "Shark liver oil, additionally enriched with squalene and vitamin E, will help boost vitality and protect against oxidative stress.\n\nShark Liver Oil\n\nFor centuries, inhabitants along the North Atlantic and Pacific coasts have incorporated shark liver oil into their wellness routines, finding it supports rejuvenation and well-being. Shark liver oil is packed with a variety of bioactive components such as Omega-3 fatty acids, alkylglycerols, squalene, and vitamin E. Notably, it serves as one of the limited natural sources of alkylglycerols, substances also found in vital human organs like the bone marrow and spleen, and linked to immune system support. DHA (docosahexaenoic acid), a key Omega-3 fatty acid, is crucial for maintaining brain function and visual acuity, given the high levels of DHA present in both the brain and retina.\n\nThe oil undergoes a rigorous purification process, eliminating impurities, pesticides, heavy metals, and unwanted fats like cholesterol.\n\nSqualene\n\nSqualene, a natural human body product, forms a significant part of the skin's protective barrier. It resists peroxidation and serves with antioxidant properties, shielding the skin from free radical damage. As we age, squalene production decreases, leading to dry skin, wrinkles, and signs of aging.\n\nVitamin E\n\nThe natural and most active form of Vitamin E, D-alpha-tocopherol, provides potent protection against cell oxidation and free radical damage, playing a crucial role in both contributing to and supporting the body's defenses.The fish gelatin capsule aligns with the product's marine theme and is suitable for pescatarians."
   },
   {
     "slug": "skin-harmony-biocellulose-facial-mask",
@@ -5328,7 +5394,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     },
     "rating": 4.5,
     "ratingsCount": 0,
-    "reviewsCount": 0
+    "reviewsCount": 0,
+    "fullDescription": "Biocellulose mask with seawater, metabiotics, ceramides, moringa seed and seaweed extracts. Gently revitalizes \"tired\" skin that has lost some of its tone.\n\nUsing Lipomask™ liposomal technology, active ingredients penetrate the skin up to 10 times deeper than regular masks. Liposomes, which mimic the structure of cell membranes, allow ingredients to easily reach deeper skin layers, enhancing hydration and repair effects.\n\nThe “second skin” effect is created by biocellulose, which closely conforms to your face, replicating its contours. This material holds up to 3 times more serum than other bases, ensuring an even transfer of active ingredients and long-lasting hydration.\n\nPremium beauty ingredients: each mask contains a complex of marine minerals, exopolysaccharides, and antioxidants. Minerals strengthen the skin and help retain moisture. Exopolysaccharides protect skin from environmental factors, reduce fine lines, and create a smoothing effect. Algae antioxidants reduce oxidative stress and stimulate collagen synthesis, giving your skin a healthy, hydrated, and radiant look.\n\nMoringa seed extract (Moringa Pterygosperma) offers antioxidant-like protection against environmental aggressors. Brown algae extract (Sargassum Glaucescens) helps retain moisture. Spirulina Plantensis extract neutralizes free radicals, supports natural skin repair, and helps prevent the appearance of photo-aging.\n\nMetabiotics from Lactobacillus and Alteromonas bacteria support a healthy skin microbiome, forming a protective barrier and promoting skin balance. Ceramides, \"smart fats\" naturally found in the epidermis, strengthen the skin barrier, improve elasticity, soothe the skin, and reduce the appearance of wrinkles.\n\nWe recommend using the mask with our new Promarine Collagen Tripeptides, which also contains MAXICOLLAGEN collagen tripeptides. The combination of products working from the inside out will enhance effectiveness, deliver maximum results quickly, and provide comprehensive care for your skin."
   },
   {
     "slug": "slim-by-slim-2374",
@@ -5412,7 +5479,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "servingLabel": "Amount Per Serving",
         "rows": []
       }
-    }
+    },
+    "fullDescription": "Premium Spirulina is produced from Spirulina cultivated using organic methods.\n\nEach tablet contains 500 mg of pure Spirulina without any preservatives or fillers. It supports normal cholesterol levels already within the normal range, supports normal metabolism, and supports the body's natural detoxification processes as part of a healthy lifestyle.*\n\nSPIRULINA\nSpirulina combines the beneficial qualities of bacteria and blue-green algae in a nutrient-rich ingredient that supports immune health.* It provides naturally occurring phytonutrients, including carotenoids, that help support cellular energy production and the body’s natural antioxidant defenses.*"
   },
   {
     "slug": "super-flora",
@@ -5480,7 +5548,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         ]
       }
     },
-    "topSeller": false
+    "topSeller": false,
+    "fullDescription": "Super-Flora is a synbiotic formula that combines the probiotics (Bifidobacterium and Lactobacillus) with the prebiotic inulin. Probiotics help support the growth of beneficial bacteria, promoting a healthy gut microbiota.* Inulin serves as a food source for these probiotics, helping enhance their activity. This synergistic combination supports digestive health and overall gut function.*\n\nInulin\nInulin is a plant-derived prebiotic fiber that nourishes beneficial bacteria. It plays a role in maintaining healthy intestinal activity and supports natural elimination processes.*\n\nProbiotic (Bifidobacterium and Lactobacillus)\nThese beneficial probiotic bacteria help reinforce a balanced internal ecosystem and support microbiome balance.*\n\nThese beneficial probiotic bacteria help reinforce a balanced internal ecosystem and support microbiome balance.*"
   },
   {
     "slug": "ultimate-max",
@@ -5664,7 +5733,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Ultimate Max is a balanced complex of vitamins, minerals, antioxidants and phytonutrients to help replenish nutrients, support immunity, and healthy metabolism for overall health and well-being.\n\nVitamin A\n\nVitamin A is known as the \"\"vitamin of vision” because it supports retinal function and helps to adapt vision to low light conditions. It also promotes normal metabolism and supports the immune and reproductive systems. Ultimate Max includes vitamin A in the bioavailable form of beta-carotene.\n\nVitamin C\n\nVitamin C is one of the most important antioxidants for supporting the immune system and protecting cells from free radical damage. It is essential for the synthesis of collagen and helps heal wounds. The source of vitamin C in Ultimate Max is mineral ascorbates. Vitamin C in this form is more stable, is likely less irritating to the mucous membrane, and helps enrich the body with additional minerals.\n\nVitamins D and E\n\nThese naturally derived vitamins are necessary for optimal immune, nervous, cardiovascular, musculoskeletal, and reproductive system function.\n\nB Vitamins\n\nUltimate Max contains the entire spectrum of B vitamins. These are important for supporting optimal metabolism, nervous and cardiovascular system function, healthy digestion, skin, hair, and nails. The need for B vitamins increases during stressful situations and high physical exertion. Ultimate Max includes vitamin B6 as pyridoxal phosphate, B9 as the patented Metafolin®, and B12 as methylcobalamin. Methylcobalamin helps support normal sleep cycles.\n\nChromium, Selenium, Copper, Zinc, Manganese, Molybdenum\n\nThe minerals included in Ultimate Max are in the form of organic salts. Included in the product are zinc and magnesium citrates, chromium picolinate, copper bisglycinate, and manganese gluconate. These organic compounds have high bioavailability and efficiency.\n\nIodine\n\nThe iodine included in Ultimate Max is derived from brown seaweed kelp. Iodine is necessary to produce thyroid hormones, which regulate all types of metabolism in the body.\n\nPhytonutrient Complex\n\nThe citrus bioflavanoid complex from lemon, grapefruit, orange, lime, and mandarin derivatives, as well as a proprietary herbal blend, including forms of bilberry and acai, are indeed rich in phytonutrients - flavonoids, carotenoids, and phenolic acids - that fight oxidative stress and support cell protection."
   },
   {
     "slug": "visi-prime",
@@ -5768,7 +5838,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Visi-Prime is specially formulated to support eye health and help maintain visual performance.* It provides Omega-3 PUFAs, Riboflavin, Vitamin E, Zinc, Lutein, and Zeaxanthin, which help protect the eyes from oxidative stress and support overall visual function.*\n\nOmega 3 PUFAs help support overall eye health, including maintaining moisture balance in the eyes and supporting the body’s natural inflammatory response.*\n\nRiboflavin (B2) supports the eyes' resistance to light sensitivity. Vitamin E and zinc provide antioxidant support to help protect cells from oxidative stress.*"
   },
   {
     "slug": "womens-balance",
@@ -5822,7 +5893,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         "servingLabel": "Amount Per Serving",
         "rows": []
       }
-    }
+    },
+    "fullDescription": "Women’s Balance is a science-based 30-day program designed to support the body’s natural balance and ability to adapt, emotional resilience, and everyday energy.* Designed for consistent, long-term use, it supports these wellness goals as part of a daily routine.\n\nIdeal for women looking to:\n\nProgram Components:\n\nProtivity Ultra\nA proprietary blend of 11 essential amino acids that serve as building blocks for normal protein production and healthy tissue structure. Supports the body’s response to everyday physical and mental demands, supports normal metabolism, and helps maintain the look of healthy skin, hair, and nails.*\n\nSafrino\nA premium formula featuring Safr’Inside™, a patented extract of Iranian saffron. Supports a positive mood, a sense of calm, and the body’s ability to handle everyday stress.*\n\nO!Mega-3 TG\nA highly absorbable source of omega-3 fatty acids in triglyceride (TG) form, made for efficient absorption. Supports normal nervous system and heart health, helps the body adapt comfortably to natural monthly changes, and supports the skin’s natural elasticity, smoothness, and healthy glow.*\n\nCoenzyme Q10\nAn important coenzyme involved in cellular energy production and antioxidant support. Supports cellular energy and natural vitality, helps protect cells from oxidative stress, and supports normal heart and nervous system function. Also helps maintain skin firmness and a healthy, well-nourished look.*\n\nCoral Magnesium\nA highly absorbable form of magnesium that supports normal nerve and muscle function. Supports relaxation, helps ease occasional tension after physical activity, supports the body’s natural recovery processes, and supports healthy sleep patterns as part of a balanced routine.*\n\n*These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease"
   },
   {
     "slug": "zaferan",
@@ -5869,7 +5941,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "Curcuma (Turmeric)\n\nTumeric is rich in natural curcuminoids, including curcumin, which help support normal liver function and healthy bile flow.* It's antioxidant propeties help protect the cells from free radicals and support the body's natural detoxification processes.*\n\nCurcuma (Turmeric)\n\nTurmeric is rich in natural curcuminoids, including curcumin, which help support normal liver function and healthy bile flow.* Its antioxidant properties help protect cells from free radicals and support the body’s natural detoxification processes.*\n\nCurcuma (Turmeric)\n\nAt the heart of turmeric's health benefits are its high concentrations of curcuminoids, which include the well-known curcumin. These biologically active compounds have been shown to support liver function by promoting bile excretion and drainage, while also protecting liver cells from the harmful effects of toxins and chemicals. But turmeric's benefits don't stop there. With its powerful antioxidant properties, turmeric can help prevent oxidative damage throughout the body and support overall detoxification."
   },
   {
     "slug": "zinc-methionine-25-mg",
@@ -5921,7 +5994,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
           }
         ]
       }
-    }
+    },
+    "fullDescription": "A bioavailable source of zinc in the form of a chelate compound of zinc with the amino acid methionine.\n\nZinc\n\nZinc is one of the most common trace elements in the human body. It is primarily found in bones and muscles, and it is also present in the skin, retinas of the eyes, brain, liver, pancreas, and prostate glands. Additionally, zinc is a component of many enzymes necessary for various biochemical reactions, influencing antioxidant protection, digestive processes, metabolism of proteins, fats, and carbohydrates, tissue regeneration, development and function of immune cells, synthesis of hemoglobin, and much more.\n\nThe absorption of zinc is closely related to the diet. Despite an adequate amount of dietary sources of zinc (meat, poultry, dairy products, seafood, eggs), there are also numerous foods that significantly inhibit its absorption when taken together. These include grains, legumes, nuts, seeds, as well as some cereals, fruits, and vegetables containing natural substances called phytates. These phytates form compounds with zinc that are unavailable for absorption by the body.\n\nChelating zinc with the amino acid methionine helps protect zinc from factors that reduce its bioavailability and improves its absorption.\n\n*Chelates are compounds of minerals with organic molecules, often amino acids. Chelated compounds have a unique structure that determines their stability and enhances absorption by the\n\nbody.\n\n**Compared to inorganic forms of zinc."
   }
 ];
 

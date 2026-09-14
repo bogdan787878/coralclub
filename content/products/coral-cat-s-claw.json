@@ -10,8 +10,12 @@
   "description": "The Peruvian plant cat's claw has anti-inflammatory and immune-activating properties. Combined with burdock root and green tea it helps raise vitality and is useful during fatigue and general weakness.",
   "price": "$28.75",
   "clubPrice": "$23",
-  "carouselImages": ["/images/products/coral-cat-s-claw.png"],
-  "pdpImages": ["/images/products/coral-cat-s-claw.png"],
+  "carouselImages": [
+    "/images/products/coral-cat-s-claw.png"
+  ],
+  "pdpImages": [
+    "/images/products/coral-cat-s-claw.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -66,5 +70,6 @@
         }
       ]
     }
-  }
+  },
+  "fullDescription": "Coral Cat's Claw is a natural herbal supplement that combines cat's claw, burdock root, and green tea extracts. These botanicals help support the body's natural defenses and contribute to overall vitality, wellness, and natural energy levels.* They provide antioxidant support and help maintain the body's natural detoxification processes as part of a healthy lifestyle.* This supplement is crafted to support immune health and general wellness.*\n\nCat’s Claw\n\nCat's Claw is a woody vine traditionally used for its wellness-supporting properties. It contains natural compounds that provide antioxidant support and help the body manage oxidative stress.* It also supports immune health, joint comfort and mobility, and muscle relaxation.*\n\nGreen Tea\n\nGreen tea provides beneficial phytonutrients and naturally occurring antioxidants.* It supports energy and vitality as part of a healthy lifestyle.*\n\nBurdock Root\n\nBurdock root delivers naturally occurring plant compounds that help support th ebody's natural elimination processes and contribute to healthy fluid balance and overall wellness."
 }

@@ -10,8 +10,12 @@
   "description": "Plant-based liver support — artichoke and milk thistle extracts with dandelion extract and betaine — that helps protect the liver and clear it of toxins. Useful for city dwellers, smokers and anyone who tends to over-do alcohol, fatty or spicy food.",
   "price": "$22.50",
   "clubPrice": "$18",
-  "carouselImages": ["/images/products/coral-artichoke.png"],
-  "pdpImages": ["/images/products/coral-artichoke.png"],
+  "carouselImages": [
+    "/images/products/coral-artichoke.png"
+  ],
+  "pdpImages": [
+    "/images/products/coral-artichoke.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -70,5 +74,6 @@
         }
       ]
     }
-  }
+  },
+  "fullDescription": "Discover Coral Artichoke. This formula features a blend of carefully selected herbal ingredients that help support liver health, promote healthy bile flow, contribute to the body's natural detoxification processes, and support normal digestive function.*\n\nArtichoke\n\nArtichoke contains naturally occurring compounds such as quercetin, rutin, gallic acid, and cynarine. These bioactive compounds have been traditionally valued for supporting the health and function of the digestive tract and for helping maintain a healthy gut environment. It also helps support normal metabolic processes by providing your body with essential vitamins, minerals, and protein.*\n\nBetaine\n\nThe natural compound betaine helps support the body's natural detoxification processes, healthy lipid metabolism in the liver, and normal blood flow.*\n\nMilk Thistle\n\nMilk thistle is a natural botanical traditionally used to help support healthy liver function. It may help promote bile production and normal digestive processes. What's more, milk thistle seeds contain the phytochemical silymarin, which helps support the health of your liver cells against everyday stressors, both internal and external.*\n\nDandelion Root\n\nDandelion root is a bitter herb that provides support for your digestion. It helps maintain a healthy appetite and promotes normal bile flow contributing to healthy digestion and nutrient absorption.*"
 }

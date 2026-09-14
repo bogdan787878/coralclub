@@ -10,8 +10,12 @@
   "description": "A complex of tropical-plant and citrus extracts that helps restore liver cells and protect them from toxic effects. It supports well-being and healthy cholesterol levels, and comes as a powder to dissolve in water in single-serve foil stick sachets.",
   "price": "$65",
   "clubPrice": "$52",
-  "carouselImages": ["/images/products/fandetox.png"],
-  "pdpImages": ["/images/products/fandetox.png"],
+  "carouselImages": [
+    "/images/products/fandetox.png"
+  ],
+  "pdpImages": [
+    "/images/products/fandetox.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -91,5 +95,6 @@
         }
       ]
     }
-  }
+  },
+  "fullDescription": "FanDetox™ is a dietary supplement formulatedto support healthy liver function and aid the body's natural detoxification processes, particularly during times of dietary or environmental stress.* Developed by Korean scientist, Song Hae Bok, Ph.D., this products features a unique blend of natural extracts traditionally used to help the body respond to dietary and environmental stressors.* FanDetox™ offers targeted support for those seeking to maintain liver health and overall wellness.*\n\nPersimmon\nPersimmon extract provides components that may support intestinal health and contribute to healthy bowel function.*movements.¹\n\nGoji Berry\nTraditionally used to support gastrointestinal health and regularity.*\n\nTaurine\nTaurine is an amino acid that helps stabilize cell membranes and supports liver health.*membranes.² It also helps maintain healthy carbohydrate and lipid metabolism.*\n\nBuckwheat and Soy Sprouts\nProvide nutrients that help support the liver's natural metabolic processes and fat metabolism.*\n\nCitrus Peel\nContains natural compounds that help maintain healthy cholesterol levels and provide antioxidant support.*\n\nVitamin C\nA good source of antioxidant vitamin C, which helps protect cells from free radicals and supports immune and liver function.*\n\n¹Antidiarrheal, antimicrobial, and antioxidant properties of the aqueous ... (n.d.). Retrieved November 2, 2022 from https://www.researchgate.net/publication/350214016_Antidiarrheal_Antimicrobial_and_Antioxidant_Properties_of_the_Aqueous_Extract_of_Tunisian_Persimmon_Diospyros_kaki_Thunb_Fruits.\n\n²MediLexicon International. (n.d.). What is taurine? benefits and side effects. Medical News Today. Retrieved November 2, 2022, from https://www.medicalnewstoday.com/articles/326476#what-is-taurine ."
 }

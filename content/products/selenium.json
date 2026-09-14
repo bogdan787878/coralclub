@@ -10,8 +10,12 @@
   "description": "A combination of the bioavailable organic form of selenium (L-selenomethionine) with vitamin C, to support immune activity, normal endocrine and cardiovascular function and the condition of skin, hair and nails.",
   "price": "$16.25",
   "clubPrice": "$13",
-  "carouselImages": ["/images/products/selenium.png"],
-  "pdpImages": ["/images/products/selenium.png"],
+  "carouselImages": [
+    "/images/products/selenium.png"
+  ],
+  "pdpImages": [
+    "/images/products/selenium.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -52,5 +56,6 @@
         }
       ]
     }
-  }
+  },
+  "fullDescription": "Selenium is an essential trace element that plays a key role in many biological processes. Selenium supports the cardiovascular system, contributes to skin health, and helps protect cells from oxidative stress by supporting the body's defense against free radicals.*\n\nSelenium (L-selenomethionine)\nSelenium is a vital trace mineral that supports immune function and helps the body respond to occasional oxidative and environmental stress.* Selenium contributes to thyroid hormone metabolism, supports cardiovascular health by helping maintain healthy blood flow, and plays an important role in reproductive health for both men and women.*\n\nVitamin C\nVitamin C is an essential water-soluble nutrient and a strong antioxidant that helps protect cells from oxidative stress and supports healthy blood vessels. Because the body does not store it, vitamin C must be obtained daily through the diet or supplements. Together, selenium and vitamin C provide antioxidant support to help protect cells and promote overall cellular health.*"
 }

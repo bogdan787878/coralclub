@@ -10,8 +10,12 @@
   "description": "Pau d'arco bark powder with selenium and vitamin C helps strengthen immunity by stimulating the body's own defences. Selenium and vitamin C, two strong antioxidants, help protect cells from harmful internal and external effects.",
   "price": "$18.75",
   "clubPrice": "$15",
-  "carouselImages": ["/images/products/pau-d-arco-with-selenium.png"],
-  "pdpImages": ["/images/products/pau-d-arco-with-selenium.png"],
+  "carouselImages": [
+    "/images/products/pau-d-arco-with-selenium.png"
+  ],
+  "pdpImages": [
+    "/images/products/pau-d-arco-with-selenium.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -67,5 +71,6 @@
         }
       ]
     }
-  }
+  },
+  "fullDescription": "Paul D'arco with Selenium combines Pau d’Arco Bark, vitamin C, and selenium to provide antioxidant support, helping protect cells from free radicals and supporting normal immune function.*\n\nPau D’Arco Bark\nPau d’Arco bark, sometimes called the \"\"divine tree\"\", contains naturally occurring bioactive compounds. It is traditionally used to support wellness and provides antioxidant support to help protect cells from oxidative stress.*\n\nVitamin C\nVitamin C is an essential nutrient and a recognized antioxidant vitamin. It helps protect cells from free radicals, supports collagen formation for healthy connective tissues and blood vessels, and contributes to normal immune function.*\n\nSelenium\nSelenium is an essential trace mineral that supports antioxidant activity in the body. It helps protect cells from oxidative stress and supports normal immune function, contributing to the body's natural defenses against everyday environmental stressors.*"
 }

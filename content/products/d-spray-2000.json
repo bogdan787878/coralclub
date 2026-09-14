@@ -10,8 +10,12 @@
   "description": "High-dose vitamin D3 in a convenient spray — one press delivers 50 mcg / 2000 IU, with about 170 doses per bottle. MCT coconut-oil fatty acids improve absorption; vitamin D3 helps regulate calcium, magnesium and phosphorus metabolism and supports bone density.",
   "price": "$15",
   "clubPrice": "$12",
-  "carouselImages": ["/images/products/d-spray-2000.png"],
-  "pdpImages": ["/images/products/d-spray-2000.png"],
+  "carouselImages": [
+    "/images/products/d-spray-2000.png"
+  ],
+  "pdpImages": [
+    "/images/products/d-spray-2000.png"
+  ],
   "rating": 4.5,
   "ratingsCount": 0,
   "reviewsCount": 0,
@@ -36,5 +40,6 @@
       "servingLabel": "Amount Per Serving",
       "rows": []
     }
-  }
+  },
+  "fullDescription": "A high-dose vitamin D3 in a convenient, easy-to-use spray bottle. 1 spray = 50 µg (2000 IU).\n\nVitamin D3 helps support the metabolism of calcium, magnesium, and phosphorus and plays an important role in maintaining healthy bones and bone density.* In addition, vitamin D3 supports normal immune system function and contributes to overall wellness.* Vitamin D also plays a role in normal metabolic processes and supports normal nervous system function.*\n\nVitamin D3 is synthesized in the skin when exposed to ultraviolet light. Clothing, sunscreen, and environmental factors may limit the body’s ability to produce sufficient amounts. As a result, low vitamin D levels are common even in sunny regions.\n\nVitamin D3 is a fat-soluble vitamin. The spray format provides a fine dispersion that supports convenient use and precise dosing. The formula contains carefully selected ingredients that are well tolerated by the body. The product does not require refrigeration and is easy to take with you anywhere."
 }
