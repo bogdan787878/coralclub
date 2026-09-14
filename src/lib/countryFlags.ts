@@ -12,16 +12,17 @@ const FLAGS: Record<string, string> = {
   Spain: "🇪🇸",
 };
 
+export type Origin = { flag: string; label: string };
+
 /**
- * The product's primary country of origin as a flag + label — for a
- * "Japan, USA, Taiwan, Germany"-style multi-country string, just the
- * first (the actual manufacturing site; the rest are usually component
- * sourcing). Returns null when the field is empty.
+ * Every country in the product's country of origin — a
+ * "Japan, USA, Taiwan, Germany"-style string becomes one tag per
+ * country, in order. Empty for an empty/missing field.
  */
-export function primaryOrigin(
-  countryOfOrigin: string | undefined,
-): { flag: string; label: string } | null {
-  const label = countryOfOrigin?.split(",")[0]?.trim();
-  if (!label) return null;
-  return { flag: FLAGS[label] ?? "", label };
+export function allOrigins(countryOfOrigin: string | undefined): Origin[] {
+  return (countryOfOrigin ?? "")
+    .split(",")
+    .map((label) => label.trim())
+    .filter(Boolean)
+    .map((label) => ({ flag: FLAGS[label] ?? "", label }));
 }

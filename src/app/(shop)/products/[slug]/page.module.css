@@ -196,9 +196,15 @@
   color: var(--color-text);
 }
 
-/* country-of-origin pill, right under the title */
+/* country-of-origin pills, right under the title — one per country */
+.originTags {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
 .originTag {
-  align-self: flex-start;
   display: inline-flex;
   align-items: center;
   padding: var(--space-8) var(--space-16);

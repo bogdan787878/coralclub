@@ -22,7 +22,7 @@ import {
   resolveIncludedProducts,
   shortCategory,
 } from "@/lib/products";
-import { primaryOrigin } from "@/lib/countryFlags";
+import { allOrigins } from "@/lib/countryFlags";
 import { BackButton } from "./BackButton";
 import { ShareButton } from "./ShareButton";
 import {
@@ -65,7 +65,7 @@ export default async function ProductPage({
   const moreLabel = related?.label;
   const moreProducts = related?.products ?? [];
   const includedProducts = resolveIncludedProducts(product.includedProducts);
-  const origin = primaryOrigin(product.manufacturing.countryOfOrigin);
+  const origins = allOrigins(product.manufacturing.countryOfOrigin);
 
   return (
     <main className={styles.page}>
@@ -110,11 +110,15 @@ export default async function ProductPage({
                   {shortCategory(product.category)}
                 </span>
                 <Heading className={styles.name}>{product.name}</Heading>
-                {origin && (
-                  <span className={styles.originTag}>
-                    {origin.flag && <span aria-hidden="true">{origin.flag} </span>}
-                    {origin.label}
-                  </span>
+                {origins.length > 0 && (
+                  <div className={styles.originTags}>
+                    {origins.map((o) => (
+                      <span className={styles.originTag} key={o.label}>
+                        {o.flag && <span aria-hidden="true">{o.flag} </span>}
+                        {o.label}
+                      </span>
+                    ))}
+                  </div>
                 )}
                 {product.description.split("\n\n").map((paragraph, i) => (
                   <BodyLong key={i}>{paragraph}</BodyLong>
