@@ -2732,18 +2732,17 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "energy"
     ],
     "coralId": "91800",
-    "description": "An alkaline-mineral effervescent tablet. Your daily water, taken further — one of the strongest antioxidant drinks you can make at home.",
     "price": "$72.50",
     "clubPrice": "$58",
+    "description": "An alkaline-mineral effervescent tablet. Your daily water, taken further — one of the strongest antioxidant drinks you can make at home.",
     "carouselImages": [
-      "/images/products/h-500.png"
+      "/images/products/h-500.png",
+      "/images/products/ChatGPT Image Sep 14, 2026 at 12_13_44 AM.png"
     ],
     "pdpImages": [
-      "/images/products/h-500.png"
+      "/images/products/h-500.png",
+      "/images/products/ChatGPT Image Sep 14, 2026 at 12_14_21 AM.png"
     ],
-    "rating": 4.8,
-    "ratingsCount": 63,
-    "reviewsCount": 29,
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [
       {
@@ -2768,6 +2767,8 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "beef-gelatin",
       "soy-free"
     ],
+    "topSeller": true,
+    "includedProducts": [],
     "manufacturing": {
       "countryOfOrigin": "USA",
       "shippingWeight": "",
@@ -2785,7 +2786,9 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
         ]
       }
     },
-    "topSeller": true
+    "rating": 4.8,
+    "ratingsCount": 63,
+    "reviewsCount": 29
   },
   {
     "slug": "hydramax-plus",
@@ -3885,11 +3888,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "description": "A deep-sea mineral concentrate in ionic form — magnesium-dominant, drawn from 662 m down in the Pacific. Steady energy and balance for every day.",
     "carouselImages": [
       "/images/products/oceanmin.png",
-      "/images/products/ChatGPT Image Sep 14, 2026 at 12_11_43 AM.png"
+      "/images/products/ChatGPT Image Sep 14, 2026 at 12_24_32 AM.png"
     ],
     "pdpImages": [
       "/images/products/oceanmin.png",
-      "/images/products/ChatGPT Image Sep 14, 2026 at 12_10_53 AM.png"
+      "/images/products/ChatGPT Image Sep 14, 2026 at 12_22_20 AM.png"
     ],
     "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
     "elements": [

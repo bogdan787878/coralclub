@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Chip, Chips, Container, Heading, Section } from "@/components/ui";
 import { DomainProductGrid, SiteFooter, SiteHeader, TabBar } from "@/components/organisms";
-import { asset } from "@/lib/asset";
+import { DOMAIN_ICONS } from "@/components/organisms/domainIcons";
 import { getDomainCards, getDomains } from "@/lib/products";
 import styles from "./page.module.css";
 
@@ -27,19 +26,17 @@ export default function CatalogPage() {
       <Section tone="surface">
         <Container>
           <div className={styles.grid}>
-            {domains.map((d) => (
-              <a key={d.id} href={`#${d.id}`} className={styles.tile}>
-                <span className={styles.tileIcon}>
-                  <Image
-                    src={`${asset(`/images/domains/${d.id}.png`)}?v=3`}
-                    alt=""
-                    width={88}
-                    height={88}
-                  />
-                </span>
-                <span className={styles.tileLabel}>{d.label}</span>
-              </a>
-            ))}
+            {domains.map((d) => {
+              const Icon = DOMAIN_ICONS[d.id];
+              return (
+                <a key={d.id} href={`#${d.id}`} className={styles.tile}>
+                  <span className={styles.tileIcon}>
+                    {Icon ? <Icon className={styles.icon} /> : null}
+                  </span>
+                  <span className={styles.tileLabel}>{d.label}</span>
+                </a>
+              );
+            })}
           </div>
         </Container>
       </Section>
