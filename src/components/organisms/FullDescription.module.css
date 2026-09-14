@@ -1,0 +1,63 @@
+.root {
+  padding-top: var(--space-20);
+  border-top: 1px solid var(--color-border);
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: var(--text-button-size); /* 16 */
+  line-height: var(--text-button-line); /* 24 */
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  margin-bottom: var(--space-12);
+}
+
+.textWrap {
+  position: relative;
+  max-height: 240px;
+  overflow: hidden;
+}
+.textWrap.expanded {
+  max-height: none;
+  overflow: visible;
+}
+
+.text {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-long-size);
+  line-height: var(--text-body-long-line);
+  color: var(--color-text);
+  white-space: pre-line;
+}
+
+/* fades the last ~80px of collapsed text into the section's own background */
+.fade {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--color-surface) 85%);
+  pointer-events: none;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  margin-top: var(--space-8);
+  padding-block: var(--space-12);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.chevron {
+  flex: none;
+  transition: transform 0.2s var(--ease-standard);
+}
+.chevronUp {
+  transform: rotate(180deg);
+}

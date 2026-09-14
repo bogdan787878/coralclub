@@ -34,6 +34,9 @@ export type { FeaturedSeriesProps, SeriesImage } from "./FeaturedSeries";
 export { InfoAccordion } from "./InfoAccordion";
 export type { InfoAccordionProps, InfoSection } from "./InfoAccordion";
 
+export { FullDescription } from "./FullDescription";
+export type { FullDescriptionProps } from "./FullDescription";
+
 export { PeriodicElements } from "./PeriodicElements";
 export type { PeriodicElementsProps } from "./PeriodicElements";
 

@@ -5,6 +5,7 @@ import {
   BuyBox,
   ImageSlider,
   DietaryBadges,
+  FullDescription,
   IncludedProducts,
   InfoAccordion,
   PeriodicElements,
@@ -21,6 +22,7 @@ import {
   resolveIncludedProducts,
   shortCategory,
 } from "@/lib/products";
+import { primaryOrigin } from "@/lib/countryFlags";
 import { BackButton } from "./BackButton";
 import { ShareButton } from "./ShareButton";
 import {
@@ -63,6 +65,7 @@ export default async function ProductPage({
   const moreLabel = related?.label;
   const moreProducts = related?.products ?? [];
   const includedProducts = resolveIncludedProducts(product.includedProducts);
+  const origin = primaryOrigin(product.manufacturing.countryOfOrigin);
 
   return (
     <main className={styles.page}>
@@ -107,6 +110,12 @@ export default async function ProductPage({
                   {shortCategory(product.category)}
                 </span>
                 <Heading className={styles.name}>{product.name}</Heading>
+                {origin && (
+                  <span className={styles.originTag}>
+                    {origin.flag && <span aria-hidden="true">{origin.flag} </span>}
+                    {origin.label}
+                  </span>
+                )}
                 {product.description.split("\n\n").map((paragraph, i) => (
                   <BodyLong key={i}>{paragraph}</BodyLong>
                 ))}
@@ -153,20 +162,12 @@ export default async function ProductPage({
                         },
                       ]
                     : []),
-                  ...(product.fullDescription
-                    ? [
-                        {
-                          title: "Full Description",
-                          content: (
-                            <p style={{ whiteSpace: "pre-line" }}>
-                              {product.fullDescription}
-                            </p>
-                          ),
-                        },
-                      ]
-                    : []),
                 ]}
               />
+
+              {product.fullDescription && (
+                <FullDescription text={product.fullDescription} />
+              )}
             </Stack>
 
             {/* mobile/tablet: fixed bottom bar (see .bar); desktop: sticky

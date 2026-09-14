@@ -196,6 +196,20 @@
   color: var(--color-text);
 }
 
+/* country-of-origin pill, right under the title */
+.originTag {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-8) var(--space-16);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1rem;
+  color: var(--color-text-muted);
+}
+
 /* FDA fine print — quiet footnote right after the description, full column width */
 .disclaimer {
   width: 100%;
