@@ -13,8 +13,13 @@ import {
 import { QuizResult } from "./QuizResult";
 import styles from "./QuizFlow.module.css";
 
-// the background cycles through shades of blue as you move through the quiz
-const BLUES = ["#011130", "#01204f", "#123a72", "#0a2a56", "#1b2f5c"];
+// the background cycles through the malachite palette (tokens.css) as you
+// move through the quiz — same brand scale used for --color-text/--color-action
+const MALACHITE = [
+  "var(--color-malachite-100)",
+  "var(--color-malachite-90)",
+  "var(--color-malachite-70)",
+];
 
 export function QuizFlow() {
   const [answers, setAnswers] = useState<Answers>({});
@@ -53,7 +58,7 @@ export function QuizFlow() {
 
   const isLong = step.kind === "result" || step.kind === "multi";
 
-  const footerLabel = step.kind === "intro" ? step.cta : "Далее";
+  const footerLabel = step.kind === "intro" ? step.cta : "Next";
   const footerDisabled =
     step.kind === "multi"
       ? !isStepAnswered(step, answers)
@@ -66,8 +71,8 @@ export function QuizFlow() {
       className={styles.root}
       style={
         {
-          backgroundColor: BLUES[clamped % BLUES.length],
-          "--q-bg": BLUES[clamped % BLUES.length],
+          backgroundColor: MALACHITE[clamped % MALACHITE.length],
+          "--q-bg": MALACHITE[clamped % MALACHITE.length],
         } as React.CSSProperties
       }
     >
@@ -80,7 +85,7 @@ export function QuizFlow() {
         </div>
         <div className={styles.barRow}>
           <Link href="/" className={styles.ghost}>
-            ← На главную
+            ← Home
           </Link>
           {qNumber > 0 && step.kind !== "result" && (
             <span className={styles.counter}>
@@ -149,7 +154,7 @@ export function QuizFlow() {
               <button
                 type="button"
                 className={styles.back}
-                aria-label="Назад"
+                aria-label="Back"
                 onClick={() => go(-1)}
               >
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">

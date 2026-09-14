@@ -1,6 +1,6 @@
 /**
  * Personalization quiz — ~12 questions built around the 12 health domains.
- * The result is 2–3 target products (no contact capture): the подборка
+ * The result is 2–3 target products (no contact capture): the selection
  * lives inside the quiz.
  */
 
@@ -64,99 +64,99 @@ const primaryDomain = (a: Answers): string | undefined =>
 type Focus = { value: string; label: string; kw: RegExp };
 const DOMAIN_FOCUS: Record<string, { title: string; options: Focus[] }> = {
   energy: {
-    title: "Что важнее для энергии?",
+    title: "What matters more for energy?",
     options: [
-      { value: "physical", label: "Физическая выносливость", kw: /carnitine|q10|coenzyme|protivity|cardiopack/ },
-      { value: "mental", label: "Ясная голова", kw: /memo|mindset|b-prime|lecithin/ },
-      { value: "steady", label: "Ровный тонус весь день", kw: /h-500|pentokan|oceanmin/ },
+      { value: "physical", label: "Physical stamina", kw: /carnitine|q10|coenzyme|protivity|cardiopack/ },
+      { value: "mental", label: "A clear head", kw: /memo|mindset|b-prime|lecithin/ },
+      { value: "steady", label: "Steady energy all day", kw: /h-500|pentokan|oceanmin/ },
     ],
   },
   "weight-metabolism": {
-    title: "Что сейчас мешает больше всего?",
+    title: "What's getting in the way most right now?",
     options: [
-      { value: "appetite", label: "Аппетит и тяга к сладкому", kw: /lipostick|slim|hi-fiber|fandetox/ },
-      { value: "metabolism", label: "Медленный обмен веществ", kw: /carnitine|artichoke|spirulina|selenium/ },
-      { value: "water", label: "Отёчность, задержка воды", kw: /plankton|artichoke/ },
+      { value: "appetite", label: "Appetite and sugar cravings", kw: /lipostick|slim|hi-fiber|fandetox/ },
+      { value: "metabolism", label: "Slow metabolism", kw: /carnitine|artichoke|spirulina|selenium/ },
+      { value: "water", label: "Bloating, water retention", kw: /plankton|artichoke/ },
     ],
   },
   "digestion-gut": {
-    title: "Что беспокоит по пищеварению?",
+    title: "What's bothering you about digestion?",
     options: [
-      { value: "heaviness", label: "Тяжесть после еды", kw: /assimilator|artichoke|zaferan|curcumin/ },
-      { value: "regularity", label: "Нерегулярный стул", kw: /hi-fiber|alfalfa|cascara|burdock/ },
-      { value: "flora", label: "Вздутие, микрофлора", kw: /super-flora|lecithin|curcumin/ },
+      { value: "heaviness", label: "Heaviness after eating", kw: /assimilator|artichoke|zaferan|curcumin/ },
+      { value: "regularity", label: "Irregular bowel movements", kw: /hi-fiber|alfalfa|cascara|burdock/ },
+      { value: "flora", label: "Bloating, gut flora", kw: /super-flora|lecithin|curcumin/ },
     ],
   },
   immunity: {
-    title: "Что в фокусе по иммунитету?",
+    title: "What's the focus for immunity?",
     options: [
-      { value: "seasonal", label: "Сезонная поддержка", kw: /d-spray|pau-d-arco|licorice|cat-s-claw/ },
-      { value: "recovery", label: "Восстановление после болезни", kw: /colostrum|ultimate-max|curcumin/ },
-      { value: "antiox", label: "Антиоксидантная защита", kw: /omega|curcumin|licorice/ },
+      { value: "seasonal", label: "Seasonal support", kw: /d-spray|pau-d-arco|licorice|cat-s-claw/ },
+      { value: "recovery", label: "Recovering after illness", kw: /colostrum|ultimate-max|curcumin/ },
+      { value: "antiox", label: "Antioxidant protection", kw: /omega|curcumin|licorice/ },
     ],
   },
   "sleep-stress": {
-    title: "Что мешает высыпаться?",
+    title: "What's keeping you from sleeping well?",
     options: [
-      { value: "fallasleep", label: "Трудно заснуть", kw: /evening-formula|griffonia|magnesium/ },
-      { value: "wakeups", label: "Просыпаюсь ночью", kw: /magnesium|oceanmin|coral-mine/ },
-      { value: "daystress", label: "Стресс и тревога днём", kw: /mindset|griffonia|phytomix|safrino/ },
+      { value: "fallasleep", label: "Trouble falling asleep", kw: /evening-formula|griffonia|magnesium/ },
+      { value: "wakeups", label: "Waking up at night", kw: /magnesium|oceanmin|coral-mine/ },
+      { value: "daystress", label: "Stress and anxiety during the day", kw: /mindset|griffonia|phytomix|safrino/ },
     ],
   },
   "brain-focus": {
-    title: "Что важнее для головы?",
+    title: "What matters more for your mind?",
     options: [
-      { value: "focus", label: "Концентрация", kw: /mindset|onestack|gotu-kola|b-prime/ },
-      { value: "memory", label: "Память", kw: /lecithin|omega|selenium/ },
-      { value: "clarity", label: "Настроение и ясность", kw: /zaferan|curcumin|gotu/ },
+      { value: "focus", label: "Concentration", kw: /mindset|onestack|gotu-kola|b-prime/ },
+      { value: "memory", label: "Memory", kw: /lecithin|omega|selenium/ },
+      { value: "clarity", label: "Mood and mental clarity", kw: /zaferan|curcumin|gotu/ },
     ],
   },
   "heart-vessels": {
-    title: "Что в приоритете по сердцу?",
+    title: "What's the priority for your heart?",
     options: [
-      { value: "pressure", label: "Давление", kw: /bp-phyto|circuphyt|pentokan/ },
-      { value: "vessels", label: "Сосуды и кровоток", kw: /gotu-kola|circuphyt|aquaox|lymflow/ },
-      { value: "muscle", label: "Сердечная мышца", kw: /q10|coenzyme|omega|magnesium|cardiopack/ },
+      { value: "pressure", label: "Blood pressure", kw: /bp-phyto|circuphyt|pentokan/ },
+      { value: "vessels", label: "Vessels and circulation", kw: /gotu-kola|circuphyt|aquaox|lymflow/ },
+      { value: "muscle", label: "Heart muscle", kw: /q10|coenzyme|omega|magnesium|cardiopack/ },
     ],
   },
   "bones-joints": {
-    title: "Что важнее по суставам и костям?",
+    title: "What matters more for bones and joints?",
     options: [
-      { value: "mobility", label: "Подвижность суставов", kw: /b-luron|flexicor|boswellia|msm/ },
-      { value: "density", label: "Плотность костей", kw: /calci-prime|pure-c|msm/ },
-      { value: "inflam", label: "Воспаление и дискомфорт", kw: /curcumin|zaferan|omega|boswellia/ },
+      { value: "mobility", label: "Joint mobility", kw: /b-luron|flexicor|boswellia|msm/ },
+      { value: "density", label: "Bone density", kw: /calci-prime|pure-c|msm/ },
+      { value: "inflam", label: "Inflammation and discomfort", kw: /curcumin|zaferan|omega|boswellia/ },
     ],
   },
   "skin-hair-nails": {
-    title: "Что в фокусе — кожа, волосы или ногти?",
+    title: "What's the focus — skin, hair, or nails?",
     options: [
-      { value: "skin", label: "Кожа и упругость", kw: /collagen|shark-liver|ultimate-max/ },
-      { value: "hair", label: "Волосы", kw: /collagen|iron|zinc|prenatal/ },
-      { value: "nails", label: "Ногти", kw: /zinc|msm|collagen/ },
+      { value: "skin", label: "Skin and elasticity", kw: /collagen|shark-liver|ultimate-max/ },
+      { value: "hair", label: "Hair", kw: /collagen|iron|zinc|prenatal/ },
+      { value: "nails", label: "Nails", kw: /zinc|msm|collagen/ },
     ],
   },
   longevity: {
-    title: "Что важнее для долголетия?",
+    title: "What matters more for longevity?",
     options: [
-      { value: "cellular", label: "Клеточная энергия", kw: /q10|coenzyme|lecithin/ },
-      { value: "protection", label: "Антиоксидантная защита", kw: /aquaox|activin|selenium/ },
-      { value: "cleanse", label: "Чистота и детокс", kw: /coral-detox|assimilator/ },
+      { value: "cellular", label: "Cellular energy", kw: /q10|coenzyme|lecithin/ },
+      { value: "protection", label: "Antioxidant protection", kw: /aquaox|activin|selenium/ },
+      { value: "cleanse", label: "Cleansing and detox", kw: /coral-detox|assimilator/ },
     ],
   },
   "vision-eyes": {
-    title: "Что беспокоит по зрению?",
+    title: "What's bothering your eyes?",
     options: [
-      { value: "screen", label: "Усталость глаз от экрана", kw: /visi-prime|taurine|dha-d3/ },
-      { value: "dryness", label: "Сухость глаз", kw: /omega|o-mega-3-tg|dha/ },
-      { value: "prevention", label: "Профилактика возрастных изменений", kw: /visi-prime|zinc|b-luron/ },
+      { value: "screen", label: "Eye strain from screens", kw: /visi-prime|taurine|dha-d3/ },
+      { value: "dryness", label: "Dry eyes", kw: /omega|o-mega-3-tg|dha/ },
+      { value: "prevention", label: "Prevention of age-related changes", kw: /visi-prime|zinc|b-luron/ },
     ],
   },
   reproductive: {
-    title: "Что в фокусе по репродуктивному здоровью?",
+    title: "What's the focus for reproductive health?",
     options: [
-      { value: "women", label: "Женское здоровье", kw: /phytomix|prenatal|iron|circuphyt/ },
-      { value: "pregnancy", label: "Подготовка к беременности", kw: /prenatal|iron/ },
-      { value: "hormones", label: "Гормональный баланс и тонус", kw: /phytomix|ultimate-max|lymflow/ },
+      { value: "women", label: "Women's health", kw: /phytomix|prenatal|iron|circuphyt/ },
+      { value: "pregnancy", label: "Preparing for pregnancy", kw: /prenatal|iron/ },
+      { value: "hormones", label: "Hormonal balance and vitality", kw: /phytomix|ultimate-max|lymflow/ },
     ],
   },
 };
@@ -167,16 +167,16 @@ export const STEPS: Step[] = [
   {
     id: "intro",
     kind: "intro",
-    kicker: "3 минуты · 12 вопросов",
-    title: "Соберём твою подборку",
-    body: "Ответь на несколько вопросов о своих целях и привычках — на выходе 2–3 продукта под твою задачу. Без регистрации.",
-    cta: "Начать",
+    kicker: "3 minutes · 12 questions",
+    title: "Let's build your selection",
+    body: "Answer a few questions about your goals and habits — you'll get 2–3 products for your needs. No sign-up required.",
+    cta: "Start",
   },
   {
     id: "domains",
     kind: "multi",
-    title: "Что хочешь проработать?",
-    help: "Выбери от 1 до 3",
+    title: "What do you want to work on?",
+    help: "Choose 1 to 3",
     min: 1,
     max: 3,
     options: DOMAIN_OPTIONS,
@@ -184,7 +184,7 @@ export const STEPS: Step[] = [
   {
     id: "priority",
     kind: "single",
-    title: "Что из этого — самое важное прямо сейчас?",
+    title: "Which of these matters most right now?",
     options: (a) => {
       const picked = asArray(a.domains);
       return DOMAIN_OPTIONS.filter((o) => picked.includes(o.value));
@@ -194,7 +194,7 @@ export const STEPS: Step[] = [
   {
     id: "focus",
     kind: "single",
-    title: (a) => DOMAIN_FOCUS[primaryDomain(a) ?? ""]?.title ?? "Что в фокусе?",
+    title: (a) => DOMAIN_FOCUS[primaryDomain(a) ?? ""]?.title ?? "What's the focus?",
     options: (a) =>
       (DOMAIN_FOCUS[primaryDomain(a) ?? ""]?.options ?? []).map((o) => ({
         value: o.value,
@@ -205,88 +205,88 @@ export const STEPS: Step[] = [
   {
     id: "sex",
     kind: "single",
-    title: "Пол",
+    title: "Sex",
     options: [
-      { value: "f", label: "Женский" },
-      { value: "m", label: "Мужской" },
+      { value: "f", label: "Female" },
+      { value: "m", label: "Male" },
     ],
   },
   {
     id: "speed",
     kind: "single",
-    title: "Как быстро хочешь увидеть результат?",
+    title: "How soon do you want to see results?",
     options: [
-      { value: "weeks", label: "За пару недель" },
-      { value: "month", label: "За месяц-два" },
-      { value: "slow", label: "Не тороплюсь" },
+      { value: "weeks", label: "In a couple of weeks" },
+      { value: "month", label: "In a month or two" },
+      { value: "slow", label: "No rush" },
     ],
   },
   {
     id: "horizon",
     kind: "single",
-    title: "Как давно это тебя беспокоит?",
+    title: "How long has this been bothering you?",
     options: [
-      { value: "recent", label: "Недавно" },
-      { value: "months", label: "Несколько месяцев" },
-      { value: "long", label: "Давно, хочу наконец заняться" },
-      { value: "prevention", label: "Скорее профилактика" },
+      { value: "recent", label: "Recently" },
+      { value: "months", label: "A few months" },
+      { value: "long", label: "A long time — ready to finally deal with it" },
+      { value: "prevention", label: "Mostly prevention" },
     ],
   },
   {
     id: "outcome",
     kind: "single",
-    title: "Что важнее в результате?",
+    title: "What matters more in the result?",
     options: [
-      { value: "fast", label: "Заметный эффект быстрее" },
-      { value: "stable", label: "Устойчивый результат" },
-      { value: "support", label: "Мягкая поддержка и профилактика" },
+      { value: "fast", label: "A noticeable effect sooner" },
+      { value: "stable", label: "A lasting result" },
+      { value: "support", label: "Gentle support and prevention" },
     ],
   },
   {
     id: "routine",
     kind: "single",
-    title: "Что уже принимаешь из добавок?",
+    title: "What are you already taking?",
     options: [
-      { value: "none", label: "Ничего, начинаю с нуля" },
-      { value: "basic", label: "Базовые витамины" },
-      { value: "many", label: "Уже целый набор" },
+      { value: "none", label: "Nothing, starting from scratch" },
+      { value: "basic", label: "Basic vitamins" },
+      { value: "many", label: "Already a full stack" },
     ],
   },
   {
     id: "format",
     kind: "single",
-    title: "Как удобнее принимать?",
+    title: "What's easier for you to take?",
     options: [
-      { value: "caps", label: "Капсулы и таблетки" },
-      { value: "drinks", label: "Напитки, порошки, стики" },
-      { value: "any", label: "Без разницы" },
+      { value: "caps", label: "Capsules and tablets" },
+      { value: "drinks", label: "Drinks, powders, sachets" },
+      { value: "any", label: "No preference" },
     ],
   },
   {
     id: "budget",
     kind: "single",
-    title: "Бюджет на месяц по этому направлению?",
+    title: "Monthly budget for this?",
     options: [
-      { value: "low", label: "До $30" },
+      { value: "low", label: "Up to $30" },
       { value: "mid", label: "$30–60" },
-      { value: "any", label: "Без ограничений" },
+      { value: "any", label: "No limit" },
     ],
   },
   {
     id: "diet",
     kind: "single",
-    title: "Есть ограничения в питании?",
+    title: "Any dietary restrictions?",
     options: [
-      { value: "none", label: "Нет" },
-      { value: "plant", label: "Без животных компонентов" },
+      { value: "none", label: "None" },
+      { value: "plant", label: "No animal-derived ingredients" },
     ],
   },
   {
     id: "stage",
     kind: "single",
-    title: "Возрастная категория?",
+    title: "Age range?",
     options: [
-      { value: "u30", label: "До 30" },
+      { value: "u30", label: "Under 30" },
       { value: "30_45", label: "30–45" },
       { value: "45p", label: "45+" },
     ],
@@ -294,11 +294,11 @@ export const STEPS: Step[] = [
   {
     id: "commitment",
     kind: "single",
-    title: "Сколько продуктов готов(а) принимать?",
+    title: "How many products are you up for taking?",
     options: [
-      { value: "one", label: "1–2, только самое нужное" },
+      { value: "one", label: "1–2, just the essentials" },
       { value: "few", label: "2–3" },
-      { value: "set", label: "Готов(а) на целый набор" },
+      { value: "set", label: "The full stack" },
     ],
   },
   { id: "result", kind: "result" },
@@ -403,16 +403,16 @@ export const recapLines = (a: Answers): string[] => {
   const ids = selectedDomainIds(a);
   if (!ids.length) return [];
   const [primary, ...rest] = ids;
-  const lines = [`Главное направление — ${domainLabel(primary)}.`];
+  const lines = [`Main focus — ${domainLabel(primary)}.`];
 
   const focusLabel = DOMAIN_FOCUS[primary]?.options.find(
     (o) => o.value === a.focus,
   )?.label;
-  if (focusLabel) lines.push(`В фокусе: ${focusLabel.toLowerCase()}.`);
+  if (focusLabel) lines.push(`Focused on: ${focusLabel.toLowerCase()}.`);
   if (rest.length) {
-    lines.push(`Ещё важно: ${rest.map(domainLabel).join(", ")}.`);
+    lines.push(`Also matters: ${rest.map(domainLabel).join(", ")}.`);
   }
-  if (a.budget === "low") lines.push("Бюджет — до $30 в месяц.");
-  if (a.diet === "plant") lines.push("Без животных компонентов.");
+  if (a.budget === "low") lines.push("Budget — up to $30 a month.");
+  if (a.diet === "plant") lines.push("No animal-derived ingredients.");
   return lines;
 };

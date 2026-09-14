@@ -9,8 +9,8 @@ export function QuizResult({ answers }: { answers: Answers }) {
 
   return (
     <div className={styles.result}>
-      <p className={styles.kicker}>Готово</p>
-      <h1 className={styles.title}>Твоя подборка</h1>
+      <p className={styles.kicker}>Done</p>
+      <h1 className={styles.title}>Your selection</h1>
 
       {recap.length > 0 && (
         <div className={styles.recap}>
@@ -52,10 +52,10 @@ export function QuizResult({ answers }: { answers: Answers }) {
 
       <div className={styles.actions}>
         <Link href="/#phases" className={styles.primary}>
-          Смотреть все направления
+          Browse all categories
         </Link>
         <Link href="/" className={styles.secondary}>
-          На главную
+          Home
         </Link>
       </div>
     </div>

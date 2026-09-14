@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { QuizFlow } from "@/components/quiz";
 
 export const metadata: Metadata = {
-  title: "Подбор протокола — Coral Club",
+  title: "Find Your Protocol — Coral Club",
   description:
-    "Ответь на несколько вопросов о самочувствии и целях — получишь персональный протокол по фазам и подборку продуктов.",
+    "Answer a few questions about how you feel and your goals — get a personal protocol by phase and a matching product selection.",
 };
 
 export default function QuizPage() {
