@@ -1733,7 +1733,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "/images/products/coral-mine-silver.png",
       "/images/products/ChatGPT Image Sep 11, 2026 at 12_57_05 PM.png"
     ],
-    "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+    "howToUse": "Place 1 sachet into 1.58 quarts (1.5 L) of drinking water. Then wait 5 minutes before drinking.",
     "elements": [
       {
         "symbol": "Ca",
@@ -1746,23 +1746,28 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     ],
     "dietaryBadges": [],
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Japan",
       "shippingWeight": "",
-      "expiration": "2 years from the date of manufacture",
-      "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
-      "ingredients": "",
+      "expiration": "5 years from the date of manufacture",
+      "storage": "Store the remaining sachets in a dry place. Keep out of reach of children. Do not use if seal is broken or missing. If pregnant or nursing, consult your health care practitioner before taking this product.",
+      "ingredients": "Vitamin C (from ascorbic acid) 5 mg; Calcium (from coral) 356 mg; Magnesium (from coral) 15 mg.",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving",
+        "servingLabel": "Amount Per 1 Sachet",
         "rows": [
           {
-            "name": "test",
-            "amount": "test",
-            "dv": ""
+            "name": "Vitamin C (from ascorbic acid)",
+            "amount": "5 mg",
+            "dv": "6%"
           },
           {
-            "name": "test",
-            "amount": "test",
-            "dv": ""
+            "name": "Calcium (from coral)",
+            "amount": "356 mg",
+            "dv": "27%"
+          },
+          {
+            "name": "Magnesium (from coral)",
+            "amount": "15 mg",
+            "dv": "4%"
           }
         ]
       }
@@ -2779,7 +2784,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "/images/products/h-500.png",
       "/images/products/ChatGPT Image Sep 14, 2026 at 12_14_21 AM.png"
     ],
-    "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+    "howToUse": "Take one capsule twice a day.",
     "elements": [
       {
         "symbol": "K",
@@ -2809,10 +2814,10 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "countryOfOrigin": "USA",
       "shippingWeight": "",
       "expiration": "2 years from the date of manufacture",
-      "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
-      "ingredients": "H-500 blend (potassium citrate, magnesium citrate, potassium ascorbate, sodium borate, silicon dioxide), excipients.",
+      "storage": "Keep out of reach of children. Store in a dry place, protected from direct sunlight, at a temperature not exceeding 77°F. If pregnant or nursing, consult your healthcare practitioner before taking this product.",
+      "ingredients": "H-500 Proprietary Blend (Potassium citrate, Magnesium citrate, Potassium ascorbate, Silicon dioxide, Boron) 300 mg; other ingredients. Per 1 Capsule",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving — 1 capsule",
+        "servingLabel": "Amount Per Serving (1 capsule)",
         "rows": [
           {
             "name": "H-500 Proprietary Blend (Potassium citrate, Magnesium citrate, Potassium ascorbate, Silicon dioxide, Sodium Borate)",
@@ -3942,7 +3947,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "/images/products/oceanmin.png",
       "/images/products/ChatGPT Image Sep 14, 2026 at 12_22_20 AM.png"
     ],
-    "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+    "howToUse": "Dissolve 1 sachet (1 g of powder) in 0.75-1 l of drinking water and take during the day after meals.",
     "elements": [
       {
         "symbol": "Mg",
@@ -3969,11 +3974,11 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "topSeller": true,
     "includedProducts": [],
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Taiwan",
       "shippingWeight": "",
-      "expiration": "2 years from the date of manufacture",
-      "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
-      "ingredients": "",
+      "expiration": "3 years from the date of manufacture",
+      "storage": "Store in a dry place out of the reach of children at a temperature not exceeding 77°F. Individual intolerance to the components, as well as those who are pregnant or breastfeeding. It is recommended to consult a doctor before use.",
+      "ingredients": "Extract of deep sea water containing magnesium not less than 120 mg, sodium not less than 90 mg, potassium not less than 35 mg, calcium not less than 0.9 mg.",
       "supplementFacts": {
         "servingLabel": "Amount Per Serving",
         "rows": [
@@ -4326,7 +4331,7 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
       "/images/products/pentokan.png",
       "/images/products/ChatGPT Image Sep 13, 2026 at 11_45_44 PM.png"
     ],
-    "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+    "howToUse": "Dissolve one tablet in 60 ml of water or fruit juice once or twice a day with a meal.",
     "elements": [
       {
         "symbol": "K",
@@ -4349,13 +4354,13 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "topSeller": false,
     "includedProducts": [],
     "manufacturing": {
-      "countryOfOrigin": "",
+      "countryOfOrigin": "Germany",
       "shippingWeight": "",
       "expiration": "2 years from the date of manufacture",
-      "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
-      "ingredients": "",
+      "storage": "Keep out of reach of children. Store in a dry place, protected from direct sunlight, at a temperature not exceeding 77°F. If pregnant or nursing, consult your healthcare practitioner before taking this product.",
+      "ingredients": "Potassium 420 mg; Vitamin C 100 mg; Ribose 20 mg; other ingredients. Per 1 Tablet",
       "supplementFacts": {
-        "servingLabel": "Amount Per Serving — 1 effervescent tablet",
+        "servingLabel": "Amount Per Serving (1 effervescent tablet)",
         "rows": [
           {
             "name": "Vitamin C (as L-ascorbic acid)",

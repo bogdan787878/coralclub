@@ -19,7 +19,7 @@
     "/images/products/coral-mine-silver.png",
     "/images/products/ChatGPT Image Sep 11, 2026 at 12_57_05 PM.png"
   ],
-  "howToUse": "Add one serving to water and take daily. Full directions coming soon.",
+  "howToUse": "Place 1 sachet into 1.58 quarts (1.5 L) of drinking water. Then wait 5 minutes before drinking.",
   "elements": [
     {
       "symbol": "Ca",
@@ -32,23 +32,28 @@
   ],
   "dietaryBadges": [],
   "manufacturing": {
-    "countryOfOrigin": "",
+    "countryOfOrigin": "Japan",
     "shippingWeight": "",
-    "expiration": "2 years from the date of manufacture",
-    "storage": "Store in a dry place, away from direct sunlight, out of reach of children, at no more than +25 °C.",
-    "ingredients": "",
+    "expiration": "5 years from the date of manufacture",
+    "storage": "Store the remaining sachets in a dry place. Keep out of reach of children. Do not use if seal is broken or missing. If pregnant or nursing, consult your health care practitioner before taking this product.",
+    "ingredients": "Vitamin C (from ascorbic acid) 5 mg; Calcium (from coral) 356 mg; Magnesium (from coral) 15 mg.",
     "supplementFacts": {
-      "servingLabel": "Amount Per Serving",
+      "servingLabel": "Amount Per 1 Sachet",
       "rows": [
         {
-          "name": "test",
-          "amount": "test",
-          "dv": ""
+          "name": "Vitamin C (from ascorbic acid)",
+          "amount": "5 mg",
+          "dv": "6%"
         },
         {
-          "name": "test",
-          "amount": "test",
-          "dv": ""
+          "name": "Calcium (from coral)",
+          "amount": "356 mg",
+          "dv": "27%"
+        },
+        {
+          "name": "Magnesium (from coral)",
+          "amount": "15 mg",
+          "dv": "4%"
         }
       ]
     }
