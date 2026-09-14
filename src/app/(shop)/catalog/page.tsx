@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Chip, Chips, Container, Heading, Section } from "@/components/ui";
+import { Container, Heading, Section } from "@/components/ui";
 import { DomainProductGrid, SiteFooter, SiteHeader, TabBar } from "@/components/organisms";
 import { DOMAIN_ICONS } from "@/components/organisms/domainIcons";
 import { getDomainCards, getDomains } from "@/lib/products";
+import { CatalogNav } from "./CatalogNav";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -45,16 +46,9 @@ export default function CatalogPage() {
           quickly, so once it does this compact chip row takes over as the
           way back to any category, staying pinned just under the header
           (top matches SiteHeader's own 56px rendered height) for the rest
-          of the page. */}
-      <div className={styles.stickyNav}>
-        <Chips className={styles.stickyNavRow} aria-label="Jump to category">
-          {domains.map((d) => (
-            <Chip key={d.id} href={`#${d.id}`}>
-              {d.label}
-            </Chip>
-          ))}
-        </Chips>
-      </div>
+          of the page. Tracks scroll position to highlight and auto-scroll
+          to whichever domain section is currently in view. */}
+      <CatalogNav domains={domains} />
 
       {domains.map((d, i) => {
         const cards = domainCards[d.id] ?? [];
