@@ -1,7 +1,8 @@
 /** Line-icon alternative to the uploaded glass-style domain icons (see
- *  DomainCarousel's USE_LINE_ICONS flag) — same stroke style as the
- *  TabBar/SiteHeader nav icons (navIcons.tsx): 24x24 viewBox, no fill,
- *  currentColor stroke, round caps. One per content/domains.json id. */
+ *  DomainCarousel's USE_LINE_ICONS flag): 24x24 viewBox, no fill,
+ *  currentColor stroke, round caps/joins — stroke weight matched to the
+ *  coral-club-test.netlify.app reference's own quiz-category icon set.
+ *  One per content/domains.json id. */
 
 import type { ReactNode } from "react";
 
@@ -10,7 +11,7 @@ type IconProps = { className?: string };
 const stroke = {
   fill: "none",
   stroke: "currentColor",
-  strokeWidth: 1.3,
+  strokeWidth: 1.5,
   strokeLinecap: "round" as const,
   strokeLinejoin: "round" as const,
 };
