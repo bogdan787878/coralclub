@@ -1,9 +1,11 @@
 /** Line-icon alternative to the uploaded glass-style domain icons (see
  *  DomainCarousel's USE_LINE_ICONS flag): 32x32 viewBox, no fill,
- *  currentColor stroke, round caps/joins — same technical grid and
- *  relative line weight (stroke-width 1.5 in a 32-unit box) as the
- *  coral-club-test.netlify.app reference's own quiz-category icon set.
- *  One per content/domains.json id. */
+ *  currentColor stroke, round caps/joins, and the same construction
+ *  language as the coral-club-test.netlify.app reference's own icon
+ *  set — one or two bold strokes/arcs filling most of the box, with a
+ *  small decorative accent (sparkle, dot) layered on a couple of them,
+ *  rather than a single dense many-point curve. One per
+ *  content/domains.json id. */
 
 import type { ReactNode } from "react";
 
@@ -39,13 +41,12 @@ function WeightMetabolismIcon({ className }: IconProps) {
 function DigestionGutIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 32 32" className={className} aria-hidden="true">
-      {/* Archimedean spiral (~2.15 turns), coil/gut metaphor — smooth
-          cubic-bezier curve through the sampled points, not straight
-          line segments, so it reads as round rather than faceted */}
-      <path
-        d="M28.4 16 C27.99 17.11 27.27 20.85 25.93 22.61 C24.6 24.37 22.43 25.89 20.43 26.59 C18.43 27.28 15.88 27.33 13.91 26.81 C11.93 26.29 9.89 24.96 8.6 23.51 C7.31 22.05 6.39 19.91 6.13 18.05 C5.88 16.2 6.29 14.01 7.08 12.41 C7.87 10.81 9.36 9.31 10.83 8.45 C12.29 7.6 14.28 7.2 15.88 7.31 C17.49 7.41 19.27 8.16 20.47 9.09 C21.67 10.03 22.67 11.53 23.12 12.91 C23.57 14.28 23.55 15.99 23.19 17.29 C22.83 18.6 21.91 19.92 20.93 20.73 C19.96 21.55 18.56 22.08 17.39 22.21 C16.21 22.35 14.84 22.03 13.87 21.51 C12.89 20.99 12.03 20.03 11.55 19.13 C11.07 18.24 10.92 17.05 11.03 16.13 C11.13 15.21 11.63 14.24 12.17 13.6 C12.72 12.96 13.6 12.49 14.33 12.31 C15.07 12.12 15.95 12.21 16.59 12.45 C17.21 12.69 17.8 13.23 18.13 13.72 C18.47 14.21 18.6 14.88 18.59 15.39 C18.57 15.89 18.33 16.43 18.07 16.76 C17.8 17.09 17.19 17.29 17.01 17.4"
-        {...stroke}
-      />
+      {/* nested coil/shell — three same-direction hooks, nautilus/gut
+          metaphor built the same way as the reference's own icons: a
+          few bold arc strokes, not a dense many-point curve */}
+      <path d="M26 12a11 11 0 1 0-9 18" {...stroke} />
+      <path d="M21.5 15a6 6 0 1 0-5.5 10" {...stroke} />
+      <path d="M17.5 18a2.2 2.2 0 1 0-2 4" {...stroke} />
     </svg>
   );
 }
@@ -110,12 +111,15 @@ function BonesJointsIcon({ className }: IconProps) {
 function SkinHairNailsIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 32 32" className={className} aria-hidden="true">
+      {/* one big sparkle filling most of the box + a small accent
+          sparkle, the same "big shape + small accent" pairing the
+          reference uses for its own moon/mountain + sparkle icons */}
       <path
-        d="M16 4c.93 4 2.4 5.6 6.4 6.67-4 1.07-5.47 2.67-6.4 6.67-.93-4-2.4-5.6-6.4-6.67 4-1.07 5.47-2.67 6.4-6.67Z"
+        d="M14 4c1 5.5 2.6 8.8 7 11-4.4 2.2-6 5.5-7 11-1-5.5-2.6-8.8-7-11 4.4-2.2 6-5.5 7-11Z"
         {...stroke}
       />
       <path
-        d="M24 20.67c.53 2.13 1.33 2.93 3.33 3.47-2 .53-2.8 1.33-3.33 3.47-.53-2.13-1.33-2.93-3.33-3.47 2-.53 2.8-1.33 3.33-3.47Z"
+        d="M25 20c.4 1.7 1 2.4 2.6 2.8-1.6.4-2.2 1.1-2.6 2.8-.4-1.7-1-2.4-2.6-2.8 1.6-.4 2.2-1.1 2.6-2.8Z"
         {...stroke}
       />
     </svg>
@@ -125,8 +129,11 @@ function SkinHairNailsIcon({ className }: IconProps) {
 function LongevityIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 32 32" className={className} aria-hidden="true">
-      <circle cx="11.33" cy="16" r="4.8" {...stroke} />
-      <circle cx="20.67" cy="16" r="4.8" {...stroke} />
+      {/* sprouting leaves on a stem — vitality/growing-older-well
+          metaphor, distinct from Brain & Focus's own concentric circles */}
+      <path d="M16 28V14" {...stroke} />
+      <path d="M16 14c0-5 4-8 9-8 0 5-4 8-9 8Z" {...stroke} />
+      <path d="M16 18c0-4-3-6.5-7-6.5 0 4 3 6.5 7 6.5Z" {...stroke} />
     </svg>
   );
 }
@@ -135,10 +142,10 @@ function VisionEyesIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 32 32" className={className} aria-hidden="true">
       <path
-        d="M3.33 16S8 8 16 8s12.67 8 12.67 8-4.67 8-12.67 8-12.67-8-12.67-8Z"
+        d="M3 16c0-1 5.5-11 13-11s13 10 13 11-5.5 11-13 11S3 17 3 16Z"
         {...stroke}
       />
-      <circle cx="16" cy="16" r="3.47" {...stroke} />
+      <circle cx="16" cy="16" r="4.5" {...stroke} />
     </svg>
   );
 }
