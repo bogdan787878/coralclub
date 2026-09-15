@@ -19,19 +19,18 @@
 
 /* phase pill switcher, overlaid on the hero — a direct child of <main>
    (not nested in HeroCarousel) so it has a containing block tall enough
-   to actually stay stuck once scrolled; see HomeView.tsx. Negative
-   top margin pulls it up over the hero's own bottom padding, just above
-   the phase dots + CTA (98px cta + 8px dots + 16+16px gaps = 138px
-   clear of the panel's own bottom edge); the positive bottom margin
-   cancels it (-182 + 44 + 138 = 0) so the pull-up doesn't also drag
-   PhasesSection up with it. */
+   to actually stay stuck once scrolled; see HomeView.tsx. Straddles the
+   seam between the hero panel and PhasesSection right after it, centered
+   on that line (half the pill's own 44px height pulled up, the same
+   amount pulled back down again so PhasesSection itself isn't dragged
+   up: -22 + 44 - 22 = 0). */
 .phaseSwitcherSticky {
   position: sticky;
   /* SiteHeader's own rendered height (56px) + an 8px gap once stuck */
   top: 64px;
   z-index: 5;
-  margin-top: -182px;
-  margin-bottom: 138px;
+  margin-top: -22px;
+  margin-bottom: -22px;
   display: flex;
   justify-content: center;
   pointer-events: none;

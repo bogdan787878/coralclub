@@ -28,10 +28,17 @@
   }
 }
 
+/* tag-qualified so this reliably beats Section's own same-specificity
+   single-class rule regardless of CSS module bundling order — see
+   Editorial.module.css for the same trick. First block after the hero —
+   the phase switcher straddles that seam (see HomeView.module.css), so
+   this top padding is measured from the hero's own bottom edge, not
+   from the switcher. */
+section.section {
+  padding-top: 56px;
+}
+
 @media (min-width: 1024px) {
-  /* tag-qualified so this reliably beats Section's own same-specificity
-     single-class rule regardless of CSS module bundling order — see
-     Editorial.module.css for the same trick */
   section.section {
     padding-block: 56px;
   }
