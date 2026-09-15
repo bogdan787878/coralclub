@@ -40,8 +40,14 @@ export function TabBar({ revealAfterId }: TabBarProps = {}) {
       const id = requestAnimationFrame(() => setRevealed(true));
       return () => cancelAnimationFrame(id);
     }
+    // Revealed once the anchor has been reached OR scrolled past — not
+    // just "currently on screen". A plain `entry.isIntersecting` hides
+    // the bar again as soon as the (comparatively short) anchor section
+    // itself scrolls out of view further down the page, instead of
+    // staying revealed for the rest of the page below it.
     const observer = new IntersectionObserver(
-      ([entry]) => setRevealed(entry.isIntersecting),
+      ([entry]) =>
+        setRevealed(entry.isIntersecting || entry.boundingClientRect.top < 0),
       { rootMargin: "0px" },
     );
     observer.observe(el);
