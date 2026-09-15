@@ -1,15 +1,20 @@
-/* phase swap — the key={phase} remount does the work; this softens it */
-@keyframes phaseFadeIn {
+/* phase swap — the key={phase} remount does the work; this animates it.
+   Slides in from the same side HeroCarousel's own swipe just came from
+   (--slide-dir: 1/-1, set inline in HomeView.tsx) so the page reads as
+   one motion instead of "hero slides, everything below just fades". */
+@keyframes phaseSlideIn {
   from {
     opacity: 0.4;
+    transform: translateX(calc(var(--slide-dir, 1) * 24px));
   }
   to {
     opacity: 1;
+    transform: translateX(0);
   }
 }
 
 .swap {
-  animation: phaseFadeIn 0.2s var(--ease-standard);
+  animation: phaseSlideIn 0.28s var(--ease-standard);
 }
 
 /* phase pill switcher, overlaid on the hero — a direct child of <main>

@@ -25,6 +25,9 @@ export type PhasesSectionProps = {
   /** The pack spotlighted under the Personalization carousel — a bare
    *  heading + product card (content/series/b-luron.json). */
   bLuronPack: SeriesView | null;
+  /** +1/-1 — which way to slide in on a phase change, matching
+   *  HeroCarousel's own swipe direction (see HomeView.tsx). */
+  slideDir?: number;
 };
 
 /**
@@ -39,6 +42,7 @@ export function PhasesSection({
   domains,
   domainCards,
   bLuronPack,
+  slideDir = 1,
 }: PhasesSectionProps) {
   const { phase: activeId } = usePhase();
   const [domainId, setDomainId] = useState(domains[0]?.id);
@@ -83,7 +87,11 @@ export function PhasesSection({
 
   return (
     <Section tone="surface" className={styles.section}>
-      <div className={styles.inner}>
+      <div
+        key={phase.id}
+        className={`${styles.inner} ${styles.phaseSlide}`}
+        style={{ ["--slide-dir" as string]: slideDir }}
+      >
         {isPersonalization && domain && (
           <DomainCarousel
             domains={domains}

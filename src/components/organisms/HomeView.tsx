@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Accent } from "@/components/ui";
 import {
   HOME_CONTENT,
@@ -181,6 +181,20 @@ function HomeContent({
   const phaseIds = phases.map((p) => p.id);
   const sections = sortPackRuns(c.sections, seriesById);
 
+  // Which way to slide the swapped-in content: +1 (from the right) when
+  // moving to a later phase, -1 (from the left) for an earlier one —
+  // mirrors HeroCarousel's own swipe direction so the page reads as one
+  // motion instead of "hero slides, everything below just fades".
+  // "Adjust state during render" (not an effect+ref) — React's own
+  // pattern for deriving state from a prop/state change without an
+  // extra render's lag: https://react.dev/learn/you-might-not-need-an-effect
+  const [prevPhase, setPrevPhase] = useState(phase);
+  const [slideDir, setSlideDir] = useState(1);
+  if (phase !== prevPhase) {
+    setSlideDir(phaseIds.indexOf(phase) - phaseIds.indexOf(prevPhase) >= 0 ? 1 : -1);
+    setPrevPhase(phase);
+  }
+
   return (
     <main>
       <SiteHeader />
@@ -223,10 +237,15 @@ function HomeContent({
           domains={domains}
           domainCards={domainCards}
           bLuronPack={bLuronPack}
+          slideDir={slideDir}
         />
       </div>
 
-      <div key={`tail-${phase}`} className={styles.swap}>
+      <div
+        key={`tail-${phase}`}
+        className={styles.swap}
+        style={{ ["--slide-dir" as string]: slideDir }}
+      >
         {sections.map((s, i) => {
           if (s.kind === "series") {
             const series = seriesById[s.id];

@@ -4,6 +4,30 @@
   gap: 16px;
 }
 
+/* remounted (key={phase.id} in PhasesSection.tsx) on a phase change —
+   slides in from the same side as HeroCarousel's own swipe and
+   HomeView's .swap block, so this block (product carousel/SeriesFeature)
+   reads as part of the same page-wide motion. Not remounted when only
+   the personalization domain changes (phase.id stays the same). */
+@keyframes phasesInnerSlideIn {
+  from {
+    opacity: 0.4;
+    transform: translateX(calc(var(--slide-dir, 1) * 24px));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.phaseSlide {
+  animation: phasesInnerSlideIn 0.28s var(--ease-standard);
+}
+@media (prefers-reduced-motion: reduce) {
+  .phaseSlide {
+    animation: none;
+  }
+}
+
 @media (min-width: 1024px) {
   /* tag-qualified so this reliably beats Section's own same-specificity
      single-class rule regardless of CSS module bundling order — see

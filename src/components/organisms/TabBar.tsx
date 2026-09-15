@@ -45,10 +45,17 @@ export function TabBar({ revealAfterId }: TabBarProps = {}) {
     // the bar again as soon as the (comparatively short) anchor section
     // itself scrolls out of view further down the page, instead of
     // staying revealed for the rest of the page below it.
+    //
+    // The -85% bottom rootMargin shrinks the intersection root to just
+    // the top ~15% of the viewport: on a short hero + tall viewport (a
+    // common phone size), the anchor's top edge can already poke a few
+    // dozen px into the bottom of the screen at scroll 0 with no
+    // rootMargin at all — isIntersecting would fire true immediately,
+    // revealing the bar before the hero was ever actually scrolled past.
     const observer = new IntersectionObserver(
       ([entry]) =>
         setRevealed(entry.isIntersecting || entry.boundingClientRect.top < 0),
-      { rootMargin: "0px" },
+      { rootMargin: "0px 0px -85% 0px" },
     );
     observer.observe(el);
     return () => observer.disconnect();
