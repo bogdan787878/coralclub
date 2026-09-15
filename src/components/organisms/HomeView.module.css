@@ -22,7 +22,8 @@
    PhasesSection up with it. */
 .phaseSwitcherSticky {
   position: sticky;
-  top: 55px;
+  /* SiteHeader's own rendered height (56px) + an 8px gap once stuck */
+  top: 64px;
   z-index: 5;
   margin-top: -182px;
   margin-bottom: 138px;
