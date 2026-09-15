@@ -251,7 +251,7 @@ function HomeContent({
 
       <SiteFooter />
 
-      <TabBar />
+      <TabBar revealAfterId="phases" />
     </main>
   );
 }

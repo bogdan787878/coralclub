@@ -25,6 +25,18 @@
   border-top: 1px solid var(--color-neutral-30);
   box-shadow: 0 -8px 24px rgba(1, 17, 48, 0.08);
   padding-bottom: env(safe-area-inset-bottom, 0px);
+  transition:
+    transform 0.2s var(--ease-standard),
+    opacity 0.2s var(--ease-standard);
+}
+
+/* revealAfterId prop (TabBar.tsx) — slid fully out of view + untappable
+   until the referenced element (the hero) scrolls into view, instead of
+   sitting fixed over it from first paint. */
+.barHidden {
+  transform: translate(-50%, 100%);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .tab {

@@ -1,11 +1,20 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cartCount, openCart, useCart } from "@/lib/cart";
 import { BagIcon } from "@/components/cart/icons";
 import { CatalogIcon, HomeIcon, UserIcon } from "./navIcons";
 import styles from "./TabBar.module.css";
+
+export type TabBarProps = {
+  /** When set, the bar starts hidden and only fades in once the element
+   *  with this id scrolls into view — e.g. the homepage's hero, so the
+   *  bar doesn't sit fixed over the hero photo from first paint. Omit for
+   *  the normal always-visible bar. */
+  revealAfterId?: string;
+};
 
 /**
  * TabBar — bottom tab navigation (mobile/tablet; hidden at desktop, where
@@ -16,9 +25,28 @@ import styles from "./TabBar.module.css";
  * openCart(), and relies on SiteHeader's CartButton (always mounted, even
  * where its icon row is hidden by CSS) to actually host the drawer.
  */
-export function TabBar() {
+export function TabBar({ revealAfterId }: TabBarProps = {}) {
   const count = cartCount(useCart());
   const pathname = usePathname();
+  const [revealed, setRevealed] = useState(!revealAfterId);
+
+  useEffect(() => {
+    if (!revealAfterId) return;
+    const el = document.getElementById(revealAfterId);
+    // no matching element (shouldn't happen for a valid id) — fall back
+    // to always-visible rather than hidden forever, but not as a direct
+    // setState call in the effect body itself
+    if (!el) {
+      const id = requestAnimationFrame(() => setRevealed(true));
+      return () => cancelAnimationFrame(id);
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => setRevealed(entry.isIntersecting),
+      { rootMargin: "0px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [revealAfterId]);
 
   const tabClass = (active: boolean) =>
     `${styles.tab}${active ? ` ${styles.tabOn}` : ""}`;
@@ -30,7 +58,10 @@ export function TabBar() {
   return (
     <>
       <div className={styles.spacer} aria-hidden="true" />
-      <nav className={styles.bar} aria-label="Primary">
+      <nav
+        className={`${styles.bar}${revealed ? "" : ` ${styles.barHidden}`}`}
+        aria-label="Primary"
+      >
         <Link
           href="/"
           className={tabClass(isHome)}
