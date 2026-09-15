@@ -16,7 +16,9 @@ export type HeroCarouselProps = {
 /**
  * HeroCarousel — the per-phase heroes in one native scroll-snap track. Swipe
  * to flip between phases (browser momentum + snap); tapping a dot scrolls
- * there smoothly. Mirrors the ImageSlider pattern used elsewhere.
+ * there smoothly. Mirrors the ImageSlider pattern used elsewhere. The phase
+ * pill switcher lives one level up (see HomeView) — its sticky-on-scroll
+ * needs a much taller containing block than this component's own height.
  */
 export function HeroCarousel({ slides, activeIndex, onSelect }: HeroCarouselProps) {
   const track = useRef<HTMLDivElement>(null);

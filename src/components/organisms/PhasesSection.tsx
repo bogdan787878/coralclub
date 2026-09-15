@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Accent, Container, Section } from "@/components/ui";
+import { Accent, Section } from "@/components/ui";
 import { addItem, setQty, useCart } from "@/lib/cart";
 import { productHref } from "@/lib/catalog";
-import { usePhase, type PhaseId } from "@/lib/phase";
+import { usePhase } from "@/lib/phase";
 import { Carousel } from "./Carousel";
 import { DomainCarousel } from "./DomainCarousel";
-import { PhaseSwitcher } from "./PhaseSwitcher";
 import { ProductCard } from "./ProductCard";
 import { SeriesFeature } from "./SeriesFeature";
 import type {
@@ -41,7 +40,7 @@ export function PhasesSection({
   domainCards,
   bLuronPack,
 }: PhasesSectionProps) {
-  const { phase: activeId, setPhase } = usePhase();
+  const { phase: activeId } = usePhase();
   const [domainId, setDomainId] = useState(domains[0]?.id);
   const phase = phases.find((p) => p.id === activeId) ?? phases[0];
   const isPersonalization = phase.id === "personalization";
@@ -85,14 +84,6 @@ export function PhasesSection({
   return (
     <Section tone="surface" className={styles.section}>
       <div className={styles.inner}>
-        <Container>
-          <PhaseSwitcher
-            phases={phases}
-            value={phase.id}
-            onChange={(id) => setPhase(id as PhaseId)}
-          />
-        </Container>
-
         {isPersonalization && domain && (
           <DomainCarousel
             domains={domains}

@@ -37,12 +37,15 @@
   }
 }
 
-/* phase dots — over the hero, just below the CTA */
+/* phase dots — over the hero, between the pill switcher (HomeView, pulled
+   up over this same bottom padding) and the CTA: cta itself sits 98px
+   above the panel's bottom edge (48px content padding + its own 50px
+   height), so 114px clears the cta with a 16px gap. */
 .dots {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: var(--space-24);
+  bottom: 114px;
   z-index: 3;
   display: flex;
   justify-content: center;
@@ -66,6 +69,25 @@
 .dot:focus-visible {
   outline: 2px solid #ffffff;
   outline-offset: 3px;
+}
+
+/* Desktop's split panel (see Hero.module.css) only has a photo in the
+   right-hand column — the left column .dots/.phaseSwitcherSticky need to
+   align over is a plain --color-surface background, same width (460px,
+   left-anchored at the panel's own left edge) as Hero's own text column,
+   not centered across the whole panel like the mobile photo overlay. */
+@media (min-width: 1024px) {
+  .dots {
+    left: 0;
+    right: auto;
+    width: 460px;
+  }
+  .dot {
+    background: color-mix(in srgb, var(--color-text) 25%, transparent);
+  }
+  .dotOn {
+    background: var(--color-text);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

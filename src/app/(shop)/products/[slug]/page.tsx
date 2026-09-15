@@ -110,6 +110,9 @@ export default async function ProductPage({
                   {shortCategory(product.category)}
                 </span>
                 <Heading className={styles.name}>{product.name}</Heading>
+                {product.description.split("\n\n").map((paragraph, i) => (
+                  <BodyLong key={i}>{paragraph}</BodyLong>
+                ))}
                 {origins.length > 0 && (
                   <div className={styles.originTags}>
                     {origins.map((o) => (
@@ -120,9 +123,6 @@ export default async function ProductPage({
                     ))}
                   </div>
                 )}
-                {product.description.split("\n\n").map((paragraph, i) => (
-                  <BodyLong key={i}>{paragraph}</BodyLong>
-                ))}
                 {product.topSeller && <TopSellerBadge />}
                 {product.dietaryBadges.length > 0 && (
                   <DietaryBadges items={product.dietaryBadges} />

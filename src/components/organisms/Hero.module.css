@@ -3,7 +3,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  min-height: min(78svh, 620px);
+  min-height: min(82svh, 660px);
   background: var(--color-neutral-30);
   color: var(--color-text-on-primary);
   /* full-bleed breakout — reach the true viewport edges regardless of
@@ -139,6 +139,11 @@ div.body {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.22), 0 4px 16px rgba(0, 0, 0, 0.28);
 }
 
+.ctaRow {
+  display: flex;
+  justify-content: center;
+}
+
 .cta {
   /* hug content, not full-width — override Button's default 24px inline
      padding with 32px, add a soft shadow so it lifts off the photo */
@@ -150,7 +155,7 @@ div.body {
 /* ---------- Wide screens ---------- */
 @media (min-width: 768px) {
   .panel {
-    min-height: min(72vh, 560px);
+    min-height: min(76vh, 600px);
   }
 
   .bg {

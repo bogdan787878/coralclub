@@ -11,7 +11,7 @@ import {
 } from "@/content/home";
 import { addItem, setQty, useCart } from "@/lib/cart";
 import { productHref } from "@/lib/catalog";
-import { PhaseProvider, usePhase } from "@/lib/phase";
+import { PhaseProvider, usePhase, type PhaseId } from "@/lib/phase";
 import type {
   DomainContent,
   PhaseProductCard,
@@ -22,6 +22,7 @@ import type {
 import { CommunityReels } from "./CommunityReels";
 import { Editorial } from "./Editorial";
 import { HeroCarousel } from "./HeroCarousel";
+import { PhaseSwitcherPills } from "./PhaseSwitcherPills";
 import { PhasesSection } from "./PhasesSection";
 import { ProductCard } from "./ProductCard";
 import { QuizPromo } from "./QuizPromo";
@@ -200,6 +201,20 @@ function HomeContent({
           };
         })}
       />
+
+      {/* A direct child of <main> (not nested inside HeroCarousel) on
+          purpose: a `position: sticky` element can't stick past the
+          bottom edge of its own containing block, and HeroCarousel's own
+          box is exactly hero-height — far too short to keep this pinned
+          while the rest of the page scrolls underneath it. <main> is as
+          tall as the whole page, so it has all the room this needs. */}
+      <div className={styles.phaseSwitcherSticky}>
+        <PhaseSwitcherPills
+          phases={phases.map((p) => ({ id: p.id, name: p.name }))}
+          value={phase}
+          onChange={(id) => setPhase(id as PhaseId)}
+        />
+      </div>
 
       {/* the switcher lives here — kept outside the swap so it stays mounted */}
       <div id="phases">

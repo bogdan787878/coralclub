@@ -12,6 +12,37 @@
   animation: phaseFadeIn 0.2s var(--ease-standard);
 }
 
+/* phase pill switcher, overlaid on the hero — a direct child of <main>
+   (not nested in HeroCarousel) so it has a containing block tall enough
+   to actually stay stuck once scrolled; see HomeView.tsx. Negative
+   top margin pulls it up over the hero's own bottom padding, just above
+   the phase dots + CTA (98px cta + 8px dots + 16+16px gaps = 138px
+   clear of the panel's own bottom edge); the positive bottom margin
+   cancels it (-182 + 44 + 138 = 0) so the pull-up doesn't also drag
+   PhasesSection up with it. */
+.phaseSwitcherSticky {
+  position: sticky;
+  top: 55px;
+  z-index: 5;
+  margin-top: -182px;
+  margin-bottom: 138px;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+.phaseSwitcherSticky > * {
+  pointer-events: auto;
+}
+
+/* desktop's split-panel hero (see Hero.module.css) only has a photo in
+   the right column — align over the same 460px, left-anchored text
+   column as the CTA instead of centering across the whole panel. */
+@media (min-width: 1024px) {
+  .phaseSwitcherSticky {
+    width: 460px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .swap {
     animation: none;

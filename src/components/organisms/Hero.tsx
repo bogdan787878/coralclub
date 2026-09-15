@@ -98,7 +98,7 @@ export function Hero({
           <BodyLong as="div" className={styles.body}>{body}</BodyLong>
         </div>
 
-        <div className={styles.inset}>
+        <div className={`${styles.inset} ${styles.ctaRow}`}>
           <Button
             variant="secondary"
             href={cta.href}

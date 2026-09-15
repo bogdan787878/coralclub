@@ -40,8 +40,8 @@ export type SeriesFeatureProps = {
    *  carousel), rather than staying confined next to the card. */
   carouselItems?: ReactNode[];
   /** Drops the block's own top margin — for callers that already sit in a
-   *  flex column with its own gap right after a sibling (e.g. PhasesSection's
-   *  PhaseSwitcher), where the self-margin would double up on that gap. */
+   *  flex column with its own gap (e.g. PhasesSection), where the
+   *  self-margin would double up on that gap. */
   tightTop?: boolean;
 };
 
