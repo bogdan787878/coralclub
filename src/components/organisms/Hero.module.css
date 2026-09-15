@@ -99,7 +99,10 @@
   flex-direction: column;
   gap: var(--gap-base);
   min-height: inherit;
-  padding-block: var(--page-padding-block) var(--space-48);
+  /* bottom padding raises the CTA (and, with it, the dots below —
+     HeroCarousel.module.css) enough to leave a 16px gap between the
+     dots and the phase switcher pill sitting under them. */
+  padding-block: var(--page-padding-block) 62px;
 }
 
 .copy {
