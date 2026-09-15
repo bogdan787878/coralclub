@@ -37,15 +37,17 @@
   }
 }
 
-/* phase dots — over the hero, between the pill switcher (HomeView, pulled
-   up over this same bottom padding) and the CTA: cta itself sits 98px
-   above the panel's bottom edge (48px content padding + its own 50px
-   height), so 114px clears the cta with a 16px gap. */
+/* phase dots — over the hero, below the CTA now (the pill switcher sits
+   further down still, straddling the seam between the hero and
+   PhasesSection — see HomeView.module.css): cta's own bottom sits 48px
+   above the panel's bottom edge (the content's own bottom padding), so
+   24px clears the cta with a 16px gap and still leaves a couple of px
+   above the switcher's own top. */
 .dots {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 114px;
+  bottom: 24px;
   z-index: 3;
   display: flex;
   justify-content: center;
