@@ -1,0 +1,121 @@
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-16);
+  margin-bottom: var(--space-24);
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.viewAll {
+  flex: none;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-16);
+}
+
+.reviews {
+  margin-top: var(--space-8);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* key pack spotlight */
+.spotlight {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  background: var(--color-malachite-10);
+}
+
+.spotlightMedia {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--color-malachite-20);
+}
+
+.spotlightMedia img {
+  object-fit: cover;
+}
+
+.spotlightBody {
+  padding: var(--space-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.spotlightKicker {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-malachite-70);
+}
+
+.spotlightTitle {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  line-height: 1.25;
+}
+
+.spotlightBlurb {
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--color-text-muted);
+}
+
+.spotlightCta {
+  align-self: flex-start;
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .grid {
+    flex: 1 1 auto;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .spotlight {
+    flex: 0 0 320px;
+  }
+  .spotlightMedia {
+    flex: 1 1 auto;
+    aspect-ratio: auto;
+  }
+}

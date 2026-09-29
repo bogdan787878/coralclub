@@ -40,7 +40,7 @@ export type { FullDescriptionProps } from "./FullDescription";
 export { PeriodicElements } from "./PeriodicElements";
 export type { PeriodicElementsProps } from "./PeriodicElements";
 
-export { DietaryBadges } from "./DietaryBadges";
+export { DietaryBadges, BADGES } from "./DietaryBadges";
 export type { DietaryBadgesProps } from "./DietaryBadges";
 export { TopSellerBadge } from "./TopSellerBadge";
 export { IncludedProducts } from "./IncludedProducts";

@@ -1,0 +1,249 @@
+.page {
+  min-height: 100dvh;
+  background: var(--color-surface);
+  /* clear the fixed buy bar */
+  padding-bottom: 150px;
+}
+@media (min-width: 1024px) {
+  .page {
+    /* the buy box is a sticky column now, not a fixed bar — no bottom
+       clearance needed */
+    padding-bottom: 0;
+  }
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24); /* image → title */
+}
+
+.media {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-neutral-30);
+  /* full-bleed to the screen edges, flush to the top (no header) */
+  margin-inline: calc(-1 * var(--page-padding-inline));
+  margin-top: calc(-1 * var(--page-padding-block));
+}
+/* square spacer — % padding resolves against the real (post-margin) width,
+   so the frame height always equals its width. `aspect-ratio` here got the
+   height wrong (used the pre-negative-margin container width) and clipped
+   the packshot bottom in WebKit. */
+.media::before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+/* desktop: image and details sit side by side instead of stacking (each
+   half the row), the buy box becomes a 3rd sticky column instead of a
+   fixed bottom bar; the image column also sticks */
+@media (min-width: 1024px) {
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr minmax(260px, 300px);
+    align-items: start;
+    gap: var(--space-32);
+  }
+
+  .media {
+    /* no more full-bleed edge-to-edge — it now lives inside its own column */
+    margin: 0;
+    min-width: 0;
+    border-radius: var(--radius-base);
+    position: sticky;
+    top: calc(var(--space-24) + env(safe-area-inset-top, 0px));
+  }
+
+  /* grid items default to min-width:auto — the details column's own
+     min-content includes IncludedProducts' horizontally-scrolling row
+     (its cards' full unwrapped width), which otherwise wins over the
+     image column and breaks the 50/50 split. Force it down so the two
+     1fr tracks actually share the row evenly. */
+  .infoCol {
+    min-width: 0;
+  }
+}
+
+/* desktop-only real header — replaces the floating back/share controls
+   (see .imageControls, hidden at this breakpoint below) */
+.desktopHeader {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .desktopHeader {
+    display: block;
+  }
+}
+
+/* share button pinned to the image's own corner on desktop, replacing
+   the floating .imageControls pair (no back button here — the header's
+   logo already gets you home). Compound selector throughout — .circleBtn
+   sets its own unconditional `display`, and equal-specificity rules are
+   decided by source order, so a plain `.mediaShare` rule can't be
+   trusted to win either way. */
+.circleBtn.mediaShare {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .circleBtn.mediaShare {
+    display: inline-flex;
+    z-index: 5;
+  }
+  /* compound selector so this beats .circleBtn's own position:relative
+     (equal specificity would otherwise be decided by source order) */
+  .circleBtn.mediaShare {
+    position: absolute;
+    top: var(--space-16);
+    right: var(--space-16);
+  }
+}
+
+/* round controls pinned to the top corners — back (left) + cart (right) */
+.imageControls {
+  position: fixed;
+  top: calc(var(--space-16) + env(safe-area-inset-top, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--container-max);
+  padding-inline: var(--space-16);
+  z-index: 30;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.imageControls > * {
+  pointer-events: auto;
+}
+/* mobile/tablet only — desktop shows a real header (.desktopHeader) and
+   the share button moves onto the image card (.mediaShare) instead */
+@media (min-width: 1024px) {
+  .imageControls {
+    display: none;
+  }
+}
+
+.circleBtn {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: #ffffff;
+  color: var(--color-text);
+  box-shadow: 0 8px 24px rgba(1, 17, 48, 0.18);
+}
+.circleBtn svg {
+  width: 20px;
+  height: 20px;
+}
+.circleBtn:active {
+  transform: scale(0.94);
+}
+
+/* holds the fill image at the full size of the frame */
+.mediaInner {
+  position: absolute;
+  inset: 0;
+}
+
+.mediaInner :global(img) {
+  object-fit: contain;
+}
+
+.mediaEmpty {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-neutral-white),
+    var(--color-neutral-30)
+  );
+}
+
+/* children: category → name → description → [badges] → [key elements] → disclaimer */
+.headGroup {
+  display: flex;
+  flex-direction: column;
+}
+.headGroup > * + * {
+  margin-top: var(--space-16);
+}
+.headGroup > .name {
+  margin-top: var(--space-8); /* category → name, tighter */
+}
+/* the badge row / Key Elements module sit a bit further from the text */
+.headGroup > ul,
+.headGroup > section {
+  margin-top: var(--space-24);
+}
+
+/* category tag above the title — plain bold accent text, like the carousel */
+.category {
+  align-self: flex-start;
+  font-family: var(--font-sans);
+  font-size: 0.875rem; /* 14 */
+  line-height: 1rem; /* 16 */
+  font-weight: 900;
+  color: var(--color-special);
+}
+
+.name {
+  color: var(--color-text);
+}
+
+/* country-of-origin pills, right under the title — one per country */
+.originTags {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.originTag {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-8) var(--space-16);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1rem;
+  color: var(--color-text-muted);
+}
+
+/* FDA fine print — quiet footnote right after the description, full column width */
+.disclaimer {
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: 0.75rem; /* 12 */
+  line-height: 1.125rem; /* 18 */
+  color: var(--color-text-muted);
+}
+
+/* "More in <category>" — 2-up grid on mobile, more columns as the page grows */
+.moreTitle {
+  color: var(--color-text);
+  margin-bottom: var(--space-16);
+}
+.moreGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-24) var(--space-12);
+}
+
+@media (min-width: 768px) {
+  .moreGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .moreGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

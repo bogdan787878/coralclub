@@ -1,0 +1,107 @@
+.panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: min(88svh, 720px);
+  background: var(--color-malachite-10);
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bg {
+  object-fit: cover;
+  object-position: 50% 55%;
+  z-index: 0;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 32, 34, 0.45) 0%,
+    rgba(0, 32, 34, 0.08) 28%,
+    rgba(0, 32, 34, 0.1) 38%,
+    rgba(0, 20, 22, 0.86) 66%,
+    rgba(0, 14, 16, 0.94) 100%
+  );
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: inherit;
+  padding: var(--page-padding-block) var(--page-padding-inline) var(--space-48);
+  gap: var(--space-16);
+}
+
+.kicker {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.title {
+  color: #ffffff;
+  font-size: clamp(2rem, 7vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.28);
+}
+
+.body {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  max-width: 46ch;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.24);
+}
+
+.ctaRow {
+  display: flex;
+  gap: var(--space-12);
+  margin-top: var(--space-8);
+  flex-wrap: wrap;
+}
+
+.cta {
+  background: #ffffff;
+  color: var(--color-text);
+}
+.cta:hover {
+  background: var(--color-malachite-10);
+}
+
+.secondaryCta {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+.secondaryCta:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+@media (min-width: 1024px) {
+  .panel {
+    min-height: min(78vh, 660px);
+  }
+  .content {
+    padding: 88px 56px;
+    max-width: 620px;
+  }
+}

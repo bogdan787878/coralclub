@@ -2,7 +2,7 @@ import { asset } from "@/lib/asset";
 import styles from "./DietaryBadges.module.css";
 
 /** slug → { icon file, display label }. Slugs are what products store. */
-const BADGES: Record<string, { icon: string; label: string }> = {
+export const BADGES: Record<string, { icon: string; label: string }> = {
   "gluten-free": { icon: "gluten-free", label: "Gluten-free" },
   "soy-free": { icon: "no-soy", label: "Soy-free" },
   "lactose-free": { icon: "lactose-free", label: "Lactose-free" },
