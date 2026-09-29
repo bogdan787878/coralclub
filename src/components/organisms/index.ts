@@ -50,6 +50,9 @@ export { SiteFooter } from "./SiteFooter";
 export { Editorial } from "./Editorial";
 export type { EditorialProps, EditorialImage } from "./Editorial";
 
+export { AdvisoryBoard } from "./AdvisoryBoard";
+export type { AdvisoryBoardProps, AdvisoryMember } from "./AdvisoryBoard";
+
 export { CommunityReels } from "./CommunityReels";
 export type { CommunityReelsProps, Reel } from "./CommunityReels";
 

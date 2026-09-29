@@ -53,7 +53,17 @@ export type SeriesItem = { kind: "series"; id: string };
 
 export type QuizItem = { kind: "quiz" };
 
-export type HomeSection = EditorialItem | SeriesItem | QuizItem;
+export type AdvisoryBoardItem = {
+  kind: "advisory-board";
+  title: { lead: string; accent: string };
+  members: {
+    name: string;
+    credentials: string;
+    photo: { src: string; alt: string };
+  }[];
+};
+
+export type HomeSection = EditorialItem | SeriesItem | QuizItem | AdvisoryBoardItem;
 
 export type ReelsContent = {
   title: { lead: string; accent: string };
@@ -123,6 +133,36 @@ const HYDRATION: HomePhase = {
       badge: { flag: "🇯🇵", text: "Okinawa, Japan" },
       body: [
         "Off the coast of Okinawa, one of the planet's five Blue Zones, lies Sango fossil coral, naturally rich in calcium, magnesium and 70+ trace minerals.",
+      ],
+    },
+    {
+      kind: "advisory-board",
+      title: { lead: "Backed by a", accent: "Scientific Advisory Board" },
+      members: [
+        {
+          name: "Michael Lila",
+          credentials: "PhD, MS",
+          photo: {
+            src: `${asset("/images/advisors/michael-lila.png")}?v=1`,
+            alt: "Portrait of Dr. Michael Lila",
+          },
+        },
+        {
+          name: "Ralph Jager",
+          credentials: "PhD, MBA, FISSN",
+          photo: {
+            src: `${asset("/images/advisors/ralph-jager.png")}?v=1`,
+            alt: "Portrait of Dr. Ralph Jager",
+          },
+        },
+        {
+          name: "Tori Parker",
+          credentials: "PhD, MS",
+          photo: {
+            src: `${asset("/images/advisors/tori-parker.png")}?v=1`,
+            alt: "Portrait of Dr. Tori Parker",
+          },
+        },
       ],
     },
     { kind: "series", id: "privilege" },

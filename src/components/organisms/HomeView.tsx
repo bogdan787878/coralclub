@@ -19,6 +19,7 @@ import type {
   Product,
   SeriesView,
 } from "@/lib/products";
+import { AdvisoryBoard } from "./AdvisoryBoard";
 import { CommunityReels } from "./CommunityReels";
 import { Editorial } from "./Editorial";
 import { HeroCarousel } from "./HeroCarousel";
@@ -253,6 +254,11 @@ function HomeContent({
           }
           if (s.kind === "quiz") {
             return <QuizPromo key="quiz" />;
+          }
+          if (s.kind === "advisory-board") {
+            return (
+              <AdvisoryBoard key="advisory-board" title={s.title} members={s.members} />
+            );
           }
           return (
             <Editorial
