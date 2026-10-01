@@ -1,0 +1,63 @@
+.root {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.bar {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: var(--space-16) var(--page-padding-inline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+
+.brand {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.badge {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-malachite-70);
+  background: var(--color-malachite-10);
+  padding: var(--space-4) var(--space-12);
+  border-radius: var(--radius-pill);
+}
+
+.steps {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+.step {
+  color: var(--color-text-muted);
+}
+
+.stepOn {
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+.sep {
+  color: var(--color-border);
+}
+
+@media (max-width: 640px) {
+  .steps {
+    display: none;
+  }
+}
