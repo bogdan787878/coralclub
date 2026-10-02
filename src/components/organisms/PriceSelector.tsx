@@ -8,6 +8,8 @@ export type PriceSelectorOption = {
   label: string;
   note?: string;
   price: string;
+  /** Struck-through reference price shown beside `price`. */
+  priceWas?: string;
 };
 
 export type PriceSelectorProps = {
@@ -58,7 +60,10 @@ export function PriceSelector({
               <span className={styles.name}>{opt.label}</span>
               {opt.note && <span className={styles.note}>{opt.note}</span>}
             </span>
-            <span className={styles.price}>{opt.price}</span>
+            <span className={styles.priceRow}>
+              <span className={styles.price}>{opt.price}</span>
+              {opt.priceWas && <span className={styles.priceWas}>{opt.priceWas}</span>}
+            </span>
           </label>
         );
       })}

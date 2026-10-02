@@ -47,9 +47,3 @@
   background: var(--color-special);
   color: #ffffff;
 }
-
-.tagCourse {
-  background: var(--color-malachite-10);
-  color: var(--color-malachite-90);
-  border: 1px solid var(--color-malachite-20);
-}

@@ -4,17 +4,14 @@ import styles from "./ProtoPriceBlock.module.css";
 export type ProtoPriceBlockProps = {
   price: number;
   priceWas: number;
-  /** Extra tag shown alongside the standing club discount — e.g. the
-   *  course's own additional savings. Omit for the single-pack variant. */
-  extraTag?: string;
 };
 
 /**
  * ProtoPriceBlock — club price, crossed-out reference price, and the
- * discount tag(s) underneath. Shared between the single-pack and course
- * variants; only the numbers and the extra tag change.
+ * discount tag underneath. Shared between the single-pack and course
+ * variants; only the numbers change.
  */
-export function ProtoPriceBlock({ price, priceWas, extraTag }: ProtoPriceBlockProps) {
+export function ProtoPriceBlock({ price, priceWas }: ProtoPriceBlockProps) {
   return (
     <div className={styles.root}>
       <div className={styles.row}>
@@ -23,7 +20,6 @@ export function ProtoPriceBlock({ price, priceWas, extraTag }: ProtoPriceBlockPr
       </div>
       <div className={styles.tags}>
         <span className={`${styles.tag} ${styles.tagClub}`}>Скидка друга клуба −20%</span>
-        {extraTag && <span className={`${styles.tag} ${styles.tagCourse}`}>{extraTag}</span>}
       </div>
     </div>
   );

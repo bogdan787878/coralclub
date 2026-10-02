@@ -86,3 +86,18 @@
   outline-offset: 3px;
   border-radius: 4px;
 }
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 var(--space-8);
+}
+
+.priceWas {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  line-height: 1.1rem;
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}

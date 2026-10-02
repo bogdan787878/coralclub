@@ -28,6 +28,13 @@
   margin-top: var(--space-8);
 }
 
+.desc {
+  margin-top: var(--space-16);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
 .releaseForm {
   margin-top: var(--space-16);
   font-size: 0.9375rem;
@@ -78,4 +85,94 @@
     width: auto;
     padding-inline: var(--space-48);
   }
+}
+
+.tags {
+  list-style: none;
+  margin: var(--space-24) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.tagItem {
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-pill);
+  background: var(--color-malachite-10);
+  border: 1px solid var(--color-malachite-20);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.block {
+  margin-top: var(--space-32);
+}
+
+.blockTitle {
+  margin-bottom: var(--space-16);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.benefits {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.benefit {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: var(--space-16);
+  border-left: 3px solid var(--color-malachite-30);
+}
+
+.benefitTitle {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.benefitText {
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--color-text-muted);
+}
+
+.facts {
+  width: 100%;
+  margin-top: var(--space-12);
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.facts th {
+  text-align: left;
+  padding: var(--space-8) var(--space-8) var(--space-8) 0;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.facts td {
+  padding: var(--space-8) var(--space-8) var(--space-8) 0;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.disclaimer {
+  margin-top: var(--space-24);
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  color: var(--color-text-muted);
 }
