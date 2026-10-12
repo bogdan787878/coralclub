@@ -1,0 +1,88 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  align-items: flex-start;
+}
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  background: var(--color-malachite-10);
+}
+
+.media img {
+  object-fit: contain;
+}
+
+.name {
+  margin-top: var(--space-4);
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.lead {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.bullets {
+  margin: 0;
+  padding-left: var(--space-20);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--color-text-muted);
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-8);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-malachite-20);
+  transition:
+    width 0.2s var(--ease-standard),
+    background-color 0.2s var(--ease-standard);
+}
+
+.dotOn {
+  width: 22px;
+  background: var(--color-malachite-90);
+}

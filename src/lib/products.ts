@@ -591,6 +591,15 @@ function toCard(p: Product): PhaseProductCard {
   };
 }
 
+/** Resolved cards for an explicit slug list, in the given order (unknown
+ *  slugs are skipped) — for pages that curate their own product set. */
+export function getProductCards(slugs: string[]): PhaseProductCard[] {
+  return slugs
+    .map((slug) => getProduct(slug))
+    .filter((p): p is Product => Boolean(p))
+    .map(toCard);
+}
+
 export function getPhases(): PhaseView[] {
   return PHASE_DEFS.map(({ slugs, image, ...phase }) => {
     // Only renders the SeriesFeature block when a phase opts in with an
