@@ -26,12 +26,22 @@ const heroEntry = heroImages.items.find((i) => i.id === "personalization");
 const HERO_SRC = heroEntry ? `${asset(heroEntry.mobile || heroEntry.desktop)}?v=3` : "";
 const product = (slug: string) => asset(`/images/products/${slug}.png`);
 
-const MASK_SLIDES: ProductSlide[] = [
+const MASKS: {
+  id: string;
+  slug: string;
+  title: string;
+  photo: string;
+  position: string;
+  lead: string;
+  bullets: string[];
+}[] = [
   {
     id: "advanced-collagen",
+    slug: "advanced-collagen-biocellulose-facial-mask",
     title: "Advanced Collagen",
-    image: { src: product("advanced-collagen-biocellulose-facial-mask"), alt: "Advanced Collagen" },
-    lead: "Биоцеллюлозная маска с трипептидами коллагена, морской водой, пептидами HAPA-5 и аргирелином. Направлена на интенсивное питание кожи и борьбу с признаками старения.",
+    photo: "ChatGPT Image Sep 13, 2026 at 11_11_58 PM.png",
+    position: "50% 35%",
+    lead: "Биоцеллюлозная маска с трипептидами коллагена, морской водой, HAPA-5 пептидами и аргирелином.",
     bullets: [
       "способствует сокращению количества и глубины морщин",
       "улучшает эластичность и упругость кожи",
@@ -40,8 +50,10 @@ const MASK_SLIDES: ProductSlide[] = [
   },
   {
     id: "hydro-boost",
+    slug: "hydro-boost-biocellulose-facial-mask",
     title: "Hydro Boost",
-    image: { src: product("hydro-boost-biocellulose-facial-mask"), alt: "Hydro Boost" },
+    photo: "ChatGPT Image Sep 13, 2026 at 11_19_40 PM 1.png",
+    position: "50% 30%",
     lead: "Биоцеллюлозная маска с морской водой, с 3D гиалуроновой кислотой, морскими водорослями и метабиотиком.",
     bullets: [
       "глубоко увлажняет кожу",
@@ -51,8 +63,10 @@ const MASK_SLIDES: ProductSlide[] = [
   },
   {
     id: "skin-harmony",
+    slug: "skin-harmony-biocellulose-facial-mask",
     title: "Skin Harmony",
-    image: { src: product("skin-harmony-biocellulose-facial-mask"), alt: "Skin Harmony" },
+    photo: "ChatGPT Image Sep 13, 2026 at 11_07_00 PM.png",
+    position: "50% 35%",
     lead: "Биоцеллюлозная маска с морской водой, метабиотиками, церамидами, экстрактами семян моринги и морских водорослей. Бережно восстанавливает «уставшую» кожу, потерявшую тонус.",
     bullets: [
       "оказывает успокаивающий эффект на кожу",
@@ -110,6 +124,20 @@ const NAV = [
 
 export default function LandingPage() {
   const cards = getProductCards([...BEAUTY_SLUGS]);
+  const bySlug = Object.fromEntries(cards.map((c) => [c.slug, c]));
+  const maskSlides: ProductSlide[] = MASKS.map((m) => {
+    const card = bySlug[m.slug];
+    return {
+      id: m.id,
+      title: m.title,
+      image: { src: asset(`/images/products/${m.photo}`), alt: m.title, position: m.position },
+      lead: m.lead,
+      bullets: m.bullets,
+      meta: card
+        ? { category: card.category, price: card.price, priceWas: card.priceWas, href: `${BEAUTY_HREF}#${m.slug}` }
+        : undefined,
+    };
+  });
 
   return (
     <div className="appShell">
@@ -170,7 +198,7 @@ export default function LandingPage() {
                   <Heading as="h2" className={styles.h2}>
                     Сияние и восстановление кожи
                   </Heading>
-                  <ProductSlider slides={MASK_SLIDES} />
+                  <ProductSlider slides={maskSlides} />
                 </div>
               </div>
             </Container>

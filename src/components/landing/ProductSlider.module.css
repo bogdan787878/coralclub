@@ -56,12 +56,13 @@
 .bullets {
   margin: 0;
   padding-left: var(--space-20);
+  list-style: disc;
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
-  font-size: 0.9375rem;
-  line-height: 1.45;
-  color: var(--color-text-muted);
+  gap: var(--space-4);
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--color-text);
 }
 
 .dots {
@@ -85,4 +86,104 @@
 .dotOn {
   width: 22px;
   background: var(--color-malachite-90);
+}
+
+/* product-row variant (masks): photo, then category / name / price + cart */
+.mediaCover {
+  aspect-ratio: 10 / 7;
+  border-radius: var(--radius-base);
+  background: var(--color-neutral-30);
+}
+
+.mediaCover img {
+  object-fit: cover;
+}
+
+.mediaDots {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-12);
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.mediaDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.mediaDotOn {
+  width: 18px;
+  background: #ffffff;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+
+.metaText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.category {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1rem;
+  font-weight: 900;
+  color: var(--color-special);
+}
+
+.productName {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-8);
+}
+
+.price {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.priceWas {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+.cartBtn {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: #ffffff;
+  color: var(--color-text);
+  box-shadow: 0 8px 24px rgba(1, 17, 48, 0.14);
+}
+
+.cartBtn svg {
+  width: 22px;
+  height: 22px;
 }

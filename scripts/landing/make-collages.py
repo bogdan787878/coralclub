@@ -56,9 +56,9 @@ place(c,pack('hydramax-plus',w=560),750,1400)
 place(c,pack('promarine-collagen-tripeptides-pack',w=560),1170,1330,3)
 save(c,'hero-beauty-system.jpg')
 # masks
-c=bg(W,1125)
-for n,cx,ang in zip(MASKS,[330,750,1170],[-5,0,5]):
-    place(c,pack(n,h=900),cx,1030,ang)
+c=bg(W,1050)
+for n,cx,ang in zip(MASKS,[390,750,1110],[-5,0,5]):
+    place(c,pack(n,h=800),cx,940,ang)
 save(c,'masks.jpg')
 # collagen
 c=bg(W,1125)
