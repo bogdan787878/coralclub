@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Button, Container, Heading, Section } from "@/components/ui";
+import { Container, Heading, Section } from "@/components/ui";
 import {
+  BuyBox,
   DietaryBadges,
   FullDescription,
   ImageSlider,
@@ -12,6 +13,7 @@ import {
 } from "@/components/organisms";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { LandingCards } from "@/components/landing/LandingCards";
+import { LandingCartButton } from "@/components/landing/LandingCartButton";
 import { BEAUTY_SLUGS, MAIN_SITE_URL } from "@/lib/beautySystem";
 import {
   BADGE_LABELS_RU,
@@ -67,7 +69,6 @@ export default async function LandingProductPage({
   if (!product) notFound();
 
   const [card] = getProductCards([slug]);
-  const buyHref = `${MAIN_SITE_URL}/products/${slug}/`;
   const homeHref = MAIN_SITE_URL;
 
   // other products of the set → the "ещё" carousel, linking to their RU pages
@@ -151,23 +152,6 @@ export default async function LandingProductPage({
                   {ru.more?.map((p) => (
                     <p key={p}>{p}</p>
                   ))}
-                </div>
-
-                <div className={styles.buy}>
-                  <div className={styles.priceRow}>
-                    <span className={styles.price}>{card.price}</span>
-                    {card.priceWas && (
-                      <span className={styles.priceWas}>{card.priceWas}</span>
-                    )}
-                    <span className={styles.tag}>Цена друга клуба −20%</span>
-                  </div>
-                  <Button
-                    variant="primary"
-                    href={buyHref}
-                    className={styles.cta}
-                  >
-                    Купить на сайте Coral Club
-                  </Button>
                 </div>
 
                 {ru.origins.length > 0 && (
@@ -285,6 +269,42 @@ export default async function LandingProductPage({
           <LandingCards cards={others} />
         </Section>
       </main>
+
+      <BuyBox
+        pinned
+        product={{
+          coralId: card.coralId,
+          slug,
+          name: ru.name,
+          image: product.image ?? images[0]?.src,
+        }}
+        options={[
+          {
+            id: "club",
+            label: "Цена",
+            price: card.price,
+            cta: {
+              label: "Добавить в корзину",
+              href: `${MAIN_SITE_URL}/products/${slug}/`,
+            },
+          },
+          {
+            id: "regular",
+            label: "Обычная цена",
+            price: card.priceWas ?? card.price,
+            cta: {
+              label: "Добавить в корзину",
+              href: `${MAIN_SITE_URL}/products/${slug}/`,
+            },
+          },
+        ]}
+        labels={{
+          add: "Добавить в корзину",
+          removeOne: "Убрать одну штуку",
+          addOne: "Добавить ещё одну",
+        }}
+      />
+      <LandingCartButton aboveBuyBar />
     </div>
   );
 }

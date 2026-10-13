@@ -1,0 +1,50 @@
+.fab {
+  position: fixed;
+  right: max(
+    var(--space-16),
+    calc((100vw - var(--container-max)) / 2 + var(--space-16))
+  );
+  bottom: calc(var(--space-24) + env(safe-area-inset-bottom, 0px));
+  z-index: 45;
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-action);
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(1, 17, 48, 0.22);
+}
+.fab:active {
+  transform: scale(0.94);
+}
+.fab svg {
+  width: 26px;
+  height: 26px;
+}
+
+/* the PDP's pinned buy bar (~92px) occupies the bottom edge */
+.aboveBar {
+  bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+}
+
+.badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: #ffffff;
+  color: var(--color-text);
+  border: 1px solid var(--color-neutral-30);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}

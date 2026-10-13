@@ -1,6 +1,8 @@
 .page {
   min-height: 100dvh;
   background: var(--color-surface);
+  /* clear the pinned buy bar */
+  padding-bottom: 120px;
 }
 
 .back {
@@ -89,52 +91,6 @@
   gap: var(--space-4);
 }
 
-.buy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-12);
-}
-
-.priceRow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--space-8) var(--space-12);
-}
-
-.price {
-  font-family: var(--font-sans);
-  font-size: 1.75rem;
-  line-height: 2rem;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text);
-}
-
-.priceWas {
-  font-family: var(--font-sans);
-  font-size: 1.125rem;
-  line-height: 1.5rem;
-  color: var(--color-text-muted);
-  text-decoration: line-through;
-}
-
-.tag {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--space-4) var(--space-12);
-  border-radius: var(--radius-pill);
-  background: var(--color-special);
-  color: #ffffff;
-  font-family: var(--font-sans);
-  font-size: 0.8125rem;
-  font-weight: var(--font-weight-medium);
-  white-space: nowrap;
-}
-
-.cta {
-  width: 100%;
-}
-
 .originTags {
   display: flex;
   flex-wrap: wrap;
@@ -176,11 +132,5 @@
   .media {
     position: sticky;
     top: var(--space-24);
-  }
-
-  .cta {
-    width: auto;
-    align-self: flex-start;
-    padding-inline: var(--space-48);
   }
 }

@@ -20,9 +20,21 @@ export type BuyBoxProduct = {
   image?: string;
 };
 
+export type BuyBoxLabels = {
+  add: string;
+  removeOne: string;
+  addOne: string;
+};
+
 export type BuyBoxProps = {
   options: BuyBoxOption[];
   product: BuyBoxProduct;
+  /** Overrides for a translated storefront (defaults are English). */
+  labels?: BuyBoxLabels;
+  /** Keep the pinned bottom bar at every breakpoint (no desktop sidebar
+   *  card) and sit flush with the viewport bottom — for standalone pages
+   *  without the shop's TabBar (the landings). */
+  pinned?: boolean;
 };
 
 /**
@@ -31,7 +43,12 @@ export type BuyBoxProps = {
  * once the product is in the cart, is replaced by a "− N +" stepper (the
  * bottom TabBar's own Cart tab is how you get to the drawer from here).
  */
-export function BuyBox({ options, product }: BuyBoxProps) {
+export function BuyBox({
+  options,
+  product,
+  labels,
+  pinned = false,
+}: BuyBoxProps) {
   const cart = useCart();
   const [acted, setActed] = useState(false);
   const club = options.find((o) => o.id === "club") ?? options[0];
@@ -59,7 +76,7 @@ export function BuyBox({ options, product }: BuyBoxProps) {
   };
 
   return (
-    <div className={styles.bar}>
+    <div className={`${styles.bar}${pinned ? ` ${styles.pinned}` : ""}`}>
       <div className={styles.inner}>
         <div className={styles.priceBlock}>
           <div className={styles.priceRow}>
@@ -74,7 +91,7 @@ export function BuyBox({ options, product }: BuyBoxProps) {
             <div className={`${styles.stepper}${anim}`}>
               <button
                 type="button"
-                aria-label="Remove one"
+                aria-label={labels?.removeOne ?? "Remove one"}
                 onClick={() => bump(qty - 1)}
               >
                 −
@@ -84,7 +101,7 @@ export function BuyBox({ options, product }: BuyBoxProps) {
               </span>
               <button
                 type="button"
-                aria-label="Add one"
+                aria-label={labels?.addOne ?? "Add one"}
                 onClick={() => bump(qty + 1)}
               >
                 +
@@ -97,7 +114,7 @@ export function BuyBox({ options, product }: BuyBoxProps) {
             className={styles.action + anim}
             onClick={add}
           >
-            Add to Cart
+            {labels?.add ?? "Add to Cart"}
           </Button>
         ) : (
           <Button
@@ -107,7 +124,7 @@ export function BuyBox({ options, product }: BuyBoxProps) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Add to Cart
+            {labels?.add ?? "Add to Cart"}
           </Button>
         )}
       </div>

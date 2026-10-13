@@ -15,16 +15,53 @@ import {
 import { CloseIcon, MinusIcon, PlusIcon } from "./icons";
 import styles from "./CartDrawer.module.css";
 
+/** Strings a translated storefront can override (defaults are English). */
+export type CartDrawerLabels = {
+  aria: string;
+  closeCart: string;
+  title: string;
+  close: string;
+  empty: string;
+  remove: string;
+  decrease: (name: string) => string;
+  increase: (name: string) => string;
+  subtotal: string;
+  note: string;
+  checkout: string;
+  clear: string;
+};
+
+const EN_LABELS: CartDrawerLabels = {
+  aria: "Cart",
+  closeCart: "Close cart",
+  title: "Your cart",
+  close: "Close",
+  empty: "Your cart is empty.",
+  remove: "Remove",
+  decrease: (name) => `Decrease ${name}`,
+  increase: (name) => `Increase ${name}`,
+  subtotal: "Subtotal",
+  note: "Checkout opens your Coral Club basket with these items added.",
+  checkout: "Open basket on coralclub.us",
+  clear: "Clear cart",
+};
+
 export type CartDrawerProps = {
   open: boolean;
   onClose: () => void;
+  /** Overrides for a translated storefront (defaults are English). */
+  labels?: CartDrawerLabels;
 };
 
 /**
  * CartDrawer — the local cart. Lines live in localStorage; checkout hands
  * the whole cart to coralclub.us's basket in one link.
  */
-export function CartDrawer({ open, onClose }: CartDrawerProps) {
+export function CartDrawer({
+  open,
+  onClose,
+  labels = EN_LABELS,
+}: CartDrawerProps) {
   const lines = useCart();
   const subtotal = cartSubtotal(lines);
 
@@ -49,22 +86,27 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
   // portal to <body> so the drawer isn't trapped inside a lower stacking
   // context (e.g. the PDP's fixed controls / buy bar)
   return createPortal(
-    <div className={styles.root} role="dialog" aria-modal="true" aria-label="Cart">
+    <div
+      className={styles.root}
+      role="dialog"
+      aria-modal="true"
+      aria-label={labels.aria}
+    >
       <button
         type="button"
         className={styles.scrim}
-        aria-label="Close cart"
+        aria-label={labels.closeCart}
         onClick={onClose}
       />
 
       <aside className={styles.panel}>
         <header className={styles.head}>
-          <span className={styles.title}>Your cart</span>
+          <span className={styles.title}>{labels.title}</span>
           <button
             type="button"
             className={styles.close}
             onClick={onClose}
-            aria-label="Close"
+            aria-label={labels.close}
           >
             <CloseIcon />
           </button>
@@ -72,7 +114,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
 
         {lines.length === 0 ? (
           <div className={styles.empty}>
-            <p>Your cart is empty.</p>
+            <p>{labels.empty}</p>
           </div>
         ) : (
           <ul className={styles.lines}>
@@ -92,7 +134,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                     <button
                       type="button"
                       onClick={() => setQty(l.coralId, l.qty - 1)}
-                      aria-label={`Decrease ${l.name}`}
+                      aria-label={labels.decrease(l.name)}
                     >
                       <MinusIcon />
                     </button>
@@ -100,7 +142,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                     <button
                       type="button"
                       onClick={() => setQty(l.coralId, l.qty + 1)}
-                      aria-label={`Increase ${l.name}`}
+                      aria-label={labels.increase(l.name)}
                     >
                       <PlusIcon />
                     </button>
@@ -112,7 +154,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                   className={styles.remove}
                   onClick={() => removeItem(l.coralId)}
                 >
-                  Remove
+                  {labels.remove}
                 </button>
               </li>
             ))}
@@ -121,23 +163,21 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
 
         <footer className={styles.foot}>
           <div className={styles.subtotal}>
-            <span>Subtotal</span>
+            <span>{labels.subtotal}</span>
             <span>{formatUsd(subtotal)}</span>
           </div>
-          <p className={styles.note}>
-            Checkout opens your Coral Club basket with these items added.
-          </p>
+          <p className={styles.note}>{labels.note}</p>
           <button
             type="button"
             className={styles.checkout}
             onClick={checkout}
             disabled={lines.length === 0}
           >
-            Open basket on coralclub.us
+            {labels.checkout}
           </button>
           {lines.length > 0 && (
             <button type="button" className={styles.clear} onClick={clearCart}>
-              Clear cart
+              {labels.clear}
             </button>
           )}
         </footer>

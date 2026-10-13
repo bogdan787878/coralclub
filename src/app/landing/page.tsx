@@ -5,6 +5,7 @@ import { LandingHeader } from "@/components/landing/LandingHeader";
 import { LeadModalProvider } from "@/components/landing/LeadModal";
 import { LandingCta } from "@/components/landing/LandingCta";
 import { LandingCards } from "@/components/landing/LandingCards";
+import { LandingCartButton } from "@/components/landing/LandingCartButton";
 import {
   ProductSlider,
   type ProductSlide,
@@ -26,7 +27,6 @@ export const metadata: Metadata = {
     "Уникальная философия красоты и здоровья от Coral Club: гармония внутреннего состояния и внешнего ухода.",
   robots: { index: false, follow: false },
 };
-
 
 const img = (name: string) => asset(`/images/landing/${name}?v=1`);
 const heroEntry = heroImages.items.find((i) => i.id === "personalization");
@@ -260,6 +260,7 @@ export default function LandingPage() {
             </Container>
           </footer>
         </main>
+        <LandingCartButton />
       </LeadModalProvider>
     </div>
   );
