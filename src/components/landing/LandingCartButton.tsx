@@ -25,10 +25,24 @@ const LABELS_RU: CartDrawerLabels = {
 };
 
 /**
+ * LandingCartDrawer — the Russian cart drawer without a trigger of its own:
+ * it opens on `openCart()` requests (e.g. the PDP buy bar's chevron button).
+ */
+export function LandingCartDrawer() {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => onCartOpen(() => setOpen(true)), []);
+
+  return (
+    <CartDrawer open={open} onClose={() => setOpen(false)} labels={LABELS_RU} />
+  );
+}
+
+/**
  * LandingCartButton — the landings' floating cart: a round icon button with
  * an item-count badge pinned to the bottom-right, opening the same local
  * cart drawer the shop uses (Russian strings). Shown on the landing page
- * only — the PDP keeps the shop's own buy-bar mechanics instead.
+ * only — the PDP opens the same drawer from its buy bar instead.
  */
 export function LandingCartButton() {
   const [open, setOpen] = useState(false);

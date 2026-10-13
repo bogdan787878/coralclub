@@ -135,6 +135,27 @@
   font-weight: 600;
 }
 
+/* round dark-green chevron next to the stepper — opens the cart */
+.cartGo {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-action);
+  color: var(--color-action-contrast);
+  transform-origin: right center;
+}
+.cartGo:active {
+  background: var(--color-action-hover);
+}
+.cartGo svg {
+  width: 24px;
+  height: 24px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animIn {
     animation: none;

@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui";
-import { addItem, setQty, useCart } from "@/lib/cart";
+import { addItem, openCart, setQty, useCart } from "@/lib/cart";
+import { ChevronRight } from "@/components/account/icons";
 import styles from "./BuyBox.module.css";
 
 export type BuyBoxOption = {
@@ -24,6 +25,9 @@ export type BuyBoxLabels = {
   add: string;
   removeOne: string;
   addOne: string;
+  /** When set, a round chevron button next to the stepper opens the cart
+   *  (the landings have no TabBar to reach it from). */
+  openCart?: string;
 };
 
 export type BuyBoxProps = {
@@ -106,6 +110,16 @@ export function BuyBox({
                 +
               </button>
             </div>
+            {labels?.openCart && (
+              <button
+                type="button"
+                className={`${styles.cartGo}${anim}`}
+                aria-label={labels.openCart}
+                onClick={openCart}
+              >
+                <ChevronRight />
+              </button>
+            )}
           </div>
         ) : canAddToCart ? (
           <Button

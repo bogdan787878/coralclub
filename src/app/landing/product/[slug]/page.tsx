@@ -12,6 +12,7 @@ import {
 } from "@/components/organisms";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { LandingCards } from "@/components/landing/LandingCards";
+import { LandingCartDrawer } from "@/components/landing/LandingCartButton";
 import { BEAUTY_SLUGS, MAIN_SITE_URL } from "@/lib/beautySystem";
 import {
   BADGE_LABELS_RU,
@@ -269,24 +270,27 @@ export default async function LandingProductPage({
                     id: "club",
                     label: "Цена",
                     price: card.price,
-                    cta: { label: "Добавить в корзину", href: shopPdpHref },
+                    cta: { label: "В корзину", href: shopPdpHref },
                   },
                   {
                     id: "regular",
                     label: "Обычная цена",
                     price: card.priceWas ?? card.price,
-                    cta: { label: "Добавить в корзину", href: shopPdpHref },
+                    cta: { label: "В корзину", href: shopPdpHref },
                   },
                 ]}
                 labels={{
-                  add: "Добавить в корзину",
+                  add: "В корзину",
                   removeOne: "Убрать одну штуку",
                   addOne: "Добавить ещё одну",
+                  openCart: "Открыть корзину",
                 }}
               />
             </div>
           </Container>
         </Section>
+
+        <LandingCartDrawer />
 
         <Section tone="default">
           <Container>
