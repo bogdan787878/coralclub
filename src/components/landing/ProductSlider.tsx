@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./ProductSlider.module.css";
 
 export type ProductSlide = {
@@ -86,9 +87,9 @@ export function ProductSlider({ slides }: { slides: ProductSlide[] }) {
               <div className={styles.metaRow}>
                 <div className={styles.metaText}>
                   <span className={styles.category}>{s.meta.category}</span>
-                  <a href={s.meta.href} className={styles.productName}>
+                  <Link href={s.meta.href} className={styles.productName}>
                     {s.title}
-                  </a>
+                  </Link>
                   <span className={styles.priceRow}>
                     <span className={styles.price}>{s.meta.price}</span>
                     {s.meta.priceWas && (
@@ -96,13 +97,13 @@ export function ProductSlider({ slides }: { slides: ProductSlide[] }) {
                     )}
                   </span>
                 </div>
-                <a
+                <Link
                   href={s.meta.href}
                   className={styles.cartBtn}
-                  aria-label={`${s.title} — в магазин`}
+                  aria-label={`${s.title} — подробнее`}
                 >
                   <CartIcon />
-                </a>
+                </Link>
               </div>
             ) : (
               <h3 className={styles.name}>{s.title}</h3>

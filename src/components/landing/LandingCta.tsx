@@ -12,17 +12,32 @@ export type LandingCtaProps = {
 };
 
 /** A CTA that opens the consultation form (see LeadModalProvider). */
-export function LandingCta({ source, children, variant = "primary", className }: LandingCtaProps) {
+export function LandingCta({
+  source,
+  children,
+  variant = "primary",
+  className,
+}: LandingCtaProps) {
   const { open } = useLeadModal();
   return (
-    <Button variant={variant} className={className} onClick={() => open(source)}>
+    <Button
+      variant={variant}
+      className={className}
+      onClick={() => open(source)}
+    >
       {children}
     </Button>
   );
 }
 
 /** The promo code chip — tap to copy. */
-export function PromoCode({ code, className }: { code: string; className?: string }) {
+export function PromoCode({
+  code,
+  className,
+}: {
+  code: string;
+  className?: string;
+}) {
   const [copied, setCopied] = useState(false);
   const copy = async () => {
     try {
@@ -34,7 +49,12 @@ export function PromoCode({ code, className }: { code: string; className?: strin
     }
   };
   return (
-    <button type="button" className={className} onClick={copy} aria-label={`Скопировать промокод ${code}`}>
+    <button
+      type="button"
+      className={className}
+      onClick={copy}
+      aria-label={`Скопировать промокод ${code}`}
+    >
       {code}
       <span aria-live="polite">{copied ? " · скопировано" : ""}</span>
     </button>

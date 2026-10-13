@@ -8,6 +8,9 @@ export type IncludedProductsProps = {
   items: IncludedProductCard[];
   /** Small heading above the strip. */
   heading?: string;
+  /** Render the tiles as plain (non-link) cards — for products that have no
+   *  page of their own on this storefront. Default true. */
+  linked?: boolean;
 };
 
 /**
@@ -19,6 +22,7 @@ export type IncludedProductsProps = {
 export function IncludedProducts({
   items,
   heading = "Included Products",
+  linked = true,
 }: IncludedProductsProps) {
   if (!items.length) return null;
 
@@ -26,22 +30,37 @@ export function IncludedProducts({
     <section className={styles.wrap}>
       <h3 className={styles.heading}>{heading}</h3>
       <div className={styles.track}>
-        {items.map((item) => (
-          <Link key={item.slug} href={productHref(item.slug)} className={styles.card}>
-            <span className={styles.media}>
-              {item.image && (
-                <Image
-                  src={item.image.src}
-                  alt={item.image.alt}
-                  fill
-                  sizes="120px"
-                  style={{ objectFit: "contain" }}
-                />
-              )}
-            </span>
-            <span className={styles.name}>{item.name}</span>
-          </Link>
-        ))}
+        {items.map((item) => {
+          const body = (
+            <>
+              <span className={styles.media}>
+                {item.image && (
+                  <Image
+                    src={item.image.src}
+                    alt={item.image.alt}
+                    fill
+                    sizes="120px"
+                    style={{ objectFit: "contain" }}
+                  />
+                )}
+              </span>
+              <span className={styles.name}>{item.name}</span>
+            </>
+          );
+          return linked ? (
+            <Link
+              key={item.slug}
+              href={productHref(item.slug)}
+              className={styles.card}
+            >
+              {body}
+            </Link>
+          ) : (
+            <div key={item.slug} className={styles.card}>
+              {body}
+            </div>
+          );
+        })}
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { addItem, setQty, useCart } from "@/lib/cart";
-import { productHref } from "@/lib/catalog";
+import { landingPdpHref } from "@/lib/landingCatalogRu";
 import type { PhaseProductCard } from "@/lib/products";
 import { ProductCard } from "@/components/organisms";
 import styles from "./BeautyGrid.module.css";
@@ -23,7 +23,7 @@ export function BeautyGrid({ cards }: { cards: PhaseProductCard[] }) {
             category={p.category}
             price={p.price}
             priceWas={p.priceWas}
-            href={productHref(p.slug)}
+            href={landingPdpHref(p.slug)}
             cartHref={p.cartHref}
             onAddToCart={
               p.coralId
@@ -38,7 +38,9 @@ export function BeautyGrid({ cards }: { cards: PhaseProductCard[] }) {
                 : undefined
             }
             cartQty={qtyOf(p.coralId)}
-            onSetQty={p.coralId ? (n) => setQty(p.coralId as string, n) : undefined}
+            onSetQty={
+              p.coralId ? (n) => setQty(p.coralId as string, n) : undefined
+            }
             images={p.images}
           />
         </div>

@@ -50,7 +50,12 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
     if (!consent || status === "sending") return;
     setStatus("sending");
     try {
-      await submitLead({ email: email.trim(), phone: phone.trim(), consent, source: source ?? "" });
+      await submitLead({
+        email: email.trim(),
+        phone: phone.trim(),
+        consent,
+        source: source ?? "",
+      });
       setStatus("done");
       setEmail("");
       setPhone("");
@@ -64,10 +69,25 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
       {children}
       {source !== null &&
         createPortal(
-          <div className={styles.root} role="dialog" aria-modal="true" aria-label="Заявка на консультацию">
-            <button type="button" className={styles.scrim} aria-label="Закрыть" onClick={close} />
+          <div
+            className={styles.root}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Заявка на консультацию"
+          >
+            <button
+              type="button"
+              className={styles.scrim}
+              aria-label="Закрыть"
+              onClick={close}
+            />
             <div className={styles.panel}>
-              <button type="button" className={styles.close} aria-label="Закрыть" onClick={close}>
+              <button
+                type="button"
+                className={styles.close}
+                aria-label="Закрыть"
+                onClick={close}
+              >
                 ×
               </button>
 
@@ -75,16 +95,26 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
                 <div className={styles.done}>
                   <h2 className={styles.title}>Спасибо! Заявка принята</h2>
                   <p className={styles.text}>
-                    Нутрициолог свяжется с вами по указанным контактам и подберёт персональную систему красоты.
+                    Нутрициолог свяжется с вами по указанным контактам и
+                    подберёт персональную систему красоты.
                   </p>
-                  <button type="button" className={styles.submit} onClick={close}>
+                  <button
+                    type="button"
+                    className={styles.submit}
+                    onClick={close}
+                  >
                     Закрыть
                   </button>
                 </div>
               ) : (
                 <form onSubmit={onSubmit} className={styles.form}>
-                  <h2 className={styles.title}>Бесплатная консультация нутрициолога</h2>
-                  <p className={styles.text}>Оставьте контакты — мы свяжемся с вами и подберём персональную систему.</p>
+                  <h2 className={styles.title}>
+                    Бесплатная консультация нутрициолога
+                  </h2>
+                  <p className={styles.text}>
+                    Оставьте контакты — мы свяжемся с вами и подберём
+                    персональную систему.
+                  </p>
 
                   <label className={styles.field}>
                     <span>E-mail</span>
@@ -110,17 +140,28 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
                   </label>
 
                   <label className={styles.consent}>
-                    <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
+                    <input
+                      type="checkbox"
+                      checked={consent}
+                      onChange={(e) => setConsent(e.target.checked)}
+                    />
                     <span>
-                      Согласен на предоставление и использование персональных данных для связи по заявке
+                      Согласен на предоставление и использование персональных
+                      данных для связи по заявке
                     </span>
                   </label>
 
                   {status === "error" && (
-                    <p className={styles.error}>Не удалось отправить заявку. Попробуйте ещё раз.</p>
+                    <p className={styles.error}>
+                      Не удалось отправить заявку. Попробуйте ещё раз.
+                    </p>
                   )}
 
-                  <button type="submit" className={styles.submit} disabled={!consent || status === "sending"}>
+                  <button
+                    type="submit"
+                    className={styles.submit}
+                    disabled={!consent || status === "sending"}
+                  >
                     {status === "sending" ? "Отправляем…" : "Оставить заявку"}
                   </button>
                 </form>

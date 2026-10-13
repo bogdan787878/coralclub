@@ -7,7 +7,10 @@ const BADGES: Record<string, { icon: string; label: string }> = {
   "soy-free": { icon: "no-soy", label: "Soy-free" },
   "lactose-free": { icon: "lactose-free", label: "Lactose-free" },
   "contains-lactose": { icon: "contains-lactose", label: "Contains lactose" },
-  "plant-capsule": { icon: "plant-based-capsules", label: "Plant-based capsule" },
+  "plant-capsule": {
+    icon: "plant-based-capsules",
+    label: "Plant-based capsule",
+  },
   "beef-gelatin": { icon: "beef-gelatin", label: "Beef gelatin capsule" },
   "fish-gelatin": { icon: "fish-gelatin", label: "Fish gelatin capsule" },
   vegetarian: { icon: "vegetarian", label: "Vegetarian" },
@@ -19,6 +22,8 @@ const BADGES: Record<string, { icon: string; label: string }> = {
 export type DietaryBadgesProps = {
   /** Badge slugs, in order. */
   items: string[];
+  /** Per-slug label override (e.g. a translated storefront). */
+  labels?: Record<string, string>;
 };
 
 /**
@@ -27,9 +32,13 @@ export type DietaryBadgesProps = {
  * to navy. Sits under Key Elements on the PDP. Renders nothing when there
  * are no known badges.
  */
-export function DietaryBadges({ items }: DietaryBadgesProps) {
+export function DietaryBadges({ items, labels }: DietaryBadgesProps) {
   const badges = items
-    .map((slug) => BADGES[slug])
+    .map((slug) =>
+      BADGES[slug]
+        ? { ...BADGES[slug], label: labels?.[slug] ?? BADGES[slug].label }
+        : undefined,
+    )
     .filter((b): b is { icon: string; label: string } => Boolean(b));
   if (!badges.length) return null;
 

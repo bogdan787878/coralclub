@@ -1,17 +1,18 @@
 import type { PhaseProductCard } from "@/lib/products";
+import { landingPdpHref } from "@/lib/landingCatalogRu";
 import { Carousel, ProductCard } from "@/components/organisms";
 
 /**
- * LandingCards — the product carousel. The landing has no cart of its own:
- * a card (and its cart button) hands off to the matching product in the
- * main shop's hidden "Система красоты" section, where it can be bought
- * without registration.
+ * LandingCards — the product carousel. Every card (and its cart button)
+ * opens that product's Russian page of this landing; buying without
+ * registration happens from there, on the main shop's hidden
+ * "Система красоты" section.
  */
-export function LandingCards({ cards, hrefBase }: { cards: PhaseProductCard[]; hrefBase: string }) {
+export function LandingCards({ cards }: { cards: PhaseProductCard[] }) {
   return (
     <Carousel label="Продукты системы красоты">
       {cards.map((p) => {
-        const href = `${hrefBase}#${p.slug}`;
+        const href = landingPdpHref(p.slug);
         return (
           <ProductCard
             key={p.slug}
