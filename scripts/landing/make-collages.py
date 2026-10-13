@@ -55,21 +55,19 @@ place(c,pack('promarine-collagen',w=560),330,1330,-3)
 place(c,pack('hydramax-plus',w=560),750,1400)
 place(c,pack('promarine-collagen-tripeptides-pack',w=560),1170,1330,3)
 save(c,'hero-beauty-system.jpg')
-# masks
-c=bg(W,1050)
-for n,cx,ang in zip(MASKS,[390,750,1110],[-5,0,5]):
-    place(c,pack(n,h=800),cx,940,ang)
+# section lead images — 5:3 like the design
+c=bg(W,900)
+for n,cx,ang in zip(MASKS,[400,750,1100],[-5,0,5]):
+    place(c,pack(n,h=640),cx,790,ang)
 save(c,'masks.jpg')
-# collagen
-c=bg(W,1125)
-place(c,pack('promarine-collagen',w=700),420,880,-3)
-place(c,pack('promarine-collagen-tripeptides-pack',w=700),1060,920,3)
+c=bg(W,900)
+place(c,pack('promarine-collagen',w=600),470,700,-3)
+place(c,pack('promarine-collagen-tripeptides-pack',w=600),1030,740,3)
 save(c,'collagen.jpg')
-# hydramax
-c=bg(W,1125)
+c=bg(W,900)
 ph=Image.open(P('hydramax')).convert('RGBA')
-ph=rounded(ph.resize((int(ph.width*600/ph.height),600),Image.LANCZOS))
-place(c,ph,420,860)
-place(c,pack('hydramax-plus',w=720),1050,960)
+ph=rounded(ph.resize((int(ph.width*500/ph.height),500),Image.LANCZOS))
+place(c,ph,470,700)
+place(c,pack('hydramax-plus',w=600),1030,780)
 save(c,'hydramax.jpg')
 print('ok')

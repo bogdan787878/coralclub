@@ -57,8 +57,10 @@ export function ProductSlider({ slides }: { slides: ProductSlide[] }) {
     if (el) el.scrollTo({ left: i * el.clientWidth, behavior: "smooth" });
   };
 
+  const peek = Boolean(slides[0]?.meta);
+
   return (
-    <div className={styles.root}>
+    <div className={`${styles.root}${peek ? ` ${styles.peek}` : ""}`}>
       <ul className={styles.track} ref={trackRef} onScroll={onScroll}>
         {slides.map((s) => (
           <li className={styles.slide} key={s.id}>
@@ -70,13 +72,6 @@ export function ProductSlider({ slides }: { slides: ProductSlide[] }) {
                 sizes="(max-width: 768px) 100vw, 420px"
                 style={s.image.position ? { objectPosition: s.image.position } : undefined}
               />
-              {s.meta && slides.length > 1 && (
-                <span className={styles.mediaDots} aria-hidden="true">
-                  {slides.map((d, i) => (
-                    <span key={d.id} className={`${styles.mediaDot}${i === active ? ` ${styles.mediaDotOn}` : ""}`} />
-                  ))}
-                </span>
-              )}
             </div>
             {s.meta ? (
               <div className={styles.metaRow}>
@@ -110,7 +105,7 @@ export function ProductSlider({ slides }: { slides: ProductSlide[] }) {
         ))}
       </ul>
 
-      {slides.length > 1 && !slides[0].meta && (
+      {slides.length > 1 && !peek && (
         <div className={styles.dots} role="tablist" aria-label="Слайды">
           {slides.map((s, i) => (
             <button

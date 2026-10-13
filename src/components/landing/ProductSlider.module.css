@@ -90,39 +90,18 @@
 
 /* product-row variant (masks): photo, then category / name / price + cart */
 .mediaCover {
-  aspect-ratio: 10 / 7;
-  border-radius: var(--radius-base);
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
   background: var(--color-neutral-30);
 }
 
 .mediaCover img {
-  object-fit: cover;
-}
-
-.mediaDots {
-  position: absolute;
-  left: 50%;
-  bottom: var(--space-12);
-  transform: translateX(-50%);
-  display: flex;
-  gap: 6px;
-}
-
-.mediaDot {
-  width: 6px;
-  height: 6px;
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.6);
-}
-
-.mediaDotOn {
-  width: 18px;
-  background: #ffffff;
+  object-fit: contain;
 }
 
 .metaRow {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: var(--space-12);
 }
@@ -186,4 +165,22 @@
 .cartBtn svg {
   width: 22px;
   height: 22px;
+}
+
+/* peek variant: slides ~70% wide, the next one bleeds off the right edge;
+   the track escapes the container's side padding so the first slide still
+   lines up with the heading above it */
+.peek .track {
+  margin-inline: calc(-1 * var(--page-padding-inline));
+  padding-inline: var(--page-padding-inline);
+  scroll-padding-inline: var(--page-padding-inline);
+  gap: var(--space-12);
+}
+
+.peek .slide {
+  flex: 0 0 71%;
+}
+
+.peek .metaText {
+  flex: 1 1 auto;
 }

@@ -30,8 +30,6 @@ const MASKS: {
   id: string;
   slug: string;
   title: string;
-  photo: string;
-  position: string;
   lead: string;
   bullets: string[];
 }[] = [
@@ -39,8 +37,6 @@ const MASKS: {
     id: "advanced-collagen",
     slug: "advanced-collagen-biocellulose-facial-mask",
     title: "Advanced Collagen",
-    photo: "ChatGPT Image Sep 13, 2026 at 11_11_58 PM.png",
-    position: "50% 35%",
     lead: "Биоцеллюлозная маска с трипептидами коллагена, морской водой, HAPA-5 пептидами и аргирелином.",
     bullets: [
       "способствует сокращению количества и глубины морщин",
@@ -52,8 +48,6 @@ const MASKS: {
     id: "hydro-boost",
     slug: "hydro-boost-biocellulose-facial-mask",
     title: "Hydro Boost",
-    photo: "ChatGPT Image Sep 13, 2026 at 11_19_40 PM 1.png",
-    position: "50% 30%",
     lead: "Биоцеллюлозная маска с морской водой, с 3D гиалуроновой кислотой, морскими водорослями и метабиотиком.",
     bullets: [
       "глубоко увлажняет кожу",
@@ -65,8 +59,6 @@ const MASKS: {
     id: "skin-harmony",
     slug: "skin-harmony-biocellulose-facial-mask",
     title: "Skin Harmony",
-    photo: "ChatGPT Image Sep 13, 2026 at 11_07_00 PM.png",
-    position: "50% 35%",
     lead: "Биоцеллюлозная маска с морской водой, метабиотиками, церамидами, экстрактами семян моринги и морских водорослей. Бережно восстанавливает «уставшую» кожу, потерявшую тонус.",
     bullets: [
       "оказывает успокаивающий эффект на кожу",
@@ -130,7 +122,7 @@ export default function LandingPage() {
     return {
       id: m.id,
       title: m.title,
-      image: { src: asset(`/images/products/${m.photo}`), alt: m.title, position: m.position },
+      image: { src: product(m.slug), alt: m.title },
       lead: m.lead,
       bullets: m.bullets,
       meta: card
