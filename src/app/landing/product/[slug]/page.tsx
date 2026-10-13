@@ -67,7 +67,7 @@ export default async function LandingProductPage({
   if (!product) notFound();
 
   const [card] = getProductCards([slug]);
-  const buyHref = `${MAIN_SITE_URL}/beauty-system/#${slug}`;
+  const buyHref = `${MAIN_SITE_URL}/products/${slug}/`;
   const homeHref = MAIN_SITE_URL;
 
   // other products of the set → the "ещё" carousel, linking to their RU pages
@@ -166,12 +166,8 @@ export default async function LandingProductPage({
                     href={buyHref}
                     className={styles.cta}
                   >
-                    Купить без регистрации
+                    Купить на сайте Coral Club
                   </Button>
-                  <p className={styles.buyNote}>
-                    Оформить заказ можно на основном сайте Coral Club,
-                    регистрация не нужна.
-                  </p>
                 </div>
 
                 {ru.origins.length > 0 && (

@@ -4,9 +4,8 @@ import { Carousel, ProductCard } from "@/components/organisms";
 
 /**
  * LandingCards — the product carousel. Every card (and its cart button)
- * opens that product's Russian page of this landing; buying without
- * registration happens from there, on the main shop's hidden
- * "Система красоты" section.
+ * opens that product's Russian page of this landing; the purchase itself
+ * is handed off to the main shop from there.
  */
 export function LandingCards({ cards }: { cards: PhaseProductCard[] }) {
   return (

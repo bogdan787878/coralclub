@@ -135,13 +135,6 @@
   width: 100%;
 }
 
-.buyNote {
-  margin: 0;
-  font-size: 0.8125rem;
-  line-height: 1.25rem;
-  color: var(--color-text-muted);
-}
-
 .originTags {
   display: flex;
   flex-wrap: wrap;

@@ -1,5 +1,5 @@
-/** The "Система красоты" product set, in display order — shared by the
- *  /landing carousel and the hidden /beauty-system section. */
+/** The "Система красоты" product set, in display order — the products the
+ *  /landing page and its Russian product pages are built from. */
 export const BEAUTY_SLUGS = [
   "hydramax",
   "hydramax-plus",
