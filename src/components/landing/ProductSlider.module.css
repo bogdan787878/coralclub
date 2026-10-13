@@ -197,7 +197,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #ffffff;
+  background: #d3eaae;
   color: var(--color-text);
   box-shadow: 0 6px 16px rgba(1, 17, 48, 0.14);
   transform: rotate(-8deg);
