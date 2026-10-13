@@ -51,6 +51,10 @@ export type CartDrawerProps = {
   onClose: () => void;
   /** Overrides for a translated storefront (defaults are English). */
   labels?: CartDrawerLabels;
+  /** Currency formatter for the subtotal (default: US dollars). */
+  formatMoney?: (value: number) => string;
+  /** Where checkout goes instead of the coralclub.us basket hand-off. */
+  checkoutHref?: string;
 };
 
 /**
@@ -61,6 +65,8 @@ export function CartDrawer({
   open,
   onClose,
   labels = EN_LABELS,
+  formatMoney = formatUsd,
+  checkoutHref,
 }: CartDrawerProps) {
   const lines = useCart();
   const subtotal = cartSubtotal(lines);
@@ -80,7 +86,11 @@ export function CartDrawer({
 
   const checkout = () => {
     if (!lines.length) return;
-    window.open(basketHandoffUrl(lines), "_blank", "noopener,noreferrer");
+    window.open(
+      checkoutHref ?? basketHandoffUrl(lines),
+      "_blank",
+      "noopener,noreferrer",
+    );
   };
 
   // portal to <body> so the drawer isn't trapped inside a lower stacking
@@ -164,7 +174,7 @@ export function CartDrawer({
         <footer className={styles.foot}>
           <div className={styles.subtotal}>
             <span>{labels.subtotal}</span>
-            <span>{formatUsd(subtotal)}</span>
+            <span>{formatMoney(subtotal)}</span>
           </div>
           <p className={styles.note}>{labels.note}</p>
           <button

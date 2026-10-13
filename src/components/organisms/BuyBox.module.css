@@ -169,6 +169,14 @@
   padding-bottom: calc(var(--space-16) + env(safe-area-inset-bottom, 0px));
 }
 
+/* roubles are wide ("3 010 ₽" + a struck "3 762,50 ₽"): stack them so the
+   stepper + cart button still fit on a phone */
+.pinned .priceRow {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+
 /* desktop: a sticky sidebar card (3rd column of the PDP grid) instead of
    a bar fixed to the bottom of the viewport */
 @media (min-width: 1024px) {

@@ -14,6 +14,7 @@ import { asset } from "@/lib/asset";
 import { BEAUTY_SLUGS, MAIN_SITE_URL } from "@/lib/beautySystem";
 import {
   LANDING_PRODUCTS_RU,
+  formatRub,
   landingPdpHref,
   type BeautySlug,
 } from "@/lib/landingCatalogRu";
@@ -75,6 +76,8 @@ export default function LandingPage() {
       name: ru.name,
       headline: ru.headline,
       category: ru.category,
+      price: formatRub(ru.priceRub.club),
+      priceWas: formatRub(ru.priceRub.regular),
     };
   });
   const bySlug = Object.fromEntries(cards.map((c) => [c.slug, c]));

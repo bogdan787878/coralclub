@@ -144,9 +144,15 @@ export function cartCount(lines: CartLine[]): number {
   return lines.reduce((n, l) => n + l.qty, 0);
 }
 
-/** Numeric value of a "$21.99"-style price string; 0 if unparseable. */
+/** Numeric value of a "$21.99" / "3 762,50 ₽"-style price string; 0 if unparseable. */
 export function priceValue(price: string): number {
-  const n = parseFloat(price.replace(/[^0-9.]/g, ""));
+  const compact = price.replace(/[\s\u00a0\u202f]/g, "");
+  // "3762,50" is a decimal comma; "1,299.00" is a thousands comma
+  const decimalComma = /,\d{1,2}(?!\d)/.test(compact) && !compact.includes(".");
+  const normalized = decimalComma
+    ? compact.replace(",", ".")
+    : compact.replace(/,/g, "");
+  const n = parseFloat(normalized.replace(/[^0-9.]/g, ""));
   return Number.isFinite(n) ? n : 0;
 }
 

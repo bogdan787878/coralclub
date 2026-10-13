@@ -28,6 +28,8 @@ export type LandingProductRu = {
   extra?: string;
   /** PDP-only paragraphs after `extra`. */
   more?: string[];
+  /** Rouble prices as on coralclub.ru: club price and regular price. */
+  priceRub: { club: number; regular: number };
   /** "Sticker" on the product photo: how many units are in one pack. */
   pack?: { count: string; unit: string };
   origins: { flag: string; label: string }[];
@@ -81,6 +83,7 @@ export const BADGE_LABELS_RU: Record<string, string> = {
 export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
   hydramax: {
     slug: "hydramax",
+    priceRub: { club: 7052, regular: 8815 },
     name: "Гидрамакс",
     headline: "Гидрамакс — набор для гидратации на 30 дней",
     category: "Основа",
@@ -120,6 +123,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "hydramax-plus": {
     slug: "hydramax-plus",
+    priceRub: { club: 10062, regular: 12577.5 },
     name: "Гидрамакс Плюс",
     headline: "Гидрамакс Плюс — набор для гидратации на 30 дней",
     category: "Основа",
@@ -157,6 +161,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "promarine-collagen": {
     slug: "promarine-collagen",
+    priceRub: { club: 4730, regular: 5912.5 },
     pack: { count: "10", unit: "флаконов" },
     name: "Промарин Пептиды Коллагена",
     headline: "Промарин Пептиды Коллагена — морской коллаген",
@@ -202,6 +207,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "promarine-collagen-tripeptides-pack": {
     slug: "promarine-collagen-tripeptides-pack",
+    priceRub: { club: 5590, regular: 6987.5 },
     pack: { count: "10", unit: "флаконов" },
     name: "Промарин Трипептиды Коллагена",
     headline: "Промарин Трипептиды Коллагена",
@@ -256,6 +262,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "advanced-collagen-biocellulose-facial-mask": {
     slug: "advanced-collagen-biocellulose-facial-mask",
+    priceRub: { club: 3010, regular: 3762.5 },
     pack: { count: "5", unit: "масок" },
     name: "Advanced Collagen",
     headline: "Биоцеллюлозная маска Advanced Collagen",
@@ -284,6 +291,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "hydro-boost-biocellulose-facial-mask": {
     slug: "hydro-boost-biocellulose-facial-mask",
+    priceRub: { club: 3010, regular: 3762.5 },
     pack: { count: "5", unit: "масок" },
     name: "Hydro Boost",
     headline: "Биоцеллюлозная маска Hydro Boost",
@@ -312,6 +320,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "skin-harmony-biocellulose-facial-mask": {
     slug: "skin-harmony-biocellulose-facial-mask",
+    priceRub: { club: 3010, regular: 3762.5 },
     pack: { count: "5", unit: "масок" },
     name: "Skin Harmony",
     headline: "Биоцеллюлозная маска Skin Harmony",
@@ -342,3 +351,10 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 /** Where a product's Russian page lives (relative to the site root — pass it
  *  to next/link, which adds the GitHub Pages base path). */
 export const landingPdpHref = (slug: string) => `/landing/product/${slug}/`;
+
+/** 7052 → "7 052 ₽", 3762.5 → "3 762,50 ₽" (thin gaps as on coralclub.ru). */
+export function formatRub(value: number): string {
+  const [int, frac] = value.toFixed(2).split(".");
+  const grouped = int.replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0");
+  return `${grouped}${frac === "00" ? "" : `,${frac}`}\u00a0₽`;
+}

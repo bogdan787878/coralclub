@@ -18,6 +18,7 @@ import {
   BADGE_LABELS_RU,
   DISCLAIMERS,
   LANDING_PRODUCTS_RU,
+  formatRub,
   type BeautySlug,
 } from "@/lib/landingCatalogRu";
 import {
@@ -81,7 +82,14 @@ export default async function LandingProductPage({
     (c) => {
       const r = LANDING_PRODUCTS_RU[c.slug as BeautySlug];
       return r
-        ? { ...c, name: r.name, headline: r.headline, category: r.category }
+        ? {
+            ...c,
+            name: r.name,
+            headline: r.headline,
+            category: r.category,
+            price: formatRub(r.priceRub.club),
+            priceWas: formatRub(r.priceRub.regular),
+          }
         : c;
     },
   );
@@ -269,13 +277,13 @@ export default async function LandingProductPage({
                   {
                     id: "club",
                     label: "Цена",
-                    price: card.price,
+                    price: formatRub(ru.priceRub.club),
                     cta: { label: "В корзину", href: shopPdpHref },
                   },
                   {
                     id: "regular",
                     label: "Обычная цена",
-                    price: card.priceWas ?? card.price,
+                    price: formatRub(ru.priceRub.regular),
                     cta: { label: "В корзину", href: shopPdpHref },
                   },
                 ]}

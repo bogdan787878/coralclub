@@ -1,13 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { cartCount, onCartOpen, useCart } from "@/lib/cart";
+import { cartCount, onCartOpen, openCart, useCart } from "@/lib/cart";
 import {
   CartDrawer,
   type CartDrawerLabels,
 } from "@/components/cart/CartDrawer";
 import { BagIcon } from "@/components/cart/icons";
+import { formatRub } from "@/lib/landingCatalogRu";
 import styles from "./LandingCartButton.module.css";
+
+/** The Russian shop's basket (its cart is session-based — no share link). */
+const RU_BASKET_URL = "https://coralclub.ru/basket/";
 
 const LABELS_RU: CartDrawerLabels = {
   aria: "Корзина",
@@ -19,8 +23,8 @@ const LABELS_RU: CartDrawerLabels = {
   decrease: (name) => `Убрать одну штуку: ${name}`,
   increase: (name) => `Добавить ещё одну: ${name}`,
   subtotal: "Итого",
-  note: "Оформление откроет корзину Coral Club с этими товарами.",
-  checkout: "Перейти к оформлению",
+  note: "Заказ оформляется на сайте coralclub.ru: добавьте эти товары в корзину там.",
+  checkout: "Оформить на coralclub.ru",
   clear: "Очистить корзину",
 };
 
@@ -34,39 +38,38 @@ export function LandingCartDrawer() {
   useEffect(() => onCartOpen(() => setOpen(true)), []);
 
   return (
-    <CartDrawer open={open} onClose={() => setOpen(false)} labels={LABELS_RU} />
+    <CartDrawer
+      open={open}
+      onClose={() => setOpen(false)}
+      labels={LABELS_RU}
+      formatMoney={formatRub}
+      checkoutHref={RU_BASKET_URL}
+    />
   );
 }
 
 /**
  * LandingCartButton — the landings' floating cart: a round icon button with
  * an item-count badge pinned to the bottom-right, opening the same local
- * cart drawer the shop uses (Russian strings). Shown on the landing page
- * only — the PDP opens the same drawer from its buy bar instead.
+ * cart drawer the shop uses (Russian strings, roubles). Shown on the landing
+ * page only — the PDP opens the same drawer from its buy bar instead.
  */
 export function LandingCartButton() {
-  const [open, setOpen] = useState(false);
   const count = cartCount(useCart());
-
-  useEffect(() => onCartOpen(() => setOpen(true)), []);
 
   return (
     <>
       <button
         type="button"
         className={styles.fab}
-        onClick={() => setOpen(true)}
+        onClick={openCart}
         aria-label={count ? `Корзина, товаров: ${count}` : "Корзина"}
       >
         <BagIcon />
         {count > 0 && <span className={styles.badge}>{count}</span>}
       </button>
 
-      <CartDrawer
-        open={open}
-        onClose={() => setOpen(false)}
-        labels={LABELS_RU}
-      />
+      <LandingCartDrawer />
     </>
   );
 }
