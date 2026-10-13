@@ -28,6 +28,8 @@ export type LandingProductRu = {
   extra?: string;
   /** PDP-only paragraphs after `extra`. */
   more?: string[];
+  /** "Sticker" on the product photo: how many units are in one pack. */
+  pack?: { count: string; unit: string };
   origins: { flag: string; label: string }[];
   elements: { symbol: string; name: string }[];
   howToUse: string;
@@ -155,6 +157,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "promarine-collagen": {
     slug: "promarine-collagen",
+    pack: { count: "10", unit: "флаконов" },
     name: "Промарин Пептиды Коллагена",
     headline: "Промарин Пептиды Коллагена — морской коллаген",
     category: "Кожа, волосы, ногти",
@@ -199,6 +202,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "promarine-collagen-tripeptides-pack": {
     slug: "promarine-collagen-tripeptides-pack",
+    pack: { count: "10", unit: "флаконов" },
     name: "Промарин Трипептиды Коллагена",
     headline: "Промарин Трипептиды Коллагена",
     category: "Кожа, волосы, ногти",
@@ -252,6 +256,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "advanced-collagen-biocellulose-facial-mask": {
     slug: "advanced-collagen-biocellulose-facial-mask",
+    pack: { count: "5", unit: "масок" },
     name: "Advanced Collagen",
     headline: "Биоцеллюлозная маска Advanced Collagen",
     category: "Кожа, волосы, ногти",
@@ -279,6 +284,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "hydro-boost-biocellulose-facial-mask": {
     slug: "hydro-boost-biocellulose-facial-mask",
+    pack: { count: "5", unit: "масок" },
     name: "Hydro Boost",
     headline: "Биоцеллюлозная маска Hydro Boost",
     category: "Кожа, волосы, ногти",
@@ -306,6 +312,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "skin-harmony-biocellulose-facial-mask": {
     slug: "skin-harmony-biocellulose-facial-mask",
+    pack: { count: "5", unit: "масок" },
     name: "Skin Harmony",
     headline: "Биоцеллюлозная маска Skin Harmony",
     category: "Кожа, волосы, ногти",

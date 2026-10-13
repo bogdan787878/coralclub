@@ -95,6 +95,7 @@ export default function LandingPage() {
         lead: ru.lead,
         bullets: ru.bullets,
         extra: ru.extra,
+        badge: ru.pack,
         meta: card
           ? {
               category: ru.category,

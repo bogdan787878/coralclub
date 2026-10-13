@@ -184,3 +184,36 @@
 .peek .metaText {
   flex: 1 1 auto;
 }
+
+/* "N units per pack" sticker over the photo's top-left corner */
+.sticker {
+  position: absolute;
+  top: var(--space-12);
+  left: var(--space-12);
+  width: 68px;
+  height: 68px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-action);
+  color: var(--color-action-contrast);
+  box-shadow: 0 6px 16px rgba(1, 17, 48, 0.2);
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+
+.stickerCount {
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.stickerUnit {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  line-height: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}

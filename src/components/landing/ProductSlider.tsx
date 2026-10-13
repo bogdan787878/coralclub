@@ -12,6 +12,8 @@ export type ProductSlide = {
   lead: string;
   bullets?: string[];
   extra?: string;
+  /** Round "sticker" over the photo's corner — units per pack. */
+  badge?: { count: string; unit: string };
   /** When set, the slide shows the product row (category, name, price and
    *  a cart button) under the image, like a product card. */
   meta?: {
@@ -82,6 +84,12 @@ export function ProductSlider({ slides }: { slides: ProductSlide[] }) {
                     : undefined
                 }
               />
+              {s.badge && (
+                <span className={styles.sticker}>
+                  <span className={styles.stickerCount}>{s.badge.count}</span>
+                  <span className={styles.stickerUnit}>{s.badge.unit}</span>
+                </span>
+              )}
             </div>
             {s.meta ? (
               <div className={styles.metaRow}>
