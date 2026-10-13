@@ -11,6 +11,9 @@ export type IncludedProductsProps = {
   /** Render the tiles as plain (non-link) cards — for products that have no
    *  page of their own on this storefront. Default true. */
   linked?: boolean;
+  /** Make each tile a button that reports its slug (e.g. to open a details
+   *  sheet) instead of a link. Takes precedence over `linked`. */
+  onSelect?: (slug: string) => void;
 };
 
 /**
@@ -23,6 +26,7 @@ export function IncludedProducts({
   items,
   heading = "Included Products",
   linked = true,
+  onSelect,
 }: IncludedProductsProps) {
   if (!items.length) return null;
 
@@ -47,6 +51,18 @@ export function IncludedProducts({
               <span className={styles.name}>{item.name}</span>
             </>
           );
+          if (onSelect) {
+            return (
+              <button
+                key={item.slug}
+                type="button"
+                className={`${styles.card} ${styles.button}`}
+                onClick={() => onSelect(item.slug)}
+              >
+                {body}
+              </button>
+            );
+          }
           return linked ? (
             <Link
               key={item.slug}

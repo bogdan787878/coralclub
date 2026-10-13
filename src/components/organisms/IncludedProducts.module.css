@@ -60,3 +60,13 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* a tile that opens a details sheet: a <button> dressed as the card */
+.button {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}

@@ -6,17 +6,19 @@ import {
   DietaryBadges,
   FullDescription,
   ImageSlider,
-  IncludedProducts,
   InfoAccordion,
   PeriodicElements,
 } from "@/components/organisms";
 import { LandingHeader } from "@/components/landing/LandingHeader";
+import { IncludedProductDetails } from "@/components/landing/IncludedProductDetails";
+import { IncludedProductSheet } from "@/components/landing/IncludedProductSheet";
 import { LandingCards } from "@/components/landing/LandingCards";
 import { LandingCartDrawer } from "@/components/landing/LandingCartButton";
 import { BEAUTY_SLUGS, MAIN_SITE_URL } from "@/lib/beautySystem";
 import {
   BADGE_LABELS_RU,
   DISCLAIMERS,
+  INCLUDED_PRODUCTS_RU,
   LANDING_PRODUCTS_RU,
   formatRub,
   type BeautySlug,
@@ -103,6 +105,29 @@ export default async function LandingProductPage({
       image: resolved?.image && { ...resolved.image, alt: item.name },
     };
   });
+  // tap a tile → bottom sheet with everything about that product (no price,
+  // no buy button)
+  const includedDetails = Object.fromEntries(
+    included.flatMap((item) => {
+      const details = INCLUDED_PRODUCTS_RU[item.slug];
+      if (!details) return [];
+      return [
+        [
+          item.slug,
+          {
+            title: details.name,
+            content: (
+              <IncludedProductDetails
+                ru={details}
+                image={item.image}
+                badges={getProduct(item.slug)?.dietaryBadges ?? []}
+              />
+            ),
+          },
+        ],
+      ];
+    }),
+  );
 
   const hasFacts = (ru.facts?.rows.length ?? 0) > 0;
   const images = product.pdpImages.map((src) => ({ src, alt: ru.name }));
@@ -188,10 +213,10 @@ export default async function LandingProductPage({
                     {DISCLAIMERS[ru.disclaimer]}
                   </p>
                   {included.length > 0 && (
-                    <IncludedProducts
+                    <IncludedProductSheet
                       items={included}
                       heading="Состав набора"
-                      linked={false}
+                      details={includedDetails}
                     />
                   )}
                 </div>
