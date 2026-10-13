@@ -68,15 +68,17 @@ const MASKS: {
   },
 ];
 
-const COLLAGEN_SLIDES: ProductSlide[] = [
+const COLLAGEN_SLIDES: (ProductSlide & { slug: string })[] = [
   {
     id: "promarine-peptides",
+    slug: "promarine-collagen",
     title: "Промарин Пептиды Коллагена",
     image: { src: product("promarine-collagen"), alt: "Промарин Пептиды Коллагена" },
     lead: "Морской коллаген в пептидной форме для максимального усвоения. Поддержка молодости кожи, здоровья суставов и связок.",
   },
   {
     id: "promarine-tripeptides",
+    slug: "promarine-collagen-tripeptides-pack",
     title: "Промарин Трипептиды Коллагена",
     image: { src: product("promarine-collagen-tripeptides-pack"), alt: "Промарин Трипептиды Коллагена" },
     lead: "Следующий шаг эволюции биодобавок коллагена. Меньше молекула — больше результат. Молекула трипептидов в 600 раз меньше молекулы коллагена и в 4 раза меньше молекулы пептида коллагена. Именно благодаря размеру молекул MAXICOLLAGEN легче усваивается, что позволяет быстрее добиться гладкой, упругой и увлажнённой кожи, а также улучшить качество волос и ногтей.",
@@ -127,6 +129,16 @@ export default function LandingPage() {
       bullets: m.bullets,
       meta: card
         ? { category: card.category, price: card.price, priceWas: card.priceWas, href: `${BEAUTY_HREF}#${m.slug}` }
+        : undefined,
+    };
+  });
+
+  const collagenSlides: ProductSlide[] = COLLAGEN_SLIDES.map(({ slug, ...slide }) => {
+    const card = bySlug[slug];
+    return {
+      ...slide,
+      meta: card
+        ? { category: card.category, price: card.price, priceWas: card.priceWas, href: `${BEAUTY_HREF}#${slug}` }
         : undefined,
     };
   });
@@ -206,7 +218,7 @@ export default function LandingPage() {
                   <Heading as="h2" className={styles.h2}>
                     Коллаген — это белок молодости.
                   </Heading>
-                  <ProductSlider slides={COLLAGEN_SLIDES} />
+                  <ProductSlider slides={collagenSlides} />
                 </div>
               </div>
             </Container>
