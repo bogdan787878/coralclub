@@ -84,6 +84,15 @@ export function ProductSlider({ slides }: { slides: ProductSlide[] }) {
                     : undefined
                 }
               />
+              {s.meta && (
+                <Link
+                  href={s.meta.href}
+                  className={styles.cartBtn}
+                  aria-label={`${s.title} — подробнее`}
+                >
+                  <CartIcon />
+                </Link>
+              )}
               {s.badge && (
                 <span className={styles.sticker}>
                   <span className={styles.stickerCount}>{s.badge.count}</span>
@@ -105,13 +114,6 @@ export function ProductSlider({ slides }: { slides: ProductSlide[] }) {
                     )}
                   </span>
                 </div>
-                <Link
-                  href={s.meta.href}
-                  className={styles.cartBtn}
-                  aria-label={`${s.title} — подробнее`}
-                >
-                  <CartIcon />
-                </Link>
               </div>
             ) : (
               <h3 className={styles.name}>{s.title}</h3>

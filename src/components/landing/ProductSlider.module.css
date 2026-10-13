@@ -149,17 +149,27 @@
   text-decoration: line-through;
 }
 
+/* white cart button over the photo's bottom-right corner — same as the
+   mini carousel's product card */
 .cartBtn {
-  flex: none;
+  position: absolute;
+  right: var(--space-12);
+  bottom: var(--space-12);
+  z-index: 3;
   width: 48px;
   height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-pill);
+  border-radius: 999px;
   background: #ffffff;
   color: var(--color-text);
-  box-shadow: 0 8px 24px rgba(1, 17, 48, 0.14);
+  box-shadow: 0 10px 24px rgba(1, 17, 48, 0.18);
+  transition: transform 0.12s var(--ease-standard);
+}
+
+.cartBtn:active {
+  transform: scale(0.94);
 }
 
 .cartBtn svg {
