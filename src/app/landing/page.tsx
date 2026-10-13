@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Container, Heading, Section } from "@/components/ui";
-import { SiteHeader, TabBar } from "@/components/organisms";
+import { Accent, Container, Heading, Section } from "@/components/ui";
+import { LandingHeader } from "@/components/landing/LandingHeader";
 import { LeadModalProvider } from "@/components/landing/LeadModal";
-import { LandingCta, PromoCode } from "@/components/landing/LandingCta";
+import { LandingCta } from "@/components/landing/LandingCta";
 import { LandingCards } from "@/components/landing/LandingCards";
 import { ProductSlider, type ProductSlide } from "@/components/landing/ProductSlider";
 import { asset } from "@/lib/asset";
+import { BEAUTY_SLUGS, MAIN_SITE_URL } from "@/lib/beautySystem";
 import { getProductCards } from "@/lib/products";
+import heroImages from "../../../content/hero-images.json";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -17,19 +19,11 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const PROMO = "LABSPACE15";
-const BEAUTY_HREF = "/beauty-system/";
-
-const CARD_SLUGS = [
-  "hydramax-plus",
-  "promarine-collagen",
-  "promarine-collagen-tripeptides-pack",
-  "advanced-collagen-biocellulose-facial-mask",
-  "hydro-boost-biocellulose-facial-mask",
-  "skin-harmony-biocellulose-facial-mask",
-];
+const BEAUTY_HREF = `${MAIN_SITE_URL}/beauty-system/`;
 
 const img = (name: string) => asset(`/images/landing/${name}?v=1`);
+const heroEntry = heroImages.items.find((i) => i.id === "personalization");
+const HERO_SRC = heroEntry ? `${asset(heroEntry.mobile || heroEntry.desktop)}?v=3` : "";
 const product = (slug: string) => asset(`/images/products/${slug}.png`);
 
 const MASK_SLIDES: ProductSlide[] = [
@@ -115,66 +109,56 @@ const NAV = [
 ] as const;
 
 export default function LandingPage() {
-  const cards = getProductCards(CARD_SLUGS);
+  const cards = getProductCards([...BEAUTY_SLUGS]);
 
   return (
     <div className="appShell">
       <LeadModalProvider>
         <main className={styles.page}>
-          <SiteHeader />
+          <LandingHeader homeHref={MAIN_SITE_URL} />
 
-          <Section tone="surface" className={styles.hero}>
+          <section className={styles.hero}>
+            <div className={styles.heroMedia}>
+              {HERO_SRC && (
+                <Image
+                  src={HERO_SRC}
+                  alt="Promarine Collagen Tripeptides и маска Hydro Boost на столе"
+                  fill
+                  priority
+                  sizes="(max-width: 1023px) 100vw, 560px"
+                />
+              )}
+            </div>
             <Container>
-              <div className={styles.heroInner}>
-                <Heading className={styles.heroTitle}>Ваша система красоты</Heading>
-                <p className={styles.heroBody}>
+              <div className={styles.heroBody}>
+                <Heading className={styles.heroTitle}>
+                  Ваша <Accent>система красоты</Accent>
+                </Heading>
+                <p className={styles.heroText}>
                   Откройте для себя уникальную философию красоты и здоровья от Coral Club. Гармония внутреннего
                   состояния и внешнего ухода — ваш путь к естественному сиянию и долголетию.
                 </p>
                 <LandingCta source="hero" className={styles.cta}>
-                  Записаться на бесплатную консультацию нутрициолога
+                  Записаться на консультацию
                 </LandingCta>
-                <div className={styles.heroMedia}>
-                  <Image
-                    src={img("hero-beauty-system.jpg")}
-                    alt="Маски, коллаген и Гидрамакс Coral Club"
-                    fill
-                    priority
-                    sizes="(max-width: 1023px) 100vw, 520px"
-                  />
-                </div>
               </div>
             </Container>
-          </Section>
+          </section>
 
-          <Section tone="default" id="why" className={styles.section}>
+          <section id="why" className={styles.why}>
             <Container>
               <Heading as="h2" className={styles.h2}>
-                Почему наша система работает
+                Почему наша <Accent>система работает</Accent>
               </Heading>
               <p className={styles.lead}>
                 Мы создаём продукты, которые работают изнутри и снаружи, обеспечивая вам комплексный подход к
                 красоте и здоровью.
               </p>
             </Container>
-          </Section>
-
-          <Section tone="default" className={styles.promoSection}>
-            <Container>
-              <div className={styles.promo}>
-                <p className={styles.promoText}>
-                  Получите специальную скидку по промокоду <PromoCode code={PROMO} className={styles.promoCode} /> на
-                  продукты Системы Красоты
-                </p>
-              </div>
-            </Container>
-          </Section>
-
-          <Section tone="default" id="products" className={styles.section}>
-            <Container>
+            <div id="products" className={styles.cards}>
               <LandingCards cards={cards} hrefBase={BEAUTY_HREF} />
-            </Container>
-          </Section>
+            </div>
+          </section>
 
           <Section tone="surface" id="masks" className={styles.section}>
             <Container>
@@ -255,7 +239,6 @@ export default function LandingPage() {
             </Container>
           </footer>
 
-          <TabBar />
         </main>
       </LeadModalProvider>
     </div>

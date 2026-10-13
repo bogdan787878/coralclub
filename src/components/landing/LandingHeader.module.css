@@ -1,0 +1,19 @@
+.root {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  padding: var(--space-16) var(--page-padding-inline);
+  background: var(--color-surface);
+}
+
+.brand {
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  text-decoration: none;
+}

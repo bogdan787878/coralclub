@@ -2904,6 +2904,61 @@ export const GENERATED_PRODUCTS: ProductContent[] = [
     "fullDescription": "The extended “Hydramax” program is designed to optimize hydration with essential minerals and electrolytes, supporting water balance and promoting overall well-being.\n\nAn additional component—Oceanmin—is a concentrate of deep-sea minerals, primarily magnesium. It promotes electrolyte balance*, enhances cellular hydration*, and supports neuromuscular activity.* Regular use of Oceanmin helps reduce occasional fatigue*, supports optimal nervous system function*, and promotes stress resilience*, which is especially important during periods of high mental and physical exertion."
   },
   {
+    "slug": "hydramax",
+    "name": "Hydramax",
+    "headline": "Hydramax — the 30-day hydration set",
+    "category": "Foundation",
+    "goals": [
+      "hydration",
+      "energy"
+    ],
+    "coralId": "803801",
+    "price": "$102.50",
+    "clubPrice": "$82",
+    "description": "A 30-day program for optimal whole-body hydration: minerals and electrolytes that help balance water and salts and support endurance and stamina.\n\nIncludes Coral-Mine ×30 sachets, PentoKan ×3 tubes and H-500 ×1 bottle in one pack.",
+    "carouselImages": [
+      "/images/products/hydramax.png"
+    ],
+    "pdpImages": [
+      "/images/products/hydramax.png"
+    ],
+    "includedProducts": [
+      "coral-mine-silver",
+      "pentokan",
+      "h-500"
+    ],
+    "howToUse": "Read the instructions inside the package before use. Program duration — 30 days.",
+    "elements": [
+      {
+        "symbol": "K",
+        "name": "Potassium"
+      },
+      {
+        "symbol": "Ca",
+        "name": "Calcium"
+      },
+      {
+        "symbol": "Mg",
+        "name": "Magnesium"
+      }
+    ],
+    "dietaryBadges": [
+      "soy-free"
+    ],
+    "manufacturing": {
+      "countryOfOrigin": "Japan, USA, Germany",
+      "shippingWeight": "",
+      "expiration": "2 years from the date of manufacture",
+      "storage": "Store in a dry place at room temperature, out of reach of children.",
+      "ingredients": "Set: Coral-Mine, PentoKan, H-500.",
+      "supplementFacts": {
+        "servingLabel": "Amount Per Serving",
+        "rows": []
+      }
+    },
+    "fullDescription": "This pack supports optimal hydration of the whole body. The products in the pack help to normalize the water-salt and acid-base balance in the body, improve the quality of the water you drink, and help increase endurance and stamina.\n\nThe pack includes Coral-Mine (30 sachets), PentoKan (3 tubes, 60 effervescent tablets) and H-500 (1 bottle, 60 capsules). Duration of dosage is 30 days."
+  },
+  {
     "slug": "hydro-boost-biocellulose-facial-mask",
     "name": "Hydro Boost Biocellulose Facial Mask",
     "headline": "Hydro Boost Biocellulose Facial Mask, 5x0.85 fl. oz Sachets in a Box",

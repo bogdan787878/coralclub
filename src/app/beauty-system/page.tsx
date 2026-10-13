@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Container, Heading, Section } from "@/components/ui";
 import { SiteFooter, SiteHeader, TabBar } from "@/components/organisms";
 import { BeautyGrid } from "@/components/landing/BeautyGrid";
+import { BEAUTY_SLUGS } from "@/lib/beautySystem";
 import { getProductCards } from "@/lib/products";
 import styles from "./page.module.css";
 
@@ -11,14 +12,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const SLUGS = [
-  "hydramax-plus",
-  "promarine-collagen",
-  "promarine-collagen-tripeptides-pack",
-  "advanced-collagen-biocellulose-facial-mask",
-  "hydro-boost-biocellulose-facial-mask",
-  "skin-harmony-biocellulose-facial-mask",
-];
 
 /**
  * /beauty-system — the hidden "Система красоты" section the /landing cards
@@ -26,7 +19,7 @@ const SLUGS = [
  * account (the local cart hands off to the basket as a guest).
  */
 export default function BeautySystemPage() {
-  const cards = getProductCards(SLUGS);
+  const cards = getProductCards([...BEAUTY_SLUGS]);
 
   return (
     <div className="appShell">
