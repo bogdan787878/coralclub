@@ -133,9 +133,8 @@ export default function LandingPage() {
                   Ваша <Accent>система красоты</Accent>
                 </Heading>
                 <p className={styles.heroText}>
-                  Откройте для себя уникальную философию красоты и здоровья от
-                  Coral Club. Гармония внутреннего состояния и внешнего ухода —
-                  ваш путь к естественному сиянию и долголетию.
+                  Уход изнутри и снаружи в одной системе от Coral Club:
+                  коллаген, гидратация и маски для естественного сияния кожи.
                 </p>
                 <LandingCta source="hero" className={styles.cta}>
                   Записаться на консультацию
@@ -150,8 +149,8 @@ export default function LandingPage() {
                 Почему наша <Accent>система работает</Accent>
               </Heading>
               <p className={styles.lead}>
-                Мы создаём продукты, которые работают изнутри и снаружи,
-                обеспечивая вам комплексный подход к красоте и здоровью.
+                Добавки работают изнутри, маски — снаружи. Вместе это
+                комплексный подход к красоте и здоровью.
               </p>
             </Container>
             <div id="products" className={styles.cards}>
@@ -226,15 +225,13 @@ export default function LandingPage() {
             <Container>
               <div className={styles.consult}>
                 <h2 className={styles.consultTitle}>
-                  Не знаете, с чего начать? Запишитесь на бесплатную
-                  консультацию нутрициолога
+                  Не знаете, с чего начать? Бесплатная консультация нутрициолога
                 </h2>
                 <p className={styles.consultText}>
-                  Оставьте заявку для подбора персонального консультанта прямо
-                  сейчас и откройте мир красоты и здоровья Coral Club!
+                  Оставьте заявку — подберём вам персонального консультанта.
                 </p>
                 <LandingCta source="consultation" className={styles.consultCta}>
-                  Оставить заявку на бесплатную консультацию
+                  Оставить заявку
                 </LandingCta>
               </div>
             </Container>
@@ -254,7 +251,7 @@ export default function LandingPage() {
                 ))}
               </nav>
               <p className={styles.footerNote}>
-                БАД. Не является лекарственным средством. Перед применением
+                БАД не является лекарственным средством. Перед применением
                 проконсультируйтесь со специалистом.
               </p>
             </Container>
