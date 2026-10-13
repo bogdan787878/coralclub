@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Container, Heading, Section } from "@/components/ui";
+import { BodyLong, Container, Heading, Section, Stack } from "@/components/ui";
 import {
   BuyBox,
   DietaryBadges,
@@ -13,7 +12,6 @@ import {
 } from "@/components/organisms";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { LandingCards } from "@/components/landing/LandingCards";
-import { LandingCartButton } from "@/components/landing/LandingCartButton";
 import { BEAUTY_SLUGS, MAIN_SITE_URL } from "@/lib/beautySystem";
 import {
   BADGE_LABELS_RU,
@@ -30,6 +28,11 @@ import {
   ManufacturingDetails,
   SupplementFacts,
 } from "../../../(shop)/products/[slug]/ManufacturingDetails";
+import { BackButton } from "../../../(shop)/products/[slug]/BackButton";
+import { ShareButton } from "../../../(shop)/products/[slug]/ShareButton";
+// the page chrome (full-bleed image, floating back/share, sticky buy column)
+// is the shop PDP's own — same classes, same look
+import shop from "../../../(shop)/products/[slug]/page.module.css";
 import styles from "./page.module.css";
 
 type Params = { slug: string };
@@ -70,6 +73,7 @@ export default async function LandingProductPage({
 
   const [card] = getProductCards([slug]);
   const homeHref = MAIN_SITE_URL;
+  const shopPdpHref = `${MAIN_SITE_URL}/products/${slug}/`;
 
   // other products of the set → the "ещё" carousel, linking to their RU pages
   const others = getProductCards(BEAUTY_SLUGS.filter((s) => s !== slug)).map(
@@ -99,48 +103,44 @@ export default async function LandingProductPage({
 
   return (
     <div className="appShell">
-      <LandingHeader homeHref={homeHref} />
-      <main className={styles.page}>
+      <main className={shop.page}>
+        {/* desktop only (see .desktopHeader) — on mobile/tablet the floating
+            back + share controls below do this job instead */}
+        <div className={shop.desktopHeader}>
+          <LandingHeader homeHref={homeHref} />
+        </div>
+
+        <div className={shop.imageControls}>
+          <BackButton className={shop.circleBtn} fallbackHref="/landing/" />
+          <ShareButton className={shop.circleBtn} title={ru.name} />
+        </div>
+
         <Section tone="surface">
           <Container>
-            <Link href="/landing/" className={styles.back}>
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                aria-hidden="true"
-              >
-                <path
-                  d="M12.5 4.5 7 10l5.5 5.5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              Система красоты
-            </Link>
-
-            <div className={styles.layout}>
-              <div className={styles.media}>
-                <div className={styles.mediaInner}>
+            <div className={shop.layout}>
+              <div className={shop.media}>
+                <div className={shop.mediaInner}>
                   <ImageSlider
                     images={images}
-                    sizes="(max-width: 1023px) 100vw, 480px"
+                    sizes="(max-width: 1023px) 100vw, 400px"
                     fit={slug === "hydramax" ? "cover" : "contain"}
                     priority
                     lightDots
                   />
                 </div>
+                {/* desktop only — replaces the floating share button */}
+                <ShareButton
+                  className={`${shop.circleBtn} ${shop.mediaShare}`}
+                  title={ru.name}
+                />
               </div>
 
-              <div className={styles.info}>
-                <span className={styles.category}>{ru.category}</span>
-                <Heading className={styles.name}>{ru.name}</Heading>
+              <Stack gap="base" className={shop.infoCol}>
+                <div className={shop.headGroup}>
+                  <span className={shop.category}>{ru.category}</span>
+                  <Heading className={shop.name}>{ru.name}</Heading>
 
-                <div className={styles.copy}>
-                  <p>{ru.lead}</p>
+                  <BodyLong>{ru.lead}</BodyLong>
                   {ru.bullets && (
                     <ul className={styles.bullets}>
                       {ru.bullets.map((b) => (
@@ -148,42 +148,44 @@ export default async function LandingProductPage({
                       ))}
                     </ul>
                   )}
-                  {ru.extra && <p>{ru.extra}</p>}
+                  {ru.extra && <BodyLong>{ru.extra}</BodyLong>}
                   {ru.more?.map((p) => (
-                    <p key={p}>{p}</p>
+                    <BodyLong key={p}>{p}</BodyLong>
                   ))}
+
+                  {ru.origins.length > 0 && (
+                    <div className={shop.originTags}>
+                      {ru.origins.map((o) => (
+                        <span className={shop.originTag} key={o.label}>
+                          <span aria-hidden="true">{o.flag} </span>
+                          {o.label}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {product.dietaryBadges.length > 0 && (
+                    <DietaryBadges
+                      items={product.dietaryBadges}
+                      labels={BADGE_LABELS_RU}
+                    />
+                  )}
+                  {ru.elements.length > 0 && (
+                    <PeriodicElements
+                      items={ru.elements}
+                      heading="Ключевые компоненты"
+                    />
+                  )}
+                  <p className={shop.disclaimer}>
+                    {DISCLAIMERS[ru.disclaimer]}
+                  </p>
+                  {included.length > 0 && (
+                    <IncludedProducts
+                      items={included}
+                      heading="Состав набора"
+                      linked={false}
+                    />
+                  )}
                 </div>
-
-                {ru.origins.length > 0 && (
-                  <div className={styles.originTags}>
-                    {ru.origins.map((o) => (
-                      <span className={styles.originTag} key={o.label}>
-                        <span aria-hidden="true">{o.flag} </span>
-                        {o.label}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                {product.dietaryBadges.length > 0 && (
-                  <DietaryBadges
-                    items={product.dietaryBadges}
-                    labels={BADGE_LABELS_RU}
-                  />
-                )}
-                {ru.elements.length > 0 && (
-                  <PeriodicElements
-                    items={ru.elements}
-                    heading="Ключевые компоненты"
-                  />
-                )}
-                {included.length > 0 && (
-                  <IncludedProducts
-                    items={included}
-                    heading="Состав набора"
-                    linked={false}
-                  />
-                )}
 
                 <InfoAccordion
                   items={[
@@ -251,60 +253,50 @@ export default async function LandingProductPage({
                     lessLabel="Свернуть"
                   />
                 )}
+              </Stack>
 
-                <p className={styles.disclaimer}>
-                  {DISCLAIMERS[ru.disclaimer]}
-                </p>
-              </div>
+              {/* mobile/tablet: fixed bottom bar; desktop: sticky 3rd column */}
+              <BuyBox
+                pinned
+                product={{
+                  coralId: card.coralId,
+                  slug,
+                  name: ru.name,
+                  image: product.image ?? images[0]?.src,
+                }}
+                options={[
+                  {
+                    id: "club",
+                    label: "Цена",
+                    price: card.price,
+                    cta: { label: "Добавить в корзину", href: shopPdpHref },
+                  },
+                  {
+                    id: "regular",
+                    label: "Обычная цена",
+                    price: card.priceWas ?? card.price,
+                    cta: { label: "Добавить в корзину", href: shopPdpHref },
+                  },
+                ]}
+                labels={{
+                  add: "Добавить в корзину",
+                  removeOne: "Убрать одну штуку",
+                  addOne: "Добавить ещё одну",
+                }}
+              />
             </div>
           </Container>
         </Section>
 
         <Section tone="default">
           <Container>
-            <Heading as="h2" className={styles.moreTitle}>
+            <Heading as="h2" className={shop.moreTitle}>
               Ещё из системы красоты
             </Heading>
           </Container>
           <LandingCards cards={others} />
         </Section>
       </main>
-
-      <BuyBox
-        pinned
-        product={{
-          coralId: card.coralId,
-          slug,
-          name: ru.name,
-          image: product.image ?? images[0]?.src,
-        }}
-        options={[
-          {
-            id: "club",
-            label: "Цена",
-            price: card.price,
-            cta: {
-              label: "Добавить в корзину",
-              href: `${MAIN_SITE_URL}/products/${slug}/`,
-            },
-          },
-          {
-            id: "regular",
-            label: "Обычная цена",
-            price: card.priceWas ?? card.price,
-            cta: {
-              label: "Добавить в корзину",
-              href: `${MAIN_SITE_URL}/products/${slug}/`,
-            },
-          },
-        ]}
-        labels={{
-          add: "Добавить в корзину",
-          removeOne: "Убрать одну штуку",
-          addOne: "Добавить ещё одну",
-        }}
-      />
-      <LandingCartButton aboveBuyBar />
     </div>
   );
 }

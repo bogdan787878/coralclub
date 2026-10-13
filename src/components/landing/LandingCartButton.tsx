@@ -27,14 +27,10 @@ const LABELS_RU: CartDrawerLabels = {
 /**
  * LandingCartButton — the landings' floating cart: a round icon button with
  * an item-count badge pinned to the bottom-right, opening the same local
- * cart drawer the shop uses (Russian strings). `aboveBuyBar` lifts it clear
- * of the PDP's pinned buy bar.
+ * cart drawer the shop uses (Russian strings). Shown on the landing page
+ * only — the PDP keeps the shop's own buy-bar mechanics instead.
  */
-export function LandingCartButton({
-  aboveBuyBar = false,
-}: {
-  aboveBuyBar?: boolean;
-}) {
+export function LandingCartButton() {
   const [open, setOpen] = useState(false);
   const count = cartCount(useCart());
 
@@ -44,7 +40,7 @@ export function LandingCartButton({
     <>
       <button
         type="button"
-        className={`${styles.fab}${aboveBuyBar ? ` ${styles.aboveBar}` : ""}`}
+        className={styles.fab}
         onClick={() => setOpen(true)}
         aria-label={count ? `Корзина, товаров: ${count}` : "Корзина"}
       >

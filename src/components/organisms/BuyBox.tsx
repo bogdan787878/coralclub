@@ -31,8 +31,7 @@ export type BuyBoxProps = {
   product: BuyBoxProduct;
   /** Overrides for a translated storefront (defaults are English). */
   labels?: BuyBoxLabels;
-  /** Keep the pinned bottom bar at every breakpoint (no desktop sidebar
-   *  card) and sit flush with the viewport bottom — for standalone pages
+  /** Sit flush with the viewport bottom on mobile — for standalone pages
    *  without the shop's TabBar (the landings). */
   pinned?: boolean;
 };

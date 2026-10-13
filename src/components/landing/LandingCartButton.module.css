@@ -24,11 +24,6 @@
   height: 26px;
 }
 
-/* the PDP's pinned buy bar (~92px) occupies the bottom edge */
-.aboveBar {
-  bottom: calc(100px + env(safe-area-inset-bottom, 0px));
-}
-
 .badge {
   position: absolute;
   top: -2px;
