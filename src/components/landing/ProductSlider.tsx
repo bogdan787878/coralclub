@@ -7,7 +7,7 @@ import styles from "./ProductSlider.module.css";
 export type ProductSlide = {
   id: string;
   title: string;
-  image: { src: string; alt: string; position?: string };
+  image: { src: string; alt: string; position?: string; fit?: "cover" };
   lead: string;
   bullets?: string[];
   extra?: string;
@@ -64,13 +64,22 @@ export function ProductSlider({ slides }: { slides: ProductSlide[] }) {
       <ul className={styles.track} ref={trackRef} onScroll={onScroll}>
         {slides.map((s) => (
           <li className={styles.slide} key={s.id}>
-            <div className={`${styles.media}${s.meta ? ` ${styles.mediaCover}` : ""}`}>
+            <div
+              className={`${styles.media}${s.meta ? ` ${styles.mediaCover}` : ""}`}
+            >
               <Image
                 src={s.image.src}
                 alt={s.image.alt}
                 fill
                 sizes="(max-width: 768px) 100vw, 420px"
-                style={s.image.position ? { objectPosition: s.image.position } : undefined}
+                style={
+                  s.image.position || s.image.fit
+                    ? {
+                        objectPosition: s.image.position,
+                        objectFit: s.image.fit,
+                      }
+                    : undefined
+                }
               />
             </div>
             {s.meta ? (
@@ -82,10 +91,16 @@ export function ProductSlider({ slides }: { slides: ProductSlide[] }) {
                   </a>
                   <span className={styles.priceRow}>
                     <span className={styles.price}>{s.meta.price}</span>
-                    {s.meta.priceWas && <span className={styles.priceWas}>{s.meta.priceWas}</span>}
+                    {s.meta.priceWas && (
+                      <span className={styles.priceWas}>{s.meta.priceWas}</span>
+                    )}
                   </span>
                 </div>
-                <a href={s.meta.href} className={styles.cartBtn} aria-label={`${s.title} — в магазин`}>
+                <a
+                  href={s.meta.href}
+                  className={styles.cartBtn}
+                  aria-label={`${s.title} — в магазин`}
+                >
                   <CartIcon />
                 </a>
               </div>

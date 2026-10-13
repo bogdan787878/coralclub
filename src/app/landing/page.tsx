@@ -85,11 +85,12 @@ const COLLAGEN_SLIDES: (ProductSlide & { slug: string })[] = [
   },
 ];
 
-const HYDRAMAX_SLIDES: ProductSlide[] = [
+const HYDRAMAX_SLIDES: (ProductSlide & { slug: string })[] = [
   {
     id: "hydramax",
+    slug: "hydramax",
     title: "Гидрамакс",
-    image: { src: asset("/images/products/hydramax.png"), alt: "Гидрамакс" },
+    image: { src: asset("/images/products/hydramax.png"), alt: "Гидрамакс", fit: "cover", position: "42% 50%" },
     lead: "Гидрамакс — набор для оптимальной гидратации организма:",
     bullets: [
       "комплекс микро- и макроэлементов улучшает физиологическую полноценность воды и поддерживает баланс минералов, участвующих в работе всех органов и систем;",
@@ -99,6 +100,7 @@ const HYDRAMAX_SLIDES: ProductSlide[] = [
   },
   {
     id: "hydramax-plus",
+    slug: "hydramax-plus",
     title: "Гидрамакс Плюс",
     image: { src: product("hydramax-plus"), alt: "Гидрамакс Плюс" },
     lead: "Расширенная версия программы «Гидрамакс» направлена на обеспечение организма необходимыми макро- и микроэлементами, витаминами-антиоксидантами, что играет ключевую роль в поддержании минерального баланса, оптимальной гидратации и общего самочувствия.",
@@ -134,6 +136,16 @@ export default function LandingPage() {
   });
 
   const collagenSlides: ProductSlide[] = COLLAGEN_SLIDES.map(({ slug, ...slide }) => {
+    const card = bySlug[slug];
+    return {
+      ...slide,
+      meta: card
+        ? { category: card.category, price: card.price, priceWas: card.priceWas, href: `${BEAUTY_HREF}#${slug}` }
+        : undefined,
+    };
+  });
+
+  const hydramaxSlides: ProductSlide[] = HYDRAMAX_SLIDES.map(({ slug, ...slide }) => {
     const card = bySlug[slug];
     return {
       ...slide,
@@ -234,7 +246,7 @@ export default function LandingPage() {
                   <Heading as="h2" className={styles.h2}>
                     Глубокая гидратация на клеточном уровне
                   </Heading>
-                  <ProductSlider slides={HYDRAMAX_SLIDES} />
+                  <ProductSlider slides={hydramaxSlides} />
                 </div>
               </div>
             </Container>
