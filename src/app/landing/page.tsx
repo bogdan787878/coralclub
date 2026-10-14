@@ -178,11 +178,13 @@ export default function LandingPage() {
                       масок по 25 мл — используйте 2–3 раза в неделю.
                     </p>
                   </div>
-                  <LandingCards
-                    cards={cardsFor(MASK_SLUGS)}
-                    label="Маски"
-                    minCols={4}
-                  />
+                  <div className={styles.carouselBleed}>
+                    <LandingCards
+                      cards={cardsFor(MASK_SLUGS)}
+                      label="Маски"
+                      minCols={4}
+                    />
+                  </div>
                 </div>
               </div>
             </Container>
@@ -208,11 +210,13 @@ export default function LandingPage() {
                       — более мелкую молекулу, которая легче усваивается.
                     </p>
                   </div>
-                  <LandingCards
-                    cards={cardsFor(COLLAGEN_SLUGS)}
-                    label="Коллаген"
-                    minCols={4}
-                  />
+                  <div className={styles.carouselBleed}>
+                    <LandingCards
+                      cards={cardsFor(COLLAGEN_SLUGS)}
+                      label="Коллаген"
+                      minCols={4}
+                    />
+                  </div>
                 </div>
               </div>
             </Container>
@@ -238,11 +242,13 @@ export default function LandingPage() {
                       глубоководных минералов, прежде всего магния.
                     </p>
                   </div>
-                  <LandingCards
-                    cards={cardsFor(HYDRAMAX_SLUGS)}
-                    label="Гидратация"
-                    minCols={4}
-                  />
+                  <div className={styles.carouselBleed}>
+                    <LandingCards
+                      cards={cardsFor(HYDRAMAX_SLUGS)}
+                      label="Гидратация"
+                      minCols={4}
+                    />
+                  </div>
                 </div>
               </div>
             </Container>

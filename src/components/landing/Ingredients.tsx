@@ -70,7 +70,7 @@ export function Ingredients() {
                       height={l.h}
                       sizes={`${Math.round((l.w / l.h) * l.show)}px`}
                       style={{
-                        height: l.show,
+                        height: `calc(${l.show}px * var(--logo-scale, 1))`,
                         width: "auto",
                         maxWidth: "100%",
                       }}

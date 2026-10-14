@@ -31,6 +31,9 @@ export type CarouselProps = {
   /** Fewest columns the desktop grid uses (default 1): keeps cards the same
    *  size when there are only a couple of them, left-aligned. */
   minCols?: number;
+  /** On phones/tablets, when there are only one or two cards, lay them out
+   *  across the full width instead of a half-empty scroller. */
+  stretchFew?: boolean;
 };
 
 function ChevronIcon({ direction }: { direction: "left" | "right" }) {
@@ -60,6 +63,7 @@ export function Carousel({
   itemWidth,
   maxCols = 5,
   minCols = 1,
+  stretchFew = false,
   label = "Products",
 }: CarouselProps) {
   const trackRef = useRef<HTMLUListElement>(null);
@@ -104,13 +108,14 @@ export function Carousel({
 
       <div className={styles.scroller}>
         <ul
-          className={styles.viewport}
+          className={`${styles.viewport}${stretchFew && Children.count(children) <= 2 ? ` ${styles.stretch}` : ""}`}
           ref={trackRef}
           onScroll={updateArrows}
           style={
             {
               ...(itemWidth ? { "--carousel-item-width": itemWidth } : {}),
               "--carousel-cols": cols,
+              "--carousel-count": Children.count(children),
             } as CSSProperties
           }
           aria-label={label}

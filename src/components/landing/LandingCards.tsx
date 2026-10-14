@@ -24,7 +24,7 @@ export function LandingCards({
   minCols?: number;
 }) {
   return (
-    <Carousel label={label} maxCols={4} minCols={minCols}>
+    <Carousel label={label} maxCols={4} minCols={minCols} stretchFew>
       {cards.map((p) => {
         const href = landingPdpHref(p.slug);
         return (

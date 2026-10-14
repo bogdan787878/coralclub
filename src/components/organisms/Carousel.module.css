@@ -67,6 +67,20 @@
   width: 100%;
 }
 
+/* phones/tablets, one or two cards: share the full width (no scrolling) */
+@media (max-width: 1023px) {
+  .viewport.stretch {
+    display: grid;
+    grid-template-columns: repeat(var(--carousel-count, 2), minmax(0, 1fr));
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .viewport.stretch .item {
+    flex: initial;
+    scroll-snap-align: none;
+  }
+}
+
 /* click-to-page chevrons — hidden on touch breakpoints, where swipe
    already does the job; shown once there's a mouse to hover them */
 .arrow {
