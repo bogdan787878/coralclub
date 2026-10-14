@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Accent, Container, Heading, Section } from "@/components/ui";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { Ingredients } from "@/components/landing/Ingredients";
@@ -130,15 +129,6 @@ export default function LandingPage() {
           <section id="why" className={styles.why}>
             <Container>
               <div className={styles.whyInner}>
-                <div className={styles.whyMedia}>
-                  <Image
-                    src={`${asset("/images/restart-detox-vs-reset.png")}?v=2`}
-                    alt="Девушка с поднятым к свету лицом на бирюзовом фоне"
-                    width={1372}
-                    height={1369}
-                    sizes="(max-width: 1023px) calc(100vw - 32px), 560px"
-                  />
-                </div>
                 <div className={styles.whyCopy}>
                   <Heading as="h2" className={styles.h2}>
                     Почему наша <Accent>система работает</Accent>
@@ -170,15 +160,7 @@ export default function LandingPage() {
           <Section tone="surface" id="masks" className={styles.section}>
             <Container>
               <div className={styles.block}>
-                <div className={styles.blockShape}>
-                  <Image
-                    src={`${img("masks-blob.webp")}`}
-                    alt="Девушка с закрытыми глазами касается лица на бирюзовом фоне"
-                    width={900}
-                    height={900}
-                    sizes="(max-width: 1023px) calc(100vw - 32px), 480px"
-                  />
-                </div>
+                <div className={styles.blockPlaceholder} aria-hidden="true" />
                 <div className={styles.blockBody}>
                   <div className={styles.blockHead}>
                     <Heading as="h2" className={styles.h2}>
@@ -209,15 +191,7 @@ export default function LandingPage() {
           <Section tone="default" id="collagen" className={styles.section}>
             <Container>
               <div className={styles.block}>
-                <div className={styles.blockShape}>
-                  <Image
-                    src={`${asset("/images/body-rebuilds-layers.png")}?v=2`}
-                    alt="Девушка с закрытыми глазами и поднятым к свету лицом на бирюзовом фоне"
-                    width={1360}
-                    height={1395}
-                    sizes="(max-width: 1023px) calc(100vw - 32px), 480px"
-                  />
-                </div>
+                <div className={styles.blockPlaceholder} aria-hidden="true" />
                 <div className={styles.blockBody}>
                   <div className={styles.blockHead}>
                     <Heading as="h2" className={styles.h2}>
@@ -247,15 +221,7 @@ export default function LandingPage() {
           <Section tone="surface" id="hydramax" className={styles.section}>
             <Container>
               <div className={styles.block}>
-                <div className={styles.blockShape}>
-                  <Image
-                    src={`${asset("/images/you-are-90-water.png")}?v=4`}
-                    alt="Девушка пьёт воду из стакана на бирюзовом фоне"
-                    width={1363}
-                    height={1159}
-                    sizes="(max-width: 1023px) calc(100vw - 32px), 480px"
-                  />
-                </div>
+                <div className={styles.blockPlaceholder} aria-hidden="true" />
                 <div className={styles.blockBody}>
                   <div className={styles.blockHead}>
                     <Heading as="h2" className={styles.h2}>

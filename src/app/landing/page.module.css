@@ -52,12 +52,6 @@
 }
 
 /* the picture carries its own wavy shape (transparent corners) — shown whole */
-.whyMedia img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
 .whyCopy {
   min-width: 0;
 }
@@ -127,6 +121,14 @@
 
 .blockMedia img {
   object-fit: cover;
+}
+
+/* grey stand-in for the block picture while the photo is being chosen */
+.blockPlaceholder {
+  width: 100%;
+  aspect-ratio: 5 / 3;
+  border-radius: var(--radius-base);
+  background: var(--color-neutral-30);
 }
 
 /* a block whose picture brings its own shape (transparent corners): shown
@@ -263,14 +265,8 @@
   .why {
     padding-block: var(--space-24) var(--space-64);
   }
-  .whyInner {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    align-items: center;
-    gap: var(--space-48);
-  }
-  .whyMedia img {
-    max-width: 560px;
+  .whyCopy {
+    max-width: 640px;
   }
   .lead {
     max-width: 52ch;
@@ -293,7 +289,8 @@
     align-items: start;
   }
   .blockMedia,
-  .blockShape {
+  .blockShape,
+  .blockPlaceholder {
     grid-column: 1;
     grid-row: 1;
   }
