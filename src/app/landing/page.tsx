@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Accent, Container, Heading, Section } from "@/components/ui";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { LeadModalProvider } from "@/components/landing/LeadModal";
-import { LandingCta } from "@/components/landing/LandingCta";
+import { LandingCta, PromoCode } from "@/components/landing/LandingCta";
 import { LandingCards } from "@/components/landing/LandingCards";
 import { LandingCartButton } from "@/components/landing/LandingCartButton";
 import {
@@ -11,7 +11,7 @@ import {
   type ProductSlide,
 } from "@/components/landing/ProductSlider";
 import { asset } from "@/lib/asset";
-import { BEAUTY_SLUGS, MAIN_SITE_URL } from "@/lib/beautySystem";
+import { BEAUTY_SLUGS, MAIN_SITE_URL, PROMO_CODE } from "@/lib/beautySystem";
 import {
   LANDING_PRODUCTS_RU,
   HYDRAMAX_PACKSHOT,
@@ -154,6 +154,13 @@ export default function LandingPage() {
                 Добавки работают изнутри, маски — снаружи. Вместе это
                 комплексный подход к красоте и здоровью.
               </p>
+              <div className={styles.promo}>
+                <p className={styles.promoText}>
+                  Получите специальную скидку по промокоду{" "}
+                  <PromoCode code={PROMO_CODE} className={styles.promoCode} />{" "}
+                  на продукты Системы Красоты
+                </p>
+              </div>
             </Container>
             <div id="products" className={styles.cards}>
               <LandingCards cards={cards} />

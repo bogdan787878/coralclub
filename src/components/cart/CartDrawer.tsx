@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import {
@@ -55,6 +55,8 @@ export type CartDrawerProps = {
   formatMoney?: (value: number) => string;
   /** Where checkout goes instead of the coralclub.us basket hand-off. */
   checkoutHref?: string;
+  /** A promo block above the subtotal: copy-able code + a short hint. */
+  promo?: { code: string; text: string; copiedLabel: string };
 };
 
 /**
@@ -67,8 +69,10 @@ export function CartDrawer({
   labels = EN_LABELS,
   formatMoney = formatUsd,
   checkoutHref,
+  promo,
 }: CartDrawerProps) {
   const lines = useCart();
+  const [copied, setCopied] = useState(false);
   const subtotal = cartSubtotal(lines);
 
   useEffect(() => {
@@ -83,6 +87,17 @@ export function CartDrawer({
   }, [open, onClose]);
 
   if (!open || typeof document === "undefined") return null;
+
+  const copyPromo = async () => {
+    if (!promo) return;
+    try {
+      await navigator.clipboard.writeText(promo.code);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      /* clipboard unavailable — the code stays visible to copy by hand */
+    }
+  };
 
   const checkout = () => {
     if (!lines.length) return;
@@ -172,6 +187,22 @@ export function CartDrawer({
         )}
 
         <footer className={styles.foot}>
+          {promo && lines.length > 0 && (
+            <div className={styles.promo}>
+              <p className={styles.promoText}>{promo.text}</p>
+              <button
+                type="button"
+                className={styles.promoCode}
+                onClick={copyPromo}
+                aria-label={`${promo.code}`}
+              >
+                {promo.code}
+                <span aria-live="polite" className={styles.promoCopied}>
+                  {copied ? promo.copiedLabel : ""}
+                </span>
+              </button>
+            </div>
+          )}
           <div className={styles.subtotal}>
             <span>{labels.subtotal}</span>
             <span>{formatMoney(subtotal)}</span>

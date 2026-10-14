@@ -226,3 +226,45 @@
 .clear:hover {
   color: var(--color-text);
 }
+
+/* promo block: a hint + a tap-to-copy code chip */
+.promo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-8);
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-base);
+  background: var(--color-malachite-10);
+}
+
+.promoText {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  line-height: 1.2rem;
+  color: var(--color-text);
+}
+
+.promoCode {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: 4px var(--space-12);
+  border: 1.5px dashed var(--color-action);
+  border-radius: var(--radius-pill);
+  background: #ffffff;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.promoCopied {
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0;
+  color: var(--color-text-muted);
+}
