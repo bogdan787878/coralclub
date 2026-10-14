@@ -22,6 +22,8 @@ export type LandingProductRu = {
   headline: string;
   /** Display name used in the "Название – форма выпуска" titles. */
   title: string;
+  /** Product id on coralclub.ru (what the basket link takes). */
+  ruId: string;
   /** Release form: shown after the name, optional grey note in brackets. */
   form: { label: string; note?: string };
   category: string;
@@ -87,6 +89,7 @@ export const BADGE_LABELS_RU: Record<string, string> = {
 export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
   hydramax: {
     slug: "hydramax",
+    ruId: "80380",
     pack: { count: "Набор", unit: "на 30 дней" },
     priceRub: { club: 7052, regular: 8815 },
     name: "Гидрамакс",
@@ -130,6 +133,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "hydramax-plus": {
     slug: "hydramax-plus",
+    ruId: "80720",
     pack: { count: "Набор", unit: "на 30 дней" },
     priceRub: { club: 10062, regular: 12577.5 },
     name: "Гидрамакс Плюс",
@@ -171,6 +175,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "promarine-collagen": {
     slug: "promarine-collagen",
+    ruId: "2260",
     priceRub: { club: 4730, regular: 5912.5 },
     pack: { count: "10", unit: "флаконов" },
     name: "Промарин Пептиды Коллагена",
@@ -219,6 +224,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "promarine-collagen-tripeptides-pack": {
     slug: "promarine-collagen-tripeptides-pack",
+    ruId: "2270",
     priceRub: { club: 5590, regular: 6987.5 },
     pack: { count: "10", unit: "флаконов" },
     name: "Промарин Трипептиды Коллагена",
@@ -276,6 +282,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "advanced-collagen-biocellulose-facial-mask": {
     slug: "advanced-collagen-biocellulose-facial-mask",
+    ruId: "610105",
     priceRub: { club: 3010, regular: 3762.5 },
     pack: { count: "5", unit: "масок" },
     name: "Advanced Collagen",
@@ -307,6 +314,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "hydro-boost-biocellulose-facial-mask": {
     slug: "hydro-boost-biocellulose-facial-mask",
+    ruId: "610205",
     priceRub: { club: 3010, regular: 3762.5 },
     pack: { count: "5", unit: "масок" },
     name: "Hydro Boost",
@@ -338,6 +346,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "skin-harmony-biocellulose-facial-mask": {
     slug: "skin-harmony-biocellulose-facial-mask",
+    ruId: "610305",
     priceRub: { club: 3010, regular: 3762.5 },
     pack: { count: "5", unit: "масок" },
     name: "Skin Harmony",

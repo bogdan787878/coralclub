@@ -82,7 +82,6 @@ export default async function LandingProductPage({
   const product = getProduct(slug);
   if (!product) notFound();
 
-  const [card] = getProductCards([slug]);
   const homeHref = MAIN_SITE_URL;
   const shopPdpHref = `${MAIN_SITE_URL}/products/${slug}/`;
 
@@ -148,10 +147,10 @@ export default async function LandingProductPage({
   // price + CTA: the same props feed the inline block and the web top bar
   const buyProps = {
     product: {
-      coralId: card.coralId,
+      coralId: ru.ruId,
       slug,
       name: fullTitle(slug),
-      image: product.image ?? images[0]?.src,
+      image: images[0]?.src ?? product.image,
     },
     options: [
       {

@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import {
   basketHandoffUrl,
+  type CartLine,
   cartSubtotal,
   clearCart,
   formatUsd,
@@ -53,8 +54,9 @@ export type CartDrawerProps = {
   labels?: CartDrawerLabels;
   /** Currency formatter for the subtotal (default: US dollars). */
   formatMoney?: (value: number) => string;
-  /** Where checkout goes instead of the coralclub.us basket hand-off. */
-  checkoutHref?: string;
+  /** Builds the checkout link from the cart lines, instead of the
+   *  coralclub.us basket hand-off. */
+  checkoutUrl?: (lines: CartLine[]) => string;
   /** A promo block above the subtotal: copy-able code + a short hint. */
   promo?: { code: string; text: string; copiedLabel: string };
 };
@@ -68,7 +70,7 @@ export function CartDrawer({
   onClose,
   labels = EN_LABELS,
   formatMoney = formatUsd,
-  checkoutHref,
+  checkoutUrl,
   promo,
 }: CartDrawerProps) {
   const lines = useCart();
@@ -102,7 +104,7 @@ export function CartDrawer({
   const checkout = () => {
     if (!lines.length) return;
     window.open(
-      checkoutHref ?? basketHandoffUrl(lines),
+      checkoutUrl ? checkoutUrl(lines) : basketHandoffUrl(lines),
       "_blank",
       "noopener,noreferrer",
     );

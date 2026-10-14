@@ -7,7 +7,7 @@ import {
   type CartDrawerLabels,
 } from "@/components/cart/CartDrawer";
 import { BagIcon } from "@/components/cart/icons";
-import { PROMO_CODE } from "@/lib/beautySystem";
+import { PROMO_CODE, friendBasketUrl } from "@/lib/beautySystem";
 import { formatRub } from "@/lib/landingCatalogRu";
 import styles from "./LandingCartButton.module.css";
 
@@ -16,9 +16,6 @@ const PROMO = {
   text: "Скопируйте промокод и примените на следующем шаге, чтобы получить дополнительную скидку 15%",
   copiedLabel: "скопировано",
 };
-
-/** The Russian shop's basket (its cart is session-based — no share link). */
-const RU_BASKET_URL = "https://coralclub.ru/basket/";
 
 const LABELS_RU: CartDrawerLabels = {
   aria: "Корзина",
@@ -30,7 +27,7 @@ const LABELS_RU: CartDrawerLabels = {
   decrease: (name) => `Убрать одну штуку: ${name}`,
   increase: (name) => `Добавить ещё одну: ${name}`,
   subtotal: "Итого",
-  note: "Заказ оформляется на сайте coralclub.ru: добавьте эти товары в корзину там.",
+  note: "Откроется корзина на coralclub.ru с этими товарами по клубным ценам — покупка без регистрации.",
   checkout: "Оформить на coralclub.ru",
   clear: "Очистить корзину",
 };
@@ -50,7 +47,7 @@ export function LandingCartDrawer() {
       onClose={() => setOpen(false)}
       labels={LABELS_RU}
       formatMoney={formatRub}
-      checkoutHref={RU_BASKET_URL}
+      checkoutUrl={friendBasketUrl}
       promo={PROMO}
     />
   );

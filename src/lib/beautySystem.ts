@@ -20,3 +20,30 @@ export const MAIN_SITE_URL = (
 
 /** Promo code of the "Система красоты" landing (extra 15% off at checkout). */
 export const PROMO_CODE = "LABSPACE15";
+
+/**
+ * "Друг клуба" — the referral mechanic of the Russian shop. A link carrying
+ * this REF_CODE shows every price as a club price and lets the visitor buy
+ * without registering; `user` is the referrer's member number. The cart
+ * hand-off below fills the basket (`<id>=<qty>`) and lands in that
+ * friend-of-the-club basket on coralclub.ru in one step.
+ */
+export const FRIEND_REF_CODE = "570445656503";
+export const FRIEND_USER_ID = "8819457";
+export const RU_SHOP_URL = "https://coralclub.ru";
+
+export function friendBasketUrl(
+  lines: { coralId: string; qty: number }[],
+): string {
+  const items = lines
+    .filter((l) => l.coralId && l.qty > 0)
+    .map((l) => `${encodeURIComponent(l.coralId)}=${l.qty}`);
+  const query = [
+    `REF_CODE=${FRIEND_REF_CODE}`,
+    "langss=ru",
+    `user=${FRIEND_USER_ID}`,
+    "f=y",
+    ...items,
+  ].join("&");
+  return `${RU_SHOP_URL}/shop/shop_basket.php?${query}`;
+}
