@@ -200,9 +200,22 @@ export default function LandingPage() {
                   />
                 </div>
                 <div className={styles.blockBody}>
-                  <Heading as="h2" className={styles.h2}>
-                    Сияние и восстановление кожи
-                  </Heading>
+                  <div className={styles.blockHead}>
+                    <Heading as="h2" className={styles.h2}>
+                      Сияние и восстановление кожи
+                    </Heading>
+                    <p className={styles.blockText}>
+                      Три биоцеллюлозные маски для лица с разным назначением:
+                      Advanced Collagen поддерживает эластичность и упругость
+                      кожи, Hydro Boost глубоко увлажняет, Skin Harmony
+                      успокаивает и выравнивает тон.
+                    </p>
+                    <p className={styles.blockText}>
+                      Биоцеллюлозная основа плотно прилегает к лицу и удерживает
+                      до 3 раз больше сыворотки, чем другие основы. В упаковке 5
+                      масок по 25 мл — используйте 2–3 раза в неделю.
+                    </p>
+                  </div>
                   <ProductSlider slides={maskSlides} />
                 </div>
               </div>
