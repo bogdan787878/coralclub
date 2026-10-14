@@ -10,7 +10,13 @@ import {
 } from "@/components/organisms";
 import { ShowWhenScrolledPast } from "@/components/landing/ShowWhenScrolledPast";
 import { Reviews } from "@/components/landing/Reviews";
-import { REVIEW_SUMMARY, reviewsFor } from "@/lib/landingReviewsRu";
+import {
+  ALL_REVIEWS_URL,
+  LANDING_REVIEWS_RU,
+  REVIEW_SUMMARY,
+  overallSummary,
+  reviewsFor,
+} from "@/lib/landingReviewsRu";
 import { LandingGallery } from "@/components/landing/LandingGallery";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { IncludedProductDetails } from "@/components/landing/IncludedProductDetails";
@@ -138,6 +144,27 @@ export default async function LandingProductPage({
         ],
       ];
     }),
+  );
+
+  // this product's own reviews first, then every other review from Отзовик
+  const ownReviews = reviewsFor(slug);
+  const allReviews = [
+    ...ownReviews,
+    ...LANDING_REVIEWS_RU.filter((r) => r.product !== slug),
+  ];
+  const ownSummary = REVIEW_SUMMARY[slug as BeautySlug];
+  const reviewSummary = ownSummary
+    ? {
+        rating: ownSummary.rating,
+        count: ownSummary.count,
+        caption: "по этому продукту на Отзовике",
+      }
+    : {
+        ...overallSummary(),
+        caption: "по отзывам о продуктах системы красоты на Отзовике",
+      };
+  const reviewProductNames = Object.fromEntries(
+    BEAUTY_SLUGS.map((s) => [s, LANDING_PRODUCTS_RU[s].name]),
   );
 
   const hasFacts = (ru.facts?.rows.length ?? 0) > 0;
@@ -338,22 +365,15 @@ export default async function LandingProductPage({
           </div>
         </Section>
 
-        {reviewsFor(slug).length > 0 && (
+        {allReviews.length > 0 && (
           <Section tone="surface">
             <div className={styles.wide}>
               <Reviews
                 title="Отзывы покупателей"
-                items={reviewsFor(slug)}
-                summary={
-                  REVIEW_SUMMARY[slug]
-                    ? {
-                        rating: REVIEW_SUMMARY[slug].rating,
-                        count: REVIEW_SUMMARY[slug].count,
-                        caption: "на Отзовике",
-                      }
-                    : undefined
-                }
-                moreHref={REVIEW_SUMMARY[slug]?.url}
+                items={allReviews}
+                summary={reviewSummary}
+                productNames={reviewProductNames}
+                moreHref={ownSummary?.url ?? ALL_REVIEWS_URL}
               />
             </div>
           </Section>
