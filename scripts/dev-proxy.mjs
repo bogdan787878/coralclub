@@ -4,7 +4,7 @@
  *
  *   npm run dev            # landing on :3100
  *   npm run dev:proxy      # this proxy on :3200
- *   open http://localhost:3200/landing/checkout/
+ *   open http://localhost:3200/checkout-lab/
  *
  * The checkout test page switches the shop site itself (cookie `cc_shop_site`:
  * coralclub.ru, coralclub.us, es.coral.club …); SHOP_HOST sets the default.
@@ -124,6 +124,7 @@ function request(opts, body) {
   const lib = opts.protocol === "https:" ? https : http;
   return new Promise((resolve, reject) => {
     const r = lib.request(opts, resolve);
+    r.setTimeout(60_000, () => r.destroy(new Error("upstream timeout")));
     r.on("error", reject);
     if (body?.length) r.write(body);
     r.end();
@@ -156,6 +157,8 @@ async function toRemote(req, res, body) {
     return;
   }
   res.writeHead(upstream.statusCode ?? 502, headers);
+  upstream.on("error", () => res.destroy());
+  res.on("error", () => upstream.destroy());
   upstream.pipe(res);
 }
 
@@ -179,6 +182,8 @@ async function toLocal(req, res, body) {
     return toRemote(req, res, body);
   }
   res.writeHead(upstream.statusCode ?? 502, upstream.headers);
+  upstream.on("error", () => res.destroy());
+  res.on("error", () => upstream.destroy());
   upstream.pipe(res);
 }
 
@@ -210,6 +215,10 @@ server.on("upgrade", (req, socket, head) => {
   up.on("error", () => socket.destroy());
   socket.on("error", () => up.destroy());
 });
+
+// a broken connection must never take the proxy down
+process.on("uncaughtException", (e) => console.error("uncaught:", e.message));
+process.on("unhandledRejection", (e) => console.error("unhandled:", e));
 
 server.listen(PORT, () => {
   console.log(
