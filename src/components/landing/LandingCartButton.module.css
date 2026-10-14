@@ -43,3 +43,10 @@
   font-weight: var(--font-weight-bold);
   line-height: 1;
 }
+
+/* PDP on phones: the pinned buy bar (~92px) takes the bottom edge */
+@media (max-width: 1023px) {
+  .aboveBar {
+    bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+  }
+}

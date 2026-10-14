@@ -37,7 +37,7 @@ const LABELS_RU: CartDrawerLabels = {
 
 /**
  * LandingCartDrawer — the Russian cart drawer without a trigger of its own:
- * it opens on `openCart()` requests (e.g. the PDP buy bar's chevron button).
+ * it opens on `openCart()` requests (the floating cart, the PDP's "В корзине" button).
  */
 export function LandingCartDrawer() {
   const [open, setOpen] = useState(false);
@@ -59,23 +59,30 @@ export function LandingCartDrawer() {
 /**
  * LandingCartButton — the landings' floating cart: a round icon button with
  * an item-count badge pinned to the bottom-right, opening the same local
- * cart drawer the shop uses (Russian strings, roubles). Shown on the landing
- * page only — the PDP opens the same drawer from its buy bar instead.
+ * cart drawer the shop uses (Russian strings, roubles). Classic logic: it
+ * only appears once there is at least one item in the cart. `aboveBar` lifts
+ * it clear of the PDP's pinned buy bar on phones.
  */
-export function LandingCartButton() {
+export function LandingCartButton({
+  aboveBar = false,
+}: {
+  aboveBar?: boolean;
+}) {
   const count = cartCount(useCart());
 
   return (
     <>
-      <button
-        type="button"
-        className={styles.fab}
-        onClick={openCart}
-        aria-label={count ? `Корзина, товаров: ${count}` : "Корзина"}
-      >
-        <BagIcon />
-        {count > 0 && <span className={styles.badge}>{count}</span>}
-      </button>
+      {count > 0 && (
+        <button
+          type="button"
+          className={`${styles.fab}${aboveBar ? ` ${styles.aboveBar}` : ""}`}
+          onClick={openCart}
+          aria-label={`Корзина, товаров: ${count}`}
+        >
+          <BagIcon />
+          <span className={styles.badge}>{count}</span>
+        </button>
+      )}
 
       <LandingCartDrawer />
     </>

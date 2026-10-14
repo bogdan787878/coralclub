@@ -135,25 +135,31 @@
   font-weight: 600;
 }
 
-/* round dark-green chevron next to the stepper — opens the cart */
-.cartGo {
+/* outlined "in cart ✓" button next to the stepper — opens the cart */
+.inCart {
   flex: none;
-  width: 52px;
   height: 52px;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: var(--space-8);
+  padding-inline: var(--space-16);
+  border: 1.5px solid var(--color-action);
   border-radius: var(--radius-pill);
-  background: var(--color-action);
-  color: var(--color-action-contrast);
+  background: transparent;
+  color: var(--color-action);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
   transform-origin: right center;
+  cursor: pointer;
 }
-.cartGo:active {
-  background: var(--color-action-hover);
+.inCart:active {
+  background: var(--color-malachite-10);
 }
-.cartGo svg {
-  width: 24px;
-  height: 24px;
+.inCart svg {
+  width: 22px;
+  height: 22px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -305,5 +311,40 @@
     width: auto;
     min-height: 48px;
     padding-inline: var(--space-40);
+  }
+}
+
+/* narrow phones, product already in the cart: price + stepper + "В корзине ✓"
+   must share one row — drop the discount pill and tighten the controls */
+@media (max-width: 479px) {
+  .pinned.hasQty .savings {
+    display: none;
+  }
+  .pinned.hasQty .now {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+  .pinned.hasQty .was {
+    font-size: 0.875rem;
+    line-height: 1rem;
+  }
+  .pinned.hasQty .stepper button {
+    width: 36px;
+    height: 36px;
+  }
+  .pinned.hasQty .stepperCount {
+    min-width: 22px;
+  }
+  .pinned.hasQty .actions {
+    gap: var(--space-8);
+  }
+  .pinned.hasQty .inCart {
+    padding-inline: var(--space-12);
+    gap: var(--space-4);
+    font-size: 0.9375rem;
+  }
+  .pinned.hasQty .inCart svg {
+    width: 20px;
+    height: 20px;
   }
 }

@@ -3,8 +3,21 @@
 import { useState } from "react";
 import { Button } from "@/components/ui";
 import { addItem, openCart, setQty, useCart } from "@/lib/cart";
-import { ChevronRight } from "@/components/account/icons";
 import styles from "./BuyBox.module.css";
+
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M5 12.5l4.5 4.5L19 7"
+        stroke="currentColor"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 export type BuyBoxOption = {
   id: string;
@@ -25,8 +38,10 @@ export type BuyBoxLabels = {
   add: string;
   removeOne: string;
   addOne: string;
-  /** When set, a round chevron button next to the stepper opens the cart
-   *  (the landings have no TabBar to reach it from). */
+  /** When set, an outlined "in cart ✓" button next to the stepper opens the
+   *  cart (the landings have no TabBar to reach it from). */
+  inCart?: string;
+  /** Accessible name of that button's action. */
   openCart?: string;
 };
 
@@ -84,7 +99,7 @@ export function BuyBox({
 
   return (
     <div
-      className={`${styles.bar}${pinned ? ` ${styles.pinned}` : ""}${top ? ` ${styles.top}` : ""}`}
+      className={`${styles.bar}${pinned ? ` ${styles.pinned}` : ""}${top ? ` ${styles.top}` : ""}${qty > 0 ? ` ${styles.hasQty}` : ""}`}
     >
       <div className={styles.inner}>
         {top && <span className={styles.topName}>{product.name}</span>}
@@ -117,14 +132,15 @@ export function BuyBox({
                 +
               </button>
             </div>
-            {labels?.openCart && (
+            {labels?.inCart && (
               <button
                 type="button"
-                className={`${styles.cartGo}${anim}`}
-                aria-label={labels.openCart}
+                className={`${styles.inCart}${anim}`}
+                aria-label={labels.openCart ?? labels.inCart}
                 onClick={openCart}
               >
-                <ChevronRight />
+                <span>{labels.inCart}</span>
+                <CheckIcon />
               </button>
             )}
           </div>

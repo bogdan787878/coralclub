@@ -16,7 +16,7 @@ import { LandingHeader } from "@/components/landing/LandingHeader";
 import { IncludedProductDetails } from "@/components/landing/IncludedProductDetails";
 import { IncludedProductSheet } from "@/components/landing/IncludedProductSheet";
 import { LandingCards } from "@/components/landing/LandingCards";
-import { LandingCartDrawer } from "@/components/landing/LandingCartButton";
+import { LandingCartButton } from "@/components/landing/LandingCartButton";
 import { asset } from "@/lib/asset";
 import { BEAUTY_SLUGS, MAIN_SITE_URL } from "@/lib/beautySystem";
 import {
@@ -192,6 +192,7 @@ export default async function LandingProductPage({
       add: "В корзину",
       removeOne: "Убрать одну штуку",
       addOne: "Добавить ещё одну",
+      inCart: "В корзине",
       openCart: "Открыть корзину",
     },
   };
@@ -365,7 +366,7 @@ export default async function LandingProductPage({
           <BuyBox top {...buyProps} />
         </ShowWhenScrolledPast>
 
-        <LandingCartDrawer />
+        <LandingCartButton aboveBar />
 
         <Section tone="default">
           <Container>
