@@ -29,6 +29,10 @@ const DEFAULT_HOST = process.env.SHOP_HOST ?? "coralclub.ru";
 /** Site hosts the test page may switch to (cookie `cc_shop_site`). */
 const ALLOWED_HOST = /^(coralclub\.(ru|us)|([a-z0-9-]+\.)?coral\.club)$/i;
 const hostOf = (req) => {
+  // the page names the site per request (x-shop-site); the cookie is the
+  // fallback for plain navigations
+  const named = String(req.headers["x-shop-site"] ?? "");
+  if (ALLOWED_HOST.test(named)) return named;
   const m = /(?:^|;\s*)cc_shop_site=([^;]+)/.exec(req.headers.cookie ?? "");
   const h = m ? decodeURIComponent(m[1]) : "";
   return ALLOWED_HOST.test(h) ? h : DEFAULT_HOST;
@@ -96,6 +100,7 @@ const readBody = (req) =>
 
 function toRemoteHeaders(headers, host) {
   const h = { ...headers, host, "accept-encoding": "identity" };
+  delete h["x-shop-site"];
   for (const k of ["origin", "referer"]) {
     if (h[k]) h[k] = h[k].replace(SELF, `https://${host}`);
   }

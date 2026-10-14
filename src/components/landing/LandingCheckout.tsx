@@ -52,6 +52,9 @@ const siteFor = (code: string) =>
   SHOP_SITES[code] ?? `${code.toLowerCase()}.coral.club`;
 const SITE_COOKIE = "cc_shop_site";
 
+/** Serialises the cart syncs (see the sync effect). */
+let syncChain: Promise<void> = Promise.resolve();
+
 /** Product ids that differ from the Russian site's, per site. */
 const SITE_IDS: Record<string, Record<string, string>> = {
   "coralclub.us": {
@@ -143,14 +146,32 @@ function qs(params: Record<string, unknown>): string {
   return out.join("&");
 }
 
+/**
+ * fetch() addressed to one shop site. The site travels in a header of the
+ * request itself (not only in a cookie), so overlapping requests of two
+ * country switches can never end up on each other's site.
+ */
+function shopFetch(site: string, url: string, init: RequestInit = {}) {
+  return fetch(url, {
+    credentials: "same-origin",
+    cache: "no-store",
+    ...init,
+    headers: {
+      ...(site ? { "x-shop-site": site } : {}),
+      ...((init.headers as Record<string, string> | undefined) ?? {}),
+    },
+  });
+}
+
 async function api<T = unknown>(
   path: string,
   params: Record<string, unknown> = {},
+  site = "",
 ): Promise<T> {
-  const r = await fetch(`/sv-api${path}?${qs({ ...params, language: "ru" })}`, {
-    credentials: "same-origin",
-    cache: "no-store",
-  });
+  const r = await shopFetch(
+    site,
+    `/sv-api${path}?${qs({ ...params, language: "ru" })}`,
+  );
   const text = await r.text();
   try {
     return JSON.parse(text) as T;
@@ -169,9 +190,7 @@ async function syncShopCart(
 ): Promise<string[]> {
   const ids = SITE_IDS[site] ?? {};
   const skipped: string[] = [];
-  const html = await (
-    await fetch("/basket/", { credentials: "same-origin" })
-  ).text();
+  const html = await (await shopFetch(site, "/basket/")).text();
   const doc = new DOMParser().parseFromString(html, "text/html");
   const items = [
     ...doc.querySelectorAll<HTMLElement>(".basket-member__basic-item"),
@@ -188,9 +207,8 @@ async function syncShopCart(
     });
     body.append("basket_count", String(items.length));
     body.append("basket_member_count", "1");
-    await fetch("/ajax/deleteBasketItems.php", {
+    await shopFetch(site, "/ajax/deleteBasketItems.php", {
       method: "POST",
-      credentials: "same-origin",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
       },
@@ -208,9 +226,10 @@ async function syncShopCart(
     })
     .map((l) => `${encodeURIComponent(ids[l.slug] ?? l.coralId)}=${l.qty}`);
   if (pairs.length) {
-    await fetch(`/shop/shop_basket.php?${pairs.join("&")}${FRIEND_QUERY}`, {
-      credentials: "same-origin",
-    });
+    await shopFetch(
+      site,
+      `/shop/shop_basket.php?${pairs.join("&")}${FRIEND_QUERY}`,
+    );
   }
   return skipped;
 }
@@ -269,15 +288,16 @@ export function LandingCheckout() {
     if (!cart.length || synced.current === key) return;
     synced.current = key;
     let cancelled = false;
-    (async () => {
+    // syncs run strictly one after another and a superseded run is skipped:
+    // overlapping syncs would clear / refill the same shop cart
+    syncChain = syncChain.then(async () => {
+      if (cancelled) return;
       setReady("sync");
       setError("");
       try {
         setSkipped(await syncShopCart(cart, site || "coralclub.ru"));
         const locText = await (
-          await fetch("/restApi/v4/location/getLocation?language=ru", {
-            credentials: "same-origin",
-          })
+          await shopFetch(site, "/restApi/v4/location/getLocation?language=ru")
         ).text();
         let loc: { city?: string; area?: string } = {};
         try {
@@ -292,7 +312,7 @@ export function LandingCheckout() {
             CUR_LOCATION?: { CODE?: string };
             CHECKOUT_OPTIONS?: { countries?: Record<string, string> };
           };
-        }>("/init");
+        }>("/init", {}, site);
         if (cancelled) return;
         if (!init.result?.CUR_LOCATION && site && site !== "coralclub.ru") {
           // that regional site did not answer — fall back to the main one
@@ -331,7 +351,7 @@ export function LandingCheckout() {
           console.error(e);
         }
       }
-    })();
+    });
     return () => {
       cancelled = true;
     };
@@ -341,11 +361,15 @@ export function LandingCheckout() {
   useEffect(() => {
     if (ready !== "ok" || !city.trim()) return;
     let cancelled = false;
-    api<{ result?: DeliveryGroup[]; error?: string }>("/delivery", {
-      COUNTRY: country,
-      CITY: city,
-      AREA: area,
-    }).then((d) => {
+    api<{ result?: DeliveryGroup[]; error?: string }>(
+      "/delivery",
+      {
+        COUNTRY: country,
+        CITY: city,
+        AREA: area,
+      },
+      site,
+    ).then((d) => {
       if (cancelled) return;
       const list = Array.isArray(d.result)
         ? d.result.map((g) => ({
@@ -372,7 +396,7 @@ export function LandingCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [country, city, area, ready]);
+  }, [country, city, area, ready, site]);
 
   const activeItem = groups
     .flatMap((g) => g.ITEMS)
@@ -382,12 +406,16 @@ export function LandingCheckout() {
   useEffect(() => {
     if (!deliveryId || ready !== "ok") return;
     let cancelled = false;
-    api<{ result?: PayMethod[] }>("/payments", {
-      deliveryId,
-      COUNTRY: country,
-      CITY: city,
-      AREA: area,
-    }).then((p) => {
+    api<{ result?: PayMethod[] }>(
+      "/payments",
+      {
+        deliveryId,
+        COUNTRY: country,
+        CITY: city,
+        AREA: area,
+      },
+      site,
+    ).then((p) => {
       if (cancelled) return;
       const list = Array.isArray(p.result) ? p.result : [];
       setPayments(list);
@@ -398,7 +426,7 @@ export function LandingCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [deliveryId, country, city, area, ready]);
+  }, [deliveryId, country, city, area, ready, site]);
 
   const profile = useCallback(
     () => ({
@@ -436,18 +464,22 @@ export function LandingCheckout() {
     if (!deliveryId || !paymentId || ready !== "ok") return;
     let cancelled = false;
     const t = setTimeout(() => {
-      api<{ result?: Totals; error?: string }>("/order", {
-        bonusUseValue: 0,
-        promo: "",
-        deliveryId,
-        paymentId,
-        pickPoint: false,
-        COUNTRY: country,
-        CITY: city,
-        AREA: area,
-        PROFILE: profile(),
-        dutyEnabled: true,
-      }).then((r) => {
+      api<{ result?: Totals; error?: string }>(
+        "/order",
+        {
+          bonusUseValue: 0,
+          promo: "",
+          deliveryId,
+          paymentId,
+          pickPoint: false,
+          COUNTRY: country,
+          CITY: city,
+          AREA: area,
+          PROFILE: profile(),
+          dutyEnabled: true,
+        },
+        site,
+      ).then((r) => {
         if (!cancelled && r.result) setTotals(r.result);
       });
     }, 250);
@@ -455,7 +487,7 @@ export function LandingCheckout() {
       cancelled = true;
       clearTimeout(t);
     };
-  }, [deliveryId, paymentId, country, city, area, profile, ready]);
+  }, [deliveryId, paymentId, country, city, area, profile, ready, site]);
 
   const valid =
     fio.trim().length > 2 &&
@@ -500,9 +532,8 @@ export function LandingCheckout() {
         },
         dutyEnabled: true,
       };
-      const r = await fetch(`/sv-api/order?language=ru`, {
+      const r = await shopFetch(site, `/sv-api/order?language=ru`, {
         method: "POST",
-        credentials: "same-origin",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
