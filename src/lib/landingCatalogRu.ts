@@ -518,23 +518,22 @@ export function packLabel(slug: string): string | undefined {
 /**
  * Product photos taken from the original coralclub.ru product pages
  * (public/images/products/ru/<slug>-<n>.webp, in the site's own order).
- * The Russian PDP gallery shows the catalog photos first, then all of these.
+ * The Russian PDP gallery shows the catalog photos first, then the site
+ * photos listed here (file numbers; the rest were dropped on request).
  */
-const SITE_PHOTO_COUNT: Record<BeautySlug, number> = {
-  hydramax: 4,
-  "hydramax-plus": 3,
-  "promarine-collagen": 5,
-  "promarine-collagen-tripeptides-pack": 6,
-  "advanced-collagen-biocellulose-facial-mask": 5,
-  "hydro-boost-biocellulose-facial-mask": 5,
-  "skin-harmony-biocellulose-facial-mask": 5,
+const SITE_PHOTO_FILES: Record<BeautySlug, number[]> = {
+  hydramax: [1, 2, 3, 4],
+  "hydramax-plus": [1, 2, 3],
+  "promarine-collagen": [3, 4, 5],
+  "promarine-collagen-tripeptides-pack": [3, 4, 5, 6],
+  "advanced-collagen-biocellulose-facial-mask": [3, 5],
+  "hydro-boost-biocellulose-facial-mask": [3, 5],
+  "skin-harmony-biocellulose-facial-mask": [3, 5],
 };
 
 export function sitePhotos(slug: string): string[] {
-  const n = SITE_PHOTO_COUNT[slug as BeautySlug] ?? 0;
-  return Array.from(
-    { length: n },
-    (_, i) => `/images/products/ru/${slug}-${i + 1}.webp`,
+  return (SITE_PHOTO_FILES[slug as BeautySlug] ?? []).map(
+    (n) => `/images/products/ru/${slug}-${n}.webp`,
   );
 }
 
