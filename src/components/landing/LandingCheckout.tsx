@@ -1,81 +1,23 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  useSyncExternalStore,
-} from "react";
-import styles from "./CheckoutLab.module.css";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
+import { priceValue, useCart, type CartLine } from "@/lib/cart";
+import { FRIEND_REF_CODE, FRIEND_USER_ID } from "@/lib/beautySystem";
+import { formatRub } from "@/lib/landingCatalogRu";
+import { BackButton } from "../../app/(shop)/products/[slug]/BackButton";
+import styles from "./LandingCheckout.module.css";
 
 /**
- * CheckoutLab — a standalone test bench for an own checkout UI on top of the
- * shop's internal JSON API (/sv-api/*). It is a separate project from the
- * landing: its own route, its own cart (articles typed in here) and no
- * imports from the landing or the shop pages.
+ * LandingCheckout — prototype of an own checkout UI on top of the shop's
+ * internal JSON API (/sv-api/*). It works only on the shop's own origin:
+ * on coralclub.ru, or locally through `npm run dev:proxy`
+ * (http://localhost:3200/landing/checkout/).
  *
- * It works only on the shop's own origin: on coralclub.ru, or locally through
- * `npm run dev:proxy` (http://localhost:3200/checkout-lab/).
- *
- * Flow: put the test articles into the shop's session cart → read delivery /
- * payment options and totals → POST /sv-api/order (only on the tester's
+ * Flow: sync our cart into the shop's session cart → read delivery /
+ * payment options and totals → POST /sv-api/order (only on the shopper's
  * click) → open the payment page (/order/payment/<id>/) of the shop.
  */
-
-/** One line of the test order: a shop article and a quantity. */
-type Line = { id: string; qty: number };
-
-const LINES_KEY = "checkoutlab.lines";
-const EMPTY_LINES: Line[] = [];
-let linesSnapshot: Line[] | null = null;
-const lineListeners = new Set<() => void>();
-
-function readLines(): Line[] {
-  try {
-    const raw = window.localStorage.getItem(LINES_KEY);
-    const parsed = raw ? (JSON.parse(raw) as unknown) : [];
-    return Array.isArray(parsed)
-      ? (parsed as Line[]).filter(
-          (l) => l && typeof l.id === "string" && Number(l.qty) > 0,
-        )
-      : [];
-  } catch {
-    return [];
-  }
-}
-function writeLines(next: Line[]) {
-  linesSnapshot = next;
-  try {
-    window.localStorage.setItem(LINES_KEY, JSON.stringify(next));
-  } catch {
-    /* storage unavailable — the in-memory snapshot still works */
-  }
-  lineListeners.forEach((cb) => cb());
-}
-function useLines(): [Line[], (next: Line[]) => void] {
-  const lines = useSyncExternalStore(
-    (cb) => {
-      lineListeners.add(cb);
-      return () => lineListeners.delete(cb);
-    },
-    () => (linesSnapshot ??= readLines()),
-    () => EMPTY_LINES,
-  );
-  return [lines, writeLines];
-}
-
-/** Handy articles of the Russian site (any other article can be typed in). */
-const QUICK_ARTICLES: { id: string; name: string }[] = [
-  { id: "610205", name: "Hydro Boost, маска (5 саше)" },
-  { id: "610105", name: "Advanced Collagen, маска (5 саше)" },
-  { id: "610305", name: "Skin Harmony, маска (5 саше)" },
-  { id: "2260", name: "Промарин Пептиды (10 флаконов)" },
-  { id: "2270", name: "Промарин Трипептиды (10 флаконов)" },
-  { id: "80380", name: "Гидрамакс" },
-  { id: "80720", name: "Гидрамакс Плюс" },
-];
 
 type PayMethod = { ID: string; NAME: string; IMAGE?: string | null };
 type DeliveryItem = {
@@ -110,15 +52,13 @@ const siteFor = (code: string) =>
   SHOP_SITES[code] ?? `${code.toLowerCase()}.coral.club`;
 const SITE_COOKIE = "cc_shop_site";
 
-/** Articles of the non-Russian sites that differ from the Russian ones. */
-const FOREIGN_IDS: Record<string, string> = {
-  "80380": "803801",
-  "80720": "807201",
+/** Product ids that differ from the Russian site's, per site. */
+const SITE_IDS: Record<string, Record<string, string>> = {
+  "coralclub.us": {
+    hydramax: "803801",
+    "hydramax-plus": "807201",
+  },
 };
-const MAIN_SITE = "coralclub.ru";
-
-/** Serialises the cart syncs into the shop (see the sync effect). */
-let syncChain: Promise<void> = Promise.resolve();
 
 /** Currency symbol of the shop site (by the country it serves). */
 const CURRENCY: Record<string, string> = {
@@ -155,12 +95,15 @@ const DEFAULT_CITY: Record<string, string> = {
   IT: "Roma",
 };
 
-/** Money in the shop site's currency: "1 750 ₴", "9,50 $". */
-function money(n: number, symbol: string): string {
-  const [int, frac] = n.toFixed(2).split(".");
-  const grouped = int.replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0");
-  return `${grouped}${frac === "00" ? "" : `,${frac}`}\u00a0${symbol}`;
-}
+/**
+ * Friend-of-the-club session (every price is the club price). Off: the
+ * shopper pays the shop's ordinary prices, and the totals below are exactly
+ * what the shop charges.
+ */
+const USE_FRIEND_CLUB = false;
+const FRIEND_QUERY = USE_FRIEND_CLUB
+  ? `&REF_CODE=${FRIEND_REF_CODE}&langss=ru&user=${FRIEND_USER_ID}&f=y`
+  : "";
 
 /** { a: 1, PROFILE: { CITY: "x" } } → "a=1&PROFILE[CITY]=x" */
 function qs(params: Record<string, unknown>): string {
@@ -199,15 +142,12 @@ async function api<T = unknown>(
   }
 }
 
-/**
- * Empty the shop's session cart, then put the test lines into it. Returns
- * the articles that did not land (not sold on that site).
- */
+/** Empty the shop's session cart, then put our lines into it. */
 async function syncShopCart(
-  lines: Line[],
+  lines: CartLine[],
   site: string,
-  friendQuery: string,
 ): Promise<string[]> {
+  const ids = SITE_IDS[site] ?? {};
   const skipped: string[] = [];
   const html = await (
     await fetch("/basket/", { credentials: "same-origin" })
@@ -237,37 +177,26 @@ async function syncShopCart(
       body,
     });
   }
-  if (site === MAIN_SITE) {
-    // the Russian site takes the whole cart in one request
-    const pairs = lines.map((l) => `${encodeURIComponent(l.id)}=${l.qty}`);
-    if (pairs.length) {
-      await fetch(`/shop/shop_basket.php?${pairs.join("&")}${friendQuery}`, {
-        credentials: "same-origin",
-      });
-    }
-    return skipped;
-  }
-  // other sites: one line at a time, and keep only what actually landed in
-  // their cart (not every product is sold everywhere)
-  let have = 0;
-  for (const l of lines) {
-    const id = encodeURIComponent(FOREIGN_IDS[l.id] ?? l.id);
-    await fetch(`/shop/shop_basket.php?${id}=${l.qty}${friendQuery}`, {
+  const pairs = lines
+    .filter((l) => {
+      // bundles ("Выгодные наборы") exist only on the Russian site
+      if (site !== "coralclub.ru" && l.slug.startsWith("set-")) {
+        skipped.push(l.name);
+        return false;
+      }
+      return l.qty > 0;
+    })
+    .map((l) => `${encodeURIComponent(ids[l.slug] ?? l.coralId)}=${l.qty}`);
+  if (pairs.length) {
+    await fetch(`/shop/shop_basket.php?${pairs.join("&")}${FRIEND_QUERY}`, {
       credentials: "same-origin",
     });
-    const o = await api<{ result?: { QUANTITY?: number | string } }>("/order");
-    const q = Number(o.result?.QUANTITY ?? 0);
-    if (q > have) have = q;
-    else skipped.push(l.id);
   }
   return skipped;
 }
 
-export function CheckoutLab() {
-  const [cart, setCart] = useLines();
-  const [refCode, setRefCode] = useState("");
-  const [articleDraft, setArticleDraft] = useState("");
-  const [qtyDraft, setQtyDraft] = useState(1);
+export function LandingCheckout() {
+  const cart = useCart();
 
   const [ready, setReady] = useState<"idle" | "sync" | "ok" | "error">("idle");
   const [error, setError] = useState("");
@@ -311,37 +240,21 @@ export function CheckoutLab() {
   const picked = useRef(false);
   const synced = useRef("");
   const cartKey = useMemo(
-    () => cart.map((l) => `${l.id}:${l.qty}`).join(","),
+    () => cart.map((l) => `${l.coralId}:${l.qty}`).join(","),
     [cart],
   );
 
   // 1) our cart → the shop's session cart; 2) location + delivery options
   useEffect(() => {
-    const key = `${site}|${cartKey}|${refCode}`;
+    const key = `${site}|${cartKey}`;
     if (!cart.length || synced.current === key) return;
     synced.current = key;
     let cancelled = false;
-    // syncs run strictly one after another, and a superseded run is skipped:
-    // two concurrent syncs would both add the lines to the shop's cart
-    syncChain = syncChain.then(async () => {
-      if (cancelled) return;
+    (async () => {
       setReady("sync");
       setError("");
       try {
-        const friendQuery = refCode.trim()
-          ? `&REF_CODE=${encodeURIComponent(refCode.trim())}&f=y`
-          : "";
-        const sk = await syncShopCart(cart, site || MAIN_SITE, friendQuery);
-        setSkipped(sk);
-        if (cancelled) return;
-        if (sk.length >= cart.length) {
-          // none of the cart's products exists on this site
-          setReady("error");
-          setError(
-            `На сайте ${site || MAIN_SITE} не продаётся ни один из указанных артикулов.`,
-          );
-          return;
-        }
+        setSkipped(await syncShopCart(cart, site || "coralclub.ru"));
         const locText = await (
           await fetch("/restApi/v4/location/getLocation?language=ru", {
             credentials: "same-origin",
@@ -362,7 +275,7 @@ export function CheckoutLab() {
           };
         }>("/init");
         if (cancelled) return;
-        if (!init.result?.CUR_LOCATION && site && site !== MAIN_SITE) {
+        if (!init.result?.CUR_LOCATION && site && site !== "coralclub.ru") {
           // that regional site did not answer — fall back to the main one
           document.cookie = `${SITE_COOKIE}=coralclub.ru; path=/; max-age=86400`;
           setSiteNote(`Сайт ${site} не ответил, показан coralclub.ru`);
@@ -393,16 +306,16 @@ export function CheckoutLab() {
         if (!cancelled) {
           setReady("error");
           setError(
-            `Не удалось связаться с магазином (${e instanceof Error ? e.message : String(e)}). Страница работает только на coralclub.ru или через локальный прокси — проверьте, что npm run dev:proxy запущен.`,
+            "Не удалось связаться с магазином. Страница работает только на coralclub.ru или через локальный прокси.",
           );
           console.error(e);
         }
       }
-    });
+    })();
     return () => {
       cancelled = true;
     };
-  }, [cart, cartKey, site, refCode]);
+  }, [cart, cartKey, site]);
 
   // delivery options for the chosen country / city
   useEffect(() => {
@@ -591,14 +504,31 @@ export function CheckoutLab() {
   }
 
   const symbol = CURRENCY[shopCountry] ?? "€";
-  const fmt = (n: number) => money(n, symbol);
+  const fmt = (n: number) => formatRub(n).replace("₽", symbol);
+  const money = (v: unknown) => {
+    const n = priceValue(String(v ?? ""));
+    return n > 0 ? fmt(n) : "—";
+  };
   const num = (v: unknown) =>
     parseFloat(
       String(v ?? "")
         .replace(/\s/g, "")
         .replace(",", "."),
     ) || 0;
-  const fmtApi = (v: unknown) => (num(v) > 0 ? fmt(num(v)) : "—");
+
+  if (!cart.length) {
+    return (
+      <main className={styles.page}>
+        <div className={styles.wrap}>
+          <h1 className={styles.h1}>Оформление заказа</h1>
+          <p className={styles.muted}>Корзина пуста.</p>
+          <Link href="/landing/" className={styles.link}>
+            ← На главную
+          </Link>
+        </div>
+      </main>
+    );
+  }
 
   const deliveryPrice =
     totals && totals.TOTAL_PRICE !== undefined && totals.PRICE !== undefined
@@ -614,7 +544,7 @@ export function CheckoutLab() {
     <main className={styles.page}>
       <div className={styles.shell}>
         <aside className={styles.aside}>
-          <h2 className={styles.h2}>Тест: страна и сайт</h2>
+          <h2 className={styles.h2}>Тест: страна доставки</h2>
           <label className={styles.field}>
             Страна
             <select
@@ -671,14 +601,6 @@ export function CheckoutLab() {
           >
             Применить
           </button>
-          <label className={styles.field}>
-            REF_CODE (друг клуба, необязательно)
-            <input
-              value={refCode}
-              onChange={(e) => setRefCode(e.target.value)}
-              placeholder="пусто — обычные цены"
-            />
-          </label>
           <dl className={styles.debug}>
             <div>
               <dt>Сайт магазина</dt>
@@ -704,7 +626,8 @@ export function CheckoutLab() {
         </aside>
         <div className={styles.wrap}>
           <div className={styles.top}>
-            <h1 className={styles.h1}>Оформление заказа (тест)</h1>
+            <BackButton className={styles.back} fallbackHref="/landing/" />
+            <h1 className={styles.h1}>Оформление заказа</h1>
           </div>
 
           {ready === "sync" && <p className={styles.muted}>Готовим заказ…</p>}
@@ -718,114 +641,15 @@ export function CheckoutLab() {
           )}
 
           <section className={styles.card}>
-            <h2 className={styles.h2}>Состав заказа</h2>
-            {cart.length === 0 && (
-              <p className={styles.muted}>
-                Добавьте артикулы товаров магазина, чтобы увидеть доставку,
-                оплату и расчёт.
-              </p>
-            )}
+            <h2 className={styles.h2}>Ваш заказ</h2>
             <ul className={styles.lines}>
               {cart.map((l) => (
-                <li key={l.id}>
-                  <span>
-                    {QUICK_ARTICLES.find((q) => q.id === l.id)?.name ??
-                      `Артикул ${l.id}`}{" "}
-                    <small>#{l.id}</small>
-                  </span>
-                  <span className={styles.qty}>
-                    <button
-                      type="button"
-                      aria-label="Меньше"
-                      onClick={() =>
-                        setCart(
-                          cart
-                            .map((x) =>
-                              x.id === l.id ? { ...x, qty: x.qty - 1 } : x,
-                            )
-                            .filter((x) => x.qty > 0),
-                        )
-                      }
-                    >
-                      −
-                    </button>
-                    {l.qty}
-                    <button
-                      type="button"
-                      aria-label="Больше"
-                      onClick={() =>
-                        setCart(
-                          cart.map((x) =>
-                            x.id === l.id ? { ...x, qty: x.qty + 1 } : x,
-                          ),
-                        )
-                      }
-                    >
-                      +
-                    </button>
-                  </span>
+                <li key={l.coralId}>
+                  <span>{l.name}</span>
+                  <span>× {l.qty}</span>
                 </li>
               ))}
             </ul>
-            <div className={styles.row}>
-              <label className={styles.field}>
-                Артикул
-                <input
-                  value={articleDraft}
-                  onChange={(e) => setArticleDraft(e.target.value)}
-                  inputMode="numeric"
-                  placeholder="610205"
-                />
-              </label>
-              <label className={styles.field}>
-                Кол-во
-                <input
-                  value={qtyDraft}
-                  onChange={(e) =>
-                    setQtyDraft(Math.max(1, Number(e.target.value) || 1))
-                  }
-                  inputMode="numeric"
-                />
-              </label>
-            </div>
-            <button
-              type="button"
-              className={styles.apply}
-              disabled={!articleDraft.trim()}
-              onClick={() => {
-                const id = articleDraft.trim();
-                const have = cart.find((l) => l.id === id);
-                setCart(
-                  have
-                    ? cart.map((l) =>
-                        l.id === id ? { ...l, qty: l.qty + qtyDraft } : l,
-                      )
-                    : [...cart, { id, qty: qtyDraft }],
-                );
-                setArticleDraft("");
-              }}
-            >
-              Добавить артикул
-            </button>
-            <div className={styles.quick}>
-              {QUICK_ARTICLES.map((q) => (
-                <button
-                  key={q.id}
-                  type="button"
-                  onClick={() =>
-                    setCart(
-                      cart.some((l) => l.id === q.id)
-                        ? cart.map((l) =>
-                            l.id === q.id ? { ...l, qty: l.qty + 1 } : l,
-                          )
-                        : [...cart, { id: q.id, qty: 1 }],
-                    )
-                  }
-                >
-                  + {q.name}
-                </button>
-              ))}
-            </div>
           </section>
 
           <section className={styles.card}>
@@ -962,7 +786,7 @@ export function CheckoutLab() {
             <dl className={styles.totals}>
               <div>
                 <dt>Товары</dt>
-                <dd>{totals ? fmtApi(totals.PRICE) : "—"}</dd>
+                <dd>{totals ? money(totals.PRICE) : "—"}</dd>
               </div>
               <div>
                 <dt>Доставка</dt>
@@ -976,7 +800,7 @@ export function CheckoutLab() {
               </div>
               <div className={styles.grand}>
                 <dt>К оплате</dt>
-                <dd>{totals ? fmtApi(totals.TOTAL_PRICE) : "—"}</dd>
+                <dd>{totals ? money(totals.TOTAL_PRICE) : "—"}</dd>
               </div>
             </dl>
             <label className={styles.check}>

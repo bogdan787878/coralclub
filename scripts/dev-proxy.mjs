@@ -4,7 +4,7 @@
  *
  *   npm run dev            # landing on :3100
  *   npm run dev:proxy      # this proxy on :3200
- *   open http://localhost:3200/checkout-lab/
+ *   open http://localhost:3200/landing/checkout/
  *
  * The checkout test page switches the shop site itself (cookie `cc_shop_site`:
  * coralclub.ru, coralclub.us, es.coral.club …); SHOP_HOST sets the default.
