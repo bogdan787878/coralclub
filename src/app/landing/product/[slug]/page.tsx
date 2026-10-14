@@ -231,17 +231,22 @@ export default async function LandingProductPage({
                       </div>
                     </section>
                   )}
-                  {product.dietaryBadges.length > 0 && (
-                    <DietaryBadges
-                      items={product.dietaryBadges}
-                      labels={BADGE_LABELS_RU}
-                    />
-                  )}
-                  {ru.elements.length > 0 && (
-                    <PeriodicElements
-                      items={ru.elements}
-                      heading="Ключевые компоненты"
-                    />
+                  {(ru.elements.length > 0 ||
+                    product.dietaryBadges.length > 0) && (
+                    <div className={styles.keyBlock}>
+                      {ru.elements.length > 0 && (
+                        <PeriodicElements
+                          items={ru.elements}
+                          heading="Ключевые компоненты"
+                        />
+                      )}
+                      {product.dietaryBadges.length > 0 && (
+                        <DietaryBadges
+                          items={product.dietaryBadges}
+                          labels={BADGE_LABELS_RU}
+                        />
+                      )}
+                    </div>
                   )}
                   {included.length > 0 && (
                     <IncludedProductSheet
