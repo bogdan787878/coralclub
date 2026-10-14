@@ -2,22 +2,20 @@
 
 import { useState } from "react";
 import { Accent } from "@/components/ui";
-import { HeroCarousel, PhaseSwitcherPills } from "@/components/organisms";
+import { HeroCarousel } from "@/components/organisms";
 import { useLeadModal } from "./LeadModal";
-import styles from "./LandingHero.module.css";
 
 export type LandingHeroSlide = {
   id: string;
-  /** Switcher label, e.g. "Маски". */
+  /** Name of the slide (not shown while the switcher is off). */
   name: string;
   image: { desktopSrc: string; mobileSrc: string; alt: string };
 };
 
 /**
  * LandingHero — the shop's own hero: full-bleed photo with the progressive
- * blur at the top, white copy, a white CTA, swipeable slides with dots, and
- * the glass pill switcher straddling the seam under it. The CTA opens the
- * consultation form.
+ * blur at the top, white copy, a white CTA and swipeable slides with dots.
+ * The CTA opens the consultation form.
  */
 export function LandingHero({ slides }: { slides: LandingHeroSlide[] }) {
   const [active, setActive] = useState(0);
@@ -48,19 +46,6 @@ export function LandingHero({ slides }: { slides: LandingHeroSlide[] }) {
           },
         }))}
       />
-
-      {/* a direct child of <main> so the sticky pill has room to stay stuck */}
-      <div className={styles.switcher}>
-        <PhaseSwitcherPills
-          phases={slides.map((s) => ({ id: s.id, name: s.name }))}
-          value={slides[active]?.id ?? slides[0].id}
-          onChange={(id) => {
-            const i = slides.findIndex((s) => s.id === id);
-            if (i >= 0) setActive(i);
-          }}
-          label="Выберите раздел"
-        />
-      </div>
     </>
   );
 }
