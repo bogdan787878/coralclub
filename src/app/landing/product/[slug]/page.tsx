@@ -219,14 +219,17 @@ export default async function LandingProductPage({
                   ))}
 
                   {ru.origins.length > 0 && (
-                    <div className={shop.originTags}>
-                      {ru.origins.map((o) => (
-                        <span className={shop.originTag} key={o.label}>
-                          <span aria-hidden="true">{o.flag} </span>
-                          {o.label}
-                        </span>
-                      ))}
-                    </div>
+                    <section className={styles.origin}>
+                      <h3 className={styles.originTitle}>Производитель</h3>
+                      <div className={shop.originTags}>
+                        {ru.origins.map((o) => (
+                          <span className={shop.originTag} key={o.label}>
+                            <span aria-hidden="true">{o.flag} </span>
+                            {o.label}
+                          </span>
+                        ))}
+                      </div>
+                    </section>
                   )}
                   {product.dietaryBadges.length > 0 && (
                     <DietaryBadges
@@ -240,9 +243,6 @@ export default async function LandingProductPage({
                       heading="Ключевые компоненты"
                     />
                   )}
-                  <p className={shop.disclaimer}>
-                    {DISCLAIMERS[ru.disclaimer]}
-                  </p>
                   {included.length > 0 && (
                     <IncludedProductSheet
                       items={included}
@@ -317,6 +317,12 @@ export default async function LandingProductPage({
                     moreLabel="Читать полностью"
                     lessLabel="Свернуть"
                   />
+                )}
+
+                {DISCLAIMERS[ru.disclaimer] && (
+                  <p className={shop.disclaimer}>
+                    {DISCLAIMERS[ru.disclaimer]}
+                  </p>
                 )}
               </Stack>
             </div>

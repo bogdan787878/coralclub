@@ -65,10 +65,9 @@ const HOW_TO_MASK =
   "Используйте 2–3 раза в неделю на чистую кожу лица, лучше вечером. Держите 15–20 минут, затем снимите маску и помассируйте остатки сыворотки в кожу.";
 
 export const DISCLAIMERS: Record<LandingProductRu["disclaimer"], string> = {
-  supplement:
-    "Биологически активная добавка. Не является лекарственным средством. Перед применением проконсультируйтесь со специалистом.",
-  cosmetic:
-    "Косметическое средство. Не является лекарственным средством. Перед применением проконсультируйтесь со специалистом.",
+  supplement: "БАД. Не является лекарственным средством.",
+  /** Masks are cosmetics: no disclaimer line. */
+  cosmetic: "",
 };
 
 /** Dietary badge slug → Russian label (icons are shared with the shop). */

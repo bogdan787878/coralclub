@@ -51,3 +51,19 @@
     line-height: 2.375rem;
   }
 }
+
+/* small section heading, same weight as "Ключевые компоненты" */
+.origin {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.originTitle {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-button-size);
+  line-height: var(--text-button-line);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
