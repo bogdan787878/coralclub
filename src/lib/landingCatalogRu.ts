@@ -572,6 +572,13 @@ export function sitePhotos(slug: string): string[] {
  */
 export const HYDRAMAX_PACKSHOT = "/images/products/ru/hydramax-3.webp";
 
+/** Photos that lead a product's gallery (before the catalog photos). */
+export const LEAD_PHOTO: Record<string, string> = {
+  hydramax: HYDRAMAX_PACKSHOT,
+  // the plain box on grey, as on coralclub.ru
+  "hydramax-plus": "/images/products/ru/hydramax-plus-2.webp",
+};
+
 /** "Название – форма выпуска" as one plain string (cart lines, top bar). */
 export function fullTitle(slug: string): string {
   const ru = LANDING_PRODUCTS_RU[slug as BeautySlug];

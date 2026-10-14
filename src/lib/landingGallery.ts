@@ -1,6 +1,6 @@
 import { asset } from "./asset";
 import {
-  HYDRAMAX_PACKSHOT,
+  LEAD_PHOTO,
   LANDING_PRODUCTS_RU,
   sitePhotos,
   type BeautySlug,
@@ -17,18 +17,18 @@ export function landingGallery(slug: string): { src: string; alt: string }[] {
   const product = getProduct(slug);
   const alt = ru?.name ?? product?.name ?? slug;
 
-  // Hydramax's catalog photo shows the "Plus" box — lead with the real one
+  // Hydramax's catalog photo shows the "Plus" box — lead with the real one;
+  // Hydramax Plus leads with the plain box on grey from the site
+  const lead = LEAD_PHOTO[slug];
   const catalog = slug === "hydramax" ? [] : (product?.pdpImages ?? []);
   const site = sitePhotos(slug).map((src) => asset(src));
-  const ordered =
-    slug === "hydramax"
-      ? [
-          asset(HYDRAMAX_PACKSHOT),
-          ...site.filter((u) => u !== asset(HYDRAMAX_PACKSHOT)),
-        ]
-      : site;
+  const leadSrc = lead ? asset(lead) : undefined;
+  const without = (list: string[]) => list.filter((u) => u !== leadSrc);
+  const images0 = leadSrc
+    ? [leadSrc, ...without(catalog), ...without(site)]
+    : [...catalog, ...site];
 
-  const images = [...catalog, ...ordered].map((src) => ({ src, alt }));
+  const images = images0.map((src) => ({ src, alt }));
   if (!images.length && product?.image)
     images.push({ src: product.image, alt });
   return images;
