@@ -42,7 +42,7 @@ export function LandingGallery({
                   src={img.src}
                   alt=""
                   fill
-                  sizes="72px"
+                  sizes="80px"
                   style={{ objectFit: fit }}
                 />
               </button>

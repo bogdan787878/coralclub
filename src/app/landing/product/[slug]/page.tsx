@@ -151,8 +151,8 @@ export default async function LandingProductPage({
         </div>
 
         <Section tone="surface">
-          <Container>
-            <div className={shop.layout}>
+          <div className={styles.wide}>
+            <div className={`${shop.layout} ${styles.layout}`}>
               <LandingGallery
                 images={images}
                 title={ru.name}
@@ -163,6 +163,38 @@ export default async function LandingProductPage({
                 <div className={shop.headGroup}>
                   <span className={shop.category}>{ru.category}</span>
                   <Heading className={shop.name}>{ru.name}</Heading>
+
+                  {/* mobile/tablet: fixed bottom bar; desktop: price card under the title */}
+                  <BuyBox
+                    pinned
+                    product={{
+                      coralId: card.coralId,
+                      slug,
+                      name: ru.name,
+                      image: product.image ?? images[0]?.src,
+                    }}
+                    options={[
+                      {
+                        id: "club",
+                        label: "Цена",
+                        note: discountTag(slug),
+                        price: formatRub(ru.priceRub.club),
+                        cta: { label: "В корзину", href: shopPdpHref },
+                      },
+                      {
+                        id: "regular",
+                        label: "Обычная цена",
+                        price: formatRub(ru.priceRub.regular),
+                        cta: { label: "В корзину", href: shopPdpHref },
+                      },
+                    ]}
+                    labels={{
+                      add: "В корзину",
+                      removeOne: "Убрать одну штуку",
+                      addOne: "Добавить ещё одну",
+                      openCart: "Открыть корзину",
+                    }}
+                  />
 
                   <BodyLong>{ru.lead}</BodyLong>
                   {ru.bullets && (
@@ -278,40 +310,8 @@ export default async function LandingProductPage({
                   />
                 )}
               </Stack>
-
-              {/* mobile/tablet: fixed bottom bar; desktop: sticky 3rd column */}
-              <BuyBox
-                pinned
-                product={{
-                  coralId: card.coralId,
-                  slug,
-                  name: ru.name,
-                  image: product.image ?? images[0]?.src,
-                }}
-                options={[
-                  {
-                    id: "club",
-                    label: "Цена",
-                    note: discountTag(slug),
-                    price: formatRub(ru.priceRub.club),
-                    cta: { label: "В корзину", href: shopPdpHref },
-                  },
-                  {
-                    id: "regular",
-                    label: "Обычная цена",
-                    price: formatRub(ru.priceRub.regular),
-                    cta: { label: "В корзину", href: shopPdpHref },
-                  },
-                ]}
-                labels={{
-                  add: "В корзину",
-                  removeOne: "Убрать одну штуку",
-                  addOne: "Добавить ещё одну",
-                  openCart: "Открыть корзину",
-                }}
-              />
             </div>
-          </Container>
+          </div>
         </Section>
 
         <LandingCartDrawer />
