@@ -19,6 +19,7 @@
 }
 
 .slide {
+  position: relative;
   flex: 0 0 100%;
   min-width: 0;
   scroll-snap-align: start;
@@ -119,6 +120,15 @@
   line-height: 1rem;
   font-weight: 900;
   color: var(--color-special);
+}
+
+/* the name link stretches over the whole card so the photo and text are
+   clickable too (the cart button sits above it) */
+.productName::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 
 .productName {
