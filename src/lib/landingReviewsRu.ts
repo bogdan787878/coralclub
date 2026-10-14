@@ -45,10 +45,10 @@ export const REVIEW_SUMMARY: Partial<Record<BeautySlug, ReviewSummary>> = {
   },
   "promarine-collagen-tripeptides-pack": {
     rating: 5.0,
-    count: 8,
+    count: 6,
     url: "https://otzovik.com/reviews/kollagen_promarin_tripiptidi_coral_club/",
   },
-  "promarine-collagen": { rating: 5.0, count: 1 },
+  "promarine-collagen": { rating: 5.0, count: 3 },
   "advanced-collagen-biocellulose-facial-mask": {
     rating: 5.0,
     count: 1,
@@ -158,7 +158,7 @@ export const LANDING_REVIEWS_RU: LandingReview[] = [
   },
   {
     id: "18702897",
-    product: "promarine-collagen-tripeptides-pack",
+    product: "promarine-collagen",
     author: "Maria Arhipova",
     date: "1 окт 2026",
     rating: 5,
@@ -171,7 +171,7 @@ export const LANDING_REVIEWS_RU: LandingReview[] = [
   },
   {
     id: "18297675",
-    product: "promarine-collagen-tripeptides-pack",
+    product: "promarine-collagen",
     author: "Волкова Карина",
     date: "23 апр 2026",
     rating: 5,
