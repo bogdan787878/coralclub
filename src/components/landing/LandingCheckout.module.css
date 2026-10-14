@@ -189,3 +189,26 @@
   opacity: 0.45;
   cursor: not-allowed;
 }
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-12);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.check input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--color-malachite-90);
+}
+
+.check a {
+  color: inherit;
+  text-decoration: underline;
+}

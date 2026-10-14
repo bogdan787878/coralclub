@@ -30,6 +30,7 @@ const REMOTE_PREFIXES = [
   "/basket",
   "/checkout",
   "/ajax",
+  "/faq",
   "/restApi",
   "/order",
   "/personal-new",

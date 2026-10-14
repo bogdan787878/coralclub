@@ -139,6 +139,8 @@ export function LandingCheckout() {
   const [comment, setComment] = useState("");
   const [deliveryId, setDeliveryId] = useState("");
   const [paymentId, setPaymentId] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [agreeData, setAgreeData] = useState(false);
   const [sending, setSending] = useState(false);
 
   const synced = useRef("");
@@ -284,7 +286,9 @@ export function LandingCheckout() {
     build.trim() !== "" &&
     postindex.trim().length >= 5 &&
     deliveryId !== "" &&
-    paymentId !== "";
+    paymentId !== "" &&
+    acceptTerms &&
+    agreeData;
 
   // the only place that creates a real order — runs on the shopper's click
   async function submit() {
@@ -303,7 +307,17 @@ export function LandingCheckout() {
           MANUAL: 1,
           ...(comment ? { COMMENT: comment } : {}),
         },
-        additionalOrderInfo: comment ? { orderComment: comment } : {},
+        // the shopper's two consents, exactly as the shop's own form sends them
+        additionalOrderInfo: {
+          orderComment: comment,
+          needToContact: false,
+          contactMethod: "",
+          chosenMessenger: "",
+          receiveEmails: false,
+          acceptTerms,
+          acceptTerms2: false,
+          agreePersonalData: agreeData,
+        },
         dutyEnabled: true,
       };
       const r = await fetch(`/sv-api/order?language=ru`, {
@@ -518,6 +532,40 @@ export function LandingCheckout() {
               <dd>{totals ? money(totals.TOTAL_PRICE) : "—"}</dd>
             </div>
           </dl>
+          <label className={styles.check}>
+            <input
+              type="checkbox"
+              checked={acceptTerms}
+              onChange={(e) => setAcceptTerms(e.target.checked)}
+            />
+            <span>
+              Я принимаю{" "}
+              <a href="/faq/terms/" target="_blank" rel="noopener noreferrer">
+                условия использования сервиса
+              </a>{" "}
+              и{" "}
+              <a href="/faq/privacy/" target="_blank" rel="noopener noreferrer">
+                политику конфиденциальности
+              </a>
+            </span>
+          </label>
+          <label className={styles.check}>
+            <input
+              type="checkbox"
+              checked={agreeData}
+              onChange={(e) => setAgreeData(e.target.checked)}
+            />
+            <span>
+              Даю согласие на{" "}
+              <a
+                href="/faq/personalinformation/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                обработку персональных данных
+              </a>
+            </span>
+          </label>
           <button
             type="button"
             className={styles.pay}
@@ -527,8 +575,8 @@ export function LandingCheckout() {
             {sending ? "Создаём заказ…" : "Перейти к оплате"}
           </button>
           <p className={styles.muted}>
-            Нажимая кнопку, вы создаёте заказ в магазине и переходите на
-            страницу оплаты.
+            После нажатия создаётся заказ в магазине и открывается страница
+            оплаты.
           </p>
         </section>
       </div>
