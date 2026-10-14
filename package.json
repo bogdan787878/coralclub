@@ -10,7 +10,8 @@
     "prebuild": "npm run gen",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "dev:proxy": "node scripts/dev-proxy.mjs"
   },
   "dependencies": {
     "next": "16.3.3",
