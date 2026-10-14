@@ -52,13 +52,12 @@ const siteFor = (code: string) =>
   SHOP_SITES[code] ?? `${code.toLowerCase()}.coral.club`;
 const SITE_COOKIE = "cc_shop_site";
 
-/** Product ids that differ from the Russian site's, per site. */
-const SITE_IDS: Record<string, Record<string, string>> = {
-  "coralclub.us": {
-    hydramax: "803801",
-    "hydramax-plus": "807201",
-  },
+/** Product ids of the non-Russian sites that differ from the Russian ones. */
+const FOREIGN_IDS: Record<string, string> = {
+  hydramax: "803801",
+  "hydramax-plus": "807201",
 };
+const MAIN_SITE = "coralclub.ru";
 
 /** Currency symbol of the shop site (by the country it serves). */
 const CURRENCY: Record<string, string> = {
@@ -147,7 +146,7 @@ async function syncShopCart(
   lines: CartLine[],
   site: string,
 ): Promise<string[]> {
-  const ids = SITE_IDS[site] ?? {};
+  const ids = site === MAIN_SITE ? {} : FOREIGN_IDS;
   const skipped: string[] = [];
   const html = await (
     await fetch("/basket/", { credentials: "same-origin" })
@@ -177,20 +176,35 @@ async function syncShopCart(
       body,
     });
   }
-  const pairs = lines
-    .filter((l) => {
-      // bundles ("Выгодные наборы") exist only on the Russian site
-      if (site !== "coralclub.ru" && l.slug.startsWith("set-")) {
-        skipped.push(l.name);
-        return false;
-      }
-      return l.qty > 0;
-    })
-    .map((l) => `${encodeURIComponent(ids[l.slug] ?? l.coralId)}=${l.qty}`);
-  if (pairs.length) {
-    await fetch(`/shop/shop_basket.php?${pairs.join("&")}${FRIEND_QUERY}`, {
+  if (site === MAIN_SITE) {
+    // the Russian site takes the whole cart in one request
+    const pairs = lines
+      .filter((l) => l.qty > 0)
+      .map((l) => `${encodeURIComponent(l.coralId)}=${l.qty}`);
+    if (pairs.length) {
+      await fetch(`/shop/shop_basket.php?${pairs.join("&")}${FRIEND_QUERY}`, {
+        credentials: "same-origin",
+      });
+    }
+    return skipped;
+  }
+  // other sites: one line at a time, and keep only what actually landed in
+  // their cart (bundles and some products are not sold everywhere)
+  let have = 0;
+  for (const l of lines) {
+    if (l.qty <= 0) continue;
+    if (l.slug.startsWith("set-")) {
+      skipped.push(l.name);
+      continue;
+    }
+    const id = encodeURIComponent(ids[l.slug] ?? l.coralId);
+    await fetch(`/shop/shop_basket.php?${id}=${l.qty}${FRIEND_QUERY}`, {
       credentials: "same-origin",
     });
+    const o = await api<{ result?: { QUANTITY?: number | string } }>("/order");
+    const q = Number(o.result?.QUANTITY ?? 0);
+    if (q > have) have = q;
+    else skipped.push(l.name);
   }
   return skipped;
 }
@@ -254,7 +268,17 @@ export function LandingCheckout() {
       setReady("sync");
       setError("");
       try {
-        setSkipped(await syncShopCart(cart, site || "coralclub.ru"));
+        const sk = await syncShopCart(cart, site || MAIN_SITE);
+        setSkipped(sk);
+        if (cancelled) return;
+        if (sk.length >= cart.length) {
+          // none of the cart's products exists on this site
+          setReady("error");
+          setError(
+            `На сайте ${site || MAIN_SITE} не продаётся ничего из вашей корзины.`,
+          );
+          return;
+        }
         const locText = await (
           await fetch("/restApi/v4/location/getLocation?language=ru", {
             credentials: "same-origin",
@@ -275,7 +299,7 @@ export function LandingCheckout() {
           };
         }>("/init");
         if (cancelled) return;
-        if (!init.result?.CUR_LOCATION && site && site !== "coralclub.ru") {
+        if (!init.result?.CUR_LOCATION && site && site !== MAIN_SITE) {
           // that regional site did not answer — fall back to the main one
           document.cookie = `${SITE_COOKIE}=coralclub.ru; path=/; max-age=86400`;
           setSiteNote(`Сайт ${site} не ответил, показан coralclub.ru`);
