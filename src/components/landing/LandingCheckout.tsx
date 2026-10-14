@@ -2,9 +2,13 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { priceValue, useCart, type CartLine } from "@/lib/cart";
+import { addItem, priceValue, useCart, type CartLine } from "@/lib/cart";
 import { FRIEND_REF_CODE, FRIEND_USER_ID } from "@/lib/beautySystem";
-import { formatRub } from "@/lib/landingCatalogRu";
+import {
+  LANDING_PRODUCTS_RU,
+  formatRub,
+  fullTitle,
+} from "@/lib/landingCatalogRu";
 import { BackButton } from "../../app/(shop)/products/[slug]/BackButton";
 import styles from "./LandingCheckout.module.css";
 
@@ -51,6 +55,13 @@ const SHOP_SITES: Record<string, string> = {
 const siteFor = (code: string) =>
   SHOP_SITES[code] ?? `${code.toLowerCase()}.coral.club`;
 const SITE_COOKIE = "cc_shop_site";
+
+/**
+ * The product the page starts with when the cart is empty: a mask — the one
+ * product that every country site (RU, US, UA, GB, DE, FR, IT, ES, CZ, BY,
+ * KG, UZ …) sells under the same article, so any country can be tested.
+ */
+const DEFAULT_SLUG = "hydro-boost-biocellulose-facial-mask";
 
 /** Serialises the cart syncs (see the sync effect). */
 let syncChain: Promise<void> = Promise.resolve();
@@ -308,6 +319,26 @@ export function LandingCheckout() {
     () => cart.map((l) => `${l.coralId}:${l.qty}`).join(","),
     [cart],
   );
+
+  // an empty cart starts with the default product (checked in the storage
+  // itself, so a not-yet-hydrated render cannot add a second one)
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem("coralclub.cart");
+      const lines = raw ? (JSON.parse(raw) as unknown) : [];
+      if (Array.isArray(lines) && lines.length > 0) return;
+    } catch {
+      /* storage unavailable — fall through and seed the default */
+    }
+    const ru = LANDING_PRODUCTS_RU[DEFAULT_SLUG];
+    if (!ru) return;
+    addItem({
+      coralId: ru.ruId,
+      slug: DEFAULT_SLUG,
+      name: fullTitle(DEFAULT_SLUG),
+      price: formatRub(ru.priceRub.club),
+    });
+  }, []);
 
   // 1) our cart → the shop's session cart; 2) location + delivery options
   useEffect(() => {
