@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import { getImageProps } from "next/image";
 import { Accent, Container, Heading, Section } from "@/components/ui";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { Ingredients } from "@/components/landing/Ingredients";
-import { LandingHero } from "@/components/landing/LandingHero";
 import { LeadModalProvider } from "@/components/landing/LeadModal";
 import { Reviews } from "@/components/landing/Reviews";
 import {
@@ -23,7 +23,6 @@ import {
 } from "@/lib/landingCatalogRu";
 import { landingGallery } from "@/lib/landingGallery";
 import { getProductCards } from "@/lib/products";
-import heroImages from "../../../content/hero-images.json";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -35,42 +34,8 @@ export const metadata: Metadata = {
 
 const img = (name: string) => asset(`/images/landing/${name}?v=1`);
 
-/** A hero photo from content/hero-images.json (CMS-managed), same prefixing
- *  and cache-busting as the shop home. */
-function heroPhoto(id: string, alt: string) {
-  const entry = heroImages.items.find((i) => i.id === id);
-  const desktop = entry?.desktop ?? "";
-  const mobile = entry?.mobile || desktop;
-  return {
-    desktopSrc: desktop ? `${asset(desktop)}?v=3` : "",
-    mobileSrc: mobile ? `${asset(mobile)}?v=3` : "",
-    alt,
-  };
-}
-
-/** Slides of the landing hero. The first keeps the landing's own photo; the
- *  other two borrow the shop's phase heroes until the landing gets its own. */
-const heroSlides = [
-  {
-    id: "masks",
-    name: "Маски",
-    image: {
-      desktopSrc: img("hero-masks-desktop.webp"),
-      mobileSrc: img("hero-masks-mobile.webp"),
-      alt: "Три биоцеллюлозные маски Coral Club — упаковки и саше на столе в солнечном свете",
-    },
-  },
-  {
-    id: "collagen",
-    name: "Коллаген",
-    image: heroPhoto("restart", "Продукты Coral Club на студийных подиумах"),
-  },
-  {
-    id: "hydration",
-    name: "Гидратация",
-    image: heroPhoto("hydration", "Набор для гидратации Coral Club"),
-  },
-];
+const HERO_ALT =
+  "Три биоцеллюлозные маски Coral Club — упаковки и саше на столе в солнечном свете";
 
 const MASK_SLUGS = [
   "advanced-collagen-biocellulose-facial-mask",
@@ -118,13 +83,54 @@ export default function LandingPage() {
     BEAUTY_SLUGS.map((slug) => [slug, LANDING_PRODUCTS_RU[slug].name]),
   );
 
+  // one hero photo: the phone crop below 1024px, the wide one above
+  const heroCommon = {
+    alt: HERO_ALT,
+    fill: true,
+    priority: true,
+    sizes: "(max-width: 1023px) 100vw, 60vw",
+  };
+  const heroMobile = getImageProps({
+    ...heroCommon,
+    src: img("hero-masks-mobile.webp"),
+  });
+  const heroDesktop = getImageProps({
+    ...heroCommon,
+    src: img("hero-masks-desktop.webp"),
+  });
+
   return (
     <div className="appShell">
       <LeadModalProvider>
         <main className={styles.page}>
           <LandingHeader homeHref={MAIN_SITE_URL} />
 
-          <LandingHero slides={heroSlides} />
+          <section className={styles.hero}>
+            <div className={styles.heroMedia}>
+              <picture>
+                <source
+                  media="(min-width: 1024px)"
+                  srcSet={heroDesktop.props.srcSet}
+                  sizes={heroDesktop.props.sizes}
+                />
+                <img alt={HERO_ALT} {...heroMobile.props} />
+              </picture>
+            </div>
+            <Container className={styles.heroCol}>
+              <div className={styles.heroBody}>
+                <Heading className={styles.heroTitle}>
+                  Ваша <Accent>система красоты</Accent>
+                </Heading>
+                <p className={styles.heroText}>
+                  Уход изнутри и снаружи в одной системе от Coral Club:
+                  коллаген, гидратация и маски для естественного сияния кожи.
+                </p>
+                <LandingCta source="hero" className={styles.cta}>
+                  Записаться на консультацию
+                </LandingCta>
+              </div>
+            </Container>
+          </section>
 
           <section id="why" className={styles.why}>
             <Container>

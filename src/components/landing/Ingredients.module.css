@@ -1,6 +1,7 @@
 .section {
   /* the design's pale grey-green */
   background: #e6eeec;
+  padding-block: var(--space-48);
 }
 
 .inner {
