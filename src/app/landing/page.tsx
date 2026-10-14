@@ -200,7 +200,14 @@ export default function LandingPage() {
           <Section tone="default" id="collagen" className={styles.section}>
             <Container>
               <div className={styles.block}>
-                <div className={styles.blockPlaceholder} aria-hidden="true" />
+                <div className={styles.blockMedia}>
+                  <Image
+                    src={img("collagen-block.webp")}
+                    alt="Промарин Пептиды и Трипептиды Коллагена: упаковки и флаконы на столе"
+                    fill
+                    sizes="(max-width: 1023px) 100vw, 560px"
+                  />
+                </div>
                 <div className={styles.blockBody}>
                   <div className={styles.blockHead}>
                     <Heading as="h2" className={styles.h2}>
