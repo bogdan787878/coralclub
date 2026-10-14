@@ -126,7 +126,7 @@
 /* grey stand-in for the block picture while the photo is being chosen */
 .blockPlaceholder {
   width: 100%;
-  aspect-ratio: 5 / 3;
+  aspect-ratio: 1 / 1;
   border-radius: var(--radius-base);
   background: var(--color-neutral-30);
 }
@@ -347,4 +347,13 @@
    heading above and still bleed to the screen edge when they scroll */
 .carouselBleed {
   margin-inline: calc(-1 * var(--page-padding-inline));
+  /* breathing room under the block description */
+  margin-top: var(--space-32);
+}
+
+@media (min-width: 1024px) {
+  /* on the desktop grid the row gap already provides it */
+  .carouselBleed {
+    margin-top: 0;
+  }
 }

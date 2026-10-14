@@ -164,7 +164,7 @@ export default function LandingPage() {
                 <div className={styles.blockBody}>
                   <div className={styles.blockHead}>
                     <Heading as="h2" className={styles.h2}>
-                      Сияние и восстановление кожи
+                      Восстановление и сияние кожи
                     </Heading>
                     <p className={styles.blockText}>
                       Три биоцеллюлозные маски для лица с разным назначением:
