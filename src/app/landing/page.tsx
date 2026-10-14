@@ -60,10 +60,11 @@ const heroSlides = [
   {
     id: "masks",
     name: "Маски",
-    image: heroPhoto(
-      "personalization",
-      "Promarine Collagen Tripeptides и маска Hydro Boost на столе",
-    ),
+    image: {
+      desktopSrc: img("hero-masks-desktop.webp"),
+      mobileSrc: img("hero-masks-mobile.webp"),
+      alt: "Три биоцеллюлозные маски Coral Club — упаковки и саше на столе в солнечном свете",
+    },
   },
   {
     id: "collagen",
