@@ -150,7 +150,14 @@ export default function LandingPage() {
           <Section tone="surface" id="masks" className={styles.section}>
             <Container>
               <div className={styles.block}>
-                <div className={styles.blockPlaceholder} aria-hidden="true" />
+                <div className={`${styles.blockMedia} ${styles.blockMedia43}`}>
+                  <Image
+                    src={img("masks-block.webp")}
+                    alt="Три биоцеллюлозные маски Coral Club: Advanced Collagen, Hydro Boost и Skin Harmony — упаковки и саше"
+                    fill
+                    sizes="(max-width: 1023px) 100vw, 560px"
+                  />
+                </div>
                 <div className={styles.blockBody}>
                   <div className={styles.blockHead}>
                     <Heading as="h2" className={styles.h2}>

@@ -129,6 +129,11 @@
   object-fit: cover;
 }
 
+/* a 4:3 picture is shown whole instead of being cut to 5:3 */
+.blockMedia43 {
+  aspect-ratio: 4 / 3;
+}
+
 /* grey stand-in for the block picture while the photo is being chosen */
 .blockPlaceholder {
   width: 100%;
