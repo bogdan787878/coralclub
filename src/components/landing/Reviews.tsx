@@ -3,6 +3,7 @@ import { Heading } from "@/components/ui";
 import { asset } from "@/lib/asset";
 import type { LandingReview } from "@/lib/landingReviewsRu";
 import { ReviewPhotos } from "./ReviewPhotos";
+import { ReviewText } from "./ReviewText";
 import styles from "./Reviews.module.css";
 
 function Stars({ value }: { value: number }) {
@@ -60,7 +61,7 @@ function ReviewCard({
       </div>
       {productName && <span className={styles.product}>{productName}</span>}
       <h3 className={styles.reviewTitle}>{review.title}</h3>
-      <p className={styles.text}>{review.text}</p>
+      <ReviewText text={review.text} clamp />
       {review.plus && (
         <p className={styles.plus}>
           <b>Достоинства:</b> {review.plus}
@@ -102,7 +103,7 @@ function ReviewCard({
           target="_blank"
           rel="noopener noreferrer nofollow"
         >
-          Читать весь отзыв на Отзовике
+          Отзыв на Отзовике
         </a>
       </div>
     </li>
@@ -141,7 +142,7 @@ function ReviewRow({
       <div className={styles.rowBody}>
         {productName && <span className={styles.product}>{productName}</span>}
         <h3 className={styles.reviewTitle}>{review.title}</h3>
-        <p className={styles.text}>{review.text}</p>
+        <ReviewText text={review.text} />
         {review.plus && (
           <p className={styles.plus}>
             <b>Достоинства:</b> {review.plus}
@@ -159,7 +160,7 @@ function ReviewRow({
           target="_blank"
           rel="noopener noreferrer nofollow"
         >
-          Читать весь отзыв на Отзовике
+          Отзыв на Отзовике
         </a>
       </div>
     </li>
