@@ -309,6 +309,7 @@
 .price {
   margin-top: var(--space-8);
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   gap: 4px;
   font-family: var(--font-sans);
@@ -324,4 +325,17 @@
   line-height: 1rem; /* 16 */
   color: var(--color-text-muted);
   text-decoration: line-through;
+}
+
+/* discount-size pill after the prices */
+.priceTag {
+  align-self: center;
+  padding: 0 var(--space-8);
+  border-radius: var(--radius-pill);
+  background: var(--color-special);
+  color: #ffffff;
+  font-size: 0.6875rem; /* 11 */
+  line-height: 1.125rem; /* 18 */
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
 }

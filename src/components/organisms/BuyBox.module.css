@@ -169,12 +169,31 @@
   padding-bottom: calc(var(--space-16) + env(safe-area-inset-bottom, 0px));
 }
 
-/* roubles are wide ("3 010 ₽" + a struck "3 762,50 ₽"): stack them so the
-   stepper + cart button still fit on a phone */
+/* roubles are wide ("3 010 ₽" + a struck "3 762,50 ₽" + the discount pill):
+   a small grid keeps the stepper + cart button fitting on a phone —
+   price and pill on the first line, the struck price under it */
+.pinned .priceBlock {
+  display: grid;
+  grid-template-areas:
+    "now tag"
+    "was .";
+  grid-template-columns: auto auto;
+  justify-content: start;
+  align-items: center;
+  column-gap: var(--space-8);
+  row-gap: 0;
+}
 .pinned .priceRow {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0;
+  display: contents;
+}
+.pinned .now {
+  grid-area: now;
+}
+.pinned .was {
+  grid-area: was;
+}
+.pinned .savings {
+  grid-area: tag;
 }
 
 /* desktop: a sticky sidebar card (3rd column of the PDP grid) instead of

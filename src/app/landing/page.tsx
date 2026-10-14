@@ -14,6 +14,7 @@ import { asset } from "@/lib/asset";
 import { BEAUTY_SLUGS, MAIN_SITE_URL } from "@/lib/beautySystem";
 import {
   LANDING_PRODUCTS_RU,
+  discountTag,
   formatRub,
   landingPdpHref,
   type BeautySlug,
@@ -104,6 +105,7 @@ export default function LandingPage() {
               category: ru.category,
               price: card.price,
               priceWas: card.priceWas,
+              discount: discountTag(slug),
               href: landingPdpHref(slug),
             }
           : undefined,

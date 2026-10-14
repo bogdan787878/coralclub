@@ -20,6 +20,7 @@ import {
   DISCLAIMERS,
   INCLUDED_PRODUCTS_RU,
   LANDING_PRODUCTS_RU,
+  discountTag,
   formatRub,
   type BeautySlug,
 } from "@/lib/landingCatalogRu";
@@ -291,6 +292,7 @@ export default async function LandingProductPage({
                   {
                     id: "club",
                     label: "Цена",
+                    note: discountTag(slug),
                     price: formatRub(ru.priceRub.club),
                     cta: { label: "В корзину", href: shopPdpHref },
                   },

@@ -20,6 +20,8 @@ export type ProductSlide = {
     category: string;
     price: string;
     priceWas?: string;
+    /** Discount size pill, e.g. "−20%". */
+    discount?: string;
     href: string;
   };
 };
@@ -111,6 +113,9 @@ export function ProductSlider({ slides }: { slides: ProductSlide[] }) {
                     <span className={styles.price}>{s.meta.price}</span>
                     {s.meta.priceWas && (
                       <span className={styles.priceWas}>{s.meta.priceWas}</span>
+                    )}
+                    {s.meta.discount && (
+                      <span className={styles.discount}>{s.meta.discount}</span>
                     )}
                   </span>
                 </div>

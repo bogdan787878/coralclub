@@ -28,14 +28,18 @@ export type ProductImage = {
  * contain) — this strips that marker back out before it reaches <Image>,
  * so the loader/manifest lookup sees the clean path.
  */
-function resolveFit(src: string, index: number): { src: string; fit: "contain" | "cover" } {
+function resolveFit(
+  src: string,
+  index: number,
+): { src: string; fit: "contain" | "cover" } {
   const qIndex = src.indexOf("?");
   const byPosition = index === 0 ? "contain" : "cover";
   if (qIndex === -1) return { src, fit: byPosition };
   const base = src.slice(0, qIndex);
   const params = new URLSearchParams(src.slice(qIndex + 1));
   const override = params.get("fit");
-  const fit = override === "cover" || override === "contain" ? override : byPosition;
+  const fit =
+    override === "cover" || override === "contain" ? override : byPosition;
   params.delete("fit");
   const rest = params.toString();
   return { src: rest ? `${base}?${rest}` : base, fit };
@@ -50,6 +54,8 @@ export type ProductCardProps = {
   price: ReactNode;
   /** Struck-through "was" price shown next to it. */
   priceWas?: ReactNode;
+  /** Small pill after the prices — e.g. the discount size "−20%". */
+  priceTag?: ReactNode;
   /** Product page the name links to. */
   href: string;
   /** Packshots — one per slide of the card's own nested carousel. */
@@ -107,6 +113,7 @@ export function ProductCard({
   category,
   price,
   priceWas,
+  priceTag,
   href,
   images = [],
   cartHref = "#add-to-bag",
@@ -137,40 +144,54 @@ export function ProductCard({
   return (
     <article className={`${styles.card}${fluid ? ` ${styles.fluid}` : ""}`}>
       <div className={styles.media}>
-        <div className={styles.track} ref={trackRef} onScroll={multi ? onScroll : undefined}>
+        <div
+          className={styles.track}
+          ref={trackRef}
+          onScroll={multi ? onScroll : undefined}
+        >
           {images.length ? (
             images.map((img, i) => {
               const { src, fit } = resolveFit(img.src, i);
               return (
-              <span className={styles.slide} key={i}>
-                {/* Link lives inside the scroll track (a real descendant of
+                <span className={styles.slide} key={i}>
+                  {/* Link lives inside the scroll track (a real descendant of
                     it, not an overlay sibling) so the browser can tell a
                     tap from a drag on its own — an overlay on top of the
                     track would intercept the swipe instead of passing it
                     through. */}
-                <Link
-                  href={href}
-                  className={styles.frame}
-                  tabIndex={-1}
-                  style={fit === "cover" ? { inset: 0 } : undefined}
-                >
-                  <Image
-                    src={src}
-                    alt={img.alt}
-                    fill
-                    sizes="(max-width: 767px) 150px, 250px"
-                    style={{
-                      objectFit: fit,
-                      ...(img.position ? { objectPosition: img.position } : {}),
-                    }}
-                  />
-                </Link>
-              </span>
+                  <Link
+                    href={href}
+                    className={styles.frame}
+                    tabIndex={-1}
+                    style={fit === "cover" ? { inset: 0 } : undefined}
+                  >
+                    <Image
+                      src={src}
+                      alt={img.alt}
+                      fill
+                      sizes="(max-width: 767px) 150px, 250px"
+                      style={{
+                        objectFit: fit,
+                        ...(img.position
+                          ? { objectPosition: img.position }
+                          : {}),
+                      }}
+                    />
+                  </Link>
+                </span>
               );
             })
           ) : (
-            <span className={`${styles.slide} ${styles.slideEmpty}`} aria-hidden="true">
-              <Link href={href} className={styles.mediaLink} aria-hidden="true" tabIndex={-1} />
+            <span
+              className={`${styles.slide} ${styles.slideEmpty}`}
+              aria-hidden="true"
+            >
+              <Link
+                href={href}
+                className={styles.mediaLink}
+                aria-hidden="true"
+                tabIndex={-1}
+              />
             </span>
           )}
         </div>
@@ -263,7 +284,10 @@ export function ProductCard({
       {multi && (
         <span className={styles.dots} aria-hidden="true">
           {images.map((_, i) => (
-            <span key={i} className={`${styles.dot} ${i === active ? styles.dotOn : ""}`} />
+            <span
+              key={i}
+              className={`${styles.dot} ${i === active ? styles.dotOn : ""}`}
+            />
           ))}
         </span>
       )}
@@ -280,6 +304,7 @@ export function ProductCard({
         <p className={styles.price}>
           <span className={styles.priceNow}>{price}</span>
           {priceWas && <span className={styles.priceWas}>{priceWas}</span>}
+          {priceTag && <span className={styles.priceTag}>{priceTag}</span>}
         </p>
       </div>
     </article>

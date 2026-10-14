@@ -1,5 +1,5 @@
 import type { PhaseProductCard } from "@/lib/products";
-import { landingPdpHref } from "@/lib/landingCatalogRu";
+import { discountTag, landingPdpHref } from "@/lib/landingCatalogRu";
 import { Carousel, ProductCard } from "@/components/organisms";
 
 /**
@@ -20,6 +20,7 @@ export function LandingCards({ cards }: { cards: PhaseProductCard[] }) {
             category={p.category}
             price={p.price}
             priceWas={p.priceWas}
+            priceTag={discountTag(p.slug)}
             href={href}
             cartHref={href}
             images={p.images}
