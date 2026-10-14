@@ -85,7 +85,7 @@ type TimeTable = {
   express?: Interval[];
   restricted?: string[];
 };
-type Slot = { date: string; text: string; times: string[] };
+type Slot = { date: string; text: string; chip: string; times: string[] };
 
 const EXPRESS_SERVICE = "I_COURIER_1DAY";
 
@@ -143,9 +143,28 @@ function buildSlots(
       day: "numeric",
       month: "long",
     }).format(d);
+    // chip: "Сегодня, 15 окт" / "Завтра, 16 окт" / "Сб, 17 окт"
+    const short = new Intl.DateTimeFormat("ru-RU", {
+      timeZone: "UTC",
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+    })
+      .formatToParts(d)
+      .reduce<Record<string, string>>((acc, p) => {
+        acc[p.type] = p.value.replace(".", "");
+        return acc;
+      }, {});
+    const weekday =
+      c === 0
+        ? "Сегодня"
+        : c === 1
+          ? "Завтра"
+          : short.weekday.charAt(0).toUpperCase() + short.weekday.slice(1);
     out.push({
       date: `${d.getUTCFullYear()}${mm}${dd}`,
       text: label,
+      chip: `${weekday}, ${short.day} ${short.month}`,
       times,
     });
   }
@@ -1014,33 +1033,45 @@ export function LandingCheckout() {
             {slots.length > 0 && (
               <div className={styles.slots}>
                 <h3 className={styles.h3}>Дата и время доставки</h3>
-                <div className={styles.row}>
-                  <label className={styles.field}>
-                    День
-                    <select
-                      value={slot?.date ?? ""}
-                      onChange={(e) => setSlotDate(e.target.value)}
+                <div
+                  className={styles.chips}
+                  role="radiogroup"
+                  aria-label="День доставки"
+                >
+                  {slots.map((x) => (
+                    <button
+                      key={x.date}
+                      type="button"
+                      role="radio"
+                      aria-checked={slot?.date === x.date}
+                      className={`${styles.chip} ${
+                        slot?.date === x.date ? styles.chipOn : ""
+                      }`}
+                      onClick={() => setSlotDate(x.date)}
                     >
-                      {slots.map((x) => (
-                        <option key={x.date} value={x.date}>
-                          {x.text}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                  <label className={styles.field}>
-                    Время
-                    <select
-                      value={chosenTime ?? ""}
-                      onChange={(e) => setSlotTime(e.target.value)}
+                      {x.chip}
+                    </button>
+                  ))}
+                </div>
+                <div
+                  className={styles.chips}
+                  role="radiogroup"
+                  aria-label="Время доставки"
+                >
+                  {slotTimes.map((t) => (
+                    <button
+                      key={t}
+                      type="button"
+                      role="radio"
+                      aria-checked={chosenTime === t}
+                      className={`${styles.chip} ${
+                        chosenTime === t ? styles.chipOn : ""
+                      }`}
+                      onClick={() => setSlotTime(t)}
                     >
-                      {slotTimes.map((t) => (
-                        <option key={t} value={t}>
-                          {t.replace("-", " – ")}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
+                      {t.replace("-", " — ")}
+                    </button>
+                  ))}
                 </div>
                 {cityKind === "moscow" &&
                   activeItem?.ID !== EXPRESS_SERVICE && (
