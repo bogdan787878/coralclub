@@ -113,7 +113,7 @@ export default function LandingPage() {
                   srcSet={heroDesktop.props.srcSet}
                   sizes={heroDesktop.props.sizes}
                 />
-                <img alt={HERO_ALT} {...heroMobile.props} />
+                <img {...heroMobile.props} alt={HERO_ALT} />
               </picture>
             </div>
             <Container className={styles.heroCol}>
