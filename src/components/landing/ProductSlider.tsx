@@ -17,7 +17,6 @@ export type ProductSlide = {
   /** When set, the slide shows the product row (category, name, price and
    *  a cart button) under the image, like a product card. */
   meta?: {
-    category: string;
     price: string;
     priceWas?: string;
     /** Discount size pill, e.g. "−20%". */
@@ -105,7 +104,6 @@ export function ProductSlider({ slides }: { slides: ProductSlide[] }) {
             {s.meta ? (
               <div className={styles.metaRow}>
                 <div className={styles.metaText}>
-                  <span className={styles.category}>{s.meta.category}</span>
                   <Link href={s.meta.href} className={styles.productName}>
                     {s.title}
                   </Link>

@@ -17,7 +17,6 @@ export function LandingCards({ cards }: { cards: PhaseProductCard[] }) {
             key={p.slug}
             fluid
             title={p.headline}
-            category={p.category}
             price={p.price}
             priceWas={p.priceWas}
             priceTag={discountTag(p.slug)}

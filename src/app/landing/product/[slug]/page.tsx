@@ -8,6 +8,7 @@ import {
   InfoAccordion,
   PeriodicElements,
 } from "@/components/organisms";
+import { ShowWhenScrolledPast } from "@/components/landing/ShowWhenScrolledPast";
 import { LandingGallery } from "@/components/landing/LandingGallery";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { IncludedProductDetails } from "@/components/landing/IncludedProductDetails";
@@ -136,6 +137,37 @@ export default async function LandingProductPage({
   if (!images.length && product.image)
     images.push({ src: product.image, alt: ru.name });
 
+  // price + CTA: the same props feed the inline block and the web top bar
+  const buyProps = {
+    product: {
+      coralId: card.coralId,
+      slug,
+      name: ru.name,
+      image: product.image ?? images[0]?.src,
+    },
+    options: [
+      {
+        id: "club",
+        label: "Цена",
+        note: discountTag(slug),
+        price: formatRub(ru.priceRub.club),
+        cta: { label: "В корзину", href: shopPdpHref },
+      },
+      {
+        id: "regular",
+        label: "Обычная цена",
+        price: formatRub(ru.priceRub.regular),
+        cta: { label: "В корзину", href: shopPdpHref },
+      },
+    ],
+    labels: {
+      add: "В корзину",
+      removeOne: "Убрать одну штуку",
+      addOne: "Добавить ещё одну",
+      openCart: "Открыть корзину",
+    },
+  };
+
   return (
     <div className="appShell">
       <main className={shop.page}>
@@ -161,40 +193,12 @@ export default async function LandingProductPage({
 
               <Stack gap="base" className={shop.infoCol}>
                 <div className={shop.headGroup}>
-                  <span className={shop.category}>{ru.category}</span>
                   <Heading className={shop.name}>{ru.name}</Heading>
 
-                  {/* mobile/tablet: fixed bottom bar; desktop: price card under the title */}
-                  <BuyBox
-                    pinned
-                    product={{
-                      coralId: card.coralId,
-                      slug,
-                      name: ru.name,
-                      image: product.image ?? images[0]?.src,
-                    }}
-                    options={[
-                      {
-                        id: "club",
-                        label: "Цена",
-                        note: discountTag(slug),
-                        price: formatRub(ru.priceRub.club),
-                        cta: { label: "В корзину", href: shopPdpHref },
-                      },
-                      {
-                        id: "regular",
-                        label: "Обычная цена",
-                        price: formatRub(ru.priceRub.regular),
-                        cta: { label: "В корзину", href: shopPdpHref },
-                      },
-                    ]}
-                    labels={{
-                      add: "В корзину",
-                      removeOne: "Убрать одну штуку",
-                      addOne: "Добавить ещё одну",
-                      openCart: "Открыть корзину",
-                    }}
-                  />
+                  {/* mobile/tablet: fixed bottom bar; web: plain inline block under the title */}
+                  <div id="pdp-buy">
+                    <BuyBox pinned {...buyProps} />
+                  </div>
 
                   <BodyLong>{ru.lead}</BodyLong>
                   {ru.bullets && (
@@ -313,6 +317,11 @@ export default async function LandingProductPage({
             </div>
           </div>
         </Section>
+
+        {/* web: price + CTA stay in reach once the inline block is gone */}
+        <ShowWhenScrolledPast watchId="pdp-buy">
+          <BuyBox top {...buyProps} />
+        </ShowWhenScrolledPast>
 
         <LandingCartDrawer />
 

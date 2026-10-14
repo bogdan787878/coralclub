@@ -38,6 +38,9 @@ export type BuyBoxProps = {
   /** Sit flush with the viewport bottom on mobile — for standalone pages
    *  without the shop's TabBar (the landings). */
   pinned?: boolean;
+  /** Compact bar fixed to the top of the viewport (web only) — price + CTA
+   *  that stays in reach once the inline block has scrolled away. */
+  top?: boolean;
 };
 
 /**
@@ -51,6 +54,7 @@ export function BuyBox({
   product,
   labels,
   pinned = false,
+  top = false,
 }: BuyBoxProps) {
   const cart = useCart();
   const [acted, setActed] = useState(false);
@@ -79,8 +83,11 @@ export function BuyBox({
   };
 
   return (
-    <div className={`${styles.bar}${pinned ? ` ${styles.pinned}` : ""}`}>
+    <div
+      className={`${styles.bar}${pinned ? ` ${styles.pinned}` : ""}${top ? ` ${styles.top}` : ""}`}
+    >
       <div className={styles.inner}>
+        {top && <span className={styles.topName}>{product.name}</span>}
         <div className={styles.priceBlock}>
           <div className={styles.priceRow}>
             <span className={styles.now}>{club.price}</span>

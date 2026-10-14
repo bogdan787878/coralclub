@@ -102,7 +102,6 @@ export default function LandingPage() {
         badge: ru.pack,
         meta: card
           ? {
-              category: ru.category,
               price: card.price,
               priceWas: card.priceWas,
               discount: discountTag(slug),
