@@ -197,7 +197,7 @@ export default function LandingPage() {
                 <div className={styles.blockBody}>
                   <div className={styles.blockHead}>
                     <Heading as="h2" className={styles.h2}>
-                      Коллаген — это белок молодости.
+                      Коллаген — это белок молодости
                     </Heading>
                     <p className={styles.blockText}>
                       Коллаген — главный структурный белок соединительных
