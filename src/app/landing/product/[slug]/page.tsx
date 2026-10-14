@@ -370,6 +370,7 @@ export default async function LandingProductPage({
             <div className={styles.wide}>
               <Reviews
                 title="Отзывы покупателей"
+                variant="list"
                 items={allReviews}
                 summary={reviewSummary}
                 productNames={reviewProductNames}
