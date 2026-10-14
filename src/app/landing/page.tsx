@@ -190,12 +190,13 @@ export default function LandingPage() {
           <Section tone="surface" id="masks" className={styles.section}>
             <Container>
               <div className={styles.block}>
-                <div className={styles.blockMedia}>
+                <div className={styles.blockShape}>
                   <Image
-                    src={img("masks.jpg")}
-                    alt="Три вида масок Coral Club"
-                    fill
-                    sizes="(max-width: 1023px) 100vw, 480px"
+                    src={`${img("masks-blob.webp")}`}
+                    alt="Девушка с закрытыми глазами касается лица на бирюзовом фоне"
+                    width={900}
+                    height={900}
+                    sizes="(max-width: 1023px) calc(100vw - 32px), 480px"
                   />
                 </div>
                 <div className={styles.blockBody}>
