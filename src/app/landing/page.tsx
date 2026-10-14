@@ -131,7 +131,7 @@ export default function LandingPage() {
                 />
               )}
             </div>
-            <Container>
+            <Container className={styles.heroCol}>
               <div className={styles.heroBody}>
                 <Heading className={styles.heroTitle}>
                   Ваша <Accent>система красоты</Accent>

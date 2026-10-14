@@ -227,3 +227,17 @@
   line-height: 0.75rem;
   font-weight: var(--font-weight-medium);
 }
+
+/* desktop: no horizontal scroller — the cards sit in one row, three across */
+@media (min-width: 1024px) {
+  .peek .track {
+    margin-inline: 0;
+    padding-inline: 0;
+    scroll-padding-inline: 0;
+    gap: var(--space-24);
+    overflow: visible;
+  }
+  .peek .slide {
+    flex: 0 0 calc((100% - 2 * var(--space-24)) / 3);
+  }
+}

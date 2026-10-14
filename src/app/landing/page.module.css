@@ -147,29 +147,108 @@
   color: var(--color-text-muted);
 }
 
+/* ---- desktop: hero = text left / rounded photo right; each product block
+   = photo left + heading right, then the cards in one row below ---- */
 @media (min-width: 1024px) {
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: var(--space-48);
+    align-items: stretch;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding: var(--space-16) var(--page-padding-inline) var(--space-48);
+    background: var(--color-bg);
+  }
   .heroMedia {
-    aspect-ratio: 21 / 9;
+    order: 2;
+    aspect-ratio: auto;
+    min-height: min(680px, 74vh);
+    border-radius: var(--radius-base);
+    overflow: hidden;
+  }
+  .heroCol {
+    display: flex;
+    align-items: center;
+    padding-inline: 0;
   }
   .heroBody {
-    max-width: 640px;
+    max-width: 480px;
+    padding-block: var(--space-24);
+    gap: var(--space-24);
+  }
+  .heroTitle {
+    font-size: clamp(2.75rem, 4.4vw, 4rem);
+    line-height: 1.05;
+  }
+  .heroText {
+    font-size: 1.125rem;
   }
   .cta {
     align-self: flex-start;
-    padding-inline: var(--space-32);
+    padding-inline: var(--space-40);
   }
 
+  .why {
+    padding-block: var(--space-24) var(--space-64);
+  }
+  .lead {
+    max-width: 52ch;
+  }
+  .h2 {
+    font-size: clamp(2rem, 3vw, 2.75rem);
+    line-height: 1.1;
+  }
+
+  .section {
+    padding-block: var(--space-48);
+  }
+
+  /* blockBody dissolves so its heading and slider become grid items */
   .block {
-    flex-direction: row;
-    align-items: center;
-    gap: var(--space-48);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--space-48);
+    row-gap: var(--space-40);
+    align-items: start;
   }
   .blockMedia {
-    flex: 1 1 0;
+    grid-column: 1;
+    grid-row: 1;
   }
   .blockBody {
-    flex: 1 1 0;
-    min-width: 0;
+    display: contents;
+  }
+  .blockBody .h2 {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    margin-bottom: 0;
+  }
+  .blockBody > :last-child {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .consult {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--space-48);
+    align-items: center;
+    padding: var(--space-48);
+  }
+  .consultTitle {
+    grid-column: 1;
+    font-size: 2rem;
+  }
+  .consultText {
+    grid-column: 1;
+  }
+  .consultCta {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+    padding-inline: var(--space-40);
   }
 }
 

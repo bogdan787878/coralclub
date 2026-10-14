@@ -9,7 +9,7 @@ import { Carousel, ProductCard } from "@/components/organisms";
  */
 export function LandingCards({ cards }: { cards: PhaseProductCard[] }) {
   return (
-    <Carousel label="Продукты системы красоты">
+    <Carousel label="Продукты системы красоты" maxCols={4}>
       {cards.map((p) => {
         const href = landingPdpHref(p.slug);
         return (
