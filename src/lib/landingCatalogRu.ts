@@ -83,6 +83,7 @@ export const BADGE_LABELS_RU: Record<string, string> = {
 export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
   hydramax: {
     slug: "hydramax",
+    pack: { count: "Набор", unit: "на 30 дней" },
     priceRub: { club: 7052, regular: 8815 },
     name: "Гидрамакс",
     headline: "Гидрамакс — набор для гидратации на 30 дней",
@@ -123,6 +124,7 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
 
   "hydramax-plus": {
     slug: "hydramax-plus",
+    pack: { count: "Набор", unit: "на 30 дней" },
     priceRub: { club: 10062, regular: 12577.5 },
     name: "Гидрамакс Плюс",
     headline: "Гидрамакс Плюс — набор для гидратации на 30 дней",
@@ -509,10 +511,11 @@ export function discountTag(slug: string): string | undefined {
   return `\u2212${pct}%`;
 }
 
-/** "5 масок" / "10 флаконов" — the units-per-pack label for small cards. */
-export function packLabel(slug: string): string | undefined {
-  const pack = LANDING_PRODUCTS_RU[slug as BeautySlug]?.pack;
-  return pack ? `${pack.count}\u00a0${pack.unit}` : undefined;
+/** Units-per-pack sticker content for a product ("5" + "масок", ...). */
+export function packOf(
+  slug: string,
+): { count: string; unit: string } | undefined {
+  return LANDING_PRODUCTS_RU[slug as BeautySlug]?.pack;
 }
 
 /**
