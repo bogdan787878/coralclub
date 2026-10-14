@@ -28,6 +28,9 @@ export type CarouselProps = {
   /** Most columns the desktop grid uses (default 5) — e.g. 4 so seven
    *  cards sit as 4 + 3 instead of 5 + 2. */
   maxCols?: number;
+  /** Fewest columns the desktop grid uses (default 1): keeps cards the same
+   *  size when there are only a couple of them, left-aligned. */
+  minCols?: number;
 };
 
 function ChevronIcon({ direction }: { direction: "left" | "right" }) {
@@ -56,6 +59,7 @@ export function Carousel({
   children,
   itemWidth,
   maxCols = 5,
+  minCols = 1,
   label = "Products",
 }: CarouselProps) {
   const trackRef = useRef<HTMLUListElement>(null);
@@ -85,7 +89,7 @@ export function Carousel({
   // fewer items than that would otherwise leave dead space on the right
   // instead of the row filling the available width, so cap it to however
   // many items there actually are.
-  const cols = Math.min(Children.count(children), maxCols);
+  const cols = Math.max(Math.min(Children.count(children), maxCols), minCols);
 
   return (
     <div className={styles.root}>

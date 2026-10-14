@@ -13,9 +13,18 @@ import { Carousel, ProductCard } from "@/components/organisms";
  * opens that product's Russian page of this landing; the purchase itself
  * is handed off to the main shop from there.
  */
-export function LandingCards({ cards }: { cards: PhaseProductCard[] }) {
+export function LandingCards({
+  cards,
+  label = "Продукты системы красоты",
+  minCols,
+}: {
+  cards: PhaseProductCard[];
+  label?: string;
+  /** Keep cards at grid-column size even when there are only a few. */
+  minCols?: number;
+}) {
   return (
-    <Carousel label="Продукты системы красоты" maxCols={4}>
+    <Carousel label={label} maxCols={4} minCols={minCols}>
       {cards.map((p) => {
         const href = landingPdpHref(p.slug);
         return (

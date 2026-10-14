@@ -1,0 +1,99 @@
+.section {
+  /* the design's pale grey-green */
+  background: #e6eeec;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.title {
+  margin: 0;
+  color: var(--color-malachite-90);
+  text-wrap: balance;
+}
+
+.text {
+  margin: 0;
+  max-width: 44ch;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--color-text);
+}
+
+.logos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  align-items: flex-end;
+}
+
+.row {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-12);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: var(--space-8) var(--space-24);
+  border: 1px solid var(--color-malachite-90);
+  border-radius: 999px;
+  background: transparent;
+}
+
+.pill img {
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-block: var(--space-64);
+  }
+  .inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-48);
+  }
+  .copy {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .title {
+    font-size: clamp(2.25rem, 3.4vw, 3.25rem);
+    line-height: 1.1;
+  }
+  .logos {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .pill {
+    min-height: 64px;
+    padding-inline: var(--space-24);
+  }
+}
+
+@media (max-width: 1023px) {
+  .logos {
+    align-items: flex-start;
+  }
+  .row {
+    justify-content: flex-start;
+  }
+}

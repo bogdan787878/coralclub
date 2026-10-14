@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Accent, Container, Heading, Section } from "@/components/ui";
 import { LandingHeader } from "@/components/landing/LandingHeader";
-import { ProductTitle } from "@/components/landing/ProductTitle";
+import { Ingredients } from "@/components/landing/Ingredients";
 import { LandingHero } from "@/components/landing/LandingHero";
 import { LeadModalProvider } from "@/components/landing/LeadModal";
 import { Reviews } from "@/components/landing/Reviews";
@@ -15,17 +15,11 @@ import {
 import { LandingCta, PromoCode } from "@/components/landing/LandingCta";
 import { LandingCards } from "@/components/landing/LandingCards";
 import { LandingCartButton } from "@/components/landing/LandingCartButton";
-import {
-  ProductSlider,
-  type ProductSlide,
-} from "@/components/landing/ProductSlider";
 import { asset } from "@/lib/asset";
 import { BEAUTY_SLUGS, MAIN_SITE_URL, PROMO_CODE } from "@/lib/beautySystem";
 import {
   LANDING_PRODUCTS_RU,
-  discountTag,
   formatRub,
-  landingPdpHref,
   type BeautySlug,
 } from "@/lib/landingCatalogRu";
 import { landingGallery } from "@/lib/landingGallery";
@@ -78,7 +72,6 @@ const heroSlides = [
     image: heroPhoto("hydration", "Набор для гидратации Coral Club"),
   },
 ];
-const product = (slug: string) => asset(`/images/products/${slug}.png`);
 
 const MASK_SLUGS = [
   "advanced-collagen-biocellulose-facial-mask",
@@ -114,35 +107,10 @@ export default function LandingPage() {
       priceWas: formatRub(ru.priceRub.regular),
     };
   });
-  const bySlug = Object.fromEntries(cards.map((c) => [c.slug, c]));
-  const slidesFor = (slugs: readonly BeautySlug[]): ProductSlide[] =>
-    slugs.map((slug) => {
-      const ru = LANDING_PRODUCTS_RU[slug];
-      const card = bySlug[slug];
-      const gallery = landingGallery(slug);
-      return {
-        id: slug,
-        title: ru.name,
-        titleNode: <ProductTitle title={ru.title} form={ru.form} />,
-        image: gallery[0] ?? { src: product(slug), alt: ru.name },
-        images: gallery,
-        lead: ru.lead,
-        bullets: ru.bullets,
-        extra: ru.extra,
-        // sticker with units per pack (ru.pack) is switched off for now
-        meta: card
-          ? {
-              price: card.price,
-              priceWas: card.priceWas,
-              discount: discountTag(slug),
-              href: landingPdpHref(slug),
-            }
-          : undefined,
-      };
-    });
-  const maskSlides = slidesFor(MASK_SLUGS);
-  const collagenSlides = slidesFor(COLLAGEN_SLUGS);
-  const hydramaxSlides = slidesFor(HYDRAMAX_SLUGS);
+  // the three product blocks use the same small card carousel as the
+  // "why" block, filtered to their own products
+  const cardsFor = (slugs: readonly string[]) =>
+    cards.filter((c) => slugs.includes(c.slug));
 
   const featuredReviews = LANDING_FEATURED_IDS.flatMap((id) =>
     LANDING_REVIEWS_RU.filter((r) => r.id === id),
@@ -197,6 +165,8 @@ export default function LandingPage() {
             </div>
           </section>
 
+          <Ingredients />
+
           <Section tone="surface" id="masks" className={styles.section}>
             <Container>
               <div className={styles.block}>
@@ -226,7 +196,11 @@ export default function LandingPage() {
                       масок по 25 мл — используйте 2–3 раза в неделю.
                     </p>
                   </div>
-                  <ProductSlider slides={maskSlides} />
+                  <LandingCards
+                    cards={cardsFor(MASK_SLUGS)}
+                    label="Маски"
+                    minCols={4}
+                  />
                 </div>
               </div>
             </Container>
@@ -260,7 +234,11 @@ export default function LandingPage() {
                       — более мелкую молекулу, которая легче усваивается.
                     </p>
                   </div>
-                  <ProductSlider slides={collagenSlides} />
+                  <LandingCards
+                    cards={cardsFor(COLLAGEN_SLUGS)}
+                    label="Коллаген"
+                    minCols={4}
+                  />
                 </div>
               </div>
             </Container>
@@ -294,7 +272,11 @@ export default function LandingPage() {
                       глубоководных минералов, прежде всего магния.
                     </p>
                   </div>
-                  <ProductSlider slides={hydramaxSlides} />
+                  <LandingCards
+                    cards={cardsFor(HYDRAMAX_SLUGS)}
+                    label="Гидратация"
+                    minCols={4}
+                  />
                 </div>
               </div>
             </Container>
