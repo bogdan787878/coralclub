@@ -316,3 +316,22 @@
     animation-duration: 2.4s;
   }
 }
+
+/* courier date & time (Moscow, St Petersburg) */
+.slots {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding: var(--space-16);
+  border-radius: var(--radius-base);
+  background: var(--color-neutral-30);
+}
+
+.h3 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}

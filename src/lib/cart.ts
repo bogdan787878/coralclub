@@ -126,6 +126,13 @@ export function clearCart(): void {
 const OPEN_EVENT = "coralclub:cart:open";
 
 /** Ask the cart drawer (wherever it lives) to open. */
+/** Re-read the cart from storage (a render may have run on a stale snapshot). */
+export function refreshCart(): void {
+  if (typeof window === "undefined") return;
+  snapshot = read();
+  window.dispatchEvent(new Event(EVENT));
+}
+
 export function openCart(): void {
   if (typeof window !== "undefined") {
     window.dispatchEvent(new Event(OPEN_EVENT));

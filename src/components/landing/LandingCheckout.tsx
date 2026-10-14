@@ -2,7 +2,13 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { addItem, priceValue, useCart, type CartLine } from "@/lib/cart";
+import {
+  addItem,
+  priceValue,
+  refreshCart,
+  useCart,
+  type CartLine,
+} from "@/lib/cart";
 import { FRIEND_REF_CODE, FRIEND_USER_ID } from "@/lib/beautySystem";
 import {
   LANDING_PRODUCTS_RU,
@@ -62,6 +68,89 @@ const SITE_COOKIE = "cc_shop_site";
  * KG, UZ …) sells under the same article, so any country can be tested.
  */
 const DEFAULT_SLUG = "hydro-boost-biocellulose-facial-mask";
+
+/**
+ * Courier time slots, as the shop's own checkout builds them. The tables come
+ * from /init (moscowDeliveryTimes / spbDeliveryTimes): per weekday (Mon…Sun)
+ * an order cut-off hour, a "skip" flag and the available intervals.
+ */
+type Interval = {
+  beforeTime?: number | string;
+  skip?: number;
+  times?: string[];
+};
+type TimeTable = {
+  mkad?: Interval[];
+  outside?: Interval[];
+  express?: Interval[];
+  restricted?: string[];
+};
+type Slot = { date: string; text: string; times: string[] };
+
+const EXPRESS_SERVICE = "I_COURIER_1DAY";
+
+/** Now in Moscow time (the shop counts cut-offs in it). */
+function moscowNow() {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/Moscow",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(new Date());
+  const n = (t: string) => Number(parts.find((p) => p.type === t)?.value);
+  const date = new Date(Date.UTC(n("year"), n("month") - 1, n("day")));
+  return {
+    date,
+    hour: n("hour"),
+    hhmm: `${String(n("hour")).padStart(2, "0")}:${String(n("minute")).padStart(2, "0")}`,
+    weekday: (date.getUTCDay() + 6) % 7, // 0 = Monday
+  };
+}
+
+function buildSlots(
+  table: TimeTable | undefined,
+  { express, mkad }: { express: boolean; mkad: boolean },
+): Slot[] {
+  const intervals = table?.[express ? "express" : mkad ? "mkad" : "outside"];
+  if (!intervals?.length) return [];
+  const now = moscowNow();
+  const cutoff = Number(intervals[now.weekday]?.beforeTime);
+  const passed = Number.isFinite(cutoff) && now.hour >= cutoff;
+  const startDay = express ? (passed ? 1 : 0) : passed ? 2 : 1;
+  const endDay = express ? startDay + 1 : startDay + 7;
+  const restricted = table?.restricted ?? [];
+  const out: Slot[] = [];
+  for (let c = startDay; c < endDay; c++) {
+    const wd = (now.weekday + c) % 7;
+    const day = intervals[wd];
+    if (day?.skip !== 1) continue;
+    const d = new Date(now.date.getTime() + c * 86_400_000);
+    let times = day.times ?? [];
+    if (c === 0) times = times.filter((t) => t.split("-")[0] > now.hhmm);
+    const dd = String(d.getUTCDate()).padStart(2, "0");
+    const mm = String(d.getUTCMonth() + 1).padStart(2, "0");
+    if (
+      !times.length ||
+      restricted.includes(`${dd}.${mm}.${d.getUTCFullYear()}`)
+    )
+      continue;
+    const label = new Intl.DateTimeFormat("ru-RU", {
+      timeZone: "UTC",
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+    }).format(d);
+    out.push({
+      date: `${d.getUTCFullYear()}${mm}${dd}`,
+      text: label,
+      times,
+    });
+  }
+  return out;
+}
 
 /** Serialises the cart syncs (see the sync effect). */
 let syncChain: Promise<void> = Promise.resolve();
@@ -294,6 +383,13 @@ export function LandingCheckout() {
   const [apartment, setApartment] = useState("");
   const [postindex, setPostindex] = useState("");
   const [comment, setComment] = useState("");
+  const [timeTables, setTimeTables] = useState<{
+    moscow?: TimeTable;
+    spb?: TimeTable;
+  }>({});
+  const [outsideMkad, setOutsideMkad] = useState(false);
+  const [slotDate, setSlotDate] = useState("");
+  const [slotTime, setSlotTime] = useState("");
   const [deliveryId, setDeliveryId] = useState("");
   const [paymentId, setPaymentId] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
@@ -319,6 +415,11 @@ export function LandingCheckout() {
     () => cart.map((l) => `${l.coralId}:${l.qty}`).join(","),
     [cart],
   );
+
+  // a first render may have used a stale cart snapshot — re-read the storage
+  useEffect(() => {
+    refreshCart();
+  }, []);
 
   // an empty cart starts with the default product (checked in the storage
   // itself, so a not-yet-hydrated render cannot add a second one)
@@ -378,7 +479,11 @@ export function LandingCheckout() {
         const init = await api<{
           result?: {
             CUR_LOCATION?: { CODE?: string; ALPHA2?: string };
-            CHECKOUT_OPTIONS?: { countries?: Record<string, string> };
+            CHECKOUT_OPTIONS?: {
+              countries?: Record<string, string>;
+              moscowDeliveryTimes?: TimeTable;
+              spbDeliveryTimes?: TimeTable;
+            };
           };
         }>("/init", {}, site);
         if (cancelled) return;
@@ -392,6 +497,10 @@ export function LandingCheckout() {
         setSiteNote("");
         const list = init.result?.CHECKOUT_OPTIONS?.countries;
         if (list && Object.keys(list).length) setCountries(list);
+        setTimeTables({
+          moscow: init.result?.CHECKOUT_OPTIONS?.moscowDeliveryTimes,
+          spb: init.result?.CHECKOUT_OPTIONS?.spbDeliveryTimes,
+        });
         // some sites report their code as "BY_BY", the UAE one as "OT"
         // (other territories) — ALPHA2 is the real country there
         const cur = init.result?.CUR_LOCATION;
@@ -614,6 +723,13 @@ export function LandingCheckout() {
           acceptTerms2: false,
           agreePersonalData: agreeData,
         },
+        ...(slot && chosenTime
+          ? {
+              DELIVERY_DATE: slot.date,
+              DELIVERY_FROM: chosenTime.split("-")[0],
+              DELIVERY_TO: chosenTime.split("-")[1],
+            }
+          : {}),
         dutyEnabled: true,
       };
       const r = await shopFetch(site, `/sv-api/order?language=ru`, {
@@ -627,7 +743,7 @@ export function LandingCheckout() {
       };
       if (data.result) {
         // the shop's own payment page → payment gateway
-        window.location.href = `/order/payment/${data.result}/?new_checkout=1`;
+        window.location.assign(`/order/payment/${data.result}/?new_checkout=1`);
         return;
       }
       setError(data.error || "Магазин не принял заказ. Проверьте данные.");
@@ -660,6 +776,25 @@ export function LandingCheckout() {
     g.ITEMS.map((it) => ({ ...it, group: g.NAME })),
   );
   const pickup = activeItem?.TYPE === "PICK_POINT";
+
+  // date & time of the courier — Moscow and St Petersburg, like on the site
+  const cityKind =
+    country === "RU" && /москва|moscow/i.test(city)
+      ? "moscow"
+      : country === "RU" && /петербург|petersburg|spb/i.test(city)
+        ? "spb"
+        : null;
+  const isCourier = activeItem?.TYPE === "COURIER";
+  const slots =
+    cityKind && isCourier
+      ? buildSlots(timeTables[cityKind], {
+          express: activeItem?.ID === EXPRESS_SERVICE,
+          mkad: !outsideMkad,
+        })
+      : [];
+  const slot = slots.find((x) => x.date === slotDate) ?? slots[0];
+  const slotTimes = slot?.times ?? [];
+  const chosenTime = slotTimes.includes(slotTime) ? slotTime : slotTimes[0];
 
   // loaders: the site is being switched / the cart synced, or a block still
   // shows data of an earlier country
@@ -875,6 +1010,50 @@ export function LandingCheckout() {
                 Для самовывоза нужен выбор пункта выдачи — в прототипе пока не
                 сделан, можно смотреть расчёт и способы оплаты.
               </p>
+            )}
+            {slots.length > 0 && (
+              <div className={styles.slots}>
+                <h3 className={styles.h3}>Дата и время доставки</h3>
+                <div className={styles.row}>
+                  <label className={styles.field}>
+                    День
+                    <select
+                      value={slot?.date ?? ""}
+                      onChange={(e) => setSlotDate(e.target.value)}
+                    >
+                      {slots.map((x) => (
+                        <option key={x.date} value={x.date}>
+                          {x.text}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className={styles.field}>
+                    Время
+                    <select
+                      value={chosenTime ?? ""}
+                      onChange={(e) => setSlotTime(e.target.value)}
+                    >
+                      {slotTimes.map((t) => (
+                        <option key={t} value={t}>
+                          {t.replace("-", " – ")}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+                {cityKind === "moscow" &&
+                  activeItem?.ID !== EXPRESS_SERVICE && (
+                    <label className={styles.check}>
+                      <input
+                        type="checkbox"
+                        checked={outsideMkad}
+                        onChange={(e) => setOutsideMkad(e.target.checked)}
+                      />
+                      <span>Адрес за МКАД (другие интервалы)</span>
+                    </label>
+                  )}
+              </div>
             )}
             <label className={styles.field}>
               Улица
