@@ -1,5 +1,5 @@
 import type { PhaseProductCard } from "@/lib/products";
-import { discountTag, landingPdpHref, packOf } from "@/lib/landingCatalogRu";
+import { discountTag, landingPdpHref } from "@/lib/landingCatalogRu";
 import { Carousel, ProductCard } from "@/components/organisms";
 
 /**
@@ -20,7 +20,7 @@ export function LandingCards({ cards }: { cards: PhaseProductCard[] }) {
             price={p.price}
             priceWas={p.priceWas}
             priceTag={discountTag(p.slug)}
-            badge={packOf(p.slug)}
+            // badge={packOf(p.slug)} — pack stickers are switched off for now
             href={href}
             cartHref={href}
             images={p.images}

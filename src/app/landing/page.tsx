@@ -93,7 +93,7 @@ export default function LandingPage() {
         lead: ru.lead,
         bullets: ru.bullets,
         extra: ru.extra,
-        badge: ru.pack,
+        // sticker with units per pack (ru.pack) is switched off for now
         meta: card
           ? {
               price: card.price,
