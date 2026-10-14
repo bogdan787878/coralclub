@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getImageProps } from "next/image";
+import Image, { getImageProps } from "next/image";
 import { Accent, Container, Heading, Section } from "@/components/ui";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { Ingredients } from "@/components/landing/Ingredients";
@@ -232,7 +232,14 @@ export default function LandingPage() {
           <Section tone="surface" id="hydramax" className={styles.section}>
             <Container>
               <div className={styles.block}>
-                <div className={styles.blockPlaceholder} aria-hidden="true" />
+                <div className={styles.blockMedia}>
+                  <Image
+                    src={img("hydramax-block.webp")}
+                    alt="Набор Гидрамакс Плюс: ПентоКан, Корал-Майн, Оушенмин и H-500 на столе"
+                    fill
+                    sizes="(max-width: 1023px) 100vw, 560px"
+                  />
+                </div>
                 <div className={styles.blockBody}>
                   <div className={styles.blockHead}>
                     <Heading as="h2" className={styles.h2}>
