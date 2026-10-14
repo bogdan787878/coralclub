@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { cartSubtotal, priceValue, useCart, type CartLine } from "@/lib/cart";
+import { priceValue, useCart, type CartLine } from "@/lib/cart";
 import { FRIEND_REF_CODE, FRIEND_USER_ID } from "@/lib/beautySystem";
 import { formatRub } from "@/lib/landingCatalogRu";
 import { BackButton } from "../../app/(shop)/products/[slug]/BackButton";
@@ -37,6 +37,27 @@ type DeliveryGroup = {
 };
 type Totals = Record<string, string | number | null | undefined>;
 
+/**
+ * Which shop site serves which country. Picking one in the test panel makes
+ * the dev proxy talk to that site (cookie `cc_shop_site`) with its own
+ * session, products, currency, delivery and payment methods.
+ */
+const SHOP_SITES: Record<string, string> = {
+  RU: "coralclub.ru",
+  US: "coralclub.us",
+  ES: "es.coral.club",
+  PL: "pl.coral.club",
+};
+const SITE_COOKIE = "cc_shop_site";
+
+/** Product ids that differ from the Russian site's, per site. */
+const SITE_IDS: Record<string, Record<string, string>> = {
+  "coralclub.us": {
+    hydramax: "803801",
+    "hydramax-plus": "807201",
+  },
+};
+
 /** Currency symbol of the shop site (by the country it serves). */
 const CURRENCY: Record<string, string> = {
   RU: "₽",
@@ -55,6 +76,7 @@ const DEFAULT_CITY: Record<string, string> = {
   UA: "Киев",
   AM: "Ереван",
   KG: "Бишкек",
+  US: "New York",
   DE: "Berlin",
   PL: "Warszawa",
   ES: "Madrid",
@@ -96,11 +118,24 @@ async function api<T = unknown>(
   const r = await fetch(`/sv-api${path}?${qs({ ...params, language: "ru" })}`, {
     credentials: "same-origin",
   });
-  return (await r.json()) as T;
+  const text = await r.text();
+  try {
+    return JSON.parse(text) as T;
+  } catch {
+    // an empty / HTML body (Safari: "The string did not match the expected pattern")
+    return {
+      error: `Магазин ответил не JSON (HTTP ${r.status}) на ${path}`,
+    } as T;
+  }
 }
 
 /** Empty the shop's session cart, then put our lines into it. */
-async function syncShopCart(lines: CartLine[]): Promise<void> {
+async function syncShopCart(
+  lines: CartLine[],
+  site: string,
+): Promise<string[]> {
+  const ids = SITE_IDS[site] ?? {};
+  const skipped: string[] = [];
   const html = await (
     await fetch("/basket/", { credentials: "same-origin" })
   ).text();
@@ -130,18 +165,25 @@ async function syncShopCart(lines: CartLine[]): Promise<void> {
     });
   }
   const pairs = lines
-    .filter((l) => l.qty > 0)
-    .map((l) => `${encodeURIComponent(l.coralId)}=${l.qty}`);
+    .filter((l) => {
+      // bundles ("Выгодные наборы") exist only on the Russian site
+      if (site !== "coralclub.ru" && l.slug.startsWith("set-")) {
+        skipped.push(l.name);
+        return false;
+      }
+      return l.qty > 0;
+    })
+    .map((l) => `${encodeURIComponent(ids[l.slug] ?? l.coralId)}=${l.qty}`);
   if (pairs.length) {
     await fetch(`/shop/shop_basket.php?${pairs.join("&")}${FRIEND_QUERY}`, {
       credentials: "same-origin",
     });
   }
+  return skipped;
 }
 
 export function LandingCheckout() {
   const cart = useCart();
-  const subtotal = cartSubtotal(cart);
 
   const [ready, setReady] = useState<"idle" | "sync" | "ok" | "error">("idle");
   const [error, setError] = useState("");
@@ -172,6 +214,16 @@ export function LandingCheckout() {
   const [agreeData, setAgreeData] = useState(false);
   const [sending, setSending] = useState(false);
 
+  // which shop site the dev proxy talks to ("" — the proxy's default)
+  const [site, setSite] = useState(() => {
+    if (typeof document === "undefined") return "";
+    const m = new RegExp(`(?:^|;\\s*)${SITE_COOKIE}=([^;]+)`).exec(
+      document.cookie,
+    );
+    return m ? decodeURIComponent(m[1]) : "";
+  });
+  const [skipped, setSkipped] = useState<string[]>([]);
+  const picked = useRef(false);
   const synced = useRef("");
   const cartKey = useMemo(
     () => cart.map((l) => `${l.coralId}:${l.qty}`).join(","),
@@ -180,19 +232,26 @@ export function LandingCheckout() {
 
   // 1) our cart → the shop's session cart; 2) location + delivery options
   useEffect(() => {
-    if (!cart.length || synced.current === cartKey) return;
-    synced.current = cartKey;
+    const key = `${site}|${cartKey}`;
+    if (!cart.length || synced.current === key) return;
+    synced.current = key;
     let cancelled = false;
     (async () => {
       setReady("sync");
       setError("");
       try {
-        await syncShopCart(cart);
-        const loc = (await (
+        setSkipped(await syncShopCart(cart, site || "coralclub.ru"));
+        const locText = await (
           await fetch("/restApi/v4/location/getLocation?language=ru", {
             credentials: "same-origin",
           })
-        ).json()) as { city?: string; area?: string };
+        ).text();
+        let loc: { city?: string; area?: string } = {};
+        try {
+          loc = JSON.parse(locText);
+        } catch {
+          /* no location — the picked / default city is used */
+        }
         const c = loc.city || "Москва";
         const a = loc.area || c;
         const init = await api<{
@@ -204,14 +263,22 @@ export function LandingCheckout() {
         if (cancelled) return;
         const list = init.result?.CHECKOUT_OPTIONS?.countries;
         if (list && Object.keys(list).length) setCountries(list);
-        const site = init.result?.CUR_LOCATION?.CODE;
-        if (site) {
-          setShopCountry(site);
-          setCountry(site);
+        const siteCountry = init.result?.CUR_LOCATION?.CODE;
+        if (siteCountry) {
+          setShopCountry(siteCountry);
+          if (!picked.current) setCountry(siteCountry);
         }
-        setCity(c);
-        setCityDraft(c);
-        setArea(a);
+        if (!picked.current) {
+          // the geo-detected city belongs to the visitor's IP, not to the
+          // site's country — outside Russia start from that country's city
+          const start =
+            siteCountry && siteCountry !== "RU"
+              ? (DEFAULT_CITY[siteCountry] ?? c)
+              : c;
+          setCity(start);
+          setCityDraft(start);
+          setArea(start === c ? a : start);
+        }
         setReady("ok");
       } catch (e) {
         if (!cancelled) {
@@ -226,7 +293,7 @@ export function LandingCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [cart, cartKey]);
+  }, [cart, cartKey, site]);
 
   // delivery options for the chosen country / city
   useEffect(() => {
@@ -463,6 +530,17 @@ export function LandingCheckout() {
               onChange={(e) => {
                 const code = e.target.value;
                 const c = DEFAULT_CITY[code] ?? "";
+                picked.current = true;
+                const host = SHOP_SITES[code];
+                if (host && host !== (site || "coralclub.ru")) {
+                  // that country has its own shop site: switch the proxy to it
+                  document.cookie = `${SITE_COOKIE}=${host}; path=/; max-age=86400`;
+                  setReady("idle");
+                  setGroups([]);
+                  setPayments([]);
+                  setTotals(null);
+                  setSite(host);
+                }
                 setCountry(code);
                 setCity(c);
                 setArea(c);
@@ -503,6 +581,10 @@ export function LandingCheckout() {
           </button>
           <dl className={styles.debug}>
             <div>
+              <dt>Сайт магазина</dt>
+              <dd>{ready === "idle" ? "…" : site || "по умолчанию"}</dd>
+            </div>
+            <div>
               <dt>Способов доставки</dt>
               <dd>{allItems.length}</dd>
             </div>
@@ -528,6 +610,12 @@ export function LandingCheckout() {
 
           {ready === "sync" && <p className={styles.muted}>Готовим заказ…</p>}
           {error && <p className={styles.error}>{error}</p>}
+          {skipped.length > 0 && (
+            <p className={styles.error}>
+              На этом сайте нет: {skipped.join(", ")}. Эти позиции в заказ не
+              попали.
+            </p>
+          )}
 
           <section className={styles.card}>
             <h2 className={styles.h2}>Ваш заказ</h2>
@@ -675,7 +763,7 @@ export function LandingCheckout() {
             <dl className={styles.totals}>
               <div>
                 <dt>Товары</dt>
-                <dd>{totals ? money(totals.PRICE) : fmt(subtotal)}</dd>
+                <dd>{totals ? money(totals.PRICE) : "—"}</dd>
               </div>
               <div>
                 <dt>Доставка</dt>

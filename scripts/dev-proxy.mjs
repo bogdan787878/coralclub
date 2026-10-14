@@ -6,7 +6,8 @@
  *   npm run dev:proxy      # this proxy on :3200
  *   open http://localhost:3200/landing/checkout/
  *
- * Another country's shop site:  SHOP_HOST=es.coral.club npm run dev:proxy
+ * The checkout test page switches the shop site itself (cookie `cc_shop_site`:
+ * coralclub.ru, coralclub.us, es.coral.club …); SHOP_HOST sets the default.
  *
  * Shop paths (/sv-api, /shop, /basket, /checkout, /ajax, /order …) go to
  * https://coralclub.ru; everything else goes to the local Next dev server
@@ -24,7 +25,43 @@ const LOCAL = {
   port: Number(process.env.LOCAL_PORT ?? 3100),
 };
 /** Which shop site to front: coralclub.ru, es.coral.club, pl.coral.club … */
-const REMOTE_HOST = process.env.SHOP_HOST ?? "coralclub.ru";
+const DEFAULT_HOST = process.env.SHOP_HOST ?? "coralclub.ru";
+/** Site hosts the test page may switch to (cookie `cc_shop_site`). */
+const ALLOWED_HOST = /^(coralclub\.(ru|us)|([a-z0-9-]+\.)?coral\.club)$/i;
+const hostOf = (req) => {
+  const m = /(?:^|;\s*)cc_shop_site=([^;]+)/.exec(req.headers.cookie ?? "");
+  const h = m ? decodeURIComponent(m[1]) : "";
+  return ALLOWED_HOST.test(h) ? h : DEFAULT_HOST;
+};
+
+/**
+ * One cookie jar per shop site, kept here (not in the browser): every site
+ * names its session cookie the same (PHPSESSID …), so they cannot share the
+ * browser's single localhost cookie space.
+ */
+const jars = new Map();
+const jarOf = (host) => {
+  if (!jars.has(host)) jars.set(host, new Map());
+  return jars.get(host);
+};
+function storeCookies(host, setCookie = []) {
+  const jar = jarOf(host);
+  for (const line of setCookie) {
+    const [pair, ...attrs] = line.split(";");
+    const eq = pair.indexOf("=");
+    if (eq < 0) continue;
+    const name = pair.slice(0, eq).trim();
+    const value = pair.slice(eq + 1).trim();
+    const dead =
+      value === "" ||
+      attrs.some((a) => /^\s*max-age=0\s*$/i.test(a)) ||
+      attrs.some((a) => /^\s*expires=.*1970/i.test(a));
+    if (dead) jar.delete(name);
+    else jar.set(name, value);
+  }
+}
+const cookieHeader = (host) =>
+  [...jarOf(host)].map(([k, v]) => `${k}=${v}`).join("; ");
 const SELF = `http://localhost:${PORT}`;
 
 const REMOTE_PREFIXES = [
@@ -57,31 +94,29 @@ const readBody = (req) =>
     req.on("end", () => resolve(Buffer.concat(chunks)));
   });
 
-function toRemoteHeaders(headers) {
-  const h = { ...headers, host: REMOTE_HOST, "accept-encoding": "identity" };
+function toRemoteHeaders(headers, host) {
+  const h = { ...headers, host, "accept-encoding": "identity" };
   for (const k of ["origin", "referer"]) {
-    if (h[k]) h[k] = h[k].replace(SELF, `https://${REMOTE_HOST}`);
+    if (h[k]) h[k] = h[k].replace(SELF, `https://${host}`);
   }
+  const jar = cookieHeader(host);
+  if (jar) h.cookie = jar;
+  else delete h.cookie;
   return h;
 }
 
 /** https://coralclub.ru[:443]/x → http://localhost:3200/x */
-const toSelf = (text) =>
+const toSelf = (text, host) =>
   text
-    .replaceAll(`https://${REMOTE_HOST}:443`, SELF)
-    .replaceAll(`https://${REMOTE_HOST}`, SELF);
+    .replaceAll(`https://${host}:443`, SELF)
+    .replaceAll(`https://${host}`, SELF);
 
-function fromRemoteHeaders(headers) {
+function fromRemoteHeaders(headers, host) {
   const h = { ...headers };
-  if (h.location) h.location = toSelf(h.location);
-  if (h["set-cookie"]) {
-    h["set-cookie"] = h["set-cookie"].map((c) =>
-      c
-        .replace(/;\s*domain=[^;]*/i, "")
-        .replace(/;\s*secure/i, "")
-        .replace(/;\s*samesite=none/i, "; SameSite=Lax"),
-    );
-  }
+  if (h.location) h.location = toSelf(h.location, host);
+  // the shop's session cookies stay in the proxy's jar
+  storeCookies(host, h["set-cookie"]);
+  delete h["set-cookie"];
   return h;
 }
 
@@ -96,24 +131,25 @@ function request(opts, body) {
 }
 
 async function toRemote(req, res, body) {
+  const host = hostOf(req);
   const upstream = await request(
     {
       protocol: "https:",
-      host: REMOTE_HOST,
+      host,
       port: 443,
       method: req.method,
       path: req.url,
-      headers: toRemoteHeaders(req.headers),
+      headers: toRemoteHeaders(req.headers, host),
     },
     body,
   );
-  const headers = fromRemoteHeaders(upstream.headers);
+  const headers = fromRemoteHeaders(upstream.headers, host);
   const type = String(headers["content-type"] ?? "");
   if (type.includes("text/html")) {
     const chunks = [];
     for await (const c of upstream) chunks.push(c);
     const html = Buffer.concat(chunks).toString("utf8");
-    const rewritten = toSelf(html);
+    const rewritten = toSelf(html, host);
     delete headers["content-length"];
     res.writeHead(upstream.statusCode ?? 502, headers);
     res.end(rewritten);
@@ -177,6 +213,6 @@ server.on("upgrade", (req, socket, head) => {
 
 server.listen(PORT, () => {
   console.log(
-    `proxy ${SELF}  →  shop https://${REMOTE_HOST}, landing :${LOCAL.port}`,
+    `proxy ${SELF}  →  shop https://${DEFAULT_HOST} (switchable by cookie cc_shop_site), landing :${LOCAL.port}`,
   );
 });
