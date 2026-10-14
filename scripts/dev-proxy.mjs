@@ -6,6 +6,8 @@
  *   npm run dev:proxy      # this proxy on :3200
  *   open http://localhost:3200/landing/checkout/
  *
+ * Another country's shop site:  SHOP_HOST=es.coral.club npm run dev:proxy
+ *
  * Shop paths (/sv-api, /shop, /basket, /checkout, /ajax, /order …) go to
  * https://coralclub.ru; everything else goes to the local Next dev server
  * (falling back to the shop on a 404, e.g. its /images/*). Cookies are made
@@ -21,7 +23,8 @@ const LOCAL = {
   host: "127.0.0.1",
   port: Number(process.env.LOCAL_PORT ?? 3100),
 };
-const REMOTE_HOST = "coralclub.ru";
+/** Which shop site to front: coralclub.ru, es.coral.club, pl.coral.club … */
+const REMOTE_HOST = process.env.SHOP_HOST ?? "coralclub.ru";
 const SELF = `http://localhost:${PORT}`;
 
 const REMOTE_PREFIXES = [

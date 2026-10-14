@@ -37,6 +37,16 @@ type DeliveryGroup = {
 };
 type Totals = Record<string, string | number | null | undefined>;
 
+/** Currency symbol of the shop site (by the country it serves). */
+const CURRENCY: Record<string, string> = {
+  RU: "₽",
+  US: "$",
+  GB: "£",
+  KZ: "₸",
+  BY: "Br",
+  UA: "₴",
+};
+
 /** City to start with when a country is picked in the test panel. */
 const DEFAULT_CITY: Record<string, string> = {
   RU: "Москва",
@@ -140,6 +150,7 @@ export function LandingCheckout() {
   const [totals, setTotals] = useState<Totals | null>(null);
 
   const [country, setCountry] = useState("RU");
+  const [shopCountry, setShopCountry] = useState("RU");
   const [countries, setCountries] = useState<Record<string, string>>({
     RU: "Россия",
   });
@@ -186,12 +197,18 @@ export function LandingCheckout() {
         const a = loc.area || c;
         const init = await api<{
           result?: {
+            CUR_LOCATION?: { CODE?: string };
             CHECKOUT_OPTIONS?: { countries?: Record<string, string> };
           };
         }>("/init");
         if (cancelled) return;
         const list = init.result?.CHECKOUT_OPTIONS?.countries;
         if (list && Object.keys(list).length) setCountries(list);
+        const site = init.result?.CUR_LOCATION?.CODE;
+        if (site) {
+          setShopCountry(site);
+          setCountry(site);
+        }
         setCity(c);
         setCityDraft(c);
         setArea(a);
@@ -397,9 +414,11 @@ export function LandingCheckout() {
     setSending(false);
   }
 
+  const symbol = CURRENCY[shopCountry] ?? "€";
+  const fmt = (n: number) => formatRub(n).replace("₽", symbol);
   const money = (v: unknown) => {
     const n = priceValue(String(v ?? ""));
-    return n > 0 ? formatRub(n) : "—";
+    return n > 0 ? fmt(n) : "—";
   };
   const num = (v: unknown) =>
     parseFloat(
@@ -572,9 +591,9 @@ export function LandingCheckout() {
                       {it.NAME || it.group}
                       {it.TRANSIT ? ` · ${it.TRANSIT} дн.` : ""}
                       <small>
-                        {it.PRICE ? formatRub(it.PRICE) : "бесплатно"}
+                        {it.PRICE ? fmt(it.PRICE) : "бесплатно"}
                         {it.FREE_DELIVERY
-                          ? `, бесплатно от ${formatRub(it.FREE_DELIVERY)}`
+                          ? `, бесплатно от ${fmt(it.FREE_DELIVERY)}`
                           : ""}
                       </small>
                     </span>
@@ -656,7 +675,7 @@ export function LandingCheckout() {
             <dl className={styles.totals}>
               <div>
                 <dt>Товары</dt>
-                <dd>{totals ? money(totals.PRICE) : formatRub(subtotal)}</dd>
+                <dd>{totals ? money(totals.PRICE) : fmt(subtotal)}</dd>
               </div>
               <div>
                 <dt>Доставка</dt>
@@ -664,7 +683,7 @@ export function LandingCheckout() {
                   {deliveryPrice === null
                     ? "—"
                     : deliveryPrice > 0
-                      ? formatRub(deliveryPrice)
+                      ? fmt(deliveryPrice)
                       : "бесплатно"}
                 </dd>
               </div>
