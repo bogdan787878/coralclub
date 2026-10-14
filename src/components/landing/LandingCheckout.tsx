@@ -44,10 +44,12 @@ type Totals = Record<string, string | number | null | undefined>;
  */
 const SHOP_SITES: Record<string, string> = {
   RU: "coralclub.ru",
+  KZ: "coralclub.ru",
   US: "coralclub.us",
-  ES: "es.coral.club",
-  PL: "pl.coral.club",
 };
+/** Other countries: their regional site, <cc>.coral.club (de, fr, it, pl …). */
+const siteFor = (code: string) =>
+  SHOP_SITES[code] ?? `${code.toLowerCase()}.coral.club`;
 const SITE_COOKIE = "cc_shop_site";
 
 /** Product ids that differ from the Russian site's, per site. */
@@ -66,6 +68,8 @@ const CURRENCY: Record<string, string> = {
   KZ: "₸",
   BY: "Br",
   UA: "₴",
+  PL: "zł",
+  CZ: "Kč",
 };
 
 /** City to start with when a country is picked in the test panel. */
@@ -77,6 +81,14 @@ const DEFAULT_CITY: Record<string, string> = {
   AM: "Ереван",
   KG: "Бишкек",
   US: "New York",
+  CA: "Toronto",
+  GB: "London",
+  FR: "Paris",
+  CZ: "Praha",
+  NL: "Amsterdam",
+  AT: "Wien",
+  BE: "Bruxelles",
+  PT: "Lisboa",
   DE: "Berlin",
   PL: "Warszawa",
   ES: "Madrid",
@@ -117,6 +129,7 @@ async function api<T = unknown>(
 ): Promise<T> {
   const r = await fetch(`/sv-api${path}?${qs({ ...params, language: "ru" })}`, {
     credentials: "same-origin",
+    cache: "no-store",
   });
   const text = await r.text();
   try {
@@ -223,6 +236,7 @@ export function LandingCheckout() {
     return m ? decodeURIComponent(m[1]) : "";
   });
   const [skipped, setSkipped] = useState<string[]>([]);
+  const [siteNote, setSiteNote] = useState("");
   const picked = useRef(false);
   const synced = useRef("");
   const cartKey = useMemo(
@@ -261,6 +275,14 @@ export function LandingCheckout() {
           };
         }>("/init");
         if (cancelled) return;
+        if (!init.result?.CUR_LOCATION && site && site !== "coralclub.ru") {
+          // that regional site did not answer — fall back to the main one
+          document.cookie = `${SITE_COOKIE}=coralclub.ru; path=/; max-age=86400`;
+          setSiteNote(`Сайт ${site} не ответил, показан coralclub.ru`);
+          setSite("coralclub.ru");
+          return;
+        }
+        setSiteNote("");
         const list = init.result?.CHECKOUT_OPTIONS?.countries;
         if (list && Object.keys(list).length) setCountries(list);
         const siteCountry = init.result?.CUR_LOCATION?.CODE;
@@ -531,7 +553,7 @@ export function LandingCheckout() {
                 const code = e.target.value;
                 const c = DEFAULT_CITY[code] ?? "";
                 picked.current = true;
-                const host = SHOP_SITES[code];
+                const host = siteFor(code);
                 if (host && host !== (site || "coralclub.ru")) {
                   // that country has its own shop site: switch the proxy to it
                   document.cookie = `${SITE_COOKIE}=${host}; path=/; max-age=86400`;
@@ -610,6 +632,7 @@ export function LandingCheckout() {
 
           {ready === "sync" && <p className={styles.muted}>Готовим заказ…</p>}
           {error && <p className={styles.error}>{error}</p>}
+          {siteNote && <p className={styles.error}>{siteNote}</p>}
           {skipped.length > 0 && (
             <p className={styles.error}>
               На этом сайте нет: {skipped.join(", ")}. Эти позиции в заказ не
