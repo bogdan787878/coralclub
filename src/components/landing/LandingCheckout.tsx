@@ -72,6 +72,26 @@ const CURRENCY: Record<string, string> = {
   CZ: "Kč",
 };
 
+/**
+ * Countries offered before (or without) the shop's own list from /init, so
+ * the selector never disappears when the shop does not answer.
+ */
+const FALLBACK_COUNTRIES: Record<string, string> = {
+  RU: "Россия",
+  US: "США",
+  UA: "Украина",
+  KZ: "Казахстан",
+  BY: "Беларусь",
+  DE: "Германия",
+  FR: "Франция",
+  ES: "Испания",
+  IT: "Италия",
+  PL: "Польша",
+  CZ: "Чехия",
+  GB: "Великобритания",
+  CA: "Канада",
+};
+
 /** City to start with when a country is picked in the test panel. */
 const DEFAULT_CITY: Record<string, string> = {
   RU: "Москва",
@@ -206,9 +226,8 @@ export function LandingCheckout() {
 
   const [country, setCountry] = useState("RU");
   const [shopCountry, setShopCountry] = useState("RU");
-  const [countries, setCountries] = useState<Record<string, string>>({
-    RU: "Россия",
-  });
+  const [countries, setCountries] =
+    useState<Record<string, string>>(FALLBACK_COUNTRIES);
   const [deliveryError, setDeliveryError] = useState("");
   const [city, setCity] = useState("Москва");
   const [area, setArea] = useState("Москва");
@@ -306,7 +325,7 @@ export function LandingCheckout() {
         if (!cancelled) {
           setReady("error");
           setError(
-            "Не удалось связаться с магазином. Страница работает только на coralclub.ru или через локальный прокси.",
+            `Не удалось связаться с магазином (${e instanceof Error ? e.message : String(e)}). Страница работает только на coralclub.ru или через локальный прокси — проверьте, что npm run dev:proxy запущен.`,
           );
           console.error(e);
         }
@@ -516,20 +535,6 @@ export function LandingCheckout() {
         .replace(",", "."),
     ) || 0;
 
-  if (!cart.length) {
-    return (
-      <main className={styles.page}>
-        <div className={styles.wrap}>
-          <h1 className={styles.h1}>Оформление заказа</h1>
-          <p className={styles.muted}>Корзина пуста.</p>
-          <Link href="/landing/" className={styles.link}>
-            ← На главную
-          </Link>
-        </div>
-      </main>
-    );
-  }
-
   const deliveryPrice =
     totals && totals.TOTAL_PRICE !== undefined && totals.PRICE !== undefined
       ? num(totals.TOTAL_PRICE) - num(totals.PRICE)
@@ -642,6 +647,15 @@ export function LandingCheckout() {
 
           <section className={styles.card}>
             <h2 className={styles.h2}>Ваш заказ</h2>
+            {cart.length === 0 && (
+              <p className={styles.muted}>
+                Корзина пуста. Добавьте товары на{" "}
+                <Link href="/landing/" className={styles.link}>
+                  главной лендинга
+                </Link>
+                .
+              </p>
+            )}
             <ul className={styles.lines}>
               {cart.map((l) => (
                 <li key={l.coralId}>
