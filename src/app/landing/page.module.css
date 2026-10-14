@@ -9,7 +9,7 @@
 
 .heroMedia {
   position: relative;
-  aspect-ratio: 10 / 9;
+  aspect-ratio: 3 / 2;
   background: var(--color-neutral-30);
 }
 
@@ -241,8 +241,8 @@
   }
   .heroMedia {
     order: 2;
-    aspect-ratio: auto;
-    min-height: min(680px, 74vh);
+    aspect-ratio: 3 / 2;
+    align-self: center;
     border-radius: var(--radius-base);
     overflow: hidden;
   }

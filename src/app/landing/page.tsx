@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image, { getImageProps } from "next/image";
+import Image from "next/image";
 import { Accent, Container, Heading, Section } from "@/components/ui";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { Ingredients } from "@/components/landing/Ingredients";
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 const img = (name: string) => asset(`/images/landing/${name}?v=1`);
 
 const HERO_ALT =
-  "Три биоцеллюлозные маски Coral Club — упаковки и саше на столе в солнечном свете";
+  "Маски, коллаген и Гидрамакс Плюс от Coral Club — упаковки на столе в солнечном свете";
 
 const MASK_SLUGS = [
   "advanced-collagen-biocellulose-facial-mask",
@@ -84,22 +84,6 @@ export default function LandingPage() {
     BEAUTY_SLUGS.map((slug) => [slug, LANDING_PRODUCTS_RU[slug].name]),
   );
 
-  // one hero photo: the phone crop below 1024px, the wide one above
-  const heroCommon = {
-    alt: HERO_ALT,
-    fill: true,
-    priority: true,
-    sizes: "(max-width: 1023px) 100vw, 60vw",
-  };
-  const heroMobile = getImageProps({
-    ...heroCommon,
-    src: img("hero-masks-mobile.webp"),
-  });
-  const heroDesktop = getImageProps({
-    ...heroCommon,
-    src: img("hero-masks-desktop.webp"),
-  });
-
   return (
     <div className="appShell">
       <LeadModalProvider>
@@ -108,14 +92,13 @@ export default function LandingPage() {
 
           <section className={styles.hero}>
             <div className={styles.heroMedia}>
-              <picture>
-                <source
-                  media="(min-width: 1024px)"
-                  srcSet={heroDesktop.props.srcSet}
-                  sizes={heroDesktop.props.sizes}
-                />
-                <img {...heroMobile.props} alt={HERO_ALT} />
-              </picture>
+              <Image
+                src={img("hero-collection.webp")}
+                alt={HERO_ALT}
+                fill
+                priority
+                sizes="(max-width: 1023px) 100vw, 60vw"
+              />
             </div>
             <Container className={styles.heroCol}>
               <div className={styles.heroBody}>
