@@ -377,7 +377,7 @@ export function LandingCheckout() {
         const a = loc.area || c;
         const init = await api<{
           result?: {
-            CUR_LOCATION?: { CODE?: string };
+            CUR_LOCATION?: { CODE?: string; ALPHA2?: string };
             CHECKOUT_OPTIONS?: { countries?: Record<string, string> };
           };
         }>("/init", {}, site);
@@ -392,8 +392,10 @@ export function LandingCheckout() {
         setSiteNote("");
         const list = init.result?.CHECKOUT_OPTIONS?.countries;
         if (list && Object.keys(list).length) setCountries(list);
-        // some sites report their code as "BY_BY"
-        const siteCountry = init.result?.CUR_LOCATION?.CODE?.split("_")[0];
+        // some sites report their code as "BY_BY", the UAE one as "OT"
+        // (other territories) — ALPHA2 is the real country there
+        const cur = init.result?.CUR_LOCATION;
+        const siteCountry = (cur?.ALPHA2 || cur?.CODE)?.split("_")[0];
         if (siteCountry) {
           setShopCountry(siteCountry);
           if (!picked.current) setCountry(siteCountry);
@@ -403,7 +405,7 @@ export function LandingCheckout() {
           // site's country — outside Russia start from that country's city
           const start =
             siteCountry && siteCountry !== "RU"
-              ? (DEFAULT_CITY[siteCountry] ?? c)
+              ? (DEFAULT_CITY[siteCountry] ?? list?.[siteCountry] ?? c)
               : c;
           setCity(start);
           setCityDraft(start);
@@ -686,7 +688,9 @@ export function LandingCheckout() {
               value={country}
               onChange={(e) => {
                 const code = e.target.value;
-                const c = DEFAULT_CITY[code] ?? "";
+                // no known city: the shop accepts the country name (or any city) —
+                // an empty city would leave the delivery list unrequested
+                const c = DEFAULT_CITY[code] ?? countries[code] ?? code;
                 picked.current = true;
                 const host = siteFor(code);
                 if (host && host !== (site || "coralclub.ru")) {
