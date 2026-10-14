@@ -174,8 +174,13 @@ async function toLocal(req, res, body) {
     },
     body,
   );
+  // an unknown local *page* must stay a 404: the shop would redirect it to
+  // a regional site (coral-club.by …) and take the tester away from here.
+  // Only non-page requests (images, fonts …) fall back to the shop.
+  const wantsPage = String(req.headers.accept ?? "").includes("text/html");
   if (
     upstream.statusCode === 404 &&
+    !wantsPage &&
     (req.method === "GET" || req.method === "HEAD")
   ) {
     upstream.resume();
