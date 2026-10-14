@@ -211,18 +211,31 @@ export default function LandingPage() {
           <Section tone="default" id="collagen" className={styles.section}>
             <Container>
               <div className={styles.block}>
-                <div className={styles.blockMedia}>
+                <div className={styles.blockShape}>
                   <Image
-                    src={img("collagen.jpg")}
-                    alt="Пептидный и трипептидный коллаген"
-                    fill
-                    sizes="(max-width: 1023px) 100vw, 480px"
+                    src={`${asset("/images/body-rebuilds-layers.png")}?v=2`}
+                    alt="Девушка с закрытыми глазами и поднятым к свету лицом на бирюзовом фоне"
+                    width={1360}
+                    height={1395}
+                    sizes="(max-width: 1023px) calc(100vw - 32px), 480px"
                   />
                 </div>
                 <div className={styles.blockBody}>
-                  <Heading as="h2" className={styles.h2}>
-                    Коллаген — это белок молодости.
-                  </Heading>
+                  <div className={styles.blockHead}>
+                    <Heading as="h2" className={styles.h2}>
+                      Коллаген — это белок молодости.
+                    </Heading>
+                    <p className={styles.blockText}>
+                      Коллаген — главный структурный белок соединительных
+                      тканей: кожи, сухожилий, связок и суставов. С возрастом
+                      организм вырабатывает его всё меньше.
+                    </p>
+                    <p className={styles.blockText}>
+                      Промарин — морской коллаген в жидкой форме, готовый к
+                      приёму: во флаконе 50 мл. Выбирайте пептиды или трипептиды
+                      — более мелкую молекулу, которая легче усваивается.
+                    </p>
+                  </div>
                   <ProductSlider slides={collagenSlides} />
                 </div>
               </div>
