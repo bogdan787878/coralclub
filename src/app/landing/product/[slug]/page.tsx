@@ -9,8 +9,6 @@ import {
   PeriodicElements,
 } from "@/components/organisms";
 import { ShowWhenScrolledPast } from "@/components/landing/ShowWhenScrolledPast";
-import { Reviews } from "@/components/landing/Reviews";
-import { reviewsFor } from "@/lib/landingReviewsRu";
 import { LandingGallery } from "@/components/landing/LandingGallery";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { IncludedProductDetails } from "@/components/landing/IncludedProductDetails";
@@ -337,18 +335,6 @@ export default async function LandingProductPage({
             </div>
           </div>
         </Section>
-
-        {reviewsFor(slug).length > 0 && (
-          <Section tone="surface">
-            <div className={styles.wide}>
-              <Reviews
-                title="Отзывы покупателей"
-                items={reviewsFor(slug)}
-                showProduct={false}
-              />
-            </div>
-          </Section>
-        )}
 
         {/* web: price + CTA stay in reach once the inline block is gone */}
         <ShowWhenScrolledPast watchId="pdp-buy">

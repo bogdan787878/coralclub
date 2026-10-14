@@ -3,8 +3,6 @@ import Image from "next/image";
 import { Accent, Container, Heading, Section } from "@/components/ui";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { LeadModalProvider } from "@/components/landing/LeadModal";
-import { Reviews } from "@/components/landing/Reviews";
-import { LANDING_REVIEWS_RU } from "@/lib/landingReviewsRu";
 import { LandingCta, PromoCode } from "@/components/landing/LandingCta";
 import { LandingCards } from "@/components/landing/LandingCards";
 import { LandingCartButton } from "@/components/landing/LandingCartButton";
@@ -63,7 +61,6 @@ const NAV = [
   ["#masks", "Маски"],
   ["#collagen", "Коллаген"],
   ["#hydramax", "Гидрамакс"],
-  ["#reviews", "Отзывы"],
   ["#consultation", "Консультация"],
 ] as const;
 
@@ -232,14 +229,6 @@ export default function LandingPage() {
               </div>
             </Container>
           </Section>
-
-          {LANDING_REVIEWS_RU.length > 0 && (
-            <Section tone="surface" id="reviews" className={styles.section}>
-              <Container>
-                <Reviews items={LANDING_REVIEWS_RU} />
-              </Container>
-            </Section>
-          )}
 
           <Section tone="default" id="consultation" className={styles.section}>
             <Container>
