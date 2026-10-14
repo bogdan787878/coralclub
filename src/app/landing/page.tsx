@@ -151,19 +151,35 @@ export default function LandingPage() {
 
           <section id="why" className={styles.why}>
             <Container>
-              <Heading as="h2" className={styles.h2}>
-                Почему наша <Accent>система работает</Accent>
-              </Heading>
-              <p className={styles.lead}>
-                Добавки работают изнутри, маски — снаружи. Вместе это
-                комплексный подход к красоте и здоровью.
-              </p>
-              <div className={styles.promo}>
-                <p className={styles.promoText}>
-                  Получите специальную скидку по промокоду{" "}
-                  <PromoCode code={PROMO_CODE} className={styles.promoCode} />{" "}
-                  на продукты Системы Красоты
-                </p>
+              <div className={styles.whyInner}>
+                <div className={styles.whyMedia}>
+                  <Image
+                    src={`${asset("/images/restart-detox-vs-reset.png")}?v=2`}
+                    alt="Девушка с поднятым к свету лицом на бирюзовом фоне"
+                    width={1372}
+                    height={1369}
+                    sizes="(max-width: 1023px) calc(100vw - 32px), 560px"
+                  />
+                </div>
+                <div className={styles.whyCopy}>
+                  <Heading as="h2" className={styles.h2}>
+                    Почему наша <Accent>система работает</Accent>
+                  </Heading>
+                  <p className={styles.lead}>
+                    Добавки работают изнутри, маски — снаружи. Вместе это
+                    комплексный подход к красоте и здоровью.
+                  </p>
+                  <div className={styles.promo}>
+                    <p className={styles.promoText}>
+                      Получите специальную скидку по промокоду{" "}
+                      <PromoCode
+                        code={PROMO_CODE}
+                        className={styles.promoCode}
+                      />{" "}
+                      на продукты Системы Красоты
+                    </p>
+                  </div>
+                </div>
               </div>
             </Container>
             <div id="products" className={styles.cards}>
