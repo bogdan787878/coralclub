@@ -21,12 +21,12 @@ import { asset } from "@/lib/asset";
 import { BEAUTY_SLUGS, MAIN_SITE_URL, PROMO_CODE } from "@/lib/beautySystem";
 import {
   LANDING_PRODUCTS_RU,
-  HYDRAMAX_PACKSHOT,
   discountTag,
   formatRub,
   landingPdpHref,
   type BeautySlug,
 } from "@/lib/landingCatalogRu";
+import { landingGallery } from "@/lib/landingGallery";
 import { getProductCards } from "@/lib/products";
 import heroImages from "../../../content/hero-images.json";
 import styles from "./page.module.css";
@@ -56,12 +56,6 @@ const COLLAGEN_SLUGS = [
 ] as const;
 const HYDRAMAX_SLUGS = ["hydramax", "hydramax-plus"] as const;
 
-/** Packshot override for the slider where the shared photo is wrong. */
-const SLIDE_IMAGE: Partial<Record<BeautySlug, { src: string }>> = {
-  // the catalog photo shows the "Plus" box — use the real Hydramax one
-  hydramax: { src: asset(HYDRAMAX_PACKSHOT) },
-};
-
 const NAV = [
   ["#why", "Почему система работает"],
   ["#products", "Продукты"],
@@ -77,10 +71,7 @@ export default function LandingPage() {
     const ru = LANDING_PRODUCTS_RU[c.slug as BeautySlug];
     return {
       ...c,
-      images:
-        c.slug === "hydramax"
-          ? [{ src: asset(HYDRAMAX_PACKSHOT), alt: ru.name }]
-          : c.images,
+      images: landingGallery(c.slug),
       name: ru.name,
       headline: ru.headline,
       category: ru.category,
@@ -93,14 +84,12 @@ export default function LandingPage() {
     slugs.map((slug) => {
       const ru = LANDING_PRODUCTS_RU[slug];
       const card = bySlug[slug];
-      const override = SLIDE_IMAGE[slug];
+      const gallery = landingGallery(slug);
       return {
         id: slug,
         title: ru.name,
-        image: {
-          src: override?.src ?? product(slug),
-          alt: ru.name,
-        },
+        image: gallery[0] ?? { src: product(slug), alt: ru.name },
+        images: gallery,
         lead: ru.lead,
         bullets: ru.bullets,
         extra: ru.extra,

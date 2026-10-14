@@ -17,17 +17,15 @@ import { IncludedProductDetails } from "@/components/landing/IncludedProductDeta
 import { IncludedProductSheet } from "@/components/landing/IncludedProductSheet";
 import { LandingCards } from "@/components/landing/LandingCards";
 import { LandingCartButton } from "@/components/landing/LandingCartButton";
-import { asset } from "@/lib/asset";
+import { landingGallery } from "@/lib/landingGallery";
 import { BEAUTY_SLUGS, MAIN_SITE_URL } from "@/lib/beautySystem";
 import {
   BADGE_LABELS_RU,
   DISCLAIMERS,
   INCLUDED_PRODUCTS_RU,
   LANDING_PRODUCTS_RU,
-  HYDRAMAX_PACKSHOT,
   discountTag,
   formatRub,
-  sitePhotos,
   type BeautySlug,
 } from "@/lib/landingCatalogRu";
 import {
@@ -96,10 +94,7 @@ export default async function LandingProductPage({
             name: r.name,
             headline: r.headline,
             category: r.category,
-            images:
-              c.slug === "hydramax"
-                ? [{ src: asset(HYDRAMAX_PACKSHOT), alt: r.name }]
-                : c.images,
+            images: landingGallery(c.slug),
             price: formatRub(r.priceRub.club),
             priceWas: formatRub(r.priceRub.regular),
           }
@@ -145,25 +140,8 @@ export default async function LandingProductPage({
   const ownSummary = REVIEW_SUMMARY[slug as BeautySlug];
 
   const hasFacts = (ru.facts?.rows.length ?? 0) > 0;
-  // catalog photos first, then every photo from the original coralclub.ru
-  // page (Hydramax's catalog photo shows the "Plus" box, so it leads with
-  // the real packshot from the site instead)
-  const catalogPhotos = slug === "hydramax" ? [] : product.pdpImages;
-  const sitePhotoUrls = sitePhotos(slug).map((src) => asset(src));
-  const orderedSite =
-    slug === "hydramax"
-      ? [
-          asset(HYDRAMAX_PACKSHOT),
-          ...sitePhotoUrls.filter((u) => u !== asset(HYDRAMAX_PACKSHOT)),
-        ]
-      : sitePhotoUrls;
-  const images = [...catalogPhotos, ...orderedSite].map((src) => ({
-    src,
-    alt: ru.name,
-  }));
-  // fall back to the shared packshot if a product has no PDP gallery yet
-  if (!images.length && product.image)
-    images.push({ src: product.image, alt: ru.name });
+  // catalog photos first, then every photo from the original coralclub.ru page
+  const images = landingGallery(slug);
 
   // price + CTA: the same props feed the inline block and the web top bar
   const buyProps = {

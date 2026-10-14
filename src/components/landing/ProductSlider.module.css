@@ -122,8 +122,16 @@
   color: var(--color-special);
 }
 
-/* the name link stretches over the whole card so the photo and text are
-   clickable too (the cart button sits above it) */
+/* everything under the photo: the name link stretches over it so the text is
+   clickable too. The photo is its own gallery (swipe + tap) and stays out
+   of this overlay. */
+.slideBody {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
 .productName::after {
   content: "";
   position: absolute;

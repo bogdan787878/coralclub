@@ -3,12 +3,15 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ImageSlider } from "@/components/organisms";
 import styles from "./ProductSlider.module.css";
 
 export type ProductSlide = {
   id: string;
   title: string;
   image: { src: string; alt: string; position?: string; fit?: "cover" };
+  /** All photos of the product — shown as a swipeable gallery in a card. */
+  images?: { src: string; alt: string }[];
   lead: string;
   bullets?: string[];
   extra?: string;
@@ -71,20 +74,28 @@ export function ProductSlider({ slides }: { slides: ProductSlide[] }) {
             <div
               className={`${styles.media}${s.meta ? ` ${styles.mediaCover}` : ""}`}
             >
-              <Image
-                src={s.image.src}
-                alt={s.image.alt}
-                fill
-                sizes="(max-width: 768px) 100vw, 420px"
-                style={
-                  s.image.position || s.image.fit
-                    ? {
-                        objectPosition: s.image.position,
-                        objectFit: s.image.fit,
-                      }
-                    : undefined
-                }
-              />
+              {s.meta ? (
+                <ImageSlider
+                  images={s.images?.length ? s.images : [s.image]}
+                  sizes="(max-width: 1023px) 71vw, 380px"
+                  href={s.meta.href}
+                />
+              ) : (
+                <Image
+                  src={s.image.src}
+                  alt={s.image.alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 420px"
+                  style={
+                    s.image.position || s.image.fit
+                      ? {
+                          objectPosition: s.image.position,
+                          objectFit: s.image.fit,
+                        }
+                      : undefined
+                  }
+                />
+              )}
               {s.meta && (
                 <Link
                   href={s.meta.href}
@@ -101,35 +112,41 @@ export function ProductSlider({ slides }: { slides: ProductSlide[] }) {
                 </span>
               )}
             </div>
-            {s.meta ? (
-              <div className={styles.metaRow}>
-                <div className={styles.metaText}>
-                  <Link href={s.meta.href} className={styles.productName}>
-                    {s.title}
-                  </Link>
-                  <span className={styles.priceRow}>
-                    <span className={styles.price}>{s.meta.price}</span>
-                    {s.meta.priceWas && (
-                      <span className={styles.priceWas}>{s.meta.priceWas}</span>
-                    )}
-                    {s.meta.discount && (
-                      <span className={styles.discount}>{s.meta.discount}</span>
-                    )}
-                  </span>
+            <div className={styles.slideBody}>
+              {s.meta ? (
+                <div className={styles.metaRow}>
+                  <div className={styles.metaText}>
+                    <Link href={s.meta.href} className={styles.productName}>
+                      {s.title}
+                    </Link>
+                    <span className={styles.priceRow}>
+                      <span className={styles.price}>{s.meta.price}</span>
+                      {s.meta.priceWas && (
+                        <span className={styles.priceWas}>
+                          {s.meta.priceWas}
+                        </span>
+                      )}
+                      {s.meta.discount && (
+                        <span className={styles.discount}>
+                          {s.meta.discount}
+                        </span>
+                      )}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <h3 className={styles.name}>{s.title}</h3>
-            )}
-            <p className={styles.lead}>{s.lead}</p>
-            {s.bullets && (
-              <ul className={styles.bullets}>
-                {s.bullets.map((b) => (
-                  <li key={b}>{b}</li>
-                ))}
-              </ul>
-            )}
-            {s.extra && <p className={styles.lead}>{s.extra}</p>}
+              ) : (
+                <h3 className={styles.name}>{s.title}</h3>
+              )}
+              <p className={styles.lead}>{s.lead}</p>
+              {s.bullets && (
+                <ul className={styles.bullets}>
+                  {s.bullets.map((b) => (
+                    <li key={b}>{b}</li>
+                  ))}
+                </ul>
+              )}
+              {s.extra && <p className={styles.lead}>{s.extra}</p>}
+            </div>
           </li>
         ))}
       </ul>
