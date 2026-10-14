@@ -131,8 +131,20 @@ function request(opts, body) {
   });
 }
 
-async function toRemote(req, res, body) {
-  const host = hostOf(req);
+/**
+ * Some country sites (by.coral.club → coral-club.by …) redirect to a domain
+ * of their own. A redirect to another origin would make the page's fetch()
+ * fail (Safari: "Load failed"), so the proxy follows it itself and answers
+ * from the final site — each site keeps its own cookie jar.
+ */
+const REDIRECT_CODES = new Set([301, 302, 303, 307, 308]);
+const SHOP_DOMAIN = /coral[-.]?club/i;
+/** by.coral.club → coral-club.by …: learnt from the redirects, so the API
+ *  calls (which that site does not redirect) reach the same site and cart. */
+const canonical = new Map();
+
+async function toRemote(req, res, body, start = hostOf(req), hops = 0) {
+  const host = canonical.get(start) ?? start;
   const upstream = await request(
     {
       protocol: "https:",
@@ -144,6 +156,44 @@ async function toRemote(req, res, body) {
     },
     body,
   );
+  const location = upstream.headers.location;
+  if (REDIRECT_CODES.has(upstream.statusCode ?? 0) && location && hops < 4) {
+    let target = null;
+    try {
+      target = new URL(location, `https://${host}`);
+    } catch {
+      /* not a URL — handled below as a plain redirect */
+    }
+    if (
+      target &&
+      target.hostname !== host &&
+      SHOP_DOMAIN.test(target.hostname)
+    ) {
+      upstream.resume();
+      storeCookies(host, upstream.headers["set-cookie"]);
+      canonical.set(start, target.hostname);
+      // those redirects drop the query (?610205=1 …): carry it over
+      const original = new URL(req.url, "http://x");
+      for (const [k, v] of original.searchParams) {
+        if (!target.searchParams.has(k)) target.searchParams.append(k, v);
+      }
+      const toGet =
+        [301, 302, 303].includes(upstream.statusCode ?? 0) &&
+        req.method !== "GET" &&
+        req.method !== "HEAD";
+      return toRemote(
+        {
+          headers: req.headers,
+          method: toGet ? "GET" : req.method,
+          url: target.pathname.replace(/^\/{2,}/, "/") + target.search,
+        },
+        res,
+        toGet ? Buffer.alloc(0) : body,
+        target.hostname,
+        hops + 1,
+      );
+    }
+  }
   const headers = fromRemoteHeaders(upstream.headers, host);
   const type = String(headers["content-type"] ?? "");
   if (type.includes("text/html")) {

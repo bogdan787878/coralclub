@@ -304,7 +304,8 @@ export function LandingCheckout() {
         setSiteNote("");
         const list = init.result?.CHECKOUT_OPTIONS?.countries;
         if (list && Object.keys(list).length) setCountries(list);
-        const siteCountry = init.result?.CUR_LOCATION?.CODE;
+        // some sites report their code as "BY_BY"
+        const siteCountry = init.result?.CUR_LOCATION?.CODE?.split("_")[0];
         if (siteCountry) {
           setShopCountry(siteCountry);
           if (!picked.current) setCountry(siteCountry);
