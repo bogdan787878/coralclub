@@ -514,3 +514,32 @@ export function packLabel(slug: string): string | undefined {
   const pack = LANDING_PRODUCTS_RU[slug as BeautySlug]?.pack;
   return pack ? `${pack.count}\u00a0${pack.unit}` : undefined;
 }
+
+/**
+ * Product photos taken from the original coralclub.ru product pages
+ * (public/images/products/ru/<slug>-<n>.webp, in the site's own order).
+ * The Russian PDP gallery shows the catalog photos first, then all of these.
+ */
+const SITE_PHOTO_COUNT: Record<BeautySlug, number> = {
+  hydramax: 4,
+  "hydramax-plus": 3,
+  "promarine-collagen": 5,
+  "promarine-collagen-tripeptides-pack": 6,
+  "advanced-collagen-biocellulose-facial-mask": 5,
+  "hydro-boost-biocellulose-facial-mask": 5,
+  "skin-harmony-biocellulose-facial-mask": 5,
+};
+
+export function sitePhotos(slug: string): string[] {
+  const n = SITE_PHOTO_COUNT[slug as BeautySlug] ?? 0;
+  return Array.from(
+    { length: n },
+    (_, i) => `/images/products/ru/${slug}-${i + 1}.webp`,
+  );
+}
+
+/**
+ * Hydramax has no proper packshot in the shared catalog (its photo shows the
+ * "Plus" box), so the landing leads with the real one from the site.
+ */
+export const HYDRAMAX_PACKSHOT = "/images/products/ru/hydramax-3.webp";

@@ -14,6 +14,7 @@ import { asset } from "@/lib/asset";
 import { BEAUTY_SLUGS, MAIN_SITE_URL } from "@/lib/beautySystem";
 import {
   LANDING_PRODUCTS_RU,
+  HYDRAMAX_PACKSHOT,
   discountTag,
   formatRub,
   landingPdpHref,
@@ -48,16 +49,10 @@ const COLLAGEN_SLUGS = [
 ] as const;
 const HYDRAMAX_SLUGS = ["hydramax", "hydramax-plus"] as const;
 
-/** Packshot override for the slider where the shared photo needs framing. */
-const SLIDE_IMAGE: Partial<
-  Record<BeautySlug, { src: string; fit?: "cover"; position?: string }>
-> = {
-  // no Hydramax packshot yet — the lifestyle photo is cropped to the box
-  hydramax: {
-    src: asset("/images/products/hydramax.png"),
-    fit: "cover",
-    position: "42% 50%",
-  },
+/** Packshot override for the slider where the shared photo is wrong. */
+const SLIDE_IMAGE: Partial<Record<BeautySlug, { src: string }>> = {
+  // the catalog photo shows the "Plus" box — use the real Hydramax one
+  hydramax: { src: asset(HYDRAMAX_PACKSHOT) },
 };
 
 const NAV = [
@@ -74,6 +69,10 @@ export default function LandingPage() {
     const ru = LANDING_PRODUCTS_RU[c.slug as BeautySlug];
     return {
       ...c,
+      images:
+        c.slug === "hydramax"
+          ? [{ src: asset(HYDRAMAX_PACKSHOT), alt: ru.name }]
+          : c.images,
       name: ru.name,
       headline: ru.headline,
       category: ru.category,
@@ -93,8 +92,6 @@ export default function LandingPage() {
         image: {
           src: override?.src ?? product(slug),
           alt: ru.name,
-          fit: override?.fit,
-          position: override?.position,
         },
         lead: ru.lead,
         bullets: ru.bullets,
