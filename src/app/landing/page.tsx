@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Accent, Container, Heading, Section } from "@/components/ui";
 import { LandingHeader } from "@/components/landing/LandingHeader";
+import { LandingHero } from "@/components/landing/LandingHero";
 import { LeadModalProvider } from "@/components/landing/LeadModal";
 import { Reviews } from "@/components/landing/Reviews";
 import {
@@ -39,10 +40,42 @@ export const metadata: Metadata = {
 };
 
 const img = (name: string) => asset(`/images/landing/${name}?v=1`);
-const heroEntry = heroImages.items.find((i) => i.id === "personalization");
-const HERO_SRC = heroEntry
-  ? `${asset(heroEntry.mobile || heroEntry.desktop)}?v=3`
-  : "";
+
+/** A hero photo from content/hero-images.json (CMS-managed), same prefixing
+ *  and cache-busting as the shop home. */
+function heroPhoto(id: string, alt: string) {
+  const entry = heroImages.items.find((i) => i.id === id);
+  const desktop = entry?.desktop ?? "";
+  const mobile = entry?.mobile || desktop;
+  return {
+    desktopSrc: desktop ? `${asset(desktop)}?v=3` : "",
+    mobileSrc: mobile ? `${asset(mobile)}?v=3` : "",
+    alt,
+  };
+}
+
+/** Slides of the landing hero. The first keeps the landing's own photo; the
+ *  other two borrow the shop's phase heroes until the landing gets its own. */
+const heroSlides = [
+  {
+    id: "masks",
+    name: "Маски",
+    image: heroPhoto(
+      "personalization",
+      "Promarine Collagen Tripeptides и маска Hydro Boost на столе",
+    ),
+  },
+  {
+    id: "collagen",
+    name: "Коллаген",
+    image: heroPhoto("restart", "Продукты Coral Club на студийных подиумах"),
+  },
+  {
+    id: "hydration",
+    name: "Гидратация",
+    image: heroPhoto("hydration", "Набор для гидратации Coral Club"),
+  },
+];
 const product = (slug: string) => asset(`/images/products/${slug}.png`);
 
 const MASK_SLUGS = [
@@ -121,33 +154,7 @@ export default function LandingPage() {
         <main className={styles.page}>
           <LandingHeader homeHref={MAIN_SITE_URL} />
 
-          <section className={styles.hero}>
-            <div className={styles.heroMedia}>
-              {HERO_SRC && (
-                <Image
-                  src={HERO_SRC}
-                  alt="Promarine Collagen Tripeptides и маска Hydro Boost на столе"
-                  fill
-                  priority
-                  sizes="(max-width: 1023px) 100vw, 560px"
-                />
-              )}
-            </div>
-            <Container className={styles.heroCol}>
-              <div className={styles.heroBody}>
-                <Heading className={styles.heroTitle}>
-                  Ваша <Accent>система красоты</Accent>
-                </Heading>
-                <p className={styles.heroText}>
-                  Уход изнутри и снаружи в одной системе от Coral Club:
-                  коллаген, гидратация и маски для естественного сияния кожи.
-                </p>
-                <LandingCta source="hero" className={styles.cta}>
-                  Записаться на консультацию
-                </LandingCta>
-              </div>
-            </Container>
-          </section>
+          <LandingHero slides={heroSlides} />
 
           <section id="why" className={styles.why}>
             <Container>

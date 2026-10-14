@@ -17,7 +17,7 @@ export type HeroProps = {
   body: ReactNode;
   /** Fills the panel as its background. */
   image: HeroImage;
-  cta: { label: string; href: string };
+  cta: { label: string; href?: string; onClick?: () => void };
   /** Preload the background image. Off for off-screen carousel slides. */
   priority?: boolean;
   /** Skip mounting the <Image> entirely (off-screen carousel slide, no
@@ -81,7 +81,10 @@ export function Hero({
           <span
             key={i}
             className={styles.topBlurLayer}
-            style={{ backdropFilter: `blur(${blur}px)`, WebkitBackdropFilter: `blur(${blur}px)` }}
+            style={{
+              backdropFilter: `blur(${blur}px)`,
+              WebkitBackdropFilter: `blur(${blur}px)`,
+            }}
           />
         ))}
       </div>
@@ -95,17 +98,25 @@ export function Hero({
           <div className={styles.inset}>
             <Heading className={styles.title}>{title}</Heading>
           </div>
-          <BodyLong as="div" className={styles.body}>{body}</BodyLong>
+          <BodyLong as="div" className={styles.body}>
+            {body}
+          </BodyLong>
         </div>
 
         <div className={`${styles.inset} ${styles.ctaRow}`}>
-          <Button
-            variant="secondary"
-            href={cta.href}
-            className={styles.cta}
-          >
-            {cta.label}
-          </Button>
+          {cta.href ? (
+            <Button variant="secondary" href={cta.href} className={styles.cta}>
+              {cta.label}
+            </Button>
+          ) : (
+            <Button
+              variant="secondary"
+              onClick={cta.onClick}
+              className={styles.cta}
+            >
+              {cta.label}
+            </Button>
+          )}
         </div>
       </div>
     </section>

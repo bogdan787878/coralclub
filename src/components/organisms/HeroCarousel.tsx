@@ -11,6 +11,8 @@ export type HeroCarouselProps = {
   activeIndex: number;
   /** Called when the user swipes / taps to a different phase. */
   onSelect: (index: number) => void;
+  /** Accessible names (default English) for a translated storefront. */
+  labels?: { dots: string; dot: (n: number) => string };
 };
 
 /**
@@ -20,7 +22,12 @@ export type HeroCarouselProps = {
  * pill switcher lives one level up (see HomeView) — its sticky-on-scroll
  * needs a much taller containing block than this component's own height.
  */
-export function HeroCarousel({ slides, activeIndex, onSelect }: HeroCarouselProps) {
+export function HeroCarousel({
+  slides,
+  activeIndex,
+  onSelect,
+  labels,
+}: HeroCarouselProps) {
   const track = useRef<HTMLDivElement>(null);
   const settle = useRef<ReturnType<typeof setTimeout> | null>(null);
   // off-screen slides mount their <Image> only after the first interaction,
@@ -90,14 +97,18 @@ export function HeroCarousel({ slides, activeIndex, onSelect }: HeroCarouselProp
       </div>
 
       {slides.length > 1 && (
-        <div className={styles.dots} role="tablist" aria-label="Phase">
+        <div
+          className={styles.dots}
+          role="tablist"
+          aria-label={labels?.dots ?? "Phase"}
+        >
           {slides.map((_, i) => (
             <button
               key={i}
               type="button"
               role="tab"
               aria-selected={i === activeIndex}
-              aria-label={`Phase ${i + 1}`}
+              aria-label={labels?.dot(i + 1) ?? `Phase ${i + 1}`}
               className={`${styles.dot} ${i === activeIndex ? styles.dotOn : ""}`}
               onClick={() => onSelect(i)}
             />
