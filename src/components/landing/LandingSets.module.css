@@ -1,0 +1,107 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  width: 100%;
+  min-width: 0;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--color-neutral-30);
+}
+
+.media img {
+  object-fit: cover;
+}
+
+/* "Выгода 430 ₽" pill over the photo's top-left corner */
+.saving {
+  position: absolute;
+  top: var(--space-12);
+  left: var(--space-12);
+  padding: 2px var(--space-12);
+  border-radius: var(--radius-pill);
+  background: var(--color-special);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  line-height: 1.5rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  flex: 1;
+}
+
+.name {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.parts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-text-muted);
+}
+
+.prices {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-4) var(--space-8);
+  margin-top: auto;
+  padding-top: var(--space-4);
+}
+
+.price {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.was {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+.btn,
+.btnIn {
+  height: 48px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.btn {
+  border: none;
+  background: var(--color-malachite-90);
+  color: var(--color-text-on-primary);
+}
+
+.btnIn {
+  border: 1.5px solid var(--color-malachite-90);
+  background: transparent;
+  color: var(--color-malachite-90);
+}

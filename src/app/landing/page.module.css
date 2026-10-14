@@ -94,6 +94,10 @@
   padding-block: var(--space-56, 56px);
 }
 
+.setsCarousel {
+  margin-top: var(--space-24);
+}
+
 .h2 {
   color: var(--color-text);
   text-wrap: balance;

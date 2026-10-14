@@ -578,3 +578,108 @@ export function fullTitle(slug: string): string {
   if (!ru) return slug;
   return `${ru.title} – ${ru.form.label}${ru.form.note ? ` (${ru.form.note})` : ""}`;
 }
+
+/**
+ * "Выгодные наборы" — ready-made bundles from coralclub.ru (3-pack courses
+ * and course + mask sets). `priceRub` is the club price of the bundle on the
+ * site; the "separately" price is rebuilt from the single products, so the
+ * saving shown is always real.
+ */
+export type LandingSetRu = {
+  /** Article on coralclub.ru (what the basket link takes). */
+  ruId: string;
+  name: string;
+  /** What is inside, in plain words (one line per product). */
+  parts: { slug: BeautySlug; qty: number; label: string }[];
+  /** Club price of the bundle, ₽. */
+  priceRub: number;
+  /** Photo taken from the bundle's page on coralclub.ru. */
+  image: string;
+  alt: string;
+};
+
+const PEPTIDES_3 = {
+  slug: "promarine-collagen" as const,
+  qty: 3,
+  label: "Промарин Пептиды Коллагена — 3 упаковки по 10 флаконов",
+};
+const TRIPEPTIDES_3 = {
+  slug: "promarine-collagen-tripeptides-pack" as const,
+  qty: 3,
+  label: "Промарин Трипептиды Коллагена — 3 упаковки по 10 флаконов",
+};
+
+export const LANDING_SETS_RU: LandingSetRu[] = [
+  {
+    ruId: "22600303",
+    name: "Пептиды Коллагена и маска Skin Harmony",
+    parts: [
+      PEPTIDES_3,
+      {
+        slug: "skin-harmony-biocellulose-facial-mask",
+        qty: 1,
+        label: "Маска Skin Harmony — 5 саше",
+      },
+    ],
+    priceRub: 16770,
+    image: "/images/landing/sets/22600303.webp",
+    alt: "Набор: три упаковки Промарин Пептиды Коллагена и маски Skin Harmony",
+  },
+  {
+    ruId: "22600302",
+    name: "Пептиды Коллагена и маска Hydro Boost",
+    parts: [
+      PEPTIDES_3,
+      {
+        slug: "hydro-boost-biocellulose-facial-mask",
+        qty: 1,
+        label: "Маска Hydro Boost — 5 саше",
+      },
+    ],
+    priceRub: 16770,
+    image: "/images/landing/sets/22600302.webp",
+    alt: "Набор: три упаковки Промарин Пептиды Коллагена и маски Hydro Boost",
+  },
+  {
+    ruId: "2270315",
+    name: "Трипептиды Коллагена и маска Advanced Collagen",
+    parts: [
+      TRIPEPTIDES_3,
+      {
+        slug: "advanced-collagen-biocellulose-facial-mask",
+        qty: 1,
+        label: "Маска Advanced Collagen — 5 саше",
+      },
+    ],
+    priceRub: 19350,
+    image: "/images/landing/sets/2270315.webp",
+    alt: "Набор: три упаковки Промарин Трипептиды Коллагена и маски Advanced Collagen",
+  },
+  {
+    ruId: "226003",
+    name: "Пептиды Коллагена — 3 упаковки",
+    parts: [PEPTIDES_3],
+    priceRub: 13760,
+    image: "/images/landing/sets/226003.webp",
+    alt: "Три упаковки Промарин Пептиды Коллагена",
+  },
+  {
+    ruId: "227003",
+    name: "Трипептиды Коллагена — 3 упаковки",
+    parts: [TRIPEPTIDES_3],
+    priceRub: 16340,
+    image: "/images/landing/sets/227003.webp",
+    alt: "Три упаковки Промарин Трипептиды Коллагена",
+  },
+];
+
+/** What the same contents cost bought one by one (club prices). */
+export const setSeparatelyRub = (set: LandingSetRu): number =>
+  set.parts.reduce(
+    (sum, p) => sum + LANDING_PRODUCTS_RU[p.slug].priceRub.club * p.qty,
+    0,
+  );
+
+/** How much cheaper the bundle is than buying its parts separately. */
+export const setSavingRub = (set: LandingSetRu): number =>
+  setSeparatelyRub(set) - set.priceRub;

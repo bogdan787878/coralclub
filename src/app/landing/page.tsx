@@ -6,13 +6,13 @@ import { Ingredients } from "@/components/landing/Ingredients";
 import { LeadModalProvider } from "@/components/landing/LeadModal";
 import { Reviews } from "@/components/landing/Reviews";
 import {
-  ALL_REVIEWS_URL,
   LANDING_FEATURED_IDS,
   LANDING_REVIEWS_RU,
   overallSummary,
 } from "@/lib/landingReviewsRu";
 import { LandingCta, PromoCode } from "@/components/landing/LandingCta";
 import { LandingCards } from "@/components/landing/LandingCards";
+import { LandingSets } from "@/components/landing/LandingSets";
 import { LandingCartButton } from "@/components/landing/LandingCartButton";
 import { asset } from "@/lib/asset";
 import { BEAUTY_SLUGS, MAIN_SITE_URL, PROMO_CODE } from "@/lib/beautySystem";
@@ -54,6 +54,7 @@ const NAV = [
   ["#masks", "Маски"],
   ["#collagen", "Коллаген"],
   ["#hydramax", "Гидрамакс"],
+  ["#sets", "Выгодные наборы"],
   ["#reviews", "Отзывы"],
   ["#consultation", "Консультация"],
 ] as const;
@@ -260,6 +261,21 @@ export default function LandingPage() {
             </Container>
           </Section>
 
+          <Section tone="default" id="sets" className={styles.section}>
+            <Container>
+              <Heading as="h2" className={styles.h2}>
+                Выгодные <Accent>наборы</Accent>
+              </Heading>
+              <p className={styles.lead}>
+                Курс коллагена и маски в одном заказе — дешевле, чем покупать по
+                отдельности.
+              </p>
+            </Container>
+            <div className={styles.setsCarousel}>
+              <LandingSets />
+            </div>
+          </Section>
+
           <Section tone="surface" id="reviews" className={styles.section}>
             <Container>
               <Reviews
@@ -270,7 +286,7 @@ export default function LandingPage() {
                   caption: "по отзывам о продуктах системы красоты на Отзовике",
                 }}
                 productNames={reviewProductNames}
-                moreHref={ALL_REVIEWS_URL}
+                showNote={false}
               />
             </Container>
           </Section>
