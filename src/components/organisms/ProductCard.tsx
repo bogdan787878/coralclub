@@ -56,6 +56,8 @@ export type ProductCardProps = {
   priceWas?: ReactNode;
   /** Small pill after the prices — e.g. the discount size "−20%". */
   priceTag?: ReactNode;
+  /** Small "sticker" over the photo's top-left corner, e.g. "5 масок". */
+  badge?: ReactNode;
   /** Product page the name links to. */
   href: string;
   /** Packshots — one per slide of the card's own nested carousel. */
@@ -114,6 +116,7 @@ export function ProductCard({
   price,
   priceWas,
   priceTag,
+  badge,
   href,
   images = [],
   cartHref = "#add-to-bag",
@@ -144,6 +147,7 @@ export function ProductCard({
   return (
     <article className={`${styles.card}${fluid ? ` ${styles.fluid}` : ""}`}>
       <div className={styles.media}>
+        {badge && <span className={styles.badge}>{badge}</span>}
         <div
           className={styles.track}
           ref={trackRef}

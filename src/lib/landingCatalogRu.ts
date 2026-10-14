@@ -508,3 +508,9 @@ export function discountTag(slug: string): string | undefined {
   const pct = Math.round((1 - ru.priceRub.club / ru.priceRub.regular) * 100);
   return `\u2212${pct}%`;
 }
+
+/** "5 масок" / "10 флаконов" — the units-per-pack label for small cards. */
+export function packLabel(slug: string): string | undefined {
+  const pack = LANDING_PRODUCTS_RU[slug as BeautySlug]?.pack;
+  return pack ? `${pack.count}\u00a0${pack.unit}` : undefined;
+}

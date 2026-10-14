@@ -339,3 +339,22 @@
   font-weight: var(--font-weight-medium);
   white-space: nowrap;
 }
+
+/* units-per-pack sticker over the photo's top-left corner */
+.badge {
+  position: absolute;
+  top: var(--space-8);
+  left: var(--space-8);
+  z-index: 3;
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-pill);
+  background: #d3eaae;
+  color: var(--color-text);
+  box-shadow: 0 4px 12px rgba(1, 17, 48, 0.14);
+  font-family: var(--font-sans);
+  font-size: 0.6875rem; /* 11 */
+  line-height: 1rem;
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  pointer-events: none;
+}
