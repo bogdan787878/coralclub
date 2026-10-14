@@ -20,6 +20,10 @@ export type LandingProductRu = {
   name: string;
   /** Card title in carousels. */
   headline: string;
+  /** Display name used in the "Название – форма выпуска" titles. */
+  title: string;
+  /** Release form: shown after the name, optional grey note in brackets. */
+  form: { label: string; note?: string };
   category: string;
   /** Lead paragraph — shared by the landing slider and the PDP. */
   lead: string;
@@ -87,6 +91,8 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
     priceRub: { club: 7052, regular: 8815 },
     name: "Гидрамакс",
     headline: "Гидрамакс — набор для гидратации на 30 дней",
+    title: "Гидрамакс",
+    form: { label: "Курс на 1 мес." },
     category: "Основа",
     lead: "Набор для оптимальной гидратации организма:",
     bullets: [
@@ -128,6 +134,8 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
     priceRub: { club: 10062, regular: 12577.5 },
     name: "Гидрамакс Плюс",
     headline: "Гидрамакс Плюс — набор для гидратации на 30 дней",
+    title: "Гидрамакс Плюс",
+    form: { label: "Курс на 1 мес." },
     category: "Основа",
     lead: "Расширенная версия «Гидрамакс»: макро- и микроэлементы и витамины-антиоксиданты для минерального баланса, гидратации и общего самочувствия.",
     extra:
@@ -167,6 +175,8 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
     pack: { count: "10", unit: "флаконов" },
     name: "Промарин Пептиды Коллагена",
     headline: "Промарин Пептиды Коллагена — морской коллаген",
+    title: "Промарин Пептиды Коллагена",
+    form: { label: "Курс на 1 мес.", note: "10 шт. по 50 мл" },
     category: "Кожа, волосы, ногти",
     lead: "Морской коллаген в пептидной форме для лёгкого усвоения. Поддерживает кожу, суставы и связки.",
     more: [
@@ -213,6 +223,8 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
     pack: { count: "10", unit: "флаконов" },
     name: "Промарин Трипептиды Коллагена",
     headline: "Промарин Трипептиды Коллагена",
+    title: "Промарин Трипептиды Коллагена",
+    form: { label: "Курс на 1 мес.", note: "10 шт. по 50 мл" },
     category: "Кожа, волосы, ногти",
     lead: "Следующий шаг в развитии коллагена: молекула трипептидов в 4 раза меньше пептида и в 600 раз меньше молекулы коллагена. Поэтому MAXICOLLAGEN легче усваивается и помогает коже оставаться гладкой, упругой и увлажнённой, а волосам и ногтям — в хорошем состоянии.",
     origins: [{ flag: "🇹🇼", label: "Тайвань" }],
@@ -268,6 +280,8 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
     pack: { count: "5", unit: "масок" },
     name: "Advanced Collagen",
     headline: "Биоцеллюлозная маска Advanced Collagen",
+    title: "Маска Advanced Collagen",
+    form: { label: "5 шт. в наборе" },
     category: "Кожа, волосы, ногти",
     lead: "Биоцеллюлозная маска с трипептидами коллагена, морской водой, пептидами HAPA-5 и аргирелином.",
     bullets: [
@@ -297,6 +311,8 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
     pack: { count: "5", unit: "масок" },
     name: "Hydro Boost",
     headline: "Биоцеллюлозная маска Hydro Boost",
+    title: "Маска Hydro Boost",
+    form: { label: "5 шт. в наборе" },
     category: "Кожа, волосы, ногти",
     lead: "Биоцеллюлозная маска с морской водой, 3D гиалуроновой кислотой, водорослями и метабиотиком.",
     bullets: [
@@ -326,6 +342,8 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
     pack: { count: "5", unit: "масок" },
     name: "Skin Harmony",
     headline: "Биоцеллюлозная маска Skin Harmony",
+    title: "Маска Skin Harmony",
+    form: { label: "5 шт. в наборе" },
     category: "Кожа, волосы, ногти",
     lead: "Биоцеллюлозная маска с морской водой, церамидами, метабиотиками и экстрактами моринги и водорослей. Бережно восстанавливает «уставшую» кожу.",
     bullets: [
@@ -545,3 +563,10 @@ export function sitePhotos(slug: string): string[] {
  * "Plus" box), so the landing leads with the real one from the site.
  */
 export const HYDRAMAX_PACKSHOT = "/images/products/ru/hydramax-3.webp";
+
+/** "Название – форма выпуска" as one plain string (cart lines, top bar). */
+export function fullTitle(slug: string): string {
+  const ru = LANDING_PRODUCTS_RU[slug as BeautySlug];
+  if (!ru) return slug;
+  return `${ru.title} – ${ru.form.label}${ru.form.note ? ` (${ru.form.note})` : ""}`;
+}

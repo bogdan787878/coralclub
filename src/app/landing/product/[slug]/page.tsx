@@ -11,6 +11,7 @@ import {
 import { ShowWhenScrolledPast } from "@/components/landing/ShowWhenScrolledPast";
 import { Reviews } from "@/components/landing/Reviews";
 import { REVIEW_SUMMARY, reviewsFor } from "@/lib/landingReviewsRu";
+import { ProductTitle } from "@/components/landing/ProductTitle";
 import { LandingGallery } from "@/components/landing/LandingGallery";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { IncludedProductDetails } from "@/components/landing/IncludedProductDetails";
@@ -25,6 +26,7 @@ import {
   INCLUDED_PRODUCTS_RU,
   LANDING_PRODUCTS_RU,
   discountTag,
+  fullTitle,
   formatRub,
   type BeautySlug,
 } from "@/lib/landingCatalogRu";
@@ -148,7 +150,7 @@ export default async function LandingProductPage({
     product: {
       coralId: card.coralId,
       slug,
-      name: ru.name,
+      name: fullTitle(slug),
       image: product.image ?? images[0]?.src,
     },
     options: [
@@ -195,7 +197,9 @@ export default async function LandingProductPage({
 
               <Stack gap="base" className={shop.infoCol}>
                 <div className={shop.headGroup}>
-                  <Heading className={shop.name}>{ru.name}</Heading>
+                  <Heading className={`${shop.name} ${styles.pdpTitle}`}>
+                    <ProductTitle title={ru.title} form={ru.form} />
+                  </Heading>
 
                   {/* mobile/tablet: fixed bottom bar; web: plain inline block under the title */}
                   <div id="pdp-buy">

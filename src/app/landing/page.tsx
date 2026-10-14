@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Accent, Container, Heading, Section } from "@/components/ui";
 import { LandingHeader } from "@/components/landing/LandingHeader";
+import { ProductTitle } from "@/components/landing/ProductTitle";
 import { LandingHero } from "@/components/landing/LandingHero";
 import { LeadModalProvider } from "@/components/landing/LeadModal";
 import { Reviews } from "@/components/landing/Reviews";
@@ -122,6 +123,7 @@ export default function LandingPage() {
       return {
         id: slug,
         title: ru.name,
+        titleNode: <ProductTitle title={ru.title} form={ru.form} />,
         image: gallery[0] ?? { src: product(slug), alt: ru.name },
         images: gallery,
         lead: ru.lead,

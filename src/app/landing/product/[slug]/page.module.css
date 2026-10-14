@@ -37,3 +37,17 @@
   }
 
 }
+
+/* "Название – форма выпуска" is long — a calmer heading size than the
+   shop's big H1 */
+.wide .pdpTitle {
+  font-size: 1.75rem;
+  line-height: 2.125rem;
+}
+
+@media (min-width: 1024px) {
+  .wide .pdpTitle {
+    font-size: 2rem;
+    line-height: 2.375rem;
+  }
+}

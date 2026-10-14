@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ImageSlider } from "@/components/organisms";
@@ -9,6 +9,8 @@ import styles from "./ProductSlider.module.css";
 export type ProductSlide = {
   id: string;
   title: string;
+  /** Rich title for the name link ("Название – форма"); falls back to `title`. */
+  titleNode?: ReactNode;
   image: { src: string; alt: string; position?: string; fit?: "cover" };
   /** All photos of the product — shown as a swipeable gallery in a card. */
   images?: { src: string; alt: string }[];

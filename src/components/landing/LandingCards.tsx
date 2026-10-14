@@ -1,5 +1,11 @@
 import type { PhaseProductCard } from "@/lib/products";
-import { discountTag, landingPdpHref } from "@/lib/landingCatalogRu";
+import {
+  LANDING_PRODUCTS_RU,
+  discountTag,
+  landingPdpHref,
+  type BeautySlug,
+} from "@/lib/landingCatalogRu";
+import { ProductTitle } from "./ProductTitle";
 import { Carousel, ProductCard } from "@/components/organisms";
 
 /**
@@ -16,7 +22,16 @@ export function LandingCards({ cards }: { cards: PhaseProductCard[] }) {
           <ProductCard
             key={p.slug}
             fluid
-            title={p.headline}
+            title={
+              LANDING_PRODUCTS_RU[p.slug as BeautySlug] ? (
+                <ProductTitle
+                  title={LANDING_PRODUCTS_RU[p.slug as BeautySlug].title}
+                  form={LANDING_PRODUCTS_RU[p.slug as BeautySlug].form}
+                />
+              ) : (
+                p.headline
+              )
+            }
             price={p.price}
             priceWas={p.priceWas}
             priceTag={discountTag(p.slug)}

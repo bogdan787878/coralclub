@@ -123,18 +123,20 @@
   min-width: 0;
 }
 
-.textBody {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-12);
-}
-
-/* landing cards: fold a long review, the text itself stays whole */
-.folded {
-  max-height: 11.5rem;
+/* first N lines, then the "…ещё" spoiler (paragraph breaks keep their
+   blank lines via pre-line) */
+.clampText {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--review-lines, 10);
+  line-clamp: var(--review-lines, 10);
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
-  mask-image: linear-gradient(to bottom, #000 70%, transparent);
+}
+.clampOpen {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  overflow: visible;
 }
 
 .unfold {

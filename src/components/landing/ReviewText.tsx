@@ -1,42 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import styles from "./Reviews.module.css";
 
+/** How many lines of a review show before the "…ещё" spoiler. */
+const LINES = 10;
+
 /**
- * ReviewText — the review's full text, paragraph by paragraph. With `clamp`
- * (landing cards) long reviews are folded to a few lines and open in place
- * with "Читать полностью"; the text itself is never shortened.
+ * ReviewText — the review's full text, unedited. It shows the first 10 lines;
+ * if there is more, a "…ещё" button opens the rest in place.
  */
-export function ReviewText({
-  text,
-  clamp = false,
-}: {
-  text: string;
-  clamp?: boolean;
-}) {
+export function ReviewText({ text }: { text: string }) {
   const [open, setOpen] = useState(false);
-  const paragraphs = text.split(/\n{2,}/);
-  const long = text.length > 420;
-  const folded = clamp && long && !open;
+  const [overflow, setOverflow] = useState(false);
+  const ref = useRef<HTMLParagraphElement>(null);
+
+  // does the text need more than 10 lines at the current width?
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const measure = () => {
+      if (open) return;
+      setOverflow(el.scrollHeight - el.clientHeight > 1);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [text, open]);
 
   return (
     <div className={styles.textWrap}>
-      <div className={`${styles.textBody}${folded ? ` ${styles.folded}` : ""}`}>
-        {paragraphs.map((p, i) => (
-          <p className={styles.text} key={i}>
-            {p}
-          </p>
-        ))}
-      </div>
-      {clamp && long && (
+      <p
+        ref={ref}
+        className={`${styles.text} ${styles.clampText}${open ? ` ${styles.clampOpen}` : ""}`}
+        style={{ ["--review-lines" as string]: LINES }}
+      >
+        {text}
+      </p>
+      {(overflow || open) && (
         <button
           type="button"
           className={styles.unfold}
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}
         >
-          {open ? "Свернуть" : "Читать полностью"}
+          {open ? "Свернуть" : "…ещё"}
         </button>
       )}
     </div>

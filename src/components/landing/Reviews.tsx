@@ -59,7 +59,7 @@ function ReviewCard({
       </div>
       {productName && <span className={styles.product}>{productName}</span>}
       <h3 className={styles.reviewTitle}>{review.title}</h3>
-      <ReviewText text={review.text} clamp />
+      <ReviewText text={review.text} />
       {review.plus && (
         <p className={styles.plus}>
           <b>Достоинства:</b> {review.plus}
