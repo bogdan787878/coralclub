@@ -4,11 +4,75 @@
   padding-block: var(--space-24) var(--space-64);
 }
 
+.shell {
+  display: grid;
+  grid-template-columns: minmax(0, 560px);
+  justify-content: center;
+  gap: var(--space-16);
+  padding-inline: var(--page-padding-inline);
+}
+
+@media (min-width: 1024px) {
+  .shell {
+    grid-template-columns: minmax(0, 560px) 320px;
+    align-items: start;
+  }
+  .aside {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: var(--space-24);
+  }
+  .wrap {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+
+.aside {
+  padding: var(--space-20, 20px);
+  border: 1.5px dashed rgba(0, 65, 68, 0.3);
+  border-radius: var(--radius-base);
+  background: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.apply {
+  height: 44px;
+  border: 1.5px solid var(--color-malachite-90);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-malachite-90);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+
+.debug {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+.debug div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+
+.debug dt,
+.debug dd {
+  margin: 0;
+}
+
 .wrap {
   width: 100%;
-  max-width: 560px;
-  margin-inline: auto;
-  padding-inline: var(--page-padding-inline);
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-16);
@@ -103,7 +167,8 @@
   flex: 1;
 }
 
-.field input {
+.field input,
+.field select {
   height: 48px;
   padding: 0 var(--space-16);
   border: 1.5px solid rgba(0, 65, 68, 0.22);
@@ -114,7 +179,8 @@
   color: var(--color-text);
 }
 
-.field input:focus {
+.field input:focus,
+.field select:focus {
   outline: none;
   border-color: var(--color-malachite-90);
 }

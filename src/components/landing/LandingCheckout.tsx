@@ -37,7 +37,19 @@ type DeliveryGroup = {
 };
 type Totals = Record<string, string | number | null | undefined>;
 
-const COUNTRY = "RU";
+/** City to start with when a country is picked in the test panel. */
+const DEFAULT_CITY: Record<string, string> = {
+  RU: "Москва",
+  KZ: "Алматы",
+  BY: "Минск",
+  UA: "Киев",
+  AM: "Ереван",
+  KG: "Бишкек",
+  DE: "Berlin",
+  PL: "Warszawa",
+  ES: "Madrid",
+  IT: "Roma",
+};
 
 /**
  * Friend-of-the-club session (every price is the club price). Off: the
@@ -127,8 +139,14 @@ export function LandingCheckout() {
   const [payments, setPayments] = useState<PayMethod[]>([]);
   const [totals, setTotals] = useState<Totals | null>(null);
 
+  const [country, setCountry] = useState("RU");
+  const [countries, setCountries] = useState<Record<string, string>>({
+    RU: "Россия",
+  });
+  const [deliveryError, setDeliveryError] = useState("");
   const [city, setCity] = useState("Москва");
   const [area, setArea] = useState("Москва");
+  const [cityDraft, setCityDraft] = useState("Москва");
   const [fio, setFio] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -166,20 +184,17 @@ export function LandingCheckout() {
         ).json()) as { city?: string; area?: string };
         const c = loc.city || "Москва";
         const a = loc.area || c;
+        const init = await api<{
+          result?: {
+            CHECKOUT_OPTIONS?: { countries?: Record<string, string> };
+          };
+        }>("/init");
         if (cancelled) return;
+        const list = init.result?.CHECKOUT_OPTIONS?.countries;
+        if (list && Object.keys(list).length) setCountries(list);
         setCity(c);
+        setCityDraft(c);
         setArea(a);
-        const d = await api<{ result?: DeliveryGroup[] }>("/delivery", {
-          COUNTRY,
-          CITY: c,
-          AREA: a,
-        });
-        if (cancelled) return;
-        const list = d.result ?? [];
-        setGroups(list);
-        const first =
-          list.find((g) => g.ID === "COURIER")?.ITEMS[0] ?? list[0]?.ITEMS[0];
-        setDeliveryId(first?.ID ?? "");
         setReady("ok");
       } catch (e) {
         if (!cancelled) {
@@ -196,7 +211,43 @@ export function LandingCheckout() {
     };
   }, [cart, cartKey]);
 
-  const courier = groups.find((g) => g.ID === "COURIER");
+  // delivery options for the chosen country / city
+  useEffect(() => {
+    if (ready !== "ok" || !city.trim()) return;
+    let cancelled = false;
+    api<{ result?: DeliveryGroup[]; error?: string }>("/delivery", {
+      COUNTRY: country,
+      CITY: city,
+      AREA: area,
+    }).then((d) => {
+      if (cancelled) return;
+      const list = Array.isArray(d.result)
+        ? d.result.map((g) => ({
+            ...g,
+            ITEMS: Array.isArray(g.ITEMS) ? g.ITEMS : [],
+          }))
+        : [];
+      setGroups(list);
+      setDeliveryError(list.length ? "" : d.error || "Нет способов доставки");
+      const all = list.flatMap((g) => g.ITEMS);
+      setDeliveryId((cur) =>
+        all.some((i) => i.ID === cur)
+          ? cur
+          : (list.find((g) => g.ID === "COURIER")?.ITEMS[0]?.ID ??
+            all[0]?.ID ??
+            ""),
+      );
+      if (!list.length) {
+        setPayments([]);
+        setPaymentId("");
+        setTotals(null);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [country, city, area, ready]);
+
   const activeItem = groups
     .flatMap((g) => g.ITEMS)
     .find((i) => i.ID === deliveryId);
@@ -207,12 +258,12 @@ export function LandingCheckout() {
     let cancelled = false;
     api<{ result?: PayMethod[] }>("/payments", {
       deliveryId,
-      COUNTRY,
+      COUNTRY: country,
       CITY: city,
       AREA: area,
     }).then((p) => {
       if (cancelled) return;
-      const list = p.result ?? [];
+      const list = Array.isArray(p.result) ? p.result : [];
       setPayments(list);
       setPaymentId((cur) =>
         list.some((x) => x.ID === cur) ? cur : (list[0]?.ID ?? ""),
@@ -221,12 +272,12 @@ export function LandingCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [deliveryId, city, area, ready]);
+  }, [deliveryId, country, city, area, ready]);
 
   const profile = useCallback(
     () => ({
-      COUNTRY,
-      COUNTRY_NAME: "Россия",
+      COUNTRY: country,
+      COUNTRY_NAME: countries[country] ?? country,
       CITY: city,
       AREA: area,
       STREET: street,
@@ -239,6 +290,8 @@ export function LandingCheckout() {
       PHONE: phone.replace(/[^0-9+]/g, ""),
     }),
     [
+      country,
+      countries,
       city,
       area,
       street,
@@ -263,7 +316,7 @@ export function LandingCheckout() {
         deliveryId,
         paymentId,
         pickPoint: false,
-        COUNTRY,
+        COUNTRY: country,
         CITY: city,
         AREA: area,
         PROFILE: profile(),
@@ -276,7 +329,7 @@ export function LandingCheckout() {
       cancelled = true;
       clearTimeout(t);
     };
-  }, [deliveryId, paymentId, city, area, profile, ready]);
+  }, [deliveryId, paymentId, country, city, area, profile, ready]);
 
   const valid =
     fio.trim().length > 2 &&
@@ -286,6 +339,7 @@ export function LandingCheckout() {
     build.trim() !== "" &&
     postindex.trim().length >= 5 &&
     deliveryId !== "" &&
+    activeItem?.TYPE !== "PICK_POINT" &&
     paymentId !== "" &&
     acceptTerms &&
     agreeData;
@@ -373,212 +427,304 @@ export function LandingCheckout() {
       ? num(totals.TOTAL_PRICE) - num(totals.PRICE)
       : null;
 
+  const allItems = groups.flatMap((g) =>
+    g.ITEMS.map((it) => ({ ...it, group: g.NAME })),
+  );
+  const pickup = activeItem?.TYPE === "PICK_POINT";
+
   return (
     <main className={styles.page}>
-      <div className={styles.wrap}>
-        <div className={styles.top}>
-          <BackButton className={styles.back} fallbackHref="/landing/" />
-          <h1 className={styles.h1}>Оформление заказа</h1>
-        </div>
-
-        {ready === "sync" && <p className={styles.muted}>Готовим заказ…</p>}
-        {error && <p className={styles.error}>{error}</p>}
-
-        <section className={styles.card}>
-          <h2 className={styles.h2}>Ваш заказ</h2>
-          <ul className={styles.lines}>
-            {cart.map((l) => (
-              <li key={l.coralId}>
-                <span>{l.name}</span>
-                <span>× {l.qty}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className={styles.card}>
-          <h2 className={styles.h2}>Получатель</h2>
+      <div className={styles.shell}>
+        <aside className={styles.aside}>
+          <h2 className={styles.h2}>Тест: страна доставки</h2>
           <label className={styles.field}>
-            ФИО
-            <input
-              value={fio}
-              onChange={(e) => setFio(e.target.value)}
-              autoComplete="name"
-            />
+            Страна
+            <select
+              value={country}
+              onChange={(e) => {
+                const code = e.target.value;
+                const c = DEFAULT_CITY[code] ?? "";
+                setCountry(code);
+                setCity(c);
+                setArea(c);
+                setCityDraft(c);
+              }}
+            >
+              {Object.entries(countries)
+                .sort((a, b) => a[1].localeCompare(b[1], "ru"))
+                .map(([code, name]) => (
+                  <option key={code} value={code}>
+                    {name} ({code})
+                  </option>
+                ))}
+            </select>
           </label>
           <label className={styles.field}>
-            Телефон
+            Город
             <input
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              inputMode="tel"
-              autoComplete="tel"
-              placeholder="+7"
+              value={cityDraft}
+              onChange={(e) => setCityDraft(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  setCity(cityDraft.trim());
+                  setArea(cityDraft.trim());
+                }
+              }}
             />
-          </label>
-          <label className={styles.field}>
-            Email
-            <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              inputMode="email"
-              autoComplete="email"
-            />
-          </label>
-        </section>
-
-        <section className={styles.card}>
-          <h2 className={styles.h2}>Доставка</h2>
-          <p className={styles.muted}>Город: {city}</p>
-          {courier && (
-            <div className={styles.options}>
-              {courier.ITEMS.map((it) => (
-                <label key={it.ID} className={styles.option}>
-                  <input
-                    type="radio"
-                    name="delivery"
-                    checked={deliveryId === it.ID}
-                    onChange={() => setDeliveryId(it.ID)}
-                  />
-                  <span>
-                    {courier.NAME}
-                    {it.TRANSIT ? ` · ${it.TRANSIT} дн.` : ""}
-                    <small>
-                      {it.PRICE ? formatRub(it.PRICE) : "бесплатно"}
-                      {it.FREE_DELIVERY
-                        ? `, бесплатно от ${formatRub(it.FREE_DELIVERY)}`
-                        : ""}
-                    </small>
-                  </span>
-                </label>
-              ))}
-            </div>
-          )}
-          <label className={styles.field}>
-            Улица
-            <input
-              value={street}
-              onChange={(e) => setStreet(e.target.value)}
-              autoComplete="address-line1"
-            />
-          </label>
-          <div className={styles.row}>
-            <label className={styles.field}>
-              Дом
-              <input value={build} onChange={(e) => setBuild(e.target.value)} />
-            </label>
-            <label className={styles.field}>
-              Квартира
-              <input
-                value={apartment}
-                onChange={(e) => setApartment(e.target.value)}
-              />
-            </label>
-            <label className={styles.field}>
-              Индекс
-              <input
-                value={postindex}
-                onChange={(e) => setPostindex(e.target.value)}
-                inputMode="numeric"
-                autoComplete="postal-code"
-              />
-            </label>
-          </div>
-          <label className={styles.field}>
-            Комментарий курьеру
-            <input
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            />
-          </label>
-        </section>
-
-        <section className={styles.card}>
-          <h2 className={styles.h2}>Оплата</h2>
-          <div className={styles.options}>
-            {payments.map((p) => (
-              <label key={p.ID} className={styles.option}>
-                <input
-                  type="radio"
-                  name="payment"
-                  checked={paymentId === p.ID}
-                  onChange={() => setPaymentId(p.ID)}
-                />
-                <span>{p.NAME}</span>
-              </label>
-            ))}
-          </div>
-        </section>
-
-        <section className={styles.card}>
-          <h2 className={styles.h2}>Итого</h2>
-          <dl className={styles.totals}>
-            <div>
-              <dt>Товары</dt>
-              <dd>{totals ? money(totals.PRICE) : formatRub(subtotal)}</dd>
-            </div>
-            <div>
-              <dt>Доставка</dt>
-              <dd>
-                {deliveryPrice === null
-                  ? "—"
-                  : deliveryPrice > 0
-                    ? formatRub(deliveryPrice)
-                    : "бесплатно"}
-              </dd>
-            </div>
-            <div className={styles.grand}>
-              <dt>К оплате</dt>
-              <dd>{totals ? money(totals.TOTAL_PRICE) : "—"}</dd>
-            </div>
-          </dl>
-          <label className={styles.check}>
-            <input
-              type="checkbox"
-              checked={acceptTerms}
-              onChange={(e) => setAcceptTerms(e.target.checked)}
-            />
-            <span>
-              Я принимаю{" "}
-              <a href="/faq/terms/" target="_blank" rel="noopener noreferrer">
-                условия использования сервиса
-              </a>{" "}
-              и{" "}
-              <a href="/faq/privacy/" target="_blank" rel="noopener noreferrer">
-                политику конфиденциальности
-              </a>
-            </span>
-          </label>
-          <label className={styles.check}>
-            <input
-              type="checkbox"
-              checked={agreeData}
-              onChange={(e) => setAgreeData(e.target.checked)}
-            />
-            <span>
-              Даю согласие на{" "}
-              <a
-                href="/faq/personalinformation/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                обработку персональных данных
-              </a>
-            </span>
           </label>
           <button
             type="button"
-            className={styles.pay}
-            disabled={!valid || sending || ready !== "ok"}
-            onClick={submit}
+            className={styles.apply}
+            onClick={() => {
+              setCity(cityDraft.trim());
+              setArea(cityDraft.trim());
+            }}
           >
-            {sending ? "Создаём заказ…" : "Перейти к оплате"}
+            Применить
           </button>
-          <p className={styles.muted}>
-            После нажатия создаётся заказ в магазине и открывается страница
-            оплаты.
-          </p>
-        </section>
+          <dl className={styles.debug}>
+            <div>
+              <dt>Способов доставки</dt>
+              <dd>{allItems.length}</dd>
+            </div>
+            <div>
+              <dt>Способов оплаты</dt>
+              <dd>{payments.length}</dd>
+            </div>
+            {totals &&
+              ["PRICE", "TOTAL_PRICE", "FULL_PRICE", "DUTY", "TAX"].map((k) => (
+                <div key={k}>
+                  <dt>{k}</dt>
+                  <dd>{String(totals[k] ?? "—")}</dd>
+                </div>
+              ))}
+          </dl>
+          {deliveryError && <p className={styles.error}>{deliveryError}</p>}
+        </aside>
+        <div className={styles.wrap}>
+          <div className={styles.top}>
+            <BackButton className={styles.back} fallbackHref="/landing/" />
+            <h1 className={styles.h1}>Оформление заказа</h1>
+          </div>
+
+          {ready === "sync" && <p className={styles.muted}>Готовим заказ…</p>}
+          {error && <p className={styles.error}>{error}</p>}
+
+          <section className={styles.card}>
+            <h2 className={styles.h2}>Ваш заказ</h2>
+            <ul className={styles.lines}>
+              {cart.map((l) => (
+                <li key={l.coralId}>
+                  <span>{l.name}</span>
+                  <span>× {l.qty}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className={styles.card}>
+            <h2 className={styles.h2}>Получатель</h2>
+            <label className={styles.field}>
+              ФИО
+              <input
+                value={fio}
+                onChange={(e) => setFio(e.target.value)}
+                autoComplete="name"
+              />
+            </label>
+            <label className={styles.field}>
+              Телефон
+              <input
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                inputMode="tel"
+                autoComplete="tel"
+                placeholder="+7"
+              />
+            </label>
+            <label className={styles.field}>
+              Email
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                inputMode="email"
+                autoComplete="email"
+              />
+            </label>
+          </section>
+
+          <section className={styles.card}>
+            <h2 className={styles.h2}>Доставка</h2>
+            <p className={styles.muted}>
+              {countries[country] ?? country}, {city || "город не указан"}
+            </p>
+            {allItems.length > 0 ? (
+              <div className={styles.options}>
+                {allItems.map((it) => (
+                  <label key={it.ID} className={styles.option}>
+                    <input
+                      type="radio"
+                      name="delivery"
+                      checked={deliveryId === it.ID}
+                      onChange={() => setDeliveryId(it.ID)}
+                    />
+                    <span>
+                      {it.NAME || it.group}
+                      {it.TRANSIT ? ` · ${it.TRANSIT} дн.` : ""}
+                      <small>
+                        {it.PRICE ? formatRub(it.PRICE) : "бесплатно"}
+                        {it.FREE_DELIVERY
+                          ? `, бесплатно от ${formatRub(it.FREE_DELIVERY)}`
+                          : ""}
+                      </small>
+                    </span>
+                  </label>
+                ))}
+              </div>
+            ) : (
+              <p className={styles.muted}>
+                Для этой страны и города магазин не вернул способов доставки.
+              </p>
+            )}
+            {pickup && (
+              <p className={styles.muted}>
+                Для самовывоза нужен выбор пункта выдачи — в прототипе пока не
+                сделан, можно смотреть расчёт и способы оплаты.
+              </p>
+            )}
+            <label className={styles.field}>
+              Улица
+              <input
+                value={street}
+                onChange={(e) => setStreet(e.target.value)}
+                autoComplete="address-line1"
+              />
+            </label>
+            <div className={styles.row}>
+              <label className={styles.field}>
+                Дом
+                <input
+                  value={build}
+                  onChange={(e) => setBuild(e.target.value)}
+                />
+              </label>
+              <label className={styles.field}>
+                Квартира
+                <input
+                  value={apartment}
+                  onChange={(e) => setApartment(e.target.value)}
+                />
+              </label>
+              <label className={styles.field}>
+                Индекс
+                <input
+                  value={postindex}
+                  onChange={(e) => setPostindex(e.target.value)}
+                  inputMode="numeric"
+                  autoComplete="postal-code"
+                />
+              </label>
+            </div>
+            <label className={styles.field}>
+              Комментарий курьеру
+              <input
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              />
+            </label>
+          </section>
+
+          <section className={styles.card}>
+            <h2 className={styles.h2}>Оплата</h2>
+            <div className={styles.options}>
+              {payments.map((p) => (
+                <label key={p.ID} className={styles.option}>
+                  <input
+                    type="radio"
+                    name="payment"
+                    checked={paymentId === p.ID}
+                    onChange={() => setPaymentId(p.ID)}
+                  />
+                  <span>{p.NAME}</span>
+                </label>
+              ))}
+            </div>
+          </section>
+
+          <section className={styles.card}>
+            <h2 className={styles.h2}>Итого</h2>
+            <dl className={styles.totals}>
+              <div>
+                <dt>Товары</dt>
+                <dd>{totals ? money(totals.PRICE) : formatRub(subtotal)}</dd>
+              </div>
+              <div>
+                <dt>Доставка</dt>
+                <dd>
+                  {deliveryPrice === null
+                    ? "—"
+                    : deliveryPrice > 0
+                      ? formatRub(deliveryPrice)
+                      : "бесплатно"}
+                </dd>
+              </div>
+              <div className={styles.grand}>
+                <dt>К оплате</dt>
+                <dd>{totals ? money(totals.TOTAL_PRICE) : "—"}</dd>
+              </div>
+            </dl>
+            <label className={styles.check}>
+              <input
+                type="checkbox"
+                checked={acceptTerms}
+                onChange={(e) => setAcceptTerms(e.target.checked)}
+              />
+              <span>
+                Я принимаю{" "}
+                <a href="/faq/terms/" target="_blank" rel="noopener noreferrer">
+                  условия использования сервиса
+                </a>{" "}
+                и{" "}
+                <a
+                  href="/faq/privacy/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  политику конфиденциальности
+                </a>
+              </span>
+            </label>
+            <label className={styles.check}>
+              <input
+                type="checkbox"
+                checked={agreeData}
+                onChange={(e) => setAgreeData(e.target.checked)}
+              />
+              <span>
+                Даю согласие на{" "}
+                <a
+                  href="/faq/personalinformation/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  обработку персональных данных
+                </a>
+              </span>
+            </label>
+            <button
+              type="button"
+              className={styles.pay}
+              disabled={!valid || sending || ready !== "ok"}
+              onClick={submit}
+            >
+              {sending ? "Создаём заказ…" : "Перейти к оплате"}
+            </button>
+            <p className={styles.muted}>
+              После нажатия создаётся заказ в магазине и открывается страница
+              оплаты.
+            </p>
+          </section>
+        </div>
       </div>
     </main>
   );
