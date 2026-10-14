@@ -209,7 +209,7 @@ export function CartDrawer({
             <span>{labels.subtotal}</span>
             <span>{formatMoney(subtotal)}</span>
           </div>
-          <p className={styles.note}>{labels.note}</p>
+          {labels.note && <p className={styles.note}>{labels.note}</p>}
           <button
             type="button"
             className={styles.checkout}
@@ -218,7 +218,7 @@ export function CartDrawer({
           >
             {labels.checkout}
           </button>
-          {lines.length > 0 && (
+          {labels.clear && lines.length > 0 && (
             <button type="button" className={styles.clear} onClick={clearCart}>
               {labels.clear}
             </button>

@@ -27,9 +27,9 @@ const LABELS_RU: CartDrawerLabels = {
   decrease: (name) => `Убрать одну штуку: ${name}`,
   increase: (name) => `Добавить ещё одну: ${name}`,
   subtotal: "Итого",
-  note: "Откроется корзина на coralclub.ru с этими товарами по клубным ценам — покупка без регистрации.",
-  checkout: "Оформить на coralclub.ru",
-  clear: "Очистить корзину",
+  note: "",
+  checkout: "Оформить",
+  clear: "",
 };
 
 /**
