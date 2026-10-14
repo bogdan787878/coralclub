@@ -179,6 +179,7 @@ export function Reviews({
   moreHref,
   moreLabel = "Читать все отзывы на Отзовике",
   variant = "cards",
+  showNote = true,
 }: {
   title: string;
   items: LandingReview[];
@@ -189,6 +190,8 @@ export function Reviews({
   moreLabel?: string;
   /** "cards" — a grid of cards (landing); "list" — rows (PDP). */
   variant?: "cards" | "list";
+  /** The small "reviews are published unchanged…" line under the list. */
+  showNote?: boolean;
 }) {
   if (!items.length) return null;
 
@@ -234,10 +237,12 @@ export function Reviews({
         </a>
       )}
 
-      <p className={styles.note}>
-        Отзывы покупателей с сайта Отзовик, опубликованы без изменений. Мнение
-        авторов субъективно, результат зависит от индивидуальных особенностей.
-      </p>
+      {showNote && (
+        <p className={styles.note}>
+          Отзывы покупателей с сайта Отзовик, опубликованы без изменений. Мнение
+          авторов субъективно, результат зависит от индивидуальных особенностей.
+        </p>
+      )}
     </div>
   );
 }

@@ -354,7 +354,7 @@ export default async function LandingProductPage({
                   count: ownSummary.count,
                   caption: "на Отзовике",
                 }}
-                moreHref={ownSummary.url}
+                showNote={false}
               />
             </div>
           </Section>
