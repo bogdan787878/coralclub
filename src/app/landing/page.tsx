@@ -269,18 +269,31 @@ export default function LandingPage() {
           <Section tone="surface" id="hydramax" className={styles.section}>
             <Container>
               <div className={styles.block}>
-                <div className={styles.blockMedia}>
+                <div className={styles.blockShape}>
                   <Image
-                    src={img("hydramax.jpg")}
-                    alt="Гидрамакс и Гидрамакс Плюс"
-                    fill
-                    sizes="(max-width: 1023px) 100vw, 480px"
+                    src={`${asset("/images/you-are-90-water.png")}?v=4`}
+                    alt="Девушка пьёт воду из стакана на бирюзовом фоне"
+                    width={1363}
+                    height={1159}
+                    sizes="(max-width: 1023px) calc(100vw - 32px), 480px"
                   />
                 </div>
                 <div className={styles.blockBody}>
-                  <Heading as="h2" className={styles.h2}>
-                    Глубокая гидратация на клеточном уровне
-                  </Heading>
+                  <div className={styles.blockHead}>
+                    <Heading as="h2" className={styles.h2}>
+                      Глубокая гидратация на клеточном уровне
+                    </Heading>
+                    <p className={styles.blockText}>
+                      Гидрамакс — набор на 30 дней, который делает воду
+                      физиологически полноценной: микро- и макроэлементы,
+                      электролиты и антиоксиданты поддерживают водно-солевой
+                      баланс и защищают клетки от окислительного стресса.
+                    </p>
+                    <p className={styles.blockText}>
+                      Гидрамакс Плюс дополнен Оушенмином — концентратом
+                      глубоководных минералов, прежде всего магния.
+                    </p>
+                  </div>
                   <ProductSlider slides={hydramaxSlides} />
                 </div>
               </div>
