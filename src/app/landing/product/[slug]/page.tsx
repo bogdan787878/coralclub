@@ -200,6 +200,13 @@ export default async function LandingProductPage({
                     <ProductTitle title={ru.title} form={ru.form} />
                   </Heading>
 
+                  {product.dietaryBadges.length > 0 && (
+                    <DietaryBadges
+                      items={product.dietaryBadges}
+                      labels={BADGE_LABELS_RU}
+                    />
+                  )}
+
                   {/* mobile/tablet: fixed bottom bar; web: plain inline block under the title */}
                   <div id="pdp-buy">
                     <BuyBox pinned {...buyProps} />
@@ -231,22 +238,11 @@ export default async function LandingProductPage({
                       </div>
                     </section>
                   )}
-                  {(ru.elements.length > 0 ||
-                    product.dietaryBadges.length > 0) && (
-                    <div className={styles.keyBlock}>
-                      {ru.elements.length > 0 && (
-                        <PeriodicElements
-                          items={ru.elements}
-                          heading="Ключевые компоненты"
-                        />
-                      )}
-                      {product.dietaryBadges.length > 0 && (
-                        <DietaryBadges
-                          items={product.dietaryBadges}
-                          labels={BADGE_LABELS_RU}
-                        />
-                      )}
-                    </div>
+                  {ru.elements.length > 0 && (
+                    <PeriodicElements
+                      items={ru.elements}
+                      heading="Ключевые компоненты"
+                    />
                   )}
                   {included.length > 0 && (
                     <IncludedProductSheet
