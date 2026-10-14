@@ -168,8 +168,7 @@ export default async function LandingProductPage({
     ],
     labels: {
       add: "В корзину",
-      removeOne: "Убрать одну штуку",
-      addOne: "Добавить ещё одну",
+
       inCart: "В корзине",
       openCart: "Открыть корзину",
     },

@@ -36,8 +36,8 @@ export type BuyBoxProduct = {
 
 export type BuyBoxLabels = {
   add: string;
-  removeOne: string;
-  addOne: string;
+  removeOne?: string;
+  addOne?: string;
   /** When set, an outlined "in cart ✓" button next to the stepper opens the
    *  cart (the landings have no TabBar to reach it from). */
   inCart?: string;
@@ -113,25 +113,27 @@ export function BuyBox({
 
         {canAddToCart && qty > 0 ? (
           <div className={styles.actions}>
-            <div className={`${styles.stepper}${anim}`}>
-              <button
-                type="button"
-                aria-label={labels?.removeOne ?? "Remove one"}
-                onClick={() => bump(qty - 1)}
-              >
-                −
-              </button>
-              <span className={styles.stepperCount} aria-live="polite">
-                {qty}
-              </span>
-              <button
-                type="button"
-                aria-label={labels?.addOne ?? "Add one"}
-                onClick={() => bump(qty + 1)}
-              >
-                +
-              </button>
-            </div>
+            {!labels?.inCart && (
+              <div className={`${styles.stepper}${anim}`}>
+                <button
+                  type="button"
+                  aria-label={labels?.removeOne ?? "Remove one"}
+                  onClick={() => bump(qty - 1)}
+                >
+                  −
+                </button>
+                <span className={styles.stepperCount} aria-live="polite">
+                  {qty}
+                </span>
+                <button
+                  type="button"
+                  aria-label={labels?.addOne ?? "Add one"}
+                  onClick={() => bump(qty + 1)}
+                >
+                  +
+                </button>
+              </div>
+            )}
             {labels?.inCart && (
               <button
                 type="button"

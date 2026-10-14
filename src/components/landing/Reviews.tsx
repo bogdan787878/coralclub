@@ -1,6 +1,4 @@
-import Image from "next/image";
 import { Heading } from "@/components/ui";
-import { asset } from "@/lib/asset";
 import type { LandingReview } from "@/lib/landingReviewsRu";
 import { ReviewPhotos } from "./ReviewPhotos";
 import { ReviewText } from "./ReviewText";
@@ -73,27 +71,7 @@ function ReviewCard({
         </p>
       )}
       {review.photos.length > 0 && (
-        <ul className={styles.photos}>
-          {review.photos.map((src, i) => (
-            <li key={src}>
-              <a
-                href={asset(src)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.photo}
-                aria-label={`Фото ${i + 1} из отзыва`}
-              >
-                <Image
-                  src={asset(src)}
-                  alt=""
-                  fill
-                  sizes="96px"
-                  style={{ objectFit: "cover" }}
-                />
-              </a>
-            </li>
-          ))}
-        </ul>
+        <ReviewPhotos photos={review.photos} variant="thumbs" />
       )}
       <div className={styles.foot}>
         <span className={styles.author}>{review.author}</span>

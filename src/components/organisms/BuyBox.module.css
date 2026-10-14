@@ -313,38 +313,3 @@
     padding-inline: var(--space-40);
   }
 }
-
-/* narrow phones, product already in the cart: price + stepper + "В корзине ✓"
-   must share one row — drop the discount pill and tighten the controls */
-@media (max-width: 479px) {
-  .pinned.hasQty .savings {
-    display: none;
-  }
-  .pinned.hasQty .now {
-    font-size: 1.25rem;
-    line-height: 1.5rem;
-  }
-  .pinned.hasQty .was {
-    font-size: 0.875rem;
-    line-height: 1rem;
-  }
-  .pinned.hasQty .stepper button {
-    width: 36px;
-    height: 36px;
-  }
-  .pinned.hasQty .stepperCount {
-    min-width: 22px;
-  }
-  .pinned.hasQty .actions {
-    gap: var(--space-8);
-  }
-  .pinned.hasQty .inCart {
-    padding-inline: var(--space-12);
-    gap: var(--space-4);
-    font-size: 0.9375rem;
-  }
-  .pinned.hasQty .inCart svg {
-    width: 20px;
-    height: 20px;
-  }
-}
