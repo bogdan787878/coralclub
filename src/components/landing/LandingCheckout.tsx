@@ -267,6 +267,11 @@ export function LandingCheckout() {
   const [countries, setCountries] =
     useState<Record<string, string>>(FALLBACK_COUNTRIES);
   const [deliveryError, setDeliveryError] = useState("");
+  // which request each block was last loaded for — "loading" is derived by
+  // comparing with the request the current inputs ask for
+  const [deliveryLoadedKey, setDeliveryLoadedKey] = useState("");
+  const [paymentsLoadedKey, setPaymentsLoadedKey] = useState("");
+  const [totalsLoadedKey, setTotalsLoadedKey] = useState("");
   const [city, setCity] = useState("Москва");
   const [area, setArea] = useState("Москва");
   const [cityDraft, setCityDraft] = useState("Москва");
@@ -296,6 +301,9 @@ export function LandingCheckout() {
   const [siteNote, setSiteNote] = useState("");
   const picked = useRef(false);
   const synced = useRef("");
+  const deliveryKey = `${site}|${country}|${city}|${area}`;
+  const paymentsKey = `${deliveryId}|${deliveryKey}`;
+  const totalsKey = `${deliveryId}|${paymentId}|${deliveryKey}`;
   const cartKey = useMemo(
     () => cart.map((l) => `${l.coralId}:${l.qty}`).join(","),
     [cart],
@@ -407,6 +415,7 @@ export function LandingCheckout() {
           }))
         : [];
       setGroups(list);
+      setDeliveryLoadedKey(deliveryKey);
       setDeliveryError(list.length ? "" : d.error || "Нет способов доставки");
       const all = list.flatMap((g) => g.ITEMS);
       setDeliveryId((cur) =>
@@ -425,7 +434,7 @@ export function LandingCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [country, city, area, ready, site]);
+  }, [country, city, area, ready, site, deliveryKey]);
 
   const activeItem = groups
     .flatMap((g) => g.ITEMS)
@@ -448,6 +457,7 @@ export function LandingCheckout() {
       if (cancelled) return;
       const list = Array.isArray(p.result) ? p.result : [];
       setPayments(list);
+      setPaymentsLoadedKey(paymentsKey);
       setPaymentId((cur) =>
         list.some((x) => x.ID === cur) ? cur : (list[0]?.ID ?? ""),
       );
@@ -455,7 +465,7 @@ export function LandingCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [deliveryId, country, city, area, ready, site]);
+  }, [deliveryId, country, city, area, ready, site, paymentsKey]);
 
   const profile = useCallback(
     () => ({
@@ -509,14 +519,26 @@ export function LandingCheckout() {
         },
         site,
       ).then((r) => {
-        if (!cancelled && r.result) setTotals(r.result);
+        if (cancelled) return;
+        if (r.result) setTotals(r.result);
+        setTotalsLoadedKey(totalsKey);
       });
     }, 250);
     return () => {
       cancelled = true;
       clearTimeout(t);
     };
-  }, [deliveryId, paymentId, country, city, area, profile, ready, site]);
+  }, [
+    deliveryId,
+    paymentId,
+    country,
+    city,
+    area,
+    profile,
+    ready,
+    site,
+    totalsKey,
+  ]);
 
   const valid =
     fio.trim().length > 2 &&
@@ -605,6 +627,22 @@ export function LandingCheckout() {
     g.ITEMS.map((it) => ({ ...it, group: g.NAME })),
   );
   const pickup = activeItem?.TYPE === "PICK_POINT";
+
+  // loaders: the site is being switched / the cart synced, or a block still
+  // shows data of an earlier country
+  const switching = cart.length > 0 && (ready === "idle" || ready === "sync");
+  const deliveryLoading =
+    switching ||
+    (ready === "ok" && city.trim() !== "" && deliveryLoadedKey !== deliveryKey);
+  const paymentsLoading =
+    deliveryLoading ||
+    (ready === "ok" && deliveryId !== "" && paymentsLoadedKey !== paymentsKey);
+  const totalsLoading =
+    paymentsLoading ||
+    (ready === "ok" &&
+      deliveryId !== "" &&
+      paymentId !== "" &&
+      totalsLoadedKey !== totalsKey);
 
   return (
     <main className={styles.page}>
@@ -763,7 +801,13 @@ export function LandingCheckout() {
             <p className={styles.muted}>
               {countries[country] ?? country}, {city || "город не указан"}
             </p>
-            {allItems.length > 0 ? (
+            {deliveryLoading && (
+              <p className={styles.loader} role="status">
+                <span className={styles.spinner} aria-hidden="true" />
+                Загружаем способы доставки…
+              </p>
+            )}
+            {deliveryLoading ? null : allItems.length > 0 ? (
               <div className={styles.options}>
                 {allItems.map((it) => (
                   <label key={it.ID} className={styles.option}>
@@ -841,8 +885,14 @@ export function LandingCheckout() {
 
           <section className={styles.card}>
             <h2 className={styles.h2}>Оплата</h2>
+            {paymentsLoading && (
+              <p className={styles.loader} role="status">
+                <span className={styles.spinner} aria-hidden="true" />
+                Загружаем способы оплаты…
+              </p>
+            )}
             <div className={styles.options}>
-              {payments.map((p) => (
+              {(paymentsLoading ? [] : payments).map((p) => (
                 <label key={p.ID} className={styles.option}>
                   <input
                     type="radio"
@@ -858,7 +908,15 @@ export function LandingCheckout() {
 
           <section className={styles.card}>
             <h2 className={styles.h2}>Итого</h2>
-            <dl className={styles.totals}>
+            {totalsLoading && (
+              <p className={styles.loader} role="status">
+                <span className={styles.spinner} aria-hidden="true" />
+                Считаем стоимость…
+              </p>
+            )}
+            <dl
+              className={`${styles.totals} ${totalsLoading ? styles.dim : ""}`}
+            >
               <div>
                 <dt>Товары</dt>
                 <dd>{totals ? money(totals.PRICE) : "—"}</dd>
@@ -919,7 +977,7 @@ export function LandingCheckout() {
             <button
               type="button"
               className={styles.pay}
-              disabled={!valid || sending || ready !== "ok"}
+              disabled={!valid || sending || ready !== "ok" || totalsLoading}
               onClick={submit}
             >
               {sending ? "Создаём заказ…" : "Перейти к оплате"}
