@@ -266,10 +266,6 @@ export default function LandingPage() {
               <Heading as="h2" className={styles.h2}>
                 Выгодные <Accent>наборы</Accent>
               </Heading>
-              <p className={styles.lead}>
-                Курс коллагена и маски в одном заказе — дешевле, чем покупать по
-                отдельности.
-              </p>
             </Container>
             <div className={styles.setsCarousel}>
               <LandingSets />

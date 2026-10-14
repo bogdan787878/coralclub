@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
+import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./ProductCard.module.css";
@@ -58,8 +58,8 @@ export type ProductCardProps = {
   priceTag?: ReactNode;
   /** Round "sticker" over the photo's top-left corner, e.g. 5 / масок. */
   badge?: { count: string; unit: string };
-  /** Product page the name links to. */
-  href: string;
+  /** Product page the name links to; leave out for a card with no page. */
+  href?: string;
   /** Packshots — one per slide of the card's own nested carousel. */
   images?: ProductImage[];
   /** Where the cart button links when there's no local-cart handler. */
@@ -85,6 +85,28 @@ function ChevronIcon({ direction }: { direction: "left" | "right" }) {
         strokeLinejoin="round"
       />
     </svg>
+  );
+}
+
+/** A link when the card has a page, a plain span when it has none. */
+function MaybeLink({
+  href,
+  children,
+  ...rest
+}: {
+  href?: string;
+  children?: ReactNode;
+  className?: string;
+  tabIndex?: number;
+  style?: CSSProperties;
+  "aria-hidden"?: boolean | "true" | "false";
+}) {
+  return href ? (
+    <Link href={href} {...rest}>
+      {children}
+    </Link>
+  ) : (
+    <span {...rest}>{children}</span>
   );
 }
 
@@ -168,7 +190,7 @@ export function ProductCard({
                     tap from a drag on its own — an overlay on top of the
                     track would intercept the swipe instead of passing it
                     through. */}
-                  <Link
+                  <MaybeLink
                     href={href}
                     className={styles.frame}
                     tabIndex={-1}
@@ -186,7 +208,7 @@ export function ProductCard({
                           : {}),
                       }}
                     />
-                  </Link>
+                  </MaybeLink>
                 </span>
               );
             })
@@ -195,7 +217,7 @@ export function ProductCard({
               className={`${styles.slide} ${styles.slideEmpty}`}
               aria-hidden="true"
             >
-              <Link
+              <MaybeLink
                 href={href}
                 className={styles.mediaLink}
                 aria-hidden="true"
@@ -305,9 +327,9 @@ export function ProductCard({
         {category && <span className={styles.category}>{category}</span>}
 
         <h3 className={styles.title}>
-          <Link href={href} className={styles.titleLink}>
+          <MaybeLink href={href} className={styles.titleLink}>
             {title}
-          </Link>
+          </MaybeLink>
         </h3>
 
         <p className={styles.price}>

@@ -580,47 +580,26 @@ export function fullTitle(slug: string): string {
 }
 
 /**
- * "Выгодные наборы" — ready-made bundles from coralclub.ru (3-pack courses
- * and course + mask sets). `priceRub` is the club price of the bundle on the
- * site; the "separately" price is rebuilt from the single products, so the
- * saving shown is always real.
+ * "Выгодные наборы" — ready-made bundles from coralclub.ru (3-pack courses,
+ * course + mask sets, 3-pack masks). `priceRub` is the club price on the
+ * site; the struck-through price is the regular one — the site's own club
+ * discount is a flat 20%, i.e. regular = club × 1.25 (same as every product).
  */
 export type LandingSetRu = {
   /** Article on coralclub.ru (what the basket link takes). */
   ruId: string;
   name: string;
-  /** What is inside, in plain words (one line per product). */
-  parts: { slug: BeautySlug; qty: number; label: string }[];
   /** Club price of the bundle, ₽. */
   priceRub: number;
-  /** Photo taken from the bundle's page on coralclub.ru. */
+  /** Photo from the bundle's page on coralclub.ru (5:7 canvas). */
   image: string;
   alt: string;
-};
-
-const PEPTIDES_3 = {
-  slug: "promarine-collagen" as const,
-  qty: 3,
-  label: "Промарин Пептиды Коллагена — 3 упаковки по 10 флаконов",
-};
-const TRIPEPTIDES_3 = {
-  slug: "promarine-collagen-tripeptides-pack" as const,
-  qty: 3,
-  label: "Промарин Трипептиды Коллагена — 3 упаковки по 10 флаконов",
 };
 
 export const LANDING_SETS_RU: LandingSetRu[] = [
   {
     ruId: "22600303",
     name: "Пептиды Коллагена и маска Skin Harmony",
-    parts: [
-      PEPTIDES_3,
-      {
-        slug: "skin-harmony-biocellulose-facial-mask",
-        qty: 1,
-        label: "Маска Skin Harmony — 5 саше",
-      },
-    ],
     priceRub: 16770,
     image: "/images/landing/sets/22600303.webp",
     alt: "Набор: три упаковки Промарин Пептиды Коллагена и маски Skin Harmony",
@@ -628,14 +607,6 @@ export const LANDING_SETS_RU: LandingSetRu[] = [
   {
     ruId: "22600302",
     name: "Пептиды Коллагена и маска Hydro Boost",
-    parts: [
-      PEPTIDES_3,
-      {
-        slug: "hydro-boost-biocellulose-facial-mask",
-        qty: 1,
-        label: "Маска Hydro Boost — 5 саше",
-      },
-    ],
     priceRub: 16770,
     image: "/images/landing/sets/22600302.webp",
     alt: "Набор: три упаковки Промарин Пептиды Коллагена и маски Hydro Boost",
@@ -643,14 +614,6 @@ export const LANDING_SETS_RU: LandingSetRu[] = [
   {
     ruId: "2270315",
     name: "Трипептиды Коллагена и маска Advanced Collagen",
-    parts: [
-      TRIPEPTIDES_3,
-      {
-        slug: "advanced-collagen-biocellulose-facial-mask",
-        qty: 1,
-        label: "Маска Advanced Collagen — 5 саше",
-      },
-    ],
     priceRub: 19350,
     image: "/images/landing/sets/2270315.webp",
     alt: "Набор: три упаковки Промарин Трипептиды Коллагена и маски Advanced Collagen",
@@ -658,7 +621,6 @@ export const LANDING_SETS_RU: LandingSetRu[] = [
   {
     ruId: "226003",
     name: "Пептиды Коллагена — 3 упаковки",
-    parts: [PEPTIDES_3],
     priceRub: 13760,
     image: "/images/landing/sets/226003.webp",
     alt: "Три упаковки Промарин Пептиды Коллагена",
@@ -666,20 +628,32 @@ export const LANDING_SETS_RU: LandingSetRu[] = [
   {
     ruId: "227003",
     name: "Трипептиды Коллагена — 3 упаковки",
-    parts: [TRIPEPTIDES_3],
     priceRub: 16340,
     image: "/images/landing/sets/227003.webp",
     alt: "Три упаковки Промарин Трипептиды Коллагена",
   },
+  {
+    ruId: "6103053",
+    name: "Skin Harmony — 3 упаковки по 5 саше",
+    priceRub: 9030,
+    image: "/images/landing/sets/6103053.webp",
+    alt: "Три упаковки масок Skin Harmony",
+  },
+  {
+    ruId: "6101053",
+    name: "Advanced Collagen — 3 упаковки по 5 саше",
+    priceRub: 9030,
+    image: "/images/landing/sets/6101053.webp",
+    alt: "Три упаковки масок Advanced Collagen",
+  },
+  {
+    ruId: "6102053",
+    name: "Hydro Boost — 3 упаковки по 5 саше",
+    priceRub: 9030,
+    image: "/images/landing/sets/6102053.webp",
+    alt: "Три упаковки масок Hydro Boost",
+  },
 ];
 
-/** What the same contents cost bought one by one (club prices). */
-export const setSeparatelyRub = (set: LandingSetRu): number =>
-  set.parts.reduce(
-    (sum, p) => sum + LANDING_PRODUCTS_RU[p.slug].priceRub.club * p.qty,
-    0,
-  );
-
-/** How much cheaper the bundle is than buying its parts separately. */
-export const setSavingRub = (set: LandingSetRu): number =>
-  setSeparatelyRub(set) - set.priceRub;
+/** The regular (non-club) price of a bundle. */
+export const setRegularRub = (set: LandingSetRu): number => set.priceRub * 1.25;
