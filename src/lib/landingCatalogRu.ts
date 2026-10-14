@@ -287,8 +287,8 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
     pack: { count: "5", unit: "масок" },
     name: "Advanced Collagen",
     headline: "Биоцеллюлозная маска Advanced Collagen",
-    title: "Маска Advanced Collagen",
-    form: { label: "5 шт. в наборе" },
+    title: "Advanced Collagen",
+    form: { label: "5 масок в упаковке" },
     category: "Кожа, волосы, ногти",
     lead: "Биоцеллюлозная маска с трипептидами коллагена, морской водой, пептидами HAPA-5 и аргирелином.",
     bullets: [
@@ -319,8 +319,8 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
     pack: { count: "5", unit: "масок" },
     name: "Hydro Boost",
     headline: "Биоцеллюлозная маска Hydro Boost",
-    title: "Маска Hydro Boost",
-    form: { label: "5 шт. в наборе" },
+    title: "Hydro Boost",
+    form: { label: "5 масок в упаковке" },
     category: "Кожа, волосы, ногти",
     lead: "Биоцеллюлозная маска с морской водой, 3D гиалуроновой кислотой, водорослями и метабиотиком.",
     bullets: [
@@ -351,8 +351,8 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
     pack: { count: "5", unit: "масок" },
     name: "Skin Harmony",
     headline: "Биоцеллюлозная маска Skin Harmony",
-    title: "Маска Skin Harmony",
-    form: { label: "5 шт. в наборе" },
+    title: "Skin Harmony",
+    form: { label: "5 масок в упаковке" },
     category: "Кожа, волосы, ногти",
     lead: "Биоцеллюлозная маска с морской водой, церамидами, метабиотиками и экстрактами моринги и водорослей. Бережно восстанавливает «уставшую» кожу.",
     bullets: [
