@@ -48,6 +48,13 @@ const COLLAGEN_SLUGS = [
 ] as const;
 const HYDRAMAX_SLUGS = ["hydramax", "hydramax-plus"] as const;
 
+/** Order of the "why" carousel: masks, then collagen, then hydration. */
+const WHY_ORDER = [
+  ...MASK_SLUGS,
+  ...COLLAGEN_SLUGS,
+  ...HYDRAMAX_SLUGS,
+] as const;
+
 const NAV = [
   ["#why", "Почему система работает"],
   ["#products", "Продукты"],
@@ -60,7 +67,7 @@ const NAV = [
 ] as const;
 
 export default function LandingPage() {
-  const cards = getProductCards([...BEAUTY_SLUGS]).map((c) => {
+  const cards = getProductCards([...WHY_ORDER]).map((c) => {
     const ru = LANDING_PRODUCTS_RU[c.slug as BeautySlug];
     return {
       ...c,
