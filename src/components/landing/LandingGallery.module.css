@@ -1,0 +1,54 @@
+.gallery {
+  display: block;
+}
+
+/* thumbnails are a desktop-only strip beside the picture */
+.thumbs {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .gallery {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-16);
+    position: sticky;
+    top: var(--space-24);
+    min-width: 0;
+  }
+
+  .thumbs {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .thumb {
+    position: relative;
+    display: block;
+    width: 72px;
+    height: 72px;
+    padding: 0;
+    overflow: hidden;
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    background: var(--color-neutral-30);
+    cursor: pointer;
+    transition: border-color var(--duration-fast) var(--ease-standard);
+  }
+
+  .thumbOn {
+    border-color: var(--color-action);
+  }
+
+  /* the shop's frame sticks on its own; here the whole gallery sticks */
+  .gallery .frame {
+    flex: 1 1 0;
+    position: relative;
+    top: auto;
+  }
+}

@@ -5,10 +5,10 @@ import {
   BuyBox,
   DietaryBadges,
   FullDescription,
-  ImageSlider,
   InfoAccordion,
   PeriodicElements,
 } from "@/components/organisms";
+import { LandingGallery } from "@/components/landing/LandingGallery";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { IncludedProductDetails } from "@/components/landing/IncludedProductDetails";
 import { IncludedProductSheet } from "@/components/landing/IncludedProductSheet";
@@ -152,22 +152,11 @@ export default async function LandingProductPage({
         <Section tone="surface">
           <Container>
             <div className={shop.layout}>
-              <div className={shop.media}>
-                <div className={shop.mediaInner}>
-                  <ImageSlider
-                    images={images}
-                    sizes="(max-width: 1023px) 100vw, 400px"
-                    fit={slug === "hydramax" ? "cover" : "contain"}
-                    priority
-                    lightDots
-                  />
-                </div>
-                {/* desktop only — replaces the floating share button */}
-                <ShareButton
-                  className={`${shop.circleBtn} ${shop.mediaShare}`}
-                  title={ru.name}
-                />
-              </div>
+              <LandingGallery
+                images={images}
+                title={ru.name}
+                fit={slug === "hydramax" ? "cover" : "contain"}
+              />
 
               <Stack gap="base" className={shop.infoCol}>
                 <div className={shop.headGroup}>

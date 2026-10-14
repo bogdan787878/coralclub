@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./ImageSlider.module.css";
@@ -32,6 +32,11 @@ export type ImageSliderProps = {
    *  background (e.g. SeriesFeature's big card) where dark dots at low
    *  opacity can disappear against the image. */
   lightDots?: boolean;
+  /** Controlled position: scroll to this frame when it changes (e.g. from
+   *  a thumbnail strip beside the slider). */
+  activeIndex?: number;
+  /** Reports the frame the swipe settled on. */
+  onActiveChange?: (index: number) => void;
 };
 
 /**
@@ -45,6 +50,8 @@ export function ImageSlider({
   priority = false,
   href,
   lightDots = false,
+  activeIndex,
+  onActiveChange,
 }: ImageSliderProps) {
   const [active, setActive] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -53,8 +60,18 @@ export function ImageSlider({
   const onScroll = () => {
     const el = trackRef.current;
     if (!el || el.clientWidth === 0) return;
-    setActive(Math.round(el.scrollLeft / el.clientWidth));
+    const next = Math.round(el.scrollLeft / el.clientWidth);
+    setActive(next);
+    onActiveChange?.(next);
   };
+
+  useEffect(() => {
+    if (activeIndex === undefined) return;
+    const el = trackRef.current;
+    if (!el || el.clientWidth === 0) return;
+    if (Math.round(el.scrollLeft / el.clientWidth) === activeIndex) return;
+    el.scrollTo({ left: activeIndex * el.clientWidth, behavior: "smooth" });
+  }, [activeIndex]);
 
   if (!images.length) {
     return <span className={styles.empty} aria-hidden="true" />;
