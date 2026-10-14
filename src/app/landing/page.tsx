@@ -3,6 +3,13 @@ import Image from "next/image";
 import { Accent, Container, Heading, Section } from "@/components/ui";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { LeadModalProvider } from "@/components/landing/LeadModal";
+import { Reviews } from "@/components/landing/Reviews";
+import {
+  ALL_REVIEWS_URL,
+  LANDING_FEATURED_IDS,
+  LANDING_REVIEWS_RU,
+  overallSummary,
+} from "@/lib/landingReviewsRu";
 import { LandingCta, PromoCode } from "@/components/landing/LandingCta";
 import { LandingCards } from "@/components/landing/LandingCards";
 import { LandingCartButton } from "@/components/landing/LandingCartButton";
@@ -61,6 +68,7 @@ const NAV = [
   ["#masks", "Маски"],
   ["#collagen", "Коллаген"],
   ["#hydramax", "Гидрамакс"],
+  ["#reviews", "Отзывы"],
   ["#consultation", "Консультация"],
 ] as const;
 
@@ -110,6 +118,13 @@ export default function LandingPage() {
   const maskSlides = slidesFor(MASK_SLUGS);
   const collagenSlides = slidesFor(COLLAGEN_SLUGS);
   const hydramaxSlides = slidesFor(HYDRAMAX_SLUGS);
+
+  const featuredReviews = LANDING_FEATURED_IDS.flatMap((id) =>
+    LANDING_REVIEWS_RU.filter((r) => r.id === id),
+  );
+  const reviewProductNames = Object.fromEntries(
+    BEAUTY_SLUGS.map((slug) => [slug, LANDING_PRODUCTS_RU[slug].name]),
+  );
 
   return (
     <div className="appShell">
@@ -227,6 +242,21 @@ export default function LandingPage() {
                   <ProductSlider slides={hydramaxSlides} />
                 </div>
               </div>
+            </Container>
+          </Section>
+
+          <Section tone="surface" id="reviews" className={styles.section}>
+            <Container>
+              <Reviews
+                title="Что говорят покупатели"
+                items={featuredReviews}
+                summary={{
+                  ...overallSummary(),
+                  caption: "по отзывам о продуктах системы красоты на Отзовике",
+                }}
+                productNames={reviewProductNames}
+                moreHref={ALL_REVIEWS_URL}
+              />
             </Container>
           </Section>
 
