@@ -7,12 +7,19 @@ import {
   discountTag,
   fullTitle,
   landingPdpHref,
+  landingTag,
   type BeautySlug,
 } from "@/lib/landingCatalogRu";
 import { ProductTitle } from "./ProductTitle";
 import { Carousel, ProductCard } from "@/components/organisms";
 
-function LandingCard({ p }: { p: PhaseProductCard }) {
+function LandingCard({
+  p,
+  reserveTag,
+}: {
+  p: PhaseProductCard;
+  reserveTag: boolean;
+}) {
   const cart = useCart();
   const ru = LANDING_PRODUCTS_RU[p.slug as BeautySlug];
   const href = landingPdpHref(p.slug);
@@ -24,6 +31,8 @@ function LandingCard({ p }: { p: PhaseProductCard }) {
       title={ru ? <ProductTitle title={ru.title} form={ru.form} /> : p.headline}
       price={p.price}
       priceWas={p.priceWas}
+      tag={landingTag(p.slug)}
+      reserveTag={reserveTag}
       priceTag={discountTag(p.slug)}
       // badge={packOf(p.slug)} — pack stickers are switched off for now
       href={href}
@@ -64,10 +73,12 @@ export function LandingCards({
   /** Keep cards at grid-column size even when there are only a few. */
   minCols?: number;
 }) {
+  // keep names/prices aligned when only some cards in the row carry a tag
+  const reserveTag = cards.some((p) => landingTag(p.slug));
   return (
     <Carousel label={label} maxCols={4} minCols={minCols} stretchFew>
       {cards.map((p) => (
-        <LandingCard key={p.slug} p={p} />
+        <LandingCard key={p.slug} p={p} reserveTag={reserveTag} />
       ))}
     </Carousel>
   );

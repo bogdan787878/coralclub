@@ -50,6 +50,11 @@ export type ProductCardProps = {
   title: ReactNode;
   /** Tan category pill above the name. */
   category?: string;
+  /** Filled green tag above the name — what the product is for. */
+  tag?: string;
+  /** Keep the tag's height when this card has none, so the names and
+   *  prices of neighbouring cards still line up. */
+  reserveTag?: boolean;
   /** Current / sale price. */
   price: ReactNode;
   /** Struck-through "was" price shown next to it. */
@@ -135,6 +140,8 @@ function CartIcon() {
 export function ProductCard({
   title,
   category,
+  tag,
+  reserveTag,
   price,
   priceWas,
   priceTag,
@@ -325,6 +332,11 @@ export function ProductCard({
 
       <div className={styles.info}>
         {category && <span className={styles.category}>{category}</span>}
+        {tag ? (
+          <span className={styles.tag}>{tag}</span>
+        ) : reserveTag ? (
+          <span className={styles.tagSpacer} aria-hidden="true" />
+        ) : null}
 
         <h3 className={styles.title}>
           <MaybeLink href={href} className={styles.titleLink}>

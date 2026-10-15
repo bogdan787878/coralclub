@@ -579,6 +579,18 @@ export const LEAD_PHOTO: Record<string, string> = {
   "hydramax-plus": "/images/products/ru/hydramax-plus-2.webp",
 };
 
+/** Green tag over the product name on the landing cards — what the product
+ *  is for, in one word or two. Products with no entry show no tag. */
+const LANDING_TAG_RU: Partial<Record<BeautySlug, string>> = {
+  "advanced-collagen-biocellulose-facial-mask": "Упругость",
+  "hydro-boost-biocellulose-facial-mask": "Увлажнение",
+  "skin-harmony-biocellulose-facial-mask": "Ровный тон",
+};
+
+export function landingTag(slug: string): string | undefined {
+  return LANDING_TAG_RU[slug as BeautySlug];
+}
+
 /** "Название – форма выпуска" as one plain string (cart lines, top bar). */
 export function fullTitle(slug: string): string {
   const ru = LANDING_PRODUCTS_RU[slug as BeautySlug];
