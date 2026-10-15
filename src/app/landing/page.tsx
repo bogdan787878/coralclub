@@ -135,16 +135,13 @@ export default function LandingPage() {
                     Добавки работают изнутри, маски — снаружи. Вместе это
                     комплексный подход к красоте и здоровью.
                   </p>
-                  <div className={styles.promo}>
-                    <p className={styles.promoText}>
-                      Получите специальную скидку по промокоду{" "}
-                      <PromoCode
-                        code={PROMO_CODE}
-                        className={styles.promoCode}
-                      />{" "}
-                      на продукты Системы Красоты
-                    </p>
-                  </div>
+                </div>
+                <div className={styles.promo}>
+                  <p className={styles.promoText}>
+                    Получите специальную скидку по промокоду{" "}
+                    <PromoCode code={PROMO_CODE} className={styles.promoCode} />{" "}
+                    на продукты Системы Красоты
+                  </p>
                 </div>
               </div>
             </Container>
