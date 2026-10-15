@@ -50,7 +50,7 @@ export type ProductCardProps = {
   title: ReactNode;
   /** Tan category pill above the name. */
   category?: string;
-  /** Filled green tag above the name — what the product is for. */
+  /** Green tag above the name — what the product is for. */
   tag?: string;
   /** Keep the tag's height when this card has none, so the names and
    *  prices of neighbouring cards still line up. */

@@ -274,24 +274,19 @@
   font-weight: 900;
 }
 
-/* filled tag — what the product is for */
+/* tag — what the product is for, plain green text like the old category */
 .tag,
 .tagSpacer {
   align-self: flex-start;
-  height: 24px;
+  height: 1rem; /* 16 */
 }
 
 .tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 0 var(--space-12);
-  border-radius: var(--radius-pill);
-  background: #d6e9b4;
-  color: var(--color-text);
+  color: #a2d24a;
   font-family: var(--font-sans);
-  font-size: 0.8125rem; /* 13 */
-  line-height: 1rem;
-  font-weight: var(--font-weight-medium);
+  font-size: 0.875rem; /* 14 */
+  line-height: 1rem; /* 16 */
+  font-weight: 900;
 }
 
 .title {
