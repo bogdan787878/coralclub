@@ -108,7 +108,9 @@
        than 5 fills the row instead of leaving the unused columns as
        dead space on the right */
     grid-template-columns: repeat(var(--carousel-cols, 5), minmax(0, 1fr));
-    gap: var(--space-8);
+    /* a page can open the gaps up: --carousel-row-gap / --carousel-col-gap */
+    gap: var(--carousel-row-gap, var(--space-8))
+      var(--carousel-col-gap, var(--space-8));
     overflow: visible;
     scroll-snap-type: none;
   }

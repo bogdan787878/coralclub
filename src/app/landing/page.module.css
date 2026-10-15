@@ -432,3 +432,14 @@
     margin-top: 40px;
   }
 }
+
+/* web: the product cards need room — wider columns gap and, when a carousel
+   wraps into several rows ("Выгодные наборы"), a real gap between the rows */
+@media (min-width: 1024px) {
+  .cards,
+  .carouselBleed,
+  .setsCarousel {
+    --carousel-col-gap: 24px;
+    --carousel-row-gap: 64px;
+  }
+}
