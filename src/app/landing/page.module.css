@@ -443,3 +443,36 @@
     --carousel-row-gap: 64px;
   }
 }
+
+/* ---- web hero: wide, like the shop's home — a big picture on the right
+   and a large heading on the left ---- */
+@media (min-width: 1024px) {
+  .hero {
+    max-width: 1920px;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 9fr);
+    column-gap: clamp(32px, 3.4vw, 72px);
+    padding: 24px clamp(20px, 1.6vw, 40px) 96px;
+  }
+  .heroCol {
+    padding-inline: 0;
+  }
+  .heroBody {
+    max-width: 640px;
+    padding-block: 32px;
+    gap: 28px;
+  }
+  .heroTitle {
+    font-size: clamp(2.5rem, 3.6vw, 4rem);
+    line-height: 1.04;
+  }
+  .heroText {
+    font-size: 1.25rem;
+    line-height: 1.5;
+    max-width: 34ch;
+  }
+  .cta {
+    min-height: 60px;
+    padding-inline: 48px;
+    font-size: 1.0625rem;
+  }
+}
