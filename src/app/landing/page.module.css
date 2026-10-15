@@ -173,7 +173,7 @@
   gap: var(--space-16);
   padding: var(--space-32) var(--space-24);
   border-radius: var(--radius-base);
-  background: var(--color-malachite-100);
+  background: var(--color-malachite-90);
   color: var(--color-text-on-primary);
 }
 
@@ -191,10 +191,16 @@
   color: var(--color-text-on-primary-muted);
 }
 
-.consultCta {
+/* a white button on the green block — doubled selector to beat the
+   primary Button's own background */
+.consult .consultCta {
   align-self: flex-start;
   background: #ffffff;
   color: var(--color-text);
+}
+
+.consult .consultCta:hover {
+  background: rgba(255, 255, 255, 0.88);
 }
 
 .footer {
@@ -343,7 +349,7 @@
   .consultText {
     grid-column: 1;
   }
-  .consultCta {
+  .consult .consultCta {
     grid-column: 2;
     grid-row: 1 / span 2;
     align-self: center;
