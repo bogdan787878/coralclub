@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 const img = (name: string) => asset(`/images/landing/${name}?v=1`);
 
 const HERO_ALT =
-  "Маски, коллаген и Гидрамакс Плюс от Coral Club — упаковки на столе в солнечном свете";
+  "Маски, коллаген и Гидрамакс Плюс от Coral Club — упаковки на столе в солнечном свете";
 
 const MASK_SLUGS = [
   "advanced-collagen-biocellulose-facial-mask",
@@ -111,11 +111,11 @@ export default function LandingPage() {
             <Container className={styles.heroCol}>
               <div className={styles.heroBody}>
                 <Heading className={styles.heroTitle}>
-                  Всё для красоты кожи. <Accent>В одной системе.</Accent>
+                  Всё для красоты кожи. <Accent>В одной системе.</Accent>
                 </Heading>
                 <p className={styles.heroText}>
-                  Coral Club уже объединил продукты в комплексное решение — вам
-                  не нужно собирать его самостоятельно.
+                  Coral Club уже объединил продукты в комплексное решение — вам
+                  не нужно собирать его самостоятельно.
                 </p>
                 <LandingCta source="hero" className={styles.cta}>
                   Получить консультацию нутрициолога
@@ -133,14 +133,14 @@ export default function LandingPage() {
                   </Heading>
                   <p className={styles.lead}>
                     Добавки работают изнутри, маски — снаружи. Вместе это
-                    комплексный подход к красоте и здоровью.
+                    комплексный подход к красоте и здоровью.
                   </p>
                 </div>
                 <div className={styles.promo}>
                   <p className={styles.promoText}>
-                    Получите специальную скидку по промокоду{" "}
+                    Получите специальную скидку по промокоду{" "}
                     <PromoCode code={PROMO_CODE} className={styles.promoCode} />{" "}
-                    на продукты Системы Красоты
+                    на продукты Системы Красоты
                   </p>
                 </div>
               </div>
@@ -158,7 +158,7 @@ export default function LandingPage() {
                 <div className={`${styles.blockMedia} ${styles.blockMedia43}`}>
                   <Image
                     src={img("masks-block.webp")}
-                    alt="Три биоцеллюлозные маски Coral Club: Advanced Collagen, Hydro Boost и Skin Harmony — упаковки и саше"
+                    alt="Три биоцеллюлозные маски Coral Club: Advanced Collagen, Hydro Boost и Skin Harmony — упаковки и саше"
                     fill
                     sizes="(max-width: 1023px) 100vw, 560px"
                   />
@@ -166,18 +166,18 @@ export default function LandingPage() {
                 <div className={styles.blockBody}>
                   <div className={styles.blockHead}>
                     <Heading as="h2" className={styles.h2}>
-                      Восстановление и сияние кожи
+                      Восстановление и сияние кожи
                     </Heading>
                     <p className={styles.blockText}>
-                      Три биоцеллюлозные маски для лица с разным назначением:
-                      Advanced Collagen поддерживает эластичность и упругость
+                      Три биоцеллюлозные маски для лица с разным назначением:
+                      Advanced Collagen поддерживает эластичность и упругость
                       кожи, Hydro Boost глубоко увлажняет, Skin Harmony
-                      успокаивает и выравнивает тон.
+                      успокаивает и выравнивает тон.
                     </p>
                     <p className={styles.blockText}>
-                      Биоцеллюлозная основа плотно прилегает к лицу и удерживает
-                      до 3 раз больше сыворотки, чем другие основы. В упаковке 5
-                      масок по 25 мл — используйте 2–3 раза в неделю.
+                      Биоцеллюлозная основа плотно прилегает к лицу и удерживает
+                      до 3 раз больше сыворотки, чем другие основы. В упаковке 5
+                      масок по 25 мл — используйте 2–3 раза в неделю.
                     </p>
                   </div>
                   <div className={styles.carouselBleed}>
@@ -198,7 +198,7 @@ export default function LandingPage() {
                 <div className={styles.blockMedia}>
                   <Image
                     src={img("collagen-block.webp")}
-                    alt="Промарин Пептиды и Трипептиды Коллагена: упаковки и флаконы на столе"
+                    alt="Промарин Пептиды и Трипептиды Коллагена: упаковки и флаконы на столе"
                     fill
                     sizes="(max-width: 1023px) 100vw, 560px"
                   />
@@ -210,13 +210,14 @@ export default function LandingPage() {
                     </Heading>
                     <p className={styles.blockText}>
                       Коллаген — главный структурный белок соединительных
-                      тканей: кожи, сухожилий, связок и суставов. С возрастом
+                      тканей: кожи, сухожилий, связок и суставов. С возрастом
                       организм вырабатывает его всё меньше.
                     </p>
                     <p className={styles.blockText}>
-                      Промарин — морской коллаген в жидкой форме, готовый к
-                      приёму: во флаконе 50 мл. Выбирайте пептиды или трипептиды
-                      — более мелкую молекулу, которая легче усваивается.
+                      Промарин — морской коллаген в жидкой форме, готовый
+                      к приёму: во флаконе 50 мл. Выбирайте пептиды
+                      или трипептиды — более мелкую молекулу, которая легче
+                      усваивается.
                     </p>
                   </div>
                   <div className={styles.carouselBleed}>
@@ -237,7 +238,7 @@ export default function LandingPage() {
                 <div className={styles.blockMedia}>
                   <Image
                     src={img("hydramax-block.webp")}
-                    alt="Набор Гидрамакс Плюс: ПентоКан, Корал-Майн, Оушенмин и H-500 на столе"
+                    alt="Набор Гидрамакс Плюс: ПентоКан, Корал-Майн, Оушенмин и H-500 на столе"
                     fill
                     sizes="(max-width: 1023px) 100vw, 560px"
                   />
@@ -245,13 +246,13 @@ export default function LandingPage() {
                 <div className={styles.blockBody}>
                   <div className={styles.blockHead}>
                     <Heading as="h2" className={styles.h2}>
-                      Глубокая гидратация на клеточном уровне
+                      Глубокая гидратация на клеточном уровне
                     </Heading>
                     <p className={styles.blockText}>
-                      Гидрамакс — набор на 30 дней, который делает воду
-                      физиологически полноценной: микро- и макроэлементы,
-                      электролиты и антиоксиданты поддерживают водно-солевой
-                      баланс и защищают клетки от окислительного стресса.
+                      Гидрамакс — набор на 30 дней, который делает воду
+                      физиологически полноценной: микро- и макроэлементы,
+                      электролиты и антиоксиданты поддерживают водно-солевой
+                      баланс и защищают клетки от окислительного стресса.
                     </p>
                     <p className={styles.blockText}>
                       Гидрамакс Плюс дополнен Оушенмином — концентратом
@@ -284,11 +285,11 @@ export default function LandingPage() {
           <Section tone="surface" id="reviews" className={styles.section}>
             <Container>
               <Reviews
-                title="Что говорят покупатели"
+                title="Что говорят покупатели"
                 items={featuredReviews}
                 summary={{
                   ...overallSummary(),
-                  caption: "по отзывам о продуктах системы красоты на Отзовике",
+                  caption: "по отзывам о продуктах системы красоты на Отзовике",
                 }}
                 productNames={reviewProductNames}
                 showNote={false}
@@ -300,7 +301,7 @@ export default function LandingPage() {
             <Container>
               <div className={styles.consult}>
                 <h2 className={styles.consultTitle}>
-                  Не знаете, с чего начать? Бесплатная консультация нутрициолога
+                  Не знаете, с чего начать? Бесплатная консультация нутрициолога
                 </h2>
                 <p className={styles.consultText}>
                   Оставьте заявку — подберём вам персонального консультанта.
@@ -319,7 +320,7 @@ export default function LandingPage() {
               </div>
               <nav
                 className={styles.footerNav}
-                aria-label="Навигация по странице"
+                aria-label="Навигация по странице"
               >
                 {NAV.map(([href, label]) => (
                   <a key={href} href={href}>
@@ -328,8 +329,8 @@ export default function LandingPage() {
                 ))}
               </nav>
               <p className={styles.footerNote}>
-                БАД не является лекарственным средством. Перед применением
-                проконсультируйтесь со специалистом.
+                БАД не является лекарственным средством. Перед применением
+                проконсультируйтесь со специалистом.
               </p>
             </Container>
           </footer>

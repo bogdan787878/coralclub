@@ -1,4 +1,5 @@
 import type { BEAUTY_SLUGS } from "./beautySystem";
+import { nbspDeep } from "./typo";
 
 /**
  * Russian content for the "Система красоты" landing and its product pages.
@@ -64,14 +65,18 @@ const STORAGE_MASK =
 const HOW_TO_MASK =
   "Используйте 2–3 раза в неделю на чистую кожу лица, лучше вечером. Держите 15–20 минут, затем снимите маску и помассируйте остатки сыворотки в кожу.";
 
-export const DISCLAIMERS: Record<LandingProductRu["disclaimer"], string> = {
+const RAW_DISCLAIMERS: Record<LandingProductRu["disclaimer"], string> = {
   supplement: "БАД. Не является лекарственным средством.",
   /** Masks are cosmetics: no disclaimer line. */
   cosmetic: "",
 };
 
+/** Short prepositions glued to the next word (see ./typo). */
+export const DISCLAIMERS: Record<LandingProductRu["disclaimer"], string> =
+  nbspDeep(RAW_DISCLAIMERS);
+
 /** Dietary badge slug → Russian label (icons are shared with the shop). */
-export const BADGE_LABELS_RU: Record<string, string> = {
+const RAW_BADGE_LABELS_RU: Record<string, string> = {
   "gluten-free": "Без глютена",
   "soy-free": "Без сои",
   "lactose-free": "Без лактозы",
@@ -85,7 +90,11 @@ export const BADGE_LABELS_RU: Record<string, string> = {
   kosher: "Сертификат «Кошер»",
 };
 
-export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
+/** Short prepositions glued to the next word (see ./typo). */
+export const BADGE_LABELS_RU: Record<string, string> =
+  nbspDeep(RAW_BADGE_LABELS_RU);
+
+const RAW_LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
   hydramax: {
     slug: "hydramax",
     ruId: "80380",
@@ -376,6 +385,10 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> = {
   },
 };
 
+/** Short prepositions glued to the next word (see ./typo). */
+export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> =
+  nbspDeep(RAW_LANDING_PRODUCTS_RU);
+
 /** Where a product's Russian page lives (relative to the site root — pass it
  *  to next/link, which adds the GitHub Pages base path). */
 export const landingPdpHref = (slug: string) => `/landing/product/${slug}/`;
@@ -403,7 +416,7 @@ export type IncludedProductRu = {
   fullDescription: string;
 };
 
-export const INCLUDED_PRODUCTS_RU: Record<string, IncludedProductRu> = {
+const RAW_INCLUDED_PRODUCTS_RU: Record<string, IncludedProductRu> = {
   "coral-mine-silver": {
     slug: "coral-mine-silver",
     name: "Корал-Майн",
@@ -529,6 +542,11 @@ export const INCLUDED_PRODUCTS_RU: Record<string, IncludedProductRu> = {
   },
 };
 
+/** Short prepositions glued to the next word (see ./typo). */
+export const INCLUDED_PRODUCTS_RU: Record<string, IncludedProductRu> = nbspDeep(
+  RAW_INCLUDED_PRODUCTS_RU,
+);
+
 /** Size of the club discount as a tag label, e.g. "−20%" (U+2212 minus). */
 export function discountTag(slug: string): string | undefined {
   const ru = LANDING_PRODUCTS_RU[slug as BeautySlug];
@@ -581,7 +599,7 @@ export const LEAD_PHOTO: Record<string, string> = {
 
 /** Green tag over the product name on the landing cards — what the product
  *  is for, in one word or two. Products with no entry show no tag. */
-const LANDING_TAG_RU: Partial<Record<BeautySlug, string>> = {
+const LANDING_TAG_RU: Partial<Record<BeautySlug, string>> = nbspDeep({
   hydramax: "Гидратация",
   "hydramax-plus": "Баланс и энергия",
   "promarine-collagen": "Кожа и суставы",
@@ -589,7 +607,7 @@ const LANDING_TAG_RU: Partial<Record<BeautySlug, string>> = {
   "advanced-collagen-biocellulose-facial-mask": "Упругость",
   "hydro-boost-biocellulose-facial-mask": "Увлажнение",
   "skin-harmony-biocellulose-facial-mask": "Ровный тон",
-};
+});
 
 export function landingTag(slug: string): string | undefined {
   return LANDING_TAG_RU[slug as BeautySlug];
@@ -619,7 +637,7 @@ export type LandingSetRu = {
   alt: string;
 };
 
-export const LANDING_SETS_RU: LandingSetRu[] = [
+const RAW_LANDING_SETS_RU: LandingSetRu[] = [
   {
     ruId: "22600303",
     name: "Пептиды Коллагена и маска Skin Harmony",
@@ -677,6 +695,9 @@ export const LANDING_SETS_RU: LandingSetRu[] = [
     alt: "Три упаковки масок Hydro Boost",
   },
 ];
+
+/** Short prepositions glued to the next word (see ./typo). */
+export const LANDING_SETS_RU: LandingSetRu[] = nbspDeep(RAW_LANDING_SETS_RU);
 
 /** The regular (non-club) price of a bundle. */
 export const setRegularRub = (set: LandingSetRu): number => set.priceRub * 1.25;

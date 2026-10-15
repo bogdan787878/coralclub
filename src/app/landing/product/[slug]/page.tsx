@@ -158,19 +158,19 @@ export default async function LandingProductPage({
         label: "Цена",
         note: discountTag(slug),
         price: formatRub(ru.priceRub.club),
-        cta: { label: "В корзину", href: shopPdpHref },
+        cta: { label: "В корзину", href: shopPdpHref },
       },
       {
         id: "regular",
         label: "Обычная цена",
         price: formatRub(ru.priceRub.regular),
-        cta: { label: "В корзину", href: shopPdpHref },
+        cta: { label: "В корзину", href: shopPdpHref },
       },
     ],
     labels: {
-      add: "В корзину",
+      add: "В корзину",
 
-      inCart: "В корзине",
+      inCart: "В корзине",
       openCart: "Открыть корзину",
     },
   };
@@ -256,13 +256,13 @@ export default async function LandingProductPage({
                 <InfoAccordion
                   items={[
                     {
-                      title: "Как применять",
+                      title: "Как применять",
                       content: (
                         <p style={{ whiteSpace: "pre-line" }}>{ru.howToUse}</p>
                       ),
                     },
                     {
-                      title: "Производство и хранение",
+                      title: "Производство и хранение",
                       content: (
                         <ManufacturingDetails
                           data={{
@@ -298,10 +298,10 @@ export default async function LandingProductPage({
                                   })),
                                 }}
                                 labels={{
-                                  perServing: "В одной порции",
-                                  dv: "% от суточной нормы",
+                                  perServing: "В одной порции",
+                                  dv: "% от суточной нормы",
                                   footnote:
-                                    "* Процент от рекомендуемой суточной нормы потребления.",
+                                    "* Процент от рекомендуемой суточной нормы потребления.",
                                 }}
                               />
                             ),
@@ -340,7 +340,7 @@ export default async function LandingProductPage({
                 summary={{
                   rating: ownSummary.rating,
                   count: ownSummary.count,
-                  caption: "на Отзовике",
+                  caption: "на Отзовике",
                 }}
                 showNote={false}
               />
@@ -358,7 +358,7 @@ export default async function LandingProductPage({
         <Section tone="default" className={styles.more}>
           <Container>
             <Heading as="h2" className={shop.moreTitle}>
-              Ещё из системы красоты
+              Ещё из системы красоты
             </Heading>
           </Container>
           <LandingCards cards={others} />

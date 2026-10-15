@@ -48,7 +48,7 @@ export function PhotoViewer({
       className={styles.overlay}
       role="dialog"
       aria-modal="true"
-      aria-label="Фото из отзыва"
+      aria-label="Фото из отзыва"
     >
       <button
         type="button"

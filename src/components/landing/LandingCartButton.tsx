@@ -13,7 +13,7 @@ import styles from "./LandingCartButton.module.css";
 
 const PROMO = {
   code: PROMO_CODE,
-  text: "Скопируйте промокод и примените на следующем шаге, чтобы получить дополнительную скидку 15%",
+  text: "Скопируйте промокод и примените на следующем шаге, чтобы получить дополнительную скидку 15%",
   copiedLabel: "скопировано",
 };
 
@@ -22,7 +22,7 @@ const LABELS_RU: CartDrawerLabels = {
   closeCart: "Закрыть корзину",
   title: "Ваша корзина",
   close: "Закрыть",
-  empty: "В корзине пока пусто.",
+  empty: "В корзине пока пусто.",
   remove: "Удалить",
   decrease: (name) => `Убрать одну штуку: ${name}`,
   increase: (name) => `Добавить ещё одну: ${name}`,

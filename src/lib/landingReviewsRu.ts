@@ -1,4 +1,5 @@
 import type { BeautySlug } from "./landingCatalogRu";
+import { nbspDeep } from "./typo";
 
 /**
  * Customer reviews from Отзовик (otzovik.com), shown on the landing and on
@@ -61,7 +62,7 @@ export const REVIEW_SUMMARY: Partial<Record<BeautySlug, ReviewSummary>> = {
   },
 };
 
-export const LANDING_REVIEWS_RU: LandingReview[] = [
+const RAW_LANDING_REVIEWS_RU: LandingReview[] = [
   {
     id: "18614421",
     product: "hydramax-plus",
@@ -318,6 +319,11 @@ export const LANDING_REVIEWS_RU: LandingReview[] = [
     url: "https://otzovik.com/review_17626605.html",
   },
 ];
+
+/** Short prepositions glued to the next word (see ./typo). */
+export const LANDING_REVIEWS_RU: LandingReview[] = nbspDeep(
+  RAW_LANDING_REVIEWS_RU,
+);
 
 /** Reviews of one product, in the order of the source list. */
 export const reviewsFor = (slug: string): LandingReview[] =>

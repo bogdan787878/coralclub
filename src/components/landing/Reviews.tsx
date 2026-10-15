@@ -9,7 +9,7 @@ function Stars({ value }: { value: number }) {
     <span
       className={styles.stars}
       role="img"
-      aria-label={`Оценка ${value} из 5`}
+      aria-label={`Оценка ${value} из 5`}
     >
       {"★".repeat(value)}
       <span className={styles.starsOff}>{"★".repeat(5 - value)}</span>
@@ -81,7 +81,7 @@ function ReviewCard({
           target="_blank"
           rel="noopener noreferrer nofollow"
         >
-          Отзыв на Отзовике
+          Отзыв на Отзовике
         </a>
       </div>
     </li>
@@ -138,7 +138,7 @@ function ReviewRow({
           target="_blank"
           rel="noopener noreferrer nofollow"
         >
-          Отзыв на Отзовике
+          Отзыв на Отзовике
         </a>
       </div>
     </li>
@@ -156,7 +156,7 @@ export function Reviews({
   summary,
   productNames,
   moreHref,
-  moreLabel = "Читать все отзывы на Отзовике",
+  moreLabel = "Читать все отзывы на Отзовике",
   variant = "cards",
   showNote = true,
 }: {
@@ -218,8 +218,8 @@ export function Reviews({
 
       {showNote && (
         <p className={styles.note}>
-          Отзывы покупателей с сайта Отзовик, опубликованы без изменений. Мнение
-          авторов субъективно, результат зависит от индивидуальных особенностей.
+          Отзывы покупателей с сайта Отзовик, опубликованы без изменений. Мнение
+          авторов субъективно, результат зависит от индивидуальных особенностей.
         </p>
       )}
     </div>

@@ -73,7 +73,7 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
             className={styles.root}
             role="dialog"
             aria-modal="true"
-            aria-label="Заявка на консультацию"
+            aria-label="Заявка на консультацию"
           >
             <button
               type="button"
@@ -95,8 +95,8 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
                 <div className={styles.done}>
                   <h2 className={styles.title}>Спасибо! Заявка принята</h2>
                   <p className={styles.text}>
-                    Нутрициолог свяжется с вами по указанным контактам и
-                    подберёт персональную систему красоты.
+                    Нутрициолог свяжется с вами по указанным контактам
+                    и подберёт персональную систему красоты.
                   </p>
                   <button
                     type="button"
@@ -112,7 +112,7 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
                     Бесплатная консультация нутрициолога
                   </h2>
                   <p className={styles.text}>
-                    Оставьте контакты — мы свяжемся с вами и подберём
+                    Оставьте контакты — мы свяжемся с вами и подберём
                     персональную систему.
                   </p>
 
@@ -146,14 +146,14 @@ export function LeadModalProvider({ children }: { children: ReactNode }) {
                       onChange={(e) => setConsent(e.target.checked)}
                     />
                     <span>
-                      Согласен на предоставление и использование персональных
-                      данных для связи по заявке
+                      Согласен на предоставление и использование персональных
+                      данных для связи по заявке
                     </span>
                   </label>
 
                   {status === "error" && (
                     <p className={styles.error}>
-                      Не удалось отправить заявку. Попробуйте ещё раз.
+                      Не удалось отправить заявку. Попробуйте ещё раз.
                     </p>
                   )}
 

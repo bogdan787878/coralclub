@@ -49,12 +49,12 @@ export function IncludedProductDetails({
       )}
 
       <section className={styles.section}>
-        <h3 className={styles.title}>Как применять</h3>
+        <h3 className={styles.title}>Как применять</h3>
         <p className={styles.text}>{ru.howToUse}</p>
       </section>
 
       <section className={styles.section}>
-        <h3 className={styles.title}>Производство и хранение</h3>
+        <h3 className={styles.title}>Производство и хранение</h3>
         <ManufacturingDetails
           data={{
             countryOfOrigin: ru.manufacturing.country,
@@ -87,10 +87,10 @@ export function IncludedProductDetails({
               })),
             }}
             labels={{
-              perServing: "В одной порции",
-              dv: "% от суточной нормы",
+              perServing: "В одной порции",
+              dv: "% от суточной нормы",
               footnote:
-                "* Процент от рекомендуемой суточной нормы потребления.",
+                "* Процент от рекомендуемой суточной нормы потребления.",
             }}
           />
         </section>
