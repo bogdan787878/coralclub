@@ -233,8 +233,11 @@ div.body {
     justify-content: flex-start;
   }
 
+  /* div.body, not .body: the base `div.body` rule above is more specific
+     and would otherwise keep the copy at the 16px mobile gutter while the
+     title sits at 56px */
   .inset,
-  .body {
+  div.body {
     padding-left: 56px;
     padding-right: 0;
   }
