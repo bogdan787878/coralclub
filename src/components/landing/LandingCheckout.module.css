@@ -427,22 +427,46 @@
   line-height: 1rem;
 }
 
-.floatBoxError .floatInput {
-  border-color: #c0392b;
-}
-
-.floatBoxError .floatLabel {
-  color: #c0392b;
-}
-
 .floatMsg {
   margin-top: 6px;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: #c0392b;
+  color: var(--color-text-muted);
+}
+
+.hint {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-text-muted);
+}
+
+/* "this one is missing": a short side-to-side shake, no colour change */
+.shake {
+  animation: lab-shake 0.5s var(--ease-standard);
+}
+
+@keyframes lab-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  15%,
+  55% {
+    transform: translateX(-7px);
+  }
+  35%,
+  75% {
+    transform: translateX(7px);
+  }
+  90% {
+    transform: translateX(-3px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .shake {
+    animation: none;
+  }
   .floatLabel,
   .floatInput,
   .floatInput::placeholder {

@@ -393,7 +393,11 @@ function FloatInput({
   error,
   inputMode,
   autoComplete,
+  name,
+  shake,
 }: {
+  name?: string;
+  shake?: boolean;
   label: string;
   value: string;
   onChange: (value: string) => void;
@@ -405,10 +409,11 @@ function FloatInput({
 }) {
   const id = useId();
   return (
-    <div className={styles.float}>
-      <div
-        className={`${styles.floatBox} ${error ? styles.floatBoxError : ""}`}
-      >
+    <div
+      className={`${styles.float} ${shake ? styles.shake : ""}`}
+      data-field={name}
+    >
+      <div className={styles.floatBox}>
         <input
           id={id}
           className={styles.floatInput}
@@ -461,6 +466,8 @@ export function LandingCheckout() {
   const [comment, setComment] = useState("");
   // fields the shopper has left — only those get an error message
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [shaking, setShaking] = useState("");
+  const shakeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const touch = (k: string) =>
     setTouched((t) => (t[k] ? t : { ...t, [k]: true }));
   const [timeTables, setTimeTables] = useState<{
@@ -762,22 +769,63 @@ export function LandingCheckout() {
     totalsKey,
   ]);
 
-  const valid =
-    fio.trim().length > 2 &&
-    phone.replace(/\D/g, "").length >= 10 &&
-    /\S+@\S+\.\S+/.test(email) &&
-    street.trim() !== "" &&
-    build.trim() !== "" &&
-    postindex.trim().length >= 5 &&
-    deliveryId !== "" &&
-    activeItem?.TYPE !== "PICK_POINT" &&
-    paymentId !== "" &&
-    acceptTerms &&
-    agreeData;
+  // required fields in page order — the first empty one gets the shake
+  const required: { key: string; bad: boolean }[] = [
+    { key: "fio", bad: fio.trim().length < 3 },
+    { key: "phone", bad: phone.replace(/\D/g, "").length < 10 },
+    { key: "email", bad: !/\S+@\S+\.\S+/.test(email) },
+    { key: "street", bad: street.trim() === "" },
+    { key: "build", bad: build.trim() === "" },
+    { key: "postindex", bad: postindex.trim().length < 5 },
+    { key: "terms", bad: !acceptTerms },
+    { key: "data", bad: !agreeData },
+  ];
+  const canOrder =
+    deliveryId !== "" && paymentId !== "" && activeItem?.TYPE !== "PICK_POINT";
+
+  /** Scroll to a field, shake it and put the cursor in it. */
+  function pointAt(key: string) {
+    const el = document.querySelector<HTMLElement>(`[data-field="${key}"]`);
+    if (!el) return;
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    el.scrollIntoView({
+      behavior: reduce ? "auto" : "smooth",
+      block: "center",
+    });
+    // a smooth scroll can be dropped (hidden tab, old browser): make sure
+    // the field really ends up in view
+    setTimeout(() => {
+      const r = el.getBoundingClientRect();
+      if (r.top < 0 || r.bottom > window.innerHeight) {
+        el.scrollIntoView({ block: "center" });
+      }
+    }, 700);
+    setShaking("");
+    // restart the animation even for the same field
+    if (shakeTimer.current) clearTimeout(shakeTimer.current);
+    shakeTimer.current = setTimeout(() => {
+      setShaking(key);
+      shakeTimer.current = setTimeout(() => setShaking(""), 600);
+    }, 30);
+    el.querySelector<HTMLInputElement>("input:not([type=checkbox])")?.focus({
+      preventScroll: true,
+    });
+  }
 
   // the only place that creates a real order — runs on the shopper's click
   async function submit() {
-    if (!valid || sending) return;
+    if (sending || !canOrder) return;
+    const missing = required.filter((f) => f.bad);
+    if (missing.length) {
+      setTouched((t) => ({
+        ...t,
+        ...Object.fromEntries(missing.map((f) => [f.key, true])),
+      }));
+      pointAt(missing[0].key);
+      return;
+    }
     setSending(true);
     setError("");
     try {
@@ -1026,24 +1074,30 @@ export function LandingCheckout() {
             <h2 className={styles.h2}>Получатель</h2>
             <FloatInput
               label="ФИО"
+              name="fio"
+              shake={shaking === "fio"}
               placeholder="Иванов Иван Иванович"
               value={fio}
               onChange={setFio}
               onBlur={() => touch("fio")}
               error={
-                touched.fio && fio.trim().length < 3 ? "Введите ФИО" : undefined
+                touched.fio && fio.trim().length < 3
+                  ? "Заполните поле"
+                  : undefined
               }
               autoComplete="name"
             />
             <FloatInput
               label="Телефон"
+              name="phone"
+              shake={shaking === "phone"}
               placeholder="+7 900 000-00-00"
               value={phone}
               onChange={setPhone}
               onBlur={() => touch("phone")}
               error={
                 touched.phone && phone.replace(/\D/g, "").length < 10
-                  ? "Введите телефон"
+                  ? "Заполните поле"
                   : undefined
               }
               inputMode="tel"
@@ -1051,13 +1105,15 @@ export function LandingCheckout() {
             />
             <FloatInput
               label="Email"
+              name="email"
+              shake={shaking === "email"}
               placeholder="name@example.com"
               value={email}
               onChange={setEmail}
               onBlur={() => touch("email")}
               error={
                 touched.email && !/\S+@\S+\.\S+/.test(email)
-                  ? "Введите email"
+                  ? "Заполните поле"
                   : undefined
               }
               inputMode="email"
@@ -1172,13 +1228,15 @@ export function LandingCheckout() {
             <h2 className={styles.h2}>Адрес доставки</h2>
             <FloatInput
               label="Улица"
+              name="street"
+              shake={shaking === "street"}
               placeholder="Например, Тверская"
               value={street}
               onChange={setStreet}
               onBlur={() => touch("street")}
               error={
                 touched.street && street.trim() === ""
-                  ? "Введите улицу"
+                  ? "Заполните поле"
                   : undefined
               }
               autoComplete="address-line1"
@@ -1186,13 +1244,15 @@ export function LandingCheckout() {
             <div className={styles.row}>
               <FloatInput
                 label="Дом"
+                name="build"
+                shake={shaking === "build"}
                 placeholder="12"
                 value={build}
                 onChange={setBuild}
                 onBlur={() => touch("build")}
                 error={
                   touched.build && build.trim() === ""
-                    ? "Введите дом"
+                    ? "Заполните поле"
                     : undefined
                 }
               />
@@ -1204,13 +1264,15 @@ export function LandingCheckout() {
               />
               <FloatInput
                 label="Индекс"
+                name="postindex"
+                shake={shaking === "postindex"}
                 placeholder="101000"
                 value={postindex}
                 onChange={setPostindex}
                 onBlur={() => touch("postindex")}
                 error={
                   touched.postindex && postindex.trim().length < 5
-                    ? "Введите индекс"
+                    ? "Заполните поле"
                     : undefined
                 }
                 inputMode="numeric"
@@ -1278,7 +1340,10 @@ export function LandingCheckout() {
                 <dd>{totals ? money(totals.TOTAL_PRICE) : "—"}</dd>
               </div>
             </dl>
-            <label className={styles.check}>
+            <label
+              className={`${styles.check} ${shaking === "terms" ? styles.shake : ""}`}
+              data-field="terms"
+            >
               <input
                 type="checkbox"
                 checked={acceptTerms}
@@ -1299,7 +1364,10 @@ export function LandingCheckout() {
                 </a>
               </span>
             </label>
-            <label className={styles.check}>
+            <label
+              className={`${styles.check} ${shaking === "data" ? styles.shake : ""}`}
+              data-field="data"
+            >
               <input
                 type="checkbox"
                 checked={agreeData}
@@ -1316,10 +1384,15 @@ export function LandingCheckout() {
                 </a>
               </span>
             </label>
+            {(touched.terms && !acceptTerms) || (touched.data && !agreeData) ? (
+              <span className={styles.hint}>
+                Отметьте оба согласия, чтобы продолжить
+              </span>
+            ) : null}
             <button
               type="button"
               className={styles.pay}
-              disabled={!valid || sending || ready !== "ok" || totalsLoading}
+              disabled={sending || ready !== "ok" || totalsLoading || !canOrder}
               onClick={submit}
             >
               {sending ? "Создаём заказ…" : "Перейти к оплате"}
