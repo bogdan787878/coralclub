@@ -1,6 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Link from "next/link";
 import {
   addItem,
@@ -372,6 +379,56 @@ async function syncShopCart(
   return skipped;
 }
 
+/**
+ * Text input with its label inside the field: the label sits like a
+ * placeholder, on focus (or with a value) it floats up and the real
+ * placeholder fades in. An error colours the border and adds a message.
+ */
+function FloatInput({
+  label,
+  value,
+  onChange,
+  onBlur,
+  placeholder,
+  error,
+  inputMode,
+  autoComplete,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  onBlur?: () => void;
+  placeholder?: string;
+  error?: string;
+  inputMode?: "text" | "tel" | "email" | "numeric";
+  autoComplete?: string;
+}) {
+  const id = useId();
+  return (
+    <div className={styles.float}>
+      <div
+        className={`${styles.floatBox} ${error ? styles.floatBoxError : ""}`}
+      >
+        <input
+          id={id}
+          className={styles.floatInput}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onBlur={onBlur}
+          placeholder={placeholder ?? " "}
+          inputMode={inputMode}
+          autoComplete={autoComplete}
+          aria-invalid={error ? true : undefined}
+        />
+        <label htmlFor={id} className={styles.floatLabel}>
+          {label}
+        </label>
+      </div>
+      {error && <span className={styles.floatMsg}>{error}</span>}
+    </div>
+  );
+}
+
 export function LandingCheckout() {
   const cart = useCart();
 
@@ -402,6 +459,10 @@ export function LandingCheckout() {
   const [apartment, setApartment] = useState("");
   const [postindex, setPostindex] = useState("");
   const [comment, setComment] = useState("");
+  // fields the shopper has left — only those get an error message
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const touch = (k: string) =>
+    setTouched((t) => (t[k] ? t : { ...t, [k]: true }));
   const [timeTables, setTimeTables] = useState<{
     moscow?: TimeTable;
     spb?: TimeTable;
@@ -956,33 +1017,45 @@ export function LandingCheckout() {
 
           <section className={styles.card}>
             <h2 className={styles.h2}>Получатель</h2>
-            <label className={styles.field}>
-              ФИО
-              <input
-                value={fio}
-                onChange={(e) => setFio(e.target.value)}
-                autoComplete="name"
-              />
-            </label>
-            <label className={styles.field}>
-              Телефон
-              <input
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                inputMode="tel"
-                autoComplete="tel"
-                placeholder="+7"
-              />
-            </label>
-            <label className={styles.field}>
-              Email
-              <input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                inputMode="email"
-                autoComplete="email"
-              />
-            </label>
+            <FloatInput
+              label="ФИО"
+              placeholder="Иванов Иван Иванович"
+              value={fio}
+              onChange={setFio}
+              onBlur={() => touch("fio")}
+              error={
+                touched.fio && fio.trim().length < 3 ? "Введите ФИО" : undefined
+              }
+              autoComplete="name"
+            />
+            <FloatInput
+              label="Телефон"
+              placeholder="+7 900 000-00-00"
+              value={phone}
+              onChange={setPhone}
+              onBlur={() => touch("phone")}
+              error={
+                touched.phone && phone.replace(/\D/g, "").length < 10
+                  ? "Введите телефон"
+                  : undefined
+              }
+              inputMode="tel"
+              autoComplete="tel"
+            />
+            <FloatInput
+              label="Email"
+              placeholder="name@example.com"
+              value={email}
+              onChange={setEmail}
+              onBlur={() => touch("email")}
+              error={
+                touched.email && !/\S+@\S+\.\S+/.test(email)
+                  ? "Введите email"
+                  : undefined
+              }
+              inputMode="email"
+              autoComplete="email"
+            />
           </section>
 
           <section className={styles.card}>
@@ -1086,46 +1159,59 @@ export function LandingCheckout() {
                   )}
               </div>
             )}
-            <label className={styles.field}>
-              Улица
-              <input
-                value={street}
-                onChange={(e) => setStreet(e.target.value)}
-                autoComplete="address-line1"
-              />
-            </label>
+            <FloatInput
+              label="Улица"
+              placeholder="Например, Тверская"
+              value={street}
+              onChange={setStreet}
+              onBlur={() => touch("street")}
+              error={
+                touched.street && street.trim() === ""
+                  ? "Введите улицу"
+                  : undefined
+              }
+              autoComplete="address-line1"
+            />
             <div className={styles.row}>
-              <label className={styles.field}>
-                Дом
-                <input
-                  value={build}
-                  onChange={(e) => setBuild(e.target.value)}
-                />
-              </label>
-              <label className={styles.field}>
-                Квартира
-                <input
-                  value={apartment}
-                  onChange={(e) => setApartment(e.target.value)}
-                />
-              </label>
-              <label className={styles.field}>
-                Индекс
-                <input
-                  value={postindex}
-                  onChange={(e) => setPostindex(e.target.value)}
-                  inputMode="numeric"
-                  autoComplete="postal-code"
-                />
-              </label>
-            </div>
-            <label className={styles.field}>
-              Комментарий курьеру
-              <input
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
+              <FloatInput
+                label="Дом"
+                placeholder="12"
+                value={build}
+                onChange={setBuild}
+                onBlur={() => touch("build")}
+                error={
+                  touched.build && build.trim() === ""
+                    ? "Введите дом"
+                    : undefined
+                }
               />
-            </label>
+              <FloatInput
+                label="Квартира"
+                placeholder="34"
+                value={apartment}
+                onChange={setApartment}
+              />
+              <FloatInput
+                label="Индекс"
+                placeholder="101000"
+                value={postindex}
+                onChange={setPostindex}
+                onBlur={() => touch("postindex")}
+                error={
+                  touched.postindex && postindex.trim().length < 5
+                    ? "Введите индекс"
+                    : undefined
+                }
+                inputMode="numeric"
+                autoComplete="postal-code"
+              />
+            </div>
+            <FloatInput
+              label="Комментарий курьеру"
+              placeholder="Код домофона, ориентир…"
+              value={comment}
+              onChange={setComment}
+            />
           </section>
 
           <section className={styles.card}>
