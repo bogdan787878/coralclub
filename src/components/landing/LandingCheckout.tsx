@@ -1059,7 +1059,7 @@ export function LandingCheckout() {
           </section>
 
           <section className={styles.card}>
-            <h2 className={styles.h2}>Доставка</h2>
+            <h2 className={styles.h2}>Способ доставки</h2>
             <p className={styles.muted}>
               {countries[country] ?? country}, {city || "город не указан"}
             </p>
@@ -1159,6 +1159,10 @@ export function LandingCheckout() {
                   )}
               </div>
             )}
+          </section>
+
+          <section className={styles.card}>
+            <h2 className={styles.h2}>Адрес доставки</h2>
             <FloatInput
               label="Улица"
               placeholder="Например, Тверская"
