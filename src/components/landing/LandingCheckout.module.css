@@ -398,8 +398,14 @@
   border-color: var(--color-malachite-90);
 }
 
-.floatInput:focus::placeholder {
+.floatInput:focus::placeholder,
+.floatBoxActive .floatInput::placeholder {
   color: var(--color-text-muted);
+}
+
+/* a skipped required field looks exactly like a focused one */
+.floatBoxActive .floatInput {
+  border-color: var(--color-malachite-90);
 }
 
 .floatLabel {
@@ -420,24 +426,12 @@
 
 /* focused, or holding a value (the placeholder is only "shown" when empty) */
 .floatInput:focus + .floatLabel,
-.floatInput:not(:placeholder-shown) + .floatLabel {
+.floatInput:not(:placeholder-shown) + .floatLabel,
+.floatBoxActive .floatLabel {
   top: 8px;
   transform: none;
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.floatMsg {
-  margin-top: 6px;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  color: var(--color-text-muted);
-}
-
-.hint {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  color: var(--color-text-muted);
 }
 
 /* "this one is missing": a short side-to-side shake, no colour change */
@@ -472,4 +466,9 @@
   .floatInput::placeholder {
     transition: none;
   }
+}
+
+.checkActive input {
+  outline: 2px solid var(--color-malachite-90);
+  outline-offset: 2px;
 }
