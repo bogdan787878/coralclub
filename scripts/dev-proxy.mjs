@@ -77,6 +77,9 @@ const REMOTE_PREFIXES = [
   "/faq",
   "/restApi",
   "/order",
+  "/card-payment",
+  "/payment",
+  "/pay",
   "/personal-new",
   "/login",
   "/lang_list",
@@ -229,13 +232,12 @@ async function toLocal(req, res, body) {
     },
     body,
   );
-  // an unknown local *page* must stay a 404: the shop would redirect it to
-  // a regional site (coral-club.by …) and take the tester away from here.
-  // Only non-page requests (images, fonts …) fall back to the shop.
-  const wantsPage = String(req.headers.accept ?? "").includes("text/html");
+  // anything this app does not know (images, fonts, and shop pages such as
+  // /card-payment/<order>/<payment>/ after an order) is the shop's: the
+  // proxy itself follows the shop's redirects to other country domains, so
+  // the tester is never taken out of http://localhost:3200
   if (
     upstream.statusCode === 404 &&
-    !wantsPage &&
     (req.method === "GET" || req.method === "HEAD")
   ) {
     upstream.resume();
