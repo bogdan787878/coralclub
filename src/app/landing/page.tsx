@@ -111,11 +111,11 @@ export default function LandingPage() {
             <Container className={styles.heroCol}>
               <div className={styles.heroBody}>
                 <Heading className={styles.heroTitle}>
-                  Ваша <Accent>система красоты</Accent>
+                  Всё для красоты кожи. <Accent>В одной системе.</Accent>
                 </Heading>
                 <p className={styles.heroText}>
-                  Уход изнутри и снаружи в одной системе от Coral Club:
-                  коллаген, гидратация и маски для естественного сияния кожи.
+                  Coral Club уже объединил продукты в комплексное решение — вам
+                  не нужно собирать его самостоятельно.
                 </p>
                 <LandingCta source="hero" className={styles.cta}>
                   Записаться на консультацию
