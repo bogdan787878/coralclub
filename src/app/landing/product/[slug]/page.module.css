@@ -35,7 +35,6 @@
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     gap: var(--space-48);
   }
-
 }
 
 /* "Название – форма выпуска" is long — a calmer heading size than the
@@ -66,4 +65,17 @@
   line-height: var(--text-button-line);
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
+}
+
+/* "Ещё из системы красоты": on web the cards need room — wider gaps between
+   the columns and a real gap between the rows when the grid wraps */
+@media (min-width: 1024px) {
+  .more {
+    --carousel-col-gap: 24px;
+    --carousel-row-gap: 64px;
+    padding-block: 96px;
+  }
+  .more h2 {
+    margin-bottom: 32px;
+  }
 }

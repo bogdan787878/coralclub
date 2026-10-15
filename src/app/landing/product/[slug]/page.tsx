@@ -355,7 +355,7 @@ export default async function LandingProductPage({
 
         <LandingCartButton aboveBar />
 
-        <Section tone="default">
+        <Section tone="default" className={styles.more}>
           <Container>
             <Heading as="h2" className={shop.moreTitle}>
               Ещё из системы красоты
