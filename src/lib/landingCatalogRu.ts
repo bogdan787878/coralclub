@@ -582,6 +582,10 @@ export const LEAD_PHOTO: Record<string, string> = {
 /** Green tag over the product name on the landing cards — what the product
  *  is for, in one word or two. Products with no entry show no tag. */
 const LANDING_TAG_RU: Partial<Record<BeautySlug, string>> = {
+  hydramax: "Гидратация",
+  "hydramax-plus": "Баланс и энергия",
+  "promarine-collagen": "Кожа и суставы",
+  "promarine-collagen-tripeptides-pack": "Гладкость кожи",
   "advanced-collagen-biocellulose-facial-mask": "Упругость",
   "hydro-boost-biocellulose-facial-mask": "Увлажнение",
   "skin-harmony-biocellulose-facial-mask": "Ровный тон",
