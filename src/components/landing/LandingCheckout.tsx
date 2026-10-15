@@ -822,8 +822,15 @@ export function LandingCheckout() {
         error?: string;
       };
       if (data.result) {
-        // the shop's own payment page → payment gateway
-        window.location.assign(`/order/payment/${data.result}/?new_checkout=1`);
+        // the shop's own payment page → payment gateway. Russia and Belarus
+        // use the short address; every other country carries the payment id
+        // in it (as the shop's own checkout does) — without it: a 404.
+        const short = country === "RU" || country.startsWith("BY");
+        window.location.assign(
+          short
+            ? `/order/payment/${data.result}/?new_checkout=1`
+            : `/order/payment/${data.result}/${encodeURIComponent(paymentId)}/?new_checkout=1`,
+        );
         return;
       }
       setError(data.error || "Магазин не принял заказ. Проверьте данные.");
