@@ -118,7 +118,7 @@ export default function LandingPage() {
                   не нужно собирать его самостоятельно.
                 </p>
                 <LandingCta source="hero" className={styles.cta}>
-                  Записаться на консультацию
+                  Получить консультацию нутрициолога
                 </LandingCta>
               </div>
             </Container>
