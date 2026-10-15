@@ -322,7 +322,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-12);
-  padding-top: var(--space-4);
+  margin-block: var(--space-16);
 }
 
 .h3 {
@@ -338,18 +338,18 @@
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-8);
+  gap: var(--space-4) var(--space-8);
 }
 
 .chip {
-  padding: var(--space-8) var(--space-12);
-  border: 1.5px solid rgba(0, 65, 68, 0.18);
-  border-radius: var(--radius-base);
+  padding: 5px 10px;
+  border: 1px solid rgba(0, 65, 68, 0.2);
+  border-radius: 8px;
   background: #ffffff;
   color: var(--color-text);
   font-family: var(--font-sans);
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
   font-weight: var(--font-weight-medium);
   cursor: pointer;
   transition:
@@ -359,6 +359,7 @@
 
 .chipOn {
   border-color: var(--color-malachite-90);
+  box-shadow: inset 0 0 0 0.5px var(--color-malachite-90);
   color: var(--color-malachite-90);
 }
 
@@ -376,8 +377,8 @@
 
 .floatInput {
   width: 100%;
-  height: 56px;
-  padding: 22px var(--space-16) 6px;
+  height: 52px;
+  padding: 19px var(--space-12) 5px;
   border: 1px solid rgba(0, 65, 68, 0.22);
   border-radius: 8px;
   background: #ffffff;
@@ -403,7 +404,7 @@
 
 .floatLabel {
   position: absolute;
-  left: var(--space-16);
+  left: var(--space-12);
   top: 50%;
   transform: translateY(-50%);
   font-family: var(--font-sans);
@@ -420,7 +421,7 @@
 /* focused, or holding a value (the placeholder is only "shown" when empty) */
 .floatInput:focus + .floatLabel,
 .floatInput:not(:placeholder-shown) + .floatLabel {
-  top: 10px;
+  top: 8px;
   transform: none;
   font-size: 0.75rem;
   line-height: 1rem;
