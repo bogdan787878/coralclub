@@ -204,10 +204,13 @@
 }
 
 .footerBrand {
-  font-family: var(--font-sans);
-  font-size: 1.25rem;
-  font-weight: var(--font-weight-bold);
   color: var(--color-text);
+}
+
+.footerLogo {
+  display: block;
+  height: 24px;
+  width: auto;
 }
 
 .footerNav {

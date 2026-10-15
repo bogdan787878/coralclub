@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Accent, Container, Heading, Section } from "@/components/ui";
+import { CoralClubLogo } from "@/components/landing/CoralClubLogo";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { Ingredients } from "@/components/landing/Ingredients";
 import { LeadModalProvider } from "@/components/landing/LeadModal";
@@ -316,7 +317,9 @@ export default function LandingPage() {
 
           <footer className={styles.footer}>
             <Container>
-              <div className={styles.footerBrand}>coralclub</div>
+              <div className={styles.footerBrand}>
+                <CoralClubLogo className={styles.footerLogo} />
+              </div>
               <nav
                 className={styles.footerNav}
                 aria-label="Навигация по странице"

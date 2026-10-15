@@ -9,11 +9,19 @@
 }
 
 .brand {
-  font-family: var(--font-sans);
-  font-size: 1.5rem;
-  line-height: 1.5rem;
-  font-weight: var(--font-weight-medium);
-  letter-spacing: -0.02em;
+  display: inline-flex;
   color: var(--color-text);
   text-decoration: none;
+}
+
+.logo {
+  display: block;
+  height: 26px;
+  width: auto;
+}
+
+@media (min-width: 1024px) {
+  .logo {
+    height: 30px;
+  }
 }
