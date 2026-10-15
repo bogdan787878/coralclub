@@ -368,3 +368,64 @@
     margin-top: 0;
   }
 }
+
+/* ---- web: more air between the blocks and inside them ---- */
+@media (min-width: 1024px) {
+  .hero {
+    column-gap: 80px;
+    padding: 40px var(--page-padding-inline) 96px;
+  }
+  .heroBody {
+    padding-block: 40px;
+    gap: 32px;
+  }
+
+  .why {
+    padding-block: 48px 112px;
+  }
+  .whyInner {
+    gap: 48px;
+  }
+  .h2 {
+    margin-bottom: 24px;
+  }
+  .promo {
+    margin-top: 40px;
+    padding: 32px 40px;
+  }
+  .cards {
+    margin-top: 56px;
+  }
+
+  .section {
+    padding-block: 112px;
+  }
+  .block {
+    column-gap: 80px;
+    row-gap: 72px;
+  }
+  .blockHead {
+    gap: 24px;
+  }
+  .blockText {
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+
+  .consult {
+    padding: 72px 80px;
+    column-gap: 80px;
+    row-gap: 24px;
+  }
+
+  .footer {
+    padding-block: 64px 80px;
+  }
+  .footerNav {
+    margin-top: 24px;
+    gap: 12px 32px;
+  }
+  .footerNote {
+    margin-top: 40px;
+  }
+}

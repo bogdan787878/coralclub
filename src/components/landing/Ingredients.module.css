@@ -65,13 +65,13 @@
 
 @media (min-width: 1024px) {
   .section {
-    padding-block: var(--space-64);
+    padding-block: 112px;
   }
   .inner {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-48);
+    gap: 80px;
   }
   .copy {
     flex: 1 1 0;
