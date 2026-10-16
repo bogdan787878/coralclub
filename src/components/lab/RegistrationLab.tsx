@@ -920,6 +920,127 @@ export function RegistrationLab() {
   );
 }
 
+/* -------------------- what the shop shows to a member ------------------- */
+
+type Probe = {
+  label: string;
+  path: string;
+  status: number | null;
+  kind: "json" | "html" | "text" | "error";
+  size: number;
+  /** Facts picked out of an HTML page. */
+  facts: [string, string][];
+  /** Pretty JSON, or the first part of the page text. */
+  excerpt: string;
+};
+
+/** Read-only requests that show what the shop knows about the signed-in member. */
+const PROBES: { label: string; path: string }[] = [
+  { label: "Состояние входа", path: "/restApi/registration/init" },
+  { label: "Шапка и корзина", path: "/basket/" },
+  { label: "Личный кабинет", path: "/personal-new/" },
+  { label: "Данные чек-аута", path: "/sv-api/init?language=ru" },
+];
+
+const clip = (text: string, n = 4000) =>
+  text.length > n
+    ? `${text.slice(0, n)}\n… (+${text.length - n} символов)`
+    : text;
+
+/** Pulls the member-related bits out of one of the shop's HTML pages. */
+function htmlFacts(html: string): {
+  facts: [string, string][];
+  excerpt: string;
+} {
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  const facts: [string, string][] = [];
+  const title = doc.title?.trim();
+  if (title) facts.push(["Заголовок страницы", title]);
+  const userId = html.match(/'USER_ID'\s*:\s*'(\d*)'/)?.[1];
+  facts.push(["USER_ID (Bitrix)", userId ? userId : "пусто — не вошли"]);
+  const member =
+    doc.querySelector<HTMLElement>("[data-member]")?.dataset.member;
+  if (member) facts.push(["data-member на странице", member]);
+  const profile = doc.querySelector(".main-menu__profile, .header_right");
+  const profileText = profile?.textContent?.replace(/\s+/g, " ").trim();
+  if (profileText)
+    facts.push(["Блок профиля в шапке", profileText.slice(0, 300)]);
+  const main = doc.querySelector("main, .content, #content, body");
+  doc.querySelectorAll("script, style, noscript").forEach((n) => n.remove());
+  const text = (main?.textContent ?? "").replace(/\s+/g, " ").trim();
+  return { facts, excerpt: clip(text, 1500) };
+}
+
+/** Lists what a JSON reply contains, so member data is easy to spot. */
+function jsonFacts(json: unknown): [string, string][] {
+  const shape = (v: unknown): string =>
+    Array.isArray(v)
+      ? `список, ${v.length}`
+      : v && typeof v === "object"
+        ? `объект, ${Object.keys(v).length} полей`
+        : typeof v === "string"
+          ? `«${v.slice(0, 60)}»`
+          : String(v);
+  const out: [string, string][] = [];
+  if (!json || typeof json !== "object") return out;
+  const top = json as Record<string, unknown>;
+  out.push([
+    "Поля верхнего уровня",
+    Object.entries(top)
+      .map(([k, v]) => `${k}: ${shape(v)}`)
+      .join(" · "),
+  ]);
+  const result = top.result;
+  if (result && typeof result === "object" && !Array.isArray(result)) {
+    out.push([
+      "Поля result",
+      Object.entries(result)
+        .map(([k, v]) => `${k}: ${shape(v)}`)
+        .join(" · "),
+    ]);
+  }
+  return out;
+}
+
+async function runProbe(def: { label: string; path: string }): Promise<Probe> {
+  try {
+    const r = await shopFetch(def.path, {
+      headers: { Accept: "application/json, text/html;q=0.9, */*;q=0.5" },
+    });
+    const text = await r.text();
+    const base = {
+      label: def.label,
+      path: def.path,
+      status: r.status,
+      size: text.length,
+    };
+    try {
+      const json: unknown = JSON.parse(text);
+      return {
+        ...base,
+        kind: "json",
+        facts: jsonFacts(json),
+        excerpt: clip(JSON.stringify(json, null, 2), 8000),
+      };
+    } catch {
+      if (/<html|<!doctype/i.test(text)) {
+        return { ...base, kind: "html", ...htmlFacts(text) };
+      }
+      return { ...base, kind: "text", facts: [], excerpt: clip(text, 1500) };
+    }
+  } catch {
+    return {
+      label: def.label,
+      path: def.path,
+      status: null,
+      kind: "error",
+      size: 0,
+      facts: [],
+      excerpt: "Нет связи с магазином",
+    };
+  }
+}
+
 /* ------------------------------- sign in ------------------------------ */
 
 /**
@@ -935,6 +1056,14 @@ function LoginPanel({ ready }: { ready: boolean }) {
   const [show, setShow] = useState(false);
   const [busy, setBusy] = useState(false);
   const [reply, setReply] = useState<Reply | null>(null);
+  const [probes, setProbes] = useState<Probe[] | null>(null);
+  const [loadingProbes, setLoadingProbes] = useState(false);
+
+  const loadMemberData = async () => {
+    setLoadingProbes(true);
+    setProbes(await Promise.all(PROBES.map(runProbe)));
+    setLoadingProbes(false);
+  };
 
   const submit = async () => {
     if (!coralId || !password || busy) return;
@@ -972,7 +1101,10 @@ function LoginPanel({ ready }: { ready: boolean }) {
           sessionSignedIn: signedIn,
         },
       });
-      if (ok) setPassword("");
+      if (ok) {
+        setPassword("");
+        void loadMemberData();
+      }
     } catch {
       setReply({ ok: false, title: "Нет связи с магазином", body: null });
     } finally {
@@ -1049,6 +1181,53 @@ function LoginPanel({ ready }: { ready: boolean }) {
           <pre>{JSON.stringify(reply.body, null, 2)}</pre>
         </section>
       )}
+
+      <section className={styles.out} aria-label="Данные участника">
+        <h2>Данные после входа</h2>
+        <p className={styles.muted}>
+          Четыре запроса на чтение к магазину с вашей сессией. Что именно он
+          отдаёт участнику, видно ниже: из этого соберём нормальный профиль.
+        </p>
+        <button
+          type="button"
+          className={styles.ghostWide}
+          onClick={loadMemberData}
+          disabled={!ready || loadingProbes}
+        >
+          {loadingProbes
+            ? "Загружаю…"
+            : probes
+              ? "Обновить данные"
+              : "Загрузить данные"}
+        </button>
+
+        {probes?.map((p) => (
+          <details
+            key={p.path}
+            className={styles.probe}
+            open={p.facts.length > 0}
+          >
+            <summary>
+              <strong>{p.label}</strong>
+              <span>
+                GET {p.path} · {p.status ?? "—"} · {p.kind} ·{" "}
+                {p.size ? `${(p.size / 1024).toFixed(1)} КБ` : "пусто"}
+              </span>
+            </summary>
+            {p.facts.length > 0 && (
+              <dl className={styles.facts}>
+                {p.facts.map(([k, v]) => (
+                  <div key={k}>
+                    <dt>{k}</dt>
+                    <dd>{v}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+            <pre>{p.excerpt}</pre>
+          </details>
+        ))}
+      </section>
     </>
   );
 }
