@@ -1,0 +1,266 @@
+.backdrop {
+  display: flex;
+  justify-content: center;
+  min-height: 100svh;
+  background: #d9dcdd;
+}
+
+.screen {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding: 56px 20px calc(32px + env(safe-area-inset-bottom, 0px));
+  background: #ffffff;
+  color: var(--color-text);
+  /* keep the focused field clear of the keyboard when the browser scrolls */
+  scroll-padding-bottom: 96px;
+}
+
+.title {
+  margin: 0 0 40px;
+  font-family: var(--font-sans);
+  font-size: 1.75rem;
+  line-height: 2.125rem;
+  letter-spacing: -0.02em;
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+}
+
+.outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-12);
+  width: 100%;
+  height: 56px;
+  border: 1.5px solid rgba(0, 32, 34, 0.16);
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition:
+    background-color 0.12s var(--ease-standard),
+    transform 0.12s var(--ease-standard);
+}
+
+.outline:active {
+  background: var(--color-neutral-30);
+  transform: scale(0.99);
+}
+
+.outline svg {
+  width: 24px;
+  height: 24px;
+}
+
+.caption {
+  margin: var(--space-12) var(--space-8) 0;
+  text-align: center;
+  font-size: 0.9375rem;
+  line-height: 1.375rem;
+  color: var(--color-text);
+}
+
+.social {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  margin-top: var(--space-24);
+}
+
+.or {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  margin: var(--space-24) 0;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.or::before,
+.or::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(0, 32, 34, 0.14);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: var(--space-8);
+  font-size: 1rem;
+  line-height: 1.25rem;
+  color: var(--color-text-muted);
+}
+
+/* 17px: anything under 16px makes iOS Safari zoom the page on focus */
+.input {
+  width: 100%;
+  height: 56px;
+  padding: 0 var(--space-16);
+  border: 2px solid #cfd1e6;
+  border-radius: 10px;
+  background: #ffffff;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  transition: border-color 0.12s var(--ease-standard);
+}
+
+.input:focus {
+  border-color: var(--color-malachite-90);
+}
+
+.inputError {
+  border-color: #b42318;
+}
+
+.error {
+  margin: var(--space-8) 0 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #b42318;
+}
+
+.ok {
+  margin: var(--space-12) 0 0;
+  text-align: center;
+  font-size: 0.9375rem;
+  color: var(--color-malachite-70);
+}
+
+.continue {
+  width: 100%;
+  height: 56px;
+  margin-top: var(--space-20);
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-malachite-90);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: transform 0.12s var(--ease-standard);
+}
+
+.continue:active {
+  transform: scale(0.99);
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.legal {
+  margin: var(--space-24) 0 0;
+  text-align: center;
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+}
+
+.legal a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* the pinned copy: fixed to the layout viewport, then lifted by the
+   visual viewport's offset so it sits right on top of the keyboard */
+.pinned {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  padding: var(--space-8) 20px var(--space-12);
+  background: #ffffff;
+  border-top: 1px solid rgba(0, 32, 34, 0.1);
+}
+
+.pinned .continue {
+  margin-top: 0;
+}
+
+/* ---- the test controls, outside the design ---- */
+.lab {
+  margin-top: auto;
+  padding-top: var(--space-48);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.labTitle {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.sw {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+
+.swLabel {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.swGroup {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--color-neutral-30);
+}
+
+.swBtn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+.swOn {
+  background: var(--color-malachite-90);
+  color: #ffffff;
+}
+
+.debug {
+  position: fixed;
+  left: 8px;
+  top: 8px;
+  z-index: 30;
+  margin: 0;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.78);
+  color: #b9ffcf;
+  font:
+    11px/1.4 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+  pointer-events: none;
+}
