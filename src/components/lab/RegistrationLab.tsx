@@ -156,6 +156,7 @@ type Reply = {
 };
 
 export function RegistrationLab() {
+  const [mode, setMode] = useState<"register" | "login">("register");
   const [init, setInit] = useState<Init | null>(null);
   const [initError, setInitError] = useState("");
 
@@ -420,455 +421,634 @@ export function RegistrationLab() {
   return (
     <div className={styles.page}>
       <main className={styles.card}>
-        <h1 className={styles.h1}>Регистрация — тестовый стенд</h1>
+        <h1 className={styles.h1}>Регистрация и вход — тестовый стенд</h1>
 
-        <p className={styles.warn} role="note">
-          <strong>Эта форма создаёт настоящий аккаунт на coralclub.ru</strong>{" "}
-          через локальный прокси: клубный номер, письмо с подтверждением, запись
-          у консультанта. Для проверки без отправки есть «Показать запрос».
-        </p>
+        <div className={styles.modes} role="tablist" aria-label="Режим">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={mode === "register"}
+            className={mode === "register" ? styles.segOn : ""}
+            onClick={() => setMode("register")}
+          >
+            Регистрация
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={mode === "login"}
+            className={mode === "login" ? styles.segOn : ""}
+            onClick={() => setMode("login")}
+          >
+            Вход по Coral ID
+          </button>
+        </div>
+
+        {mode === "register" && (
+          <p className={styles.warn} role="note">
+            <strong>Эта форма создаёт настоящий аккаунт на coralclub.ru</strong>{" "}
+            через локальный прокси: клубный номер, письмо с подтверждением,
+            запись у консультанта. Для проверки без отправки есть «Показать
+            запрос».
+          </p>
+        )}
 
         {initError && <p className={styles.bad}>{initError}</p>}
         {!init && !initError && (
           <p className={styles.muted}>Загружаю настройки магазина…</p>
         )}
 
-        <fieldset className={styles.group} disabled={disabled}>
-          <legend>Страна</legend>
-          <label className={styles.field}>
-            <span>Страна *</span>
-            <select
-              value={country}
-              onChange={(e) => changeCountry(e.target.value)}
-            >
-              {Object.entries(countries).map(([code, label]) => (
-                <option key={code} value={code}>
-                  {label.trim()}
-                </option>
-              ))}
-            </select>
-          </label>
-        </fieldset>
+        {mode === "login" ? (
+          <LoginPanel ready={Boolean(init)} />
+        ) : (
+          <>
+            <fieldset className={styles.group} disabled={disabled}>
+              <legend>Страна</legend>
+              <label className={styles.field}>
+                <span>Страна *</span>
+                <select
+                  value={country}
+                  onChange={(e) => changeCountry(e.target.value)}
+                >
+                  {Object.entries(countries).map(([code, label]) => (
+                    <option key={code} value={code}>
+                      {label.trim()}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </fieldset>
 
-        <fieldset className={styles.group} disabled={disabled}>
-          <legend>Личные данные</legend>
-          <div className={styles.row}>
-            <label className={styles.field}>
-              <span>Имя *</span>
-              <input
-                value={name}
-                autoComplete="given-name"
-                onChange={(e) => setName(e.target.value)}
-              />
-              {show("name")}
-            </label>
-            <label className={styles.field}>
-              <span>Фамилия *</span>
-              <input
-                value={surname}
-                autoComplete="family-name"
-                onChange={(e) => setSurname(e.target.value)}
-              />
-              {show("surname")}
-            </label>
-          </div>
-
-          {isRu && (
-            <label className={styles.field}>
-              <span>Отчество</span>
-              <input
-                value={otchestvo}
-                onChange={(e) => setOtchestvo(e.target.value)}
-              />
-            </label>
-          )}
-
-          <div className={styles.row}>
-            <label className={styles.field}>
-              <span>Дата рождения *</span>
-              <input
-                inputMode="numeric"
-                placeholder={dateFormat.placeholder}
-                maxLength={dateFormat.mask.length}
-                value={birthday}
-                autoComplete="bday"
-                onChange={(e) =>
-                  setBirthday(applyMask(e.target.value, dateFormat.mask))
-                }
-              />
-              {show("birthday")}
-            </label>
-
-            <div className={styles.field} role="radiogroup" aria-label="Пол">
-              <span>Пол *</span>
-              <div className={styles.seg}>
-                {(
-                  [
-                    ["M", "Мужской"],
-                    ["F", "Женский"],
-                  ] as const
-                ).map(([v, label]) => (
-                  <button
-                    key={v}
-                    type="button"
-                    role="radio"
-                    aria-checked={gender === v}
-                    className={gender === v ? styles.segOn : ""}
-                    onClick={() => setGender(v)}
-                  >
-                    {label}
-                  </button>
-                ))}
+            <fieldset className={styles.group} disabled={disabled}>
+              <legend>Личные данные</legend>
+              <div className={styles.row}>
+                <label className={styles.field}>
+                  <span>Имя *</span>
+                  <input
+                    value={name}
+                    autoComplete="given-name"
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  {show("name")}
+                </label>
+                <label className={styles.field}>
+                  <span>Фамилия *</span>
+                  <input
+                    value={surname}
+                    autoComplete="family-name"
+                    onChange={(e) => setSurname(e.target.value)}
+                  />
+                  {show("surname")}
+                </label>
               </div>
-              {show("gender")}
-            </div>
-          </div>
 
-          <label className={styles.field}>
-            <span>Email *</span>
-            <div className={styles.inline}>
-              <input
-                type="email"
-                inputMode="email"
-                autoComplete="email"
-                autoCapitalize="none"
-                spellCheck={false}
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value.trim());
-                  setEmailMsg(null);
-                }}
-              />
-              <button
-                type="button"
-                className={styles.ghost}
-                onClick={checkEmail}
-                disabled={busy === "email"}
-              >
-                {busy === "email" ? "…" : "Проверить"}
-              </button>
-            </div>
-            {show("email")}
-            {emailMsg && (
-              <span className={emailMsg.ok ? styles.okText : styles.err}>
-                {emailMsg.text}
-              </span>
-            )}
-          </label>
-
-          <div className={styles.field}>
-            <span>Телефон *</span>
-            <div className={styles.inline}>
-              <input
-                className={styles.code}
-                inputMode="tel"
-                aria-label="Код страны"
-                value={phoneCode}
-                onChange={(e) =>
-                  setPhoneCode(
-                    "+" + e.target.value.replace(/\D/g, "").slice(0, 4),
-                  )
-                }
-              />
-              <input
-                type="tel"
-                inputMode="tel"
-                autoComplete="tel-national"
-                aria-label="Номер телефона"
-                value={phone}
-                onChange={(e) =>
-                  setPhone(e.target.value.replace(/[^\d\s()-]/g, ""))
-                }
-              />
-            </div>
-            {show("phone")}
-          </div>
-        </fieldset>
-
-        <fieldset className={styles.group} disabled={disabled}>
-          <legend>Консультант (кто пригласил) *</legend>
-          <div className={styles.seg} role="tablist">
-            <button
-              type="button"
-              className={!byPhone ? styles.segOn : ""}
-              onClick={() => {
-                setByPhone(false);
-                setConsultant(null);
-              }}
-            >
-              Coral ID
-            </button>
-            <button
-              type="button"
-              className={byPhone ? styles.segOn : ""}
-              onClick={() => {
-                setByPhone(true);
-                setConsultant(null);
-              }}
-            >
-              Телефон
-            </button>
-          </div>
-
-          <div className={styles.inline}>
-            {byPhone ? (
-              <input
-                type="tel"
-                inputMode="tel"
-                placeholder="Телефон консультанта"
-                value={sponsorPhone}
-                onChange={(e) => {
-                  setSponsorPhone(e.target.value);
-                  setConsultant(null);
-                }}
-              />
-            ) : (
-              <input
-                inputMode="numeric"
-                maxLength={7}
-                placeholder="_______"
-                aria-label="Coral ID консультанта"
-                value={sponsorId}
-                onChange={(e) => {
-                  setSponsorId(e.target.value.replace(/\D/g, "").slice(0, 7));
-                  setConsultant(null);
-                }}
-              />
-            )}
-            <button
-              type="button"
-              className={styles.ghost}
-              onClick={findConsultant}
-              disabled={busy === "consultant"}
-            >
-              {busy === "consultant" ? "…" : "Найти"}
-            </button>
-          </div>
-
-          {!byPhone && (
-            <button
-              type="button"
-              className={styles.link}
-              onClick={() => {
-                setSponsorId(FRIEND_USER_ID);
-                setConsultant(null);
-              }}
-            >
-              Подставить консультанта из «Друга клуба» ({FRIEND_USER_ID})
-            </button>
-          )}
-
-          {consultant && (
-            <div className={styles.found}>
-              {consultant.avatar && (
-                // eslint-disable-next-line @next/next/no-img-element -- avatar comes from the shop, any host
-                <img src={consultant.avatar} alt="" width={40} height={40} />
+              {isRu && (
+                <label className={styles.field}>
+                  <span>Отчество</span>
+                  <input
+                    value={otchestvo}
+                    onChange={(e) => setOtchestvo(e.target.value)}
+                  />
+                </label>
               )}
-              <span>
-                <strong>{consultant.name}</strong>
-                <br />
-                Coral ID {consultant.id}
-              </span>
-            </div>
-          )}
-          {consultantMsg && <span className={styles.err}>{consultantMsg}</span>}
-          {!consultant && show("consultant")}
-          <p className={styles.muted}>
-            Вариант «меня никто не приглашал» (подбор по городу и карте Google)
-            в стенде не сделан.
-          </p>
-        </fieldset>
 
-        <fieldset className={styles.group} disabled={disabled}>
-          <legend>Город и язык</legend>
-          <div className={styles.row}>
-            <label className={styles.field}>
-              <span>Город *</span>
-              <input
-                placeholder="Москва"
-                autoComplete="address-level2"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-              />
-              {show("city")}
-            </label>
-            <label className={styles.field}>
-              <span>Область / штат</span>
-              <input
-                autoComplete="address-level1"
-                value={state}
-                onChange={(e) => setState(e.target.value)}
-              />
-            </label>
-          </div>
-          {langKeys.length > 1 && (
-            <label className={styles.field}>
-              <span>Язык общения *</span>
-              <select
-                value={lang}
-                onChange={(e) => setLangChoice(e.target.value)}
-              >
-                <option value="">Выберите язык</option>
-                {langKeys.map((k) => (
-                  <option key={k} value={k}>
-                    {languages[k]}
-                  </option>
-                ))}
-              </select>
-              {show("lang")}
-            </label>
-          )}
-        </fieldset>
+              <div className={styles.row}>
+                <label className={styles.field}>
+                  <span>Дата рождения *</span>
+                  <input
+                    inputMode="numeric"
+                    placeholder={dateFormat.placeholder}
+                    maxLength={dateFormat.mask.length}
+                    value={birthday}
+                    autoComplete="bday"
+                    onChange={(e) =>
+                      setBirthday(applyMask(e.target.value, dateFormat.mask))
+                    }
+                  />
+                  {show("birthday")}
+                </label>
 
-        <fieldset className={styles.group} disabled={disabled}>
-          <legend>Пароль</legend>
-          <label className={styles.field}>
-            <span>Пароль *</span>
-            <div className={styles.inline}>
-              <input
-                type={showPassword ? "text" : "password"}
-                autoComplete="new-password"
-                autoCapitalize="none"
-                spellCheck={false}
-                value={password}
-                onChange={(e) =>
-                  setPassword(e.target.value.replace(PASSWORD_BAD, ""))
-                }
-              />
-              <button
-                type="button"
-                className={styles.ghost}
-                onClick={() => setShowPassword((v) => !v)}
-              >
-                {showPassword ? "Скрыть" : "Показать"}
-              </button>
-              <button
-                type="button"
-                className={styles.ghost}
-                onClick={() => {
-                  setPassword(randomPassword());
-                  setShowPassword(true);
-                }}
-              >
-                Придумать
-              </button>
-            </div>
-            {show("password")}
-          </label>
-          <ul className={styles.rules}>
-            <li className={password.length > 5 ? styles.okText : ""}>
-              не менее 6 символов
-            </li>
-            <li
-              className={/[^A-Za-zа-яА-Я]/.test(password) ? styles.okText : ""}
-            >
-              хотя бы одна цифра (0-9) или символ
-            </li>
-          </ul>
-        </fieldset>
+                <div
+                  className={styles.field}
+                  role="radiogroup"
+                  aria-label="Пол"
+                >
+                  <span>Пол *</span>
+                  <div className={styles.seg}>
+                    {(
+                      [
+                        ["M", "Мужской"],
+                        ["F", "Женский"],
+                      ] as const
+                    ).map(([v, label]) => (
+                      <button
+                        key={v}
+                        type="button"
+                        role="radio"
+                        aria-checked={gender === v}
+                        className={gender === v ? styles.segOn : ""}
+                        onClick={() => setGender(v)}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                  {show("gender")}
+                </div>
+              </div>
 
-        <fieldset className={styles.group} disabled={disabled}>
-          <legend>Согласия</legend>
-          <label className={styles.check}>
-            <input
-              type="checkbox"
-              checked={agreement}
-              onChange={(e) => setAgreement(e.target.checked)}
-            />
-            <span>
-              Я согласен с Правилами регистрации, Условиями использования сайта,
-              Политикой обработки персональных данных *
-            </span>
-          </label>
-          {show("agreement")}
-          {isRu && (
-            <>
+              <label className={styles.field}>
+                <span>Email *</span>
+                <div className={styles.inline}>
+                  <input
+                    type="email"
+                    inputMode="email"
+                    autoComplete="email"
+                    autoCapitalize="none"
+                    spellCheck={false}
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value.trim());
+                      setEmailMsg(null);
+                    }}
+                  />
+                  <button
+                    type="button"
+                    className={styles.ghost}
+                    onClick={checkEmail}
+                    disabled={busy === "email"}
+                  >
+                    {busy === "email" ? "…" : "Проверить"}
+                  </button>
+                </div>
+                {show("email")}
+                {emailMsg && (
+                  <span className={emailMsg.ok ? styles.okText : styles.err}>
+                    {emailMsg.text}
+                  </span>
+                )}
+              </label>
+
+              <div className={styles.field}>
+                <span>Телефон *</span>
+                <div className={styles.inline}>
+                  <input
+                    className={styles.code}
+                    inputMode="tel"
+                    aria-label="Код страны"
+                    value={phoneCode}
+                    onChange={(e) =>
+                      setPhoneCode(
+                        "+" + e.target.value.replace(/\D/g, "").slice(0, 4),
+                      )
+                    }
+                  />
+                  <input
+                    type="tel"
+                    inputMode="tel"
+                    autoComplete="tel-national"
+                    aria-label="Номер телефона"
+                    value={phone}
+                    onChange={(e) =>
+                      setPhone(e.target.value.replace(/[^\d\s()-]/g, ""))
+                    }
+                  />
+                </div>
+                {show("phone")}
+              </div>
+            </fieldset>
+
+            <fieldset className={styles.group} disabled={disabled}>
+              <legend>Консультант (кто пригласил) *</legend>
+              <div className={styles.seg} role="tablist">
+                <button
+                  type="button"
+                  className={!byPhone ? styles.segOn : ""}
+                  onClick={() => {
+                    setByPhone(false);
+                    setConsultant(null);
+                  }}
+                >
+                  Coral ID
+                </button>
+                <button
+                  type="button"
+                  className={byPhone ? styles.segOn : ""}
+                  onClick={() => {
+                    setByPhone(true);
+                    setConsultant(null);
+                  }}
+                >
+                  Телефон
+                </button>
+              </div>
+
+              <div className={styles.inline}>
+                {byPhone ? (
+                  <input
+                    type="tel"
+                    inputMode="tel"
+                    placeholder="Телефон консультанта"
+                    value={sponsorPhone}
+                    onChange={(e) => {
+                      setSponsorPhone(e.target.value);
+                      setConsultant(null);
+                    }}
+                  />
+                ) : (
+                  <input
+                    inputMode="numeric"
+                    maxLength={7}
+                    placeholder="_______"
+                    aria-label="Coral ID консультанта"
+                    value={sponsorId}
+                    onChange={(e) => {
+                      setSponsorId(
+                        e.target.value.replace(/\D/g, "").slice(0, 7),
+                      );
+                      setConsultant(null);
+                    }}
+                  />
+                )}
+                <button
+                  type="button"
+                  className={styles.ghost}
+                  onClick={findConsultant}
+                  disabled={busy === "consultant"}
+                >
+                  {busy === "consultant" ? "…" : "Найти"}
+                </button>
+              </div>
+
+              {!byPhone && (
+                <button
+                  type="button"
+                  className={styles.link}
+                  onClick={() => {
+                    setSponsorId(FRIEND_USER_ID);
+                    setConsultant(null);
+                  }}
+                >
+                  Подставить консультанта из «Друга клуба» ({FRIEND_USER_ID})
+                </button>
+              )}
+
+              {consultant && (
+                <div className={styles.found}>
+                  {consultant.avatar && (
+                    // eslint-disable-next-line @next/next/no-img-element -- avatar comes from the shop, any host
+                    <img
+                      src={consultant.avatar}
+                      alt=""
+                      width={40}
+                      height={40}
+                    />
+                  )}
+                  <span>
+                    <strong>{consultant.name}</strong>
+                    <br />
+                    Coral ID {consultant.id}
+                  </span>
+                </div>
+              )}
+              {consultantMsg && (
+                <span className={styles.err}>{consultantMsg}</span>
+              )}
+              {!consultant && show("consultant")}
+              <p className={styles.muted}>
+                Вариант «меня никто не приглашал» (подбор по городу и карте
+                Google) в стенде не сделан.
+              </p>
+            </fieldset>
+
+            <fieldset className={styles.group} disabled={disabled}>
+              <legend>Город и язык</legend>
+              <div className={styles.row}>
+                <label className={styles.field}>
+                  <span>Город *</span>
+                  <input
+                    placeholder="Москва"
+                    autoComplete="address-level2"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                  />
+                  {show("city")}
+                </label>
+                <label className={styles.field}>
+                  <span>Область / штат</span>
+                  <input
+                    autoComplete="address-level1"
+                    value={state}
+                    onChange={(e) => setState(e.target.value)}
+                  />
+                </label>
+              </div>
+              {langKeys.length > 1 && (
+                <label className={styles.field}>
+                  <span>Язык общения *</span>
+                  <select
+                    value={lang}
+                    onChange={(e) => setLangChoice(e.target.value)}
+                  >
+                    <option value="">Выберите язык</option>
+                    {langKeys.map((k) => (
+                      <option key={k} value={k}>
+                        {languages[k]}
+                      </option>
+                    ))}
+                  </select>
+                  {show("lang")}
+                </label>
+              )}
+            </fieldset>
+
+            <fieldset className={styles.group} disabled={disabled}>
+              <legend>Пароль</legend>
+              <label className={styles.field}>
+                <span>Пароль *</span>
+                <div className={styles.inline}>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    autoComplete="new-password"
+                    autoCapitalize="none"
+                    spellCheck={false}
+                    value={password}
+                    onChange={(e) =>
+                      setPassword(e.target.value.replace(PASSWORD_BAD, ""))
+                    }
+                  />
+                  <button
+                    type="button"
+                    className={styles.ghost}
+                    onClick={() => setShowPassword((v) => !v)}
+                  >
+                    {showPassword ? "Скрыть" : "Показать"}
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.ghost}
+                    onClick={() => {
+                      setPassword(randomPassword());
+                      setShowPassword(true);
+                    }}
+                  >
+                    Придумать
+                  </button>
+                </div>
+                {show("password")}
+              </label>
+              <ul className={styles.rules}>
+                <li className={password.length > 5 ? styles.okText : ""}>
+                  не менее 6 символов
+                </li>
+                <li
+                  className={
+                    /[^A-Za-zа-яА-Я]/.test(password) ? styles.okText : ""
+                  }
+                >
+                  хотя бы одна цифра (0-9) или символ
+                </li>
+              </ul>
+            </fieldset>
+
+            <fieldset className={styles.group} disabled={disabled}>
+              <legend>Согласия</legend>
               <label className={styles.check}>
                 <input
                   type="checkbox"
-                  checked={processing}
-                  onChange={(e) => setProcessing(e.target.checked)}
+                  checked={agreement}
+                  onChange={(e) => setAgreement(e.target.checked)}
                 />
-                <span>Даю согласие на обработку персональных данных *</span>
+                <span>
+                  Я согласен с Правилами регистрации, Условиями использования
+                  сайта, Политикой обработки персональных данных *
+                </span>
               </label>
-              {show("processing")}
-            </>
-          )}
-          <label className={styles.check}>
-            <input
-              type="checkbox"
-              checked={subscribe}
-              onChange={(e) => setSubscribe(e.target.checked)}
-            />
-            <span>
-              Я согласен получать по электронной почте и СМС информацию о новых
-              продуктах, специальных предложениях, мероприятиях или услугах
-            </span>
-          </label>
-        </fieldset>
-
-        <div className={styles.actions}>
-          <label className={`${styles.check} ${styles.real}`}>
-            <input
-              type="checkbox"
-              checked={confirmReal}
-              onChange={(e) => setConfirmReal(e.target.checked)}
-            />
-            <span>Понимаю: будет создан настоящий аккаунт в магазине</span>
-          </label>
-
-          <button
-            type="button"
-            className={styles.ghostWide}
-            onClick={showRequest}
-          >
-            Показать запрос (без отправки)
-          </button>
-          <button
-            type="button"
-            className={styles.primary}
-            onClick={create}
-            disabled={disabled || !confirmReal || busy === "create"}
-          >
-            {busy === "create" ? "Создаю…" : "Создать аккаунт"}
-          </button>
-          {attempted && firstError && (
-            <span className={styles.err}>Заполните отмеченные поля</span>
-          )}
-        </div>
-
-        {preview && (
-          <section className={styles.out} aria-label="Запрос">
-            <h2>POST /restApi/registration/new/</h2>
-            <pre>
-              {JSON.stringify(
-                {
-                  ...preview,
-                  password: preview.password ? "••••••••" : "",
-                  passwordConfirmed: preview.passwordConfirmed
-                    ? "••••••••"
-                    : "",
-                },
-                null,
-                2,
+              {show("agreement")}
+              {isRu && (
+                <>
+                  <label className={styles.check}>
+                    <input
+                      type="checkbox"
+                      checked={processing}
+                      onChange={(e) => setProcessing(e.target.checked)}
+                    />
+                    <span>Даю согласие на обработку персональных данных *</span>
+                  </label>
+                  {show("processing")}
+                </>
               )}
-            </pre>
-            <p className={styles.muted}>
-              Пароль в показе скрыт, в запрос уходит как введён.
-            </p>
-          </section>
-        )}
+              <label className={styles.check}>
+                <input
+                  type="checkbox"
+                  checked={subscribe}
+                  onChange={(e) => setSubscribe(e.target.checked)}
+                />
+                <span>
+                  Я согласен получать по электронной почте и СМС информацию о
+                  новых продуктах, специальных предложениях, мероприятиях или
+                  услугах
+                </span>
+              </label>
+            </fieldset>
 
-        {reply && (
-          <section
-            className={`${styles.out} ${reply.ok ? styles.outOk : styles.outBad}`}
-            aria-label="Ответ"
-          >
-            <h2>{reply.title}</h2>
-            <pre>{JSON.stringify(reply.body, null, 2)}</pre>
-          </section>
+            <div className={styles.actions}>
+              <label className={`${styles.check} ${styles.real}`}>
+                <input
+                  type="checkbox"
+                  checked={confirmReal}
+                  onChange={(e) => setConfirmReal(e.target.checked)}
+                />
+                <span>Понимаю: будет создан настоящий аккаунт в магазине</span>
+              </label>
+
+              <button
+                type="button"
+                className={styles.ghostWide}
+                onClick={showRequest}
+              >
+                Показать запрос (без отправки)
+              </button>
+              <button
+                type="button"
+                className={styles.primary}
+                onClick={create}
+                disabled={disabled || !confirmReal || busy === "create"}
+              >
+                {busy === "create" ? "Создаю…" : "Создать аккаунт"}
+              </button>
+              {attempted && firstError && (
+                <span className={styles.err}>Заполните отмеченные поля</span>
+              )}
+            </div>
+
+            {preview && (
+              <section className={styles.out} aria-label="Запрос">
+                <h2>POST /restApi/registration/new/</h2>
+                <pre>
+                  {JSON.stringify(
+                    {
+                      ...preview,
+                      password: preview.password ? "••••••••" : "",
+                      passwordConfirmed: preview.passwordConfirmed
+                        ? "••••••••"
+                        : "",
+                    },
+                    null,
+                    2,
+                  )}
+                </pre>
+                <p className={styles.muted}>
+                  Пароль в показе скрыт, в запрос уходит как введён.
+                </p>
+              </section>
+            )}
+
+            {reply && (
+              <section
+                className={`${styles.out} ${reply.ok ? styles.outOk : styles.outBad}`}
+                aria-label="Ответ"
+              >
+                <h2>{reply.title}</h2>
+                <pre>{JSON.stringify(reply.body, null, 2)}</pre>
+              </section>
+            )}
+          </>
         )}
       </main>
     </div>
+  );
+}
+
+/* ------------------------------- sign in ------------------------------ */
+
+/**
+ * Sign in with Coral ID + password — the same request the shop's own login
+ * page makes (POST /restApi/auth/, LOGIN + PASSWORD, form-encoded). The shop
+ * answers with a session cookie; the proxy keeps it in its cookie jar, so
+ * every later request through the proxy (the checkout stand included) is
+ * made as that member until the proxy is restarted.
+ */
+function LoginPanel({ ready }: { ready: boolean }) {
+  const [coralId, setCoralId] = useState("");
+  const [password, setPassword] = useState("");
+  const [show, setShow] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [reply, setReply] = useState<Reply | null>(null);
+
+  const submit = async () => {
+    if (!coralId || !password || busy) return;
+    setBusy(true);
+    setReply(null);
+    try {
+      const r = await shopFetch("/restApi/auth/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({ LOGIN: coralId, PASSWORD: password }),
+      });
+      const data = await asJson<{ status?: boolean; error?: string }>(r);
+      // ask the shop whether the session now counts as signed in
+      let signedIn: boolean | null = null;
+      try {
+        const chk = await shopFetch("/restApi/registration/init", {
+          headers: { Accept: "application/json" },
+        });
+        const init = await asJson<{ login?: boolean }>(chk);
+        signedIn = typeof init?.login === "boolean" ? init.login : null;
+      } catch {
+        signedIn = null;
+      }
+      const ok = Boolean(data?.status);
+      setReply({
+        ok,
+        title: ok
+          ? `Вход выполнен${signedIn === true ? ": магазин видит вас как участника" : ""}`
+          : (data?.error ?? "Неправильный Coral ID или пароль").replace(
+              /<[^>]+>/g,
+              " ",
+            ),
+        body: {
+          response: data ?? { http: r.status },
+          sessionSignedIn: signedIn,
+        },
+      });
+      if (ok) setPassword("");
+    } catch {
+      setReply({ ok: false, title: "Нет связи с магазином", body: null });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <>
+      <p className={styles.note}>
+        Вход тем же запросом, что и на странице входа магазина. Сессия хранится
+        в прокси и действует для всех запросов через него (в том числе
+        чек-аута), пока прокси не перезапущен.
+      </p>
+
+      <form
+        className={styles.group}
+        onSubmit={(e) => {
+          e.preventDefault();
+          void submit();
+        }}
+      >
+        <label className={styles.field}>
+          <span>Coral ID</span>
+          <input
+            name="username"
+            inputMode="numeric"
+            autoComplete="username"
+            autoCapitalize="none"
+            spellCheck={false}
+            placeholder="_______"
+            value={coralId}
+            onChange={(e) => setCoralId(e.target.value.replace(/\s+/g, ""))}
+          />
+        </label>
+
+        <label className={styles.field}>
+          <span>Пароль</span>
+          <div className={styles.inline}>
+            <input
+              name="password"
+              type={show ? "text" : "password"}
+              autoComplete="current-password"
+              autoCapitalize="none"
+              spellCheck={false}
+              value={password}
+              onChange={(e) => setPassword(e.target.value.replace(/\s+/g, ""))}
+            />
+            <button
+              type="button"
+              className={styles.ghost}
+              onClick={() => setShow((v) => !v)}
+            >
+              {show ? "Скрыть" : "Показать"}
+            </button>
+          </div>
+        </label>
+
+        <button
+          type="submit"
+          className={styles.primary}
+          disabled={!ready || !coralId || !password || busy}
+        >
+          {busy ? "Вхожу…" : "Войти"}
+        </button>
+      </form>
+
+      {reply && (
+        <section
+          className={`${styles.out} ${reply.ok ? styles.outOk : styles.outBad}`}
+          aria-label="Ответ"
+        >
+          <h2>{reply.title}</h2>
+          <pre>{JSON.stringify(reply.body, null, 2)}</pre>
+        </section>
+      )}
+    </>
   );
 }

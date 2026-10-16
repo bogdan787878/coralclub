@@ -313,3 +313,29 @@
 .outBad {
   border: 1.5px solid #b42318;
 }
+
+.modes {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 2px;
+  border-radius: var(--radius-pill);
+  background: #ffffff;
+}
+
+.modes button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+
+.note {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-text-muted);
+}
