@@ -46,8 +46,8 @@ const ZONES = [
 /** Last resort for element_location: the page the click happened on. */
 function zoneFromUrl(): string {
   const p = window.location.pathname;
-  if (/\/landing\/checkout/.test(p)) return "checkout";
-  if (/\/landing\/product\//.test(p)) return "product_card";
+  if (/\/checkout(\/|$)/.test(p)) return "checkout";
+  if (/\/product\//.test(p)) return "product_card";
   return "home";
 }
 

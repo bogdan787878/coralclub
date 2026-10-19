@@ -35,9 +35,10 @@ declare global {
 
 const inBrowser = () => typeof window !== "undefined";
 
-/** Landing routes only (the English prototype is not tracked). */
+/** Landing routes only (the English prototype is not tracked): /landing/…
+ *  on GitHub Pages, /landings/<name>/… on coralclub.ru. */
 export const isLandingPage = () =>
-  inBrowser() && /\/landing(\/|$)/.test(window.location.pathname);
+  inBrowser() && /\/landings?(\/|$)/.test(window.location.pathname);
 
 const isLocalHost = () => {
   if (!inBrowser()) return true;
