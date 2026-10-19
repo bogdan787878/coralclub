@@ -110,26 +110,18 @@ export function LeadForm({
         Оставьте номер телефона — мы перезвоним и подберём персональную систему.
       </p>
 
-      <div className={styles.float}>
-        <div
-          className={`${styles.floatBox} ${touched && !valid ? styles.floatBoxActive : ""}`}
-        >
-          <input
-            id={fieldId}
-            className={styles.floatInput}
-            type="tel"
-            inputMode="tel"
-            autoComplete="tel"
-            placeholder="+7 (999) 999-99-99"
-            value={phone}
-            aria-invalid={touched && !valid}
-            onChange={(e) => setPhone(formatRuPhone(e.target.value))}
-          />
-          <label htmlFor={fieldId} className={styles.floatLabel}>
-            Телефон
-          </label>
-        </div>
-      </div>
+      <input
+        id={fieldId}
+        className={`${styles.phone} ${touched && !valid ? styles.phoneActive : ""}`}
+        type="tel"
+        inputMode="tel"
+        autoComplete="tel"
+        aria-label="Телефон"
+        placeholder="+7 (999) 999-99-99"
+        value={phone}
+        aria-invalid={touched && !valid}
+        onChange={(e) => setPhone(formatRuPhone(e.target.value))}
+      />
 
       {touched && !valid && (
         <p className={styles.error} role="alert">

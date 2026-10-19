@@ -139,21 +139,11 @@
   text-align: center;
 }
 
-/* ---- the field: label inside, floats up on focus / with a value (same as
-   the checkout's inputs) ---- */
-.float {
-  display: flex;
-  flex-direction: column;
-}
-
-.floatBox {
-  position: relative;
-}
-
-.floatInput {
+/* ---- the field: no label, the number mask is the placeholder from the start ---- */
+.phone {
   width: 100%;
   height: 52px;
-  padding: 19px var(--space-12) 5px;
+  padding: 0 var(--space-12);
   border: 1px solid rgba(0, 65, 68, 0.22);
   border-radius: 8px;
   background: #ffffff;
@@ -166,55 +156,22 @@
   transition: border-color 0.15s var(--ease-standard);
 }
 
-.floatInput::placeholder {
-  color: transparent;
-  transition: color 0.15s var(--ease-standard);
+.phone::placeholder {
+  color: var(--color-text-muted);
 }
 
-.floatInput:focus {
+.phone:focus {
   outline: none;
   border-color: var(--color-malachite-90);
 }
 
-.floatInput:focus::placeholder,
-.floatBoxActive .floatInput::placeholder {
-  color: var(--color-text-muted);
-}
-
-/* a skipped / incomplete field looks exactly like a focused one */
-.floatBoxActive .floatInput {
+/* an incomplete number looks exactly like a focused field */
+.phoneActive {
   border-color: var(--color-malachite-90);
 }
 
-.floatLabel {
-  position: absolute;
-  left: var(--space-12);
-  top: 50%;
-  transform: translateY(-50%);
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.25rem;
-  color: var(--color-text-muted);
-  pointer-events: none;
-  transition:
-    top 0.15s var(--ease-standard),
-    transform 0.15s var(--ease-standard),
-    font-size 0.15s var(--ease-standard);
-}
-
-.floatInput:focus + .floatLabel,
-.floatInput:not(:placeholder-shown) + .floatLabel,
-.floatBoxActive .floatLabel {
-  top: 8px;
-  transform: none;
-  font-size: 0.75rem;
-  line-height: 1rem;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .floatLabel,
-  .floatInput,
-  .floatInput::placeholder {
+  .phone {
     transition: none;
   }
 }
