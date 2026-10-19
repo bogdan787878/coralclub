@@ -133,6 +133,13 @@
   aspect-ratio: 4 / 3;
 }
 
+/* phones and tablets: the three info-block pictures are one size */
+@media (max-width: 1023px) {
+  .blockMedia {
+    aspect-ratio: 4 / 3;
+  }
+}
+
 /* grey stand-in for the block picture while the photo is being chosen */
 .blockPlaceholder {
   width: 100%;
