@@ -9,10 +9,14 @@ type Status = "idle" | "sending" | "done" | "error";
 
 export const LEAD_FORM_ID = "consultation";
 
+/** A phone is complete from ten digits (a Russian number without the +7). */
+const phoneDigits = (v: string) => v.replace(/\D/g, "").length;
+
 /**
- * The consultation request form — one component for the pop-up (opened from
- * the page's buttons) and for the standalone page /landing/consultation/.
- * `source` says where the visitor came from ("hero", "consultation", "page"…).
+ * The consultation request form — a phone number and one button. One
+ * component for the pop-up (opened from the page's buttons) and for the
+ * standalone page /landing/consultation/. `source` says where the visitor
+ * came from ("hero", "consultation", "offline_qr"…).
  */
 export function LeadForm({
   source,
@@ -24,9 +28,8 @@ export function LeadForm({
   /** Modal only: closes the pop-up from the thank-you screen. */
   onClose?: () => void;
 }) {
-  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [consent, setConsent] = useState(false);
+  const [touched, setTouched] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
 
   // the form was shown (once per mount — StrictMode runs effects twice in dev)
@@ -37,19 +40,17 @@ export function LeadForm({
     track("lead_form_view", { form_id: LEAD_FORM_ID, source, presentation });
   }, [source, presentation]);
 
+  const valid = phoneDigits(phone) >= 10;
+
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!consent || status === "sending") return;
+    if (status === "sending") return;
+    setTouched(true);
+    if (!valid) return;
     setStatus("sending");
     try {
-      await submitLead({
-        email: email.trim(),
-        phone: phone.trim(),
-        consent,
-        source,
-      });
+      await submitLead({ phone: phone.trim(), source });
       setStatus("done");
-      setEmail("");
       setPhone("");
       track("generate_lead", { form_id: LEAD_FORM_ID, source, presentation });
     } catch {
@@ -67,7 +68,7 @@ export function LeadForm({
       <div className={styles.done}>
         <h2 className={styles.title}>Спасибо! Заявка принята</h2>
         <p className={styles.text}>
-          Нутрициолог свяжется с вами по указанным контактам и подберёт
+          Нутрициолог перезвонит вам по указанному номеру и подберёт
           персональную систему красоты.
         </p>
         {presentation === "modal" && onClose && (
@@ -85,48 +86,30 @@ export function LeadForm({
   }
 
   return (
-    <form onSubmit={onSubmit} className={styles.form}>
+    <form onSubmit={onSubmit} className={styles.form} noValidate>
       <h2 className={styles.title}>Бесплатная консультация нутрициолога</h2>
       <p className={styles.text}>
-        Оставьте контакты — мы свяжемся с вами и подберём персональную систему.
+        Оставьте номер телефона — мы перезвоним и подберём персональную систему.
       </p>
 
-      <label className={styles.field}>
-        <span>E-mail</span>
-        <input
-          type="email"
-          required
-          autoComplete="email"
-          placeholder="you@example.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </label>
       <label className={styles.field}>
         <span>Телефон</span>
         <input
           type="tel"
-          required
+          inputMode="tel"
           autoComplete="tel"
           placeholder="+7 999 111-22-33"
           value={phone}
+          aria-invalid={touched && !valid}
           onChange={(e) => setPhone(e.target.value)}
         />
       </label>
 
-      <label className={styles.consent}>
-        <input
-          type="checkbox"
-          checked={consent}
-          data-analytics-id="lead_form_consent"
-          onChange={(e) => setConsent(e.target.checked)}
-        />
-        <span>
-          Согласен на предоставление и использование персональных данных
-          для связи по заявке
-        </span>
-      </label>
-
+      {touched && !valid && (
+        <p className={styles.error} role="alert">
+          Введите номер телефона полностью.
+        </p>
+      )}
       {status === "error" && (
         <p className={styles.error}>
           Не удалось отправить заявку. Попробуйте ещё раз.
@@ -137,10 +120,14 @@ export function LeadForm({
         type="submit"
         className={styles.submit}
         data-analytics-id="lead_form_submit"
-        disabled={!consent || status === "sending"}
+        disabled={status === "sending"}
       >
-        {status === "sending" ? "Отправляем…" : "Оставить заявку"}
+        {status === "sending" ? "Отправляем…" : "Записаться"}
       </button>
+
+      <p className={styles.note}>
+        Нажимая «Записаться», вы соглашаетесь на обработку персональных данных.
+      </p>
     </form>
   );
 }

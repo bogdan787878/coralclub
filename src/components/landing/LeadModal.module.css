@@ -129,3 +129,12 @@
     border-radius: var(--radius-base);
   }
 }
+
+/* the one-line consent notice under the button (the form has no checkbox) */
+.note {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  color: var(--color-text-muted);
+  text-align: center;
+}
