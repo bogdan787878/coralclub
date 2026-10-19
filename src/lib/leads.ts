@@ -1,5 +1,5 @@
 /**
- * Lead capture for the /landing consultation form (phone only). Static export
+ * Lead capture for the /landing consultation form (name, phone, e-mail). Static export
  * has no server, so submissions go to a Google Apps Script web app that
  * appends a row to a Google Sheet (see scripts/leads/README.md).
  *
@@ -17,7 +17,10 @@ export const LEADS_ENDPOINT =
   process.env.NEXT_PUBLIC_LEADS_ENDPOINT || LEADS_WEB_APP_URL;
 
 export type LeadInput = {
+  name: string;
   phone: string;
+  /** Optional. */
+  email: string;
   /** Where the visitor came from ("hero", "consultation", "offline_qr"…). */
   source: string;
 };

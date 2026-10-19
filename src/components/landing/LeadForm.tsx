@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { track } from "@/lib/analytics";
 import { submitLead } from "@/lib/leads";
 import styles from "./LeadModal.module.css";
@@ -29,6 +29,8 @@ export function formatRuPhone(raw: string): string {
 /** A phone is complete at ten digits after the +7. */
 const phoneComplete = (v: string) => v.replace(/\D/g, "").length === 11;
 
+const EMAIL_RX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
 /**
  * The consultation request form — a phone number and one button. One
  * component for the pop-up (opened from the page's buttons) and for the
@@ -45,7 +47,9 @@ export function LeadForm({
   /** Modal only: closes the pop-up from the thank-you screen. */
   onClose?: () => void;
 }) {
+  const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [touched, setTouched] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
 
@@ -57,8 +61,11 @@ export function LeadForm({
     track("lead_form_view", { form_id: LEAD_FORM_ID, source, presentation });
   }, [source, presentation]);
 
-  const valid = phoneComplete(phone);
-  const fieldId = useId();
+  // name and phone are required, the e-mail may stay empty but must be right if given
+  const nameOk = name.trim().length >= 2;
+  const phoneOk = phoneComplete(phone);
+  const emailOk = email.trim() === "" || EMAIL_RX.test(email.trim());
+  const valid = nameOk && phoneOk && emailOk;
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -67,9 +74,16 @@ export function LeadForm({
     if (!valid) return;
     setStatus("sending");
     try {
-      await submitLead({ phone: phone.trim(), source });
+      await submitLead({
+        name: name.trim(),
+        phone: phone.trim(),
+        email: email.trim(),
+        source,
+      });
       setStatus("done");
+      setName("");
       setPhone("");
+      setEmail("");
       track("generate_lead", { form_id: LEAD_FORM_ID, source, presentation });
     } catch {
       setStatus("error");
@@ -107,27 +121,61 @@ export function LeadForm({
     <form onSubmit={onSubmit} className={styles.form} noValidate>
       <h2 className={styles.title}>Бесплатная консультация нутрициолога</h2>
       <p className={styles.text}>
-        Оставьте номер телефона — мы перезвоним и подберём персональную систему.
+        Оставьте контакты — мы перезвоним и подберём персональную систему.
       </p>
 
       <input
-        id={fieldId}
-        className={`${styles.phone} ${touched && !valid ? styles.phoneActive : ""}`}
+        className={`${styles.input} ${touched && !nameOk ? styles.inputActive : ""}`}
+        type="text"
+        autoComplete="name"
+        aria-label="Имя"
+        placeholder="Имя"
+        value={name}
+        aria-invalid={touched && !nameOk}
+        onChange={(e) => setName(e.target.value)}
+      />
+      {touched && !nameOk && (
+        <p className={styles.error} role="alert">
+          Укажите имя.
+        </p>
+      )}
+
+      <input
+        className={`${styles.input} ${touched && !phoneOk ? styles.inputActive : ""}`}
         type="tel"
         inputMode="tel"
         autoComplete="tel"
         aria-label="Телефон"
         placeholder="+7 (999) 999-99-99"
         value={phone}
-        aria-invalid={touched && !valid}
+        aria-invalid={touched && !phoneOk}
         onChange={(e) => setPhone(formatRuPhone(e.target.value))}
       />
-
-      {touched && !valid && (
+      {touched && !phoneOk && (
         <p className={styles.error} role="alert">
           Введите номер телефона полностью.
         </p>
       )}
+
+      <input
+        className={`${styles.input} ${touched && !emailOk ? styles.inputActive : ""}`}
+        type="email"
+        inputMode="email"
+        autoComplete="email"
+        autoCapitalize="none"
+        spellCheck={false}
+        aria-label="E-mail"
+        placeholder="E-mail (необязательно)"
+        value={email}
+        aria-invalid={touched && !emailOk}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      {touched && !emailOk && (
+        <p className={styles.error} role="alert">
+          Проверьте адрес почты.
+        </p>
+      )}
+
       {status === "error" && (
         <p className={styles.error}>
           Не удалось отправить заявку. Попробуйте ещё раз.

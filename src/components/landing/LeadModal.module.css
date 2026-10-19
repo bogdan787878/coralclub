@@ -139,8 +139,8 @@
   text-align: center;
 }
 
-/* ---- the field: no label, the number mask is the placeholder from the start ---- */
-.phone {
+/* ---- the fields: no labels, the placeholder is visible from the start ---- */
+.input {
   width: 100%;
   height: 52px;
   padding: 0 var(--space-12);
@@ -156,22 +156,22 @@
   transition: border-color 0.15s var(--ease-standard);
 }
 
-.phone::placeholder {
+.input::placeholder {
   color: var(--color-text-muted);
 }
 
-.phone:focus {
+.input:focus {
   outline: none;
   border-color: var(--color-malachite-90);
 }
 
-/* an incomplete number looks exactly like a focused field */
-.phoneActive {
+/* an incomplete field looks exactly like a focused one */
+.inputActive {
   border-color: var(--color-malachite-90);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .phone {
+  .input {
     transition: none;
   }
 }

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Accent, Container, Heading, Section } from "@/components/ui";
 import { CoralClubLogo } from "@/components/landing/CoralClubLogo";
 import { LandingHeader } from "@/components/landing/LandingHeader";
-import { Ingredients } from "@/components/landing/Ingredients";
+import { Certificates } from "@/components/landing/Certificates";
 import { LeadModalProvider } from "@/components/landing/LeadModal";
 import { Reviews } from "@/components/landing/Reviews";
 import {
@@ -11,12 +11,12 @@ import {
   LANDING_REVIEWS_RU,
   overallSummary,
 } from "@/lib/landingReviewsRu";
-import { LandingCta, PromoCode } from "@/components/landing/LandingCta";
+import { LandingCta } from "@/components/landing/LandingCta";
 import { LandingCards } from "@/components/landing/LandingCards";
 import { LandingSets } from "@/components/landing/LandingSets";
 import { LandingCartButton } from "@/components/landing/LandingCartButton";
 import { asset } from "@/lib/asset";
-import { BEAUTY_SLUGS, MAIN_SITE_URL, PROMO_CODE } from "@/lib/beautySystem";
+import { BEAUTY_SLUGS, MAIN_SITE_URL } from "@/lib/beautySystem";
 import {
   LANDING_PRODUCTS_RU,
   formatRub,
@@ -29,7 +29,7 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "Ваша система красоты — Coral Club",
   description:
-    "Уникальная философия красоты и здоровья от Coral Club: гармония внутреннего состояния и внешнего ухода.",
+    "Уникальная философия красоты и здоровья от Coral Club: гармония внутреннего состояния и внешнего ухода.",
   robots: { index: false, follow: false },
 };
 
@@ -125,7 +125,7 @@ export default function LandingPage() {
                   не нужно собирать его самостоятельно.
                 </p>
                 <LandingCta source="hero" className={styles.cta}>
-                  Записаться на консультацию
+                  Записаться на консультацию
                 </LandingCta>
               </div>
             </Container>
@@ -145,19 +145,14 @@ export default function LandingPage() {
                 </div>
                 <div
                   className={styles.promo}
-                  data-analytics-promo="labspace15_promo"
-                  data-analytics-promo-name="Промокод LABSPACE15 на продукты Системы Красоты"
-                  data-analytics-creative="promo_code_block"
+                  data-analytics-promo="labspace_discount_20"
+                  data-analytics-promo-name="Скидка 20% для клиентов L.A.B Space"
+                  data-analytics-creative="discount_block"
                   data-analytics-slot="slot_why_1"
                 >
                   <p className={styles.promoText}>
-                    Получите специальную скидку по промокоду{" "}
-                    <PromoCode
-                      code={PROMO_CODE}
-                      className={styles.promoCode}
-                      analyticsId="home_promo_code_btn"
-                    />{" "}
-                    на продукты Системы Красоты
+                    Клиентам L.A.B&nbsp;Space — скидка 20% на продукты Системы
+                    Красоты
                   </p>
                 </div>
               </div>
@@ -171,7 +166,7 @@ export default function LandingPage() {
             </div>
           </section>
 
-          <Ingredients />
+          <Certificates />
 
           <Section
             tone="surface"
@@ -364,7 +359,7 @@ export default function LandingPage() {
                   Оставьте заявку — подберём вам персонального консультанта.
                 </p>
                 <LandingCta source="consultation" className={styles.consultCta}>
-                  Записаться на консультацию
+                  Записаться на консультацию
                 </LandingCta>
               </div>
             </Container>

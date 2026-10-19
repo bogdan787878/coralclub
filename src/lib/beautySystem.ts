@@ -18,9 +18,6 @@ export const MAIN_SITE_URL = (
   "https://bogdan787878.github.io/coralclub"
 ).replace(/\/$/, "");
 
-/** Promo code of the "Система красоты" landing (extra 15% off at checkout). */
-export const PROMO_CODE = "LABSPACE15";
-
 /**
  * "Друг клуба" — the referral mechanic of the Russian shop. A link carrying
  * this REF_CODE shows every price as a club price and lets the visitor buy

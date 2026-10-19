@@ -7,15 +7,9 @@ import {
   type CartDrawerLabels,
 } from "@/components/cart/CartDrawer";
 import { BagIcon } from "@/components/cart/icons";
-import { PROMO_CODE, friendBasketUrl } from "@/lib/beautySystem";
+import { friendBasketUrl } from "@/lib/beautySystem";
 import { formatRub } from "@/lib/landingCatalogRu";
 import styles from "./LandingCartButton.module.css";
-
-const PROMO = {
-  code: PROMO_CODE,
-  text: "Скопируйте промокод и примените на следующем шаге, чтобы получить дополнительную скидку 15%",
-  copiedLabel: "скопировано",
-};
 
 const LABELS_RU: CartDrawerLabels = {
   aria: "Корзина",
@@ -48,7 +42,11 @@ export function LandingCartDrawer() {
       labels={LABELS_RU}
       formatMoney={formatRub}
       checkoutUrl={friendBasketUrl}
-      promo={PROMO}
+      extra={
+        <p className={styles.discountNote}>
+          Клиентам L.A.B&nbsp;Space — скидка 20% на продукты Системы Красоты
+        </p>
+      }
     />
   );
 }

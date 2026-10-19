@@ -1,0 +1,1026 @@
+[
+ {
+  "country": "Algeria",
+  "host": "dz.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://dz.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Angola",
+  "host": "ao.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://ao.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Burkina Faso",
+  "host": "bf.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://bf.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Burundi",
+  "host": "bi.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://bi.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Cameroon",
+  "host": "cm.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://cm.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Gabon",
+  "host": "ga.coral.club",
+  "lang": "us",
+  "status": "ERR",
+  "final": "HTTPSConnectionPool(host='ga.coral.club', port=443): Read ti",
+  "products": 0
+ },
+ {
+  "country": "Gambia",
+  "host": "gm.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://gm.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Ghana",
+  "host": "gh.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://gh.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Guinea",
+  "host": "gn.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://gn.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Guinea-Bissau",
+  "host": "gw.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://gw.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Lesotho",
+  "host": "ls.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://ls.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Liberia",
+  "host": "lr.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://lr.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Madagascar",
+  "host": "mg.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://mg.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Malawi",
+  "host": "mw.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://mw.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Mauritania",
+  "host": "mr.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://mr.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Morocco",
+  "host": "ma.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://ma.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Mozambique",
+  "host": "mz.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://mz.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Niger",
+  "host": "ne.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://ne.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Nigeria",
+  "host": "ng.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://ng.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Rwanda",
+  "host": "rw.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://rw.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Senegal",
+  "host": "sn.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://sn.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Seychelles",
+  "host": "sc.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://sc.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "South Africa",
+  "host": "za.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://za.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Swaziland",
+  "host": "sz.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://sz.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Togo",
+  "host": "tg.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://tg.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Tunisia",
+  "host": "tn.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://tn.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Bahrain",
+  "host": "bh.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://bh.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Bangladesh",
+  "host": "bd.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://bd.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Bhutan",
+  "host": "bt.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://bt.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Brunei Darussalam",
+  "host": "bn.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://bn.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Cambodia",
+  "host": "kh.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://kh.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "India",
+  "host": "in.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://in.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Indonesia",
+  "host": "id.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://id.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Israel",
+  "host": "il.coral.club",
+  "lang": "il",
+  "status": 200,
+  "final": "https://il.coral.club/shop/?language=il",
+  "products": 82
+ },
+ {
+  "country": "Japan",
+  "host": "jp.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://jp.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Jordan",
+  "host": "jo.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://jo.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Kazakhstan",
+  "host": "coral-club.kz",
+  "lang": "ru",
+  "status": 200,
+  "final": "https://coral-club.kz/shop/?language=ru",
+  "products": 244
+ },
+ {
+  "country": "Korea (Republic of)",
+  "host": "kr.coral.club",
+  "lang": "ru",
+  "status": 200,
+  "final": "https://global.coral.club//shop/?language=ru&language=ru&global-country=KR_GLOBAL",
+  "products": 183
+ },
+ {
+  "country": "Kuwait",
+  "host": "kw.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://kw.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Kyrgyzstan",
+  "host": "coralclub.kg",
+  "lang": "ru",
+  "status": 200,
+  "final": "https://coralclub.kg/shop/?language=ru",
+  "products": 211
+ },
+ {
+  "country": "Lao People's Democratic Republic",
+  "host": "la.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://la.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Lebanon",
+  "host": "lb.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://lb.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Mongolia",
+  "host": "mn.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://mn.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Oman",
+  "host": "om.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://om.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Philippines",
+  "host": "ph.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://ph.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Qatar",
+  "host": "qa.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://qa.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Saudi Arabia",
+  "host": "sa.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://sa.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Singapore",
+  "host": "sg.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://sg.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Sri Lanka",
+  "host": "lk.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://lk.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Taiwan",
+  "host": "tw.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://tw.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Tajikistan",
+  "host": "tj.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://tj.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Thailand",
+  "host": "th.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://th.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Turkey",
+  "host": "coralclub.com.tr",
+  "lang": "tr",
+  "status": 200,
+  "final": "https://coralclub.com.tr/shop/?language=tr",
+  "products": 47
+ },
+ {
+  "country": "United Arab Emirates",
+  "host": "ae.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://ae.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Uzbekistan",
+  "host": "coralclub.co.uz",
+  "lang": "ru",
+  "status": 200,
+  "final": "https://coralclub.co.uz/shop/?language=ru",
+  "products": 168
+ },
+ {
+  "country": "Australia",
+  "host": "au.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://au.coral.club/shop/?language=us",
+  "products": 176
+ },
+ {
+  "country": "Kiribati",
+  "host": "ki.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://ki.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Micronesia (Federated States of)",
+  "host": "fm.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://fm.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Nauru",
+  "host": "nr.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://nr.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "New Zealand",
+  "host": "nz.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://nz.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Palau",
+  "host": "pw.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://pw.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Papua New Guinea",
+  "host": "pg.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://pg.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Solomon Islands",
+  "host": "sb.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://sb.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Tonga",
+  "host": "to.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://to.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Tuvalu",
+  "host": "tv.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://tv.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Albania",
+  "host": "al.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://al.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Andorra",
+  "host": "ad.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://ad.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Armenia",
+  "host": "am.coral.club",
+  "lang": "ru",
+  "status": 200,
+  "final": "https://am.coral.club/shop/?language=ru",
+  "products": 206
+ },
+ {
+  "country": "Austria",
+  "host": "at.coral.club",
+  "lang": "de",
+  "status": 200,
+  "final": "https://at.coral.club/shop/?language=de",
+  "products": 183
+ },
+ {
+  "country": "Belarus",
+  "host": "coral-club.by",
+  "lang": "ru",
+  "status": 200,
+  "final": "https://coral-club.by/shop/?language=ru",
+  "products": 152
+ },
+ {
+  "country": "Belgium",
+  "host": "be.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://be.coral.club/shop/?language=us",
+  "products": 180
+ },
+ {
+  "country": "Bosnia and Herzegovina",
+  "host": "ba.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://ba.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Bulgaria",
+  "host": "bg.coral.club",
+  "lang": "bg",
+  "status": 200,
+  "final": "https://bg.coral.club/shop/?language=bg",
+  "products": 171
+ },
+ {
+  "country": "Canary Islands",
+  "host": "ic.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://es.coral.club",
+  "products": 19
+ },
+ {
+  "country": "Channel Islands",
+  "host": "je.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://je.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Croatia",
+  "host": "hr.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://hr.coral.club/shop/?language=us",
+  "products": 178
+ },
+ {
+  "country": "Cyprus",
+  "host": "cy.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://cy.coral.club/shop/?language=us",
+  "products": 150
+ },
+ {
+  "country": "Czech Republic",
+  "host": "cz.coral.club",
+  "lang": "cs",
+  "status": 200,
+  "final": "https://cz.coral.club/shop/?language=cs",
+  "products": 172
+ },
+ {
+  "country": "Denmark",
+  "host": "dk.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://dk.coral.club/shop/?language=us",
+  "products": 178
+ },
+ {
+  "country": "Estonia",
+  "host": "ee.coral.club",
+  "lang": "et",
+  "status": 200,
+  "final": "https://ee.coral.club/shop/?language=et",
+  "products": 163
+ },
+ {
+  "country": "Finland",
+  "host": "fi.coral.club",
+  "lang": "et",
+  "status": 200,
+  "final": "https://fi.coral.club/shop/?language=et",
+  "products": 162
+ },
+ {
+  "country": "France",
+  "host": "fr.coral.club",
+  "lang": "fr",
+  "status": 200,
+  "final": "https://fr.coral.club/shop/?language=fr",
+  "products": 170
+ },
+ {
+  "country": "Georgia",
+  "host": "coralclub.ge",
+  "lang": "ru",
+  "status": 200,
+  "final": "https://coralclub.ge/shop/?language=ru",
+  "products": 169
+ },
+ {
+  "country": "Germany",
+  "host": "de.coral.club",
+  "lang": "de",
+  "status": 200,
+  "final": "https://de.coral.club/shop/?language=de",
+  "products": 184
+ },
+ {
+  "country": "Global delivery",
+  "host": "global.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://global.coral.club/shop/?language=us",
+  "products": 195
+ },
+ {
+  "country": "Greece",
+  "host": "gr.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://gr.coral.club/shop/?language=us",
+  "products": 170
+ },
+ {
+  "country": "Hungary",
+  "host": "hu.coral.club",
+  "lang": "hu",
+  "status": 200,
+  "final": "https://hu.coral.club/shop/?language=hu",
+  "products": 173
+ },
+ {
+  "country": "Iceland",
+  "host": "is.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://is.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Ireland",
+  "host": "ie.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://ie.coral.club/shop/?language=us",
+  "products": 180
+ },
+ {
+  "country": "Italy",
+  "host": "it.coral.club",
+  "lang": "it",
+  "status": 200,
+  "final": "https://it.coral.club/shop/?language=it",
+  "products": 178
+ },
+ {
+  "country": "Latvia",
+  "host": "lv.coral.club",
+  "lang": "lv",
+  "status": 200,
+  "final": "https://lv.coral.club/shop/?language=lv",
+  "products": 164
+ },
+ {
+  "country": "Liechtenstein",
+  "host": "li.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://li.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Lithuania",
+  "host": "lt.coral.club",
+  "lang": "lt",
+  "status": 200,
+  "final": "https://lt.coral.club/shop/?language=lt",
+  "products": 163
+ },
+ {
+  "country": "Luxembourg",
+  "host": "lu.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://lu.coral.club/shop/?language=us",
+  "products": 181
+ },
+ {
+  "country": "Macedonia",
+  "host": "mk.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://mk.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Malta",
+  "host": "mt.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://mt.coral.club/shop/?language=us",
+  "products": 179
+ },
+ {
+  "country": "Moldavia",
+  "host": "md.coral.club",
+  "lang": "ro",
+  "status": 200,
+  "final": "https://md.coral.club/shop/?language=ro",
+  "products": 174
+ },
+ {
+  "country": "Monaco",
+  "host": "mc.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://mc.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Montenegro",
+  "host": "me.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://me.coral.club/shop/?language=us",
+  "products": 181
+ },
+ {
+  "country": "Netherlands",
+  "host": "nl.coral.club",
+  "lang": "de",
+  "status": 200,
+  "final": "https://nl.coral.club/shop/?language=de",
+  "products": 180
+ },
+ {
+  "country": "Norway",
+  "host": "no.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://no.coral.club/shop/?language=us",
+  "products": 183
+ },
+ {
+  "country": "Poland",
+  "host": "pl.coral.club",
+  "lang": "pl",
+  "status": 200,
+  "final": "https://pl.coral.club/shop/?language=pl",
+  "products": 178
+ },
+ {
+  "country": "Portugal",
+  "host": "pt.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://pt.coral.club/shop/?language=us",
+  "products": 171
+ },
+ {
+  "country": "Romania",
+  "host": "ro.coral.club",
+  "lang": "ro",
+  "status": 200,
+  "final": "https://ro.coral.club/shop/?language=ro",
+  "products": 181
+ },
+ {
+  "country": "Russia",
+  "host": "coralclub.ru",
+  "lang": "ru",
+  "status": 200,
+  "final": "https://coralclub.ru/shop/?language=ru",
+  "products": 254
+ },
+ {
+  "country": "San Marino",
+  "host": "sm.coral.club",
+  "lang": "it",
+  "status": 200,
+  "final": "https://sm.coral.club/shop/?language=it",
+  "products": 178
+ },
+ {
+  "country": "Serbia",
+  "host": "rs.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://rs.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Slovakia",
+  "host": "sk.coral.club",
+  "lang": "sk",
+  "status": 200,
+  "final": "https://sk.coral.club/shop/?language=sk",
+  "products": 178
+ },
+ {
+  "country": "Slovenia",
+  "host": "si.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://si.coral.club/shop/?language=us",
+  "products": 176
+ },
+ {
+  "country": "Spain",
+  "host": "es.coral.club",
+  "lang": "es",
+  "status": 200,
+  "final": "https://es.coral.club/shop/?language=es",
+  "products": 171
+ },
+ {
+  "country": "Sweden",
+  "host": "se.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://se.coral.club/shop/?language=us",
+  "products": 182
+ },
+ {
+  "country": "Switzerland",
+  "host": "ch.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://ch.coral.club/shop/?language=us",
+  "products": 184
+ },
+ {
+  "country": "Ukraine",
+  "host": "ua.coral.club",
+  "lang": "ua",
+  "status": 200,
+  "final": "https://ua.coral.club/shop/?language=ua",
+  "products": 184
+ },
+ {
+  "country": "United Kingdom",
+  "host": "gb.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://gb.coral.club/shop/?language=us",
+  "products": 180
+ },
+ {
+  "country": "Antigua and Barbuda",
+  "host": "ag.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://ag.coral.club/shop/?language=us",
+  "products": 177
+ },
+ {
+  "country": "Bahamas",
+  "host": "bs.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://bs.coral.club/shop/?language=us",
+  "products": 177
+ },
+ {
+  "country": "Barbados",
+  "host": "bb.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://bb.coral.club/shop/?language=us",
+  "products": 177
+ },
+ {
+  "country": "Canada",
+  "host": "coralclub.ca",
+  "lang": "us",
+  "status": 200,
+  "final": "https://coralclub.ca/shop/?language=us",
+  "products": 184
+ },
+ {
+  "country": "Dominica",
+  "host": "dm.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://dm.coral.club/shop/?language=us",
+  "products": 177
+ },
+ {
+  "country": "Dominican Republic",
+  "host": "do.coral.club",
+  "lang": "es",
+  "status": 200,
+  "final": "https://do.coral.club/shop/?language=es",
+  "products": 177
+ },
+ {
+  "country": "Grenada",
+  "host": "gd.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://gd.coral.club/shop/?language=us",
+  "products": 177
+ },
+ {
+  "country": "Haiti",
+  "host": "ht.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://ht.coral.club/shop/?language=us",
+  "products": 177
+ },
+ {
+  "country": "Jamaica",
+  "host": "jm.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://jm.coral.club/shop/?language=us",
+  "products": 177
+ },
+ {
+  "country": "Panama",
+  "host": "pa.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://pa.coral.club/shop/?language=us",
+  "products": 177
+ },
+ {
+  "country": "Trinidad and Tobago",
+  "host": "tt.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://tt.coral.club/shop/?language=us",
+  "products": 177
+ },
+ {
+  "country": "United States",
+  "host": "coralclub.us",
+  "lang": "us",
+  "status": 200,
+  "final": "https://coralclub.us/shop/?language=us",
+  "products": 183
+ },
+ {
+  "country": "Guyana",
+  "host": "gy.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://gy.coral.club/shop/?language=us",
+  "products": 189
+ },
+ {
+  "country": "Suriname",
+  "host": "sr.coral.club",
+  "lang": "us",
+  "status": 200,
+  "final": "https://sr.coral.club/shop/?language=us",
+  "products": 189
+ }
+]

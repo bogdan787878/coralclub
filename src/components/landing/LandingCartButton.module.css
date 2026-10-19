@@ -50,3 +50,11 @@
     bottom: calc(100px + env(safe-area-inset-bottom, 0px));
   }
 }
+
+/* the L.A.B Space discount line in the cart drawer (info only, no code) */
+.discountNote {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  color: var(--color-text-muted);
+}

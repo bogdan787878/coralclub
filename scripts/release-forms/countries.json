@@ -1,0 +1,642 @@
+[
+ {
+  "country": "Algeria",
+  "host": "dz.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Angola",
+  "host": "ao.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Burkina Faso",
+  "host": "bf.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Burundi",
+  "host": "bi.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Cameroon",
+  "host": "cm.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Gabon",
+  "host": "ga.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Gambia",
+  "host": "gm.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Ghana",
+  "host": "gh.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Guinea",
+  "host": "gn.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Guinea-Bissau",
+  "host": "gw.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Lesotho",
+  "host": "ls.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Liberia",
+  "host": "lr.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Madagascar",
+  "host": "mg.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Malawi",
+  "host": "mw.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Mauritania",
+  "host": "mr.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Morocco",
+  "host": "ma.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Mozambique",
+  "host": "mz.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Niger",
+  "host": "ne.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Nigeria",
+  "host": "ng.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Rwanda",
+  "host": "rw.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Senegal",
+  "host": "sn.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Seychelles",
+  "host": "sc.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "South Africa",
+  "host": "za.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Swaziland",
+  "host": "sz.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Togo",
+  "host": "tg.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Tunisia",
+  "host": "tn.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Bahrain",
+  "host": "bh.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Bangladesh",
+  "host": "bd.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Bhutan",
+  "host": "bt.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Brunei Darussalam",
+  "host": "bn.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Cambodia",
+  "host": "kh.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "India",
+  "host": "in.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Indonesia",
+  "host": "id.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Israel",
+  "host": "il.coral.club",
+  "lang": "il"
+ },
+ {
+  "country": "Japan",
+  "host": "jp.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Jordan",
+  "host": "jo.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Kazakhstan",
+  "host": "coral-club.kz",
+  "lang": "ru"
+ },
+ {
+  "country": "Korea (Republic of)",
+  "host": "kr.coral.club",
+  "lang": "ru"
+ },
+ {
+  "country": "Kuwait",
+  "host": "kw.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Kyrgyzstan",
+  "host": "coralclub.kg",
+  "lang": "ru"
+ },
+ {
+  "country": "Lao People's Democratic Republic",
+  "host": "la.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Lebanon",
+  "host": "lb.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Mongolia",
+  "host": "mn.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Oman",
+  "host": "om.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Philippines",
+  "host": "ph.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Qatar",
+  "host": "qa.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Saudi Arabia",
+  "host": "sa.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Singapore",
+  "host": "sg.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Sri Lanka",
+  "host": "lk.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Taiwan",
+  "host": "tw.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Tajikistan",
+  "host": "tj.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Thailand",
+  "host": "th.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Turkey",
+  "host": "coralclub.com.tr",
+  "lang": "tr"
+ },
+ {
+  "country": "United Arab Emirates",
+  "host": "ae.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Uzbekistan",
+  "host": "coralclub.co.uz",
+  "lang": "ru"
+ },
+ {
+  "country": "Australia",
+  "host": "au.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Kiribati",
+  "host": "ki.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Micronesia (Federated States of)",
+  "host": "fm.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Nauru",
+  "host": "nr.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "New Zealand",
+  "host": "nz.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Palau",
+  "host": "pw.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Papua New Guinea",
+  "host": "pg.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Solomon Islands",
+  "host": "sb.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Tonga",
+  "host": "to.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Tuvalu",
+  "host": "tv.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Albania",
+  "host": "al.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Andorra",
+  "host": "ad.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Armenia",
+  "host": "am.coral.club",
+  "lang": "ru"
+ },
+ {
+  "country": "Austria",
+  "host": "at.coral.club",
+  "lang": "de"
+ },
+ {
+  "country": "Belarus",
+  "host": "coral-club.by",
+  "lang": "ru"
+ },
+ {
+  "country": "Belgium",
+  "host": "be.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Bosnia and Herzegovina",
+  "host": "ba.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Bulgaria",
+  "host": "bg.coral.club",
+  "lang": "bg"
+ },
+ {
+  "country": "Canary Islands",
+  "host": "ic.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Channel Islands",
+  "host": "je.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Croatia",
+  "host": "hr.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Cyprus",
+  "host": "cy.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Czech Republic",
+  "host": "cz.coral.club",
+  "lang": "cs"
+ },
+ {
+  "country": "Denmark",
+  "host": "dk.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Estonia",
+  "host": "ee.coral.club",
+  "lang": "et"
+ },
+ {
+  "country": "Finland",
+  "host": "fi.coral.club",
+  "lang": "et"
+ },
+ {
+  "country": "France",
+  "host": "fr.coral.club",
+  "lang": "fr"
+ },
+ {
+  "country": "Georgia",
+  "host": "coralclub.ge",
+  "lang": "ru"
+ },
+ {
+  "country": "Germany",
+  "host": "de.coral.club",
+  "lang": "de"
+ },
+ {
+  "country": "Global delivery",
+  "host": "global.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Greece",
+  "host": "gr.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Hungary",
+  "host": "hu.coral.club",
+  "lang": "hu"
+ },
+ {
+  "country": "Iceland",
+  "host": "is.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Ireland",
+  "host": "ie.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Italy",
+  "host": "it.coral.club",
+  "lang": "it"
+ },
+ {
+  "country": "Latvia",
+  "host": "lv.coral.club",
+  "lang": "lv"
+ },
+ {
+  "country": "Liechtenstein",
+  "host": "li.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Lithuania",
+  "host": "lt.coral.club",
+  "lang": "lt"
+ },
+ {
+  "country": "Luxembourg",
+  "host": "lu.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Macedonia",
+  "host": "mk.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Malta",
+  "host": "mt.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Moldavia",
+  "host": "md.coral.club",
+  "lang": "ro"
+ },
+ {
+  "country": "Monaco",
+  "host": "mc.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Montenegro",
+  "host": "me.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Netherlands",
+  "host": "nl.coral.club",
+  "lang": "de"
+ },
+ {
+  "country": "Norway",
+  "host": "no.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Poland",
+  "host": "pl.coral.club",
+  "lang": "pl"
+ },
+ {
+  "country": "Portugal",
+  "host": "pt.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Romania",
+  "host": "ro.coral.club",
+  "lang": "ro"
+ },
+ {
+  "country": "Russia",
+  "host": "coralclub.ru",
+  "lang": "ru"
+ },
+ {
+  "country": "San Marino",
+  "host": "sm.coral.club",
+  "lang": "it"
+ },
+ {
+  "country": "Serbia",
+  "host": "rs.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Slovakia",
+  "host": "sk.coral.club",
+  "lang": "sk"
+ },
+ {
+  "country": "Slovenia",
+  "host": "si.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Spain",
+  "host": "es.coral.club",
+  "lang": "es"
+ },
+ {
+  "country": "Sweden",
+  "host": "se.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Switzerland",
+  "host": "ch.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Ukraine",
+  "host": "ua.coral.club",
+  "lang": "ua"
+ },
+ {
+  "country": "United Kingdom",
+  "host": "gb.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Antigua and Barbuda",
+  "host": "ag.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Bahamas",
+  "host": "bs.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Barbados",
+  "host": "bb.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Canada",
+  "host": "coralclub.ca",
+  "lang": "us"
+ },
+ {
+  "country": "Dominica",
+  "host": "dm.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Dominican Republic",
+  "host": "do.coral.club",
+  "lang": "es"
+ },
+ {
+  "country": "Grenada",
+  "host": "gd.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Haiti",
+  "host": "ht.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Jamaica",
+  "host": "jm.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Panama",
+  "host": "pa.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Trinidad and Tobago",
+  "host": "tt.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "United States",
+  "host": "coralclub.us",
+  "lang": "us"
+ },
+ {
+  "country": "Guyana",
+  "host": "gy.coral.club",
+  "lang": "us"
+ },
+ {
+  "country": "Suriname",
+  "host": "sr.coral.club",
+  "lang": "us"
+ }
+]
