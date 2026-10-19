@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { track } from "@/lib/analytics";
 import { submitLead } from "@/lib/leads";
 import styles from "./LeadModal.module.css";
@@ -9,8 +9,25 @@ type Status = "idle" | "sending" | "done" | "error";
 
 export const LEAD_FORM_ID = "consultation";
 
-/** A phone is complete from ten digits (a Russian number without the +7). */
-const phoneDigits = (v: string) => v.replace(/\D/g, "").length;
+/**
+ * Russian phone mask: +7 (999) 999-99-99. Typing, pasting "8 999 …" or
+ * "+7999…" and browser autofill all end up in the same shape; a leading 7 or
+ * 8 is the country / trunk code, not part of the ten digits.
+ */
+export function formatRuPhone(raw: string): string {
+  let d = raw.replace(/\D/g, "");
+  if (d.startsWith("7") || d.startsWith("8")) d = d.slice(1);
+  d = d.slice(0, 10);
+  if (!d) return "";
+  let out = `+7 (${d.slice(0, 3)}`;
+  if (d.length > 3) out += `) ${d.slice(3, 6)}`;
+  if (d.length > 6) out += `-${d.slice(6, 8)}`;
+  if (d.length > 8) out += `-${d.slice(8, 10)}`;
+  return out;
+}
+
+/** A phone is complete at ten digits after the +7. */
+const phoneComplete = (v: string) => v.replace(/\D/g, "").length === 11;
 
 /**
  * The consultation request form — a phone number and one button. One
@@ -40,7 +57,8 @@ export function LeadForm({
     track("lead_form_view", { form_id: LEAD_FORM_ID, source, presentation });
   }, [source, presentation]);
 
-  const valid = phoneDigits(phone) >= 10;
+  const valid = phoneComplete(phone);
+  const fieldId = useId();
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -92,18 +110,26 @@ export function LeadForm({
         Оставьте номер телефона — мы перезвоним и подберём персональную систему.
       </p>
 
-      <label className={styles.field}>
-        <span>Телефон</span>
-        <input
-          type="tel"
-          inputMode="tel"
-          autoComplete="tel"
-          placeholder="+7 999 111-22-33"
-          value={phone}
-          aria-invalid={touched && !valid}
-          onChange={(e) => setPhone(e.target.value)}
-        />
-      </label>
+      <div className={styles.float}>
+        <div
+          className={`${styles.floatBox} ${touched && !valid ? styles.floatBoxActive : ""}`}
+        >
+          <input
+            id={fieldId}
+            className={styles.floatInput}
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            placeholder="+7 (999) 999-99-99"
+            value={phone}
+            aria-invalid={touched && !valid}
+            onChange={(e) => setPhone(formatRuPhone(e.target.value))}
+          />
+          <label htmlFor={fieldId} className={styles.floatLabel}>
+            Телефон
+          </label>
+        </div>
+      </div>
 
       {touched && !valid && (
         <p className={styles.error} role="alert">
