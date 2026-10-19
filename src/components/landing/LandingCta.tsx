@@ -23,6 +23,7 @@ export function LandingCta({
     <Button
       variant={variant}
       className={className}
+      data-analytics-id={`consult_cta_${source}`}
       onClick={() => open(source)}
     >
       {children}
@@ -34,9 +35,11 @@ export function LandingCta({
 export function PromoCode({
   code,
   className,
+  analyticsId = "promo_code_btn",
 }: {
   code: string;
   className?: string;
+  analyticsId?: string;
 }) {
   const [copied, setCopied] = useState(false);
   const copy = async () => {
@@ -54,6 +57,7 @@ export function PromoCode({
       className={className}
       onClick={copy}
       aria-label={`Скопировать промокод ${code}`}
+      data-analytics-id={analyticsId}
     >
       {code}
       <span aria-live="polite">{copied ? " · скопировано" : ""}</span>

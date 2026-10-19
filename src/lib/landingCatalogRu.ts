@@ -701,3 +701,25 @@ export const LANDING_SETS_RU: LandingSetRu[] = nbspDeep(RAW_LANDING_SETS_RU);
 
 /** The regular (non-club) price of a bundle. */
 export const setRegularRub = (set: LandingSetRu): number => set.priceRub * 1.25;
+
+/**
+ * Bonus points (PV) per unit, by coralclub.ru article — what the shop's own
+ * basket shows (`data-bonus`). Analytics sends the sum as `bonus_points`.
+ */
+export const LANDING_BONUS: Record<string, number> = {
+  "80380": 48,
+  "80720": 70,
+  "2260": 30,
+  "2270": 35,
+  "610105": 20,
+  "610205": 20,
+  "610305": 20,
+  "22600303": 112,
+  "22600302": 112,
+  "2270315": 110.5,
+  "226003": 92,
+  "227003": 110,
+  "6103053": 60,
+  "6101053": 60,
+  "6102053": 60,
+};

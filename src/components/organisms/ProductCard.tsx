@@ -105,6 +105,7 @@ function MaybeLink({
   tabIndex?: number;
   style?: CSSProperties;
   "aria-hidden"?: boolean | "true" | "false";
+  "data-analytics-id"?: string;
 }) {
   return href ? (
     <Link href={href} {...rest}>
@@ -200,6 +201,7 @@ export function ProductCard({
                   <MaybeLink
                     href={href}
                     className={styles.frame}
+                    data-analytics-id="card_photo_link"
                     tabIndex={-1}
                     style={fit === "cover" ? { inset: 0 } : undefined}
                   >
@@ -244,6 +246,7 @@ export function ProductCard({
               className={`${styles.arrow} ${styles.arrowPrev}`}
               onClick={() => page(-1)}
               aria-label="Previous image"
+              data-analytics-id="card_image_prev"
               disabled={active === 0}
               tabIndex={-1}
             >
@@ -254,6 +257,7 @@ export function ProductCard({
               className={`${styles.arrow} ${styles.arrowNext}`}
               onClick={() => page(1)}
               aria-label="Next image"
+              data-analytics-id="card_image_next"
               disabled={active === images.length - 1}
               tabIndex={-1}
             >
@@ -268,6 +272,7 @@ export function ProductCard({
               <button
                 type="button"
                 aria-label="Remove one"
+                data-analytics-id="card_qty_dec"
                 onClick={() => {
                   setActed(true);
                   onSetQty?.(cartQty - 1);
@@ -281,6 +286,7 @@ export function ProductCard({
               <button
                 type="button"
                 aria-label="Add one"
+                data-analytics-id="card_qty_inc"
                 onClick={() => {
                   setActed(true);
                   onSetQty?.(cartQty + 1);
@@ -298,6 +304,7 @@ export function ProductCard({
               }}
               className={styles.cart + anim}
               aria-label="Add to bag"
+              data-analytics-id="card_add_to_cart_btn"
             >
               <CartIcon />
             </button>
@@ -339,7 +346,11 @@ export function ProductCard({
         ) : null}
 
         <h3 className={styles.title}>
-          <MaybeLink href={href} className={styles.titleLink}>
+          <MaybeLink
+            href={href}
+            className={styles.titleLink}
+            data-analytics-id="card_name_link"
+          >
             {title}
           </MaybeLink>
         </h3>

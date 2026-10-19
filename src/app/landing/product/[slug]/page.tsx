@@ -17,6 +17,7 @@ import { LandingHeader } from "@/components/landing/LandingHeader";
 import { IncludedProductDetails } from "@/components/landing/IncludedProductDetails";
 import { IncludedProductSheet } from "@/components/landing/IncludedProductSheet";
 import { LandingCards } from "@/components/landing/LandingCards";
+import { TrackViewItem } from "@/components/landing/TrackViewItem";
 import { LandingCartButton } from "@/components/landing/LandingCartButton";
 import { landingGallery } from "@/lib/landingGallery";
 import { BEAUTY_SLUGS, MAIN_SITE_URL } from "@/lib/beautySystem";
@@ -177,12 +178,14 @@ export default async function LandingProductPage({
 
   return (
     <div className="appShell">
-      <main className={shop.page}>
+      <main className={shop.page} data-analytics-location="product_card">
         {/* desktop only (see .desktopHeader) — on mobile/tablet the floating
             back + share controls below do this job instead */}
         <div className={shop.desktopHeader}>
           <LandingHeader homeHref={homeHref} />
         </div>
+
+        <TrackViewItem coralId={ru.ruId} />
 
         <div className={shop.imageControls}>
           <BackButton className={shop.circleBtn} fallbackHref="/landing/" />
@@ -361,7 +364,11 @@ export default async function LandingProductPage({
               Ещё из системы красоты
             </Heading>
           </Container>
-          <LandingCards cards={others} />
+          <LandingCards
+            cards={others}
+            listId="pdp_similar"
+            listName="Ещё из системы красоты"
+          />
         </Section>
       </main>
     </div>

@@ -28,6 +28,7 @@ export function BackButton({
       className={className}
       onClick={goBack}
       aria-label="Back"
+      data-analytics-id="pdp_back_btn"
     >
       <ChevronLeft />
     </button>

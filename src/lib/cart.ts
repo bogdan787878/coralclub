@@ -91,6 +91,26 @@ function subscribe(cb: () => void): () => void {
 
 /* ------------------------------ mutations ----------------------------- */
 
+export type CartChange = {
+  type: "add" | "remove";
+  coralId: string;
+  /** Units added (add) or taken out (remove) — always positive. */
+  qty: number;
+};
+
+/** Tells the analytics layer what just happened to the cart. */
+function announce(change: CartChange): void {
+  if (typeof window === "undefined" || change.qty <= 0) return;
+  window.dispatchEvent(
+    new CustomEvent<CartChange>("coralclub:cart:change", { detail: change }),
+  );
+}
+
+/** The current lines, outside React. */
+export function getCart(): CartLine[] {
+  return read();
+}
+
 export function addItem(item: CartAddItem, qty = 1): void {
   const lines = read();
   const existing = lines.find((l) => l.coralId === item.coralId);
@@ -100,10 +120,12 @@ export function addItem(item: CartAddItem, qty = 1): void {
     lines.push({ ...item, qty });
   }
   write(lines);
+  announce({ type: "add", coralId: item.coralId, qty });
 }
 
 export function setQty(coralId: string, qty: number): void {
   let lines = read();
+  const before = lines.find((l) => l.coralId === coralId)?.qty ?? 0;
   if (qty <= 0) {
     lines = lines.filter((l) => l.coralId !== coralId);
   } else {
@@ -111,10 +133,16 @@ export function setQty(coralId: string, qty: number): void {
     if (line) line.qty = qty;
   }
   write(lines);
+  const next = Math.max(0, qty);
+  if (next > before) announce({ type: "add", coralId, qty: next - before });
+  else if (next < before)
+    announce({ type: "remove", coralId, qty: before - next });
 }
 
 export function removeItem(coralId: string): void {
+  const before = read().find((l) => l.coralId === coralId)?.qty ?? 0;
   write(read().filter((l) => l.coralId !== coralId));
+  announce({ type: "remove", coralId, qty: before });
 }
 
 export function clearCart(): void {

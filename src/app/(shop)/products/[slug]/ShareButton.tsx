@@ -45,6 +45,7 @@ export function ShareButton({
       className={className}
       onClick={onShare}
       aria-label={copied ? "Link copied" : "Share"}
+      data-analytics-id="pdp_share_btn"
     >
       <ShareIcon />
     </button>

@@ -75,6 +75,8 @@ export function LandingCartButton({
           className={`${styles.fab}${aboveBar ? ` ${styles.aboveBar}` : ""}`}
           onClick={openCart}
           aria-label={`Корзина, товаров: ${count}`}
+          data-analytics-id="header_cart_icon"
+          data-analytics-location="header"
         >
           <BagIcon />
           <span className={styles.badge}>{count}</span>

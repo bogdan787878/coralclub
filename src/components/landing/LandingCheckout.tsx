@@ -17,6 +17,8 @@ import {
   type CartLine,
 } from "@/lib/cart";
 import { FRIEND_REF_CODE, FRIEND_USER_ID } from "@/lib/beautySystem";
+import { track, trackOnce } from "@/lib/analytics";
+import { CURRENCY as GA_CURRENCY, summarize } from "@/lib/analyticsRu";
 import {
   LANDING_PRODUCTS_RU,
   formatRub,
@@ -432,6 +434,26 @@ function FloatInput({
   );
 }
 
+/** The shop's delivery group → the spec's delivery_type_code. */
+const deliveryTypeCode = (group: string) =>
+  /pick|пвз|самовывоз|пункт/i.test(group)
+    ? "pickup"
+    : /post|почт/i.test(group)
+      ? "post"
+      : "courier";
+
+/** A payment method's name → the spec's payment_type_code. */
+const paymentTypeCode = (name: string) =>
+  /сбп|sbp/i.test(name)
+    ? "sbp"
+    : /paypal/i.test(name)
+      ? "paypal"
+      : /налож|наличн|курьер|при получении/i.test(name)
+        ? "cod"
+        : /кошел|wallet|юmoney|юмани/i.test(name)
+          ? "wallet"
+          : "bank_card";
+
 export function LandingCheckout() {
   const cart = useCart();
 
@@ -489,6 +511,8 @@ export function LandingCheckout() {
   });
   const [skipped, setSkipped] = useState<string[]>([]);
   const [siteNote, setSiteNote] = useState("");
+  // events describe the Russian shop's checkout only (roubles, our catalog)
+  const analyticsOn = !site || site === "coralclub.ru";
   const picked = useRef(false);
   const synced = useRef("");
   const deliveryKey = `${site}|${country}|${city}|${area}`;
@@ -618,6 +642,20 @@ export function LandingCheckout() {
       cancelled = true;
     };
   }, [cart, cartKey, site]);
+
+  // the checkout is open with the cart in it (spec: begin_checkout)
+  useEffect(() => {
+    if (ready !== "ok" || !analyticsOn) return;
+    const s = summarize(cart);
+    if (!s.items.length) return;
+    trackOnce("begin_checkout", () =>
+      track(
+        "begin_checkout",
+        { bonus_points: s.bonus_points },
+        { currency: GA_CURRENCY, value: s.value, items: s.items },
+      ),
+    );
+  }, [ready, analyticsOn, cart]);
 
   // delivery options for the chosen country / city
   useEffect(() => {
@@ -863,6 +901,18 @@ export function LandingCheckout() {
         error?: string;
       };
       if (data.result) {
+        if (analyticsOn) {
+          const goods = summarize(cart);
+          track("payment_start", {
+            order_id: String(data.result),
+            payment_type_code: paymentTypeCode(
+              payments.find((x) => x.ID === paymentId)?.NAME ?? "",
+            ),
+            payment_gateway: "shop_payment_page",
+            order_total: num(totals?.TOTAL_PRICE) || goods.value,
+            currency: GA_CURRENCY,
+          });
+        }
         // the shop's own payment page → payment gateway. Russia and Belarus
         // use the short address; every other country carries the payment id
         // in it (as the shop's own checkout does) — without it: a 404.
@@ -1118,7 +1168,16 @@ export function LandingCheckout() {
                       type="radio"
                       name="delivery"
                       checked={deliveryId === it.ID}
-                      onChange={() => setDeliveryId(it.ID)}
+                      onChange={() => {
+                        setDeliveryId(it.ID);
+                        if (analyticsOn) {
+                          track("delivery_method_selected", {
+                            delivery_type_code: deliveryTypeCode(it.group),
+                            delivery_service: it.NAME || it.group,
+                            delivery_cost: Number(it.PRICE) || 0,
+                          });
+                        }
+                      }}
                     />
                     <span>
                       {it.NAME || it.group}
@@ -1265,7 +1324,15 @@ export function LandingCheckout() {
                     type="radio"
                     name="payment"
                     checked={paymentId === p.ID}
-                    onChange={() => setPaymentId(p.ID)}
+                    onChange={() => {
+                      setPaymentId(p.ID);
+                      if (analyticsOn) {
+                        track("payment_method_selected", {
+                          payment_type_code: paymentTypeCode(p.NAME),
+                          payment_method_name: p.NAME,
+                        });
+                      }
+                    }}
                   />
                   <span>{p.NAME}</span>
                 </label>

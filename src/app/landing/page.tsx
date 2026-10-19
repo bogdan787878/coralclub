@@ -95,10 +95,17 @@ export default function LandingPage() {
   return (
     <div className="appShell">
       <LeadModalProvider>
-        <main className={styles.page}>
+        <main className={styles.page} data-analytics-location="home">
           <LandingHeader homeHref={MAIN_SITE_URL} />
 
-          <section className={styles.hero}>
+          <section
+            className={styles.hero}
+            data-analytics-section="hero"
+            data-analytics-promo="labspace_beauty_system"
+            data-analytics-promo-name="Система красоты — Coral Club"
+            data-analytics-creative="banner_landing_hero"
+            data-analytics-slot="slot_hero_1"
+          >
             <div className={styles.heroMedia}>
               <Image
                 src={img("hero-collection.webp")}
@@ -124,7 +131,7 @@ export default function LandingPage() {
             </Container>
           </section>
 
-          <section id="why" className={styles.why}>
+          <section id="why" className={styles.why} data-analytics-section="why">
             <Container>
               <div className={styles.whyInner}>
                 <div className={styles.whyCopy}>
@@ -136,23 +143,42 @@ export default function LandingPage() {
                     комплексный подход к красоте и здоровью.
                   </p>
                 </div>
-                <div className={styles.promo}>
+                <div
+                  className={styles.promo}
+                  data-analytics-promo="labspace15_promo"
+                  data-analytics-promo-name="Промокод LABSPACE15 на продукты Системы Красоты"
+                  data-analytics-creative="promo_code_block"
+                  data-analytics-slot="slot_why_1"
+                >
                   <p className={styles.promoText}>
                     Получите специальную скидку по промокоду{" "}
-                    <PromoCode code={PROMO_CODE} className={styles.promoCode} />{" "}
+                    <PromoCode
+                      code={PROMO_CODE}
+                      className={styles.promoCode}
+                      analyticsId="home_promo_code_btn"
+                    />{" "}
                     на продукты Системы Красоты
                   </p>
                 </div>
               </div>
             </Container>
             <div id="products" className={styles.cards}>
-              <LandingCards cards={cards} />
+              <LandingCards
+                cards={cards}
+                listId="landing_why"
+                listName="Почему наша система работает"
+              />
             </div>
           </section>
 
           <Ingredients />
 
-          <Section tone="surface" id="masks" className={styles.section}>
+          <Section
+            tone="surface"
+            id="masks"
+            className={styles.section}
+            data-analytics-section="masks"
+          >
             <Container>
               <div className={styles.block}>
                 <div className={`${styles.blockMedia} ${styles.blockMedia43}`}>
@@ -183,6 +209,8 @@ export default function LandingPage() {
                   <div className={styles.carouselBleed}>
                     <LandingCards
                       cards={cardsFor(MASK_SLUGS)}
+                      listId="landing_masks"
+                      listName="Маски"
                       label="Маски"
                       minCols={4}
                     />
@@ -192,7 +220,12 @@ export default function LandingPage() {
             </Container>
           </Section>
 
-          <Section tone="default" id="collagen" className={styles.section}>
+          <Section
+            tone="default"
+            id="collagen"
+            className={styles.section}
+            data-analytics-section="collagen"
+          >
             <Container>
               <div className={styles.block}>
                 <div className={styles.blockMedia}>
@@ -223,6 +256,8 @@ export default function LandingPage() {
                   <div className={styles.carouselBleed}>
                     <LandingCards
                       cards={cardsFor(COLLAGEN_SLUGS)}
+                      listId="landing_collagen"
+                      listName="Коллаген"
                       label="Коллаген"
                       minCols={4}
                     />
@@ -232,7 +267,12 @@ export default function LandingPage() {
             </Container>
           </Section>
 
-          <Section tone="surface" id="hydramax" className={styles.section}>
+          <Section
+            tone="surface"
+            id="hydramax"
+            className={styles.section}
+            data-analytics-section="hydramax"
+          >
             <Container>
               <div className={styles.block}>
                 <div className={styles.blockMedia}>
@@ -262,6 +302,8 @@ export default function LandingPage() {
                   <div className={styles.carouselBleed}>
                     <LandingCards
                       cards={cardsFor(HYDRAMAX_SLUGS)}
+                      listId="landing_hydramax"
+                      listName="Гидратация"
                       label="Гидратация"
                       minCols={4}
                     />
@@ -271,7 +313,12 @@ export default function LandingPage() {
             </Container>
           </Section>
 
-          <Section tone="default" id="sets" className={styles.section}>
+          <Section
+            tone="default"
+            id="sets"
+            className={styles.section}
+            data-analytics-section="sets"
+          >
             <Container>
               <Heading as="h2" className={styles.h2}>
                 Выгодные <Accent>наборы</Accent>
@@ -282,7 +329,12 @@ export default function LandingPage() {
             </div>
           </Section>
 
-          <Section tone="surface" id="reviews" className={styles.section}>
+          <Section
+            tone="surface"
+            id="reviews"
+            className={styles.section}
+            data-analytics-section="reviews"
+          >
             <Container>
               <Reviews
                 title="Что говорят покупатели"
@@ -297,7 +349,12 @@ export default function LandingPage() {
             </Container>
           </Section>
 
-          <Section tone="default" id="consultation" className={styles.section}>
+          <Section
+            tone="default"
+            id="consultation"
+            className={styles.section}
+            data-analytics-section="consultation"
+          >
             <Container>
               <div className={styles.consult}>
                 <h2 className={styles.consultTitle}>
@@ -313,7 +370,7 @@ export default function LandingPage() {
             </Container>
           </Section>
 
-          <footer className={styles.footer}>
+          <footer className={styles.footer} data-analytics-location="footer">
             <Container>
               <div className={styles.footerBrand}>
                 <CoralClubLogo className={styles.footerLogo} />
@@ -323,7 +380,7 @@ export default function LandingPage() {
                 aria-label="Навигация по странице"
               >
                 {NAV.map(([href, label]) => (
-                  <a key={href} href={href}>
+                  <a key={href} href={href} data-analytics-id="footer_nav_link">
                     {label}
                   </a>
                 ))}

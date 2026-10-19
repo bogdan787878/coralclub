@@ -45,7 +45,12 @@ const ROWS: Logo[][] = [
  */
 export function Ingredients() {
   return (
-    <Section tone="surface" id="ingredients" className={styles.section}>
+    <Section
+      tone="surface"
+      id="ingredients"
+      className={styles.section}
+      data-analytics-section="ingredients"
+    >
       <Container>
         <div className={styles.inner}>
           <div className={styles.copy}>

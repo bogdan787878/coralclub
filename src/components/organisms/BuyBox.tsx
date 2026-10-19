@@ -118,6 +118,7 @@ export function BuyBox({
                 <button
                   type="button"
                   aria-label={labels?.removeOne ?? "Remove one"}
+                  data-analytics-id="pdp_qty_dec"
                   onClick={() => bump(qty - 1)}
                 >
                   −
@@ -128,6 +129,7 @@ export function BuyBox({
                 <button
                   type="button"
                   aria-label={labels?.addOne ?? "Add one"}
+                  data-analytics-id="pdp_qty_inc"
                   onClick={() => bump(qty + 1)}
                 >
                   +
@@ -139,6 +141,7 @@ export function BuyBox({
                 type="button"
                 className={`${styles.inCart}${anim}`}
                 aria-label={labels.openCart ?? labels.inCart}
+                data-analytics-id="pdp_in_cart_btn"
                 onClick={openCart}
               >
                 <span>{labels.inCart}</span>
@@ -150,6 +153,7 @@ export function BuyBox({
           <Button
             variant="primary"
             className={styles.action + anim}
+            data-analytics-id="pdp_add_to_cart_btn"
             onClick={add}
           >
             {labels?.add ?? "Add to Cart"}

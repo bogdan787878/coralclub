@@ -77,6 +77,11 @@ export function CartDrawer({
   const [copied, setCopied] = useState(false);
   const subtotal = cartSubtotal(lines);
 
+  // the analytics layer reports "view_cart" when the drawer opens
+  useEffect(() => {
+    if (open) window.dispatchEvent(new Event("coralclub:cart:view"));
+  }, [open]);
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -118,11 +123,13 @@ export function CartDrawer({
       role="dialog"
       aria-modal="true"
       aria-label={labels.aria}
+      data-analytics-location="cart"
     >
       <button
         type="button"
         className={styles.scrim}
         aria-label={labels.closeCart}
+        data-analytics-id="cart_close_scrim"
         onClick={onClose}
       />
 
@@ -134,6 +141,7 @@ export function CartDrawer({
             className={styles.close}
             onClick={onClose}
             aria-label={labels.close}
+            data-analytics-id="cart_close_btn"
           >
             <CloseIcon />
           </button>
@@ -162,6 +170,7 @@ export function CartDrawer({
                       type="button"
                       onClick={() => setQty(l.coralId, l.qty - 1)}
                       aria-label={labels.decrease(l.name)}
+                      data-analytics-id="cart_qty_dec"
                     >
                       <MinusIcon />
                     </button>
@@ -170,6 +179,7 @@ export function CartDrawer({
                       type="button"
                       onClick={() => setQty(l.coralId, l.qty + 1)}
                       aria-label={labels.increase(l.name)}
+                      data-analytics-id="cart_qty_inc"
                     >
                       <PlusIcon />
                     </button>
@@ -179,6 +189,7 @@ export function CartDrawer({
                 <button
                   type="button"
                   className={styles.remove}
+                  data-analytics-id="cart_item_remove"
                   onClick={() => removeItem(l.coralId)}
                 >
                   {labels.remove}
@@ -197,6 +208,7 @@ export function CartDrawer({
                 className={styles.promoCode}
                 onClick={copyPromo}
                 aria-label={`${promo.code}`}
+                data-analytics-id="cart_promo_code"
               >
                 {promo.code}
                 <span aria-live="polite" className={styles.promoCopied}>
@@ -213,13 +225,19 @@ export function CartDrawer({
           <button
             type="button"
             className={styles.checkout}
+            data-analytics-id="cart_checkout_submit"
             onClick={checkout}
             disabled={lines.length === 0}
           >
             {labels.checkout}
           </button>
           {labels.clear && lines.length > 0 && (
-            <button type="button" className={styles.clear} onClick={clearCart}>
+            <button
+              type="button"
+              className={styles.clear}
+              data-analytics-id="cart_clear"
+              onClick={clearCart}
+            >
               {labels.clear}
             </button>
           )}
