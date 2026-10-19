@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import {
@@ -59,6 +59,10 @@ export type CartDrawerProps = {
   checkoutUrl?: (lines: CartLine[]) => string;
   /** A promo block above the subtotal: copy-able code + a short hint. */
   promo?: { code: string; text: string; copiedLabel: string };
+  /** Replaces "open the link in a new tab" (e.g. to go to a page of its own). */
+  onCheckout?: (lines: CartLine[]) => void;
+  /** Anything to show right above the checkout button. */
+  extra?: ReactNode;
 };
 
 /**
@@ -72,6 +76,8 @@ export function CartDrawer({
   formatMoney = formatUsd,
   checkoutUrl,
   promo,
+  onCheckout,
+  extra,
 }: CartDrawerProps) {
   const lines = useCart();
   const [copied, setCopied] = useState(false);
@@ -108,6 +114,10 @@ export function CartDrawer({
 
   const checkout = () => {
     if (!lines.length) return;
+    if (onCheckout) {
+      onCheckout(lines);
+      return;
+    }
     window.open(
       checkoutUrl ? checkoutUrl(lines) : basketHandoffUrl(lines),
       "_blank",
@@ -222,6 +232,7 @@ export function CartDrawer({
             <span>{formatMoney(subtotal)}</span>
           </div>
           {labels.note && <p className={styles.note}>{labels.note}</p>}
+          {extra}
           <button
             type="button"
             className={styles.checkout}

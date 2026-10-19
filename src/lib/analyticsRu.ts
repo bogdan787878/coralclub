@@ -9,6 +9,7 @@ import {
   LANDING_SETS_RU,
   type BeautySlug,
 } from "./landingCatalogRu";
+import { friendProductById } from "./friendCatalog";
 import type { CartLine } from "./cart";
 
 export const CURRENCY = "RUB";
@@ -40,6 +41,16 @@ export function itemFor(coralId: string): AnalyticsItem | null {
       price: product.priceRub.club,
       item_category: clean(product.category),
       item_variant: clean(product.form.label),
+    };
+  }
+  const friend = friendProductById(coralId);
+  if (friend) {
+    return {
+      item_id: friend.ruId,
+      item_name: friend.name,
+      price: friend.club,
+      item_category: friend.isSet ? "Наборы" : "Гидратация",
+      item_variant: friend.form,
     };
   }
   const set = LANDING_SETS_RU.find((s) => s.ruId === coralId);

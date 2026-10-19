@@ -5,7 +5,7 @@ import Script from "next/script";
 import { usePathname } from "next/navigation";
 import {
   GA_ID,
-  LANDING_ID,
+  landingId,
   ensureGtag,
   gaLive,
   isLandingPage,
@@ -250,7 +250,7 @@ export function Analytics() {
     if (!gaLive()) return;
     ensureGtag();
     window.gtag!("js", new Date());
-    window.gtag!("set", { webView: webViewFlag(), landing: LANDING_ID });
+    window.gtag!("set", { webView: webViewFlag(), landing: landingId() });
     window.gtag!("config", GA_ID);
     // eslint-disable-next-line react-hooks/set-state-in-effect -- only known after mount
     setLive(true);

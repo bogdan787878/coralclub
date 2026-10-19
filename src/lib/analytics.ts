@@ -21,8 +21,11 @@ export const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-MLKGZ6XHY5";
 /** Forward every event to gtag(); turn off once GTM owns the GA4 tag. */
 export const FORWARD_TO_GTAG = true;
 
-/** Which landing this build is — added to every event for easy filtering. */
-export const LANDING_ID = "labspace";
+/** Extra parameters added to every event (e.g. the referring distributor). */
+let context: Params = {};
+export function setTrackingContext(next: Params): void {
+  context = { ...context, ...next };
+}
 
 export type Params = Record<string, unknown>;
 
@@ -35,10 +38,16 @@ declare global {
 
 const inBrowser = () => typeof window !== "undefined";
 
+/** Which project the page belongs to — added to every event for filtering. */
+export const landingId = () =>
+  inBrowser() && /\/friend(\/|$)/.test(window.location.pathname)
+    ? "friend_club"
+    : "labspace";
+
 /** Landing routes only (the English prototype is not tracked): /landing/…
- *  on GitHub Pages, /landings/<name>/… on coralclub.ru. */
+ *  and /friend/… on GitHub Pages, /landings/<name>/… on coralclub.ru. */
 export const isLandingPage = () =>
-  inBrowser() && /\/landings?(\/|$)/.test(window.location.pathname);
+  inBrowser() && /\/(landings?|friend)(\/|$)/.test(window.location.pathname);
 
 const isLocalHost = () => {
   if (!inBrowser()) return true;
@@ -115,7 +124,8 @@ export function track(
   ensureGtag();
   const base: Params = {
     webView: webViewFlag(),
-    landing: LANDING_ID,
+    landing: landingId(),
+    ...context,
     ...params,
   };
 

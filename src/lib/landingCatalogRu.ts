@@ -722,4 +722,9 @@ export const LANDING_BONUS: Record<string, number> = {
   "6103053": 60,
   "6101053": 60,
   "6102053": 60,
+  // Hydration products sold by the "Друг клуба" project
+  "2200": 14,
+  "2141": 6.5,
+  "225115": 11,
+  "91800": 20,
 };
