@@ -79,7 +79,8 @@ export function AccountForm() {
   }, [phase]);
 
   const valid = channel === "email" ? isEmail(email) : isPhone(phone);
-  const hasValue = channel === "email" ? email.trim().length > 0 : phone.trim().length > 0;
+  const hasValue =
+    channel === "email" ? email.trim().length > 0 : phone.trim().length > 0;
   // Continue only shows once the field is active (focused) or filled
   const showSubmit = focused || hasValue;
 
@@ -88,7 +89,8 @@ export function AccountForm() {
       mode,
       channel,
       value:
-        (channel === "email" ? email.trim() : phone.trim()) + (extra ? ` · ${extra}` : ""),
+        (channel === "email" ? email.trim() : phone.trim()) +
+        (extra ? ` · ${extra}` : ""),
       submittedAt: new Date().toISOString(),
     });
 
@@ -121,8 +123,12 @@ export function AccountForm() {
     if (next.every((x) => x !== "")) void verify(next.join(""));
   };
 
-  const onOtpKeyDown = (i: number, e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Backspace" && !otp[i] && i > 0) otpRefs.current[i - 1]?.focus();
+  const onOtpKeyDown = (
+    i: number,
+    e: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
+    if (e.key === "Backspace" && !otp[i] && i > 0)
+      otpRefs.current[i - 1]?.focus();
   };
 
   const backToForm = () => {
@@ -143,8 +149,8 @@ export function AccountForm() {
           <h1 className={styles.title}>You&apos;re on the list</h1>
           <p className={styles.doneBody}>
             Accounts aren&apos;t live yet — we saved your{" "}
-            {channel === "email" ? "email" : "number"} and will get you in the moment sign-in is
-            connected.
+            {channel === "email" ? "email" : "number"} and will get you in the
+            moment sign-in is connected.
           </p>
           <Link href="/" className={styles.continue}>
             Back to Coral Club
@@ -157,7 +163,12 @@ export function AccountForm() {
   return (
     <div className={styles.screen}>
       {phase === "otp" ? (
-        <button type="button" className={styles.back} aria-label="Back" onClick={backToForm}>
+        <button
+          type="button"
+          className={styles.back}
+          aria-label="Back"
+          onClick={backToForm}
+        >
           <ChevronLeft />
         </button>
       ) : (
@@ -170,7 +181,11 @@ export function AccountForm() {
         <p className={styles.brand}>coralclub</p>
         <div className={styles.locale}>
           <span aria-hidden="true">USA</span>
-          <svg viewBox="0 0 12 12" aria-hidden="true" className={styles.localeChevron}>
+          <svg
+            viewBox="0 0 12 12"
+            aria-hidden="true"
+            className={styles.localeChevron}
+          >
             <path
               d="M2.5 4.5 6 8l3.5-3.5"
               fill="none"
@@ -180,7 +195,9 @@ export function AccountForm() {
               strokeLinejoin="round"
             />
           </svg>
-          <span className={styles.srOnly}>Region: USA (fixed while the shop is US-only)</span>
+          <span className={styles.srOnly}>
+            Region: USA (fixed while the shop is US-only)
+          </span>
         </div>
       </div>
 
@@ -190,7 +207,9 @@ export function AccountForm() {
         {phase === "otp" ? (
           <>
             <div className={styles.verifyBlock}>
-              <p className={styles.verifyHint}>Enter verification code from SMS</p>
+              <p className={styles.verifyHint}>
+                Enter verification code from SMS
+              </p>
               <p className={styles.verifyPhone}>{phone}</p>
             </div>
 
@@ -298,7 +317,9 @@ export function AccountForm() {
             </div>
             {touched && !valid && (
               <span className={styles.error}>
-                {channel === "email" ? "Enter a valid email" : "Enter a valid phone number"}
+                {channel === "email"
+                  ? "Enter a valid email"
+                  : "Enter a valid phone number"}
               </span>
             )}
           </>

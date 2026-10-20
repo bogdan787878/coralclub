@@ -82,9 +82,16 @@
   font-family: var(--font-sans);
 }
 
-.lines {
+/* banner + lines + recommendations scroll together */
+.body {
   flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
+}
+
+.lines {
   list-style: none;
   margin: 0;
   padding: var(--space-8) var(--space-24);

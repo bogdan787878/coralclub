@@ -121,9 +121,15 @@ function SeriesBlock({ series }: { series: SeriesView }) {
       heading={series.titleLead ? undefined : series.heading}
       product={series.product}
       images={series.images.map((src) => ({ src, alt: name }))}
-      blurbTitle={series.titleLead ? { lead: series.titleLead, accent: series.titleAccent } : undefined}
+      blurbTitle={
+        series.titleLead
+          ? { lead: series.titleLead, accent: series.titleAccent }
+          : undefined
+      }
       blurbBody={series.blurb || undefined}
-      carouselItems={series.products.length ? series.products.map(seriesCard) : undefined}
+      carouselItems={
+        series.products.length ? series.products.map(seriesCard) : undefined
+      }
     />
   );
 }
@@ -192,7 +198,9 @@ function HomeContent({
   const [prevPhase, setPrevPhase] = useState(phase);
   const [slideDir, setSlideDir] = useState(1);
   if (phase !== prevPhase) {
-    setSlideDir(phaseIds.indexOf(phase) - phaseIds.indexOf(prevPhase) >= 0 ? 1 : -1);
+    setSlideDir(
+      phaseIds.indexOf(phase) - phaseIds.indexOf(prevPhase) >= 0 ? 1 : -1,
+    );
     setPrevPhase(phase);
   }
 
@@ -250,14 +258,20 @@ function HomeContent({
         {sections.map((s, i) => {
           if (s.kind === "series") {
             const series = seriesById[s.id];
-            return series ? <SeriesBlock key={`series-${s.id}`} series={series} /> : null;
+            return series ? (
+              <SeriesBlock key={`series-${s.id}`} series={series} />
+            ) : null;
           }
           if (s.kind === "quiz") {
             return <QuizPromo key="quiz" />;
           }
           if (s.kind === "advisory-board") {
             return (
-              <AdvisoryBoard key="advisory-board" title={s.title} members={s.members} />
+              <AdvisoryBoard
+                key="advisory-board"
+                title={s.title}
+                members={s.members}
+              />
             );
           }
           return (

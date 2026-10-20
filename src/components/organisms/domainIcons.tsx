@@ -22,7 +22,10 @@ const stroke = {
 function EnergyIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 32 32" className={className} aria-hidden="true">
-      <path d="M17.33 4 6.67 18h7.33L14.67 28l10.67-14h-7.33L17.33 4Z" {...stroke} />
+      <path
+        d="M17.33 4 6.67 18h7.33L14.67 28l10.67-14h-7.33L17.33 4Z"
+        {...stroke}
+      />
     </svg>
   );
 }

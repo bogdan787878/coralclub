@@ -10,13 +10,16 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
-import { Container } from "@/components/ui";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { asset } from "@/lib/asset";
 import { track, trackOnce } from "@/lib/analytics";
 import { summarize } from "@/lib/analyticsRu";
 import { refreshCart, useCart } from "@/lib/cart";
-import { formatUsd, friendProductById } from "@/lib/friendCatalog";
+import {
+  formatUsd,
+  friendProductById,
+  friendTotals,
+} from "@/lib/friendCatalog";
 import { shopBasketUrl } from "@/lib/friend";
 import {
   api,
@@ -31,7 +34,8 @@ import { US_STATES } from "@/lib/usStates";
 import { useFriend } from "./FriendProvider";
 import { FriendRegisterCta } from "./FriendRegisterCta";
 import co from "../landing/LandingCheckout.module.css";
-import styles from "./Friend.module.css";
+import friendStyles from "./Friend.module.css";
+import styles from "./FriendCheckout.module.css";
 
 /**
  * The project's real checkout (US): the visitor's cart is put into the shop's
@@ -45,7 +49,12 @@ import styles from "./Friend.module.css";
  * handing the cart to the shop's basket page.
  */
 
-type PayMethod = { ID: string; NAME: string };
+type PayMethod = {
+  ID: string;
+  NAME: string;
+  DESCRIPTION?: string | null;
+  IMAGE?: string | null;
+};
 type DeliveryItem = {
   ID: string;
   NAME: string;
@@ -110,6 +119,24 @@ function FloatInput({
   );
 }
 
+/** "350 5th Avenue" → house number + street, the two fields the shop asks for. */
+function splitAddress(a: string): { build: string; street: string } | null {
+  const m = /^\s*(\d+[A-Za-z]?(?:[-/]\d+)?)\s+(.+?)\s*$/.exec(a);
+  return m ? { build: m[1], street: m[2] } : null;
+}
+
+const Chevron = () => (
+  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path
+      d="M4 6l4 4 4-4"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 export function FriendCheckout() {
   const cart = useCart();
   // a render can run on a stale snapshot: re-read the cart once on mount
@@ -125,6 +152,7 @@ export function FriendCheckout() {
   );
   const cartKey = lines.map((l) => `${l.coralId}:${l.qty}`).join(",");
   const goods = useMemo(() => summarize(lines), [lines]);
+  const prices = useMemo(() => friendTotals(lines), [lines]);
 
   /** `null` until the first render on the client (SSR has no window). */
   const live = useSyncExternalStore<boolean | null>(
@@ -137,17 +165,16 @@ export function FriendCheckout() {
   const [error, setError] = useState("");
   const [missing, setMissing] = useState<string[]>([]);
 
-  const [fio, setFio] = useState("");
-  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [first, setFirst] = useState("");
+  const [last, setLast] = useState("");
+  const [phone, setPhone] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [cityDraft, setCityDraft] = useState("");
-  const [build, setBuild] = useState("");
-  const [street, setStreet] = useState("");
+  const [address, setAddress] = useState("");
   const [apartment, setApartment] = useState("");
   const [zip, setZip] = useState("");
-  const [comment, setComment] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [agreeData, setAgreeData] = useState(false);
 
@@ -161,6 +188,12 @@ export function FriendCheckout() {
   const [deliveryFor, setDeliveryFor] = useState("");
   const [paymentsFor, setPaymentsFor] = useState("");
   const [totalsFor, setTotalsFor] = useState("");
+
+  // discount code: typed → checked with the shop → applied
+  const [promoOpen, setPromoOpen] = useState(false);
+  const [promoDraft, setPromoDraft] = useState("");
+  const [promo, setPromo] = useState("");
+  const [promoMsg, setPromoMsg] = useState("");
 
   const [attempted, setAttempted] = useState(false);
   const [shaking, setShaking] = useState("");
@@ -179,7 +212,7 @@ export function FriendCheckout() {
   const place = state ? `${cityForShop}|${state}` : "";
   const deliveryKey = `${cartKey}|${place}`;
   const paymentsKey = `${deliveryKey}|${deliveryId}`;
-  const totalsKey = `${paymentsKey}|${paymentId}`;
+  const totalsKey = `${paymentsKey}|${paymentId}|${promo}`;
 
   // 1 ─ the cart into the shop's basket, tied to the friend
   useEffect(() => {
@@ -305,6 +338,8 @@ export function FriendCheckout() {
     };
   }, [ready, deliveryId, place, cityForShop, state, paymentsKey]);
 
+  const parsed = splitAddress(address);
+  const fio = `${first.trim()} ${last.trim()}`.trim();
   const digits = phone.replace(/\D/g, "");
   const phoneForShop = digits.length === 10 ? `+1${digits}` : `+${digits}`;
   const profile = {
@@ -312,17 +347,17 @@ export function FriendCheckout() {
     COUNTRY_NAME: "United States",
     CITY: cityForShop,
     AREA: state,
-    STREET: street.trim(),
-    BUILD: build.trim(),
+    STREET: parsed?.street ?? "",
+    BUILD: parsed?.build ?? "",
     APARTMENT: apartment.trim(),
     POSTINDEX: zip.trim(),
     DELIVERY_TYPE: activeItem?.TYPE ?? "COURIER",
     EMAIL: email.trim(),
-    FIO: fio.trim(),
+    FIO: fio,
     PHONE: phoneForShop,
   };
 
-  // 4 ─ totals, re-read on every change of delivery / payment / address
+  // 4 ─ totals, re-read on every change of delivery / payment / address / code
   const profileKey = JSON.stringify(profile);
   useEffect(() => {
     if (ready !== "ok" || !deliveryId || !paymentId || !place) return;
@@ -330,7 +365,7 @@ export function FriendCheckout() {
     const t = setTimeout(() => {
       api<{ result?: Totals }>("/order", {
         bonusUseValue: 0,
-        promo: "",
+        promo,
         deliveryId,
         paymentId,
         pickPoint: false,
@@ -356,20 +391,47 @@ export function FriendCheckout() {
     place,
     cityForShop,
     state,
+    promo,
     profileKey,
     totalsKey,
   ]);
 
+  async function applyPromo() {
+    const code = promoDraft.trim();
+    if (!code || !deliveryId) return;
+    setPromoMsg("");
+    // the order calculation answers 500 for an unknown code, so ask first
+    const r = await api<{
+      result?: { DISCOUNT?: number | string } | number;
+      error?: string;
+    }>("/promo", {
+      promo: code,
+      deliveryId,
+      COUNTRY: "US",
+      CITY: cityForShop,
+      AREA: state,
+    });
+    const discount =
+      typeof r.result === "object" && r.result ? num(r.result.DISCOUNT) : 0;
+    if (discount > 0) {
+      setPromo(code);
+      setPromoMsg("");
+    } else {
+      setPromo("");
+      setPromoMsg("This code isn’t valid.");
+    }
+  }
+
   // required fields in page order — the first empty one gets the shake
   const required: { key: string; bad: boolean }[] = [
-    { key: "fio", bad: fio.trim().length < 3 },
-    { key: "phone", bad: digits.length < 10 },
     { key: "email", bad: !/\S+@\S+\.\S+/.test(email) },
-    { key: "state", bad: !state },
+    { key: "first", bad: first.trim().length < 1 },
+    { key: "last", bad: last.trim().length < 1 },
+    { key: "address", bad: !parsed },
     { key: "city", bad: !city },
-    { key: "build", bad: build.trim() === "" },
-    { key: "street", bad: street.trim() === "" },
+    { key: "state", bad: !state },
     { key: "zip", bad: zip.replace(/\D/g, "").length < 5 },
+    { key: "phone", bad: digits.length < 10 },
     { key: "terms", bad: !acceptTerms },
     { key: "data", bad: !agreeData },
   ];
@@ -418,16 +480,13 @@ export function FriendCheckout() {
         deliveryId,
         paymentId,
         EMAIL: email.trim(),
-        FIO: fio.trim(),
+        FIO: fio,
         PHONE: phoneForShop,
-        PROFILE: {
-          ...profile,
-          MANUAL: 1,
-          ...(comment ? { COMMENT: comment } : {}),
-        },
+        PROFILE: { ...profile, MANUAL: 1 },
+        ...(promo ? { promo } : {}),
         // the shopper's two consents, exactly as the shop's own form sends them
         additionalOrderInfo: {
-          orderComment: comment,
+          orderComment: "",
           needToContact: false,
           contactMethod: "",
           chosenMessenger: "",
@@ -454,7 +513,7 @@ export function FriendCheckout() {
             payments.find((x) => x.ID === paymentId)?.NAME ?? "",
           ),
           payment_gateway: "shop_payment_page",
-          order_total: num(totals?.TOTAL_PRICE) || goods.value,
+          order_total: num(grand) || goods.value,
           currency: "USD",
         });
         // the shop's own payment page → payment gateway (outside RU/BY the
@@ -492,152 +551,258 @@ export function FriendCheckout() {
       paymentId !== "" &&
       totalsFor !== totalsKey);
 
-  const money = (v: unknown) => (num(v) > 0 ? formatUsd(num(v)) : "—");
+  const goodsSum = totals ? num(totals.PRICE) : prices.club;
   const deliveryPrice =
     totals && totals.TOTAL_PRICE !== undefined && totals.PRICE !== undefined
       ? num(totals.TOTAL_PRICE) - num(totals.PRICE)
       : null;
+  const grand = totals
+    ? promo && totals.TOTAL_PRICE_WITH_PROMO !== undefined
+      ? totals.TOTAL_PRICE_WITH_PROMO
+      : totals.TOTAL_PRICE
+    : null;
+  const promoOff = totals
+    ? Math.max(0, num(totals.TOTAL_PRICE) - num(totals.TOTAL_PRICE_WITH_PROMO))
+    : 0;
+  const memberSaving = prices.saving;
+  const totalSaving = memberSaving + (promo ? promoOff : 0);
+  const shownTotal = grand !== null ? num(grand) : null;
 
-  const orderCard = (
-    <section className={co.card} aria-label="Your order">
-      <h2 className={co.h2}>Your order</h2>
-      <ul className={styles.rows}>
-        {lines.map((l) => (
-          <li key={l.coralId}>
-            <span className={styles.thumb}>
-              {l.image && <Image src={l.image} alt="" fill sizes="56px" />}
-            </span>
-            <span className={styles.rowName}>
-              {l.name}
-              <small>
-                {l.qty} × {l.price}
-              </small>
-            </span>
-          </li>
-        ))}
+  const field = (key: string) => ({
+    name: key,
+    shake: shaking === key,
+    attention: attempted && required.find((f) => f.key === key)?.bad,
+  });
+
+  // ---- the order summary (a bar on a phone, a panel on the web) ----
+  const summary = (
+    <div className={styles.sum}>
+      <ul className={styles.sumLines}>
+        {lines.map((l) => {
+          const p = friendProductById(l.coralId);
+          return (
+            <li key={l.coralId} className={styles.sumLine}>
+              <span className={styles.thumb}>
+                <span className={styles.thumbImg}>
+                  {l.image && <Image src={l.image} alt="" fill sizes="56px" />}
+                </span>
+                <span className={styles.badge}>{l.qty}</span>
+              </span>
+              <span className={styles.lineName}>
+                {p?.name ?? l.name}
+                {p?.form && <span className={styles.lineSub}>{p.form}</span>}
+              </span>
+              <span className={styles.lineSum}>
+                {p && (
+                  <span className={styles.was}>
+                    {formatUsd(p.regular * l.qty)}
+                  </span>
+                )}{" "}
+                {formatUsd((p?.club ?? 0) * l.qty)}
+              </span>
+            </li>
+          );
+        })}
       </ul>
-    </section>
+      <dl className={styles.rows}>
+        {memberSaving > 0 && (
+          <div className={styles.rowGood}>
+            <dt>Member discount</dt>
+            <dd>−{formatUsd(memberSaving)}</dd>
+          </div>
+        )}
+        <div>
+          <dt>Subtotal</dt>
+          <dd>{formatUsd(goodsSum)}</dd>
+        </div>
+        {promo && promoOff > 0 && (
+          <div className={styles.rowGood}>
+            <dt>Code {promo}</dt>
+            <dd>−{formatUsd(promoOff)}</dd>
+          </div>
+        )}
+        <div>
+          <dt>Shipping</dt>
+          <dd>
+            {deliveryPrice === null
+              ? "Calculated next"
+              : deliveryPrice > 0
+                ? formatUsd(deliveryPrice)
+                : "Free"}
+          </dd>
+        </div>
+        {totals && num(totals.TAX) > 0 && (
+          <div>
+            <dt>Tax</dt>
+            <dd>{formatUsd(num(totals.TAX))}</dd>
+          </div>
+        )}
+        <div className={styles.rowTotal}>
+          <dt>Total</dt>
+          <dd>{shownTotal !== null ? formatUsd(shownTotal) : "—"}</dd>
+        </div>
+      </dl>
+      {totalSaving > 0 && (
+        <p className={styles.saved}>You’re saving {formatUsd(totalSaving)}</p>
+      )}
+      {friend && (
+        <p className={styles.host}>
+          The sale goes to <strong>{friend.name}</strong> · Coral ID{" "}
+          {friend.memberId}
+          {source === "demo" ? " (test: no link, default member)" : ""}
+        </p>
+      )}
+    </div>
   );
 
-  const owner = friend && (
-    <p className={co.muted}>
-      The sale goes to <strong>{friend.name}</strong> · Coral ID{" "}
-      {friend.memberId}
-      {source === "demo" ? " (test: no link, default member)" : ""}
-    </p>
-  );
+  const barTotal = shownTotal !== null ? shownTotal : prices.club;
 
   return (
     <div className="appShell">
-      <main className={co.page} data-analytics-location="checkout">
+      <main className={styles.page} data-analytics-location="checkout">
         <LandingHeader homeHref={asset("/friend/")} />
 
-        <div
-          className={co.shell}
-          style={{
-            marginTop: "var(--space-24)",
-            // one column (the stand's two-column layout has a test panel)
-            gridTemplateColumns: "minmax(0, 560px)",
-          }}
-        >
-          <div className={co.wrap}>
-            <div className={co.top}>
-              <h1 className={co.h1}>Checkout</h1>
-            </div>
-
-            {lines.length === 0 ? (
-              <section className={co.card}>
-                <p className={co.muted}>Your cart is empty.</p>
-                <Link href="/friend/" className={co.link}>
-                  Back to the sets
-                </Link>
+        {lines.length === 0 ? (
+          <div className={styles.empty}>
+            <h1 className={styles.title}>Checkout</h1>
+            <p className={styles.host}>Your cart is empty.</p>
+            <Link href="/friend/" className={co.link}>
+              Back to the sets
+            </Link>
+          </div>
+        ) : live === false ? (
+          <div className={styles.layout}>
+            <div className={styles.main}>
+              <h1 className={styles.title}>Checkout</h1>
+              <section className={styles.totalCard}>{summary}</section>
+              <section className={styles.section}>
+                <h2 className={styles.h2}>Delivery and payment</h2>
+                <p className={styles.sub}>
+                  The live checkout — delivery to your address, payment by card
+                  or Google Pay — runs on the shop’s own domain. Continue there
+                  with this cart at member prices; no sign-up needed.
+                </p>
+                <button
+                  type="button"
+                  className={styles.pay}
+                  disabled={!friend}
+                  data-analytics-id="checkout_to_shop_btn"
+                  onClick={() => {
+                    if (!friend) return;
+                    track(
+                      "friend_redirect_to_shop",
+                      { bonus_points: goods.bonus_points },
+                      {
+                        currency: "USD",
+                        value: goods.value,
+                        items: goods.items,
+                      },
+                    );
+                    window.location.assign(shopBasketUrl(lines, friend));
+                  }}
+                >
+                  Continue on coralclub.us
+                </button>
               </section>
-            ) : live === false ? (
-              <>
-                {orderCard}
-                {owner}
-                <section className={co.card}>
-                  <h2 className={co.h2}>Delivery and payment</h2>
-                  <p className={co.muted}>
-                    The live checkout — delivery to your address, payment — runs
-                    on the shop’s own domain. Continue there with this cart at
-                    member prices; no sign-up needed.
+            </div>
+          </div>
+        ) : (
+          <div className={styles.layout}>
+            <details className={styles.sumMobile}>
+              <summary className={styles.sumHead}>
+                <span>
+                  Order summary <Chevron />
+                </span>
+                <span className={styles.sumHeadPrice}>
+                  {prices.regular > barTotal && (
+                    <span className={styles.was}>
+                      {formatUsd(prices.regular)}
+                    </span>
+                  )}
+                  <strong>{formatUsd(barTotal)}</strong>
+                </span>
+              </summary>
+              <div className={styles.sumBodyMobile}>{summary}</div>
+            </details>
+
+            <div className={styles.main}>
+              <h1 className={styles.title}>Checkout</h1>
+
+              {ready === "sync" && (
+                <p className={styles.loader} role="status">
+                  <span className={styles.spinner} aria-hidden="true" />
+                  Preparing your order…
+                </p>
+              )}
+              {error && <p className={styles.error}>{error}</p>}
+              {missing.map((m) => (
+                <p key={m} className={styles.error}>
+                  {m}
+                </p>
+              ))}
+
+              <section className={styles.section}>
+                <h2 className={styles.h2}>Contact</h2>
+                <FloatInput
+                  {...field("email")}
+                  label="Email"
+                  placeholder="name@example.com"
+                  value={email}
+                  onChange={setEmail}
+                  inputMode="email"
+                  autoComplete="email"
+                />
+              </section>
+
+              <section className={styles.section}>
+                <h2 className={styles.h2}>Delivery</h2>
+                <div className={styles.fixed}>
+                  <span>Country/Region</span>
+                  <strong>United States</strong>
+                </div>
+                <div className={styles.row}>
+                  <FloatInput
+                    {...field("first")}
+                    label="First name"
+                    value={first}
+                    onChange={setFirst}
+                    autoComplete="given-name"
+                  />
+                  <FloatInput
+                    {...field("last")}
+                    label="Last name"
+                    value={last}
+                    onChange={setLast}
+                    autoComplete="family-name"
+                  />
+                </div>
+                <FloatInput
+                  {...field("address")}
+                  label="Address"
+                  placeholder="350 5th Avenue"
+                  value={address}
+                  onChange={setAddress}
+                  autoComplete="address-line1"
+                />
+                {address.trim() !== "" && !parsed && (
+                  <p className={styles.fieldHint}>
+                    Start with the house number, for example “350 5th Avenue”.
                   </p>
-                  <button
-                    type="button"
-                    className={co.pay}
-                    disabled={!friend}
-                    data-analytics-id="checkout_to_shop_btn"
-                    onClick={() => {
-                      if (!friend) return;
-                      track(
-                        "friend_redirect_to_shop",
-                        { bonus_points: goods.bonus_points },
-                        {
-                          currency: "USD",
-                          value: goods.value,
-                          items: goods.items,
-                        },
-                      );
-                      window.location.assign(shopBasketUrl(lines, friend));
-                    }}
-                  >
-                    Continue on coralclub.us
-                  </button>
-                </section>
-              </>
-            ) : (
-              <>
-                {ready === "sync" && (
-                  <p className={co.muted}>Preparing your order…</p>
                 )}
-                {error && <p className={co.error}>{error}</p>}
-                {missing.map((m) => (
-                  <p key={m} className={co.error}>
-                    {m}
-                  </p>
-                ))}
-                {orderCard}
-                {owner}
-
-                <section className={co.card}>
-                  <h2 className={co.h2}>Contact</h2>
-                  <FloatInput
-                    label="Full name"
-                    name="fio"
-                    shake={shaking === "fio"}
-                    placeholder="Jane Smith"
-                    value={fio}
-                    onChange={setFio}
-                    attention={attempted && fio.trim().length < 3}
-                    autoComplete="name"
-                  />
-                  <FloatInput
-                    label="Phone"
-                    name="phone"
-                    shake={shaking === "phone"}
-                    placeholder="(212) 555-0123"
-                    value={phone}
-                    onChange={setPhone}
-                    attention={attempted && digits.length < 10}
-                    inputMode="tel"
-                    autoComplete="tel"
-                  />
-                  <FloatInput
-                    label="Email"
-                    name="email"
-                    shake={shaking === "email"}
-                    placeholder="name@example.com"
-                    value={email}
-                    onChange={setEmail}
-                    attention={attempted && !/\S+@\S+\.\S+/.test(email)}
-                    inputMode="email"
-                    autoComplete="email"
-                  />
-                </section>
-
-                <section className={co.card}>
-                  <h2 className={co.h2}>Delivery address</h2>
+                <FloatInput
+                  label="Apartment, suite, etc. (optional)"
+                  value={apartment}
+                  onChange={setApartment}
+                  autoComplete="address-line2"
+                />
+                <FloatInput
+                  {...field("city")}
+                  label="City"
+                  value={cityDraft}
+                  onChange={setCityDraft}
+                  autoComplete="address-level2"
+                />
+                <div className={styles.row}>
                   <div
                     className={`${co.float} ${shaking === "state" ? co.shake : ""}`}
                     data-field="state"
@@ -646,7 +811,7 @@ export function FriendCheckout() {
                       className={`${co.floatBox} ${attempted && !state ? co.floatBoxActive : ""}`}
                     >
                       <select
-                        className={`${co.floatInput} ${styles.select}`}
+                        className={`${co.floatInput} ${friendStyles.select}`}
                         value={state}
                         onChange={(e) => setState(e.target.value)}
                         autoComplete="address-level1"
@@ -682,163 +847,194 @@ export function FriendCheckout() {
                     </div>
                   </div>
                   <FloatInput
-                    label="City"
-                    name="city"
-                    shake={shaking === "city"}
-                    placeholder="New York"
-                    value={cityDraft}
-                    onChange={setCityDraft}
-                    attention={attempted && !city}
-                    autoComplete="address-level2"
+                    {...field("zip")}
+                    label="ZIP code"
+                    value={zip}
+                    onChange={setZip}
+                    inputMode="numeric"
+                    autoComplete="postal-code"
                   />
-                  <div className={co.row}>
-                    <FloatInput
-                      label="House number"
-                      name="build"
-                      shake={shaking === "build"}
-                      placeholder="350"
-                      value={build}
-                      onChange={setBuild}
-                      attention={attempted && build.trim() === ""}
-                    />
-                    <FloatInput
-                      label="Street address"
-                      name="street"
-                      shake={shaking === "street"}
-                      placeholder="5th Avenue"
-                      value={street}
-                      onChange={setStreet}
-                      attention={attempted && street.trim() === ""}
-                      autoComplete="address-line1"
-                    />
+                </div>
+                <FloatInput
+                  {...field("phone")}
+                  label="Phone"
+                  placeholder="(212) 555-0123"
+                  value={phone}
+                  onChange={setPhone}
+                  inputMode="tel"
+                  autoComplete="tel"
+                />
+              </section>
+
+              <section className={styles.section}>
+                <h2 className={styles.h2}>Shipping method</h2>
+                {!place ? (
+                  <p className={styles.hint}>
+                    Choose your state to view available shipping methods.
+                  </p>
+                ) : deliveryLoading ? (
+                  <p className={styles.loader} role="status">
+                    <span className={styles.spinner} aria-hidden="true" />
+                    Loading delivery options…
+                  </p>
+                ) : items.length > 0 ? (
+                  <div className={styles.options} role="radiogroup">
+                    {items.map((it) => (
+                      <label
+                        key={it.ID}
+                        className={`${styles.option} ${deliveryId === it.ID ? styles.optionOn : ""}`}
+                      >
+                        <input
+                          type="radio"
+                          name="delivery"
+                          checked={deliveryId === it.ID}
+                          onChange={() => {
+                            setDeliveryId(it.ID);
+                            track("delivery_method_selected", {
+                              delivery_type_code: "courier",
+                              delivery_service: it.NAME,
+                              delivery_cost: Number(it.PRICE) || 0,
+                            });
+                          }}
+                        />
+                        <span className={styles.optionName}>
+                          {it.NAME}
+                          <small>
+                            {it.TRANSIT ? `${it.TRANSIT} business days` : ""}
+                            {it.FREE_DELIVERY
+                              ? `${it.TRANSIT ? " · " : ""}free over ${formatUsd(it.FREE_DELIVERY)}`
+                              : ""}
+                          </small>
+                        </span>
+                        <span className={styles.optionPrice}>
+                          {it.PRICE ? formatUsd(it.PRICE) : "Free"}
+                        </span>
+                      </label>
+                    ))}
                   </div>
-                  <div className={co.row}>
-                    <FloatInput
-                      label="Apt / unit / suite (optional)"
-                      placeholder="Apt 4B"
-                      value={apartment}
-                      onChange={setApartment}
-                      autoComplete="address-line2"
-                    />
-                    <FloatInput
-                      label="ZIP code"
-                      name="zip"
-                      shake={shaking === "zip"}
-                      placeholder="10118"
-                      value={zip}
-                      onChange={setZip}
-                      attention={attempted && zip.replace(/\D/g, "").length < 5}
-                      inputMode="numeric"
-                      autoComplete="postal-code"
-                    />
+                ) : (
+                  <p className={styles.hint}>
+                    {deliveryErr || "No delivery options for this address."}
+                  </p>
+                )}
+              </section>
+
+              <section className={styles.section}>
+                <h2 className={styles.h2}>Payment</h2>
+                <p className={styles.sub}>
+                  All transactions are secure and encrypted.
+                </p>
+                {!place ? (
+                  <p className={styles.hint}>
+                    Payment options appear once you choose your state.
+                  </p>
+                ) : paymentsLoading ? (
+                  <p className={styles.loader} role="status">
+                    <span className={styles.spinner} aria-hidden="true" />
+                    Loading payment options…
+                  </p>
+                ) : (
+                  <div className={styles.options} role="radiogroup">
+                    {payments.map((p) => (
+                      <label
+                        key={p.ID}
+                        className={`${styles.option} ${paymentId === p.ID ? styles.optionOn : ""}`}
+                      >
+                        <input
+                          type="radio"
+                          name="payment"
+                          checked={paymentId === p.ID}
+                          onChange={() => {
+                            setPaymentId(p.ID);
+                            track("payment_method_selected", {
+                              payment_type_code: paymentTypeCode(p.NAME),
+                              payment_method_name: p.NAME,
+                            });
+                          }}
+                        />
+                        <span className={styles.optionName}>{p.NAME}</span>
+                        {p.IMAGE ? (
+                          // eslint-disable-next-line @next/next/no-img-element -- the shop's own method logo
+                          <img
+                            src={p.IMAGE}
+                            alt=""
+                            className={styles.optionLogo}
+                          />
+                        ) : (
+                          <span />
+                        )}
+                        {paymentId === p.ID && (
+                          <p className={styles.optionNote}>
+                            {paymentTypeCode(p.NAME) === "paypal"
+                              ? "You’ll continue to PayPal to finish your payment."
+                              : "You’ll enter your card details — or use Google Pay where available — on the shop’s secure payment page."}
+                          </p>
+                        )}
+                      </label>
+                    ))}
                   </div>
-                  <FloatInput
-                    label="Delivery note (optional)"
-                    placeholder="Gate code, landmark…"
-                    value={comment}
-                    onChange={setComment}
-                  />
-                </section>
+                )}
+              </section>
 
-                <section className={co.card}>
-                  <h2 className={co.h2}>Delivery method</h2>
-                  {!place ? (
-                    <p className={co.muted}>
-                      Choose your state to see delivery options.
-                    </p>
-                  ) : deliveryLoading ? (
-                    <p className={co.loader} role="status">
-                      <span className={co.spinner} aria-hidden="true" />
-                      Loading delivery options…
-                    </p>
-                  ) : items.length > 0 ? (
-                    <div className={co.options}>
-                      {items.map((it) => (
-                        <label key={it.ID} className={co.option}>
-                          <input
-                            type="radio"
-                            name="delivery"
-                            checked={deliveryId === it.ID}
-                            onChange={() => {
-                              setDeliveryId(it.ID);
-                              track("delivery_method_selected", {
-                                delivery_type_code: "courier",
-                                delivery_service: it.NAME,
-                                delivery_cost: Number(it.PRICE) || 0,
-                              });
-                            }}
-                          />
-                          <span>
-                            {it.NAME}
-                            {it.TRANSIT ? ` · ${it.TRANSIT} business days` : ""}
-                            <small>
-                              {it.PRICE ? formatUsd(it.PRICE) : "Free"}
-                              {it.FREE_DELIVERY
-                                ? ` · free over ${formatUsd(it.FREE_DELIVERY)}`
-                                : ""}
-                            </small>
-                          </span>
-                        </label>
-                      ))}
+              <div className={styles.discount}>
+                {!promoOpen && !promo ? (
+                  <button
+                    type="button"
+                    className={styles.discountToggle}
+                    onClick={() => setPromoOpen(true)}
+                    disabled={!deliveryId}
+                  >
+                    Add discount
+                  </button>
+                ) : (
+                  <>
+                    <div className={styles.discountRow}>
+                      <input
+                        value={promoDraft || promo}
+                        onChange={(e) => setPromoDraft(e.target.value)}
+                        placeholder="Discount code"
+                        aria-label="Discount code"
+                        autoCapitalize="characters"
+                      />
+                      <button
+                        type="button"
+                        className={styles.apply}
+                        onClick={applyPromo}
+                        disabled={!promoDraft.trim() || !deliveryId}
+                      >
+                        Apply
+                      </button>
                     </div>
-                  ) : (
-                    <p className={co.muted}>
-                      {deliveryErr || "No delivery options for this address."}
-                    </p>
-                  )}
-                </section>
+                    {promoMsg && <p className={styles.fieldHint}>{promoMsg}</p>}
+                    {promo && (
+                      <p className={styles.fieldHint}>Code {promo} applied.</p>
+                    )}
+                  </>
+                )}
+              </div>
 
-                <section className={co.card}>
-                  <h2 className={co.h2}>Payment</h2>
-                  {!place ? (
-                    <p className={co.muted}>
-                      Payment options appear once you choose your state.
-                    </p>
-                  ) : paymentsLoading ? (
-                    <p className={co.loader} role="status">
-                      <span className={co.spinner} aria-hidden="true" />
-                      Loading payment options…
-                    </p>
-                  ) : (
-                    <div className={co.options}>
-                      {payments.map((p) => (
-                        <label key={p.ID} className={co.option}>
-                          <input
-                            type="radio"
-                            name="payment"
-                            checked={paymentId === p.ID}
-                            onChange={() => {
-                              setPaymentId(p.ID);
-                              track("payment_method_selected", {
-                                payment_type_code: paymentTypeCode(p.NAME),
-                                payment_method_name: p.NAME,
-                              });
-                            }}
-                          />
-                          <span>{p.NAME}</span>
-                        </label>
-                      ))}
-                    </div>
-                  )}
-                </section>
-
-                <section className={co.card}>
-                  <h2 className={co.h2}>Total</h2>
-                  {totalsLoading && (
-                    <p className={co.loader} role="status">
-                      <span className={co.spinner} aria-hidden="true" />
-                      Calculating…
-                    </p>
-                  )}
-                  <dl className={`${co.totals} ${totalsLoading ? co.dim : ""}`}>
+              <section className={styles.totalCard}>
+                <h2 className={styles.h2}>Total</h2>
+                {totalsLoading && (
+                  <p className={styles.loader} role="status">
+                    <span className={styles.spinner} aria-hidden="true" />
+                    Calculating…
+                  </p>
+                )}
+                <div className={totalsLoading ? styles.dim : undefined}>
+                  <dl className={styles.rows}>
+                    {memberSaving > 0 && (
+                      <div className={styles.rowGood}>
+                        <dt>Member discount</dt>
+                        <dd>−{formatUsd(memberSaving)}</dd>
+                      </div>
+                    )}
                     <div>
-                      <dt>Items (member price)</dt>
-                      <dd>
-                        {totals ? money(totals.PRICE) : formatUsd(goods.value)}
-                      </dd>
+                      <dt>Items</dt>
+                      <dd>{formatUsd(goodsSum)}</dd>
                     </div>
                     <div>
-                      <dt>Delivery</dt>
+                      <dt>Shipping</dt>
                       <dd>
                         {deliveryPrice === null
                           ? "—"
@@ -847,94 +1043,101 @@ export function FriendCheckout() {
                             : "Free"}
                       </dd>
                     </div>
-                    {totals && num(totals.TAX) > 0 && (
-                      <div>
-                        <dt>Tax</dt>
-                        <dd>{money(totals.TAX)}</dd>
-                      </div>
-                    )}
-                    <div className={co.grand}>
+                    <div className={styles.rowTotal}>
                       <dt>Total</dt>
-                      <dd>{totals ? money(totals.TOTAL_PRICE) : "—"}</dd>
+                      <dd>
+                        {shownTotal !== null ? formatUsd(shownTotal) : "—"}
+                      </dd>
                     </div>
                   </dl>
-                  <label
-                    className={`${co.check} ${shaking === "terms" ? co.shake : ""} ${
-                      attempted && !acceptTerms ? co.checkActive : ""
-                    }`}
-                    data-field="terms"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={acceptTerms}
-                      onChange={(e) => setAcceptTerms(e.target.checked)}
-                    />
-                    <span>
-                      I accept the{" "}
-                      <a
-                        href="/faq/terms/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Terms and conditions
-                      </a>{" "}
-                      and the{" "}
-                      <a
-                        href="/faq/privacy/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Privacy policy
-                      </a>
-                    </span>
-                  </label>
-                  <label
-                    className={`${co.check} ${shaking === "data" ? co.shake : ""} ${
-                      attempted && !agreeData ? co.checkActive : ""
-                    }`}
-                    data-field="data"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={agreeData}
-                      onChange={(e) => setAgreeData(e.target.checked)}
-                    />
-                    <span>
-                      I agree to the processing of my personal data (
-                      <a
-                        href="/faq/privacy/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        details
-                      </a>
-                      )
-                    </span>
-                  </label>
-                  <button
-                    type="button"
-                    className={co.pay}
-                    disabled={
-                      sending || ready !== "ok" || totalsLoading || !canOrder
-                    }
-                    onClick={submit}
-                    data-analytics-id="checkout_pay_btn"
-                  >
-                    {sending ? "Creating your order…" : "Continue to payment"}
-                  </button>
-                  <p className={co.muted}>
-                    Your order is created in the shop and you are taken to its
-                    secure payment page. No sign-up needed.
+                </div>
+                {totalSaving > 0 && (
+                  <p className={styles.saved}>
+                    Total savings {formatUsd(totalSaving)}
                   </p>
-                </section>
+                )}
+              </section>
 
-                <Container>
-                  <FriendRegisterCta where="checkout" />
-                </Container>
-              </>
-            )}
+              <div className={styles.consents}>
+                <label
+                  className={`${co.check} ${shaking === "terms" ? co.shake : ""} ${
+                    attempted && !acceptTerms ? co.checkActive : ""
+                  }`}
+                  data-field="terms"
+                >
+                  <input
+                    type="checkbox"
+                    checked={acceptTerms}
+                    onChange={(e) => setAcceptTerms(e.target.checked)}
+                  />
+                  <span>
+                    I accept the{" "}
+                    <a
+                      href="/faq/terms/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Terms and conditions
+                    </a>{" "}
+                    and the{" "}
+                    <a
+                      href="/faq/privacy/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Privacy policy
+                    </a>
+                  </span>
+                </label>
+                <label
+                  className={`${co.check} ${shaking === "data" ? co.shake : ""} ${
+                    attempted && !agreeData ? co.checkActive : ""
+                  }`}
+                  data-field="data"
+                >
+                  <input
+                    type="checkbox"
+                    checked={agreeData}
+                    onChange={(e) => setAgreeData(e.target.checked)}
+                  />
+                  <span>
+                    I agree to the processing of my personal data (
+                    <a
+                      href="/faq/privacy/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      details
+                    </a>
+                    )
+                  </span>
+                </label>
+              </div>
+
+              <button
+                type="button"
+                className={styles.pay}
+                disabled={
+                  sending || ready !== "ok" || totalsLoading || !canOrder
+                }
+                onClick={submit}
+                data-analytics-id="checkout_pay_btn"
+              >
+                {sending ? "Creating your order…" : "Continue to payment"}
+              </button>
+              <p className={styles.note}>
+                Your order is created in the shop and you are taken to its
+                secure payment page. No sign-up needed.
+              </p>
+
+              <FriendRegisterCta where="checkout" />
+            </div>
+
+            <aside className={styles.sumDesktop} aria-label="Order summary">
+              {summary}
+            </aside>
           </div>
-        </div>
+        )}
       </main>
     </div>
   );

@@ -19,7 +19,9 @@ export function ProtoPriceBlock({ price, priceWas }: ProtoPriceBlockProps) {
         <span className={styles.was}>{formatRub(priceWas)}</span>
       </div>
       <div className={styles.tags}>
-        <span className={`${styles.tag} ${styles.tagClub}`}>Скидка друга клуба −20%</span>
+        <span className={`${styles.tag} ${styles.tagClub}`}>
+          Скидка друга клуба −20%
+        </span>
       </div>
     </div>
   );

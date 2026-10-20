@@ -20,7 +20,12 @@ export { PriceSelector } from "./PriceSelector";
 export type { PriceSelectorProps, PriceSelectorOption } from "./PriceSelector";
 
 export { BuyBox } from "./BuyBox";
-export type { BuyBoxProps, BuyBoxOption, BuyBoxProduct, BuyBoxLabels } from "./BuyBox";
+export type {
+  BuyBoxProps,
+  BuyBoxOption,
+  BuyBoxProduct,
+  BuyBoxLabels,
+} from "./BuyBox";
 
 export { PhaseSwitcherPills } from "./PhaseSwitcherPills";
 export type { PhaseSwitcherPillsProps, PhaseTab } from "./PhaseSwitcherPills";

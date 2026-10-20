@@ -62,7 +62,9 @@ export function PriceSelector({
             </span>
             <span className={styles.priceRow}>
               <span className={styles.price}>{opt.price}</span>
-              {opt.priceWas && <span className={styles.priceWas}>{opt.priceWas}</span>}
+              {opt.priceWas && (
+                <span className={styles.priceWas}>{opt.priceWas}</span>
+              )}
             </span>
           </label>
         );

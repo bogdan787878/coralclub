@@ -83,7 +83,9 @@ export function PhasesSection({
   );
 
   const cards =
-    isPersonalization && domain ? (domainCards[domain.id] ?? []) : phase.products;
+    isPersonalization && domain
+      ? (domainCards[domain.id] ?? [])
+      : phase.products;
 
   return (
     <Section tone="surface" className={styles.section}>
@@ -130,7 +132,10 @@ export function PhasesSection({
                 src,
                 alt: phase.series!.titleLead,
               }))}
-              blurbTitle={{ lead: phase.series.titleLead, accent: phase.series.titleAccent }}
+              blurbTitle={{
+                lead: phase.series.titleLead,
+                accent: phase.series.titleAccent,
+              }}
               blurbBody={phase.series.blurb}
               carouselItems={cards.map(renderCard)}
               tightTop

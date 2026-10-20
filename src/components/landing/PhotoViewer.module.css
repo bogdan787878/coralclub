@@ -110,7 +110,8 @@
   flex: none;
   list-style: none;
   margin: 0;
-  padding: var(--space-12) var(--space-16) calc(var(--space-16) + env(safe-area-inset-bottom, 0px));
+  padding: var(--space-12) var(--space-16)
+    calc(var(--space-16) + env(safe-area-inset-bottom, 0px));
   display: flex;
   gap: var(--space-8);
   max-width: 100%;

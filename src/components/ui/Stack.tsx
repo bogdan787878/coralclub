@@ -35,7 +35,12 @@ export function Stack({
   return (
     <Tag
       className={cls}
-      style={{ ["--stack-gap" as string]: resolveGap(gap), ...style } as CSSProperties}
+      style={
+        {
+          ["--stack-gap" as string]: resolveGap(gap),
+          ...style,
+        } as CSSProperties
+      }
       {...rest}
     />
   );

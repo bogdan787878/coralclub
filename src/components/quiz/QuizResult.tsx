@@ -29,10 +29,18 @@ export function QuizResult({ answers }: { answers: Answers }) {
   const addAll = () => products.forEach(addProduct);
 
   const cartable = products.filter((p) => p.coralId);
-  const nowTotal = cartable.reduce((sum, p) => sum + priceValue(p.prices[0].price), 0);
-  const wasTotal = cartable.reduce((sum, p) => sum + priceValue(p.prices[1]?.price ?? p.prices[0].price), 0);
-  const savingsPct = wasTotal > nowTotal ? Math.round((1 - nowTotal / wasTotal) * 100) : 0;
-  const allInCart = cartable.length > 0 && cartable.every((p) => qtyOf(p.coralId) > 0);
+  const nowTotal = cartable.reduce(
+    (sum, p) => sum + priceValue(p.prices[0].price),
+    0,
+  );
+  const wasTotal = cartable.reduce(
+    (sum, p) => sum + priceValue(p.prices[1]?.price ?? p.prices[0].price),
+    0,
+  );
+  const savingsPct =
+    wasTotal > nowTotal ? Math.round((1 - nowTotal / wasTotal) * 100) : 0;
+  const allInCart =
+    cartable.length > 0 && cartable.every((p) => qtyOf(p.coralId) > 0);
 
   return (
     <div className={styles.result}>

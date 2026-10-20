@@ -45,9 +45,7 @@ export function Rating({
         parts.length ? `, ${parts.join(", ")}` : ""
       }`}
     >
-      {!hideScore && (
-        <span className={styles.score}>{value.toFixed(1)}</span>
-      )}
+      {!hideScore && <span className={styles.score}>{value.toFixed(1)}</span>}
       <span className={styles.stars} aria-hidden="true">
         {Array.from({ length: 5 }, (_, i) => (
           <Star key={i} filled={i < rounded} />

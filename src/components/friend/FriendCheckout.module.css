@@ -1,0 +1,545 @@
+/* Friend project checkout: order summary on top (phone) / aside (web), then
+   contact → delivery → shipping → payment → total. Tokens only. */
+.page {
+  min-height: 100svh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding-bottom: var(--space-64);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 560px;
+  margin-inline: auto;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 560px) 400px;
+    gap: var(--space-64);
+    max-width: none;
+    justify-content: center;
+    align-items: start;
+    padding-inline: var(--page-padding-inline);
+    padding-top: var(--space-32);
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+  padding: var(--space-24) var(--page-padding-inline) 0;
+}
+
+@media (min-width: 1024px) {
+  .main {
+    padding-inline: 0;
+    padding-top: 0;
+  }
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: var(--font-weight-medium);
+}
+
+/* ---- order summary ---- */
+.sumMobile {
+  background: var(--color-neutral-30);
+}
+
+@media (min-width: 1024px) {
+  .sumMobile {
+    display: none;
+  }
+}
+
+.sumHead {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  padding: var(--space-16) var(--page-padding-inline);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.sumHead::-webkit-details-marker {
+  display: none;
+}
+
+.sumHead > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.sumHead svg {
+  width: 14px;
+  height: 14px;
+  margin-left: var(--space-4);
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+
+details[open] > .sumHead svg {
+  transform: rotate(180deg);
+}
+
+.sumHeadPrice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.25rem;
+}
+
+.sumBodyMobile {
+  padding: 0 var(--page-padding-inline) var(--space-24);
+}
+
+.sumDesktop {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .sumDesktop {
+    display: block;
+    position: sticky;
+    top: var(--space-24);
+    padding: var(--space-24);
+    border-radius: var(--radius-base);
+    background: var(--color-neutral-30);
+  }
+}
+
+.sum {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.sumLines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.sumLine {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: center;
+  gap: var(--space-12);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.thumb {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+}
+
+.thumbImg {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.thumbImg :global(img) {
+  object-fit: contain;
+  padding: 3px;
+}
+
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 20px;
+  height: 20px;
+  padding-inline: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-malachite-90);
+  color: var(--color-text-on-primary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.lineName {
+  min-width: 0;
+}
+
+.lineSub {
+  display: block;
+  color: var(--color-text-muted);
+}
+
+.lineSum {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.was {
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+.rows {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.375rem;
+}
+
+.rows div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+
+.rows dt,
+.rows dd {
+  margin: 0;
+}
+
+.rowGood {
+  color: var(--color-malachite-70);
+}
+
+.rowTotal {
+  padding-top: var(--space-12);
+  border-top: 1px solid rgba(0, 65, 68, 0.12);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.saved {
+  align-self: flex-start;
+  padding: 4px var(--space-12);
+  border-radius: var(--radius-pill);
+  background: var(--color-peach-10);
+  color: var(--color-peach-100);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.host {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  color: var(--color-text-muted);
+}
+
+/* ---- sections ---- */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.h2 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.sub {
+  margin: calc(var(--space-4) * -1) 0 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-text-muted);
+}
+
+.row {
+  display: flex;
+  gap: var(--space-12);
+}
+
+.fixed {
+  min-height: 52px;
+  padding: 8px var(--space-12) 5px;
+  border: 1px solid rgba(0, 65, 68, 0.22);
+  border-radius: 8px;
+  background: var(--color-neutral-30);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: var(--font-sans);
+}
+
+.fixed span {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--color-text-muted);
+}
+
+.fixed strong {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-weight: var(--font-weight-regular);
+}
+
+.hint {
+  margin: 0;
+  padding: var(--space-16);
+  border-radius: var(--radius-md);
+  background: var(--color-neutral-30);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-text-muted);
+}
+
+.fieldHint {
+  margin: calc(var(--space-4) * -1) 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  color: var(--color-text-muted);
+}
+
+.loader {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.spinner {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(0, 65, 68, 0.2);
+  border-top-color: var(--color-malachite-90);
+  border-radius: 50%;
+  animation: fc-spin 0.8s linear infinite;
+}
+
+@keyframes fc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 2.4s;
+  }
+}
+
+/* ---- option cards (shipping, payment) ---- */
+.options {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(0, 65, 68, 0.22);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.option {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-16);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.375rem;
+  cursor: pointer;
+  background: var(--color-white);
+}
+
+.option + .option {
+  border-top: 1px solid rgba(0, 65, 68, 0.12);
+}
+
+.optionOn {
+  background: var(--color-malachite-10);
+}
+
+.option input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--color-malachite-90);
+}
+
+.optionName small {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+}
+
+.optionPrice {
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.optionLogo {
+  max-height: 24px;
+  max-width: 72px;
+  object-fit: contain;
+}
+
+.optionNote {
+  grid-column: 2 / -1;
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  color: var(--color-text-muted);
+}
+
+/* ---- discount code ---- */
+.discount {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.discountToggle {
+  align-self: flex-start;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-medium);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.discountRow {
+  display: flex;
+  gap: var(--space-8);
+}
+
+.discountRow :global(input) {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  padding: 0 var(--space-12);
+  border: 1px solid rgba(0, 65, 68, 0.22);
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.discountRow :global(input:focus) {
+  outline: none;
+  border-color: var(--color-malachite-90);
+}
+
+.apply {
+  flex: none;
+  padding-inline: var(--space-20);
+  height: 48px;
+  border: 1.5px solid var(--color-malachite-90);
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  color: var(--color-malachite-90);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.apply:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ---- total + consent + pay ---- */
+.totalCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding: var(--space-24);
+  border-radius: var(--radius-base);
+  background: var(--color-neutral-30);
+}
+
+.dim {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.consents {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.pay {
+  height: 56px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-action);
+  color: var(--color-action-contrast);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.pay:hover:not(:disabled) {
+  background: var(--color-action-hover);
+}
+
+.pay:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.note {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.error {
+  margin: 0;
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-md);
+  background: var(--color-neutral-30);
+  border: 1.5px solid var(--color-malachite-90);
+  font-size: 0.9375rem;
+  line-height: 1.375rem;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-12);
+  padding: var(--space-24) var(--page-padding-inline);
+}

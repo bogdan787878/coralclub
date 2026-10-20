@@ -42,7 +42,9 @@ export function DomainProductGrid({ cards }: { cards: PhaseProductCard[] }) {
               : undefined
           }
           cartQty={qtyOf(p.coralId)}
-          onSetQty={p.coralId ? (n) => setQty(p.coralId as string, n) : undefined}
+          onSetQty={
+            p.coralId ? (n) => setQty(p.coralId as string, n) : undefined
+          }
           images={p.images}
         />
       ))}

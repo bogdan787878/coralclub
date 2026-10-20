@@ -17,7 +17,9 @@ export function Container({
 }: ContainerProps) {
   return (
     <Tag
-      className={className ? `${styles.container} ${className}` : styles.container}
+      className={
+        className ? `${styles.container} ${className}` : styles.container
+      }
       {...rest}
     />
   );

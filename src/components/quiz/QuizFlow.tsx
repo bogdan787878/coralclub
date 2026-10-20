@@ -129,9 +129,13 @@ export function QuizFlow() {
                         }
                       >
                         <span className={styles.optionMain}>
-                          <span className={styles.optionLabel}>{opt.label}</span>
+                          <span className={styles.optionLabel}>
+                            {opt.label}
+                          </span>
                           {opt.hint && (
-                            <span className={styles.optionHint}>{opt.hint}</span>
+                            <span className={styles.optionHint}>
+                              {opt.hint}
+                            </span>
                           )}
                         </span>
                         <span className={styles.tick} aria-hidden="true" />

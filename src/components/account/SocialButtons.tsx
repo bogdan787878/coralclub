@@ -33,7 +33,8 @@ export function SocialButtons() {
       </div>
       {notice && (
         <p className={styles.notice} role="status">
-          Sign-in with Apple and Google isn&apos;t connected yet — use email or phone instead.
+          Sign-in with Apple and Google isn&apos;t connected yet — use email or
+          phone instead.
         </p>
       )}
     </div>

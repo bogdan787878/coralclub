@@ -107,7 +107,9 @@
   color: rgba(255, 255, 255, 0.5);
   font-size: 0.875rem;
   font-weight: var(--font-weight-medium);
-  transition: background-color 0.15s var(--ease-standard), color 0.15s var(--ease-standard);
+  transition:
+    background-color 0.15s var(--ease-standard),
+    color 0.15s var(--ease-standard);
 }
 .tabOn {
   background: #ffffff;
@@ -215,8 +217,11 @@
   background: #ffffff;
   color: var(--color-text);
   overflow: hidden;
-  transition: width 0.18s var(--ease-standard), margin-left 0.18s var(--ease-standard),
-    opacity 0.15s var(--ease-standard), transform 0.18s var(--ease-standard);
+  transition:
+    width 0.18s var(--ease-standard),
+    margin-left 0.18s var(--ease-standard),
+    opacity 0.15s var(--ease-standard),
+    transform 0.18s var(--ease-standard);
 }
 .submitHidden {
   width: 0;

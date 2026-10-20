@@ -70,7 +70,12 @@ export function CommunityReels({ title, body, reels }: CommunityReelsProps) {
         </div>
       </div>
 
-      <ul className={styles.track} ref={trackRef} aria-label="Community clips" role="list">
+      <ul
+        className={styles.track}
+        ref={trackRef}
+        aria-label="Community clips"
+        role="list"
+      >
         {reels.map((reel, i) => (
           <li className={styles.item} key={i}>
             <video

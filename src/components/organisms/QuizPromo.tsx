@@ -16,8 +16,8 @@ export function QuizPromo() {
             Take the quiz.
           </h2>
           <p className={styles.body}>
-            Answer a few questions about how you feel — get a personal
-            protocol by phase, built around your goals.
+            Answer a few questions about how you feel — get a personal protocol
+            by phase, built around your goals.
           </p>
           <Button href="/quiz" variant="secondary" className={styles.cta}>
             Take the quiz

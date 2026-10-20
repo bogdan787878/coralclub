@@ -28,7 +28,9 @@ export function ProtoHeader({ step }: ProtoHeaderProps) {
           {STEPS.map((s, i) => (
             <span key={s.id} style={{ display: "contents" }}>
               {i > 0 && <span className={styles.sep}>→</span>}
-              <span className={s.id === step ? styles.stepOn : styles.step}>{s.label}</span>
+              <span className={s.id === step ? styles.stepOn : styles.step}>
+                {s.label}
+              </span>
             </span>
           ))}
         </nav>

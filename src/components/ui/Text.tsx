@@ -30,7 +30,10 @@ export function BodyLong({
   ...rest
 }: BodyProps) {
   return (
-    <Tag className={cx(styles.bodyLong, muted && styles.muted, className)} {...rest} />
+    <Tag
+      className={cx(styles.bodyLong, muted && styles.muted, className)}
+      {...rest}
+    />
   );
 }
 

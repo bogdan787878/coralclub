@@ -65,7 +65,10 @@ export function Button({
   }
 
   return (
-    <button className={cls} {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}>
+    <button
+      className={cls}
+      {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}
+    >
       {children}
     </button>
   );

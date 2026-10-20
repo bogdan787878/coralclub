@@ -60,7 +60,11 @@ export function SiteFooter() {
             </div>
             <div className={styles.group}>
               <p className={styles.label}>Messengers</p>
-              <a href="https://wa.me/14372293572" className={styles.link} {...ext}>
+              <a
+                href="https://wa.me/14372293572"
+                className={styles.link}
+                {...ext}
+              >
                 WhatsApp
               </a>
               <a

@@ -92,9 +92,7 @@ export function SeriesFeature({
         : [];
 
   const coralId = product?.coralId;
-  const qty = coralId
-    ? (cart.find((l) => l.coralId === coralId)?.qty ?? 0)
-    : 0;
+  const qty = coralId ? (cart.find((l) => l.coralId === coralId)?.qty ?? 0) : 0;
 
   const href = product ? productHref(product.slug) : undefined;
 
@@ -123,7 +121,9 @@ export function SeriesFeature({
               <Heading as="h2" className={styles.title}>
                 {blurbTitle.lead} <Accent>{blurbTitle.accent}</Accent>
               </Heading>
-              {blurbBody && <BodyLong className={styles.introBody}>{blurbBody}</BodyLong>}
+              {blurbBody && (
+                <BodyLong className={styles.introBody}>{blurbBody}</BodyLong>
+              )}
             </div>
           ) : (
             <Heading as="h2" className={styles.title}>
@@ -135,7 +135,13 @@ export function SeriesFeature({
             <div className={styles.media}>
               <div className={styles.mediaInner}>
                 {images.length > 0 ? (
-                  <ImageSlider images={images} sizes="100vw" fit="cover" href={href} lightDots />
+                  <ImageSlider
+                    images={images}
+                    sizes="100vw"
+                    fit="cover"
+                    href={href}
+                    lightDots
+                  />
                 ) : (
                   <span className={styles.mediaEmpty} aria-hidden="true" />
                 )}
@@ -158,7 +164,9 @@ export function SeriesFeature({
                       <span className={styles.now}>{club}</span>
                       <span className={styles.was}>{regular}</span>
                     </p>
-                    {clubNote && <span className={styles.savings}>{clubNote}</span>}
+                    {clubNote && (
+                      <span className={styles.savings}>{clubNote}</span>
+                    )}
                   </div>
 
                   {/* fixed-width slot, sized for the stepper (the widest of
@@ -178,7 +186,10 @@ export function SeriesFeature({
                           >
                             −
                           </button>
-                          <span className={styles.stepperCount} aria-live="polite">
+                          <span
+                            className={styles.stepperCount}
+                            aria-live="polite"
+                          >
                             {qty}
                           </span>
                           <button
@@ -239,7 +250,9 @@ export function SeriesFeature({
           beside it */}
       {carouselItems && carouselItems.length > 0 && (
         <div className={styles.desktopCarousel}>
-          <Carousel label={`${seriesName} — what's in it`}>{carouselItems}</Carousel>
+          <Carousel label={`${seriesName} — what's in it`}>
+            {carouselItems}
+          </Carousel>
         </div>
       )}
     </>

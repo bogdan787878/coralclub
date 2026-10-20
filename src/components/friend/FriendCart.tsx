@@ -10,6 +10,12 @@ import { BagIcon } from "@/components/cart/icons";
 import { formatUsd } from "@/lib/friendCatalog";
 import { useEffect, useState } from "react";
 import { useFriend } from "./FriendProvider";
+import {
+  CartBanner,
+  CartSummary,
+  LinePrice,
+  Recommendations,
+} from "./FriendCartParts";
 import styles from "../landing/LandingCartButton.module.css";
 import friend from "./Friend.module.css";
 
@@ -24,7 +30,7 @@ const LABELS: CartDrawerLabels = {
   increase: (name) => `Increase ${name}`,
   subtotal: "Subtotal at member prices",
   note: "",
-  checkout: "Check out without signing up",
+  checkout: "Checkout",
   clear: "",
 };
 
@@ -36,7 +42,8 @@ export function FriendCartButton({ aboveBar = false }: { aboveBar?: boolean }) {
   const router = useRouter();
   const { friend: who } = useFriend();
   const [open, setOpen] = useState(false);
-  const count = cartCount(useCart());
+  const cart = useCart();
+  const count = cartCount(cart);
 
   useEffect(() => onCartOpen(() => setOpen(true)), []);
 
@@ -62,11 +69,17 @@ export function FriendCartButton({ aboveBar = false }: { aboveBar?: boolean }) {
         labels={LABELS}
         formatMoney={formatUsd}
         onCheckout={() => router.push("/friend/checkout/")}
+        banner={<CartBanner lines={cart} />}
+        renderPrice={(line) => <LinePrice line={line} />}
+        recommendations={<Recommendations />}
+        summary={<CartSummary lines={cart} />}
+        binAtOne
+        hideRemove
         extra={
           who && (
             <p className={friend.drawerNote}>
-              The sale goes to <strong>{who.name}</strong> · Coral ID{" "}
-              {who.memberId}
+              No sign-up needed. The sale goes to <strong>{who.name}</strong> ·
+              Coral ID {who.memberId}
             </p>
           )
         }

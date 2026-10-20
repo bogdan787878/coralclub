@@ -124,3 +124,25 @@ export const friendPdpHref = (slug: string) => `/friend/product/${slug}/`;
 
 export const formatUsd = (n: number) =>
   `$${Number.isInteger(n) ? n : n.toFixed(2)}`;
+
+/** FedEx Ground is free over this order sum (the shop's own rule, contiguous US). */
+export const FREE_SHIPPING_FROM = 250;
+
+const round2 = (n: number) => Math.round(n * 100) / 100;
+
+/** What a cart costs at the regular and the member price, and the difference. */
+export function friendTotals(lines: { coralId: string; qty: number }[]) {
+  let club = 0;
+  let regular = 0;
+  for (const l of lines) {
+    const p = friendProductById(l.coralId);
+    if (!p) continue;
+    club += p.club * l.qty;
+    regular += p.regular * l.qty;
+  }
+  return {
+    club: round2(club),
+    regular: round2(regular),
+    saving: round2(regular - club),
+  };
+}

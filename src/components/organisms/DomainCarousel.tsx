@@ -21,7 +21,11 @@ const USE_LINE_ICONS = true;
  * DomainCarousel — the row of category icons under the Personalization
  * circle. Tap one to swap the product carousel below to that domain's set.
  */
-export function DomainCarousel({ domains, value, onChange }: DomainCarouselProps) {
+export function DomainCarousel({
+  domains,
+  value,
+  onChange,
+}: DomainCarouselProps) {
   return (
     <div
       className={styles.track}

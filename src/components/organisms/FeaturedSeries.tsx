@@ -39,7 +39,9 @@ function Tile({
           fill
           sizes={sizes}
           priority={priority}
-          style={image.position ? { objectPosition: image.position } : undefined}
+          style={
+            image.position ? { objectPosition: image.position } : undefined
+          }
         />
       ) : (
         <span className={styles.placeholder} aria-hidden="true" />
@@ -70,11 +72,7 @@ export function FeaturedSeries({
           </Heading>
 
           <div className={styles.media}>
-            <Tile
-              image={feature}
-              className={styles.feature}
-              sizes="100vw"
-            />
+            <Tile image={feature} className={styles.feature} sizes="100vw" />
 
             <div className={styles.grid}>
               {items.map((item, i) => (

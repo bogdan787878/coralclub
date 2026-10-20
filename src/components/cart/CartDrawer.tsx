@@ -13,7 +13,7 @@ import {
   setQty,
   useCart,
 } from "@/lib/cart";
-import { CloseIcon, MinusIcon, PlusIcon } from "./icons";
+import { CloseIcon, MinusIcon, PlusIcon, TrashIcon } from "./icons";
 import styles from "./CartDrawer.module.css";
 
 /** Strings a translated storefront can override (defaults are English). */
@@ -63,6 +63,18 @@ export type CartDrawerProps = {
   onCheckout?: (lines: CartLine[]) => void;
   /** Anything to show right above the checkout button. */
   extra?: ReactNode;
+  /** Above the lines (savings, free-shipping progress …). */
+  banner?: ReactNode;
+  /** Below the lines, inside the scrolling area ("you may also like"). */
+  recommendations?: ReactNode;
+  /** Replaces the grey price under a line's name. */
+  renderPrice?: (line: CartLine) => ReactNode;
+  /** Replaces the single subtotal row (discount / subtotal / shipping rows). */
+  summary?: ReactNode;
+  /** At quantity 1 the minus button becomes a bin (removes the line). */
+  binAtOne?: boolean;
+  /** Hide the text «Remove» link of a line. */
+  hideRemove?: boolean;
 };
 
 /**
@@ -78,6 +90,12 @@ export function CartDrawer({
   promo,
   onCheckout,
   extra,
+  banner,
+  recommendations,
+  renderPrice,
+  summary,
+  binAtOne,
+  hideRemove,
 }: CartDrawerProps) {
   const lines = useCart();
   const [copied, setCopied] = useState(false);
@@ -157,57 +175,71 @@ export function CartDrawer({
           </button>
         </header>
 
-        {lines.length === 0 ? (
-          <div className={styles.empty}>
-            <p>{labels.empty}</p>
-          </div>
-        ) : (
-          <ul className={styles.lines}>
-            {lines.map((l) => (
-              <li key={l.coralId} className={styles.line}>
-                <span className={styles.thumb}>
-                  {l.image ? (
-                    <Image src={l.image} alt={l.name} fill sizes="64px" />
-                  ) : null}
-                </span>
+        <div className={styles.body}>
+          {lines.length > 0 && banner}
+          {lines.length === 0 ? (
+            <div className={styles.empty}>
+              <p>{labels.empty}</p>
+            </div>
+          ) : (
+            <ul className={styles.lines}>
+              {lines.map((l) => (
+                <li key={l.coralId} className={styles.line}>
+                  <span className={styles.thumb}>
+                    {l.image ? (
+                      <Image src={l.image} alt={l.name} fill sizes="64px" />
+                    ) : null}
+                  </span>
 
-                <div className={styles.lineBody}>
-                  <span className={styles.lineName}>{l.name}</span>
-                  <span className={styles.linePrice}>{l.price}</span>
+                  <div className={styles.lineBody}>
+                    <span className={styles.lineName}>{l.name}</span>
+                    {renderPrice ? (
+                      renderPrice(l)
+                    ) : (
+                      <span className={styles.linePrice}>{l.price}</span>
+                    )}
 
-                  <div className={styles.qty}>
-                    <button
-                      type="button"
-                      onClick={() => setQty(l.coralId, l.qty - 1)}
-                      aria-label={labels.decrease(l.name)}
-                      data-analytics-id="cart_qty_dec"
-                    >
-                      <MinusIcon />
-                    </button>
-                    <span aria-live="polite">{l.qty}</span>
-                    <button
-                      type="button"
-                      onClick={() => setQty(l.coralId, l.qty + 1)}
-                      aria-label={labels.increase(l.name)}
-                      data-analytics-id="cart_qty_inc"
-                    >
-                      <PlusIcon />
-                    </button>
+                    <div className={styles.qty}>
+                      <button
+                        type="button"
+                        onClick={() => setQty(l.coralId, l.qty - 1)}
+                        aria-label={
+                          binAtOne && l.qty <= 1
+                            ? labels.remove
+                            : labels.decrease(l.name)
+                        }
+                        data-analytics-id="cart_qty_dec"
+                      >
+                        {binAtOne && l.qty <= 1 ? <TrashIcon /> : <MinusIcon />}
+                      </button>
+                      <span aria-live="polite">{l.qty}</span>
+                      <button
+                        type="button"
+                        onClick={() => setQty(l.coralId, l.qty + 1)}
+                        aria-label={labels.increase(l.name)}
+                        data-analytics-id="cart_qty_inc"
+                      >
+                        <PlusIcon />
+                      </button>
+                    </div>
                   </div>
-                </div>
 
-                <button
-                  type="button"
-                  className={styles.remove}
-                  data-analytics-id="cart_item_remove"
-                  onClick={() => removeItem(l.coralId)}
-                >
-                  {labels.remove}
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+                  {!hideRemove && (
+                    <button
+                      type="button"
+                      className={styles.remove}
+                      data-analytics-id="cart_item_remove"
+                      onClick={() => removeItem(l.coralId)}
+                    >
+                      {labels.remove}
+                    </button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+          {lines.length > 0 && recommendations}
+        </div>
 
         <footer className={styles.foot}>
           {promo && lines.length > 0 && (
@@ -227,10 +259,12 @@ export function CartDrawer({
               </button>
             </div>
           )}
-          <div className={styles.subtotal}>
-            <span>{labels.subtotal}</span>
-            <span>{formatMoney(subtotal)}</span>
-          </div>
+          {summary ?? (
+            <div className={styles.subtotal}>
+              <span>{labels.subtotal}</span>
+              <span>{formatMoney(subtotal)}</span>
+            </div>
+          )}
           {labels.note && <p className={styles.note}>{labels.note}</p>}
           {extra}
           <button

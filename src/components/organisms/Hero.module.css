@@ -89,7 +89,13 @@
   );
 }
 .topBlurLayer:nth-child(4) {
-  mask-image: linear-gradient(to bottom, transparent 50%, black 70%, black 85%, transparent 100%);
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 50%,
+    black 70%,
+    black 85%,
+    transparent 100%
+  );
 }
 
 .content {
@@ -129,7 +135,9 @@ h1.title {
   color: var(--color-text-on-primary);
   text-wrap: balance;
   /* soft dark backdrop so the white title stays legible over any photo */
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.22), 0 4px 16px rgba(0, 0, 0, 0.28);
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.22),
+    0 4px 16px rgba(0, 0, 0, 0.28);
 }
 
 div.body {
@@ -139,7 +147,9 @@ div.body {
   text-wrap: pretty;
   /* same flat 16px inline gutter as .inset above */
   padding-inline: var(--page-padding-inline);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.22), 0 4px 16px rgba(0, 0, 0, 0.28);
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.22),
+    0 4px 16px rgba(0, 0, 0, 0.28);
 }
 
 .ctaRow {
