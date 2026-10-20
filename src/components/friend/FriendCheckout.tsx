@@ -208,7 +208,9 @@ export function FriendCheckout() {
 
   // delivery depends on the state (and the order sum); the city is only
   // needed to place the order, so the options load as soon as a state is chosen
-  const cityForShop = city || state;
+  // (the shop wants a real city for Washington, D.C.: its own name fails)
+  const cityForShop =
+    city || (state === "District of Columbia" ? "Washington" : state);
   const place = state ? `${cityForShop}|${state}` : "";
   const deliveryKey = `${cartKey}|${place}`;
   const paymentsKey = `${deliveryKey}|${deliveryId}`;
