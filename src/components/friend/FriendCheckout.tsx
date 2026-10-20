@@ -646,7 +646,7 @@ export function FriendCheckout() {
                       className={`${co.floatBox} ${attempted && !state ? co.floatBoxActive : ""}`}
                     >
                       <select
-                        className={co.floatInput}
+                        className={`${co.floatInput} ${styles.select}`}
                         value={state}
                         onChange={(e) => setState(e.target.value)}
                         autoComplete="address-level1"
@@ -663,8 +663,18 @@ export function FriendCheckout() {
                         className={co.floatLabel}
                         style={
                           state
-                            ? undefined
-                            : { transform: "none", fontSize: "1rem" }
+                            ? {
+                                top: 8,
+                                transform: "none",
+                                fontSize: "0.75rem",
+                                lineHeight: "1rem",
+                              }
+                            : {
+                                top: "50%",
+                                transform: "translateY(-50%)",
+                                fontSize: "1rem",
+                                lineHeight: "1.25rem",
+                              }
                         }
                       >
                         State

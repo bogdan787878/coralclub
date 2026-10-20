@@ -413,3 +413,15 @@
   word-break: break-all;
   color: var(--color-text-muted);
 }
+
+/* the State dropdown: same box as the text fields, own chevron */
+select.select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 40px;
+  line-height: 1.25rem;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%23004144' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
