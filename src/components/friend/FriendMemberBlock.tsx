@@ -28,10 +28,10 @@ const Check = () => (
 );
 
 /**
- * An inline block on the product page: what joining the club gives, and a
- * sign-up button. Nothing to choose — registration is optional, the purchase
- * works without it. The sign-up is the shop's own, opened as an invitation
- * from the friend who sent the visitor.
+ * The closing block of the product page: what joining the club gives and a
+ * sign-up button. Nothing to choose — registration is optional and the
+ * purchase works without it. The sign-up is the shop's own, opened as an
+ * invitation from the friend who sent the visitor.
  */
 export function FriendMemberBlock() {
   const { friend } = useFriend();
@@ -43,11 +43,22 @@ export function FriendMemberBlock() {
       aria-label="Club membership"
       data-analytics-section="pdp_member_block"
     >
-      <div className={styles.head}>
-        <div>
-          <h2 className={styles.title}>Become a club member</h2>
-          <span className={styles.tag}>SAVE 20% ON EVERY ORDER</span>
-        </div>
+      <div className={styles.intro}>
+        <h2 className={styles.title}>Become a club member</h2>
+        <span className={styles.tag}>SAVE 20% ON EVERY ORDER</span>
+        <a
+          className={styles.btn}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-disabled={!href}
+          data-analytics-id="pdp_register_cta"
+          onClick={() =>
+            track("friend_register_click", { cta_location: "pdp" })
+          }
+        >
+          Sign up
+        </a>
       </div>
       <ul className={styles.perks}>
         {PERKS.map((t) => (
@@ -59,20 +70,6 @@ export function FriendMemberBlock() {
           </li>
         ))}
       </ul>
-      <a
-        className={styles.btn}
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-disabled={!href}
-        data-analytics-id="pdp_register_cta"
-        onClick={() => track("friend_register_click", { cta_location: "pdp" })}
-      >
-        Sign up
-      </a>
-      <p className={styles.note}>
-        Optional: you can buy this product now without signing up.
-      </p>
     </section>
   );
 }

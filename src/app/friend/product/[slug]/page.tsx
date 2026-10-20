@@ -14,7 +14,6 @@ import { FriendBanner } from "@/components/friend/FriendProvider";
 import { FriendCards } from "@/components/friend/FriendCards";
 import { FriendCartButton } from "@/components/friend/FriendCart";
 import { FriendMemberBlock } from "@/components/friend/FriendMemberBlock";
-import { FriendRegisterCta } from "@/components/friend/FriendRegisterCta";
 import { asset } from "@/lib/asset";
 import {
   FRIEND_PRODUCTS,
@@ -128,8 +127,6 @@ export default async function FriendProductPage({
                     <BuyBox pinned {...buyProps} />
                   </div>
 
-                  <FriendMemberBlock />
-
                   <BodyLong>{p.lead}</BodyLong>
 
                   {p.elements.length > 0 && (
@@ -192,7 +189,7 @@ export default async function FriendProductPage({
 
         <Section tone="default">
           <Container>
-            <FriendRegisterCta where="home" />
+            <FriendMemberBlock />
           </Container>
         </Section>
 
