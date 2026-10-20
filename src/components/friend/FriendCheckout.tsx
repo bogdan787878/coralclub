@@ -15,7 +15,7 @@ import { LandingHeader } from "@/components/landing/LandingHeader";
 import { asset } from "@/lib/asset";
 import { track, trackOnce } from "@/lib/analytics";
 import { summarize } from "@/lib/analyticsRu";
-import { useCart } from "@/lib/cart";
+import { refreshCart, useCart } from "@/lib/cart";
 import { formatUsd, friendProductById } from "@/lib/friendCatalog";
 import { shopBasketUrl } from "@/lib/friend";
 import {
@@ -112,6 +112,8 @@ function FloatInput({
 
 export function FriendCheckout() {
   const cart = useCart();
+  // a render can run on a stale snapshot: re-read the cart once on mount
+  useEffect(() => refreshCart(), []);
   const { friend, source } = useFriend();
   const refCode = friend?.refCode ?? "";
   const memberId = friend?.memberId ?? "";
@@ -171,7 +173,10 @@ export function FriendCheckout() {
     return () => clearTimeout(t);
   }, [cityDraft]);
 
-  const place = state && city ? `${city}|${state}` : "";
+  // delivery depends on the state (and the order sum); the city is only
+  // needed to place the order, so the options load as soon as a state is chosen
+  const cityForShop = city || state;
+  const place = state ? `${cityForShop}|${state}` : "";
   const deliveryKey = `${cartKey}|${place}`;
   const paymentsKey = `${deliveryKey}|${deliveryId}`;
   const totalsKey = `${paymentsKey}|${paymentId}`;
@@ -245,7 +250,7 @@ export function FriendCheckout() {
     let cancelled = false;
     api<{ result?: DeliveryGroup[]; error?: string }>("/delivery", {
       COUNTRY: "US",
-      CITY: city,
+      CITY: cityForShop,
       AREA: state,
     }).then((d) => {
       if (cancelled) return;
@@ -272,7 +277,7 @@ export function FriendCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [ready, place, city, state, deliveryKey]);
+  }, [ready, place, cityForShop, state, deliveryKey]);
 
   const items = groups.flatMap((g) => g.ITEMS);
   const activeItem = items.find((i) => i.ID === deliveryId);
@@ -284,7 +289,7 @@ export function FriendCheckout() {
     api<{ result?: PayMethod[] }>("/payments", {
       deliveryId,
       COUNTRY: "US",
-      CITY: city,
+      CITY: cityForShop,
       AREA: state,
     }).then((p) => {
       if (cancelled) return;
@@ -298,14 +303,14 @@ export function FriendCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [ready, deliveryId, place, city, state, paymentsKey]);
+  }, [ready, deliveryId, place, cityForShop, state, paymentsKey]);
 
   const digits = phone.replace(/\D/g, "");
   const phoneForShop = digits.length === 10 ? `+1${digits}` : `+${digits}`;
   const profile = {
     COUNTRY: "US",
     COUNTRY_NAME: "United States",
-    CITY: city,
+    CITY: cityForShop,
     AREA: state,
     STREET: street.trim(),
     BUILD: build.trim(),
@@ -330,7 +335,7 @@ export function FriendCheckout() {
         paymentId,
         pickPoint: false,
         COUNTRY: "US",
-        CITY: city,
+        CITY: cityForShop,
         AREA: state,
         PROFILE: JSON.parse(profileKey),
         dutyEnabled: true,
@@ -344,7 +349,16 @@ export function FriendCheckout() {
       cancelled = true;
       clearTimeout(t);
     };
-  }, [ready, deliveryId, paymentId, place, city, state, profileKey, totalsKey]);
+  }, [
+    ready,
+    deliveryId,
+    paymentId,
+    place,
+    cityForShop,
+    state,
+    profileKey,
+    totalsKey,
+  ]);
 
   // required fields in page order — the first empty one gets the shake
   const required: { key: string; bad: boolean }[] = [
@@ -720,7 +734,7 @@ export function FriendCheckout() {
                   <h2 className={co.h2}>Delivery method</h2>
                   {!place ? (
                     <p className={co.muted}>
-                      Choose your state and city to see delivery options.
+                      Choose your state to see delivery options.
                     </p>
                   ) : deliveryLoading ? (
                     <p className={co.loader} role="status">
@@ -768,7 +782,7 @@ export function FriendCheckout() {
                   <h2 className={co.h2}>Payment</h2>
                   {!place ? (
                     <p className={co.muted}>
-                      Payment options appear once the delivery is chosen.
+                      Payment options appear once you choose your state.
                     </p>
                   ) : paymentsLoading ? (
                     <p className={co.loader} role="status">
