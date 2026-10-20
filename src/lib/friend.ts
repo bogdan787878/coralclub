@@ -1,5 +1,5 @@
 /**
- * "Друг клуба": unique referral links. A link carries the distributor's
+ * "Friend of the club": unique referral links. A link carries the distributor's
  * REF_CODE (`?ref=570445656503`) or Coral ID (`?d=8819457`); the page asks the
  * shop who that is, remembers the answer, and hands the visitor's cart to the
  * shop's basket with that distributor's REF_CODE — so the shop itself counts
@@ -11,7 +11,7 @@
 import { useSyncExternalStore } from "react";
 import { FRIEND_REF_CODE } from "./beautySystem";
 
-export const SHOP = "https://coralclub.ru";
+export const SHOP = "https://coralclub.us";
 
 export type Friend = {
   refCode: string;
@@ -137,7 +137,7 @@ export function shopBasketUrl(
     .map((l) => `${encodeURIComponent(l.coralId)}=${l.qty}`);
   return `${SHOP}/shop/shop_basket.php?${[
     `REF_CODE=${encodeURIComponent(friend.refCode)}`,
-    "langss=ru",
+    "langss=us",
     `user=${encodeURIComponent(friend.memberId)}`,
     "f=y",
     ...items,
@@ -160,7 +160,7 @@ export function referralLink(
     ref: friend.refCode,
     utm_source: "friend",
     utm_medium: "ref",
-    utm_campaign: "all_all_friend_ref_hydration_ru",
+    utm_campaign: "all_all_friend_ref_hydration_us",
     utm_content: friend.memberId,
   });
   return `${base}?${q}`;

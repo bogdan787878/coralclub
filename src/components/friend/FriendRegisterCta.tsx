@@ -7,7 +7,7 @@ import { useFriend } from "./FriendProvider";
 import styles from "./Friend.module.css";
 
 /**
- * "Register whenever it suits you": the shop's own sign-up, opened as an
+ *
  * invitation from this distributor, so the new member lands in their team.
  */
 export function FriendRegisterCta({ where }: { where: "home" | "checkout" }) {
@@ -17,11 +17,11 @@ export function FriendRegisterCta({ where }: { where: "home" | "checkout" }) {
   return (
     <div className={styles.cta} data-analytics-section={`register_${where}`}>
       <Heading as="h2" className={styles.ctaTitle}>
-        Хотите покупать по клубной цене <Accent>всегда?</Accent>
+        Want member prices <Accent>every time?</Accent>
       </Heading>
       <p className={styles.ctaText}>
-        Станьте членом клуба: регистрация занимает пару минут. Сделать это можно
-        в любой момент — до покупки, после неё или никогда, без давления.
+        Become a club member: sign-up takes a couple of minutes. You can do it
+        any time — before you buy, after, or never. No pressure.
       </p>
       <a
         className={styles.ctaBtn}
@@ -32,7 +32,7 @@ export function FriendRegisterCta({ where }: { where: "home" | "checkout" }) {
         data-analytics-id={`${where}_register_cta`}
         onClick={() => track("friend_register_click", { cta_location: where })}
       >
-        Зарегистрироваться
+        Sign up
       </a>
     </div>
   );

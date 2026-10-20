@@ -1,40 +1,43 @@
 "use client";
 
 import { Carousel, ProductCard } from "@/components/organisms";
-import { ProductTitle } from "@/components/landing/ProductTitle";
 import { addItem, setQty, useCart } from "@/lib/cart";
-import { formatRub } from "@/lib/landingCatalogRu";
-import { friendPdpHref, type FriendProduct } from "@/lib/friendCatalog";
+import {
+  formatUsd,
+  friendPdpHref,
+  type FriendProduct,
+} from "@/lib/friendCatalog";
 
 function FriendCard({ p, index }: { p: FriendProduct; index: number }) {
   const cart = useCart();
-  const qty = cart.find((l) => l.coralId === p.ruId)?.qty ?? 0;
-  const club = formatRub(p.club);
+  const qty = cart.find((l) => l.coralId === p.coralId)?.qty ?? 0;
+  const club = formatUsd(p.club);
+  const title = p.form ? `${p.name} – ${p.form}` : p.name;
 
   return (
     // analytics: which product / position this card is (see Analytics.tsx)
     <div
-      data-analytics-item={p.ruId}
+      data-analytics-item={p.coralId}
       data-analytics-index={index}
       style={{ display: "contents" }}
     >
       <ProductCard
         fluid
-        title={<ProductTitle title={p.name} form={{ label: p.form }} />}
+        title={title}
         tag={p.tag}
         price={club}
-        priceWas={formatRub(p.regular)}
+        priceWas={formatUsd(p.regular)}
         priceTag="−20%"
         href={friendPdpHref(p.slug)}
         cartHref={friendPdpHref(p.slug)}
         images={p.images}
         cartQty={qty}
-        onSetQty={(next) => setQty(p.ruId, next)}
+        onSetQty={(next) => setQty(p.coralId, next)}
         onAddToCart={() =>
           addItem({
-            coralId: p.ruId,
+            coralId: p.coralId,
             slug: p.slug,
-            name: `${p.name} – ${p.form}`,
+            name: title,
             price: club,
             image: p.images[0]?.src,
           })
@@ -62,7 +65,7 @@ export function FriendCards({
     <div
       data-analytics-list={listId}
       data-analytics-list-name={listName}
-      data-analytics-list-items={products.map((p) => p.ruId).join(",")}
+      data-analytics-list-items={products.map((p) => p.coralId).join(",")}
     >
       <Carousel label={label} maxCols={4} minCols={minCols} stretchFew>
         {products.map((p, i) => (

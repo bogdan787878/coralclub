@@ -22,7 +22,7 @@ const parse = (text: string): string[] => [
 /**
  * Internal tool: a table of Coral IDs in → a unique referral link per
  * distributor out (the link carries the shop's own REF_CODE). The names come
- * from the shop, so a typo in an ID shows up as «не найден».
+ * from the shop, so a typo in an ID shows up as “not found”.
  */
 export function FriendLinks() {
   const [text, setText] = useState("");
@@ -85,11 +85,11 @@ export function FriendLinks() {
   return (
     <div className={styles.linksPage}>
       <main className={styles.linksCard}>
-        <h1 className={styles.h1}>Реферальные ссылки</h1>
+        <h1 className={styles.h1}>Referral links</h1>
         <p className={styles.muted}>
-          Вставьте Coral ID друзей клуба (по одному в строке или через пробел).
-          Для каждого будет собрана уникальная ссылка: покупки по ней
-          засчитываются этому дистрибьютору.
+          Paste the Coral IDs of club friends (one per line, or separated by
+          spaces). Each gets a unique link: purchases made through it are
+          credited to that member.
         </p>
 
         <textarea
@@ -106,14 +106,14 @@ export function FriendLinks() {
           onClick={generate}
           disabled={busy || !parse(text).length}
         >
-          {busy ? "Собираю…" : "Собрать ссылки"}
+          {busy ? "Building…" : "Build links"}
         </button>
 
         {rows && (
           <>
             <div className={styles.tableBar}>
               <span className={styles.muted}>
-                Найдено: {ok.length} из {rows.length}
+                Found: {ok.length} of {rows.length}
               </span>
               {ok.length > 0 && (
                 <button
@@ -121,7 +121,7 @@ export function FriendLinks() {
                   className={styles.ghostBtn}
                   onClick={() => copy("all", table)}
                 >
-                  {copied === "all" ? "Скопировано" : "Копировать таблицу"}
+                  {copied === "all" ? "Copied" : "Copy table"}
                 </button>
               )}
             </div>
@@ -139,14 +139,14 @@ export function FriendLinks() {
                       className={styles.ghostBtn}
                       onClick={() => copy(r.input, r.link)}
                     >
-                      {copied === r.input ? "Скопировано" : "Копировать"}
+                      {copied === r.input ? "Copied" : "Copy"}
                     </button>
                   </li>
                 ) : (
                   <li key={r.input}>
                     <div>
                       <strong>{r.input}</strong>
-                      <small> · не найден в магазине</small>
+                      <small> · not found in the shop</small>
                     </div>
                   </li>
                 ),

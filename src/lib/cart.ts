@@ -18,6 +18,14 @@
 import { useSyncExternalStore } from "react";
 
 const STORAGE_KEY = "coralclub.cart";
+/** The friend project (USD, US articles) keeps its own cart, apart from the
+ *  Russian landing and the English prototype on the same origin. */
+const FRIEND_STORAGE_KEY = "coralclub.cart.friend";
+const storageKey = () =>
+  typeof window !== "undefined" &&
+  /\/friend(\/|$)/.test(window.location.pathname)
+    ? FRIEND_STORAGE_KEY
+    : STORAGE_KEY;
 const EVENT = "coralclub:cart";
 const CORAL_SHOP = "https://coralclub.us/shop/";
 /** Hardcoded — required by coralclub.us's share-cart link format, not a
@@ -43,7 +51,7 @@ export type CartAddItem = Omit<CartLine, "qty">;
 function read(): CartLine[] {
   if (typeof window === "undefined") return [];
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw = window.localStorage.getItem(storageKey());
     if (!raw) return [];
     const parsed = JSON.parse(raw) as unknown;
     if (!Array.isArray(parsed)) return [];
@@ -60,7 +68,7 @@ function read(): CartLine[] {
 
 function write(lines: CartLine[]): void {
   try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(lines));
+    window.localStorage.setItem(storageKey(), JSON.stringify(lines));
   } catch {
     /* storage unavailable — the in-memory snapshot below still updates */
   }
@@ -77,7 +85,7 @@ function subscribe(cb: () => void): () => void {
   const onEvent = () => cb();
   // cross-tab: re-read from storage, then notify
   const onStorage = (e: StorageEvent) => {
-    if (e.key !== STORAGE_KEY) return;
+    if (e.key !== storageKey()) return;
     snapshot = read();
     cb();
   };

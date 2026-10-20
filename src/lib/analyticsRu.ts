@@ -14,6 +14,12 @@ import type { CartLine } from "./cart";
 
 export const CURRENCY = "RUB";
 
+/** The friend project sells in dollars, the Russian landing in roubles. */
+export const currencyNow = (): string =>
+  typeof window !== "undefined" && /\/friend(\/|$)/.test(window.location.pathname)
+    ? "USD"
+    : CURRENCY;
+
 export type AnalyticsItem = {
   item_id: string;
   item_name: string;
@@ -46,11 +52,11 @@ export function itemFor(coralId: string): AnalyticsItem | null {
   const friend = friendProductById(coralId);
   if (friend) {
     return {
-      item_id: friend.ruId,
+      item_id: friend.coralId,
       item_name: friend.name,
       price: friend.club,
-      item_category: friend.isSet ? "Наборы" : "Гидратация",
-      item_variant: friend.form,
+      item_category: friend.isSet ? "Sets" : "Hydration",
+      ...(friend.form ? { item_variant: friend.form } : {}),
     };
   }
   const set = LANDING_SETS_RU.find((s) => s.ruId === coralId);
@@ -70,7 +76,8 @@ export const itemBySlug = (slug: string): AnalyticsItem | null => {
   return p ? itemFor(p.ruId) : null;
 };
 
-export const bonusFor = (coralId: string) => LANDING_BONUS[coralId] ?? 0;
+export const bonusFor = (coralId: string) =>
+  LANDING_BONUS[coralId] ?? friendProductById(coralId)?.bonus ?? 0;
 
 const round = (n: number) => Math.round(n * 100) / 100;
 

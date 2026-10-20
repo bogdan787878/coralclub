@@ -17,41 +17,22 @@ import { FRIEND_SETS, FRIEND_SINGLES } from "@/lib/friendCatalog";
 import styles from "@/components/friend/Friend.module.css";
 
 export const metadata: Metadata = {
-  title: "Гидратация по клубной цене — Coral Club",
+  title: "Hydration at member prices — Coral Club",
   robots: { index: false, follow: false },
 };
 
-/** Community clips of the original home page (same files, Russian captions). */
-const REELS = [
-  {
-    src: asset("/reels/reel1.mp4"),
-    alt: "Участница рассказывает о своей утренней рутине гидратации",
-  },
-  {
-    src: asset("/reels/reel2.mp4"),
-    alt: "Участница о том, как ей далась программа",
-  },
-  {
-    src: asset("/reels/reel3.mp4"),
-    alt: "История участницы клуба с большим стажем",
-  },
-  {
-    src: asset("/reels/reel4.mp4"),
-    alt: "Участница показывает продукты, которые держит на столе",
-  },
-  {
-    src: asset("/reels/reel5.mp4"),
-    alt: "Амбассадор объясняет, почему рекомендует Coral Club",
-  },
-];
-
+/**
+ * The original (English) hydration home page, minus the phases and the quiz:
+ * the same hero, editorial blocks, advisory board and community clips — and
+ * only the Hydration products, at member prices.
+ */
 export default function FriendHome() {
   const hydration = HOME_CONTENT.hydration;
-  // the original home's own blocks: the two editorial images and the board
   const [water, minerals] = hydration.sections.filter(
     (x): x is EditorialItem => x.kind === "editorial",
   );
   const board = hydration.sections.find((x) => x.kind === "advisory-board");
+  const { hero, reels } = hydration;
 
   return (
     <div className="appShell">
@@ -62,19 +43,20 @@ export default function FriendHome() {
         <Hero
           title={
             <>
-              Ваше утро начинается
+              {hero.title.lead}
               <br />
-              <Accent>с воды</Accent>
+              <Accent>{hero.title.accent}</Accent>
             </>
           }
           body={
-            <p>
-              Гидратация — основа вашей рутины Coral Club, на которой строится
-              всё остальное.
-            </p>
+            <>
+              {hero.body.map((t) => (
+                <p key={t}>{t}</p>
+              ))}
+            </>
           }
-          image={hydration.hero.image}
-          cta={{ label: "Выбрать набор", href: "#hydration" }}
+          image={hero.image}
+          cta={{ label: "Choose my set", href: "#hydration" }}
         />
 
         <Section
@@ -85,18 +67,18 @@ export default function FriendHome() {
         >
           <Container>
             <Heading as="h2" className={styles.h2}>
-              Одна вода не увлажняет. <Accent>Минералы — да.</Accent>
+              Water alone doesn’t hydrate. <Accent>Minerals do.</Accent>
             </Heading>
             <p className={styles.lead}>
-              Обычная вода проходит сквозь вас быстро — задерживают её минералы
-              и электролиты.
+              Plain water passes through you quickly — minerals and electrolytes
+              are what help your body hold on to it.
             </p>
           </Container>
           <FriendCards
             products={FRIEND_SETS}
             listId="friend_sets"
-            listName="Наборы для гидратации"
-            label="Наборы для гидратации"
+            listName="Hydration sets"
+            label="Hydration sets"
             minCols={2}
           />
         </Section>
@@ -108,38 +90,28 @@ export default function FriendHome() {
         >
           <Container>
             <Heading as="h2" className={styles.h2}>
-              Или <Accent>по одному</Accent>
+              Or <Accent>one at a time</Accent>
             </Heading>
           </Container>
           <FriendCards
             products={FRIEND_SINGLES}
             listId="friend_singles"
-            listName="Гидратация по одному"
-            label="Продукты для гидратации"
+            listName="Hydration, one by one"
+            label="Hydration products"
             minCols={4}
           />
         </Section>
 
         {water && (
           <Editorial
-            title={{
-              lead: "Вы на 90% состоите из воды.",
-              accent: "От неё зависит всё остальное.",
-            }}
-            image={{ ...water.image, alt: "Девушка пьёт стакан воды" }}
-            badge="90% воды"
+            title={water.title}
+            image={water.image}
+            badge={water.badge?.text}
             body={
               <>
-                <p>
-                  Большинство добавок пропускают первый шаг вашей рутины: воду,
-                  которую вы пьёте каждый день.
-                </p>
-                <p>
-                  Можно принимать лучшие добавки, но если организму не хватает
-                  воды, он их по-настоящему не использует. Поэтому Coral Club
-                  начинает с главного — с воды, которую вы пьёте ежедневно. Всё
-                  остальное строится на этом.
-                </p>
+                {water.body.map((t) => (
+                  <p key={t}>{t}</p>
+                ))}
               </>
             }
           />
@@ -147,46 +119,34 @@ export default function FriendHome() {
 
         {minerals && (
           <Editorial
-            title={{
-              lead: "Минералы с японских островов,",
-              accent: "где люди живут до 100 лет",
-            }}
-            image={{
-              ...minerals.image,
-              alt: "Ископаемый коралл Санго у берегов Окинавы",
-            }}
+            title={minerals.title}
+            image={minerals.image}
             badge={
               <>
-                <span aria-hidden="true">🇯🇵 </span>Окинава, Япония
+                {minerals.badge?.flag && (
+                  <span aria-hidden="true">{minerals.badge.flag} </span>
+                )}
+                {minerals.badge?.text}
               </>
             }
             body={
-              <p>
-                У берегов Окинавы, одной из пяти «голубых зон» планеты, лежит
-                ископаемый коралл Санго, природно богатый кальцием, магнием
-                и более чем 70 микроэлементами.
-              </p>
+              <>
+                {minerals.body.map((t) => (
+                  <p key={t}>{t}</p>
+                ))}
+              </>
             }
           />
         )}
 
         {board?.kind === "advisory-board" && (
-          <AdvisoryBoard
-            title={{
-              lead: "Нас поддерживает",
-              accent: "Научный консультативный совет",
-            }}
-            members={board.members}
-          />
+          <AdvisoryBoard title={board.title} members={board.members} />
         )}
 
         <CommunityReels
-          title={{
-            lead: "Доказательство не на этикетке.",
-            accent: "Оно в сообществе.",
-          }}
-          body="Реальные участники, реальные рутины. Большинство людей приходят в Coral Club потому, что кому-то, кому они доверяют, это уже подошло."
-          reels={REELS}
+          title={reels.title}
+          body={reels.body}
+          reels={reels.reels}
         />
 
         <Section tone="default" className={styles.section}>
@@ -198,8 +158,9 @@ export default function FriendHome() {
         <footer className={styles.footer} data-analytics-location="footer">
           <Container>
             <p>
-              БАД не является лекарственным средством. Перед применением
-              проконсультируйтесь со специалистом.
+              These statements have not been evaluated by the Food and Drug
+              Administration. These products are not intended to diagnose,
+              treat, cure, or prevent any disease.
             </p>
           </Container>
         </footer>

@@ -7,7 +7,6 @@ import {
   InfoAccordion,
   PeriodicElements,
 } from "@/components/organisms";
-import { ProductTitle } from "@/components/landing/ProductTitle";
 import { LandingGallery } from "@/components/landing/LandingGallery";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { TrackViewItem } from "@/components/landing/TrackViewItem";
@@ -18,13 +17,14 @@ import { FriendRegisterCta } from "@/components/friend/FriendRegisterCta";
 import { asset } from "@/lib/asset";
 import {
   FRIEND_PRODUCTS,
+  formatUsd,
   friendPdpHref,
   friendProduct,
 } from "@/lib/friendCatalog";
-import { DISCLAIMERS, formatRub } from "@/lib/landingCatalogRu";
 import {
   ManufacturingDetails,
   SupplementFacts,
+  hasSupplementFacts,
 } from "../../../(shop)/products/[slug]/ManufacturingDetails";
 import { BackButton } from "../../../(shop)/products/[slug]/BackButton";
 import { ShareButton } from "../../../(shop)/products/[slug]/ShareButton";
@@ -64,34 +64,36 @@ export default async function FriendProductPage({
 
   const others = FRIEND_PRODUCTS.filter((x) => x.slug !== slug);
   const href = friendPdpHref(slug);
-  const hasFacts = (p.facts?.rows.length ?? 0) > 0;
+  const facts = p.manufacturing.supplementFacts;
+  const hasFacts = hasSupplementFacts(facts);
+  const title = p.form ? `${p.name} – ${p.form}` : p.name;
 
   const buyProps = {
     product: {
-      coralId: p.ruId,
+      coralId: p.coralId,
       slug,
-      name: `${p.name} – ${p.form}`,
+      name: title,
       image: p.images[0]?.src,
     },
     options: [
       {
         id: "club",
-        label: "Клубная цена",
-        note: "−20% по ссылке друга",
-        price: formatRub(p.club),
-        cta: { label: "В корзину", href },
+        label: "Member price",
+        note: "−20% with a friend link",
+        price: formatUsd(p.club),
+        cta: { label: "Add to cart", href },
       },
       {
         id: "regular",
-        label: "Обычная цена",
-        price: formatRub(p.regular),
-        cta: { label: "В корзину", href },
+        label: "Regular price",
+        price: formatUsd(p.regular),
+        cta: { label: "Add to cart", href },
       },
     ],
     labels: {
-      add: "В корзину",
-      inCart: "В корзине",
-      openCart: "Открыть корзину",
+      add: "Add to cart",
+      inCart: "In cart",
+      openCart: "Open cart",
     },
   };
 
@@ -101,7 +103,7 @@ export default async function FriendProductPage({
         <div className={shop.desktopHeader}>
           <LandingHeader homeHref={asset("/friend/")} />
         </div>
-        <TrackViewItem coralId={p.ruId} />
+        <TrackViewItem coralId={p.coralId} />
 
         <div className={shop.imageControls}>
           <BackButton className={shop.circleBtn} fallbackHref="/friend/" />
@@ -118,7 +120,7 @@ export default async function FriendProductPage({
               <Stack gap="base" className={shop.infoCol}>
                 <div className={shop.headGroup}>
                   <Heading className={`${shop.name} ${styles.pdpTitle}`}>
-                    <ProductTitle title={p.name} form={{ label: p.form }} />
+                    {title}
                   </Heading>
 
                   <div id="pdp-buy">
@@ -126,74 +128,31 @@ export default async function FriendProductPage({
                   </div>
 
                   <BodyLong>{p.lead}</BodyLong>
-                  {p.bullets && (
-                    <ul className={styles.bullets}>
-                      {p.bullets.map((b) => (
-                        <li key={b}>{b}</li>
-                      ))}
-                    </ul>
-                  )}
 
                   {p.elements.length > 0 && (
-                    <PeriodicElements
-                      items={p.elements}
-                      heading="Ключевые компоненты"
-                    />
+                    <PeriodicElements items={p.elements} />
                   )}
                 </div>
 
                 <InfoAccordion
                   items={[
                     {
-                      title: "Как применять",
+                      title: "How to Use",
                       content: (
-                        <p style={{ whiteSpace: "pre-line" }}>{p.howToUse}</p>
+                        <p style={{ whiteSpace: "pre-line" }}>
+                          {p.howToUse || "Details coming soon."}
+                        </p>
                       ),
                     },
                     {
-                      title: "Производство и хранение",
-                      content: (
-                        <ManufacturingDetails
-                          data={{
-                            countryOfOrigin: p.manufacturing.country,
-                            shippingWeight: "",
-                            expiration: p.manufacturing.expiration,
-                            storage: p.manufacturing.storage,
-                            ingredients: p.manufacturing.ingredients ?? "",
-                            supplementFacts: { servingLabel: "", rows: [] },
-                          }}
-                          labels={{
-                            country: "Страна происхождения",
-                            weight: "Вес",
-                            expiration: "Срок годности",
-                            storage: "Условия хранения",
-                            ingredients: "Состав",
-                          }}
-                        />
-                      ),
+                      title: "Manufacturing details",
+                      content: <ManufacturingDetails data={p.manufacturing} />,
                     },
-                    ...(hasFacts && p.facts
+                    ...(hasFacts
                       ? [
                           {
-                            title: "Пищевая ценность",
-                            content: (
-                              <SupplementFacts
-                                data={{
-                                  servingLabel: p.facts.servingLabel,
-                                  rows: p.facts.rows.map((r) => ({
-                                    name: r.name,
-                                    amount: r.amount,
-                                    dv: r.dv ?? "",
-                                  })),
-                                }}
-                                labels={{
-                                  perServing: "В одной порции",
-                                  dv: "% от суточной нормы",
-                                  footnote:
-                                    "* Процент от рекомендуемой суточной нормы потребления.",
-                                }}
-                              />
-                            ),
+                            title: "Supplement Facts",
+                            content: <SupplementFacts data={facts} />,
                           },
                         ]
                       : []),
@@ -201,15 +160,14 @@ export default async function FriendProductPage({
                 />
 
                 {p.fullDescription && (
-                  <FullDescription
-                    text={p.fullDescription}
-                    title="Полное описание"
-                    moreLabel="Читать полностью"
-                    lessLabel="Свернуть"
-                  />
+                  <FullDescription text={p.fullDescription} />
                 )}
 
-                <p className={shop.disclaimer}>{DISCLAIMERS.supplement}</p>
+                <p className={shop.disclaimer}>
+                  This statement has not been evaluated by the Food and Drug
+                  Administration. This product is not intended to diagnose,
+                  treat, cure, or prevent any disease.
+                </p>
               </Stack>
             </div>
           </div>
@@ -218,14 +176,14 @@ export default async function FriendProductPage({
         <Section tone="default" className={styles.more}>
           <Container>
             <Heading as="h2" className={shop.moreTitle}>
-              Ещё из первой фазы
+              More from Hydration
             </Heading>
           </Container>
           <FriendCards
             products={others}
             listId="pdp_similar"
-            listName="Ещё из первой фазы"
-            label="Ещё из первой фазы"
+            listName="More from Hydration"
+            label="More from Hydration"
           />
         </Section>
 

@@ -13,7 +13,7 @@ import {
   trackOnce,
   webViewFlag,
 } from "@/lib/analytics";
-import { CURRENCY, itemFor, summarize } from "@/lib/analyticsRu";
+import { currencyNow, itemFor, summarize } from "@/lib/analyticsRu";
 import { getCart, type CartChange } from "@/lib/cart";
 
 /**
@@ -170,7 +170,7 @@ function onClick(e: MouseEvent) {
       track(
         "begin_checkout",
         { bonus_points: s.bonus_points },
-        { currency: CURRENCY, value: s.value, items: s.items },
+        { currency: currencyNow(), value: s.value, items: s.items },
       );
     }
   }
@@ -190,7 +190,7 @@ function onCartChange(e: Event) {
     type === "add" ? "add_to_cart" : "remove_from_cart",
     {},
     {
-      currency: CURRENCY,
+      currency: currencyNow(),
       value: Math.round(item.price * qty * 100) / 100,
       items: [{ ...item, quantity: qty }],
     },
@@ -203,7 +203,7 @@ function onCartView() {
   track(
     "view_cart",
     { bonus_points: s.bonus_points },
-    { currency: CURRENCY, value: s.value, items: s.items },
+    { currency: currencyNow(), value: s.value, items: s.items },
   );
 }
 

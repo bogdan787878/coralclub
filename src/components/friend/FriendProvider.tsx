@@ -119,7 +119,7 @@ export function FriendBanner() {
     <div className={styles.banner} role="status">
       {invalidLink && (
         <p className={styles.bannerWarn}>
-          Ссылка не распознана магазином — показан дистрибьютор по умолчанию.
+          The shop did not recognise this link — showing the default member.
         </p>
       )}
       {friend ? (
@@ -138,14 +138,14 @@ export function FriendBanner() {
           )}
           <p className={styles.bannerText}>
             {source === "demo"
-              ? "Тест: ссылки нет, покупка засчитается "
-              : "Вас пригласил(а) "}
+              ? "Test: no link, the sale goes to "
+              : "Invited by "}
             <strong>{friend.name}</strong> · Coral ID {friend.memberId}
           </p>
-          <span className={styles.bannerTag}>Клубная цена −20%</span>
+          <span className={styles.bannerTag}>Member price −20%</span>
         </div>
       ) : (
-        <p className={styles.bannerText}>Определяем дистрибьютора…</p>
+        <p className={styles.bannerText}>Looking up your host…</p>
       )}
     </div>
   );

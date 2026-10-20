@@ -3,7 +3,7 @@ import { FriendLinks } from "@/components/friend/FriendLinks";
 
 /** Internal: turns a table of Coral IDs into unique referral links. */
 export const metadata: Metadata = {
-  title: "Реферальные ссылки — Друг клуба",
+  title: "Referral links — Friend of the club",
   robots: { index: false, follow: false },
 };
 

@@ -7,29 +7,29 @@ import {
   type CartDrawerLabels,
 } from "@/components/cart/CartDrawer";
 import { BagIcon } from "@/components/cart/icons";
-import { formatRub } from "@/lib/landingCatalogRu";
+import { formatUsd } from "@/lib/friendCatalog";
 import { useEffect, useState } from "react";
 import { useFriend } from "./FriendProvider";
 import styles from "../landing/LandingCartButton.module.css";
 import friend from "./Friend.module.css";
 
 const LABELS: CartDrawerLabels = {
-  aria: "Корзина",
-  closeCart: "Закрыть корзину",
-  title: "Ваша корзина",
-  close: "Закрыть",
-  empty: "В корзине пока пусто.",
-  remove: "Удалить",
-  decrease: (name) => `Убрать одну штуку: ${name}`,
-  increase: (name) => `Добавить ещё одну: ${name}`,
-  subtotal: "Итого по клубной цене",
+  aria: "Cart",
+  closeCart: "Close cart",
+  title: "Your cart",
+  close: "Close",
+  empty: "Your cart is empty.",
+  remove: "Remove",
+  decrease: (name) => `Decrease ${name}`,
+  increase: (name) => `Increase ${name}`,
+  subtotal: "Subtotal at member prices",
   note: "",
-  checkout: "Оформить без регистрации",
+  checkout: "Check out without signing up",
   clear: "",
 };
 
 /**
- * The project's floating cart + drawer. "Оформить" goes to the project's own
+ * The project's floating cart + drawer. "Check out" goes to the project's own
  * checkout page, which hands the cart to the shop's basket.
  */
 export function FriendCartButton({ aboveBar = false }: { aboveBar?: boolean }) {
@@ -47,7 +47,7 @@ export function FriendCartButton({ aboveBar = false }: { aboveBar?: boolean }) {
           type="button"
           className={`${styles.fab}${aboveBar ? ` ${styles.aboveBar}` : ""}`}
           onClick={openCart}
-          aria-label={`Корзина, товаров: ${count}`}
+          aria-label={`Cart, ${count} items`}
           data-analytics-id="header_cart_icon"
           data-analytics-location="header"
         >
@@ -60,12 +60,12 @@ export function FriendCartButton({ aboveBar = false }: { aboveBar?: boolean }) {
         open={open}
         onClose={() => setOpen(false)}
         labels={LABELS}
-        formatMoney={formatRub}
+        formatMoney={formatUsd}
         onCheckout={() => router.push("/friend/checkout/")}
         extra={
           who && (
             <p className={friend.drawerNote}>
-              Покупка засчитается: <strong>{who.name}</strong> · Coral ID{" "}
+              The sale goes to <strong>{who.name}</strong> · Coral ID{" "}
               {who.memberId}
             </p>
           )
