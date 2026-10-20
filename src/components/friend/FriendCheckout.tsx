@@ -21,7 +21,6 @@ import {
 } from "@/lib/friendCatalog";
 import { shopBasketUrl } from "@/lib/friend";
 import { readContact, saveContact } from "@/lib/friendContact";
-import { saveLastOrder } from "@/lib/friendOrder";
 import {
   api,
   emptyShopBasket,
@@ -517,46 +516,18 @@ export function FriendCheckout() {
           email: email.trim(),
         });
         // step 2 — the payment form of the shop, shown inside our page
-        saveLastOrder({
-          orderId: String(data.result),
-          paymentId,
-          total: num(grand) || goods.value,
-          shipping: deliveryPrice,
-          shippingName: activeItem?.NAME ?? "",
-          address: `${address.trim()}, ${city}, ${state} ${zip.trim()}`,
-          email: email.trim(),
-          lines: lines.flatMap((l) => {
-            const p = friendProductById(l.coralId);
-            return p
-              ? [
-                  {
-                    name: p.name,
-                    form: p.form,
-                    qty: l.qty,
-                    club: p.club,
-                    regular: p.regular,
-                    image: l.image,
-                  },
-                ]
-              : [];
-          }),
-        });
         const method = payments.find((x) => x.ID === paymentId);
-        if (method && paymentTypeCode(method.NAME) === "paypal") {
-          // PayPal is the shop's own flow: its payment page, in this window
-          // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- a page of the shop
-          window.location.assign(
-            `/order/payment/${data.result}/${encodeURIComponent(paymentId)}/?new_checkout=1`,
-          );
-        } else {
-          // a full page load, on purpose: the card page runs without analytics
-          // and without any script left over from the pages before it
-          window.location.assign(
-            asset(
-              `/friend/checkout/pay/?order=${encodeURIComponent(String(data.result))}&pm=${encodeURIComponent(paymentId)}`,
-            ),
-          );
-        }
+        const kind =
+          method && paymentTypeCode(method.NAME) === "paypal"
+            ? "paypal"
+            : "card";
+        // step 2 is a full page load, on purpose: the card page runs without
+        // analytics and without any script left over from the pages before it
+        window.location.assign(
+          asset(
+            `/friend/checkout/pay/?order=${encodeURIComponent(String(data.result))}&pm=${encodeURIComponent(paymentId)}&kind=${kind}`,
+          ),
+        );
         return;
       }
       setError(

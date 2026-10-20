@@ -24,6 +24,20 @@ export type PayOrder = {
   city: string;
   area: string;
   zip: string;
+  recipient: string;
+  phone: string;
+  email: string;
+  /** The shop's delivery service id, e.g. "I_FEDEX_GROUND". */
+  delivery: string;
+  /** Goods (not shipping), delivery, already paid, order total. */
+  productSum: number;
+  deliveryPrice: number;
+  paidSum: number;
+  total: number;
+  /** The order is counted for a friend of the club (the shop's own flag). */
+  friendRef: boolean;
+  memberId: string;
+  lines: { code: string; qty: number; sum: number }[];
 };
 
 export type PayResult =
@@ -38,6 +52,16 @@ export type PayResult =
     };
 
 type OrderRaw = {
+  FIO?: string;
+  PHONE?: string;
+  EMAIL?: string;
+  DELIVERY?: string;
+  PRODUCT_SUM?: string | number;
+  PRICE_DELIVERY?: string | number;
+  SUM_PAID?: string | number;
+  FRIEND_REF?: string | number;
+  MEMBER_ID?: string | number;
+  BASKET?: { VENDOR_CODE?: string; QUANTITY?: string; SUM_PRICE?: string }[];
   ORDER_ID?: string | number;
   NEED_PAY?: string | number;
   FULL_PRICE?: string | number;
@@ -74,8 +98,50 @@ export async function getPayOrder(
       city: o.CITY || "",
       area: o.AREA || "",
       zip: o.ZIP || "",
+      recipient: o.FIO || "",
+      phone: o.PHONE || "",
+      email: o.EMAIL || "",
+      delivery: o.DELIVERY || "",
+      productSum: Number(o.PRODUCT_SUM) || 0,
+      deliveryPrice: Number(o.PRICE_DELIVERY) || 0,
+      paidSum: Number(o.SUM_PAID) || 0,
+      total: Number(o.FULL_PRICE) || 0,
+      friendRef: String(o.FRIEND_REF ?? "") === "1",
+      memberId: String(o.MEMBER_ID ?? ""),
+      lines: (o.BASKET ?? []).map((b) => ({
+        code: String(b.VENDOR_CODE ?? ""),
+        qty: Number(b.QUANTITY) || 0,
+        sum: Number(b.SUM_PRICE) || 0,
+      })),
     },
   };
+}
+
+/**
+ * PayPal has no payment API of ours: the shop's own order page prepares the
+ * PayPal checkout when it is opened and puts its address on the «Proceed to
+ * Payment» button. This reads that address (only a paypal.com one is taken).
+ */
+export async function getPayPalLink(
+  orderId: string,
+  paySystemId: string,
+): Promise<string | null> {
+  try {
+    const html = await (
+      await shopFetch(
+        `/order/payment/${encodeURIComponent(orderId)}/${encodeURIComponent(paySystemId)}/?new_checkout=1`,
+      )
+    ).text();
+    const tag = /<a\b[^>]*class="[^"]*order-payment-button[^"]*"[^>]*>/i.exec(
+      html,
+    )?.[0];
+    const href = tag && /href="([^"]+)"/i.exec(tag)?.[1];
+    return href && /^https:\/\/(www\.)?paypal\.com\//i.test(href)
+      ? href.replace(/&amp;/g, "&")
+      : null;
+  } catch {
+    return null;
+  }
 }
 
 /** The shop's answers come in three shapes; this makes one of them. */

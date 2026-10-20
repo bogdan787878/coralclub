@@ -18,11 +18,11 @@ import {
   formatExpiry,
   type CardErrors,
 } from "@/lib/cardFormat";
-import { formatUsd } from "@/lib/friendCatalog";
-import { readLastOrder, type LastOrder } from "@/lib/friendOrder";
+import { formatUsd, friendProductById } from "@/lib/friendCatalog";
 import { onShopOrigin, pinShopSite } from "@/lib/shopApi";
 import {
   getPayOrder,
+  getPayPalLink,
   payByCard,
   setupGooglePay,
   type GooglePay,
@@ -46,6 +46,13 @@ const Chevron = () => (
     />
   </svg>
 );
+
+/** The shop's delivery service ids → names (the order carries only the id). */
+const DELIVERY_NAME: Record<string, string> = {
+  I_FEDEX_GROUND: "FedEx Ground",
+  I_FEDEX_EXPRESS: "FedEx Express 2nd Business Day",
+  I_USPS: "USPS",
+};
 
 /** The shop's field names → ours, for the messages it sends back. */
 const FIELD_OF: Record<string, string> = {
@@ -72,19 +79,13 @@ export function FriendPayment() {
   const params = useSearchParams();
   const orderId = (params.get("order") ?? "").replace(/\D/g, "");
   const paySystemId = (params.get("pm") ?? "").replace(/[^\w:-]/g, "");
+  const paypal = params.get("kind") === "paypal";
 
   const live = useSyncExternalStore<boolean | null>(
     () => () => {},
     onShopOrigin,
     () => null,
   );
-
-  // what the checkout kept for the summary (our own record, not the shop's)
-  const [summaryOrder, setSummaryOrder] = useState<LastOrder | null>(null);
-  useEffect(() => {
-    const t = setTimeout(() => setSummaryOrder(readLastOrder(orderId)), 0);
-    return () => clearTimeout(t);
-  }, [orderId]);
 
   // the order as the shop sees it (amount to pay, shipping address)
   const [order, setOrder] = useState<PayOrder | null>(null);
@@ -119,17 +120,30 @@ export function FriendPayment() {
     };
   }, [live, orderId]);
 
+  // PayPal: the address the shop prepared for this order
+  const [paypalLink, setPaypalLink] = useState<string | null | undefined>(
+    undefined,
+  );
+  useEffect(() => {
+    if (!live || !orderId || !paypal) return;
+    let alive = true;
+    getPayPalLink(orderId, paySystemId).then((l) => alive && setPaypalLink(l));
+    return () => {
+      alive = false;
+    };
+  }, [live, orderId, paypal, paySystemId]);
+
   // Google Pay (only where the device and the page can use it)
   const [gpay, setGpay] = useState<GooglePay | null>(null);
   const gpayHost = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (!live) return;
+    if (!live || paypal) return;
     let alive = true;
     setupGooglePay().then((g) => alive && setGpay(g));
     return () => {
       alive = false;
     };
-  }, [live]);
+  }, [live, paypal]);
 
   const [number, setNumber] = useState("");
   const [expiry, setExpiry] = useState("");
@@ -235,49 +249,86 @@ export function FriendPayment() {
 
   const shopPage = `/order/payment/${orderId}/${encodeURIComponent(paySystemId)}/?new_checkout=1`;
   const total = order ? formatUsd(Number(order.amount)) : "";
+  const shopPageChange = shopPage;
 
-  const summary = summaryOrder && (
+  const deliveryName =
+    (order && DELIVERY_NAME[order.delivery]) ||
+    (order?.delivery ?? "").replace(/^I_/, "").replace(/_/g, " ");
+
+  // the same facts the shop's own order page shows, in our layout
+  const summary = order && (
     <div className={styles.sum}>
       <ul className={styles.sumLines}>
-        {summaryOrder.lines.map((l) => (
-          <li key={l.name} className={styles.sumLine}>
-            <span className={styles.thumb}>
-              <span className={styles.thumbImg}>
-                {l.image && <Image src={l.image} alt="" fill sizes="56px" />}
+        {order.lines.map((l) => {
+          const p = friendProductById(l.code);
+          return (
+            <li key={l.code} className={styles.sumLine}>
+              <span className={styles.thumb}>
+                <span className={styles.thumbImg}>
+                  {p?.images[0] && (
+                    <Image src={p.images[0].src} alt="" fill sizes="56px" />
+                  )}
+                </span>
+                <span className={styles.badge}>{l.qty}</span>
               </span>
-              <span className={styles.badge}>{l.qty}</span>
-            </span>
-            <span className={styles.lineName}>
-              {l.name}
-              {l.form && <span className={styles.lineSub}>{l.form}</span>}
-            </span>
-            <span className={styles.lineSum}>
-              <span className={styles.was}>{formatUsd(l.regular * l.qty)}</span>{" "}
-              {formatUsd(l.club * l.qty)}
-            </span>
-          </li>
-        ))}
+              <span className={styles.lineName}>
+                {p?.name ?? `#${l.code}`}
+                {p?.form && <span className={styles.lineSub}>{p.form}</span>}
+              </span>
+              <span className={styles.lineSum}>
+                {p && (
+                  <span className={styles.was}>
+                    {formatUsd(p.regular * l.qty)}
+                  </span>
+                )}{" "}
+                {formatUsd(l.sum)}
+              </span>
+            </li>
+          );
+        })}
       </ul>
       <dl className={styles.rows}>
         <div>
-          <dt>{summaryOrder.shippingName || "Shipping"}</dt>
+          <dt>Products</dt>
+          <dd>{formatUsd(order.productSum)}</dd>
+        </div>
+        <div>
+          <dt>Delivery</dt>
           <dd>
-            {summaryOrder.shipping === null
-              ? "—"
-              : summaryOrder.shipping > 0
-                ? formatUsd(summaryOrder.shipping)
-                : "Free"}
+            {order.deliveryPrice > 0 ? formatUsd(order.deliveryPrice) : "Free"}
           </dd>
         </div>
+        {order.paidSum > 0 && (
+          <div>
+            <dt>Paid</dt>
+            <dd>{formatUsd(order.paidSum)}</dd>
+          </div>
+        )}
+        <div>
+          <dt>Total amount</dt>
+          <dd>{formatUsd(order.total)}</dd>
+        </div>
         <div className={styles.rowTotal}>
-          <dt>Total</dt>
-          <dd>{formatUsd(summaryOrder.total)}</dd>
+          <dt>Amount to pay</dt>
+          <dd>{formatUsd(Number(order.amount))}</dd>
         </div>
       </dl>
+      {order.friendRef && (
+        <p className={styles.host}>
+          Member prices applied: this order is counted for the friend who
+          invited you (Coral ID {order.memberId}).
+        </p>
+      )}
       <p className={styles.host}>
-        Shipping to {summaryOrder.address}
-        <br />
-        Receipt to {summaryOrder.email}
+        By placing an order, you agree to the{" "}
+        <a href="/faq/privacy/" target="_blank" rel="noopener noreferrer">
+          Privacy Policy
+        </a>{" "}
+        and accept the{" "}
+        <a href="/faq/terms/" target="_blank" rel="noopener noreferrer">
+          Terms and Conditions
+        </a>
+        .
       </p>
     </div>
   );
@@ -306,14 +357,14 @@ export function FriendPayment() {
           </div>
         ) : (
           <div className={styles.layout}>
-            {summaryOrder && summary && (
+            {order && summary && (
               <details className={styles.sumMobile}>
                 <summary className={styles.sumHead}>
                   <span>
                     Order summary <Chevron />
                   </span>
                   <span className={styles.sumHeadPrice}>
-                    <strong>{total || formatUsd(summaryOrder.total)}</strong>
+                    <strong>{total}</strong>
                   </span>
                 </summary>
                 <div className={styles.sumBodyMobile}>{summary}</div>
@@ -321,188 +372,261 @@ export function FriendPayment() {
             )}
 
             <div className={styles.main}>
-              <h1 className={styles.title}>Payment</h1>
-              <p className={styles.sub}>
-                Order № {orderId} is created. All transactions are secure and
-                encrypted.
-              </p>
+              <h1 className={styles.title}>Order #{orderId}</h1>
 
-              {general && <p className={styles.error}>{general}</p>}
-
-              {gpay && (
+              {order && (
                 <section className={styles.section}>
-                  <div
-                    ref={gpayHost}
-                    className={styles.gpay}
-                    aria-busy={busy}
-                  />
-                  <p className={styles.or}>
-                    <span>or pay by card</span>
-                  </p>
+                  <h2 className={styles.h2}>Shipping information</h2>
+                  <dl className={styles.facts}>
+                    <div>
+                      <dt>Recipient</dt>
+                      <dd>{order.recipient}</dd>
+                    </div>
+                    <div>
+                      <dt>Shipping address</dt>
+                      <dd>
+                        {[order.street, order.city, order.area]
+                          .filter(Boolean)
+                          .join(", ")}{" "}
+                        {order.zip}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>Phone</dt>
+                      <dd>{order.phone}</dd>
+                    </div>
+                    <div>
+                      <dt>Email</dt>
+                      <dd>{order.email}</dd>
+                    </div>
+                    <div>
+                      <dt>Delivery service</dt>
+                      <dd>{deliveryName}</dd>
+                    </div>
+                  </dl>
                 </section>
               )}
 
-              <section className={styles.section} aria-label="Card">
-                <h2 className={styles.h2}>Card details</h2>
-                <FloatInput
-                  {...field("number")}
-                  label="Card number"
-                  placeholder="1234 1234 1234 1234"
-                  value={number}
-                  onChange={(v) => setNumber(formatCardNumber(v))}
-                  inputMode="numeric"
-                  autoComplete="cc-number"
-                  maxLength={23}
-                />
-                <div className={styles.row}>
-                  <FloatInput
-                    {...field("expiry")}
-                    label="Expiration date"
-                    placeholder="MM/YY"
-                    value={expiry}
-                    onChange={(v) => setExpiry(formatExpiry(v, expiry))}
-                    inputMode="numeric"
-                    autoComplete="cc-exp"
-                    maxLength={5}
-                  />
-                  <FloatInput
-                    {...field("cvc")}
-                    label="Security code"
-                    placeholder="CVC"
-                    value={cvc}
-                    onChange={(v) => setCvc(v.replace(/\D/g, "").slice(0, 4))}
-                    inputMode="numeric"
-                    autoComplete="cc-csc"
-                    maxLength={4}
-                  />
-                </div>
-                <FloatInput
-                  {...field("name")}
-                  label="Name on card"
-                  placeholder="JANE DOE"
-                  value={name}
-                  onChange={setName}
-                  autoComplete="cc-name"
-                />
+              <section className={styles.section}>
+                <h2 className={styles.h2}>Payment</h2>
+                <p className={styles.sub}>
+                  {paypal ? "PayPal" : "Credit card"} · all transactions are
+                  secure and encrypted.{" "}
+                  <a href={shopPageChange}>Change payment method</a>
+                </p>
               </section>
 
-              <section className={styles.section}>
-                <h2 className={styles.h2}>Billing address</h2>
-                <p className={styles.sub}>
-                  For a successful payment, the address must match the one on
-                  your card statement.
-                </p>
-                <label className={co.check}>
-                  <input
-                    type="checkbox"
-                    checked={same}
-                    onChange={(e) => setSame(e.target.checked)}
-                  />
-                  <span>Same as shipping address</span>
-                </label>
-                {same && order && (
-                  <p className={styles.host}>
-                    {[
-                      order.street,
-                      order.city,
-                      [order.area, order.zip].filter(Boolean).join(" "),
-                    ]
-                      .filter(Boolean)
-                      .join(", ")}
+              {general && <p className={styles.error}>{general}</p>}
+
+              {paypal ? (
+                <section className={styles.section}>
+                  <button
+                    type="button"
+                    className={styles.pay}
+                    disabled={!order || paypalLink === undefined}
+                    onClick={() => {
+                      if (paypalLink) window.location.assign(paypalLink);
+                      // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- a page of the shop
+                      else window.location.assign(shopPage);
+                    }}
+                    data-analytics-id="payment_paypal_btn"
+                  >
+                    {paypalLink === undefined
+                      ? "Preparing PayPal…"
+                      : "Continue to PayPal"}
+                  </button>
+                  <p className={styles.note}>
+                    You’ll finish the payment on PayPal and come back to the
+                    shop.
                   </p>
-                )}
-                {!same && (
-                  <>
+                </section>
+              ) : (
+                <>
+                  {gpay && (
+                    <section className={styles.section}>
+                      <div
+                        ref={gpayHost}
+                        className={styles.gpay}
+                        aria-busy={busy}
+                      />
+                      <p className={styles.or}>
+                        <span>or pay by card</span>
+                      </p>
+                    </section>
+                  )}
+
+                  <section className={styles.section} aria-label="Card">
+                    <h2 className={styles.h2}>Card details</h2>
                     <FloatInput
-                      {...field("street")}
-                      label="Address"
-                      value={street}
-                      onChange={setStreet}
-                      autoComplete="billing address-line1"
-                    />
-                    <FloatInput
-                      {...field("city")}
-                      label="City"
-                      value={city}
-                      onChange={setCity}
-                      autoComplete="billing address-level2"
+                      {...field("number")}
+                      label="Card number"
+                      placeholder="1234 1234 1234 1234"
+                      value={number}
+                      onChange={(v) => setNumber(formatCardNumber(v))}
+                      inputMode="numeric"
+                      autoComplete="cc-number"
+                      maxLength={23}
                     />
                     <div className={styles.row}>
-                      <div className={co.float} data-field="state">
-                        <div
-                          className={`${co.floatBox} ${shown("state") ? co.floatBoxActive : ""}`}
-                        >
-                          <select
-                            className={`${co.floatInput} ${friendStyles.select}`}
-                            value={state}
-                            onChange={(e) => setState(e.target.value)}
-                            autoComplete="billing address-level1"
-                            aria-label="State"
-                          >
-                            <option value="" disabled />
-                            {US_STATES.map((s) => (
-                              <option key={s} value={s}>
-                                {s}
-                              </option>
-                            ))}
-                          </select>
-                          <span
-                            className={co.floatLabel}
-                            style={
-                              state
-                                ? {
-                                    top: 8,
-                                    transform: "none",
-                                    fontSize: "0.75rem",
-                                    lineHeight: "1rem",
-                                  }
-                                : {
-                                    top: "50%",
-                                    transform: "translateY(-50%)",
-                                    fontSize: "1rem",
-                                    lineHeight: "1.25rem",
-                                  }
-                            }
-                          >
-                            State
-                          </span>
-                        </div>
-                        {shown("state") && (
-                          <p className={styles.fieldHint}>{shown("state")}</p>
-                        )}
-                      </div>
                       <FloatInput
-                        {...field("zip")}
-                        label="ZIP code"
-                        value={zip}
-                        onChange={setZip}
+                        {...field("expiry")}
+                        label="Expiration date"
+                        placeholder="MM/YY"
+                        value={expiry}
+                        onChange={(v) => setExpiry(formatExpiry(v, expiry))}
                         inputMode="numeric"
-                        autoComplete="billing postal-code"
+                        autoComplete="cc-exp"
+                        maxLength={5}
+                      />
+                      <FloatInput
+                        {...field("cvc")}
+                        label="Security code"
+                        placeholder="CVC"
+                        value={cvc}
+                        onChange={(v) =>
+                          setCvc(v.replace(/\D/g, "").slice(0, 4))
+                        }
+                        inputMode="numeric"
+                        autoComplete="cc-csc"
+                        maxLength={4}
                       />
                     </div>
-                  </>
-                )}
-              </section>
+                    <FloatInput
+                      {...field("name")}
+                      label="Name on card"
+                      placeholder="JANE DOE"
+                      value={name}
+                      onChange={setName}
+                      autoComplete="cc-name"
+                    />
+                  </section>
 
-              <button
-                type="button"
-                className={styles.pay}
-                disabled={busy || !order}
-                onClick={payCard}
-                data-analytics-id="payment_pay_btn"
-              >
-                {busy ? "Processing…" : `Pay ${total}`}
-              </button>
-              <p className={styles.note}>
-                Your card details go straight to the shop’s payment system over
-                an encrypted connection and are not stored on this page.{" "}
-                <a href={shopPage} target="_blank" rel="noopener noreferrer">
-                  Use the shop’s own payment page instead
-                </a>
-              </p>
+                  <section className={styles.section}>
+                    <h2 className={styles.h2}>Billing address</h2>
+                    <p className={styles.sub}>
+                      For a successful payment, the address must match the one
+                      on your card statement.
+                    </p>
+                    <label className={co.check}>
+                      <input
+                        type="checkbox"
+                        checked={same}
+                        onChange={(e) => setSame(e.target.checked)}
+                      />
+                      <span>Same as shipping address</span>
+                    </label>
+                    {same && order && (
+                      <p className={styles.host}>
+                        {[
+                          order.street,
+                          order.city,
+                          [order.area, order.zip].filter(Boolean).join(" "),
+                        ]
+                          .filter(Boolean)
+                          .join(", ")}
+                      </p>
+                    )}
+                    {!same && (
+                      <>
+                        <FloatInput
+                          {...field("street")}
+                          label="Address"
+                          value={street}
+                          onChange={setStreet}
+                          autoComplete="billing address-line1"
+                        />
+                        <FloatInput
+                          {...field("city")}
+                          label="City"
+                          value={city}
+                          onChange={setCity}
+                          autoComplete="billing address-level2"
+                        />
+                        <div className={styles.row}>
+                          <div className={co.float} data-field="state">
+                            <div
+                              className={`${co.floatBox} ${shown("state") ? co.floatBoxActive : ""}`}
+                            >
+                              <select
+                                className={`${co.floatInput} ${friendStyles.select}`}
+                                value={state}
+                                onChange={(e) => setState(e.target.value)}
+                                autoComplete="billing address-level1"
+                                aria-label="State"
+                              >
+                                <option value="" disabled />
+                                {US_STATES.map((s) => (
+                                  <option key={s} value={s}>
+                                    {s}
+                                  </option>
+                                ))}
+                              </select>
+                              <span
+                                className={co.floatLabel}
+                                style={
+                                  state
+                                    ? {
+                                        top: 8,
+                                        transform: "none",
+                                        fontSize: "0.75rem",
+                                        lineHeight: "1rem",
+                                      }
+                                    : {
+                                        top: "50%",
+                                        transform: "translateY(-50%)",
+                                        fontSize: "1rem",
+                                        lineHeight: "1.25rem",
+                                      }
+                                }
+                              >
+                                State
+                              </span>
+                            </div>
+                            {shown("state") && (
+                              <p className={styles.fieldHint}>
+                                {shown("state")}
+                              </p>
+                            )}
+                          </div>
+                          <FloatInput
+                            {...field("zip")}
+                            label="ZIP code"
+                            value={zip}
+                            onChange={setZip}
+                            inputMode="numeric"
+                            autoComplete="billing postal-code"
+                          />
+                        </div>
+                      </>
+                    )}
+                  </section>
+
+                  <button
+                    type="button"
+                    className={styles.pay}
+                    disabled={busy || !order}
+                    onClick={payCard}
+                    data-analytics-id="payment_pay_btn"
+                  >
+                    {busy ? "Processing…" : `Pay ${total}`}
+                  </button>
+                  <p className={styles.note}>
+                    Your card details go straight to the shop’s payment system
+                    over an encrypted connection and are not stored on this
+                    page.{" "}
+                    <a
+                      href={shopPage}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Use the shop’s own payment page instead
+                    </a>
+                  </p>
+                </>
+              )}
             </div>
 
-            {summaryOrder && summary && (
+            {order && summary && (
               <aside className={styles.sumDesktop} aria-label="Order summary">
                 {summary}
               </aside>
