@@ -44,3 +44,7 @@ next-env.d.ts
 .claude/
 /img/
 dist/
+
+# licensed fonts: ship inside the bundle, never in the public repo
+/public/fonts/*.woff
+/public/fonts/*.woff2
