@@ -126,3 +126,14 @@ export function enqueueBasketSync<T>(job: () => Promise<T>): Promise<T> {
   basketQueue = run.catch(() => undefined);
   return run;
 }
+
+/**
+ * Requests made by the browser itself (a frame, a page change) carry no
+ * `x-shop-site` header; the local proxy then falls back to this cookie.
+ * Pin it to the US site, or those requests would land on the Russian one.
+ */
+export function pinShopSite(): void {
+  if (typeof document === "undefined") return;
+  if (window.location.hostname !== "localhost") return;
+  document.cookie = `cc_shop_site=${SHOP_SITE}; path=/; max-age=86400`;
+}

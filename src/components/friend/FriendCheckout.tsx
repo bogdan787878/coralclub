@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   useEffect,
   useId,
@@ -21,6 +22,7 @@ import {
   friendTotals,
 } from "@/lib/friendCatalog";
 import { shopBasketUrl } from "@/lib/friend";
+import { saveLastOrder } from "@/lib/friendOrder";
 import {
   api,
   emptyShopBasket,
@@ -28,6 +30,7 @@ import {
   fillShopBasket,
   language,
   onShopOrigin,
+  pinShopSite,
   shopFetch,
 } from "@/lib/shopApi";
 import { US_STATES } from "@/lib/usStates";
@@ -138,9 +141,11 @@ const Chevron = () => (
 );
 
 export function FriendCheckout() {
+  const router = useRouter();
   const cart = useCart();
   // a render can run on a stale snapshot: re-read the cart once on mount
   useEffect(() => refreshCart(), []);
+  useEffect(() => pinShopSite(), []);
   const { friend, source } = useFriend();
   const refCode = friend?.refCode ?? "";
   const memberId = friend?.memberId ?? "";
@@ -518,12 +523,33 @@ export function FriendCheckout() {
           order_total: num(grand) || goods.value,
           currency: "USD",
         });
-        // the shop's own payment page → payment gateway (outside RU/BY the
-        // address carries the payment method's id)
-        // a page of the shop, not a route of this app
-        // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-        window.location.assign(
-          `/order/payment/${data.result}/${encodeURIComponent(paymentId)}/?new_checkout=1`,
+        // step 2 — the payment form of the shop, shown inside our page
+        saveLastOrder({
+          orderId: String(data.result),
+          paymentId,
+          total: num(grand) || goods.value,
+          shipping: deliveryPrice,
+          shippingName: activeItem?.NAME ?? "",
+          address: `${address.trim()}, ${city}, ${state} ${zip.trim()}`,
+          email: email.trim(),
+          lines: lines.flatMap((l) => {
+            const p = friendProductById(l.coralId);
+            return p
+              ? [
+                  {
+                    name: p.name,
+                    form: p.form,
+                    qty: l.qty,
+                    club: p.club,
+                    regular: p.regular,
+                    image: l.image,
+                  },
+                ]
+              : [];
+          }),
+        });
+        router.push(
+          `/friend/checkout/pay/?order=${encodeURIComponent(String(data.result))}&pm=${encodeURIComponent(paymentId)}`,
         );
         return;
       }
