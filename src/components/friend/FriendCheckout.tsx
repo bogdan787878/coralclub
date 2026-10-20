@@ -33,6 +33,7 @@ import {
 } from "@/lib/shopApi";
 import { US_STATES } from "@/lib/usStates";
 import { FloatInput } from "./FloatInput";
+import { CardBadges } from "./PayBadges";
 import { useFriend } from "./FriendProvider";
 import { FriendRegisterCta } from "./FriendRegisterCta";
 import co from "../landing/LandingCheckout.module.css";
@@ -958,7 +959,9 @@ export function FriendCheckout() {
                           }}
                         />
                         <span className={styles.optionName}>{p.NAME}</span>
-                        {p.IMAGE ? (
+                        {paymentTypeCode(p.NAME) === "bank_card" ? (
+                          <CardBadges />
+                        ) : p.IMAGE ? (
                           // eslint-disable-next-line @next/next/no-img-element -- the shop's own method logo
                           <img
                             src={p.IMAGE}
