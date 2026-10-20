@@ -26,6 +26,8 @@ function manifestKey(src: string): string {
 
 function local(src: string): string {
   if (/^(https?:)?\/\//.test(src)) return src;
+  // already prefixed by asset() — don't prefix twice
+  if (BASE && src.startsWith(`${BASE}/`)) return src;
   return `${BASE}${src.startsWith("/") ? "" : "/"}${src}`;
 }
 

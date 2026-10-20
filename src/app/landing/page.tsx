@@ -19,6 +19,7 @@ import { LandingCartButton } from "@/components/landing/LandingCartButton";
 import { asset } from "@/lib/asset";
 import { BEAUTY_SLUGS, MAIN_SITE_URL } from "@/lib/beautySystem";
 import { PRIVACY_POLICY_URL } from "@/lib/leads";
+import { landingPath } from "@/lib/landingRoutes";
 import {
   LANDING_PRODUCTS_RU,
   formatRub,
@@ -392,7 +393,7 @@ export default function LandingPage() {
                   Политика конфиденциальности
                 </a>
                 <Link
-                  href="/landing/consent/"
+                  href={landingPath("/consent/")}
                   data-analytics-id="footer_consent_link"
                 >
                   Согласие на обработку персональных данных

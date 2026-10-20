@@ -7,7 +7,7 @@ import {
   type CartDrawerLabels,
 } from "@/components/cart/CartDrawer";
 import { BagIcon } from "@/components/cart/icons";
-import { friendBasketUrl } from "@/lib/beautySystem";
+import { openShopCheckout } from "@/lib/shopCheckout";
 import { formatRub } from "@/lib/landingCatalogRu";
 import styles from "./LandingCartButton.module.css";
 
@@ -41,7 +41,7 @@ export function LandingCartDrawer() {
       onClose={() => setOpen(false)}
       labels={LABELS_RU}
       formatMoney={formatRub}
-      checkoutUrl={friendBasketUrl}
+      onCheckout={(lines) => void openShopCheckout(lines)}
       extra={
         <p className={styles.discountNote}>
           Клиентам L.A.B&nbsp;Space — скидка 20% на продукты Системы Красоты

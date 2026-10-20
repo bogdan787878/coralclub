@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { track } from "@/lib/analytics";
 import { asset } from "@/lib/asset";
+import { landingPath } from "@/lib/landingRoutes";
 import { PRIVACY_POLICY_URL, submitLead } from "@/lib/leads";
 import styles from "./LeadModal.module.css";
 
@@ -195,7 +196,7 @@ export function LeadForm({
         <span>
           Я даю{" "}
           <a
-            href={asset("/landing/consent/")}
+            href={asset(landingPath("/consent/"))}
             target="_blank"
             rel="noopener noreferrer"
             data-analytics-id="lead_form_consent_link"

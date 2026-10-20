@@ -11,7 +11,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "dev:proxy": "node scripts/dev-proxy.mjs"
+    "dev:proxy": "node scripts/dev-proxy.mjs",
+    "build:labspace": "node scripts/build-labspace.mjs"
   },
   "dependencies": {
     "next": "16.3.3",

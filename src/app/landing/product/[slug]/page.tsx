@@ -20,6 +20,7 @@ import { LandingCards } from "@/components/landing/LandingCards";
 import { TrackViewItem } from "@/components/landing/TrackViewItem";
 import { LandingCartButton } from "@/components/landing/LandingCartButton";
 import { landingGallery } from "@/lib/landingGallery";
+import { landingPath } from "@/lib/landingRoutes";
 import { BEAUTY_SLUGS, MAIN_SITE_URL } from "@/lib/beautySystem";
 import {
   BADGE_LABELS_RU,
@@ -188,7 +189,7 @@ export default async function LandingProductPage({
         <TrackViewItem coralId={ru.ruId} />
 
         <div className={shop.imageControls}>
-          <BackButton className={shop.circleBtn} fallbackHref="/landing/" />
+          <BackButton className={shop.circleBtn} fallbackHref={landingPath("/")} />
           <ShareButton className={shop.circleBtn} title={ru.name} />
         </div>
 

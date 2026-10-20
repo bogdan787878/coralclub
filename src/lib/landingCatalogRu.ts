@@ -1,4 +1,5 @@
 import type { BEAUTY_SLUGS } from "./beautySystem";
+import { landingPath } from "./landingRoutes";
 import { nbspDeep } from "./typo";
 
 /**
@@ -391,7 +392,8 @@ export const LANDING_PRODUCTS_RU: Record<BeautySlug, LandingProductRu> =
 
 /** Where a product's Russian page lives (relative to the site root — pass it
  *  to next/link, which adds the GitHub Pages base path). */
-export const landingPdpHref = (slug: string) => `/landing/product/${slug}/`;
+export const landingPdpHref = (slug: string) =>
+  landingPath(`/product/${slug}/`);
 
 /** 7052 → "7 052 ₽", 3762.5 → "3 762,50 ₽" (thin gaps as on coralclub.ru). */
 export function formatRub(value: number): string {
