@@ -22,6 +22,7 @@ import {
   friendTotals,
 } from "@/lib/friendCatalog";
 import { shopBasketUrl } from "@/lib/friend";
+import { readContact, saveContact } from "@/lib/friendContact";
 import { saveLastOrder } from "@/lib/friendOrder";
 import {
   api,
@@ -204,6 +205,37 @@ export function FriendCheckout() {
   const [shaking, setShaking] = useState("");
   const shakeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [sending, setSending] = useState(false);
+
+  // contact details live in this browser: filled in from the last visit …
+  const [contactLoaded, setContactLoaded] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const c = readContact();
+      if (c) {
+        setEmail((v) => v || c.email);
+        setFirst((v) => v || c.first);
+        setLast((v) => v || c.last);
+        setPhone((v) => v || c.phone);
+      }
+      setContactLoaded(true);
+    }, 0);
+    return () => clearTimeout(t);
+  }, []);
+  // … and kept as the shopper types (for the next order and for sign-up)
+  useEffect(() => {
+    if (!contactLoaded) return;
+    const t = setTimeout(
+      () =>
+        saveContact({
+          first: first.trim(),
+          last: last.trim(),
+          phone: phone.trim(),
+          email: email.trim(),
+        }),
+      400,
+    );
+    return () => clearTimeout(t);
+  }, [contactLoaded, first, last, phone, email]);
 
   // the city is read after the shopper stops typing
   useEffect(() => {
@@ -522,6 +554,12 @@ export function FriendCheckout() {
           payment_gateway: "shop_payment_page",
           order_total: num(grand) || goods.value,
           currency: "USD",
+        });
+        saveContact({
+          first: first.trim(),
+          last: last.trim(),
+          phone: phone.trim(),
+          email: email.trim(),
         });
         // step 2 — the payment form of the shop, shown inside our page
         saveLastOrder({
