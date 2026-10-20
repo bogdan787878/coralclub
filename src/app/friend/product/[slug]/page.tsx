@@ -13,6 +13,7 @@ import { TrackViewItem } from "@/components/landing/TrackViewItem";
 import { FriendBanner } from "@/components/friend/FriendProvider";
 import { FriendCards } from "@/components/friend/FriendCards";
 import { FriendCartButton } from "@/components/friend/FriendCart";
+import { FriendMemberBlock } from "@/components/friend/FriendMemberBlock";
 import { FriendRegisterCta } from "@/components/friend/FriendRegisterCta";
 import { asset } from "@/lib/asset";
 import {
@@ -126,6 +127,8 @@ export default async function FriendProductPage({
                   <div id="pdp-buy">
                     <BuyBox pinned {...buyProps} />
                   </div>
+
+                  <FriendMemberBlock />
 
                   <BodyLong>{p.lead}</BodyLong>
 
