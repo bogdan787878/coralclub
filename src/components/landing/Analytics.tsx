@@ -8,6 +8,7 @@ import {
   landingId,
   ensureGtag,
   gaLive,
+  isCardPage,
   isLandingPage,
   track,
   trackOnce,
@@ -247,7 +248,7 @@ export function Analytics() {
   // gtag.js: configured here (not in an inline snippet) so that webView and
   // the landing id ride along with the very first page_view
   useEffect(() => {
-    if (!gaLive()) return;
+    if (!gaLive() || isCardPage()) return;
     ensureGtag();
     window.gtag!("js", new Date());
     window.gtag!("set", { webView: webViewFlag(), landing: landingId() });

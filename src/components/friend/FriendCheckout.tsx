@@ -2,10 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import {
   useEffect,
-  useId,
   useMemo,
   useRef,
   useState,
@@ -35,6 +33,7 @@ import {
   shopFetch,
 } from "@/lib/shopApi";
 import { US_STATES } from "@/lib/usStates";
+import { FloatInput } from "./FloatInput";
 import { useFriend } from "./FriendProvider";
 import { FriendRegisterCta } from "./FriendRegisterCta";
 import co from "../landing/LandingCheckout.module.css";
@@ -80,49 +79,6 @@ const num = (v: unknown) =>
 const paymentTypeCode = (name: string) =>
   /paypal/i.test(name) ? "paypal" : "bank_card";
 
-/** Text input with its label inside the field (floats up on focus / value). */
-function FloatInput({
-  label,
-  value,
-  onChange,
-  placeholder,
-  attention,
-  inputMode,
-  autoComplete,
-  name,
-  shake,
-}: {
-  name?: string;
-  shake?: boolean;
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
-  attention?: boolean;
-  inputMode?: "text" | "tel" | "email" | "numeric";
-  autoComplete?: string;
-}) {
-  const id = useId();
-  return (
-    <div className={`${co.float} ${shake ? co.shake : ""}`} data-field={name}>
-      <div className={`${co.floatBox} ${attention ? co.floatBoxActive : ""}`}>
-        <input
-          id={id}
-          className={co.floatInput}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder={placeholder ?? " "}
-          inputMode={inputMode}
-          autoComplete={autoComplete}
-        />
-        <label htmlFor={id} className={co.floatLabel}>
-          {label}
-        </label>
-      </div>
-    </div>
-  );
-}
-
 /** "350 5th Avenue" → house number + street, the two fields the shop asks for. */
 function splitAddress(a: string): { build: string; street: string } | null {
   const m = /^\s*(\d+[A-Za-z]?(?:[-/]\d+)?)\s+(.+?)\s*$/.exec(a);
@@ -142,7 +98,6 @@ const Chevron = () => (
 );
 
 export function FriendCheckout() {
-  const router = useRouter();
   const cart = useCart();
   // a render can run on a stale snapshot: re-read the cart once on mount
   useEffect(() => refreshCart(), []);
@@ -586,9 +541,22 @@ export function FriendCheckout() {
               : [];
           }),
         });
-        router.push(
-          `/friend/checkout/pay/?order=${encodeURIComponent(String(data.result))}&pm=${encodeURIComponent(paymentId)}`,
-        );
+        const method = payments.find((x) => x.ID === paymentId);
+        if (method && paymentTypeCode(method.NAME) === "paypal") {
+          // PayPal is the shop's own flow: its payment page, in this window
+          // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- a page of the shop
+          window.location.assign(
+            `/order/payment/${data.result}/${encodeURIComponent(paymentId)}/?new_checkout=1`,
+          );
+        } else {
+          // a full page load, on purpose: the card page runs without analytics
+          // and without any script left over from the pages before it
+          window.location.assign(
+            asset(
+              `/friend/checkout/pay/?order=${encodeURIComponent(String(data.result))}&pm=${encodeURIComponent(paymentId)}`,
+            ),
+          );
+        }
         return;
       }
       setError(
@@ -1192,8 +1160,8 @@ export function FriendCheckout() {
                 {sending ? "Creating your order…" : "Continue to payment"}
               </button>
               <p className={styles.note}>
-                Your order is created in the shop and you are taken to its
-                secure payment page. No sign-up needed.
+                Your order is created in the shop, and you pay on the next step.
+                No sign-up needed.
               </p>
 
               <FriendRegisterCta where="checkout" />

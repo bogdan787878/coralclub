@@ -544,17 +544,29 @@ details[open] > .sumHead svg {
   padding: var(--space-24) var(--page-padding-inline);
 }
 
-/* the shop's payment form, framed inside our page */
-.frame {
-  border: 1px solid rgba(0, 65, 68, 0.22);
-  border-radius: var(--radius-base);
-  background: var(--color-white);
-  overflow: hidden;
+/* Google's own button, filling the width */
+.gpay {
+  min-height: 52px;
 }
 
-.frame iframe {
-  display: block;
+.gpay > * {
   width: 100%;
-  min-height: 560px;
-  border: 0;
+}
+
+/* "— or pay by card —" */
+.or {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  margin: var(--space-8) 0 0;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.or::before,
+.or::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(0, 65, 68, 0.12);
 }

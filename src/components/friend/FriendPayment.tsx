@@ -3,12 +3,36 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { asset } from "@/lib/asset";
+import {
+  checkCard,
+  formatCardNumber,
+  formatExpiry,
+  type CardErrors,
+} from "@/lib/cardFormat";
 import { formatUsd } from "@/lib/friendCatalog";
 import { readLastOrder, type LastOrder } from "@/lib/friendOrder";
 import { onShopOrigin, pinShopSite } from "@/lib/shopApi";
+import {
+  getPayOrder,
+  payByCard,
+  setupGooglePay,
+  type GooglePay,
+  type PayOrder,
+  type PayResult,
+} from "@/lib/shopPay";
+import { US_STATES } from "@/lib/usStates";
+import { FloatInput } from "./FloatInput";
+import co from "../landing/LandingCheckout.module.css";
+import friendStyles from "./Friend.module.css";
 import styles from "./FriendCheckout.module.css";
 
 const Chevron = () => (
@@ -23,83 +47,199 @@ const Chevron = () => (
   </svg>
 );
 
-/** Pages of the shop's payment flow. */
-const inPaymentFlow = (path: string) =>
-  /^\/(card-payment|order\/payment|payment)\b/.test(path);
-/** The shop asks the visitor to sign in: this order is not in this session. */
-const needsLogin = (path: string) => /^\/auth\b/.test(path);
+/** The shop's field names → ours, for the messages it sends back. */
+const FIELD_OF: Record<string, string> = {
+  card_number: "number",
+  card_name: "name",
+  exp_month: "expiry",
+  exp_year: "expiry",
+  cvc: "cvc",
+  billing_street: "street",
+  billing_city: "city",
+  billing_state: "state",
+  billing_zip: "zip",
+};
 
 /**
- * Step 2 of the friend checkout: the order is already created in the shop;
- * the shop's own payment form (card number, Google Pay …) is shown inside our
- * page, next to the order summary. Card data never touches this app — the
- * form is the shop's payment page in a frame (same origin: coralclub.us or
- * the local proxy). When the payment flow leaves the payment pages (the
- * «thank you» page), the whole window goes there.
+ * Step 2 of the friend checkout, in our own design: the order is already
+ * created in the shop; here the shopper pays it — with Google Pay (Google's
+ * own button) or a card typed into our fields. Both go to the shop's payment
+ * API exactly as the shop's own payment page sends them; card data is not
+ * stored, logged or put into analytics (analytics is switched off on this
+ * page, and the checkout leads here by a full page load).
  */
 export function FriendPayment() {
   const params = useSearchParams();
   const orderId = (params.get("order") ?? "").replace(/\D/g, "");
-  const paymentId = (params.get("pm") ?? "").replace(/[^\w:-]/g, "");
+  const paySystemId = (params.get("pm") ?? "").replace(/[^\w:-]/g, "");
 
   const live = useSyncExternalStore<boolean | null>(
     () => () => {},
     onShopOrigin,
     () => null,
   );
-  const [order, setOrder] = useState<LastOrder | null>(null);
+
+  // what the checkout kept for the summary (our own record, not the shop's)
+  const [summaryOrder, setSummaryOrder] = useState<LastOrder | null>(null);
   useEffect(() => {
-    const t = setTimeout(() => setOrder(readLastOrder(orderId)), 0);
+    const t = setTimeout(() => setSummaryOrder(readLastOrder(orderId)), 0);
     return () => clearTimeout(t);
   }, [orderId]);
 
-  const src = `/order/payment/${orderId}/${encodeURIComponent(paymentId)}/?new_checkout=1`;
-  const frame = useRef<HTMLIFrameElement>(null);
-  const [height, setHeight] = useState(760);
-  const [lost, setLost] = useState(false);
-  useEffect(() => pinShopSite(), []);
-
-  // follow the frame's content height; leave the frame when the payment is over
+  // the order as the shop sees it (amount to pay, shipping address)
+  const [order, setOrder] = useState<PayOrder | null>(null);
+  const [lost, setLost] = useState("");
   useEffect(() => {
-    const el = frame.current;
-    if (!el || !live) return;
-    let ro: ResizeObserver | null = null;
-    const onLoad = () => {
-      try {
-        const win = el.contentWindow;
-        const doc = el.contentDocument;
-        if (!win || !doc) return;
-        const path = win.location.pathname;
-        if (needsLogin(path)) {
-          setLost(true);
+    if (!live || !orderId) return;
+    pinShopSite();
+    let alive = true;
+    getPayOrder(orderId).then((r) => {
+      if (!alive) return;
+      if ("order" in r) {
+        if (r.order.paid) {
+          // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- a page of the shop
+          window.location.assign(`/order/success/${r.order.id}/`);
           return;
         }
-        if (!inPaymentFlow(path)) {
-          // the payment is over (the «thank you» page): take the whole window there
-          window.location.assign(win.location.href);
+        if (r.order.canceled) {
+          setLost("This order was cancelled.");
           return;
         }
-        const measure = () =>
-          setHeight(Math.max(560, doc.documentElement.scrollHeight));
-        measure();
-        ro?.disconnect();
-        ro = new ResizeObserver(measure);
-        ro.observe(doc.documentElement);
-      } catch {
-        /* cross-origin: keep the default height */
+        setOrder(r.order);
+      } else {
+        setLost(
+          r.deauth
+            ? "We can’t open this order’s payment: the session has ended."
+            : r.error,
+        );
       }
-    };
-    el.addEventListener("load", onLoad);
+    });
     return () => {
-      el.removeEventListener("load", onLoad);
-      ro?.disconnect();
+      alive = false;
     };
-  }, [live, src]);
+  }, [live, orderId]);
 
-  const summary = order && (
+  // Google Pay (only where the device and the page can use it)
+  const [gpay, setGpay] = useState<GooglePay | null>(null);
+  const gpayHost = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!live) return;
+    let alive = true;
+    setupGooglePay().then((g) => alive && setGpay(g));
+    return () => {
+      alive = false;
+    };
+  }, [live]);
+
+  const [number, setNumber] = useState("");
+  const [expiry, setExpiry] = useState("");
+  const [cvc, setCvc] = useState("");
+  const [name, setName] = useState("");
+  const [same, setSame] = useState(true);
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
+  const [attempted, setAttempted] = useState(false);
+  const [shopErrors, setShopErrors] = useState<Record<string, string>>({});
+  const [general, setGeneral] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  const cardErrors: CardErrors = checkCard({ number, expiry, cvc, name });
+  const billingErrors: Record<string, string> = same
+    ? {}
+    : {
+        ...(street.trim() ? {} : { street: "Enter the billing address" }),
+        ...(city.trim() ? {} : { city: "Enter the city" }),
+        ...(state ? {} : { state: "Choose the state" }),
+        ...(zip.replace(/\D/g, "").length >= 5
+          ? {}
+          : { zip: "Enter the ZIP code" }),
+      };
+  const errors: Record<string, string | undefined> = {
+    ...cardErrors,
+    ...billingErrors,
+    ...shopErrors,
+  };
+  const shown = (k: string) =>
+    (attempted || shopErrors[k]) && errors[k] ? errors[k] : undefined;
+
+  const finish = useCallback(
+    (r: PayResult) => {
+      if (r.success) {
+        // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- a page of the shop
+        window.location.assign(`/order/success/${orderId}/`);
+        return true;
+      }
+      if (r.deauth) {
+        setLost("We can’t open this order’s payment: the session has ended.");
+        return false;
+      }
+      if (r.fields) {
+        const f: Record<string, string> = {};
+        for (const [k, v] of Object.entries(r.fields)) f[FIELD_OF[k] ?? k] = v;
+        setShopErrors(f);
+      }
+      setGeneral(r.general ?? "");
+      return false;
+    },
+    [orderId],
+  );
+
+  async function payCard() {
+    if (busy || !order) return;
+    setAttempted(true);
+    setGeneral("");
+    setShopErrors({});
+    const bad = Object.keys({ ...cardErrors, ...billingErrors });
+    if (bad.length) {
+      document
+        .querySelector<HTMLElement>(
+          `[data-field="${bad[0]}"] input, [data-field="${bad[0]}"] select`,
+        )
+        ?.focus();
+      return;
+    }
+    setBusy(true);
+    const [month, year] = expiry.split("/");
+    const r = await payByCard(
+      order.id,
+      paySystemId,
+      { number, month, year, cvc, name: name.trim() },
+      same
+        ? "same"
+        : { street: street.trim(), city: city.trim(), state, zip: zip.trim() },
+    );
+    if (!finish(r)) setBusy(false);
+  }
+
+  async function payGoogle() {
+    if (busy || !order || !gpay) return;
+    setGeneral("");
+    setShopErrors({});
+    setBusy(true);
+    const r = await gpay.pay(order, paySystemId);
+    if (!finish(r)) setBusy(false);
+  }
+
+  // Google's own button goes into our container
+  const payGoogleRef = useRef(payGoogle);
+  useEffect(() => {
+    payGoogleRef.current = payGoogle;
+  });
+  useEffect(() => {
+    const host = gpayHost.current;
+    if (!gpay || !host) return;
+    host.replaceChildren(gpay.button(() => void payGoogleRef.current()));
+  }, [gpay]);
+
+  const shopPage = `/order/payment/${orderId}/${encodeURIComponent(paySystemId)}/?new_checkout=1`;
+  const total = order ? formatUsd(Number(order.amount)) : "";
+
+  const summary = summaryOrder && (
     <div className={styles.sum}>
       <ul className={styles.sumLines}>
-        {order.lines.map((l) => (
+        {summaryOrder.lines.map((l) => (
           <li key={l.name} className={styles.sumLine}>
             <span className={styles.thumb}>
               <span className={styles.thumbImg}>
@@ -120,53 +260,60 @@ export function FriendPayment() {
       </ul>
       <dl className={styles.rows}>
         <div>
-          <dt>{order.shippingName || "Shipping"}</dt>
+          <dt>{summaryOrder.shippingName || "Shipping"}</dt>
           <dd>
-            {order.shipping === null
+            {summaryOrder.shipping === null
               ? "—"
-              : order.shipping > 0
-                ? formatUsd(order.shipping)
+              : summaryOrder.shipping > 0
+                ? formatUsd(summaryOrder.shipping)
                 : "Free"}
           </dd>
         </div>
         <div className={styles.rowTotal}>
           <dt>Total</dt>
-          <dd>{formatUsd(order.total)}</dd>
+          <dd>{formatUsd(summaryOrder.total)}</dd>
         </div>
       </dl>
       <p className={styles.host}>
-        Shipping to {order.address}
+        Shipping to {summaryOrder.address}
         <br />
-        Receipt to {order.email}
+        Receipt to {summaryOrder.email}
       </p>
     </div>
   );
+
+  const field = (key: string) => ({
+    name: key,
+    attention: !!shown(key),
+    hint: shown(key),
+  });
 
   return (
     <div className="appShell">
       <main className={styles.page} data-analytics-location="checkout">
         <LandingHeader homeHref={asset("/friend/")} />
 
-        {!orderId || live === false ? (
+        {!orderId || live === false || lost ? (
           <div className={styles.empty}>
             <h1 className={styles.title}>Payment</h1>
             <p className={styles.host}>
-              {orderId
-                ? "This step runs on the shop’s own domain, where the order was created."
-                : "There is no order to pay yet."}
+              {lost ||
+                (orderId
+                  ? "This step runs on the shop’s own domain, where the order was created."
+                  : "There is no order to pay yet.")}
             </p>
             <Link href="/friend/checkout/">Back to checkout</Link>
           </div>
         ) : (
           <div className={styles.layout}>
-            {order && summary && (
+            {summaryOrder && summary && (
               <details className={styles.sumMobile}>
                 <summary className={styles.sumHead}>
                   <span>
                     Order summary <Chevron />
                   </span>
                   <span className={styles.sumHeadPrice}>
-                    <strong>{formatUsd(order.total)}</strong>
+                    <strong>{total || formatUsd(summaryOrder.total)}</strong>
                   </span>
                 </summary>
                 <div className={styles.sumBodyMobile}>{summary}</div>
@@ -175,39 +322,187 @@ export function FriendPayment() {
 
             <div className={styles.main}>
               <h1 className={styles.title}>Payment</h1>
+              <p className={styles.sub}>
+                Order № {orderId} is created. All transactions are secure and
+                encrypted.
+              </p>
+
+              {general && <p className={styles.error}>{general}</p>}
+
+              {gpay && (
+                <section className={styles.section}>
+                  <div
+                    ref={gpayHost}
+                    className={styles.gpay}
+                    aria-busy={busy}
+                  />
+                  <p className={styles.or}>
+                    <span>or pay by card</span>
+                  </p>
+                </section>
+              )}
+
+              <section className={styles.section} aria-label="Card">
+                <h2 className={styles.h2}>Card details</h2>
+                <FloatInput
+                  {...field("number")}
+                  label="Card number"
+                  placeholder="1234 1234 1234 1234"
+                  value={number}
+                  onChange={(v) => setNumber(formatCardNumber(v))}
+                  inputMode="numeric"
+                  autoComplete="cc-number"
+                  maxLength={23}
+                />
+                <div className={styles.row}>
+                  <FloatInput
+                    {...field("expiry")}
+                    label="Expiration date"
+                    placeholder="MM/YY"
+                    value={expiry}
+                    onChange={(v) => setExpiry(formatExpiry(v, expiry))}
+                    inputMode="numeric"
+                    autoComplete="cc-exp"
+                    maxLength={5}
+                  />
+                  <FloatInput
+                    {...field("cvc")}
+                    label="Security code"
+                    placeholder="CVC"
+                    value={cvc}
+                    onChange={(v) => setCvc(v.replace(/\D/g, "").slice(0, 4))}
+                    inputMode="numeric"
+                    autoComplete="cc-csc"
+                    maxLength={4}
+                  />
+                </div>
+                <FloatInput
+                  {...field("name")}
+                  label="Name on card"
+                  placeholder="JANE DOE"
+                  value={name}
+                  onChange={setName}
+                  autoComplete="cc-name"
+                />
+              </section>
+
               <section className={styles.section}>
+                <h2 className={styles.h2}>Billing address</h2>
                 <p className={styles.sub}>
-                  Order № {orderId} is created. Pay by card or with Google Pay
-                  (where available). All transactions are secure and encrypted.
+                  For a successful payment, the address must match the one on
+                  your card statement.
                 </p>
-                {lost && (
-                  <p className={styles.error}>
-                    We can’t open this order’s payment (the session has ended).
-                    Please go back to checkout and place the order again.
+                <label className={co.check}>
+                  <input
+                    type="checkbox"
+                    checked={same}
+                    onChange={(e) => setSame(e.target.checked)}
+                  />
+                  <span>Same as shipping address</span>
+                </label>
+                {same && order && (
+                  <p className={styles.host}>
+                    {[
+                      order.street,
+                      order.city,
+                      [order.area, order.zip].filter(Boolean).join(" "),
+                    ]
+                      .filter(Boolean)
+                      .join(", ")}
                   </p>
                 )}
-                {live && !lost && (
-                  <div className={styles.frame}>
-                    <iframe
-                      ref={frame}
-                      title="Secure payment"
-                      src={src}
-                      allow="payment *"
-                      style={{ height }}
+                {!same && (
+                  <>
+                    <FloatInput
+                      {...field("street")}
+                      label="Address"
+                      value={street}
+                      onChange={setStreet}
+                      autoComplete="billing address-line1"
                     />
-                  </div>
+                    <FloatInput
+                      {...field("city")}
+                      label="City"
+                      value={city}
+                      onChange={setCity}
+                      autoComplete="billing address-level2"
+                    />
+                    <div className={styles.row}>
+                      <div className={co.float} data-field="state">
+                        <div
+                          className={`${co.floatBox} ${shown("state") ? co.floatBoxActive : ""}`}
+                        >
+                          <select
+                            className={`${co.floatInput} ${friendStyles.select}`}
+                            value={state}
+                            onChange={(e) => setState(e.target.value)}
+                            autoComplete="billing address-level1"
+                            aria-label="State"
+                          >
+                            <option value="" disabled />
+                            {US_STATES.map((s) => (
+                              <option key={s} value={s}>
+                                {s}
+                              </option>
+                            ))}
+                          </select>
+                          <span
+                            className={co.floatLabel}
+                            style={
+                              state
+                                ? {
+                                    top: 8,
+                                    transform: "none",
+                                    fontSize: "0.75rem",
+                                    lineHeight: "1rem",
+                                  }
+                                : {
+                                    top: "50%",
+                                    transform: "translateY(-50%)",
+                                    fontSize: "1rem",
+                                    lineHeight: "1.25rem",
+                                  }
+                            }
+                          >
+                            State
+                          </span>
+                        </div>
+                        {shown("state") && (
+                          <p className={styles.fieldHint}>{shown("state")}</p>
+                        )}
+                      </div>
+                      <FloatInput
+                        {...field("zip")}
+                        label="ZIP code"
+                        value={zip}
+                        onChange={setZip}
+                        inputMode="numeric"
+                        autoComplete="billing postal-code"
+                      />
+                    </div>
+                  </>
                 )}
-                <p className={styles.note}>
-                  The payment form is the shop’s secure page; your card details
-                  go straight to the payment provider.{" "}
-                  <a href={src} target="_blank" rel="noopener noreferrer">
-                    Open it in a separate tab
-                  </a>
-                </p>
               </section>
+
+              <button
+                type="button"
+                className={styles.pay}
+                disabled={busy || !order}
+                onClick={payCard}
+                data-analytics-id="payment_pay_btn"
+              >
+                {busy ? "Processing…" : `Pay ${total}`}
+              </button>
+              <p className={styles.note}>
+                Your card details go straight to the shop’s payment system over
+                an encrypted connection and are not stored on this page.{" "}
+                <a href={shopPage} target="_blank" rel="noopener noreferrer">
+                  Use the shop’s own payment page instead
+                </a>
+              </p>
             </div>
 
-            {order && summary && (
+            {summaryOrder && summary && (
               <aside className={styles.sumDesktop} aria-label="Order summary">
                 {summary}
               </aside>

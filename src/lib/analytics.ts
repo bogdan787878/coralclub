@@ -47,7 +47,14 @@ export const landingId = () =>
 /** Landing routes only (the English prototype is not tracked): /landing/…
  *  and /friend/… on GitHub Pages, /landings/<name>/… on coralclub.ru. */
 export const isLandingPage = () =>
-  inBrowser() && /\/(landings?|friend)(\/|$)/.test(window.location.pathname);
+  inBrowser() &&
+  /\/(landings?|friend)(\/|$)/.test(window.location.pathname) &&
+  !isCardPage();
+
+/** The page where the card number is typed: no analytics, no third-party
+ *  scripts of ours (the checkout leads here by a full page load). */
+export const isCardPage = () =>
+  inBrowser() && /\/friend\/checkout\/pay(\/|$)/.test(window.location.pathname);
 
 const isLocalHost = () => {
   if (!inBrowser()) return true;
