@@ -175,3 +175,10 @@
     transition: none;
   }
 }
+
+.note a,
+.consent a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

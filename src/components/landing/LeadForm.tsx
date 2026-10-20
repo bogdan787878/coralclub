@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { track } from "@/lib/analytics";
-import { submitLead } from "@/lib/leads";
+import { asset } from "@/lib/asset";
+import { PRIVACY_POLICY_URL, submitLead } from "@/lib/leads";
 import styles from "./LeadModal.module.css";
 
 type Status = "idle" | "sending" | "done" | "error";
@@ -50,6 +51,8 @@ export function LeadForm({
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [consent, setConsent] = useState(false);
+  const [marketing, setMarketing] = useState(false);
   const [touched, setTouched] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
 
@@ -65,7 +68,8 @@ export function LeadForm({
   const nameOk = name.trim().length >= 2;
   const phoneOk = phoneComplete(phone);
   const emailOk = email.trim() === "" || EMAIL_RX.test(email.trim());
-  const valid = nameOk && phoneOk && emailOk;
+  // the consent to process personal data is required, never pre-ticked
+  const valid = nameOk && phoneOk && emailOk && consent;
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -78,12 +82,16 @@ export function LeadForm({
         name: name.trim(),
         phone: phone.trim(),
         email: email.trim(),
+        consent,
+        marketing,
         source,
       });
       setStatus("done");
       setName("");
       setPhone("");
       setEmail("");
+      setConsent(false);
+      setMarketing(false);
       track("generate_lead", { form_id: LEAD_FORM_ID, source, presentation });
     } catch {
       setStatus("error");
@@ -176,6 +184,45 @@ export function LeadForm({
         </p>
       )}
 
+      <label className={styles.consent}>
+        <input
+          type="checkbox"
+          checked={consent}
+          data-analytics-id="lead_form_consent"
+          aria-invalid={touched && !consent}
+          onChange={(e) => setConsent(e.target.checked)}
+        />
+        <span>
+          Я даю{" "}
+          <a
+            href={asset("/landing/consent/")}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-analytics-id="lead_form_consent_link"
+          >
+            согласие на обработку персональных данных
+          </a>
+        </span>
+      </label>
+      {touched && !consent && (
+        <p className={styles.error} role="alert">
+          Чтобы записаться, нужно согласие на обработку персональных данных.
+        </p>
+      )}
+
+      <label className={styles.consent}>
+        <input
+          type="checkbox"
+          checked={marketing}
+          data-analytics-id="lead_form_marketing"
+          onChange={(e) => setMarketing(e.target.checked)}
+        />
+        <span>
+          Я согласен(на) получать информационные и рекламные сообщения Оператора
+          по e-mail и телефону
+        </span>
+      </label>
+
       {status === "error" && (
         <p className={styles.error}>
           Не удалось отправить заявку. Попробуйте ещё раз.
@@ -192,7 +239,16 @@ export function LeadForm({
       </button>
 
       <p className={styles.note}>
-        Нажимая «Записаться», вы соглашаетесь на обработку персональных данных.
+        Подробнее об обработке данных — в{" "}
+        <a
+          href={PRIVACY_POLICY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-analytics-id="lead_form_privacy_link"
+        >
+          Политике конфиденциальности
+        </a>
+        .
       </p>
     </form>
   );

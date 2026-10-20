@@ -16,11 +16,21 @@ export const LEADS_WEB_APP_URL =
 export const LEADS_ENDPOINT =
   process.env.NEXT_PUBLIC_LEADS_ENDPOINT || LEADS_WEB_APP_URL;
 
+/** The site's own privacy policy (the operator's, on coralclub.ru). */
+export const PRIVACY_POLICY_URL = "https://coralclub.ru/faq/privacy/";
+
+/** Which edition of the consent text the visitor agreed to (kept with the lead). */
+export const CONSENT_VERSION = "2026-10-20";
+
 export type LeadInput = {
   name: string;
   phone: string;
   /** Optional. */
   email: string;
+  /** Consent to process personal data — required, always true when sent. */
+  consent: boolean;
+  /** Consent to receive information and advertising messages — optional. */
+  marketing: boolean;
   /** Where the visitor came from ("hero", "consultation", "offline_qr"…). */
   source: string;
 };
@@ -39,6 +49,10 @@ export async function submitLead(input: LeadInput): Promise<void> {
   const q = new URLSearchParams(window.location.search);
   const payload = {
     ...input,
+    // the sheet reads «да» / «нет»
+    consent: input.consent ? "да" : "нет",
+    marketing: input.marketing ? "да" : "нет",
+    consentVersion: CONSENT_VERSION,
     // the UTM tag of the link the visitor arrived by, one value per column
     ...Object.fromEntries(UTM_KEYS.map((k) => [k, q.get(k) ?? ""])),
     page: window.location.href,

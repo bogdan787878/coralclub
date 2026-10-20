@@ -1,0 +1,52 @@
+.page {
+  min-height: 100svh;
+  background: var(--color-neutral-30);
+}
+
+.card {
+  width: min(100% - 2 * var(--page-padding-inline), 720px);
+  margin: var(--space-24) auto var(--space-64);
+  padding: var(--space-24);
+  border-radius: var(--radius-base);
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--color-text);
+}
+
+.card p {
+  margin: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  line-height: 1.25;
+  font-weight: var(--font-weight-medium);
+  text-wrap: balance;
+}
+
+.card a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.more {
+  font-size: 0.9375rem;
+}
+
+@media (min-width: 1024px) {
+  .card {
+    margin-top: var(--space-48);
+    padding: var(--space-48);
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}

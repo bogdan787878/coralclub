@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Accent, Container, Heading, Section } from "@/components/ui";
 import { CoralClubLogo } from "@/components/landing/CoralClubLogo";
 import { LandingHeader } from "@/components/landing/LandingHeader";
@@ -17,6 +18,7 @@ import { LandingSets } from "@/components/landing/LandingSets";
 import { LandingCartButton } from "@/components/landing/LandingCartButton";
 import { asset } from "@/lib/asset";
 import { BEAUTY_SLUGS, MAIN_SITE_URL } from "@/lib/beautySystem";
+import { PRIVACY_POLICY_URL } from "@/lib/leads";
 import {
   LANDING_PRODUCTS_RU,
   formatRub,
@@ -379,6 +381,22 @@ export default function LandingPage() {
                     {label}
                   </a>
                 ))}
+              </nav>
+              <nav className={styles.footerNav} aria-label="Документы">
+                <a
+                  href={PRIVACY_POLICY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-analytics-id="footer_privacy_link"
+                >
+                  Политика конфиденциальности
+                </a>
+                <Link
+                  href="/landing/consent/"
+                  data-analytics-id="footer_consent_link"
+                >
+                  Согласие на обработку персональных данных
+                </Link>
               </nav>
               <p className={styles.footerNote}>
                 БАД не является лекарственным средством. Перед применением
