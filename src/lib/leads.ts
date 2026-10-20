@@ -11,7 +11,7 @@
 
 /** https://script.google.com/macros/s/…/exec — filled in after the deployment. */
 export const LEADS_WEB_APP_URL =
-  "https://script.google.com/macros/s/AKfycbzNJvMQsflEk2R9ulAe2dAvZGkA_BrZJMkGu4QvLgvuwQAHqJvPyd26NwF1qj8WDWfaug/exec";
+  "https://script.google.com/macros/s/AKfycby7pWJbkvThiUsCdsYqgYZ2sSgSojMCDw94z0prkn3SdnUVukaBhvx5HoMx9_ZW0-SkMw/exec";
 
 export const LEADS_ENDPOINT =
   process.env.NEXT_PUBLIC_LEADS_ENDPOINT || LEADS_WEB_APP_URL;
