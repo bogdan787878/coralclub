@@ -16,6 +16,7 @@ export function FloatInput({
   name,
   shake,
   hint,
+  error,
   maxLength,
 }: {
   name?: string;
@@ -29,12 +30,16 @@ export function FloatInput({
   autoComplete?: string;
   /** a short line under the field (what is wrong / what to type) */
   hint?: string;
+  /** the value failed validation: red border and a red hint */
+  error?: boolean;
   maxLength?: number;
 }) {
   const id = useId();
   return (
     <div className={`${co.float} ${shake ? co.shake : ""}`} data-field={name}>
-      <div className={`${co.floatBox} ${attention ? co.floatBoxActive : ""}`}>
+      <div
+        className={`${co.floatBox} ${attention ? co.floatBoxActive : ""} ${error ? styles.errorBox : ""}`}
+      >
         <input
           id={id}
           className={co.floatInput}
@@ -49,7 +54,14 @@ export function FloatInput({
           {label}
         </label>
       </div>
-      {hint && <p className={styles.fieldHint}>{hint}</p>}
+      {hint && (
+        <p
+          className={`${styles.floatHint} ${error ? styles.floatHintError : ""}`}
+          role={error ? "alert" : undefined}
+        >
+          {hint}
+        </p>
+      )}
     </div>
   );
 }

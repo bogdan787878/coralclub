@@ -319,6 +319,29 @@ details[open] > .sumHead svg {
   color: var(--color-text-muted);
 }
 
+/* the hint under a floating-label field: a gap above, aligned with the text */
+.floatHint {
+  margin: var(--space-8) 0 0 var(--space-12);
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  color: var(--color-text-muted);
+}
+
+.floatHintError {
+  color: var(--color-error);
+}
+
+/* a field that failed validation: red border, also while focused */
+.errorBox input,
+.errorBox select {
+  border-color: var(--color-error);
+}
+
+.errorBox input:focus,
+.errorBox select:focus {
+  border-color: var(--color-error);
+}
+
 .loader {
   margin: 0;
   display: flex;

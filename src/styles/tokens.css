@@ -62,6 +62,9 @@
   --color-text-on-primary: var(--color-white);
   --color-text-on-primary-muted: rgba(255, 255, 255, 0.72);
 
+  /* a field that failed validation (border + message) */
+  --color-error: #d0342c;
+
   /* primary button: mid malachite at rest, darkens to the darkest malachite on hover */
   --color-action: var(--color-malachite-90);
   --color-action-hover: var(--color-malachite-100);

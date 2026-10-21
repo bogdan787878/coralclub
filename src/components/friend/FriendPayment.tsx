@@ -256,7 +256,7 @@ export function FriendPayment() {
 
   const field = (key: string) => ({
     name: key,
-    attention: !!shown(key),
+    error: !!shown(key),
     hint: shown(key),
   });
 
@@ -440,7 +440,7 @@ export function FriendPayment() {
                         <div className={styles.row}>
                           <div className={co.float} data-field="state">
                             <div
-                              className={`${co.floatBox} ${shown("state") ? co.floatBoxActive : ""}`}
+                              className={`${co.floatBox} ${shown("state") ? styles.errorBox : ""}`}
                             >
                               <select
                                 className={`${co.floatInput} ${friendStyles.select}`}
@@ -478,7 +478,10 @@ export function FriendPayment() {
                               </span>
                             </div>
                             {shown("state") && (
-                              <p className={styles.fieldHint}>
+                              <p
+                                className={`${styles.floatHint} ${styles.floatHintError}`}
+                                role="alert"
+                              >
                                 {shown("state")}
                               </p>
                             )}
