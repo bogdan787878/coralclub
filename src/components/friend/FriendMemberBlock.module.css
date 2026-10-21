@@ -2,6 +2,10 @@
    the filled (dark) block, with the benefits next to the sign-up */
 .box {
   display: grid;
+  grid-template-areas:
+    "intro"
+    "perks"
+    "btn";
   gap: var(--space-32);
   padding: var(--space-32) var(--space-24);
   border-radius: var(--radius-base);
@@ -9,15 +13,22 @@
   color: var(--color-text-on-primary);
 }
 
+/* phone: title, benefits, then the full-width button; web: the title and
+   button on the left, the benefits on the right */
 @media (min-width: 768px) {
   .box {
     grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
-    gap: var(--space-48);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "intro perks"
+      "btn perks";
+    gap: var(--space-24) var(--space-48);
     padding: var(--space-48);
   }
 }
 
 .intro {
+  grid-area: intro;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -49,11 +60,11 @@
 }
 
 .btn {
-  display: inline-flex;
+  grid-area: btn;
+  display: flex;
   align-items: center;
   justify-content: center;
   min-height: 52px;
-  margin-top: var(--space-8);
   padding: 0 var(--space-32);
   border-radius: var(--radius-pill);
   background: #ffffff;
@@ -63,12 +74,21 @@
   text-decoration: none;
 }
 
+@media (min-width: 768px) {
+  .btn {
+    /* the button keeps its own width next to the title on the web */
+    justify-self: start;
+    align-self: start;
+  }
+}
+
 .btn[aria-disabled="true"] {
   opacity: 0.5;
   pointer-events: none;
 }
 
 .perks {
+  grid-area: perks;
   list-style: none;
   margin: 0;
   padding: 0;

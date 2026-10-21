@@ -46,19 +46,6 @@ export function FriendMemberBlock() {
       <div className={styles.intro}>
         <h2 className={styles.title}>Become a club member</h2>
         <span className={styles.tag}>SAVE 20% ON EVERY ORDER</span>
-        <a
-          className={styles.btn}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-disabled={!href}
-          data-analytics-id="pdp_register_cta"
-          onClick={() =>
-            track("friend_register_click", { cta_location: "pdp" })
-          }
-        >
-          Sign up
-        </a>
       </div>
       <ul className={styles.perks}>
         {PERKS.map((t) => (
@@ -70,6 +57,17 @@ export function FriendMemberBlock() {
           </li>
         ))}
       </ul>
+      <a
+        className={styles.btn}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-disabled={!href}
+        data-analytics-id="pdp_register_cta"
+        onClick={() => track("friend_register_click", { cta_location: "pdp" })}
+      >
+        Sign up
+      </a>
     </section>
   );
 }
