@@ -142,7 +142,12 @@ export function FriendPayment() {
   const [number, setNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvc, setCvc] = useState("");
-  const [name, setName] = useState("");
+  // the name on the card starts as the order's recipient (the shopper can
+  // change it); typed text always wins
+  const [nameInput, setName] = useState<string | null>(null);
+  const name =
+    nameInput ??
+    (order?.recipient ?? "").trim().replace(/\s+/g, " ").toUpperCase();
   const [same, setSame] = useState(true);
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
