@@ -31,7 +31,6 @@ import {
 import { US_STATES } from "@/lib/usStates";
 import { FloatInput } from "./FloatInput";
 import { OrderSummary, ShippingFacts } from "./OrderParts";
-import { CardBadges } from "./PayBadges";
 import co from "../landing/LandingCheckout.module.css";
 import friendStyles from "./Friend.module.css";
 import styles from "./FriendCheckout.module.css";
@@ -347,10 +346,7 @@ export function FriendPayment() {
                   )}
 
                   <section className={styles.section} aria-label="Card">
-                    <div className={styles.headRow}>
-                      <h2 className={styles.h2}>Card details</h2>
-                      <CardBadges />
-                    </div>
+                    <h2 className={styles.h2}>Card details</h2>
                     <FloatInput
                       {...field("number")}
                       label="Card number"
