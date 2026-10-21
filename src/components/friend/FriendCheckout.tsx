@@ -1132,10 +1132,6 @@ export function FriendCheckout() {
               >
                 {sending ? "Creating your order…" : "Continue to payment"}
               </button>
-              <p className={styles.note}>
-                Your order is created in the shop, and you pay on the next step.
-                No sign-up needed.
-              </p>
             </div>
 
             <aside className={styles.sumDesktop} aria-label="Order summary">
