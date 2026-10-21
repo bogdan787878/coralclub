@@ -54,8 +54,8 @@ export function LinePrice({ line }: { line: CartLine }) {
   const saved = (p.regular - p.club) * line.qty;
   return (
     <span className={styles.price}>
-      <span className={styles.was}>{formatUsd(p.regular)}</span>{" "}
-      <span className={styles.member}>{formatUsd(p.club)}</span>
+      <span className={styles.member}>{formatUsd(p.club)}</span>{" "}
+      <span className={styles.was}>{formatUsd(p.regular)}</span>
       {saved > 0 && (
         <span className={styles.savings}>{formatUsd(saved)} savings</span>
       )}
@@ -82,8 +82,8 @@ export function Recommendations() {
             </span>
             <span className={styles.recName}>{p.name}</span>
             <span className={styles.recPrice}>
-              <span className={styles.was}>{formatUsd(p.regular)}</span>{" "}
-              {formatUsd(p.club)}
+              {formatUsd(p.club)}{" "}
+              <span className={styles.was}>{formatUsd(p.regular)}</span>
             </span>
             <button
               type="button"
