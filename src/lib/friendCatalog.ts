@@ -49,18 +49,18 @@ const META: Record<string, { bonus: number; tag: string; form: string }> = {
   hydramax: { bonus: 48, tag: "30-day set", form: "30-day set" },
   "coral-mine-silver": {
     bonus: 14,
-    tag: "Minerals for your water",
+    tag: "Mineral water",
     form: "",
   },
   pentokan: {
     bonus: 6.5,
-    tag: "Potassium & vitamin C",
+    tag: "Potassium + C",
     form: "20 effervescent tablets",
   },
   oceanmin: { bonus: 11, tag: "Magnesium", form: "15 sachets" },
   "h-500": {
     bonus: 20,
-    tag: "Potassium & magnesium",
+    tag: "Potassium + Mg",
     form: "120 capsules",
   },
 };

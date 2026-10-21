@@ -282,6 +282,11 @@
 }
 
 .tag {
+  /* one line only: a longer tag is cut with «…», never over the title */
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: #a2d24a;
   font-family: var(--font-sans);
   font-size: 0.875rem; /* 14 */
