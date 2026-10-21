@@ -79,7 +79,7 @@ export default async function FriendProductPage({
       {
         id: "club",
         label: "Member price",
-        note: "−20% with a friend link",
+        note: "−20%",
         price: formatUsd(p.club),
         cta: { label: "Add to cart", href },
       },

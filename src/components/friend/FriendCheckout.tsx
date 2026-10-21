@@ -78,10 +78,14 @@ const num = (v: unknown) =>
 const paymentTypeCode = (name: string) =>
   /paypal/i.test(name) ? "paypal" : "bank_card";
 
-/** "350 5th Avenue" → house number + street, the two fields the shop asks for. */
-function splitAddress(a: string): { build: string; street: string } | null {
+/**
+ * "350 5th Avenue" → house number + street, the two fields the shop's order
+ * takes. Only a split, never a check: whatever is typed is sent, and the shop
+ * itself decides whether the address is acceptable.
+ */
+function splitAddress(a: string): { build: string; street: string } {
   const m = /^\s*(\d+[A-Za-z]?(?:[-/]\d+)?)\s+(.+?)\s*$/.exec(a);
-  return m ? { build: m[1], street: m[2] } : null;
+  return m ? { build: m[1], street: m[2] } : { build: "", street: a.trim() };
 }
 
 const Chevron = () => (
@@ -340,8 +344,8 @@ export function FriendCheckout() {
     COUNTRY_NAME: "United States",
     CITY: cityForShop,
     AREA: state,
-    STREET: parsed?.street ?? "",
-    BUILD: parsed?.build ?? "",
+    STREET: parsed.street,
+    BUILD: parsed.build,
     APARTMENT: apartment.trim(),
     POSTINDEX: zip.trim(),
     DELIVERY_TYPE: activeItem?.TYPE ?? "COURIER",
@@ -420,10 +424,10 @@ export function FriendCheckout() {
     { key: "email", bad: !/\S+@\S+\.\S+/.test(email) },
     { key: "first", bad: first.trim().length < 1 },
     { key: "last", bad: last.trim().length < 1 },
-    { key: "address", bad: !parsed },
+    { key: "address", bad: address.trim() === "" },
     { key: "city", bad: !city },
     { key: "state", bad: !state },
-    { key: "zip", bad: zip.replace(/\D/g, "").length < 5 },
+    { key: "zip", bad: zip.trim() === "" },
     { key: "phone", bad: digits.length < 10 },
     { key: "terms", bad: !acceptTerms },
     { key: "data", bad: !agreeData },
@@ -789,11 +793,6 @@ export function FriendCheckout() {
                   onChange={setAddress}
                   autoComplete="address-line1"
                 />
-                {address.trim() !== "" && !parsed && (
-                  <p className={styles.fieldHint}>
-                    Start with the house number, for example “350 5th Avenue”.
-                  </p>
-                )}
                 <FloatInput
                   label="Apartment, suite, etc. (optional)"
                   value={apartment}
