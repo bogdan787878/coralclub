@@ -125,13 +125,14 @@
   height: 96px;
   margin-bottom: var(--space-8);
   border-radius: var(--radius-sm);
-  background: var(--color-white);
   overflow: hidden;
 }
 
+/* no frame: the picture sits straight on the card; a packshot's white
+   background blends into the grey instead of showing as a white box */
 .recImg :global(img) {
   object-fit: contain;
-  padding: 4px;
+  mix-blend-mode: multiply;
 }
 
 .recName {
@@ -152,7 +153,7 @@
   height: 36px;
   border: 1.5px solid var(--color-malachite-90);
   border-radius: var(--radius-pill);
-  background: var(--color-white);
+  background: transparent;
   color: var(--color-malachite-90);
   font-family: var(--font-sans);
   font-size: 0.875rem;
