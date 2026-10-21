@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -18,7 +17,7 @@ import {
   formatExpiry,
   type CardErrors,
 } from "@/lib/cardFormat";
-import { formatUsd, friendProductById } from "@/lib/friendCatalog";
+import { formatUsd } from "@/lib/friendCatalog";
 import { onShopOrigin, pinShopSite } from "@/lib/shopApi";
 import {
   getPayOrder,
@@ -31,6 +30,7 @@ import {
 } from "@/lib/shopPay";
 import { US_STATES } from "@/lib/usStates";
 import { FloatInput } from "./FloatInput";
+import { OrderSummary, ShippingFacts } from "./OrderParts";
 import { CardBadges } from "./PayBadges";
 import co from "../landing/LandingCheckout.module.css";
 import friendStyles from "./Friend.module.css";
@@ -47,13 +47,6 @@ const Chevron = () => (
     />
   </svg>
 );
-
-/** The shop's delivery service ids → names (the order carries only the id). */
-const DELIVERY_NAME: Record<string, string> = {
-  I_FEDEX_GROUND: "FedEx Ground",
-  I_FEDEX_EXPRESS: "FedEx Express 2nd Business Day",
-  I_USPS: "USPS",
-};
 
 /** The shop's field names → ours, for the messages it sends back. */
 const FIELD_OF: Record<string, string> = {
@@ -99,8 +92,9 @@ export function FriendPayment() {
       if (!alive) return;
       if ("order" in r) {
         if (r.order.paid) {
-          // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- a page of the shop
-          window.location.assign(`/order/success/${r.order.id}/`);
+          window.location.assign(
+            asset(`/friend/checkout/done/?order=${r.order.id}`),
+          );
           return;
         }
         if (r.order.canceled) {
@@ -182,8 +176,10 @@ export function FriendPayment() {
   const finish = useCallback(
     (r: PayResult) => {
       if (r.success) {
-        // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- a page of the shop
-        window.location.assign(`/order/success/${orderId}/`);
+        // our own confirmation page (with the invitation to join the club)
+        window.location.assign(
+          asset(`/friend/checkout/done/?order=${orderId}`),
+        );
         return true;
       }
       if (r.deauth) {
@@ -252,87 +248,7 @@ export function FriendPayment() {
   const total = order ? formatUsd(Number(order.amount)) : "";
   const shopPageChange = shopPage;
 
-  const deliveryName =
-    (order && DELIVERY_NAME[order.delivery]) ||
-    (order?.delivery ?? "").replace(/^I_/, "").replace(/_/g, " ");
-
-  // the same facts the shop's own order page shows, in our layout
-  const summary = order && (
-    <div className={styles.sum}>
-      <ul className={styles.sumLines}>
-        {order.lines.map((l) => {
-          const p = friendProductById(l.code);
-          return (
-            <li key={l.code} className={styles.sumLine}>
-              <span className={styles.thumb}>
-                <span className={styles.thumbImg}>
-                  {p?.images[0] && (
-                    <Image src={p.images[0].src} alt="" fill sizes="56px" />
-                  )}
-                </span>
-                <span className={styles.badge}>{l.qty}</span>
-              </span>
-              <span className={styles.lineName}>
-                {p?.name ?? `#${l.code}`}
-                {p?.form && <span className={styles.lineSub}>{p.form}</span>}
-              </span>
-              <span className={styles.lineSum}>
-                {p && (
-                  <span className={styles.was}>
-                    {formatUsd(p.regular * l.qty)}
-                  </span>
-                )}{" "}
-                {formatUsd(l.sum)}
-              </span>
-            </li>
-          );
-        })}
-      </ul>
-      <dl className={styles.rows}>
-        <div>
-          <dt>Products</dt>
-          <dd>{formatUsd(order.productSum)}</dd>
-        </div>
-        <div>
-          <dt>Delivery</dt>
-          <dd>
-            {order.deliveryPrice > 0 ? formatUsd(order.deliveryPrice) : "Free"}
-          </dd>
-        </div>
-        {order.paidSum > 0 && (
-          <div>
-            <dt>Paid</dt>
-            <dd>{formatUsd(order.paidSum)}</dd>
-          </div>
-        )}
-        <div>
-          <dt>Total amount</dt>
-          <dd>{formatUsd(order.total)}</dd>
-        </div>
-        <div className={styles.rowTotal}>
-          <dt>Amount to pay</dt>
-          <dd>{formatUsd(Number(order.amount))}</dd>
-        </div>
-      </dl>
-      {order.friendRef && (
-        <p className={styles.host}>
-          Member prices applied: this order is counted for the friend who
-          invited you (Coral ID {order.memberId}).
-        </p>
-      )}
-      <p className={styles.host}>
-        By placing an order, you agree to the{" "}
-        <a href="/faq/privacy/" target="_blank" rel="noopener noreferrer">
-          Privacy Policy
-        </a>{" "}
-        and accept the{" "}
-        <a href="/faq/terms/" target="_blank" rel="noopener noreferrer">
-          Terms and Conditions
-        </a>
-        .
-      </p>
-    </div>
-  );
+  const summary = order && <OrderSummary order={order} mode="pay" />;
 
   const field = (key: string) => ({
     name: key,
@@ -378,33 +294,7 @@ export function FriendPayment() {
               {order && (
                 <section className={styles.section}>
                   <h2 className={styles.h2}>Shipping information</h2>
-                  <dl className={styles.facts}>
-                    <div>
-                      <dt>Recipient</dt>
-                      <dd>{order.recipient}</dd>
-                    </div>
-                    <div>
-                      <dt>Shipping address</dt>
-                      <dd>
-                        {[order.street, order.city, order.area]
-                          .filter(Boolean)
-                          .join(", ")}{" "}
-                        {order.zip}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt>Phone</dt>
-                      <dd>{order.phone}</dd>
-                    </div>
-                    <div>
-                      <dt>Email</dt>
-                      <dd>{order.email}</dd>
-                    </div>
-                    <div>
-                      <dt>Delivery service</dt>
-                      <dd>{deliveryName}</dd>
-                    </div>
-                  </dl>
+                  <ShippingFacts order={order} />
                 </section>
               )}
 

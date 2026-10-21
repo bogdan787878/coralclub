@@ -33,7 +33,16 @@ const Check = () => (
  * purchase works without it. The sign-up is the shop's own, opened as an
  * invitation from the friend who sent the visitor.
  */
-export function FriendMemberBlock() {
+export function FriendMemberBlock({
+  title = "Become a club member",
+  cta = "Sign up",
+  where = "pdp",
+}: {
+  title?: string;
+  cta?: string;
+  /** Where the block sits — goes to analytics. */
+  where?: string;
+} = {}) {
   const { friend } = useFriend();
   const href = friend ? registrationUrl(friend) : undefined;
 
@@ -41,10 +50,10 @@ export function FriendMemberBlock() {
     <section
       className={styles.box}
       aria-label="Club membership"
-      data-analytics-section="pdp_member_block"
+      data-analytics-section={`${where}_member_block`}
     >
       <div className={styles.intro}>
-        <h2 className={styles.title}>Become a club member</h2>
+        <h2 className={styles.title}>{title}</h2>
         <span className={styles.tag}>SAVE 20% ON EVERY ORDER</span>
       </div>
       <ul className={styles.perks}>
@@ -63,10 +72,10 @@ export function FriendMemberBlock() {
         target="_blank"
         rel="noopener noreferrer"
         aria-disabled={!href}
-        data-analytics-id="pdp_register_cta"
-        onClick={() => track("friend_register_click", { cta_location: "pdp" })}
+        data-analytics-id={`${where}_register_cta`}
+        onClick={() => track("friend_register_click", { cta_location: where })}
       >
-        Sign up
+        {cta}
       </a>
     </section>
   );
