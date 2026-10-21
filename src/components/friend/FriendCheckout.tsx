@@ -35,7 +35,6 @@ import { US_STATES } from "@/lib/usStates";
 import { FloatInput } from "./FloatInput";
 import { CardBadges } from "./PayBadges";
 import { useFriend } from "./FriendProvider";
-import { FriendRegisterCta } from "./FriendRegisterCta";
 import co from "../landing/LandingCheckout.module.css";
 import friendStyles from "./Friend.module.css";
 import styles from "./FriendCheckout.module.css";
@@ -1137,8 +1136,6 @@ export function FriendCheckout() {
                 Your order is created in the shop, and you pay on the next step.
                 No sign-up needed.
               </p>
-
-              <FriendRegisterCta where="checkout" />
             </div>
 
             <aside className={styles.sumDesktop} aria-label="Order summary">
