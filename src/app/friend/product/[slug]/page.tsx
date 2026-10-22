@@ -10,7 +10,6 @@ import {
 import { LandingGallery } from "@/components/landing/LandingGallery";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { TrackViewItem } from "@/components/landing/TrackViewItem";
-import { FriendBanner } from "@/components/friend/FriendProvider";
 import { FriendCards } from "@/components/friend/FriendCards";
 import { FriendCartButton } from "@/components/friend/FriendCart";
 import { FriendMemberBlock } from "@/components/friend/FriendMemberBlock";
@@ -109,8 +108,6 @@ export default async function FriendProductPage({
           <BackButton className={shop.circleBtn} fallbackHref="/friend/" />
           <ShareButton className={shop.circleBtn} title={p.name} />
         </div>
-
-        <FriendBanner />
 
         <Section tone="surface">
           <div className={styles.wide}>
