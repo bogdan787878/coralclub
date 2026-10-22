@@ -31,12 +31,11 @@ import {
   pinShopSite,
   shopFetch,
 } from "@/lib/shopApi";
-import { US_STATES } from "@/lib/usStates";
 import { FloatInput } from "./FloatInput";
 import { CardBadges } from "./PayBadges";
+import { StateCombobox } from "./StateCombobox";
 import { useFriend } from "./FriendProvider";
 import co from "../landing/LandingCheckout.module.css";
-import friendStyles from "./Friend.module.css";
 import styles from "./FriendCheckout.module.css";
 
 /**
@@ -807,49 +806,13 @@ export function FriendCheckout() {
                   autoComplete="address-level2"
                 />
                 <div className={styles.row}>
-                  <div
-                    className={`${co.float} ${shaking === "state" ? co.shake : ""}`}
-                    data-field="state"
-                  >
-                    <div
-                      className={`${co.floatBox} ${attempted && !state ? co.floatBoxActive : ""}`}
-                    >
-                      <select
-                        className={`${co.floatInput} ${friendStyles.select}`}
-                        value={state}
-                        onChange={(e) => setState(e.target.value)}
-                        autoComplete="address-level1"
-                        aria-label="State"
-                      >
-                        <option value="" disabled />
-                        {US_STATES.map((s) => (
-                          <option key={s} value={s}>
-                            {s}
-                          </option>
-                        ))}
-                      </select>
-                      <span
-                        className={co.floatLabel}
-                        style={
-                          state
-                            ? {
-                                top: 8,
-                                transform: "none",
-                                fontSize: "0.75rem",
-                                lineHeight: "1rem",
-                              }
-                            : {
-                                top: "50%",
-                                transform: "translateY(-50%)",
-                                fontSize: "1rem",
-                                lineHeight: "1.25rem",
-                              }
-                        }
-                      >
-                        State
-                      </span>
-                    </div>
-                  </div>
+                  <StateCombobox
+                    value={state}
+                    onChange={setState}
+                    name="state"
+                    shake={shaking === "state"}
+                    attention={attempted && !state}
+                  />
                   <FloatInput
                     {...field("zip")}
                     label="ZIP code"

@@ -28,11 +28,10 @@ import {
   type PayOrder,
   type PayResult,
 } from "@/lib/shopPay";
-import { US_STATES } from "@/lib/usStates";
 import { FloatInput } from "./FloatInput";
 import { OrderSummary, ShippingFacts } from "./OrderParts";
+import { StateCombobox } from "./StateCombobox";
 import co from "../landing/LandingCheckout.module.css";
-import friendStyles from "./Friend.module.css";
 import styles from "./FriendCheckout.module.css";
 
 const Chevron = () => (
@@ -438,54 +437,13 @@ export function FriendPayment() {
                           autoComplete="billing address-level2"
                         />
                         <div className={styles.row}>
-                          <div className={co.float} data-field="state">
-                            <div
-                              className={`${co.floatBox} ${shown("state") ? styles.errorBox : ""}`}
-                            >
-                              <select
-                                className={`${co.floatInput} ${friendStyles.select}`}
-                                value={state}
-                                onChange={(e) => setState(e.target.value)}
-                                autoComplete="billing address-level1"
-                                aria-label="State"
-                              >
-                                <option value="" disabled />
-                                {US_STATES.map((s) => (
-                                  <option key={s} value={s}>
-                                    {s}
-                                  </option>
-                                ))}
-                              </select>
-                              <span
-                                className={co.floatLabel}
-                                style={
-                                  state
-                                    ? {
-                                        top: 8,
-                                        transform: "none",
-                                        fontSize: "0.75rem",
-                                        lineHeight: "1rem",
-                                      }
-                                    : {
-                                        top: "50%",
-                                        transform: "translateY(-50%)",
-                                        fontSize: "1rem",
-                                        lineHeight: "1.25rem",
-                                      }
-                                }
-                              >
-                                State
-                              </span>
-                            </div>
-                            {shown("state") && (
-                              <p
-                                className={`${styles.floatHint} ${styles.floatHintError}`}
-                                role="alert"
-                              >
-                                {shown("state")}
-                              </p>
-                            )}
-                          </div>
+                          <StateCombobox
+                            value={state}
+                            onChange={setState}
+                            name="state"
+                            error={!!shown("state")}
+                            hint={shown("state")}
+                          />
                           <FloatInput
                             {...field("zip")}
                             label="ZIP code"
