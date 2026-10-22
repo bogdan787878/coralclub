@@ -111,13 +111,9 @@ export async function suggestAddresses(
       input,
       sessionToken: session,
       includedRegionCodes: ["us"],
-      // houses and street addresses, not shops and landmarks
-      includedPrimaryTypes: [
-        "street_address",
-        "premise",
-        "subpremise",
-        "route",
-      ],
+      // houses with a number only: a whole street («5th Avenue») has no ZIP
+      // and cannot be delivered to, so it is not offered
+      includedPrimaryTypes: ["street_address", "premise", "subpremise"],
     });
   return suggestions
     .map((s) => s.placePrediction)
