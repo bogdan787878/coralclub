@@ -8,6 +8,7 @@ const DELIVERY_NAME: Record<string, string> = {
   I_FEDEX_GROUND: "FedEx Ground",
   I_FEDEX_EXPRESS: "FedEx Express 2nd Business Day",
   I_USPS: "USPS",
+  I_FEDEX_PICKPOINT: "FedEx pick-up",
 };
 
 export const deliveryNameOf = (order: Pick<PayOrder, "delivery">) =>
@@ -23,7 +24,7 @@ export function ShippingFacts({ order }: { order: PayOrder }) {
         <dd>{order.recipient}</dd>
       </div>
       <div>
-        <dt>Shipping address</dt>
+        <dt>{order.pickup ? "Pick-up point" : "Shipping address"}</dt>
         <dd>
           {[order.street, order.city, order.area].filter(Boolean).join(", ")}{" "}
           {order.zip}

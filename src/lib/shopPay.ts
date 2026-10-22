@@ -25,6 +25,8 @@ export type PayOrder = {
   area: string;
   zip: string;
   recipient: string;
+  /** Delivered to a pick-up point, not to the shopper's address. */
+  pickup: boolean;
   phone: string;
   email: string;
   /** The shop's delivery service id, e.g. "I_FEDEX_GROUND". */
@@ -53,6 +55,7 @@ export type PayResult =
 
 type OrderRaw = {
   FIO?: string;
+  IS_PICKPOINT?: string | number | null;
   PHONE?: string;
   EMAIL?: string;
   DELIVERY?: string;
@@ -99,6 +102,7 @@ export async function getPayOrder(
       area: o.AREA || "",
       zip: o.ZIP || "",
       recipient: o.FIO || "",
+      pickup: String(o.IS_PICKPOINT ?? "") === "1",
       phone: o.PHONE || "",
       email: o.EMAIL || "",
       delivery: o.DELIVERY || "",

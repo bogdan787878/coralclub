@@ -147,7 +147,10 @@ export function FriendPayment() {
   const name =
     nameInput ??
     (order?.recipient ?? "").trim().replace(/\s+/g, " ").toUpperCase();
-  const [same, setSame] = useState(true);
+  // «same as shipping address» is off for a pick-up order: the card's billing
+  // address is not the address of the pick-up point (as in the shop's own form)
+  const [sameInput, setSame] = useState<boolean | null>(null);
+  const same = sameInput ?? !order?.pickup;
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");

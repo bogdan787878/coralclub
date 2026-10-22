@@ -66,6 +66,16 @@ type DeliveryItem = {
 };
 type DeliveryGroup = { ID: string; NAME: string; ITEMS: DeliveryItem[] };
 type Totals = Record<string, string | number | null | undefined>;
+/** A pick-up point as the shop lists it (FedEx locations near a city). */
+type PickPoint = {
+  CODE: string;
+  TYPE: string;
+  NAME: string;
+  ADDRESS: string;
+  CITY: string;
+  POSTINDEX?: string;
+  WORKTIME?: string | null;
+};
 
 const num = (v: unknown) =>
   parseFloat(
@@ -142,7 +152,14 @@ export function FriendCheckout() {
   const [agreeData, setAgreeData] = useState(false);
 
   const [groups, setGroups] = useState<DeliveryGroup[]>([]);
-  const [deliveryId, setDeliveryId] = useState("");
+  // courier to an address, or a pick-up point
+  const [mode, setMode] = useState<"courier" | "pickup">("courier");
+  // the courier service the shopper picked (the pick-up service is only one)
+  const [deliveryChoice, setDeliveryChoice] = useState("");
+  const [points, setPoints] = useState<PickPoint[]>([]);
+  const [pointsFor, setPointsFor] = useState("");
+  const [pointCode, setPointCode] = useState("");
+  const [pointSearch, setPointSearch] = useState("");
   const [deliveryErr, setDeliveryErr] = useState("");
   const [payments, setPayments] = useState<PayMethod[]>([]);
   const [paymentId, setPaymentId] = useState("");
@@ -151,6 +168,24 @@ export function FriendCheckout() {
   const [deliveryFor, setDeliveryFor] = useState("");
   const [paymentsFor, setPaymentsFor] = useState("");
   const [totalsFor, setTotalsFor] = useState("");
+
+  // courier services and the pick-up service come in separate groups
+  const courierItems = groups
+    .filter((g) => g.ID !== "PICK_POINT")
+    .flatMap((g) => g.ITEMS);
+  const pickupItems = groups
+    .filter((g) => g.ID === "PICK_POINT")
+    .flatMap((g) => g.ITEMS);
+  const pickup = mode === "pickup";
+  const items = pickup ? pickupItems : courierItems;
+  const deliveryId = pickup
+    ? (pickupItems[0]?.ID ?? "")
+    : courierItems.some((i) => i.ID === deliveryChoice)
+      ? deliveryChoice
+      : (courierItems[0]?.ID ?? "");
+  const activeItem = items.find((i) => i.ID === deliveryId);
+  const point = pickup ? points.find((p) => p.CODE === pointCode) : undefined;
+  const pickPointParam = point ? point.CODE : false;
 
   // discount code: typed → checked with the shop → applied
   const [promoOpen, setPromoOpen] = useState(false);
@@ -208,7 +243,7 @@ export function FriendCheckout() {
   const place = state ? `${cityForShop}|${state}` : "";
   const deliveryKey = `${cartKey}|${place}`;
   const paymentsKey = `${deliveryKey}|${deliveryId}`;
-  const totalsKey = `${paymentsKey}|${paymentId}|${promo}`;
+  const totalsKey = `${paymentsKey}|${paymentId}|${promo}|${pickup ? pointCode : ""}`;
 
   // 1 ─ the cart into the shop's basket, tied to the friend
   useEffect(() => {
@@ -283,9 +318,7 @@ export function FriendCheckout() {
       AREA: state,
     }).then((d) => {
       if (cancelled) return;
-      // the pick-up points need a point picker — this checkout is courier-only
       const list = (Array.isArray(d.result) ? d.result : [])
-        .filter((g) => g.ID !== "PICK_POINT")
         .map((g) => ({ ...g, ITEMS: Array.isArray(g.ITEMS) ? g.ITEMS : [] }))
         .filter((g) => g.ITEMS.length);
       setGroups(list);
@@ -294,9 +327,6 @@ export function FriendCheckout() {
         list.length ? "" : "No delivery options for this address.",
       );
       const all = list.flatMap((g) => g.ITEMS);
-      setDeliveryId((cur) =>
-        all.some((i) => i.ID === cur) ? cur : (all[0]?.ID ?? ""),
-      );
       if (!all.length) {
         setPayments([]);
         setPaymentId("");
@@ -307,9 +337,6 @@ export function FriendCheckout() {
       cancelled = true;
     };
   }, [ready, place, cityForShop, state, deliveryKey]);
-
-  const items = groups.flatMap((g) => g.ITEMS);
-  const activeItem = items.find((i) => i.ID === deliveryId);
 
   // 3 ─ payment methods of the chosen delivery
   useEffect(() => {
@@ -334,24 +361,79 @@ export function FriendCheckout() {
     };
   }, [ready, deliveryId, place, cityForShop, state, paymentsKey]);
 
+  // 3b ─ pick-up points near the city (the shop answers per city)
+  const pointsKey = `${state}|${city}`;
+  useEffect(() => {
+    if (ready !== "ok" || !pickup || !state || !city) return;
+    let cancelled = false;
+    api<{ result?: PickPoint[] }>("/pickpoints", {
+      COUNTRY: "US",
+      CITY: city,
+      AREA: state,
+    }).then((d) => {
+      if (cancelled) return;
+      setPoints(Array.isArray(d.result) ? d.result : []);
+      setPointsFor(pointsKey);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [ready, pickup, state, city, pointsKey]);
+  const pointsLoading = pickup && !!state && !!city && pointsFor !== pointsKey;
+  // the shopper's city first, then by city and name; narrowed by the search box
+  const visiblePoints = useMemo(() => {
+    const q = pointSearch.trim().toLowerCase();
+    const own = city.trim().toLowerCase();
+    return points
+      .filter(
+        (p) =>
+          !q ||
+          `${p.NAME} ${p.ADDRESS} ${p.CITY} ${p.POSTINDEX ?? ""}`
+            .toLowerCase()
+            .includes(q),
+      )
+      .sort(
+        (a, b) =>
+          Number(b.CITY.toLowerCase() === own) -
+            Number(a.CITY.toLowerCase() === own) ||
+          a.CITY.localeCompare(b.CITY) ||
+          a.NAME.localeCompare(b.NAME),
+      );
+  }, [points, pointSearch, city]);
+
   const parsed = splitAddress(address);
   const fio = `${first.trim()} ${last.trim()}`.trim();
   const digits = phone.replace(/\D/g, "");
   const phoneForShop = digits.length === 10 ? `+1${digits}` : `+${digits}`;
-  const profile = {
-    COUNTRY: "US",
-    COUNTRY_NAME: "United States",
-    CITY: cityForShop,
-    AREA: state,
-    STREET: parsed.street,
-    BUILD: parsed.build,
-    APARTMENT: apartment.trim(),
-    POSTINDEX: zip.trim(),
-    DELIVERY_TYPE: activeItem?.TYPE ?? "COURIER",
-    EMAIL: email.trim(),
-    FIO: fio,
-    PHONE: phoneForShop,
-  };
+  const profile = pickup
+    ? {
+        COUNTRY: "US",
+        COUNTRY_NAME: "United States",
+        CITY: city || cityForShop,
+        AREA: state,
+        // what the shop's own checkout sends for a pick-up point
+        STREET: point?.ADDRESS ?? "",
+        DELIVERY_TYPE: activeItem?.TYPE ?? "PICK_POINT",
+        PICK_POINT_SERVICE: point?.TYPE ?? "",
+        PICK_POINT_CODE: point?.CODE ?? "",
+        EMAIL: email.trim(),
+        FIO: fio,
+        PHONE: phoneForShop,
+      }
+    : {
+        COUNTRY: "US",
+        COUNTRY_NAME: "United States",
+        CITY: cityForShop,
+        AREA: state,
+        STREET: parsed.street,
+        BUILD: parsed.build,
+        APARTMENT: apartment.trim(),
+        POSTINDEX: zip.trim(),
+        DELIVERY_TYPE: activeItem?.TYPE ?? "COURIER",
+        EMAIL: email.trim(),
+        FIO: fio,
+        PHONE: phoneForShop,
+      };
 
   // 4 ─ totals, re-read on every change of delivery / payment / address / code
   const profileKey = JSON.stringify(profile);
@@ -364,7 +446,7 @@ export function FriendCheckout() {
         promo,
         deliveryId,
         paymentId,
-        pickPoint: false,
+        pickPoint: pickPointParam,
         COUNTRY: "US",
         CITY: cityForShop,
         AREA: state,
@@ -389,6 +471,7 @@ export function FriendCheckout() {
     state,
     promo,
     profileKey,
+    pickPointParam,
     totalsKey,
   ]);
 
@@ -423,10 +506,18 @@ export function FriendCheckout() {
     { key: "email", bad: !/\S+@\S+\.\S+/.test(email) },
     { key: "first", bad: first.trim().length < 1 },
     { key: "last", bad: last.trim().length < 1 },
-    { key: "address", bad: address.trim() === "" },
-    { key: "city", bad: !city },
-    { key: "state", bad: !state },
-    { key: "zip", bad: zip.trim() === "" },
+    ...(pickup
+      ? [
+          { key: "state", bad: !state },
+          { key: "city", bad: !city },
+          { key: "point", bad: !point },
+        ]
+      : [
+          { key: "address", bad: address.trim() === "" },
+          { key: "city", bad: !city },
+          { key: "state", bad: !state },
+          { key: "zip", bad: zip.trim() === "" },
+        ]),
     { key: "phone", bad: digits.length < 10 },
     { key: "terms", bad: !acceptTerms },
     { key: "data", bad: !agreeData },
@@ -764,6 +855,35 @@ export function FriendCheckout() {
 
               <section className={styles.section}>
                 <h2 className={styles.h2}>Delivery</h2>
+                <div
+                  className={styles.toggle}
+                  role="radiogroup"
+                  aria-label="How to receive your order"
+                >
+                  {(
+                    [
+                      ["courier", "Delivery to address"],
+                      ["pickup", "Pick up point"],
+                    ] as const
+                  ).map(([id, label]) => (
+                    <button
+                      key={id}
+                      type="button"
+                      role="radio"
+                      aria-checked={mode === id}
+                      className={`${styles.toggleBtn} ${mode === id ? styles.toggleOn : ""}`}
+                      data-analytics-id={`delivery_mode_${id}`}
+                      onClick={() => {
+                        setMode(id);
+                        track("delivery_method_selected", {
+                          delivery_type_code: id,
+                        });
+                      }}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
                 <div className={styles.fixed}>
                   <span>Country/Region</span>
                   <strong>United States</strong>
@@ -784,44 +904,143 @@ export function FriendCheckout() {
                     autoComplete="family-name"
                   />
                 </div>
-                <FloatInput
-                  {...field("address")}
-                  label="Address"
-                  placeholder="350 5th Avenue"
-                  value={address}
-                  onChange={setAddress}
-                  autoComplete="address-line1"
-                />
-                <FloatInput
-                  label="Apartment, suite, etc. (optional)"
-                  value={apartment}
-                  onChange={setApartment}
-                  autoComplete="address-line2"
-                />
-                <FloatInput
-                  {...field("city")}
-                  label="City"
-                  value={cityDraft}
-                  onChange={setCityDraft}
-                  autoComplete="address-level2"
-                />
-                <div className={styles.row}>
-                  <StateCombobox
-                    value={state}
-                    onChange={setState}
-                    name="state"
-                    shake={shaking === "state"}
-                    attention={attempted && !state}
-                  />
-                  <FloatInput
-                    {...field("zip")}
-                    label="ZIP code"
-                    value={zip}
-                    onChange={setZip}
-                    inputMode="numeric"
-                    autoComplete="postal-code"
-                  />
-                </div>
+                {!pickup ? (
+                  <>
+                    <FloatInput
+                      {...field("address")}
+                      label="Address"
+                      placeholder="350 5th Avenue"
+                      value={address}
+                      onChange={setAddress}
+                      autoComplete="address-line1"
+                    />
+                    <FloatInput
+                      label="Apartment, suite, etc. (optional)"
+                      value={apartment}
+                      onChange={setApartment}
+                      autoComplete="address-line2"
+                    />
+                    <FloatInput
+                      {...field("city")}
+                      label="City"
+                      value={cityDraft}
+                      onChange={setCityDraft}
+                      autoComplete="address-level2"
+                    />
+                    <div className={styles.row}>
+                      <StateCombobox
+                        value={state}
+                        onChange={setState}
+                        name="state"
+                        shake={shaking === "state"}
+                        attention={attempted && !state}
+                      />
+                      <FloatInput
+                        {...field("zip")}
+                        label="ZIP code"
+                        value={zip}
+                        onChange={setZip}
+                        inputMode="numeric"
+                        autoComplete="postal-code"
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={styles.row}>
+                      <StateCombobox
+                        value={state}
+                        onChange={setState}
+                        name="state"
+                        shake={shaking === "state"}
+                        attention={attempted && !state}
+                      />
+                      <FloatInput
+                        {...field("city")}
+                        label="City"
+                        value={cityDraft}
+                        onChange={setCityDraft}
+                        autoComplete="address-level2"
+                      />
+                    </div>
+                    <div
+                      className={`${styles.pickup} ${shaking === "point" ? styles.shake : ""}`}
+                      data-field="point"
+                    >
+                      {!state || !city ? (
+                        <p className={styles.hint}>
+                          Enter your state and city to find pick-up points near
+                          you.
+                        </p>
+                      ) : pointsLoading ? (
+                        <p className={styles.loader} role="status">
+                          <span className={styles.spinner} aria-hidden="true" />
+                          Looking for pick-up points…
+                        </p>
+                      ) : points.length === 0 ? (
+                        <p className={styles.hint}>
+                          No pick-up points near {city}. Try a nearby city, or
+                          choose delivery to an address.
+                        </p>
+                      ) : (
+                        <>
+                          <p className={styles.sub}>
+                            {points.length} pick-up points near {city}
+                          </p>
+                          {points.length > 6 && (
+                            <FloatInput
+                              label="Search by name, street or ZIP"
+                              value={pointSearch}
+                              onChange={setPointSearch}
+                            />
+                          )}
+                          <div
+                            className={`${styles.options} ${attempted && !point ? styles.optionsError : ""}`}
+                            role="radiogroup"
+                            aria-label="Pick-up points"
+                          >
+                            <div className={styles.pointScroll}>
+                              {visiblePoints.length === 0 ? (
+                                <p className={styles.comboEmpty}>
+                                  Nothing matches “{pointSearch}”.
+                                </p>
+                              ) : (
+                                visiblePoints.map((p) => (
+                                  <label
+                                    key={p.CODE}
+                                    className={`${styles.option} ${pointCode === p.CODE ? styles.optionOn : ""}`}
+                                  >
+                                    <input
+                                      type="radio"
+                                      name="pickpoint"
+                                      checked={pointCode === p.CODE}
+                                      onChange={() => setPointCode(p.CODE)}
+                                    />
+                                    <span className={styles.optionName}>
+                                      {p.NAME}
+                                      <small>{p.ADDRESS}</small>
+                                      {p.WORKTIME && (
+                                        <small>{p.WORKTIME}</small>
+                                      )}
+                                    </span>
+                                  </label>
+                                ))
+                              )}
+                            </div>
+                          </div>
+                          {attempted && !point && (
+                            <p
+                              className={`${styles.floatHint} ${styles.floatHintError}`}
+                              role="alert"
+                            >
+                              Choose a pick-up point
+                            </p>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </>
+                )}
                 <FloatInput
                   {...field("phone")}
                   label="Phone"
@@ -856,9 +1075,9 @@ export function FriendCheckout() {
                           name="delivery"
                           checked={deliveryId === it.ID}
                           onChange={() => {
-                            setDeliveryId(it.ID);
+                            setDeliveryChoice(it.ID);
                             track("delivery_method_selected", {
-                              delivery_type_code: "courier",
+                              delivery_type_code: pickup ? "pickup" : "courier",
                               delivery_service: it.NAME,
                               delivery_cost: Number(it.PRICE) || 0,
                             });
@@ -881,7 +1100,9 @@ export function FriendCheckout() {
                   </div>
                 ) : (
                   <p className={styles.hint}>
-                    {deliveryErr || "No delivery options for this address."}
+                    {pickup && !deliveryErr
+                      ? "Pick-up isn’t available in this state. Choose delivery to an address."
+                      : deliveryErr || "No delivery options for this address."}
                   </p>
                 )}
               </section>
