@@ -891,7 +891,11 @@ export function FriendCheckout() {
                   Preparing your order…
                 </p>
               )}
-              {error && <p className={styles.error}>{error}</p>}
+              {error && (
+                <p className={styles.error} role="alert">
+                  {error}
+                </p>
+              )}
               {missing.map((m) => (
                 <p key={m} className={styles.error}>
                   {m}

@@ -422,7 +422,11 @@ export function FriendPayment() {
           </p>
         ) : (
           <>
-            {general && <p className={styles.error}>{general}</p>}
+            {general && (
+              <p className={styles.error} role="alert">
+                {general}
+              </p>
+            )}
             {gpay && (
               <section className={styles.section}>
                 <div ref={gpayHost} className={styles.gpay} aria-busy={busy} />
@@ -497,7 +501,11 @@ export function FriendPayment() {
                 </p>
               </section>
 
-              {general && <p className={styles.error}>{general}</p>}
+              {general && (
+                <p className={styles.error} role="alert">
+                  {general}
+                </p>
+              )}
 
               {transfer ? (
                 <section className={styles.section}>
