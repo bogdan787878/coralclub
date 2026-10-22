@@ -91,6 +91,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-32);
+  justify-content: flex-end;
   min-height: 100dvh;
   padding: var(--space-8) var(--page-padding-inline) 0;
   background: var(--color-surface);
@@ -144,5 +145,35 @@
   .sheet,
   .sheetBackdrop {
     animation: none;
+  }
+}
+
+/* the standalone payment page on a phone: the form sits at the bottom, in reach of the thumb */
+.fill {
+  min-height: calc(100dvh - 112px);
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+  margin-top: auto;
+  padding-bottom: max(var(--space-16), env(safe-area-inset-bottom));
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+@media (min-width: 1024px) {
+  .fill {
+    min-height: 0;
+  }
+
+  .bottom {
+    margin-top: 0;
+    padding-bottom: 0;
   }
 }

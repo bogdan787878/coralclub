@@ -479,7 +479,7 @@ export function FriendPayment() {
               </details>
             )}
 
-            <div className={styles.main}>
+            <div className={`${styles.main} ${sheet.fill}`}>
               <h1 className={styles.title}>Order #{orderId}</h1>
 
               {order && (paypal || transfer) && (
@@ -553,9 +553,13 @@ export function FriendPayment() {
                     </section>
                   )}
 
-                  {cardSections}
-                  {payButton}
-                  {changeMethod}
+                  <div className={sheet.bottom}>
+                    {cardSections}
+                    <div className={sheet.actions}>
+                      {payButton}
+                      {changeMethod}
+                    </div>
+                  </div>
                 </>
               )}
             </div>
