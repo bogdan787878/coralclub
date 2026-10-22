@@ -278,7 +278,6 @@ details[open] > .sumHead svg {
   gap: var(--space-12);
 }
 
-/* German address pattern: postcode before the city */
 .addLine {
   align-self: flex-start;
   padding: 0;
@@ -290,12 +289,6 @@ details[open] > .sumHead svg {
   font-weight: var(--font-weight-medium);
   text-decoration: underline;
   cursor: pointer;
-}
-
-.rowPostcode {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-  gap: var(--space-12);
 }
 
 .fixed {

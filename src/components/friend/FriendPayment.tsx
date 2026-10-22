@@ -468,7 +468,7 @@ export function FriendPayment() {
                           }}
                           autoComplete="billing address-line1"
                         />
-                        <div className={styles.rowPostcode}>
+                        <div className={styles.row}>
                           <FloatInput
                             {...field("zip")}
                             label="Postcode (PLZ)"

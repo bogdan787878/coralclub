@@ -963,7 +963,7 @@ export function FriendCheckout() {
                         + Add c/o, floor or entrance
                       </button>
                     )}
-                    <div className={styles.rowPostcode}>
+                    <div className={styles.row}>
                       <FloatInput
                         {...field("zip")}
                         label="Postcode"
