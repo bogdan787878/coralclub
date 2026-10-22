@@ -2,6 +2,9 @@
   "accountHash": "0C7mt7wGZILhDD0yl7K0IA",
   "ids": {
     "/images/account-splash.png": "images/account-splash.png",
+    "/images/advisors/card/michael-lila.webp": "images/advisors/card/michael-lila.webp",
+    "/images/advisors/card/ralph-jager.webp": "images/advisors/card/ralph-jager.webp",
+    "/images/advisors/card/tori-parker.webp": "images/advisors/card/tori-parker.webp",
     "/images/advisors/michael-lila.png": "images/advisors/michael-lila.png",
     "/images/advisors/ralph-jager.png": "images/advisors/ralph-jager.png",
     "/images/advisors/tori-parker.png": "images/advisors/tori-parker.png",
@@ -282,6 +285,9 @@
   },
   "digests": {
     "/images/account-splash.png": "fda17d44744f9bb61c02c4075df035c364eee9e3",
+    "/images/advisors/card/michael-lila.webp": "5fc460884018c1abb5d593d26ef7bf7254fa0b1b",
+    "/images/advisors/card/ralph-jager.webp": "71ffb3432fadf5d43e643b9559ecaa88117c0ec8",
+    "/images/advisors/card/tori-parker.webp": "440726de12cdaacd0086c9bd18c91e590529837d",
     "/images/advisors/michael-lila.png": "8ae5d0ec28031c69df94793c76eb9a7a6856242b",
     "/images/advisors/ralph-jager.png": "b27f2c90f4c84c0e97d673f1563915094cc771da",
     "/images/advisors/tori-parker.png": "cb6dbe74b7fe71358e2724fd7d096add8dfad68c",
