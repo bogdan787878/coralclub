@@ -441,6 +441,22 @@ details[open] > .sumHead svg {
   cursor: pointer;
 }
 
+/* address suggestions: the town under the street line, Google's attribution */
+.suggestSecondary {
+  display: block;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  color: var(--color-text-muted);
+}
+
+.poweredBy {
+  padding: var(--space-8) var(--space-12) var(--space-4);
+  text-align: right;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+}
+
 .comboActive {
   background: var(--color-malachite-10);
 }

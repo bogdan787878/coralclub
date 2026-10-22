@@ -28,6 +28,7 @@ import {
   type PayOrder,
   type PayResult,
 } from "@/lib/shopPay";
+import { AddressSearch } from "./AddressSearch";
 import { FloatInput } from "./FloatInput";
 import { OrderSummary, ShippingFacts } from "./OrderParts";
 import { StateCombobox } from "./StateCombobox";
@@ -425,11 +426,16 @@ export function FriendPayment() {
                     )}
                     {!same && (
                       <>
-                        <FloatInput
+                        <AddressSearch
                           {...field("street")}
-                          label="Address"
                           value={street}
                           onChange={setStreet}
+                          onPick={(a) => {
+                            setStreet(a.street);
+                            setCity(a.city);
+                            setState(a.state);
+                            setZip(a.zip);
+                          }}
                           autoComplete="billing address-line1"
                         />
                         <FloatInput

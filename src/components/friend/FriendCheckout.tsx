@@ -31,6 +31,7 @@ import {
   pinShopSite,
   shopFetch,
 } from "@/lib/shopApi";
+import { AddressSearch } from "./AddressSearch";
 import { FloatInput } from "./FloatInput";
 import { CardBadges } from "./PayBadges";
 import { StateCombobox } from "./StateCombobox";
@@ -906,13 +907,20 @@ export function FriendCheckout() {
                 </div>
                 {!pickup ? (
                   <>
-                    <FloatInput
+                    <AddressSearch
                       {...field("address")}
-                      label="Address"
                       placeholder="350 5th Avenue"
                       value={address}
                       onChange={setAddress}
-                      autoComplete="address-line1"
+                      onPick={(a) => {
+                        // a pick fills the whole address form
+                        setAddress(a.street);
+                        setApartment(a.unit);
+                        setCityDraft(a.city);
+                        setCity(a.city);
+                        setState(a.state);
+                        setZip(a.zip);
+                      }}
                     />
                     <FloatInput
                       label="Apartment, suite, etc. (optional)"
