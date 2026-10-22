@@ -3,7 +3,6 @@ import { Accent, Container, Heading, Section } from "@/components/ui";
 import { CommunityReels, Editorial, Hero } from "@/components/organisms";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { FriendAdvisors } from "@/components/friend/FriendAdvisors";
-import { FriendBanner } from "@/components/friend/FriendProvider";
 import { FriendCards } from "@/components/friend/FriendCards";
 import { FriendCartButton } from "@/components/friend/FriendCart";
 import { FriendRegisterCta } from "@/components/friend/FriendRegisterCta";
@@ -33,7 +32,6 @@ export default function FriendHome() {
     <div className="appShell">
       <main className={styles.page} data-analytics-location="home">
         <LandingHeader homeHref={asset("/friend/")} />
-        <FriendBanner />
 
         <Hero
           title={
