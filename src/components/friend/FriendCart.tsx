@@ -1,13 +1,19 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { cartCount, onCartOpen, openCart, useCart } from "@/lib/cart";
+import {
+  cartCount,
+  onCartOpen,
+  openCart,
+  removeItem,
+  useCart,
+} from "@/lib/cart";
 import {
   CartDrawer,
   type CartDrawerLabels,
 } from "@/components/cart/CartDrawer";
 import { BagIcon } from "@/components/cart/icons";
-import { formatUsd } from "@/lib/friendCatalog";
+import { formatMoney, friendProductById } from "@/lib/friendCatalog";
 import { useEffect, useState } from "react";
 import { useFriend } from "./FriendProvider";
 import {
@@ -46,6 +52,13 @@ export function FriendCartButton({ aboveBar = false }: { aboveBar?: boolean }) {
   const count = cartCount(cart);
 
   useEffect(() => onCartOpen(() => setOpen(true)), []);
+  // articles of an earlier market (or a product the shop no longer sells here)
+  // would be dead lines in this cart: drop them
+  useEffect(() => {
+    for (const l of cart) {
+      if (!friendProductById(l.coralId)) removeItem(l.coralId);
+    }
+  }, [cart]);
 
   return (
     <>
@@ -67,7 +80,7 @@ export function FriendCartButton({ aboveBar = false }: { aboveBar?: boolean }) {
         open={open}
         onClose={() => setOpen(false)}
         labels={LABELS}
-        formatMoney={formatUsd}
+        formatMoney={formatMoney}
         onCheckout={() => router.push("/friend/checkout/")}
         banner={<CartBanner lines={cart} />}
         renderPrice={(line) => <LinePrice line={line} />}

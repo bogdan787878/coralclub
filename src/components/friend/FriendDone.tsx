@@ -8,7 +8,7 @@ import { Container } from "@/components/ui";
 import { asset } from "@/lib/asset";
 import { track } from "@/lib/analytics";
 import { summarize } from "@/lib/analyticsRu";
-import { formatUsd } from "@/lib/friendCatalog";
+import { formatMoney } from "@/lib/friendCatalog";
 import { onShopOrigin, pinShopSite } from "@/lib/shopApi";
 import { getPayOrder, type PayOrder } from "@/lib/shopPay";
 import { FriendMemberBlock } from "./FriendMemberBlock";
@@ -129,7 +129,7 @@ export function FriendDone() {
                       Order summary <Chevron />
                     </span>
                     <span className={styles.sumHeadPrice}>
-                      <strong>{formatUsd(order.total)}</strong>
+                      <strong>{formatMoney(order.total)}</strong>
                     </span>
                   </summary>
                   <div className={styles.sumBodyMobile}>{summary}</div>

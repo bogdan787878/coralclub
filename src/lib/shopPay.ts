@@ -10,6 +10,7 @@
  * into analytics here. Like the rest of /sv-api it works on the shop's origin
  * only (coralclub.us, or the local proxy).
  */
+import { MARKET } from "./market";
 import { api, language, shopFetch } from "./shopApi";
 
 export type PayOrder = {
@@ -93,7 +94,7 @@ export async function getPayOrder(
     order: {
       id: String(o.ORDER_ID ?? orderId),
       amount: String(o.NEED_PAY || o.FULL_PRICE || ""),
-      currency: o.CURRENCY || "USD",
+      currency: o.CURRENCY || MARKET.currency,
       paid: o.ORDER_STATUS_PAID === "1",
       canceled: o.ORDER_STATUS_CANCELED === "1",
       country: (o.ALPHA2 || "").toUpperCase(),

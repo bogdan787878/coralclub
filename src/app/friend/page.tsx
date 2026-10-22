@@ -149,9 +149,9 @@ export default function FriendHome() {
         <footer className={styles.footer} data-analytics-location="footer">
           <Container>
             <p>
-              These statements have not been evaluated by the Food and Drug
-              Administration. These products are not intended to diagnose,
-              treat, cure, or prevent any disease.
+              Food supplements are not a substitute for a varied and balanced
+              diet and a healthy lifestyle. Do not exceed the recommended daily
+              intake. Keep out of the reach of young children.
             </p>
           </Container>
         </footer>

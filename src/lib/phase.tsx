@@ -39,9 +39,9 @@ export function PhaseProvider({ children }: { children: ReactNode }) {
   // restore the phase from the history entry (initial mount + Back/Forward)
   useLayoutEffect(() => {
     const restore = () => {
-      const stashed = (window.history.state as Record<string, unknown> | null)?.[
-        STATE_KEY
-      ];
+      const stashed = (
+        window.history.state as Record<string, unknown> | null
+      )?.[STATE_KEY];
       if (isPhaseId(stashed)) setPhaseState(stashed);
     };
     restore();

@@ -5,7 +5,7 @@ import { addItem, useCart, type CartLine } from "@/lib/cart";
 import {
   FREE_SHIPPING_FROM,
   FRIEND_PRODUCTS,
-  formatUsd,
+  formatMoney,
   friendProductById,
   friendTotals,
 } from "@/lib/friendCatalog";
@@ -20,13 +20,13 @@ export function CartBanner({ lines }: { lines: CartLine[] }) {
       {saving > 0 && (
         <p className={styles.saving}>
           <span className={styles.dot} aria-hidden="true" />
-          You’re saving {formatUsd(saving)} with member prices
+          You’re saving {formatMoney(saving)} with member prices
         </p>
       )}
       <div className={styles.ship}>
         <p>
           {left > 0
-            ? `Add ${formatUsd(left)} more for free shipping`
+            ? `Add ${formatMoney(left)} more for free shipping`
             : "You’ve unlocked free shipping"}
         </p>
         <div
@@ -54,10 +54,10 @@ export function LinePrice({ line }: { line: CartLine }) {
   const saved = (p.regular - p.club) * line.qty;
   return (
     <span className={styles.price}>
-      <span className={styles.member}>{formatUsd(p.club)}</span>{" "}
-      <span className={styles.was}>{formatUsd(p.regular)}</span>
+      <span className={styles.member}>{formatMoney(p.club)}</span>{" "}
+      <span className={styles.was}>{formatMoney(p.regular)}</span>
       {saved > 0 && (
-        <span className={styles.savings}>{formatUsd(saved)} savings</span>
+        <span className={styles.savings}>{formatMoney(saved)} savings</span>
       )}
     </span>
   );
@@ -82,8 +82,8 @@ export function Recommendations() {
             </span>
             <span className={styles.recName}>{p.name}</span>
             <span className={styles.recPrice}>
-              {formatUsd(p.club)}{" "}
-              <span className={styles.was}>{formatUsd(p.regular)}</span>
+              {formatMoney(p.club)}{" "}
+              <span className={styles.was}>{formatMoney(p.regular)}</span>
             </span>
             <button
               type="button"
@@ -94,7 +94,7 @@ export function Recommendations() {
                   coralId: p.coralId,
                   slug: p.slug,
                   name: p.form ? `${p.name} – ${p.form}` : p.name,
-                  price: formatUsd(p.club),
+                  price: formatMoney(p.club),
                   image: p.images[0]?.src,
                 })
               }
@@ -116,12 +116,12 @@ export function CartSummary({ lines }: { lines: CartLine[] }) {
       {saving > 0 && (
         <div className={styles.discount}>
           <dt>Member discount</dt>
-          <dd>−{formatUsd(saving)}</dd>
+          <dd>−{formatMoney(saving)}</dd>
         </div>
       )}
       <div>
         <dt>Subtotal</dt>
-        <dd>{formatUsd(club)}</dd>
+        <dd>{formatMoney(club)}</dd>
       </div>
       <div>
         <dt>Shipping</dt>

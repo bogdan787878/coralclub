@@ -1,5 +1,6 @@
 /**
- * US address suggestions (Google Places, «Autocomplete» of the Places API).
+ * Address suggestions for the market's country (Google Places, «Autocomplete»
+ * of the Places API).
  *
  * The key is a browser key from the environment (NEXT_PUBLIC_GOOGLE_PLACES_KEY,
  * restricted by HTTP referrer in the Google console) — never in the repository.
@@ -8,7 +9,7 @@
  * Only a typed address and Google's own session token leave the page, and
  * only after the shopper has typed a few characters.
  */
-import { US_STATES } from "./usStates";
+import { MARKET, REGIONS } from "./market";
 
 const KEY = process.env.NEXT_PUBLIC_GOOGLE_PLACES_KEY ?? "";
 
@@ -25,12 +26,14 @@ export type AddressSuggestion = {
 };
 
 export type ResolvedAddress = {
-  /** «350 5th Avenue» (house number + street). */
+  /** The street alone: «Friedrichstraße». */
   street: string;
+  /** The house number alone: «43», «12a», «43-45». */
+  houseNumber: string;
   /** Apartment / suite / unit, when the place has one. */
   unit: string;
   city: string;
-  /** Full state name, as the shop's lists spell it. */
+  /** Bundesland, as the shop's lists spell it. */
   state: string;
   zip: string;
 };
@@ -110,9 +113,10 @@ export async function suggestAddresses(
     await AutocompleteSuggestion.fetchAutocompleteSuggestions({
       input,
       sessionToken: session,
-      includedRegionCodes: ["us"],
-      // houses with a number only: a whole street («5th Avenue») has no ZIP
-      // and cannot be delivered to, so it is not offered
+      includedRegionCodes: [MARKET.placesRegion],
+      language: MARKET.placesLanguage,
+      // houses with a number only: a whole street has no postcode and cannot
+      // be delivered to, so it is not offered
       includedPrimaryTypes: ["street_address", "premise", "subpremise"],
     });
   return suggestions
@@ -139,12 +143,13 @@ export async function resolveAddress(
   };
   const number = get("street_number");
   const route = get("route");
-  const zip = get("postal_code"); // five digits, as the shop's forms take it
+  const zip = get("postal_code"); // five digits (PLZ)
   const state = get("administrative_area_level_1");
   return {
-    // never empty: when Google gives no number/street parts, the line that was
-    // picked («1215 1/2 East Franklin Street») goes into the field as it is
-    street: [number, route].filter(Boolean).join(" ") || s.main,
+    // never empty: when Google gives no street part, the line that was picked
+    // («Friedrichstraße 43») goes into the field as it is
+    street: route || s.main,
+    houseNumber: route ? number : "",
     unit: get("subpremise"),
     city:
       get("locality") ||
@@ -152,7 +157,7 @@ export async function resolveAddress(
       get("sublocality_level_1") ||
       get("sublocality") ||
       get("neighborhood"),
-    state: US_STATES.find((x) => x === state) ?? "",
+    state: REGIONS.find((x) => x === state) ?? "",
     zip,
   };
 }

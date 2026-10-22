@@ -11,13 +11,15 @@ import {
 } from "./landingCatalogRu";
 import { friendProductById } from "./friendCatalog";
 import type { CartLine } from "./cart";
+import { MARKET } from "./market";
 
 export const CURRENCY = "RUB";
 
 /** The friend project sells in dollars, the Russian landing in roubles. */
 export const currencyNow = (): string =>
-  typeof window !== "undefined" && /\/friend(\/|$)/.test(window.location.pathname)
-    ? "USD"
+  typeof window !== "undefined" &&
+  /\/friend(\/|$)/.test(window.location.pathname)
+    ? MARKET.currency
     : CURRENCY;
 
 export type AnalyticsItem = {

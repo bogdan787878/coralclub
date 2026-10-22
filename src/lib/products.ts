@@ -16,13 +16,7 @@ export { productHref, shortCategory } from "./catalog";
 
 /** Base wellness scenarios — the quiz maps answers onto these. */
 export type Goal =
-  | "energy"
-  | "sleep"
-  | "skin"
-  | "detox"
-  | "weight"
-  | "immune"
-  | "hydration";
+  "energy" | "sleep" | "skin" | "detox" | "weight" | "immune" | "hydration";
 
 export const GOALS: { id: Goal; label: string }[] = [
   { id: "energy", label: "More energy" },
@@ -563,14 +557,18 @@ export type IncludedProductCard = {
 
 /** Resolves a set's `includedProducts` slugs to real catalogue entries,
  *  dropping any that don't (or no longer) exist. */
-export function resolveIncludedProducts(slugs: string[]): IncludedProductCard[] {
+export function resolveIncludedProducts(
+  slugs: string[],
+): IncludedProductCard[] {
   return slugs
     .map((slug) => getProduct(slug))
     .filter((p): p is Product => Boolean(p))
     .map((p) => ({
       slug: p.slug,
       name: p.name,
-      image: p.carouselImages[0] ? { src: p.carouselImages[0], alt: p.name } : undefined,
+      image: p.carouselImages[0]
+        ? { src: p.carouselImages[0], alt: p.name }
+        : undefined,
     }));
 }
 

@@ -66,71 +66,163 @@ const DOMAIN_FOCUS: Record<string, { title: string; options: Focus[] }> = {
   energy: {
     title: "What matters more for energy?",
     options: [
-      { value: "physical", label: "Physical stamina", kw: /carnitine|q10|coenzyme|protivity|cardiopack/ },
-      { value: "mental", label: "A clear head", kw: /memo|mindset|b-prime|lecithin/ },
-      { value: "steady", label: "Steady energy all day", kw: /h-500|pentokan|oceanmin/ },
+      {
+        value: "physical",
+        label: "Physical stamina",
+        kw: /carnitine|q10|coenzyme|protivity|cardiopack/,
+      },
+      {
+        value: "mental",
+        label: "A clear head",
+        kw: /memo|mindset|b-prime|lecithin/,
+      },
+      {
+        value: "steady",
+        label: "Steady energy all day",
+        kw: /h-500|pentokan|oceanmin/,
+      },
     ],
   },
   "weight-metabolism": {
     title: "What's getting in the way most right now?",
     options: [
-      { value: "appetite", label: "Appetite and sugar cravings", kw: /lipostick|slim|hi-fiber|fandetox/ },
-      { value: "metabolism", label: "Slow metabolism", kw: /carnitine|artichoke|spirulina|selenium/ },
-      { value: "water", label: "Bloating, water retention", kw: /plankton|artichoke/ },
+      {
+        value: "appetite",
+        label: "Appetite and sugar cravings",
+        kw: /lipostick|slim|hi-fiber|fandetox/,
+      },
+      {
+        value: "metabolism",
+        label: "Slow metabolism",
+        kw: /carnitine|artichoke|spirulina|selenium/,
+      },
+      {
+        value: "water",
+        label: "Bloating, water retention",
+        kw: /plankton|artichoke/,
+      },
     ],
   },
   "digestion-gut": {
     title: "What's bothering you about digestion?",
     options: [
-      { value: "heaviness", label: "Heaviness after eating", kw: /assimilator|artichoke|zaferan|curcumin/ },
-      { value: "regularity", label: "Irregular bowel movements", kw: /hi-fiber|alfalfa|cascara|burdock/ },
-      { value: "flora", label: "Bloating, gut flora", kw: /super-flora|lecithin|curcumin/ },
+      {
+        value: "heaviness",
+        label: "Heaviness after eating",
+        kw: /assimilator|artichoke|zaferan|curcumin/,
+      },
+      {
+        value: "regularity",
+        label: "Irregular bowel movements",
+        kw: /hi-fiber|alfalfa|cascara|burdock/,
+      },
+      {
+        value: "flora",
+        label: "Bloating, gut flora",
+        kw: /super-flora|lecithin|curcumin/,
+      },
     ],
   },
   immunity: {
     title: "What's the focus for immunity?",
     options: [
-      { value: "seasonal", label: "Seasonal support", kw: /d-spray|pau-d-arco|licorice|cat-s-claw/ },
-      { value: "recovery", label: "Recovering after illness", kw: /colostrum|ultimate-max|curcumin/ },
-      { value: "antiox", label: "Antioxidant protection", kw: /omega|curcumin|licorice/ },
+      {
+        value: "seasonal",
+        label: "Seasonal support",
+        kw: /d-spray|pau-d-arco|licorice|cat-s-claw/,
+      },
+      {
+        value: "recovery",
+        label: "Recovering after illness",
+        kw: /colostrum|ultimate-max|curcumin/,
+      },
+      {
+        value: "antiox",
+        label: "Antioxidant protection",
+        kw: /omega|curcumin|licorice/,
+      },
     ],
   },
   "sleep-stress": {
     title: "What's keeping you from sleeping well?",
     options: [
-      { value: "fallasleep", label: "Trouble falling asleep", kw: /evening-formula|griffonia|magnesium/ },
-      { value: "wakeups", label: "Waking up at night", kw: /magnesium|oceanmin|coral-mine/ },
-      { value: "daystress", label: "Stress and anxiety during the day", kw: /mindset|griffonia|phytomix|safrino/ },
+      {
+        value: "fallasleep",
+        label: "Trouble falling asleep",
+        kw: /evening-formula|griffonia|magnesium/,
+      },
+      {
+        value: "wakeups",
+        label: "Waking up at night",
+        kw: /magnesium|oceanmin|coral-mine/,
+      },
+      {
+        value: "daystress",
+        label: "Stress and anxiety during the day",
+        kw: /mindset|griffonia|phytomix|safrino/,
+      },
     ],
   },
   "brain-focus": {
     title: "What matters more for your mind?",
     options: [
-      { value: "focus", label: "Concentration", kw: /mindset|onestack|gotu-kola|b-prime/ },
+      {
+        value: "focus",
+        label: "Concentration",
+        kw: /mindset|onestack|gotu-kola|b-prime/,
+      },
       { value: "memory", label: "Memory", kw: /lecithin|omega|selenium/ },
-      { value: "clarity", label: "Mood and mental clarity", kw: /zaferan|curcumin|gotu/ },
+      {
+        value: "clarity",
+        label: "Mood and mental clarity",
+        kw: /zaferan|curcumin|gotu/,
+      },
     ],
   },
   "heart-vessels": {
     title: "What's the priority for your heart?",
     options: [
-      { value: "pressure", label: "Blood pressure", kw: /bp-phyto|circuphyt|pentokan/ },
-      { value: "vessels", label: "Vessels and circulation", kw: /gotu-kola|circuphyt|aquaox|lymflow/ },
-      { value: "muscle", label: "Heart muscle", kw: /q10|coenzyme|omega|magnesium|cardiopack/ },
+      {
+        value: "pressure",
+        label: "Blood pressure",
+        kw: /bp-phyto|circuphyt|pentokan/,
+      },
+      {
+        value: "vessels",
+        label: "Vessels and circulation",
+        kw: /gotu-kola|circuphyt|aquaox|lymflow/,
+      },
+      {
+        value: "muscle",
+        label: "Heart muscle",
+        kw: /q10|coenzyme|omega|magnesium|cardiopack/,
+      },
     ],
   },
   "bones-joints": {
     title: "What matters more for bones and joints?",
     options: [
-      { value: "mobility", label: "Joint mobility", kw: /b-luron|flexicor|boswellia|msm/ },
+      {
+        value: "mobility",
+        label: "Joint mobility",
+        kw: /b-luron|flexicor|boswellia|msm/,
+      },
       { value: "density", label: "Bone density", kw: /calci-prime|pure-c|msm/ },
-      { value: "inflam", label: "Inflammation and discomfort", kw: /curcumin|zaferan|omega|boswellia/ },
+      {
+        value: "inflam",
+        label: "Inflammation and discomfort",
+        kw: /curcumin|zaferan|omega|boswellia/,
+      },
     ],
   },
   "skin-hair-nails": {
     title: "What's the focus — skin, hair, or nails?",
     options: [
-      { value: "skin", label: "Skin and elasticity", kw: /collagen|shark-liver|ultimate-max/ },
+      {
+        value: "skin",
+        label: "Skin and elasticity",
+        kw: /collagen|shark-liver|ultimate-max/,
+      },
       { value: "hair", label: "Hair", kw: /collagen|iron|zinc|prenatal/ },
       { value: "nails", label: "Nails", kw: /zinc|msm|collagen/ },
     ],
@@ -138,25 +230,57 @@ const DOMAIN_FOCUS: Record<string, { title: string; options: Focus[] }> = {
   longevity: {
     title: "What matters more for longevity?",
     options: [
-      { value: "cellular", label: "Cellular energy", kw: /q10|coenzyme|lecithin/ },
-      { value: "protection", label: "Antioxidant protection", kw: /aquaox|activin|selenium/ },
-      { value: "cleanse", label: "Cleansing and detox", kw: /coral-detox|assimilator/ },
+      {
+        value: "cellular",
+        label: "Cellular energy",
+        kw: /q10|coenzyme|lecithin/,
+      },
+      {
+        value: "protection",
+        label: "Antioxidant protection",
+        kw: /aquaox|activin|selenium/,
+      },
+      {
+        value: "cleanse",
+        label: "Cleansing and detox",
+        kw: /coral-detox|assimilator/,
+      },
     ],
   },
   "vision-eyes": {
     title: "What's bothering your eyes?",
     options: [
-      { value: "screen", label: "Eye strain from screens", kw: /visi-prime|taurine|dha-d3/ },
+      {
+        value: "screen",
+        label: "Eye strain from screens",
+        kw: /visi-prime|taurine|dha-d3/,
+      },
       { value: "dryness", label: "Dry eyes", kw: /omega|o-mega-3-tg|dha/ },
-      { value: "prevention", label: "Prevention of age-related changes", kw: /visi-prime|zinc|b-luron/ },
+      {
+        value: "prevention",
+        label: "Prevention of age-related changes",
+        kw: /visi-prime|zinc|b-luron/,
+      },
     ],
   },
   reproductive: {
     title: "What's the focus for reproductive health?",
     options: [
-      { value: "women", label: "Women's health", kw: /phytomix|prenatal|iron|circuphyt/ },
-      { value: "pregnancy", label: "Preparing for pregnancy", kw: /prenatal|iron/ },
-      { value: "hormones", label: "Hormonal balance and vitality", kw: /phytomix|ultimate-max|lymflow/ },
+      {
+        value: "women",
+        label: "Women's health",
+        kw: /phytomix|prenatal|iron|circuphyt/,
+      },
+      {
+        value: "pregnancy",
+        label: "Preparing for pregnancy",
+        kw: /prenatal|iron/,
+      },
+      {
+        value: "hormones",
+        label: "Hormonal balance and vitality",
+        kw: /phytomix|ultimate-max|lymflow/,
+      },
     ],
   },
 };
@@ -194,7 +318,8 @@ export const STEPS: Step[] = [
   {
     id: "focus",
     kind: "single",
-    title: (a) => DOMAIN_FOCUS[primaryDomain(a) ?? ""]?.title ?? "What's the focus?",
+    title: (a) =>
+      DOMAIN_FOCUS[primaryDomain(a) ?? ""]?.title ?? "What's the focus?",
     options: (a) =>
       (DOMAIN_FOCUS[primaryDomain(a) ?? ""]?.options ?? []).map((o) => ({
         value: o.value,
@@ -336,7 +461,8 @@ const BUDGET_CAP: Record<string, number> = { low: 30, mid: 60, any: Infinity };
 // always try to fill a full set — capped at 3 products regardless of answer
 const COUNT: Record<string, number> = { one: 2, few: 3, set: 3 };
 const ANIMAL = /collagen|omega|fish|colostrum|shark|liver|carnitine|dha|krill/i;
-const DRINK = /shake|mix|hi-fiber|powder|stick|spray|drink|protein|sagrada|pentokan|h-500|oceanmin/i;
+const DRINK =
+  /shake|mix|hi-fiber|powder|stick|spray|drink|protein|sagrada|pentokan|h-500|oceanmin/i;
 const AGE_DOMAINS = ["longevity", "bones-joints", "heart-vessels"];
 const YOUNG_DOMAINS = ["skin-hair-nails", "energy"];
 
@@ -385,7 +511,10 @@ export const buildSelection = (a: Answers): Product[] => {
 
     if (a.stage === "45p" && AGE_DOMAINS.some((d) => inDomain[d]?.has(p.slug)))
       s += 1;
-    if (a.stage === "u30" && YOUNG_DOMAINS.some((d) => inDomain[d]?.has(p.slug)))
+    if (
+      a.stage === "u30" &&
+      YOUNG_DOMAINS.some((d) => inDomain[d]?.has(p.slug))
+    )
       s += 1;
 
     if (a.sex === "m" && /for-women|prenatal|phytomix/i.test(hay)) s -= 6;

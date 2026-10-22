@@ -3,7 +3,7 @@
 import { Carousel, ProductCard } from "@/components/organisms";
 import { addItem, setQty, useCart } from "@/lib/cart";
 import {
-  formatUsd,
+  formatMoney,
   friendPdpHref,
   type FriendProduct,
 } from "@/lib/friendCatalog";
@@ -11,7 +11,7 @@ import {
 function FriendCard({ p, index }: { p: FriendProduct; index: number }) {
   const cart = useCart();
   const qty = cart.find((l) => l.coralId === p.coralId)?.qty ?? 0;
-  const club = formatUsd(p.club);
+  const club = formatMoney(p.club);
   const title = p.form ? `${p.name} – ${p.form}` : p.name;
 
   return (
@@ -26,7 +26,7 @@ function FriendCard({ p, index }: { p: FriendProduct; index: number }) {
         title={title}
         tag={p.tag}
         price={club}
-        priceWas={formatUsd(p.regular)}
+        priceWas={formatMoney(p.regular)}
         priceTag="−20%"
         href={friendPdpHref(p.slug)}
         cartHref={friendPdpHref(p.slug)}

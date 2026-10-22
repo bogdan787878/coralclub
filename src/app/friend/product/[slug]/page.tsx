@@ -16,7 +16,7 @@ import { FriendMemberBlock } from "@/components/friend/FriendMemberBlock";
 import { asset } from "@/lib/asset";
 import {
   FRIEND_PRODUCTS,
-  formatUsd,
+  formatMoney,
   friendPdpHref,
   friendProduct,
 } from "@/lib/friendCatalog";
@@ -79,13 +79,13 @@ export default async function FriendProductPage({
         id: "club",
         label: "Member price",
         note: "−20%",
-        price: formatUsd(p.club),
+        price: formatMoney(p.club),
         cta: { label: "Add to cart", href },
       },
       {
         id: "regular",
         label: "Regular price",
-        price: formatUsd(p.regular),
+        price: formatMoney(p.regular),
         cta: { label: "Add to cart", href },
       },
     ],
@@ -161,9 +161,10 @@ export default async function FriendProductPage({
                 )}
 
                 <p className={shop.disclaimer}>
-                  This statement has not been evaluated by the Food and Drug
-                  Administration. This product is not intended to diagnose,
-                  treat, cure, or prevent any disease.
+                  Food supplements are not a substitute for a varied and
+                  balanced diet and a healthy lifestyle. Do not exceed the
+                  recommended daily intake. Keep out of the reach of young
+                  children.
                 </p>
               </Stack>
             </div>

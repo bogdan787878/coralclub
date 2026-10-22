@@ -16,10 +16,12 @@ export type AuthIntent = {
   submittedAt: string;
 };
 
-export const isEmail = (v: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+export const isEmail = (v: string): boolean =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
 /** Digits of a US number, without the leading country "1". */
-const usDigits = (v: string): string => v.replace(/\D/g, "").replace(/^1/, "").slice(0, 10);
+const usDigits = (v: string): string =>
+  v.replace(/\D/g, "").replace(/^1/, "").slice(0, 10);
 
 /** Valid once the full 10-digit US national number is entered. */
 export const isPhone = (v: string): boolean => usDigits(v).length === 10;
@@ -49,9 +51,11 @@ export const formatUsPhone = (v: string): string => {
  */
 export const submitAuthIntent = async (intent: AuthIntent): Promise<void> => {
   try {
-    localStorage.setItem(`coralclub.auth.${Date.now()}`, JSON.stringify(intent));
+    localStorage.setItem(
+      `coralclub.auth.${Date.now()}`,
+      JSON.stringify(intent),
+    );
   } catch {
     /* storage unavailable — ignore, the UI still confirms */
   }
 };
-

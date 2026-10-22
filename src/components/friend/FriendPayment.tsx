@@ -17,7 +17,8 @@ import {
   formatExpiry,
   type CardErrors,
 } from "@/lib/cardFormat";
-import { formatUsd } from "@/lib/friendCatalog";
+import { formatMoney } from "@/lib/friendCatalog";
+import { MARKET, REGIONS } from "@/lib/market";
 import { onShopOrigin, pinShopSite } from "@/lib/shopApi";
 import {
   getPayOrder,
@@ -72,7 +73,9 @@ export function FriendPayment() {
   const params = useSearchParams();
   const orderId = (params.get("order") ?? "").replace(/\D/g, "");
   const paySystemId = (params.get("pm") ?? "").replace(/[^\w:-]/g, "");
-  const paypal = params.get("kind") === "paypal";
+  const kind = params.get("kind");
+  const paypal = kind === "paypal";
+  const transfer = kind === "transfer";
 
   const live = useSyncExternalStore<boolean | null>(
     () => () => {},
@@ -131,13 +134,13 @@ export function FriendPayment() {
   const [gpay, setGpay] = useState<GooglePay | null>(null);
   const gpayHost = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (!live || paypal) return;
+    if (!live || paypal || transfer || !MARKET.googlePay) return;
     let alive = true;
     setupGooglePay().then((g) => alive && setGpay(g));
     return () => {
       alive = false;
     };
-  }, [live, paypal]);
+  }, [live, paypal, transfer]);
 
   const [number, setNumber] = useState("");
   const [expiry, setExpiry] = useState("");
@@ -165,12 +168,10 @@ export function FriendPayment() {
   const billingErrors: Record<string, string> = same
     ? {}
     : {
-        ...(street.trim() ? {} : { street: "Enter the billing address" }),
+        ...(street.trim() ? {} : { street: "Enter street and house number" }),
         ...(city.trim() ? {} : { city: "Enter the city" }),
         ...(state ? {} : { state: "Choose the state" }),
-        ...(zip.replace(/\D/g, "").length >= 5
-          ? {}
-          : { zip: "Enter the ZIP code" }),
+        ...(zip.trim() ? {} : { zip: "Enter the postcode" }),
       };
   const errors: Record<string, string | undefined> = {
     ...cardErrors,
@@ -252,7 +253,7 @@ export function FriendPayment() {
   }, [gpay]);
 
   const shopPage = `/order/payment/${orderId}/${encodeURIComponent(paySystemId)}/?new_checkout=1`;
-  const total = order ? formatUsd(Number(order.amount)) : "";
+  const total = order ? formatMoney(Number(order.amount)) : "";
   const shopPageChange = shopPage;
 
   const summary = order && <OrderSummary order={order} mode="pay" />;
@@ -308,15 +309,38 @@ export function FriendPayment() {
               <section className={styles.section}>
                 <h2 className={styles.h2}>Payment</h2>
                 <p className={styles.sub}>
-                  {paypal ? "PayPal" : "Credit card"} · all transactions are
-                  secure and encrypted.{" "}
+                  {paypal
+                    ? "PayPal"
+                    : transfer
+                      ? "Bank transfer"
+                      : "Credit card"}{" "}
+                  · all transactions are secure and encrypted.{" "}
                   <a href={shopPageChange}>Change payment method</a>
                 </p>
               </section>
 
               {general && <p className={styles.error}>{general}</p>}
 
-              {paypal ? (
+              {transfer ? (
+                <section className={styles.section}>
+                  <p className={styles.sub}>
+                    Pay the order by bank transfer. The bank details and the
+                    payment reference are on the shop’s payment page.
+                  </p>
+                  <a
+                    className={styles.pay}
+                    href={shopPage}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      textDecoration: "none",
+                    }}
+                  >
+                    Show the bank details
+                  </a>
+                </section>
+              ) : paypal ? (
                 <section className={styles.section}>
                   <button
                     type="button"
@@ -428,40 +452,48 @@ export function FriendPayment() {
                       <>
                         <AddressSearch
                           {...field("street")}
+                          label="Street and house number"
+                          placeholder="Friedrichstraße 43"
                           value={street}
                           onChange={setStreet}
                           onPick={(a) => {
-                            setStreet(a.street);
+                            setStreet(
+                              [a.street, a.houseNumber]
+                                .filter(Boolean)
+                                .join(" "),
+                            );
                             setCity(a.city);
                             setState(a.state);
                             setZip(a.zip);
                           }}
                           autoComplete="billing address-line1"
                         />
-                        <FloatInput
-                          {...field("city")}
-                          label="City"
-                          value={city}
-                          onChange={setCity}
-                          autoComplete="billing address-level2"
-                        />
-                        <div className={styles.row}>
-                          <StateCombobox
-                            value={state}
-                            onChange={setState}
-                            name="state"
-                            error={!!shown("state")}
-                            hint={shown("state")}
-                          />
+                        <div className={styles.rowPostcode}>
                           <FloatInput
                             {...field("zip")}
-                            label="ZIP code"
+                            label="Postcode (PLZ)"
                             value={zip}
                             onChange={setZip}
                             inputMode="numeric"
                             autoComplete="billing postal-code"
                           />
+                          <FloatInput
+                            {...field("city")}
+                            label="City"
+                            value={city}
+                            onChange={setCity}
+                            autoComplete="billing address-level2"
+                          />
                         </div>
+                        <StateCombobox
+                          options={REGIONS}
+                          label="State (Bundesland)"
+                          value={state}
+                          onChange={setState}
+                          name="state"
+                          error={!!shown("state")}
+                          hint={shown("state")}
+                        />
                       </>
                     )}
                   </section>
@@ -475,6 +507,10 @@ export function FriendPayment() {
                   >
                     {busy ? "Processing…" : `Pay ${total}`}
                   </button>
+                  <p className={styles.note}>
+                    By clicking Pay you place a binding order with an obligation
+                    to pay.
+                  </p>
                   <p className={styles.note}>
                     Your card details go straight to the shop’s payment system
                     over an encrypted connection and are not stored on this

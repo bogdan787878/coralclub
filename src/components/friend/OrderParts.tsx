@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { formatUsd, friendProductById } from "@/lib/friendCatalog";
+import { formatMoney, friendProductById } from "@/lib/friendCatalog";
 import type { PayOrder } from "@/lib/shopPay";
 import styles from "./FriendCheckout.module.css";
 
@@ -8,6 +8,9 @@ const DELIVERY_NAME: Record<string, string> = {
   I_FEDEX_GROUND: "FedEx Ground",
   I_FEDEX_EXPRESS: "FedEx Express 2nd Business Day",
   I_USPS: "USPS",
+  I_DHL: "DHL",
+  I_DHL_X: "DHL Express",
+  I_DPD: "DPD",
   I_FEDEX_PICKPOINT: "FedEx pick-up",
 };
 
@@ -79,10 +82,10 @@ export function OrderSummary({
               <span className={styles.lineSum}>
                 {p && (
                   <span className={styles.was}>
-                    {formatUsd(p.regular * l.qty)}
+                    {formatMoney(p.regular * l.qty)}
                   </span>
                 )}{" "}
-                {formatUsd(l.sum)}
+                {formatMoney(l.sum)}
               </span>
             </li>
           );
@@ -91,12 +94,14 @@ export function OrderSummary({
       <dl className={styles.rows}>
         <div>
           <dt>Products</dt>
-          <dd>{formatUsd(order.productSum)}</dd>
+          <dd>{formatMoney(order.productSum)}</dd>
         </div>
         <div>
           <dt>Delivery</dt>
           <dd>
-            {order.deliveryPrice > 0 ? formatUsd(order.deliveryPrice) : "Free"}
+            {order.deliveryPrice > 0
+              ? formatMoney(order.deliveryPrice)
+              : "Free"}
           </dd>
         </div>
         {mode === "pay" ? (
@@ -104,22 +109,22 @@ export function OrderSummary({
             {order.paidSum > 0 && (
               <div>
                 <dt>Paid</dt>
-                <dd>{formatUsd(order.paidSum)}</dd>
+                <dd>{formatMoney(order.paidSum)}</dd>
               </div>
             )}
             <div>
               <dt>Total amount</dt>
-              <dd>{formatUsd(order.total)}</dd>
+              <dd>{formatMoney(order.total)}</dd>
             </div>
             <div className={styles.rowTotal}>
               <dt>Amount to pay</dt>
-              <dd>{formatUsd(Number(order.amount))}</dd>
+              <dd>{formatMoney(Number(order.amount))}</dd>
             </div>
           </>
         ) : (
           <div className={styles.rowTotal}>
             <dt>Total</dt>
-            <dd>{formatUsd(order.total)}</dd>
+            <dd>{formatMoney(order.total)}</dd>
           </div>
         )}
       </dl>

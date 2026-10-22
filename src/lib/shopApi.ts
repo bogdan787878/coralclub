@@ -1,13 +1,16 @@
 /**
- * Calls to the US shop's own checkout API (/sv-api/*), made from the page.
- * They work only on the shop's origin: on coralclub.us itself, or through the
+ * Calls to the shop's own checkout API (/sv-api/*), made from the page. The
+ * shop is the market's site (see lib/market.ts).
+ * They work only on the shop's origin: on the shop's own domain, or through the
  * local proxy (`npm run dev:proxy`, http://localhost:3200) that makes the shop
  * look like the page's own domain. Every request names its site in a header,
  * so overlapping requests can never end up on another site's session.
  */
 
-export const SHOP_SITE = "coralclub.us";
-const LANGUAGE = "us";
+import { MARKET } from "./market";
+
+export const SHOP_SITE: string = MARKET.site;
+const LANGUAGE: string = MARKET.apiLanguage;
 
 /** The page is served by the shop (or its local proxy): its API can be called. */
 export function onShopOrigin(): boolean {
@@ -109,7 +112,7 @@ export async function fillShopBasket(
   await shopFetch(
     `/shop/shop_basket.php?${pairs.join("&")}&REF_CODE=${encodeURIComponent(
       friend.refCode,
-    )}&langss=${LANGUAGE}&user=${encodeURIComponent(friend.memberId)}&f=y`,
+    )}&langss=${MARKET.linkLanguage}&user=${encodeURIComponent(friend.memberId)}&f=y`,
   );
 }
 

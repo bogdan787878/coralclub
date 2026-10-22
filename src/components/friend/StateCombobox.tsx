@@ -1,17 +1,27 @@
 "use client";
 
 import { useId, useMemo, useState } from "react";
-import { US_STATES } from "@/lib/usStates";
 import co from "../landing/LandingCheckout.module.css";
 import styles from "./FriendCheckout.module.css";
 
-const norm = (s: string) => s.toLowerCase().replace(/[^a-z ]/g, "");
+/** Lower case, without accents and punctuation: «Thüringen» ~ «thuringen». */
+const norm = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z ]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 
-/** States whose name — or any word of it — starts with what was typed. */
-function filterStates(query: string): readonly string[] {
+/** Entries whose name — or any word of it — starts with what was typed. */
+function filterStates(
+  query: string,
+  all: readonly string[],
+): readonly string[] {
   const q = norm(query).trim();
-  if (!q) return US_STATES;
-  return US_STATES.filter((s) =>
+  if (!q) return all;
+  return all.filter((s) =>
     norm(s)
       .split(" ")
       .some(
@@ -21,11 +31,13 @@ function filterStates(query: string): readonly string[] {
 }
 
 /**
- * The State field with search: type «New» and the list narrows to New
- * Hampshire, New Jersey, New Mexico, New York. Pick with a click, or with
- * ↑ ↓ and Enter. The value is always a name from the list.
+ * The region field with search (State, Bundesland): type «New» and the list
+ * narrows to the names that start with it. Pick with a click, or with ↑ ↓ and
+ * Enter. The value is always a name from the list.
  */
 export function StateCombobox({
+  options: all,
+  label = "State",
   value,
   onChange,
   name,
@@ -34,6 +46,8 @@ export function StateCombobox({
   error,
   hint,
 }: {
+  options: readonly string[];
+  label?: string;
   value: string;
   onChange: (state: string) => void;
   name?: string;
@@ -52,8 +66,8 @@ export function StateCombobox({
   const [active, setActive] = useState(0);
 
   const options = useMemo(
-    () => (query === null ? US_STATES : filterStates(query)),
-    [query],
+    () => (query === null ? all : filterStates(query, all)),
+    [query, all],
   );
   const shownValue = query ?? value;
 
@@ -66,7 +80,7 @@ export function StateCombobox({
   const close = () => {
     // leaving the field: a name typed in full counts, anything else is dropped
     if (query !== null) {
-      const exact = US_STATES.find((s) => norm(s) === norm(query).trim());
+      const exact = all.find((s) => norm(s) === norm(query).trim());
       if (exact) onChange(exact);
     }
     setQuery(null);
@@ -120,7 +134,7 @@ export function StateCombobox({
           }}
         />
         <label htmlFor={id} className={co.floatLabel}>
-          State
+          {label}
         </label>
         <svg
           className={styles.comboChevron}
@@ -140,7 +154,7 @@ export function StateCombobox({
         {open && (
           <ul id={listId} role="listbox" className={styles.comboList}>
             {options.length === 0 ? (
-              <li className={styles.comboEmpty}>No states found</li>
+              <li className={styles.comboEmpty}>Nothing found</li>
             ) : (
               options.map((s, i) => (
                 <li

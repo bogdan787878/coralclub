@@ -10,8 +10,9 @@
  */
 import { useSyncExternalStore } from "react";
 import { FRIEND_REF_CODE } from "./beautySystem";
+import { MARKET } from "./market";
 
-export const SHOP = "https://coralclub.us";
+export const SHOP = `https://${MARKET.site}`;
 
 export type Friend = {
   refCode: string;
@@ -137,7 +138,7 @@ export function shopBasketUrl(
     .map((l) => `${encodeURIComponent(l.coralId)}=${l.qty}`);
   return `${SHOP}/shop/shop_basket.php?${[
     `REF_CODE=${encodeURIComponent(friend.refCode)}`,
-    "langss=us",
+    `langss=${MARKET.linkLanguage}`,
     `user=${encodeURIComponent(friend.memberId)}`,
     "f=y",
     ...items,
@@ -160,7 +161,7 @@ export function referralLink(
     ref: friend.refCode,
     utm_source: "friend",
     utm_medium: "ref",
-    utm_campaign: "all_all_friend_ref_hydration_us",
+    utm_campaign: "all_all_friend_ref_hydration_de",
     utm_content: friend.memberId,
   });
   return `${base}?${q}`;

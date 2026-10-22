@@ -1,7 +1,7 @@
 /**
  * The "Friend of the club" project's catalog: the first (Hydration) phase of
- * the US shop — two sets and the products they are made of — with the real
- * coralclub.us articles and club prices in dollars. Read from the same
+ * the shop — two sets and the products they are made of — with the real
+ * articles and club prices of the market's shop (euros). Read from the same
  * catalogue as the English prototype, so names, copy, packshots and prices
  * are the originals; one normalized shape for the home page, the product
  * page, the cart and the analytics.
@@ -11,6 +11,7 @@
  */
 import { asset } from "./asset";
 import { FRIEND_SITE_PHOTOS } from "./friendPhotos.generated";
+import { MARKET } from "./market";
 import { getProduct, type Manufacturing, type ElementInfo } from "./products";
 
 export type FriendProduct = {
@@ -38,27 +39,47 @@ export type FriendProduct = {
   isSet: boolean;
 };
 
-const money = (s: string): number => {
-  const n = parseFloat(String(s).replace(/[^0-9.]/g, ""));
-  return Number.isFinite(n) ? n : 0;
-};
-
-/** Per-product facts the catalogue does not carry. */
-const META: Record<string, { bonus: number; tag: string; form: string }> = {
-  "hydramax-plus": { bonus: 70, tag: "30-day set", form: "30-day set" },
-  hydramax: { bonus: 48, tag: "30-day set", form: "30-day set" },
+/**
+ * Per-product facts the shared catalogue does not carry: the article and the
+ * club price in the shop of this market (read from de.coral.club: a friend
+ * session pays exactly this, a guest pays 25% more), bonus points, card copy.
+ * PentoKan is not here: the German shop has it out of stock.
+ */
+const META: Record<
+  string,
+  { id: string; club: number; bonus: number; tag: string; form: string }
+> = {
+  "hydramax-plus": {
+    id: "807200",
+    club: 117,
+    bonus: 70,
+    tag: "30-day set",
+    form: "30-day set",
+  },
+  hydramax: {
+    id: "803800",
+    club: 82,
+    bonus: 48,
+    tag: "30-day set",
+    form: "30-day set",
+  },
   "coral-mine-silver": {
+    id: "2220",
+    club: 21,
     bonus: 14,
     tag: "Mineral water",
     form: "",
   },
-  pentokan: {
-    bonus: 6.5,
-    tag: "Potassium + C",
-    form: "20 effervescent tablets",
+  oceanmin: {
+    id: "225115",
+    club: 19,
+    bonus: 11,
+    tag: "Magnesium",
+    form: "15 sachets",
   },
-  oceanmin: { bonus: 11, tag: "Magnesium", form: "15 sachets" },
   "h-500": {
+    id: "91883",
+    club: 58,
     bonus: 20,
     tag: "Potassium + Mg",
     form: "120 capsules",
@@ -70,23 +91,24 @@ const ORDER = [
   "hydramax-plus",
   "hydramax",
   "coral-mine-silver",
-  "pentokan",
   "oceanmin",
   "h-500",
 ];
 
+const round2 = (n: number) => Math.round(n * 100) / 100;
+
 const build = (slug: string): FriendProduct | null => {
   const p = getProduct(slug);
   const meta = META[slug];
-  if (!p || !meta || !p.coralId) return null;
+  if (!p || !meta) return null;
   const alt = p.name;
   return {
     slug,
-    coralId: p.coralId,
+    coralId: meta.id,
     name: p.name,
     form: meta.form,
-    club: money(p.prices[0].price),
-    regular: money(p.prices[1].price),
+    club: meta.club,
+    regular: round2(meta.club * 1.25),
     bonus: meta.bonus,
     tag: meta.tag,
     lead: p.description.split("\n\n")[0],
@@ -122,13 +144,11 @@ export const friendProductById = (coralId: string) =>
 
 export const friendPdpHref = (slug: string) => `/friend/product/${slug}/`;
 
-export const formatUsd = (n: number) =>
-  `$${Number.isInteger(n) ? n : n.toFixed(2)}`;
+/** 117 → «117,00 €» (the market's way of writing money). */
+export { formatMoney } from "./market";
 
-/** FedEx Ground is free over this order sum (the shop's own rule, contiguous US). */
-export const FREE_SHIPPING_FROM = 250;
-
-const round2 = (n: number) => Math.round(n * 100) / 100;
+/** Standard delivery is free over this order sum (the shop's own rule). */
+export const FREE_SHIPPING_FROM: number = MARKET.freeShippingFrom;
 
 /** What a cart costs at the regular and the member price, and the difference. */
 export function friendTotals(lines: { coralId: string; qty: number }[]) {

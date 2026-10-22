@@ -278,6 +278,19 @@ details[open] > .sumHead svg {
   gap: var(--space-12);
 }
 
+/* German address pattern: street + house number, postcode before the city */
+.rowStreet {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: var(--space-12);
+}
+
+.rowPostcode {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--space-12);
+}
+
 .fixed {
   min-height: 52px;
   padding: 8px var(--space-12) 5px;

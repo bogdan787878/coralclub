@@ -15,11 +15,12 @@ import { track, trackOnce } from "@/lib/analytics";
 import { summarize } from "@/lib/analyticsRu";
 import { refreshCart, useCart } from "@/lib/cart";
 import {
-  formatUsd,
+  formatMoney,
   friendProductById,
   friendTotals,
 } from "@/lib/friendCatalog";
 import { shopBasketUrl } from "@/lib/friend";
+import { MARKET, REGIONS, phoneForShop } from "@/lib/market";
 import { readContact, saveContact } from "@/lib/friendContact";
 import {
   api,
@@ -40,13 +41,13 @@ import co from "../landing/LandingCheckout.module.css";
 import styles from "./FriendCheckout.module.css";
 
 /**
- * The project's real checkout (US): the visitor's cart is put into the shop's
+ * The project's real checkout (Germany, see lib/market.ts): the visitor's cart is put into the shop's
  * own basket tied to the friend's REF_CODE (member prices, no sign-up, the
  * sale is counted for that member), then delivery, payment and totals are read
  * from the shop's checkout API, and the order is created on the shopper's
  * click — followed by the shop's own payment page.
  *
- * It needs the shop's origin (coralclub.us, or `npm run dev:proxy` →
+ * It needs the shop's origin (the shop's own domain, or `npm run dev:proxy` →
  * http://localhost:3200/friend/checkout/). Anywhere else it falls back to
  * handing the cart to the shop's basket page.
  */
@@ -86,17 +87,11 @@ const num = (v: unknown) =>
   ) || 0;
 
 const paymentTypeCode = (name: string) =>
-  /paypal/i.test(name) ? "paypal" : "bank_card";
-
-/**
- * "350 5th Avenue" → house number + street, the two fields the shop's order
- * takes. Only a split, never a check: whatever is typed is sent, and the shop
- * itself decides whether the address is acceptable.
- */
-function splitAddress(a: string): { build: string; street: string } {
-  const m = /^\s*(\d+[A-Za-z]?(?:[-/]\d+)?)\s+(.+?)\s*$/.exec(a);
-  return m ? { build: m[1], street: m[2] } : { build: "", street: a.trim() };
-}
+  /paypal/i.test(name)
+    ? "paypal"
+    : /transfer|invoice|überweis/i.test(name)
+      ? "bank_transfer"
+      : "bank_card";
 
 const Chevron = () => (
   <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -146,7 +141,8 @@ export function FriendCheckout() {
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [cityDraft, setCityDraft] = useState("");
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState(""); // the street
+  const [houseNumber, setHouseNumber] = useState("");
   const [apartment, setApartment] = useState("");
   const [zip, setZip] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
@@ -171,9 +167,11 @@ export function FriendCheckout() {
   const [totalsFor, setTotalsFor] = useState("");
 
   // courier services and the pick-up service come in separate groups
+  // the cheapest service first, so that it is the one chosen by default
   const courierItems = groups
     .filter((g) => g.ID !== "PICK_POINT")
-    .flatMap((g) => g.ITEMS);
+    .flatMap((g) => g.ITEMS)
+    .sort((a, b) => (a.PRICE ?? 0) - (b.PRICE ?? 0));
   const pickupItems = groups
     .filter((g) => g.ID === "PICK_POINT")
     .flatMap((g) => g.ITEMS);
@@ -236,12 +234,16 @@ export function FriendCheckout() {
     return () => clearTimeout(t);
   }, [cityDraft]);
 
-  // delivery depends on the state (and the order sum); the city is only
-  // needed to place the order, so the options load as soon as a state is chosen
-  // (the shop wants a real city for Washington, D.C.: its own name fails)
-  const cityForShop =
-    city || (state === "District of Columbia" ? "Washington" : state);
-  const place = state ? `${cityForShop}|${state}` : "";
+  // In Germany the shop's delivery options do not depend on the address, so
+  // they load at once; a market whose options do (the US) waits for the state.
+  const placeCity = MARKET.deliveryNeedsRegion ? city || state : "";
+  const placeArea = MARKET.deliveryNeedsRegion ? state : "";
+  const cityForShop = city || state;
+  const place = MARKET.deliveryNeedsRegion
+    ? state
+      ? `${placeCity}|${state}`
+      : ""
+    : MARKET.code;
   const deliveryKey = `${cartKey}|${place}`;
   const paymentsKey = `${deliveryKey}|${deliveryId}`;
   const totalsKey = `${paymentsKey}|${paymentId}|${promo}|${pickup ? pointCode : ""}`;
@@ -304,7 +306,7 @@ export function FriendCheckout() {
       track(
         "begin_checkout",
         { bonus_points: goods.bonus_points },
-        { currency: "USD", value: goods.value, items: goods.items },
+        { currency: MARKET.currency, value: goods.value, items: goods.items },
       ),
     );
   }, [ready, goods]);
@@ -314,9 +316,9 @@ export function FriendCheckout() {
     if (ready !== "ok" || !place) return;
     let cancelled = false;
     api<{ result?: DeliveryGroup[]; error?: string }>("/delivery", {
-      COUNTRY: "US",
-      CITY: cityForShop,
-      AREA: state,
+      COUNTRY: MARKET.code,
+      CITY: placeCity,
+      AREA: placeArea,
     }).then((d) => {
       if (cancelled) return;
       const list = (Array.isArray(d.result) ? d.result : [])
@@ -337,7 +339,7 @@ export function FriendCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [ready, place, cityForShop, state, deliveryKey]);
+  }, [ready, place, placeCity, placeArea, deliveryKey]);
 
   // 3 ─ payment methods of the chosen delivery
   useEffect(() => {
@@ -345,12 +347,15 @@ export function FriendCheckout() {
     let cancelled = false;
     api<{ result?: PayMethod[] }>("/payments", {
       deliveryId,
-      COUNTRY: "US",
-      CITY: cityForShop,
-      AREA: state,
+      COUNTRY: MARKET.code,
+      CITY: placeCity,
+      AREA: placeArea,
     }).then((p) => {
       if (cancelled) return;
-      const list = Array.isArray(p.result) ? p.result : [];
+      // «PayPal Plus» repeats «PayPal» word for word: one PayPal is enough
+      const list = (Array.isArray(p.result) ? p.result : []).filter(
+        (x) => !/paypal plus/i.test(x.NAME),
+      );
       setPayments(list);
       setPaymentsFor(paymentsKey);
       setPaymentId((cur) =>
@@ -360,7 +365,7 @@ export function FriendCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [ready, deliveryId, place, cityForShop, state, paymentsKey]);
+  }, [ready, deliveryId, place, placeCity, placeArea, paymentsKey]);
 
   // 3b ─ pick-up points near the city (the shop answers per city)
   const pointsKey = `${state}|${city}`;
@@ -368,7 +373,7 @@ export function FriendCheckout() {
     if (ready !== "ok" || !pickup || !state || !city) return;
     let cancelled = false;
     api<{ result?: PickPoint[] }>("/pickpoints", {
-      COUNTRY: "US",
+      COUNTRY: MARKET.code,
       CITY: city,
       AREA: state,
     }).then((d) => {
@@ -402,14 +407,13 @@ export function FriendCheckout() {
       );
   }, [points, pointSearch, city]);
 
-  const parsed = splitAddress(address);
   const fio = `${first.trim()} ${last.trim()}`.trim();
   const digits = phone.replace(/\D/g, "");
-  const phoneForShop = digits.length === 10 ? `+1${digits}` : `+${digits}`;
+  const phoneShop = phoneForShop(phone);
   const profile = pickup
     ? {
-        COUNTRY: "US",
-        COUNTRY_NAME: "United States",
+        COUNTRY: MARKET.code,
+        COUNTRY_NAME: MARKET.country,
         CITY: city || cityForShop,
         AREA: state,
         // what the shop's own checkout sends for a pick-up point
@@ -419,21 +423,21 @@ export function FriendCheckout() {
         PICK_POINT_CODE: point?.CODE ?? "",
         EMAIL: email.trim(),
         FIO: fio,
-        PHONE: phoneForShop,
+        PHONE: phoneShop,
       }
     : {
-        COUNTRY: "US",
-        COUNTRY_NAME: "United States",
-        CITY: cityForShop,
+        COUNTRY: MARKET.code,
+        COUNTRY_NAME: MARKET.country,
+        CITY: city,
         AREA: state,
-        STREET: parsed.street,
-        BUILD: parsed.build,
+        STREET: address.trim(),
+        BUILD: houseNumber.trim(),
         APARTMENT: apartment.trim(),
         POSTINDEX: zip.trim(),
         DELIVERY_TYPE: activeItem?.TYPE ?? "COURIER",
         EMAIL: email.trim(),
         FIO: fio,
-        PHONE: phoneForShop,
+        PHONE: phoneShop,
       };
 
   // 4 ─ totals, re-read on every change of delivery / payment / address / code
@@ -448,8 +452,8 @@ export function FriendCheckout() {
         deliveryId,
         paymentId,
         pickPoint: pickPointParam,
-        COUNTRY: "US",
-        CITY: cityForShop,
+        COUNTRY: MARKET.code,
+        CITY: city,
         AREA: state,
         PROFILE: JSON.parse(profileKey),
         dutyEnabled: true,
@@ -468,7 +472,7 @@ export function FriendCheckout() {
     deliveryId,
     paymentId,
     place,
-    cityForShop,
+    city,
     state,
     promo,
     profileKey,
@@ -487,8 +491,8 @@ export function FriendCheckout() {
     }>("/promo", {
       promo: code,
       deliveryId,
-      COUNTRY: "US",
-      CITY: cityForShop,
+      COUNTRY: MARKET.code,
+      CITY: city,
       AREA: state,
     });
     const discount =
@@ -515,11 +519,12 @@ export function FriendCheckout() {
         ]
       : [
           { key: "address", bad: address.trim() === "" },
+          { key: "build", bad: houseNumber.trim() === "" },
+          { key: "zip", bad: zip.trim() === "" },
           { key: "city", bad: !city },
           { key: "state", bad: !state },
-          { key: "zip", bad: zip.trim() === "" },
         ]),
-    { key: "phone", bad: digits.length < 10 },
+    { key: "phone", bad: digits.length < 6 },
     { key: "terms", bad: !acceptTerms },
     { key: "data", bad: !agreeData },
   ];
@@ -569,7 +574,7 @@ export function FriendCheckout() {
         paymentId,
         EMAIL: email.trim(),
         FIO: fio,
-        PHONE: phoneForShop,
+        PHONE: phoneShop,
         PROFILE: { ...profile, MANUAL: 1 },
         ...(promo ? { promo } : {}),
         // the shopper's two consents, exactly as the shop's own form sends them
@@ -602,7 +607,7 @@ export function FriendCheckout() {
           ),
           payment_gateway: "shop_payment_page",
           order_total: num(grand) || goods.value,
-          currency: "USD",
+          currency: MARKET.currency,
         });
         saveContact({
           first: first.trim(),
@@ -612,10 +617,13 @@ export function FriendCheckout() {
         });
         // step 2 — the payment form of the shop, shown inside our page
         const method = payments.find((x) => x.ID === paymentId);
+        const code = method ? paymentTypeCode(method.NAME) : "bank_card";
         const kind =
-          method && paymentTypeCode(method.NAME) === "paypal"
+          code === "paypal"
             ? "paypal"
-            : "card";
+            : code === "bank_transfer"
+              ? "transfer"
+              : "card";
         // step 2 is a full page load, on purpose: the card page runs without
         // analytics and without any script left over from the pages before it
         window.location.assign(
@@ -695,10 +703,10 @@ export function FriendCheckout() {
               <span className={styles.lineSum}>
                 {p && (
                   <span className={styles.was}>
-                    {formatUsd(p.regular * l.qty)}
+                    {formatMoney(p.regular * l.qty)}
                   </span>
                 )}{" "}
-                {formatUsd((p?.club ?? 0) * l.qty)}
+                {formatMoney((p?.club ?? 0) * l.qty)}
               </span>
             </li>
           );
@@ -708,17 +716,17 @@ export function FriendCheckout() {
         {memberSaving > 0 && (
           <div className={styles.rowGood}>
             <dt>Member discount</dt>
-            <dd>−{formatUsd(memberSaving)}</dd>
+            <dd>−{formatMoney(memberSaving)}</dd>
           </div>
         )}
         <div>
           <dt>Subtotal</dt>
-          <dd>{formatUsd(goodsSum)}</dd>
+          <dd>{formatMoney(goodsSum)}</dd>
         </div>
         {promo && promoOff > 0 && (
           <div className={styles.rowGood}>
             <dt>Code {promo}</dt>
-            <dd>−{formatUsd(promoOff)}</dd>
+            <dd>−{formatMoney(promoOff)}</dd>
           </div>
         )}
         <div>
@@ -727,23 +735,23 @@ export function FriendCheckout() {
             {deliveryPrice === null
               ? "Calculated next"
               : deliveryPrice > 0
-                ? formatUsd(deliveryPrice)
+                ? formatMoney(deliveryPrice)
                 : "Free"}
           </dd>
         </div>
         {totals && num(totals.TAX) > 0 && (
           <div>
             <dt>Tax</dt>
-            <dd>{formatUsd(num(totals.TAX))}</dd>
+            <dd>{formatMoney(num(totals.TAX))}</dd>
           </div>
         )}
         <div className={styles.rowTotal}>
           <dt>Total</dt>
-          <dd>{shownTotal !== null ? formatUsd(shownTotal) : "—"}</dd>
+          <dd>{shownTotal !== null ? formatMoney(shownTotal) : "—"}</dd>
         </div>
       </dl>
       {totalSaving > 0 && (
-        <p className={styles.saved}>You’re saving {formatUsd(totalSaving)}</p>
+        <p className={styles.saved}>You’re saving {formatMoney(totalSaving)}</p>
       )}
       {friend && (
         <p className={styles.host}>
@@ -793,7 +801,7 @@ export function FriendCheckout() {
                       "friend_redirect_to_shop",
                       { bonus_points: goods.bonus_points },
                       {
-                        currency: "USD",
+                        currency: MARKET.currency,
                         value: goods.value,
                         items: goods.items,
                       },
@@ -801,7 +809,7 @@ export function FriendCheckout() {
                     window.location.assign(shopBasketUrl(lines, friend));
                   }}
                 >
-                  Continue on coralclub.us
+                  Continue on {MARKET.site}
                 </button>
               </section>
             </div>
@@ -816,10 +824,10 @@ export function FriendCheckout() {
                 <span className={styles.sumHeadPrice}>
                   {prices.regular > barTotal && (
                     <span className={styles.was}>
-                      {formatUsd(prices.regular)}
+                      {formatMoney(prices.regular)}
                     </span>
                   )}
-                  <strong>{formatUsd(barTotal)}</strong>
+                  <strong>{formatMoney(barTotal)}</strong>
                 </span>
               </summary>
               <div className={styles.sumBodyMobile}>{summary}</div>
@@ -856,38 +864,40 @@ export function FriendCheckout() {
 
               <section className={styles.section}>
                 <h2 className={styles.h2}>Delivery</h2>
-                <div
-                  className={styles.toggle}
-                  role="radiogroup"
-                  aria-label="How to receive your order"
-                >
-                  {(
-                    [
-                      ["courier", "Delivery to address"],
-                      ["pickup", "Pick up point"],
-                    ] as const
-                  ).map(([id, label]) => (
-                    <button
-                      key={id}
-                      type="button"
-                      role="radio"
-                      aria-checked={mode === id}
-                      className={`${styles.toggleBtn} ${mode === id ? styles.toggleOn : ""}`}
-                      data-analytics-id={`delivery_mode_${id}`}
-                      onClick={() => {
-                        setMode(id);
-                        track("delivery_method_selected", {
-                          delivery_type_code: id,
-                        });
-                      }}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
+                {MARKET.pickup && (
+                  <div
+                    className={styles.toggle}
+                    role="radiogroup"
+                    aria-label="How to receive your order"
+                  >
+                    {(
+                      [
+                        ["courier", "Delivery to address"],
+                        ["pickup", "Pick up point"],
+                      ] as const
+                    ).map(([id, label]) => (
+                      <button
+                        key={id}
+                        type="button"
+                        role="radio"
+                        aria-checked={mode === id}
+                        className={`${styles.toggleBtn} ${mode === id ? styles.toggleOn : ""}`}
+                        data-analytics-id={`delivery_mode_${id}`}
+                        onClick={() => {
+                          setMode(id);
+                          track("delivery_method_selected", {
+                            delivery_type_code: id,
+                          });
+                        }}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                )}
                 <div className={styles.fixed}>
                   <span>Country/Region</span>
-                  <strong>United States</strong>
+                  <strong>{MARKET.country}</strong>
                 </div>
                 <div className={styles.row}>
                   <FloatInput
@@ -907,56 +917,73 @@ export function FriendCheckout() {
                 </div>
                 {!pickup ? (
                   <>
-                    <AddressSearch
-                      {...field("address")}
-                      placeholder="350 5th Avenue"
-                      value={address}
-                      onChange={setAddress}
-                      onPick={(a) => {
-                        // a pick fills the whole address form
-                        setAddress(a.street);
-                        setApartment(a.unit);
-                        setCityDraft(a.city);
-                        setCity(a.city);
-                        setState(a.state);
-                        setZip(a.zip);
-                      }}
-                    />
+                    <div className={styles.rowStreet}>
+                      <AddressSearch
+                        {...field("address")}
+                        label="Street"
+                        placeholder="Friedrichstraße"
+                        value={address}
+                        onChange={setAddress}
+                        onPick={(a) => {
+                          // a pick fills the whole address form
+                          setAddress(a.street);
+                          setHouseNumber(a.houseNumber);
+                          setApartment(a.unit);
+                          setCityDraft(a.city);
+                          setCity(a.city);
+                          setState(a.state);
+                          setZip(a.zip);
+                        }}
+                      />
+                      <FloatInput
+                        {...field("build")}
+                        label="House no."
+                        placeholder="43"
+                        value={houseNumber}
+                        onChange={setHouseNumber}
+                      />
+                    </div>
                     <FloatInput
-                      label="Apartment, suite, etc. (optional)"
+                      label="Address supplement (optional)"
+                      placeholder="c/o, floor, entrance"
                       value={apartment}
                       onChange={setApartment}
                       autoComplete="address-line2"
                     />
-                    <FloatInput
-                      {...field("city")}
-                      label="City"
-                      value={cityDraft}
-                      onChange={setCityDraft}
-                      autoComplete="address-level2"
-                    />
-                    <div className={styles.row}>
-                      <StateCombobox
-                        value={state}
-                        onChange={setState}
-                        name="state"
-                        shake={shaking === "state"}
-                        attention={attempted && !state}
-                      />
+                    <div className={styles.rowPostcode}>
                       <FloatInput
                         {...field("zip")}
-                        label="ZIP code"
+                        label="Postcode (PLZ)"
+                        placeholder="10117"
                         value={zip}
                         onChange={setZip}
                         inputMode="numeric"
                         autoComplete="postal-code"
                       />
+                      <FloatInput
+                        {...field("city")}
+                        label="City"
+                        value={cityDraft}
+                        onChange={setCityDraft}
+                        autoComplete="address-level2"
+                      />
                     </div>
+                    <StateCombobox
+                      options={REGIONS}
+                      label="State (Bundesland)"
+                      value={state}
+                      onChange={setState}
+                      name="state"
+                      shake={shaking === "state"}
+                      attention={attempted && !state}
+                    />
                   </>
                 ) : (
                   <>
                     <div className={styles.row}>
                       <StateCombobox
+                        options={REGIONS}
+                        label="State (Bundesland)"
                         value={state}
                         onChange={setState}
                         name="state"
@@ -1096,12 +1123,12 @@ export function FriendCheckout() {
                           <small>
                             {it.TRANSIT ? `${it.TRANSIT} business days` : ""}
                             {it.FREE_DELIVERY
-                              ? `${it.TRANSIT ? " · " : ""}free over ${formatUsd(it.FREE_DELIVERY)}`
+                              ? `${it.TRANSIT ? " · " : ""}free over ${formatMoney(it.FREE_DELIVERY)}`
                               : ""}
                           </small>
                         </span>
                         <span className={styles.optionPrice}>
-                          {it.PRICE ? formatUsd(it.PRICE) : "Free"}
+                          {it.PRICE ? formatMoney(it.PRICE) : "Free"}
                         </span>
                       </label>
                     ))}
@@ -1148,9 +1175,13 @@ export function FriendCheckout() {
                             });
                           }}
                         />
-                        <span className={styles.optionName}>{p.NAME}</span>
+                        <span className={styles.optionName}>
+                          {paymentTypeCode(p.NAME) === "bank_card"
+                            ? "Credit or debit card"
+                            : p.NAME}
+                        </span>
                         {paymentTypeCode(p.NAME) === "bank_card" ? (
-                          <CardBadges />
+                          <CardBadges wallets={MARKET.googlePay} />
                         ) : p.IMAGE ? (
                           // eslint-disable-next-line @next/next/no-img-element -- the shop's own method logo
                           <img
@@ -1165,7 +1196,11 @@ export function FriendCheckout() {
                           <p className={styles.optionNote}>
                             {paymentTypeCode(p.NAME) === "paypal"
                               ? "You’ll continue to PayPal to finish your payment."
-                              : "You’ll enter your card details — or use Google Pay where available — on the shop’s secure payment page."}
+                              : paymentTypeCode(p.NAME) === "bank_transfer"
+                                ? "You’ll get the bank details on the next step."
+                                : MARKET.googlePay
+                                  ? "You’ll enter your card details — or use Google Pay where available — on the next step."
+                                  : "You’ll enter your card details on the next step."}
                           </p>
                         )}
                       </label>
@@ -1224,12 +1259,12 @@ export function FriendCheckout() {
                     {memberSaving > 0 && (
                       <div className={styles.rowGood}>
                         <dt>Member discount</dt>
-                        <dd>−{formatUsd(memberSaving)}</dd>
+                        <dd>−{formatMoney(memberSaving)}</dd>
                       </div>
                     )}
                     <div>
                       <dt>Items</dt>
-                      <dd>{formatUsd(goodsSum)}</dd>
+                      <dd>{formatMoney(goodsSum)}</dd>
                     </div>
                     <div>
                       <dt>Shipping</dt>
@@ -1237,21 +1272,24 @@ export function FriendCheckout() {
                         {deliveryPrice === null
                           ? "—"
                           : deliveryPrice > 0
-                            ? formatUsd(deliveryPrice)
+                            ? formatMoney(deliveryPrice)
                             : "Free"}
                       </dd>
                     </div>
                     <div className={styles.rowTotal}>
                       <dt>Total</dt>
                       <dd>
-                        {shownTotal !== null ? formatUsd(shownTotal) : "—"}
+                        {shownTotal !== null ? formatMoney(shownTotal) : "—"}
                       </dd>
                     </div>
                   </dl>
                 </div>
+                <p className={styles.host}>
+                  All prices include VAT. Shipping is shown above.
+                </p>
                 {totalSaving > 0 && (
                   <p className={styles.saved}>
-                    Total savings {formatUsd(totalSaving)}
+                    Total savings {formatMoney(totalSaving)}
                   </p>
                 )}
               </section>
@@ -1275,7 +1313,7 @@ export function FriendCheckout() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Terms and conditions
+                      Terms and conditions (AGB)
                     </a>{" "}
                     and the{" "}
                     <a
@@ -1283,7 +1321,15 @@ export function FriendCheckout() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Privacy policy
+                      Privacy policy (Datenschutz)
+                    </a>
+                    , and I have read the{" "}
+                    <a
+                      href="/support/question.php?q=return"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      information on returns and withdrawal
                     </a>
                   </span>
                 </label>
