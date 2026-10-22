@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import { Accent, Container, Heading, Section } from "@/components/ui";
-import {
-  AdvisoryBoard,
-  CommunityReels,
-  Editorial,
-  Hero,
-} from "@/components/organisms";
+import { CommunityReels, Editorial, Hero } from "@/components/organisms";
 import { LandingHeader } from "@/components/landing/LandingHeader";
+import { FriendAdvisors } from "@/components/friend/FriendAdvisors";
 import { FriendBanner } from "@/components/friend/FriendProvider";
 import { FriendCards } from "@/components/friend/FriendCards";
 import { FriendCartButton } from "@/components/friend/FriendCart";
@@ -31,7 +27,6 @@ export default function FriendHome() {
   const [water, minerals] = hydration.sections.filter(
     (x): x is EditorialItem => x.kind === "editorial",
   );
-  const board = hydration.sections.find((x) => x.kind === "advisory-board");
   const { hero, reels } = hydration;
 
   return (
@@ -139,9 +134,7 @@ export default function FriendHome() {
           />
         )}
 
-        {board?.kind === "advisory-board" && (
-          <AdvisoryBoard title={board.title} members={board.members} />
-        )}
+        <FriendAdvisors />
 
         <CommunityReels
           title={reels.title}
