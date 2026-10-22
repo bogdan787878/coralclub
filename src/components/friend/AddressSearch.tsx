@@ -5,6 +5,7 @@ import {
   addressSearchEnabled,
   newSession,
   resolveAddress,
+  resolveStreet,
   suggestAddresses,
   type AddressSuggestion,
   type ResolvedAddress,
@@ -50,15 +51,24 @@ export function AddressSearch({
   const [active, setActive] = useState(0);
   const session = useRef<Promise<unknown> | null>(null);
   const seq = useRef(0);
+  // after a street is picked the shopper types the number: the town of that
+  // street goes along with the query, so the right street is found
+  const anchor = useRef<{ text: string; city: string } | null>(null);
 
   // suggestions for the text, after a short pause in typing
   useEffect(() => {
     if (!addressSearchEnabled) return;
-    const q = value.trim();
+    if (anchor.current && !value.startsWith(anchor.current.text)) {
+      anchor.current = null;
+    }
+    const waiting = anchor.current?.text === value; // street picked, no number yet
+    const q = anchor.current
+      ? `${value.trim()}, ${anchor.current.city}`
+      : value.trim();
     const mine = ++seq.current;
     const t = setTimeout(
       async () => {
-        if (q.length < 3) {
+        if (q.length < 3 || waiting) {
           if (mine === seq.current) setItems([]);
           return;
         }
@@ -80,6 +90,18 @@ export function AddressSearch({
   }, [value]);
 
   const pick = async (s: AddressSuggestion) => {
+    if (s.street) {
+      // a street alone is not an address: carry on with the house number
+      setItems([]);
+      try {
+        const { route, city } = await resolveStreet(s);
+        anchor.current = { text: `${route} `, city };
+        onChange(`${route} `);
+      } catch {
+        onChange(`${s.main} `);
+      }
+      return;
+    }
     setOpen(false);
     setItems([]);
     try {

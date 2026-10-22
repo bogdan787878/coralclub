@@ -21,6 +21,8 @@ export type AddressSuggestion = {
   main: string;
   /** «New York, NY, USA» */
   secondary: string;
+  /** A street without a number: picking it asks for the house number next. */
+  street: boolean;
   /** Opaque: pass it back to `resolveAddress`. */
   ref: unknown;
 };
@@ -103,11 +105,15 @@ export async function newSession(): Promise<unknown> {
   return new AutocompleteSessionToken();
 }
 
-/** Suggestions for what has been typed so far (US addresses only). */
+/**
+ * Suggestions for what has been typed so far. Until a digit is typed these
+ * are streets; once there is a house number, whole addresses.
+ */
 export async function suggestAddresses(
   input: string,
   session: unknown,
 ): Promise<AddressSuggestion[]> {
+  const streets = !/\d/.test(input);
   const { AutocompleteSuggestion } = await load();
   const { suggestions } =
     await AutocompleteSuggestion.fetchAutocompleteSuggestions({
@@ -115,9 +121,11 @@ export async function suggestAddresses(
       sessionToken: session,
       includedRegionCodes: [MARKET.placesRegion],
       language: MARKET.placesLanguage,
-      // houses with a number only: a whole street has no postcode and cannot
-      // be delivered to, so it is not offered
-      includedPrimaryTypes: ["street_address", "premise", "subpremise"],
+      // a street alone has no postcode and cannot be delivered to: it is only
+      // a step towards the address with its number
+      includedPrimaryTypes: streets
+        ? ["route"]
+        : ["street_address", "premise", "subpremise"],
     });
   return suggestions
     .map((s) => s.placePrediction)
@@ -126,8 +134,24 @@ export async function suggestAddresses(
     .map((p) => ({
       main: p.mainText?.text ?? p.text.text,
       secondary: p.secondaryText?.text ?? "",
+      street: streets,
       ref: p,
     }));
+}
+
+/** A picked street → its name and town, to carry on typing the number. */
+export async function resolveStreet(
+  s: AddressSuggestion,
+): Promise<{ route: string; city: string }> {
+  const place = (s.ref as PlacePrediction).toPlace();
+  await place.fetchFields({ fields: ["addressComponents"] });
+  const comps = place.addressComponents ?? [];
+  const get = (type: string) =>
+    comps.find((x) => x.types.includes(type))?.longText ?? "";
+  return {
+    route: get("route") || s.main,
+    city: get("locality") || get("postal_town") || get("sublocality_level_1"),
+  };
 }
 
 /** The chosen suggestion → the fields of the form. */
