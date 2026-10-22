@@ -588,13 +588,10 @@ export function FriendPayment() {
               className={styles.sheet}
               role="dialog"
               aria-modal="true"
-              aria-labelledby="pay-sheet-title"
+              aria-label="Pay by card"
             >
               <div className={styles.sheetHead}>
                 <span className={styles.sheetGrip} aria-hidden="true" />
-                <h2 id="pay-sheet-title" className={styles.sheetTitle}>
-                  Pay by card
-                </h2>
                 <button
                   type="button"
                   className={styles.sheetClose}
