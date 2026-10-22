@@ -56,6 +56,17 @@
   height: 16px;
 }
 
+.sheetTall {
+  height: 94dvh;
+}
+
+.sheetFoot {
+  flex: none;
+  padding: var(--space-4) var(--page-padding-inline)
+    max(var(--space-8), env(safe-area-inset-bottom));
+  border-top: 1px solid var(--color-border);
+}
+
 .frame {
   flex: 1 1 auto;
   min-height: 0;
@@ -109,6 +120,10 @@
 }
 
 @media (min-width: 768px) {
+  .sheetTall {
+    height: min(94dvh, 780px);
+  }
+
   .sheet {
     inset: 50% auto auto 50%;
     width: 480px;

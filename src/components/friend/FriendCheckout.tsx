@@ -1516,9 +1516,15 @@ export function FriendCheckout() {
         )}
         {sheetOpen && activePay && (
           <PaySheet
-            src={asset(
-              `/friend/checkout/pay/?order=${activePay.id}&pm=${encodeURIComponent(activePay.pm)}&kind=card&embed=1`,
-            )}
+            orderId={activePay.id}
+            tall={MARKET.cardForm === "shop"}
+            src={
+              MARKET.cardForm === "shop"
+                ? `/order/payment/${activePay.id}/${encodeURIComponent(activePay.pm)}/?new_checkout=1`
+                : asset(
+                    `/friend/checkout/pay/?order=${activePay.id}&pm=${encodeURIComponent(activePay.pm)}&kind=card&embed=1`,
+                  )
+            }
             onClose={() => setSheetOpen(false)}
             onChangeMethod={() => {
               // back to the payment methods of the checkout

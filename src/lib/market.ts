@@ -24,6 +24,13 @@ export const MARKET = {
   deliveryNeedsRegion: false,
   /** Pick-up points: the shop has none for Germany. */
   pickup: false,
+  /**
+   * Where the card is typed. "shop": the shop's own payment page of its
+   * gateway (Germany: Walletto — card, Apple Pay, Google Pay), shown in the
+   * sheet; "own": our card form, which posts to the shop's API the way the
+   * US site does.
+   */
+  cardForm: "shop",
   /** Google Pay in the shop's own payment page is for the US site only. */
   googlePay: false,
   /** Google Places: the country and the language of the answers. */

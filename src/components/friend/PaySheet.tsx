@@ -2,25 +2,75 @@
 
 import { useEffect } from "react";
 import { asset } from "@/lib/asset";
+import { getPayOrder } from "@/lib/shopPay";
 import styles from "./PaySheet.module.css";
 
 /**
- * The card form of the payment step as a bottom sheet over the checkout (a
- * centred dialog on a wide screen). The form is our own payment page opened
- * in a frame: a separate document, so it runs without analytics and without
- * any script of the checkout page — as the card page always did. When the
- * payment goes through, the frame tells us and the checkout moves on to the
- * confirmation page.
+ * The card step as a bottom sheet over the checkout (a centred dialog on a
+ * wide screen), in a frame. The frame is either our own card page (a
+ * separate document, so it runs without analytics and without any script of
+ * the checkout page; it tells us when the payment went through) or, where
+ * the shop's gateway has its own page, that page (`tall`). Either way the
+ * order is watched: once the shop says it is paid, the checkout moves on to
+ * the confirmation page.
  */
+/** The shop's page around its gateway: header, footer, banners, chat. */
+const SHOP_CHROME = `
+  .headerTemplateMini, .footerTemplateMini, .mobile-global-countries,
+  .smartbanner, [class*="smartbanner"], .headerNotification,
+  .dxt-coral--menu, [class*="INDposition"],
+  [class*="callback"], [class*="cookie"] { display: none !important; }
+  html, body { background: #fff !important; margin: 0 !important; }
+`;
+
+/** Same origin only (the shop's own domain, our proxy): tidy the shop's page. */
+function tidyShopPage(frame: HTMLIFrameElement) {
+  try {
+    const doc = frame.contentDocument;
+    if (!doc?.head || doc.getElementById("cc-tidy")) return;
+    const style = doc.createElement("style");
+    style.id = "cc-tidy";
+    style.textContent = SHOP_CHROME;
+    doc.head.appendChild(style);
+    // the accessibility button keeps itself on with an inline !important
+    doc.getElementById("INDshadowRootWrap")?.remove();
+  } catch {
+    /* another origin (the gateway itself): leave it as it is */
+  }
+}
+
 export function PaySheet({
   src,
+  orderId,
+  tall = false,
   onClose,
   onChangeMethod,
 }: {
   src: string;
+  orderId: string;
+  /** the shop's own page: taller, with «Change payment method» under it */
+  tall?: boolean;
   onClose: () => void;
   onChangeMethod: () => void;
 }) {
+  // the shop's gateway page does not talk to us: ask the shop whether it is paid
+  useEffect(() => {
+    let alive = true;
+    const look = async () => {
+      const r = await getPayOrder(orderId);
+      if (alive && "order" in r && r.order.paid) {
+        window.location.assign(
+          asset(`/friend/checkout/done/?order=${r.order.id}`),
+        );
+      }
+    };
+    const t = setInterval(look, 3000);
+    return () => {
+      alive = false;
+      clearInterval(t);
+    };
+  }, [orderId]);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -52,7 +102,7 @@ export function PaySheet({
     <>
       <div className={styles.sheetBackdrop} onClick={onClose} />
       <div
-        className={styles.sheet}
+        className={`${styles.sheet} ${tall ? styles.sheetTall : ""}`}
         role="dialog"
         aria-modal="true"
         aria-label="Pay by card"
@@ -75,7 +125,25 @@ export function PaySheet({
             </svg>
           </button>
         </div>
-        <iframe className={styles.frame} src={src} title="Card payment" />
+        <iframe
+          className={styles.frame}
+          src={src}
+          title="Card payment"
+          onLoad={(e) => {
+            if (tall) tidyShopPage(e.currentTarget);
+          }}
+        />
+        {tall && (
+          <div className={styles.sheetFoot}>
+            <button
+              type="button"
+              className={styles.ghost}
+              onClick={onChangeMethod}
+            >
+              Change payment method
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

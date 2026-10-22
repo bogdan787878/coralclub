@@ -271,6 +271,13 @@ export function FriendPayment() {
   }, [gpay]);
 
   const shopPage = `/order/payment/${orderId}/${encodeURIComponent(paySystemId)}/?new_checkout=1`;
+
+  // where the shop's gateway has its own card page, this page is not needed
+  useEffect(() => {
+    if (!live || !orderId || paypal || transfer || embed) return;
+    if (MARKET.cardForm !== "shop") return;
+    window.location.replace(shopPage);
+  }, [live, orderId, paypal, transfer, embed, shopPage]);
   const total = order ? formatMoney(Number(order.amount)) : "";
 
   const field = (key: string) => ({
