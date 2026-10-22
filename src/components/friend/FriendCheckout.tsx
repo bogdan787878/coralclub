@@ -520,6 +520,7 @@ export function FriendCheckout() {
     { key: "email", bad: !/\S+@\S+\.\S+/.test(email) },
     { key: "first", bad: first.trim().length < 1 },
     { key: "last", bad: last.trim().length < 1 },
+    { key: "phone", bad: digits.length < 6 },
     ...(pickup
       ? [
           { key: "state", bad: !state },
@@ -535,7 +536,6 @@ export function FriendCheckout() {
           { key: "city", bad: !city },
           { key: "state", bad: !state },
         ]),
-    { key: "phone", bad: digits.length < 6 },
     { key: "terms", bad: !acceptTerms },
     { key: "data", bad: !agreeData },
   ];
@@ -871,6 +871,31 @@ export function FriendCheckout() {
                   inputMode="email"
                   autoComplete="email"
                 />
+                <div className={styles.row}>
+                  <FloatInput
+                    {...field("first")}
+                    label="First name"
+                    value={first}
+                    onChange={setFirst}
+                    autoComplete="given-name"
+                  />
+                  <FloatInput
+                    {...field("last")}
+                    label="Last name"
+                    value={last}
+                    onChange={setLast}
+                    autoComplete="family-name"
+                  />
+                </div>
+                <FloatInput
+                  {...field("phone")}
+                  label="Phone"
+                  placeholder="0151 23456789"
+                  value={phone}
+                  onChange={setPhone}
+                  inputMode="tel"
+                  autoComplete="tel"
+                />
               </section>
 
               <section className={styles.section}>
@@ -909,22 +934,6 @@ export function FriendCheckout() {
                 <div className={styles.fixed}>
                   <span>Country/Region</span>
                   <strong>{MARKET.country}</strong>
-                </div>
-                <div className={styles.row}>
-                  <FloatInput
-                    {...field("first")}
-                    label="First name"
-                    value={first}
-                    onChange={setFirst}
-                    autoComplete="given-name"
-                  />
-                  <FloatInput
-                    {...field("last")}
-                    label="Last name"
-                    value={last}
-                    onChange={setLast}
-                    autoComplete="family-name"
-                  />
                 </div>
                 {!pickup ? (
                   <>
@@ -1168,15 +1177,6 @@ export function FriendCheckout() {
                     </div>
                   </>
                 )}
-                <FloatInput
-                  {...field("phone")}
-                  label="Phone"
-                  placeholder="(212) 555-0123"
-                  value={phone}
-                  onChange={setPhone}
-                  inputMode="tel"
-                  autoComplete="tel"
-                />
               </section>
 
               <section className={styles.section}>
