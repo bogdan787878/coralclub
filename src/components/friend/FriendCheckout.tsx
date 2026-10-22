@@ -33,7 +33,7 @@ import {
   shopFetch,
 } from "@/lib/shopApi";
 import { AddressSearch } from "./AddressSearch";
-import { splitStreet } from "@/lib/addressSearch";
+import { addressSearchEnabled, splitStreet } from "@/lib/addressSearch";
 import { FloatInput } from "./FloatInput";
 import { CardBadges } from "./PayBadges";
 import { StateCombobox } from "./StateCombobox";
@@ -145,9 +145,14 @@ export function FriendCheckout() {
   const [address, setAddress] = useState(""); // street and house number
   const [apartment, setApartment] = useState("");
   const [supplementOpen, setSupplementOpen] = useState(false);
-  // the Bundesland came with a picked address: no need to ask for it again
-  const [statePicked, setStatePicked] = useState(false);
+  // one search line by default; the separate fields are filled in the
+  // background from the picked address and only shown for manual entry
+  const [manual, setManual] = useState(!addressSearchEnabled);
+  const [picked, setPicked] = useState(false);
+  const [searchText, setSearchText] = useState("");
   const { street, build } = splitStreet(address);
+  const addressLine = (st: string, plz: string, town: string) =>
+    `${st}, ${plz} ${town}`;
   const [zip, setZip] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [agreeData, setAgreeData] = useState(false);
@@ -522,7 +527,10 @@ export function FriendCheckout() {
           { key: "point", bad: !point },
         ]
       : [
-          { key: "address", bad: street === "" || build === "" },
+          {
+            key: "address",
+            bad: manual ? street === "" || build === "" : !picked,
+          },
           { key: "zip", bad: zip.trim() === "" },
           { key: "city", bad: !city },
           { key: "state", bad: !state },
@@ -920,33 +928,108 @@ export function FriendCheckout() {
                 </div>
                 {!pickup ? (
                   <>
-                    <AddressSearch
-                      {...field("address")}
-                      label="Street and house number"
-                      placeholder="Friedrichstraße 43"
-                      value={address}
-                      onChange={setAddress}
-                      error={attempted && street !== "" && build === ""}
-                      hint={
-                        attempted && street !== "" && build === ""
-                          ? "Add the house number, e.g. Friedrichstraße 43"
-                          : undefined
-                      }
-                      onPick={(a) => {
-                        // a pick fills the whole address form
-                        setAddress(
-                          [a.street, a.houseNumber].filter(Boolean).join(" "),
-                        );
-                        setApartment(a.unit);
-                        if (a.unit) setSupplementOpen(true);
-                        setCityDraft(a.city);
-                        setCity(a.city);
-                        setState(a.state);
-                        setStatePicked(a.state !== "");
-                        setZip(a.zip);
-                      }}
-                    />
-                    {supplementOpen || apartment ? (
+                    {manual ? (
+                      <FloatInput
+                        {...field("address")}
+                        label="Street and house number"
+                        placeholder="Friedrichstraße 43"
+                        value={address}
+                        onChange={setAddress}
+                        error={attempted && street !== "" && build === ""}
+                        hint={
+                          attempted && street !== "" && build === ""
+                            ? "Add the house number, e.g. Friedrichstraße 43"
+                            : undefined
+                        }
+                        autoComplete="address-line1"
+                      />
+                    ) : (
+                      <AddressSearch
+                        {...field("address")}
+                        label="Search address"
+                        placeholder="Street, house number, city"
+                        value={searchText}
+                        onChange={(v) => {
+                          setSearchText(v);
+                          if (picked) {
+                            // typing again drops the earlier pick
+                            setPicked(false);
+                            setAddress("");
+                            setZip("");
+                            setCityDraft("");
+                            setCity("");
+                            setState("");
+                          }
+                        }}
+                        error={attempted && !picked && searchText.trim() !== ""}
+                        hint={
+                          attempted && !picked && searchText.trim() !== ""
+                            ? "Choose your address from the list, or enter it manually"
+                            : undefined
+                        }
+                        onPick={(a) => {
+                          // a pick fills the whole address form in the background
+                          const st = [a.street, a.houseNumber]
+                            .filter(Boolean)
+                            .join(" ");
+                          setAddress(st);
+                          setApartment(a.unit);
+                          if (a.unit) setSupplementOpen(true);
+                          setCityDraft(a.city);
+                          setCity(a.city);
+                          setState(a.state);
+                          setZip(a.zip);
+                          if (
+                            a.street &&
+                            a.houseNumber &&
+                            a.zip &&
+                            a.city &&
+                            a.state
+                          ) {
+                            setSearchText(addressLine(st, a.zip, a.city));
+                            setPicked(true);
+                          } else {
+                            // something is missing: let the shopper complete it
+                            setManual(true);
+                          }
+                        }}
+                      />
+                    )}
+                    <div className={styles.addLines}>
+                      {addressSearchEnabled && (
+                        <button
+                          type="button"
+                          className={styles.addLine}
+                          onClick={() => {
+                            if (manual) {
+                              const full =
+                                street && build && zip.trim() && city && state;
+                              setPicked(Boolean(full));
+                              setSearchText(
+                                full
+                                  ? addressLine(address, zip.trim(), city)
+                                  : "",
+                              );
+                            }
+                            setManual(!manual);
+                          }}
+                        >
+                          {manual
+                            ? "Search for an address instead"
+                            : "Enter address manually"}
+                        </button>
+                      )}
+                      {!supplementOpen && !apartment && (
+                        <button
+                          type="button"
+                          className={styles.addLine}
+                          onClick={() => setSupplementOpen(true)}
+                        >
+                          + Add c/o, floor or entrance
+                        </button>
+                      )}
+                    </div>
+                    {(supplementOpen || apartment) && (
                       <FloatInput
                         label="Address supplement (optional)"
                         placeholder="c/o, floor, entrance"
@@ -954,49 +1037,37 @@ export function FriendCheckout() {
                         onChange={setApartment}
                         autoComplete="address-line2"
                       />
-                    ) : (
-                      <button
-                        type="button"
-                        className={styles.addLine}
-                        onClick={() => setSupplementOpen(true)}
-                      >
-                        + Add c/o, floor or entrance
-                      </button>
                     )}
-                    <div className={styles.row}>
-                      <FloatInput
-                        {...field("zip")}
-                        label="Postcode"
-                        placeholder="10117"
-                        value={zip}
-                        onChange={(v) => {
-                          setZip(v);
-                          setStatePicked(false);
-                        }}
-                        inputMode="numeric"
-                        autoComplete="postal-code"
-                      />
-                      <FloatInput
-                        {...field("city")}
-                        label="City"
-                        value={cityDraft}
-                        onChange={(v) => {
-                          setCityDraft(v);
-                          setStatePicked(false);
-                        }}
-                        autoComplete="address-level2"
-                      />
-                    </div>
-                    {!statePicked && (
-                      <StateCombobox
-                        options={REGIONS}
-                        label="State (Bundesland)"
-                        value={state}
-                        onChange={setState}
-                        name="state"
-                        shake={shaking === "state"}
-                        attention={attempted && !state}
-                      />
+                    {manual && (
+                      <>
+                        <div className={styles.row}>
+                          <FloatInput
+                            {...field("zip")}
+                            label="Postcode"
+                            placeholder="10117"
+                            value={zip}
+                            onChange={setZip}
+                            inputMode="numeric"
+                            autoComplete="postal-code"
+                          />
+                          <FloatInput
+                            {...field("city")}
+                            label="City"
+                            value={cityDraft}
+                            onChange={setCityDraft}
+                            autoComplete="address-level2"
+                          />
+                        </div>
+                        <StateCombobox
+                          options={REGIONS}
+                          label="State (Bundesland)"
+                          value={state}
+                          onChange={setState}
+                          name="state"
+                          shake={shaking === "state"}
+                          attention={attempted && !state}
+                        />
+                      </>
                     )}
                   </>
                 ) : (

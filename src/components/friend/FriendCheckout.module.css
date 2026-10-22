@@ -278,6 +278,12 @@ details[open] > .sumHead svg {
   gap: var(--space-12);
 }
 
+.addLines {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-16);
+}
+
 .addLine {
   align-self: flex-start;
   padding: 0;
