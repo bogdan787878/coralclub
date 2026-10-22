@@ -344,7 +344,10 @@ details[open] > .sumHead svg {
   z-index: 30;
   top: calc(100% + var(--space-4));
   left: 0;
-  right: 0;
+  /* as wide as the field at least, wider for «District of Columbia» */
+  min-width: 100%;
+  width: max-content;
+  max-width: 20rem;
   max-height: 15rem;
   overflow-y: auto;
   margin: 0;
