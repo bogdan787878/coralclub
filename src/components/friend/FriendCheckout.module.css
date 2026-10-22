@@ -458,7 +458,7 @@ details[open] > .sumHead svg {
 }
 
 .comboActive {
-  background: var(--color-malachite-10);
+  background: var(--color-green-light);
 }
 
 .comboChosen {
@@ -553,7 +553,7 @@ details[open] > .sumHead svg {
 }
 
 .optionOn {
-  background: var(--color-malachite-10);
+  background: var(--color-green-light);
 }
 
 .option input {

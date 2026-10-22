@@ -4,7 +4,7 @@
   flex-direction: column;
   gap: var(--space-12);
   padding: var(--space-16) var(--space-24);
-  background: var(--color-malachite-10);
+  background: var(--color-green-light);
 }
 
 .saving {
@@ -163,7 +163,7 @@
 }
 
 .recAdd:hover {
-  background: var(--color-malachite-10);
+  background: var(--color-green-light);
 }
 
 /* totals above the checkout button */
