@@ -142,7 +142,9 @@ export async function resolveAddress(
   const zip = get("postal_code"); // five digits, as the shop's forms take it
   const state = get("administrative_area_level_1");
   return {
-    street: [number, route].filter(Boolean).join(" "),
+    // never empty: when Google gives no number/street parts, the line that was
+    // picked («1215 1/2 East Franklin Street») goes into the field as it is
+    street: [number, route].filter(Boolean).join(" ") || s.main,
     unit: get("subpremise"),
     city:
       get("locality") ||
