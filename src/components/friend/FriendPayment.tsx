@@ -35,6 +35,7 @@ import { OrderSummary, ShippingFacts } from "./OrderParts";
 import { StateCombobox } from "./StateCombobox";
 import co from "../landing/LandingCheckout.module.css";
 import styles from "./FriendCheckout.module.css";
+import sheet from "./PaySheet.module.css";
 
 const Chevron = () => (
   <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -581,20 +582,20 @@ export function FriendPayment() {
         {sheetShown && (
           <>
             <div
-              className={styles.sheetBackdrop}
+              className={sheet.sheetBackdrop}
               onClick={() => setSheetOpen(false)}
             />
             <div
-              className={styles.sheet}
+              className={sheet.sheet}
               role="dialog"
               aria-modal="true"
               aria-label="Pay by card"
             >
-              <div className={styles.sheetHead}>
-                <span className={styles.sheetGrip} aria-hidden="true" />
+              <div className={sheet.sheetHead}>
+                <span className={sheet.sheetGrip} aria-hidden="true" />
                 <button
                   type="button"
-                  className={styles.sheetClose}
+                  className={sheet.sheetClose}
                   aria-label="Close"
                   onClick={() => setSheetOpen(false)}
                 >
@@ -608,12 +609,12 @@ export function FriendPayment() {
                   </svg>
                 </button>
               </div>
-              <div className={styles.sheetBody}>
+              <div className={sheet.sheetBody}>
                 {general && <p className={styles.error}>{general}</p>}
                 {cardSections}
                 {shopNote}
               </div>
-              <div className={styles.sheetFoot}>
+              <div className={sheet.sheetFoot}>
                 {payButton}
                 {bindingNote}
               </div>
