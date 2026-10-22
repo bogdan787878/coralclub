@@ -49,14 +49,6 @@ const Chevron = () => (
   </svg>
 );
 
-const PHONE = "(max-width: 767px)";
-const subscribePhone = (cb: () => void) => {
-  const m = window.matchMedia(PHONE);
-  m.addEventListener("change", cb);
-  return () => m.removeEventListener("change", cb);
-};
-const onPhone = () => window.matchMedia(PHONE).matches;
-
 /** The shop's field names → ours, for the messages it sends back. */
 const FIELD_OF: Record<string, string> = {
   card_number: "number",
@@ -85,11 +77,28 @@ export function FriendPayment() {
   const kind = params.get("kind");
   const paypal = kind === "paypal";
   const transfer = kind === "transfer";
+  // inside the bottom sheet of the checkout: just the card form, no page around it
+  const embed = params.get("embed") === "1";
 
   const live = useSyncExternalStore<boolean | null>(
     () => () => {},
     onShopOrigin,
     () => null,
+  );
+
+  const toDone = useCallback(
+    (id: string) => {
+      if (embed && window.parent !== window) {
+        // the sheet's page (the checkout) moves on to the confirmation
+        window.parent.postMessage(
+          { type: "cc-paid", order: id },
+          window.location.origin,
+        );
+      } else {
+        window.location.assign(asset(`/friend/checkout/done/?order=${id}`));
+      }
+    },
+    [embed],
   );
 
   // the order as the shop sees it (amount to pay, shipping address)
@@ -103,9 +112,7 @@ export function FriendPayment() {
       if (!alive) return;
       if ("order" in r) {
         if (r.order.paid) {
-          window.location.assign(
-            asset(`/friend/checkout/done/?order=${r.order.id}`),
-          );
+          toDone(r.order.id);
           return;
         }
         if (r.order.canceled) {
@@ -124,7 +131,7 @@ export function FriendPayment() {
     return () => {
       alive = false;
     };
-  }, [live, orderId]);
+  }, [live, orderId, toDone]);
 
   // PayPal: the address the shop prepared for this order
   const [paypalLink, setPaypalLink] = useState<string | null | undefined>(
@@ -154,12 +161,11 @@ export function FriendPayment() {
   const [number, setNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvc, setCvc] = useState("");
-  // the name on the card starts as the order's recipient (the shopper can
-  // change it); typed text always wins
-  const [nameInput, setName] = useState<string | null>(null);
-  const name =
-    nameInput ??
-    (order?.recipient ?? "").trim().replace(/\s+/g, " ").toUpperCase();
+  // the name on the card is the order's recipient
+  const name = (order?.recipient ?? "")
+    .trim()
+    .replace(/\s+/g, " ")
+    .toUpperCase();
   // «same as shipping address» is off for a pick-up order: the card's billing
   // address is not the address of the pick-up point (as in the shop's own form)
   const [sameInput, setSame] = useState<boolean | null>(null);
@@ -172,24 +178,6 @@ export function FriendPayment() {
   const [shopErrors, setShopErrors] = useState<Record<string, string>>({});
   const [general, setGeneral] = useState("");
   const [busy, setBusy] = useState(false);
-
-  // on a phone the card and the billing address open in a bottom sheet
-  const phone = useSyncExternalStore(subscribePhone, onPhone, () => false);
-  const [sheetOpen, setSheetOpen] = useState(false);
-  const sheetShown = phone && sheetOpen;
-  useEffect(() => {
-    if (!sheetShown) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSheetOpen(false);
-    };
-    document.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
-    };
-  }, [sheetShown]);
 
   const cardErrors: CardErrors = checkCard({ number, expiry, cvc, name });
   const billingErrors: Record<string, string> = same
@@ -212,9 +200,7 @@ export function FriendPayment() {
     (r: PayResult) => {
       if (r.success) {
         // our own confirmation page (with the invitation to join the club)
-        window.location.assign(
-          asset(`/friend/checkout/done/?order=${orderId}`),
-        );
+        toDone(orderId);
         return true;
       }
       if (r.deauth) {
@@ -225,11 +211,16 @@ export function FriendPayment() {
         const f: Record<string, string> = {};
         for (const [k, v] of Object.entries(r.fields)) f[FIELD_OF[k] ?? k] = v;
         setShopErrors(f);
+        // the name on the card has no field of its own: say it above the form
+        if (f.name && !r.general) {
+          setGeneral(f.name);
+          return false;
+        }
       }
       setGeneral(r.general ?? "");
       return false;
     },
-    [orderId],
+    [orderId, toDone],
   );
 
   async function payCard() {
@@ -292,7 +283,6 @@ export function FriendPayment() {
   const cardSections = (
     <>
       <section className={styles.section} aria-label="Card">
-        <h2 className={styles.h2}>Card details</h2>
         <FloatInput
           {...field("number")}
           label="Card number"
@@ -325,22 +315,10 @@ export function FriendPayment() {
             maxLength={4}
           />
         </div>
-        <FloatInput
-          {...field("name")}
-          label="Name on card"
-          placeholder="JANE DOE"
-          value={name}
-          onChange={setName}
-          autoComplete="cc-name"
-        />
       </section>
 
       <section className={styles.section}>
         <h2 className={styles.h2}>Billing address</h2>
-        <p className={styles.sub}>
-          For a successful payment, the address must match the one on your card
-          statement.
-        </p>
         <label className={co.check}>
           <input
             type="checkbox"
@@ -435,6 +413,35 @@ export function FriendPayment() {
 
   const summary = order && <OrderSummary order={order} mode="pay" />;
 
+  if (embed) {
+    return (
+      <div className={sheet.embed}>
+        {!orderId || live === false || lost ? (
+          <p className={styles.host}>
+            {lost || "This payment can’t be opened here."}
+          </p>
+        ) : (
+          <>
+            {general && <p className={styles.error}>{general}</p>}
+            {gpay && (
+              <section className={styles.section}>
+                <div ref={gpayHost} className={styles.gpay} aria-busy={busy} />
+                <p className={styles.or}>
+                  <span>or pay by card</span>
+                </p>
+              </section>
+            )}
+            {cardSections}
+            <div className={sheet.embedFoot}>
+              {payButton}
+              {bindingNote}
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="appShell">
       <main className={styles.page} data-analytics-location="checkout">
@@ -490,9 +497,7 @@ export function FriendPayment() {
                 </p>
               </section>
 
-              {general && !sheetShown && (
-                <p className={styles.error}>{general}</p>
-              )}
+              {general && <p className={styles.error}>{general}</p>}
 
               {transfer ? (
                 <section className={styles.section}>
@@ -550,23 +555,10 @@ export function FriendPayment() {
                     </section>
                   )}
 
-                  {phone ? (
-                    <button
-                      type="button"
-                      className={styles.pay}
-                      onClick={() => setSheetOpen(true)}
-                      disabled={!order}
-                    >
-                      Enter card details
-                    </button>
-                  ) : (
-                    <>
-                      {cardSections}
-                      {payButton}
-                      {bindingNote}
-                      {shopNote}
-                    </>
-                  )}
+                  {cardSections}
+                  {payButton}
+                  {bindingNote}
+                  {shopNote}
                 </>
               )}
             </div>
@@ -577,49 +569,6 @@ export function FriendPayment() {
               </aside>
             )}
           </div>
-        )}
-
-        {sheetShown && (
-          <>
-            <div
-              className={sheet.sheetBackdrop}
-              onClick={() => setSheetOpen(false)}
-            />
-            <div
-              className={sheet.sheet}
-              role="dialog"
-              aria-modal="true"
-              aria-label="Pay by card"
-            >
-              <div className={sheet.sheetHead}>
-                <span className={sheet.sheetGrip} aria-hidden="true" />
-                <button
-                  type="button"
-                  className={sheet.sheetClose}
-                  aria-label="Close"
-                  onClick={() => setSheetOpen(false)}
-                >
-                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path
-                      d="M3.5 3.5l9 9m0-9l-9 9"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <div className={sheet.sheetBody}>
-                {general && <p className={styles.error}>{general}</p>}
-                {cardSections}
-                {shopNote}
-              </div>
-              <div className={sheet.sheetFoot}>
-                {payButton}
-                {bindingNote}
-              </div>
-            </div>
-          </>
         )}
       </main>
     </div>

@@ -13,7 +13,7 @@
   z-index: 101;
   display: flex;
   flex-direction: column;
-  max-height: 92dvh;
+  height: min(92dvh, 520px);
   border-radius: 20px 20px 0 0;
   background: var(--color-surface);
   animation: fc-rise 280ms var(--ease-standard);
@@ -56,26 +56,54 @@
   height: 16px;
 }
 
-.sheetBody {
+.frame {
   flex: 1 1 auto;
   min-height: 0;
+  width: 100%;
+  border: 0;
+  background: var(--color-surface);
+}
+
+/* the page inside the frame */
+.embed {
   display: flex;
   flex-direction: column;
   gap: var(--space-32);
-  padding: var(--space-12) var(--page-padding-inline) var(--space-24);
-  overflow-y: auto;
-  overscroll-behavior: contain;
+  min-height: 100dvh;
+  padding: var(--space-8) var(--page-padding-inline) 0;
+  background: var(--color-surface);
 }
 
-.sheetFoot {
-  flex: none;
+.embedFoot {
+  position: sticky;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-8);
-  padding: var(--space-12) var(--page-padding-inline)
-    max(var(--space-16), env(safe-area-inset-bottom));
-  border-top: 1px solid var(--color-border);
+  margin-top: auto;
+  padding: var(--space-12) 0 max(var(--space-16), env(safe-area-inset-bottom));
   background: var(--color-surface);
+}
+
+@media (min-width: 768px) {
+  .sheet {
+    inset: 50% auto auto 50%;
+    width: 480px;
+    border-radius: 20px;
+    transform: translate(-50%, -50%);
+    animation: fc-pop 220ms var(--ease-standard);
+  }
+
+  .sheetGrip {
+    display: none;
+  }
+}
+
+@keyframes fc-pop {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+  }
 }
 
 @keyframes fc-rise {
