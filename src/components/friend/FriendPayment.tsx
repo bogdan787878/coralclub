@@ -272,7 +272,6 @@ export function FriendPayment() {
 
   const shopPage = `/order/payment/${orderId}/${encodeURIComponent(paySystemId)}/?new_checkout=1`;
   const total = order ? formatMoney(Number(order.amount)) : "";
-  const shopPageChange = shopPage;
 
   const field = (key: string) => ({
     name: key,
@@ -396,19 +395,21 @@ export function FriendPayment() {
       {busy ? "Processing…" : `Pay ${total}`}
     </button>
   );
-  const bindingNote = (
-    <p className={styles.note}>
-      By clicking Pay you place a binding order with an obligation to pay.
-    </p>
-  );
-  const shopNote = (
-    <p className={styles.note}>
-      Your card details go straight to the shop’s payment system over an
-      encrypted connection and are not stored on this page.{" "}
-      <a href={shopPage} target="_blank" rel="noopener noreferrer">
-        Use the shop’s own payment page instead
-      </a>
-    </p>
+  // the order stays as it is; the shopper picks another way to pay at the checkout
+  const changeMethod = embed ? (
+    <button
+      type="button"
+      className={sheet.ghost}
+      onClick={() =>
+        window.parent.postMessage({ type: "cc-change" }, window.location.origin)
+      }
+    >
+      Change payment method
+    </button>
+  ) : (
+    <Link className={sheet.ghost} href="/friend/checkout/">
+      Change payment method
+    </Link>
   );
 
   const summary = order && <OrderSummary order={order} mode="pay" />;
@@ -438,7 +439,7 @@ export function FriendPayment() {
             {cardSections}
             <div className={sheet.embedFoot}>
               {payButton}
-              {bindingNote}
+              {changeMethod}
             </div>
           </>
         )}
@@ -488,19 +489,6 @@ export function FriendPayment() {
                 </section>
               )}
 
-              <section className={styles.section}>
-                <h2 className={styles.h2}>Payment</h2>
-                <p className={styles.sub}>
-                  {paypal
-                    ? "PayPal"
-                    : transfer
-                      ? "Bank transfer"
-                      : "Credit card"}{" "}
-                  · all transactions are secure and encrypted.{" "}
-                  <a href={shopPageChange}>Change payment method</a>
-                </p>
-              </section>
-
               {general && (
                 <p className={styles.error} role="alert">
                   {general}
@@ -525,6 +513,7 @@ export function FriendPayment() {
                   >
                     Show the bank details
                   </a>
+                  {changeMethod}
                 </section>
               ) : paypal ? (
                 <section className={styles.section}>
@@ -543,6 +532,7 @@ export function FriendPayment() {
                       ? "Preparing PayPal…"
                       : "Continue to PayPal"}
                   </button>
+                  {changeMethod}
                   <p className={styles.note}>
                     You’ll finish the payment on PayPal and come back to the
                     shop.
@@ -565,8 +555,7 @@ export function FriendPayment() {
 
                   {cardSections}
                   {payButton}
-                  {bindingNote}
-                  {shopNote}
+                  {changeMethod}
                 </>
               )}
             </div>

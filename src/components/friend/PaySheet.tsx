@@ -15,9 +15,11 @@ import styles from "./PaySheet.module.css";
 export function PaySheet({
   src,
   onClose,
+  onChangeMethod,
 }: {
   src: string;
   onClose: () => void;
+  onChangeMethod: () => void;
 }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -26,6 +28,10 @@ export function PaySheet({
     const onMessage = (e: MessageEvent) => {
       if (e.origin !== window.location.origin) return;
       const d = e.data as { type?: string; order?: string } | null;
+      if (d?.type === "cc-change") {
+        onChangeMethod();
+        return;
+      }
       if (d?.type !== "cc-paid") return;
       const id = String(d.order ?? "").replace(/\D/g, "");
       if (id)
@@ -40,7 +46,7 @@ export function PaySheet({
       window.removeEventListener("message", onMessage);
       document.body.style.overflow = prev;
     };
-  }, [onClose]);
+  }, [onClose, onChangeMethod]);
 
   return (
     <>

@@ -64,6 +64,28 @@
   background: var(--color-surface);
 }
 
+/* a quiet second action under the main button */
+.ghost {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.ghost:hover {
+  background: var(--color-neutral-30);
+}
+
 /* the page inside the frame */
 .embed {
   display: flex;

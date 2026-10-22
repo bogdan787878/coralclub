@@ -1276,7 +1276,7 @@ export function FriendCheckout() {
                 )}
               </section>
 
-              <section className={styles.section}>
+              <section className={styles.section} id="payment-method">
                 <h2 className={styles.h2}>Payment</h2>
                 <p className={styles.sub}>
                   All transactions are secure and encrypted.
@@ -1520,6 +1520,13 @@ export function FriendCheckout() {
               `/friend/checkout/pay/?order=${activePay.id}&pm=${encodeURIComponent(activePay.pm)}&kind=card&embed=1`,
             )}
             onClose={() => setSheetOpen(false)}
+            onChangeMethod={() => {
+              // back to the payment methods of the checkout
+              setSheetOpen(false);
+              document
+                .getElementById("payment-method")
+                ?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
           />
         )}
       </main>
