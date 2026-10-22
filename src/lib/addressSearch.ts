@@ -161,3 +161,16 @@ export async function resolveAddress(
     zip,
   };
 }
+
+/**
+ * One «Street and house number» line → the two fields the shop wants:
+ * "Friedrichstraße 43" → street + "43"; "Hauptstr. 5 a", "Bahnhofstr. 12-14"
+ * and "Straße des 17. Juni 100" split at the trailing number.
+ */
+export function splitStreet(line: string): { street: string; build: string } {
+  const text = line.trim().replace(/\s+/g, " ");
+  const m = text.match(
+    /^(.+?),?\s+(\d+(?:\s?[a-zA-Z])?(?:\s?[-–/]\s?\d+(?:\s?[a-zA-Z])?)?)$/,
+  );
+  return m ? { street: m[1], build: m[2] } : { street: text, build: "" };
+}
