@@ -48,6 +48,14 @@ const Chevron = () => (
   </svg>
 );
 
+const PHONE = "(max-width: 767px)";
+const subscribePhone = (cb: () => void) => {
+  const m = window.matchMedia(PHONE);
+  m.addEventListener("change", cb);
+  return () => m.removeEventListener("change", cb);
+};
+const onPhone = () => window.matchMedia(PHONE).matches;
+
 /** The shop's field names → ours, for the messages it sends back. */
 const FIELD_OF: Record<string, string> = {
   card_number: "number",
@@ -164,6 +172,24 @@ export function FriendPayment() {
   const [general, setGeneral] = useState("");
   const [busy, setBusy] = useState(false);
 
+  // on a phone the card and the billing address open in a bottom sheet
+  const phone = useSyncExternalStore(subscribePhone, onPhone, () => false);
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const sheetShown = phone && sheetOpen;
+  useEffect(() => {
+    if (!sheetShown) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSheetOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [sheetShown]);
+
   const cardErrors: CardErrors = checkCard({ number, expiry, cvc, name });
   const billingErrors: Record<string, string> = same
     ? {}
@@ -256,13 +282,157 @@ export function FriendPayment() {
   const total = order ? formatMoney(Number(order.amount)) : "";
   const shopPageChange = shopPage;
 
-  const summary = order && <OrderSummary order={order} mode="pay" />;
-
   const field = (key: string) => ({
     name: key,
     error: !!shown(key),
     hint: shown(key),
   });
+
+  const cardSections = (
+    <>
+      <section className={styles.section} aria-label="Card">
+        <h2 className={styles.h2}>Card details</h2>
+        <FloatInput
+          {...field("number")}
+          label="Card number"
+          placeholder="1234 1234 1234 1234"
+          value={number}
+          onChange={(v) => setNumber(formatCardNumber(v))}
+          inputMode="numeric"
+          autoComplete="cc-number"
+          maxLength={23}
+        />
+        <div className={styles.row}>
+          <FloatInput
+            {...field("expiry")}
+            label="Expiration date"
+            placeholder="MM/YY"
+            value={expiry}
+            onChange={(v) => setExpiry(formatExpiry(v, expiry))}
+            inputMode="numeric"
+            autoComplete="cc-exp"
+            maxLength={5}
+          />
+          <FloatInput
+            {...field("cvc")}
+            label="Security code"
+            placeholder="CVC"
+            value={cvc}
+            onChange={(v) => setCvc(v.replace(/\D/g, "").slice(0, 4))}
+            inputMode="numeric"
+            autoComplete="cc-csc"
+            maxLength={4}
+          />
+        </div>
+        <FloatInput
+          {...field("name")}
+          label="Name on card"
+          placeholder="JANE DOE"
+          value={name}
+          onChange={setName}
+          autoComplete="cc-name"
+        />
+      </section>
+
+      <section className={styles.section}>
+        <h2 className={styles.h2}>Billing address</h2>
+        <p className={styles.sub}>
+          For a successful payment, the address must match the one on your card
+          statement.
+        </p>
+        <label className={co.check}>
+          <input
+            type="checkbox"
+            checked={same}
+            onChange={(e) => setSame(e.target.checked)}
+          />
+          <span>Same as shipping address</span>
+        </label>
+        {same && order && (
+          <p className={styles.host}>
+            {[
+              order.street,
+              order.city,
+              [order.area, order.zip].filter(Boolean).join(" "),
+            ]
+              .filter(Boolean)
+              .join(", ")}
+          </p>
+        )}
+        {!same && (
+          <>
+            <AddressSearch
+              {...field("street")}
+              label="Street and house number"
+              placeholder="Friedrichstraße 43"
+              value={street}
+              onChange={setStreet}
+              onPick={(a) => {
+                setStreet([a.street, a.houseNumber].filter(Boolean).join(" "));
+                setCity(a.city);
+                setState(a.state);
+                setZip(a.zip);
+              }}
+              autoComplete="billing address-line1"
+            />
+            <div className={styles.row}>
+              <FloatInput
+                {...field("zip")}
+                label="Postcode (PLZ)"
+                value={zip}
+                onChange={setZip}
+                inputMode="numeric"
+                autoComplete="billing postal-code"
+              />
+              <FloatInput
+                {...field("city")}
+                label="City"
+                value={city}
+                onChange={setCity}
+                autoComplete="billing address-level2"
+              />
+            </div>
+            <StateCombobox
+              options={REGIONS}
+              label="State (Bundesland)"
+              value={state}
+              onChange={setState}
+              name="state"
+              error={!!shown("state")}
+              hint={shown("state")}
+            />
+          </>
+        )}
+      </section>
+    </>
+  );
+  const payButton = (
+    <button
+      type="button"
+      className={styles.pay}
+      disabled={busy || !order}
+      onClick={payCard}
+      data-analytics-id="payment_pay_btn"
+    >
+      {busy ? "Processing…" : `Pay ${total}`}
+    </button>
+  );
+  const bindingNote = (
+    <p className={styles.note}>
+      By clicking Pay you place a binding order with an obligation to pay.
+    </p>
+  );
+  const shopNote = (
+    <p className={styles.note}>
+      Your card details go straight to the shop’s payment system over an
+      encrypted connection and are not stored on this page.{" "}
+      <a href={shopPage} target="_blank" rel="noopener noreferrer">
+        Use the shop’s own payment page instead
+      </a>
+    </p>
+  );
+
+  const summary = order && <OrderSummary order={order} mode="pay" />;
 
   return (
     <div className="appShell">
@@ -299,7 +469,7 @@ export function FriendPayment() {
             <div className={styles.main}>
               <h1 className={styles.title}>Order #{orderId}</h1>
 
-              {order && (
+              {order && (paypal || transfer) && (
                 <section className={styles.section}>
                   <h2 className={styles.h2}>Shipping information</h2>
                   <ShippingFacts order={order} />
@@ -319,7 +489,9 @@ export function FriendPayment() {
                 </p>
               </section>
 
-              {general && <p className={styles.error}>{general}</p>}
+              {general && !sheetShown && (
+                <p className={styles.error}>{general}</p>
+              )}
 
               {transfer ? (
                 <section className={styles.section}>
@@ -377,152 +549,23 @@ export function FriendPayment() {
                     </section>
                   )}
 
-                  <section className={styles.section} aria-label="Card">
-                    <h2 className={styles.h2}>Card details</h2>
-                    <FloatInput
-                      {...field("number")}
-                      label="Card number"
-                      placeholder="1234 1234 1234 1234"
-                      value={number}
-                      onChange={(v) => setNumber(formatCardNumber(v))}
-                      inputMode="numeric"
-                      autoComplete="cc-number"
-                      maxLength={23}
-                    />
-                    <div className={styles.row}>
-                      <FloatInput
-                        {...field("expiry")}
-                        label="Expiration date"
-                        placeholder="MM/YY"
-                        value={expiry}
-                        onChange={(v) => setExpiry(formatExpiry(v, expiry))}
-                        inputMode="numeric"
-                        autoComplete="cc-exp"
-                        maxLength={5}
-                      />
-                      <FloatInput
-                        {...field("cvc")}
-                        label="Security code"
-                        placeholder="CVC"
-                        value={cvc}
-                        onChange={(v) =>
-                          setCvc(v.replace(/\D/g, "").slice(0, 4))
-                        }
-                        inputMode="numeric"
-                        autoComplete="cc-csc"
-                        maxLength={4}
-                      />
-                    </div>
-                    <FloatInput
-                      {...field("name")}
-                      label="Name on card"
-                      placeholder="JANE DOE"
-                      value={name}
-                      onChange={setName}
-                      autoComplete="cc-name"
-                    />
-                  </section>
-
-                  <section className={styles.section}>
-                    <h2 className={styles.h2}>Billing address</h2>
-                    <p className={styles.sub}>
-                      For a successful payment, the address must match the one
-                      on your card statement.
-                    </p>
-                    <label className={co.check}>
-                      <input
-                        type="checkbox"
-                        checked={same}
-                        onChange={(e) => setSame(e.target.checked)}
-                      />
-                      <span>Same as shipping address</span>
-                    </label>
-                    {same && order && (
-                      <p className={styles.host}>
-                        {[
-                          order.street,
-                          order.city,
-                          [order.area, order.zip].filter(Boolean).join(" "),
-                        ]
-                          .filter(Boolean)
-                          .join(", ")}
-                      </p>
-                    )}
-                    {!same && (
-                      <>
-                        <AddressSearch
-                          {...field("street")}
-                          label="Street and house number"
-                          placeholder="Friedrichstraße 43"
-                          value={street}
-                          onChange={setStreet}
-                          onPick={(a) => {
-                            setStreet(
-                              [a.street, a.houseNumber]
-                                .filter(Boolean)
-                                .join(" "),
-                            );
-                            setCity(a.city);
-                            setState(a.state);
-                            setZip(a.zip);
-                          }}
-                          autoComplete="billing address-line1"
-                        />
-                        <div className={styles.row}>
-                          <FloatInput
-                            {...field("zip")}
-                            label="Postcode (PLZ)"
-                            value={zip}
-                            onChange={setZip}
-                            inputMode="numeric"
-                            autoComplete="billing postal-code"
-                          />
-                          <FloatInput
-                            {...field("city")}
-                            label="City"
-                            value={city}
-                            onChange={setCity}
-                            autoComplete="billing address-level2"
-                          />
-                        </div>
-                        <StateCombobox
-                          options={REGIONS}
-                          label="State (Bundesland)"
-                          value={state}
-                          onChange={setState}
-                          name="state"
-                          error={!!shown("state")}
-                          hint={shown("state")}
-                        />
-                      </>
-                    )}
-                  </section>
-
-                  <button
-                    type="button"
-                    className={styles.pay}
-                    disabled={busy || !order}
-                    onClick={payCard}
-                    data-analytics-id="payment_pay_btn"
-                  >
-                    {busy ? "Processing…" : `Pay ${total}`}
-                  </button>
-                  <p className={styles.note}>
-                    By clicking Pay you place a binding order with an obligation
-                    to pay.
-                  </p>
-                  <p className={styles.note}>
-                    Your card details go straight to the shop’s payment system
-                    over an encrypted connection and are not stored on this
-                    page.{" "}
-                    <a
-                      href={shopPage}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                  {phone ? (
+                    <button
+                      type="button"
+                      className={styles.pay}
+                      onClick={() => setSheetOpen(true)}
+                      disabled={!order}
                     >
-                      Use the shop’s own payment page instead
-                    </a>
-                  </p>
+                      Enter card details
+                    </button>
+                  ) : (
+                    <>
+                      {cardSections}
+                      {payButton}
+                      {bindingNote}
+                      {shopNote}
+                    </>
+                  )}
                 </>
               )}
             </div>
@@ -533,6 +576,52 @@ export function FriendPayment() {
               </aside>
             )}
           </div>
+        )}
+
+        {sheetShown && (
+          <>
+            <div
+              className={styles.sheetBackdrop}
+              onClick={() => setSheetOpen(false)}
+            />
+            <div
+              className={styles.sheet}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="pay-sheet-title"
+            >
+              <div className={styles.sheetHead}>
+                <span className={styles.sheetGrip} aria-hidden="true" />
+                <h2 id="pay-sheet-title" className={styles.sheetTitle}>
+                  Pay by card
+                </h2>
+                <button
+                  type="button"
+                  className={styles.sheetClose}
+                  aria-label="Close"
+                  onClick={() => setSheetOpen(false)}
+                >
+                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path
+                      d="M3.5 3.5l9 9m0-9l-9 9"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div className={styles.sheetBody}>
+                {general && <p className={styles.error}>{general}</p>}
+                {cardSections}
+                {shopNote}
+              </div>
+              <div className={styles.sheetFoot}>
+                {payButton}
+                {bindingNote}
+              </div>
+            </div>
+          </>
         )}
       </main>
     </div>

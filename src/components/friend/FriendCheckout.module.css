@@ -871,3 +871,110 @@ details[open] > .sumHead svg {
   font-weight: var(--font-weight-medium);
   overflow-wrap: anywhere;
 }
+
+/* ---- bottom sheet (card and billing address on a phone) ---- */
+.sheetBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 32, 34, 0.45);
+  animation: fc-fade var(--duration-base) var(--ease-standard);
+}
+
+.sheet {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  max-height: 92dvh;
+  border-radius: 20px 20px 0 0;
+  background: var(--color-surface);
+  animation: fc-rise 280ms var(--ease-standard);
+}
+
+.sheetHead {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-24) var(--page-padding-inline) var(--space-12);
+}
+
+.sheetGrip {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 36px;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 32, 34, 0.2);
+  transform: translateX(-50%);
+}
+
+.sheetTitle {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.sheetClose {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-neutral-30);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.sheetClose svg {
+  width: 16px;
+  height: 16px;
+}
+
+.sheetBody {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+  padding: var(--space-12) var(--page-padding-inline) var(--space-24);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.sheetFoot {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-12) var(--page-padding-inline)
+    max(var(--space-16), env(safe-area-inset-bottom));
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+@keyframes fc-rise {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes fc-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet,
+  .sheetBackdrop {
+    animation: none;
+  }
+}
