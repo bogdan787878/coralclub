@@ -637,6 +637,7 @@ export function FriendCheckout() {
               : "card";
         if (kind === "card" && MARKET.cardForm === "shop") {
           // the shop's gateway has its own card page: straight there, no page of ours in between
+          // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- a page of the shop, not of this app
           window.location.assign(
             `/order/payment/${encodeURIComponent(String(data.result))}/${encodeURIComponent(paymentId)}/?new_checkout=1`,
           );
