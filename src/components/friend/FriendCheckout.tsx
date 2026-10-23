@@ -94,6 +94,9 @@ const paymentTypeCode = (name: string) =>
       ? "bank_transfer"
       : "bank_card";
 
+/** Latin letters, digits and the usual symbols only: a look-alike Cyrillic letter in an address breaks the payment gateway. */
+const EMAIL_RE = /^[\x21-\x7E]+@[\x21-\x7E]+\.[\x21-\x7E]+$/;
+
 const Chevron = () => (
   <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
     <path
@@ -517,7 +520,7 @@ export function FriendCheckout() {
 
   // required fields in page order — the first empty one gets the shake
   const required: { key: string; bad: boolean }[] = [
-    { key: "email", bad: !/\S+@\S+\.\S+/.test(email) },
+    { key: "email", bad: !EMAIL_RE.test(email.trim()) },
     { key: "first", bad: first.trim().length < 1 },
     { key: "last", bad: last.trim().length < 1 },
     { key: "phone", bad: digits.length < 6 },
@@ -539,6 +542,7 @@ export function FriendCheckout() {
     { key: "terms", bad: !acceptTerms },
     { key: "data", bad: !agreeData },
   ];
+  const nonLatinEmail = /[^\x00-\x7F]/.test(email);
   const canOrder = deliveryId !== "" && paymentId !== "";
 
   function pointAt(key: string) {
@@ -876,6 +880,12 @@ export function FriendCheckout() {
                 <h2 className={styles.h2}>Contact</h2>
                 <FloatInput
                   {...field("email")}
+                  error={nonLatinEmail}
+                  hint={
+                    nonLatinEmail
+                      ? "Use Latin letters only (a look-alike letter from another alphabet will not work)"
+                      : undefined
+                  }
                   label="Email"
                   placeholder="name@example.com"
                   value={email}
