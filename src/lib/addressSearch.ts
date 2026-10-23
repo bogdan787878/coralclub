@@ -9,7 +9,7 @@
  * Only a typed address and Google's own session token leave the page, and
  * only after the shopper has typed a few characters.
  */
-import { MARKET, REGIONS } from "./market";
+import { MARKET, NUMBER_FIRST, REGIONS } from "./market";
 
 const KEY = process.env.NEXT_PUBLIC_GOOGLE_PLACES_KEY ?? "";
 
@@ -112,6 +112,7 @@ export async function newSession(): Promise<unknown> {
 export async function suggestAddresses(
   input: string,
   session: unknown,
+  country: string = MARKET.code,
 ): Promise<AddressSuggestion[]> {
   const streets = !/\d/.test(input);
   const { AutocompleteSuggestion } = await load();
@@ -119,8 +120,8 @@ export async function suggestAddresses(
     await AutocompleteSuggestion.fetchAutocompleteSuggestions({
       input,
       sessionToken: session,
-      includedRegionCodes: [MARKET.placesRegion],
-      language: MARKET.placesLanguage,
+      includedRegionCodes: [country.toLowerCase()],
+      language: country === MARKET.code ? MARKET.placesLanguage : "en",
       // a street alone has no postcode and cannot be delivered to: it is only
       // a step towards the address with its number
       includedPrimaryTypes: streets
@@ -157,6 +158,7 @@ export async function resolveStreet(
 /** The chosen suggestion → the fields of the form. */
 export async function resolveAddress(
   s: AddressSuggestion,
+  country: string = MARKET.code,
 ): Promise<ResolvedAddress> {
   const place = (s.ref as PlacePrediction).toPlace();
   await place.fetchFields({ fields: ["addressComponents"] });
@@ -181,20 +183,40 @@ export async function resolveAddress(
       get("sublocality_level_1") ||
       get("sublocality") ||
       get("neighborhood"),
-    state: REGIONS.find((x) => x === state) ?? "",
+    // the market's own country: the shop's list of Länder; abroad: as Google names it
+    state:
+      country === MARKET.code
+        ? (REGIONS.find((x) => x === state) ?? "")
+        : state,
     zip,
   };
+}
+
+/** «Friedrichstraße» + «43» → the line as the country writes it («Friedrichstraße 43», «10 Downing Street»). */
+export function streetLine(
+  country: string,
+  street: string,
+  number: string,
+): string {
+  const parts = NUMBER_FIRST.has(country) ? [number, street] : [street, number];
+  return parts.filter(Boolean).join(" ");
 }
 
 /**
  * One «Street and house number» line → the two fields the shop wants:
  * "Friedrichstraße 43" → street + "43"; "Hauptstr. 5 a", "Bahnhofstr. 12-14"
- * and "Straße des 17. Juni 100" split at the trailing number.
+ * and "Straße des 17. Juni 100" split at the trailing number; «10 Downing
+ * Street» at the leading one.
  */
 export function splitStreet(line: string): { street: string; build: string } {
   const text = line.trim().replace(/\s+/g, " ");
-  const m = text.match(
+  const tail = text.match(
     /^(.+?),?\s+(\d+(?:\s?[a-zA-Z])?(?:\s?[-–/]\s?\d+(?:\s?[a-zA-Z])?)?)$/,
   );
-  return m ? { street: m[1], build: m[2] } : { street: text, build: "" };
+  if (tail) return { street: tail[1], build: tail[2] };
+  const head = text.match(
+    /^(\d+(?:\s?[a-zA-Z])?(?:\s?[-–/]\s?\d+[a-zA-Z]?)?),?\s+(.+)$/,
+  );
+  if (head) return { street: head[2], build: head[1] };
+  return { street: text, build: "" };
 }

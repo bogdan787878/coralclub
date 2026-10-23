@@ -107,7 +107,11 @@ export function StateCombobox({
           spellCheck={false}
           placeholder=" "
           value={shownValue}
-          onFocus={() => setOpen(true)}
+          onFocus={(e) => {
+            // a chosen value is replaced by typing, not appended to
+            e.currentTarget.select();
+            setOpen(true);
+          }}
           onBlur={close}
           onChange={(e) => {
             setQuery(e.target.value);

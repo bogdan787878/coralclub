@@ -66,12 +66,71 @@ export const REGIONS = [
   "Thüringen",
 ] as const;
 
-/** «+49 151 2345678», «0151 2345678», «49151…» → «+491512345678» */
-export function phoneForShop(raw: string): string {
+/** Calling codes of the countries the shop most often ships to (the rest are typed with «+»). */
+const DIAL_CODES: Record<string, string> = {
+  AT: "43",
+  BE: "32",
+  BG: "359",
+  CH: "41",
+  CY: "357",
+  CZ: "420",
+  DE: "49",
+  DK: "45",
+  EE: "372",
+  ES: "34",
+  FI: "358",
+  FR: "33",
+  GB: "44",
+  GR: "30",
+  HR: "385",
+  HU: "36",
+  IE: "353",
+  IT: "39",
+  LI: "423",
+  LT: "370",
+  LU: "352",
+  LV: "371",
+  MT: "356",
+  NL: "31",
+  NO: "47",
+  PL: "48",
+  PT: "351",
+  RO: "40",
+  SE: "46",
+  SI: "386",
+  SK: "421",
+  US: "1",
+  CA: "1",
+  AU: "61",
+  UA: "380",
+  TR: "90",
+  IL: "972",
+};
+
+/** The countries whose street lines start with the number («10 Downing Street»). */
+export const NUMBER_FIRST = new Set([
+  "US",
+  "CA",
+  "GB",
+  "IE",
+  "AU",
+  "NZ",
+  "FR",
+  "IL",
+]);
+
+/** «+49 151 2345678», «0151 2345678», «49151…» → «+491512345678» (by the country's calling code). */
+export function phoneForShop(
+  raw: string,
+  country: string = MARKET.code,
+): string {
   const digits = raw.replace(/\D/g, "");
   if (raw.trim().startsWith("+")) return `+${digits}`;
   if (digits.startsWith("00")) return `+${digits.slice(2)}`;
-  if (digits.startsWith("0")) return `+${MARKET.phoneCode}${digits.slice(1)}`;
-  if (digits.startsWith(MARKET.phoneCode)) return `+${digits}`;
-  return `+${MARKET.phoneCode}${digits}`;
+  const code = DIAL_CODES[country];
+  // no known code for the country: the number has to be typed with «+»
+  if (!code) return `+${digits}`;
+  if (digits.startsWith("0")) return `+${code}${digits.slice(1)}`;
+  if (digits.startsWith(code)) return `+${digits}`;
+  return `+${code}${digits}`;
 }

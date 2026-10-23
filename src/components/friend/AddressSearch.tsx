@@ -30,6 +30,7 @@ export function AddressSearch({
   error,
   hint,
   autoComplete = "address-line1",
+  country,
 }: {
   value: string;
   onChange: (text: string) => void;
@@ -43,6 +44,8 @@ export function AddressSearch({
   error?: boolean;
   hint?: string;
   autoComplete?: string;
+  /** ISO code of the country to search in (the market's by default) */
+  country?: string;
 }) {
   const id = useId();
   const listId = `${id}-list`;
@@ -74,7 +77,11 @@ export function AddressSearch({
         }
         try {
           session.current ??= newSession();
-          const found = await suggestAddresses(q, await session.current);
+          const found = await suggestAddresses(
+            q,
+            await session.current,
+            country,
+          );
           // an older answer must not overwrite a newer one
           if (mine === seq.current) {
             setItems(found);
@@ -87,7 +94,7 @@ export function AddressSearch({
       q.length < 3 ? 0 : 250,
     );
     return () => clearTimeout(t);
-  }, [value]);
+  }, [value, country]);
 
   const pick = async (s: AddressSuggestion) => {
     if (s.street) {
@@ -105,7 +112,7 @@ export function AddressSearch({
     setOpen(false);
     setItems([]);
     try {
-      const a = await resolveAddress(s);
+      const a = await resolveAddress(s, country);
       onPick(a);
     } catch {
       onChange(s.main);

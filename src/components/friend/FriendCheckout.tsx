@@ -33,7 +33,11 @@ import {
   shopFetch,
 } from "@/lib/shopApi";
 import { AddressSearch } from "./AddressSearch";
-import { addressSearchEnabled, splitStreet } from "@/lib/addressSearch";
+import {
+  addressSearchEnabled,
+  splitStreet,
+  streetLine,
+} from "@/lib/addressSearch";
 import { FloatInput } from "./FloatInput";
 import { CardBadges } from "./PayBadges";
 import { StateCombobox } from "./StateCombobox";
@@ -114,6 +118,7 @@ export function FriendCheckout() {
   // a render can run on a stale snapshot: re-read the cart once on mount
   useEffect(() => refreshCart(), []);
   useEffect(() => pinShopSite(), []);
+
   const { friend, source } = useFriend();
   const refCode = friend?.refCode ?? "";
   const memberId = friend?.memberId ?? "";
@@ -157,6 +162,43 @@ export function FriendCheckout() {
   const addressLine = (st: string, plz: string, town: string) =>
     `${st}, ${plz} ${town}`;
   const [zip, setZip] = useState("");
+  // the country the order goes to: the shop prices delivery and payment by it
+  const [country, setCountry] = useState<string>(MARKET.code);
+  const [countries, setCountries] = useState<Record<string, string>>({
+    [MARKET.code]: MARKET.country,
+  });
+  const countryName = countries[country] ?? MARKET.country;
+  const countryNames = useMemo(
+    () => Object.values(countries).sort((a, b) => a.localeCompare(b)),
+    [countries],
+  );
+
+  // the countries the shop ships to (its own list for this site); asked once
+  // the basket is in, and again a moment later if the shop is not ready yet
+  useEffect(() => {
+    if (!live || ready !== "ok") return;
+    let alive = true;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const ask = (left: number) => {
+      api<{ result?: { COUNTRIES_FILTERED?: Record<string, string> } }>("/init")
+        .then((d) => {
+          if (!alive) return;
+          const list = Object.entries(
+            d.result?.COUNTRIES_FILTERED ?? {},
+          ).filter(([code]) => /^[A-Z]{2}$/.test(code));
+          if (list.length) setCountries(Object.fromEntries(list));
+          else if (left > 0) timer = setTimeout(() => ask(left - 1), 1500);
+        })
+        .catch(() => {
+          if (alive && left > 0) timer = setTimeout(() => ask(left - 1), 1500);
+        });
+    };
+    ask(3);
+    return () => {
+      alive = false;
+      clearTimeout(timer);
+    };
+  }, [live, ready]);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [agreeData, setAgreeData] = useState(false);
 
@@ -255,7 +297,7 @@ export function FriendCheckout() {
     ? state
       ? `${placeCity}|${state}`
       : ""
-    : MARKET.code;
+    : country;
   const deliveryKey = `${cartKey}|${place}`;
   const paymentsKey = `${deliveryKey}|${deliveryId}`;
   const totalsKey = `${paymentsKey}|${paymentId}|${promo}|${pickup ? pointCode : ""}`;
@@ -328,7 +370,7 @@ export function FriendCheckout() {
     if (ready !== "ok" || !place) return;
     let cancelled = false;
     api<{ result?: DeliveryGroup[]; error?: string }>("/delivery", {
-      COUNTRY: MARKET.code,
+      COUNTRY: country,
       CITY: placeCity,
       AREA: placeArea,
     }).then((d) => {
@@ -339,7 +381,11 @@ export function FriendCheckout() {
       setGroups(list);
       setDeliveryFor(deliveryKey);
       setDeliveryErr(
-        list.length ? "" : "No delivery options for this address.",
+        list.length
+          ? ""
+          : MARKET.deliveryNeedsRegion
+            ? "No delivery options for this address."
+            : "No delivery options for this country.",
       );
       const all = list.flatMap((g) => g.ITEMS);
       if (!all.length) {
@@ -351,7 +397,7 @@ export function FriendCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [ready, place, placeCity, placeArea, deliveryKey]);
+  }, [ready, place, country, placeCity, placeArea, deliveryKey]);
 
   // 3 ─ payment methods of the chosen delivery
   useEffect(() => {
@@ -359,7 +405,7 @@ export function FriendCheckout() {
     let cancelled = false;
     api<{ result?: PayMethod[] }>("/payments", {
       deliveryId,
-      COUNTRY: MARKET.code,
+      COUNTRY: country,
       CITY: placeCity,
       AREA: placeArea,
     }).then((p) => {
@@ -377,7 +423,7 @@ export function FriendCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [ready, deliveryId, place, placeCity, placeArea, paymentsKey]);
+  }, [ready, deliveryId, place, country, placeCity, placeArea, paymentsKey]);
 
   // 3b ─ pick-up points near the city (the shop answers per city)
   const pointsKey = `${state}|${city}`;
@@ -385,7 +431,7 @@ export function FriendCheckout() {
     if (ready !== "ok" || !pickup || !state || !city) return;
     let cancelled = false;
     api<{ result?: PickPoint[] }>("/pickpoints", {
-      COUNTRY: MARKET.code,
+      COUNTRY: country,
       CITY: city,
       AREA: state,
     }).then((d) => {
@@ -396,7 +442,7 @@ export function FriendCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [ready, pickup, state, city, pointsKey]);
+  }, [ready, pickup, country, state, city, pointsKey]);
   const pointsLoading = pickup && !!state && !!city && pointsFor !== pointsKey;
   // the shopper's city first, then by city and name; narrowed by the search box
   const visiblePoints = useMemo(() => {
@@ -419,13 +465,29 @@ export function FriendCheckout() {
       );
   }, [points, pointSearch, city]);
 
+  // another country: the address is for the old one, the shop recounts delivery and payment
+  function changeCountry(name: string) {
+    const code = Object.entries(countries).find(([, n]) => n === name)?.[0];
+    if (!code || code === country) return;
+    setCountry(code);
+    setAddress("");
+    setSearchText("");
+    setPicked(false);
+    setApartment("");
+    setSupplementOpen(false);
+    setZip("");
+    setCityDraft("");
+    setCity("");
+    setState("");
+  }
+
   const fio = `${first.trim()} ${last.trim()}`.trim();
   const digits = phone.replace(/\D/g, "");
-  const phoneShop = phoneForShop(phone);
+  const phoneShop = phoneForShop(phone, country);
   const profile = pickup
     ? {
-        COUNTRY: MARKET.code,
-        COUNTRY_NAME: MARKET.country,
+        COUNTRY: country,
+        COUNTRY_NAME: countryName,
         CITY: city || cityForShop,
         AREA: state,
         // what the shop's own checkout sends for a pick-up point
@@ -438,8 +500,8 @@ export function FriendCheckout() {
         PHONE: phoneShop,
       }
     : {
-        COUNTRY: MARKET.code,
-        COUNTRY_NAME: MARKET.country,
+        COUNTRY: country,
+        COUNTRY_NAME: countryName,
         CITY: city,
         AREA: state,
         STREET: street,
@@ -464,7 +526,7 @@ export function FriendCheckout() {
         deliveryId,
         paymentId,
         pickPoint: pickPointParam,
-        COUNTRY: MARKET.code,
+        COUNTRY: country,
         CITY: city,
         AREA: state,
         PROFILE: JSON.parse(profileKey),
@@ -484,6 +546,7 @@ export function FriendCheckout() {
     deliveryId,
     paymentId,
     place,
+    country,
     city,
     state,
     promo,
@@ -503,7 +566,7 @@ export function FriendCheckout() {
     }>("/promo", {
       promo: code,
       deliveryId,
-      COUNTRY: MARKET.code,
+      COUNTRY: country,
       CITY: city,
       AREA: state,
     });
@@ -953,10 +1016,13 @@ export function FriendCheckout() {
                     ))}
                   </div>
                 )}
-                <div className={styles.fixed}>
-                  <span>Country/Region</span>
-                  <strong>{MARKET.country}</strong>
-                </div>
+                <StateCombobox
+                  options={countryNames}
+                  label="Country/Region"
+                  value={countryName}
+                  onChange={changeCountry}
+                  name="country"
+                />
                 {!pickup ? (
                   <>
                     {manual ? (
@@ -977,6 +1043,7 @@ export function FriendCheckout() {
                     ) : (
                       <AddressSearch
                         {...field("address")}
+                        country={country}
                         label="Search address"
                         placeholder="Street, house number, city"
                         value={searchText}
@@ -1000,9 +1067,11 @@ export function FriendCheckout() {
                         }
                         onPick={(a) => {
                           // a pick fills the whole address form in the background
-                          const st = [a.street, a.houseNumber]
-                            .filter(Boolean)
-                            .join(" ");
+                          const st = streetLine(
+                            country,
+                            a.street,
+                            a.houseNumber,
+                          );
                           setAddress(st);
                           setApartment(a.unit);
                           if (a.unit) setSupplementOpen(true);
@@ -1089,15 +1158,25 @@ export function FriendCheckout() {
                             autoComplete="address-level2"
                           />
                         </div>
-                        <StateCombobox
-                          options={REGIONS}
-                          label="State (Bundesland)"
-                          value={state}
-                          onChange={setState}
-                          name="state"
-                          shake={shaking === "state"}
-                          attention={attempted && !state}
-                        />
+                        {country === MARKET.code ? (
+                          <StateCombobox
+                            options={REGIONS}
+                            label="State (Bundesland)"
+                            value={state}
+                            onChange={setState}
+                            name="state"
+                            shake={shaking === "state"}
+                            attention={attempted && !state}
+                          />
+                        ) : (
+                          <FloatInput
+                            {...field("state")}
+                            label="State / region"
+                            value={state}
+                            onChange={setState}
+                            autoComplete="address-level1"
+                          />
+                        )}
                       </>
                     )}
                   </>
