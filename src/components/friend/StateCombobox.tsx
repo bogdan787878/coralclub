@@ -112,6 +112,11 @@ export function StateCombobox({
             e.currentTarget.select();
             setOpen(true);
           }}
+          onClick={(e) => {
+            // clicking the chosen value selects it too, so typing replaces it
+            if (query === null) e.currentTarget.select();
+            setOpen(true);
+          }}
           onBlur={close}
           onChange={(e) => {
             setQuery(e.target.value);

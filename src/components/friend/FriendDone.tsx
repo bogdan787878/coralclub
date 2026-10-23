@@ -9,7 +9,8 @@ import { asset } from "@/lib/asset";
 import { track } from "@/lib/analytics";
 import { summarize } from "@/lib/analyticsRu";
 import { formatMoney } from "@/lib/friendCatalog";
-import { onShopOrigin, pinShopSite } from "@/lib/shopApi";
+import { MARKET } from "@/lib/market";
+import { onShopOrigin, setShopSite } from "@/lib/shopApi";
 import { getPayOrder, type PayOrder } from "@/lib/shopPay";
 import { FriendMemberBlock } from "./FriendMemberBlock";
 import { OrderSummary, ShippingFacts } from "./OrderParts";
@@ -61,6 +62,11 @@ function trackPurchaseOnce(order: PayOrder) {
 export function FriendDone() {
   const params = useSearchParams();
   const orderId = (params.get("order") ?? "").replace(/\D/g, "");
+  // the shop site the order was made on (a country with a site of its own)
+  const siteRaw = params.get("site") ?? "";
+  const siteParam = /^[a-z0-9-]+\.coral\.club$/.test(siteRaw)
+    ? siteRaw
+    : MARKET.site;
 
   const live = useSyncExternalStore<boolean | null>(
     () => () => {},
@@ -74,7 +80,7 @@ export function FriendDone() {
   // lag a moment, so look again a few times
   useEffect(() => {
     if (!live || !orderId) return;
-    pinShopSite();
+    setShopSite(siteParam);
     let alive = true;
     let tries = 0;
     const look = async () => {
@@ -99,7 +105,7 @@ export function FriendDone() {
     return () => {
       alive = false;
     };
-  }, [live, orderId]);
+  }, [live, orderId, siteParam]);
 
   const summary = order && <OrderSummary order={order} mode="done" />;
 

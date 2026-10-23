@@ -19,7 +19,7 @@ import {
 } from "@/lib/cardFormat";
 import { formatMoney } from "@/lib/friendCatalog";
 import { MARKET, REGIONS } from "@/lib/market";
-import { onShopOrigin, pinShopSite } from "@/lib/shopApi";
+import { onShopOrigin, setShopSite } from "@/lib/shopApi";
 import {
   getPayOrder,
   getPayPalLink,
@@ -73,6 +73,11 @@ const FIELD_OF: Record<string, string> = {
 export function FriendPayment() {
   const params = useSearchParams();
   const orderId = (params.get("order") ?? "").replace(/\D/g, "");
+  // the shop site the order was made on (a country with a site of its own)
+  const siteRaw = params.get("site") ?? "";
+  const siteParam = /^[a-z0-9-]+\.coral\.club$/.test(siteRaw)
+    ? siteRaw
+    : MARKET.site;
   const paySystemId = (params.get("pm") ?? "").replace(/[^\w:-]/g, "");
   const kind = params.get("kind");
   const paypal = kind === "paypal";
@@ -84,16 +89,21 @@ export function FriendPayment() {
     () => null,
   );
 
-  const toDone = useCallback((id: string) => {
-    window.location.assign(asset(`/friend/checkout/done/?order=${id}`));
-  }, []);
+  const toDone = useCallback(
+    (id: string) => {
+      window.location.assign(
+        asset(`/friend/checkout/done/?order=${id}&site=${siteParam}`),
+      );
+    },
+    [siteParam],
+  );
 
   // the order as the shop sees it (amount to pay, shipping address)
   const [order, setOrder] = useState<PayOrder | null>(null);
   const [lost, setLost] = useState("");
   useEffect(() => {
     if (!live || !orderId) return;
-    pinShopSite();
+    setShopSite(siteParam);
     let alive = true;
     getPayOrder(orderId).then((r) => {
       if (!alive) return;
@@ -118,7 +128,7 @@ export function FriendPayment() {
     return () => {
       alive = false;
     };
-  }, [live, orderId, toDone]);
+  }, [live, orderId, toDone, siteParam]);
 
   // PayPal: the address the shop prepared for this order
   const [paypalLink, setPaypalLink] = useState<string | null | undefined>(

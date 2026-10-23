@@ -21,6 +21,7 @@ import {
 } from "@/lib/friendCatalog";
 import { shopBasketUrl } from "@/lib/friend";
 import { MARKET, REGIONS, phoneForShop } from "@/lib/market";
+import { SHOP_SITES } from "@/lib/shopSites";
 import { readContact, saveContact } from "@/lib/friendContact";
 import {
   api,
@@ -29,7 +30,7 @@ import {
   fillShopBasket,
   language,
   onShopOrigin,
-  pinShopSite,
+  setShopSite,
   shopFetch,
 } from "@/lib/shopApi";
 import { AddressSearch } from "./AddressSearch";
@@ -117,7 +118,7 @@ export function FriendCheckout() {
   const cart = useCart();
   // a render can run on a stale snapshot: re-read the cart once on mount
   useEffect(() => refreshCart(), []);
-  useEffect(() => pinShopSite(), []);
+  useEffect(() => setShopSite(MARKET.site), []);
 
   const { friend, source } = useFriend();
   const refCode = friend?.refCode ?? "";
@@ -167,11 +168,27 @@ export function FriendCheckout() {
   const [countries, setCountries] = useState<Record<string, string>>({
     [MARKET.code]: MARKET.country,
   });
-  const countryName = countries[country] ?? MARKET.country;
-  const countryNames = useMemo(
-    () => Object.values(countries).sort((a, b) => a.localeCompare(b)),
-    [countries],
+  // Through the local proxy every country has a shop site of its own (with its
+  // own delivery, payment methods and currency); on the shop's own domain there
+  // is the one site, and its own list of countries.
+  const multiSite = live === true && window.location.hostname === "localhost";
+  const countryMap = useMemo<Record<string, string>>(
+    () =>
+      multiSite
+        ? Object.fromEntries(
+            Object.entries(SHOP_SITES).map(([code, v]) => [code, v.name]),
+          )
+        : countries,
+    [multiSite, countries],
   );
+  const countryName = countryMap[country] ?? MARKET.country;
+  const countryNames = useMemo(
+    () => Object.values(countryMap).sort((a, b) => a.localeCompare(b)),
+    [countryMap],
+  );
+  const site = multiSite
+    ? (SHOP_SITES[country]?.host ?? MARKET.site)
+    : MARKET.site;
 
   // the countries the shop ships to (its own list for this site); asked once
   // the basket is in, and again a moment later if the shop is not ready yet
@@ -318,7 +335,11 @@ export function FriendCheckout() {
       try {
         await emptyShopBasket();
         if (cancelled) return;
-        await fillShopBasket(wanted, { refCode, memberId });
+        await fillShopBasket(
+          wanted,
+          { refCode, memberId },
+          site === MARKET.site ? MARKET.linkLanguage : MARKET.apiLanguage,
+        );
         const o = await api<{ result?: { QUANTITY?: number | string } }>(
           "/order",
         );
@@ -351,7 +372,7 @@ export function FriendCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [live, refCode, memberId, cartKey]);
+  }, [live, refCode, memberId, cartKey, site]);
 
   // begin_checkout, once, when the checkout is open with the cart in it
   useEffect(() => {
@@ -467,9 +488,16 @@ export function FriendCheckout() {
 
   // another country: the address is for the old one, the shop recounts delivery and payment
   function changeCountry(name: string) {
-    const code = Object.entries(countries).find(([, n]) => n === name)?.[0];
+    const code = Object.entries(countryMap).find(([, n]) => n === name)?.[0];
     if (!code || code === country) return;
+    // the calls go to the site of the new country from here on
+    if (multiSite) setShopSite(SHOP_SITES[code]?.host ?? MARKET.site);
     setCountry(code);
+    setGroups([]);
+    setPayments([]);
+    setPaymentId("");
+    setDeliveryChoice("");
+    setTotals(null);
     setAddress("");
     setSearchText("");
     setPicked(false);
@@ -714,7 +742,7 @@ export function FriendCheckout() {
         // analytics and without any script left over from the pages before it
         window.location.assign(
           asset(
-            `/friend/checkout/pay/?order=${encodeURIComponent(String(data.result))}&pm=${encodeURIComponent(paymentId)}&kind=${kind}`,
+            `/friend/checkout/pay/?order=${encodeURIComponent(String(data.result))}&pm=${encodeURIComponent(paymentId)}&kind=${kind}&site=${encodeURIComponent(site)}`,
           ),
         );
         return;
@@ -745,7 +773,15 @@ export function FriendCheckout() {
       paymentId !== "" &&
       totalsFor !== totalsKey);
 
-  const goodsSum = totals ? num(totals.PRICE) : prices.club;
+  const siteCurrency = String(
+    totals?.CURRENCY ??
+      (multiSite ? SHOP_SITES[country]?.currency : undefined) ??
+      MARKET.currency,
+  );
+  // our catalogue prices are the market's currency: abroad only the shop's numbers are shown
+  const ownPrices = siteCurrency === MARKET.currency;
+  const money = (n: number) => formatMoney(n, siteCurrency);
+  const goodsSum = totals ? num(totals.PRICE) : ownPrices ? prices.club : 0;
   const deliveryPrice =
     totals && totals.TOTAL_PRICE !== undefined && totals.PRICE !== undefined
       ? num(totals.TOTAL_PRICE) - num(totals.PRICE)
@@ -758,7 +794,7 @@ export function FriendCheckout() {
   const promoOff = totals
     ? Math.max(0, num(totals.TOTAL_PRICE) - num(totals.TOTAL_PRICE_WITH_PROMO))
     : 0;
-  const memberSaving = prices.saving;
+  const memberSaving = ownPrices ? prices.saving : 0;
   const totalSaving = memberSaving + (promo ? promoOff : 0);
   const shownTotal = grand !== null ? num(grand) : null;
 
@@ -787,12 +823,10 @@ export function FriendCheckout() {
                 {p?.form && <span className={styles.lineSub}>{p.form}</span>}
               </span>
               <span className={styles.lineSum}>
-                {p && (
-                  <span className={styles.was}>
-                    {formatMoney(p.regular * l.qty)}
-                  </span>
+                {ownPrices && p && (
+                  <span className={styles.was}>{money(p.regular * l.qty)}</span>
                 )}{" "}
-                {formatMoney((p?.club ?? 0) * l.qty)}
+                {ownPrices && money((p?.club ?? 0) * l.qty)}
               </span>
             </li>
           );
@@ -802,17 +836,17 @@ export function FriendCheckout() {
         {memberSaving > 0 && (
           <div className={styles.rowGood}>
             <dt>Member discount</dt>
-            <dd>−{formatMoney(memberSaving)}</dd>
+            <dd>−{money(memberSaving)}</dd>
           </div>
         )}
         <div>
           <dt>Subtotal</dt>
-          <dd>{formatMoney(goodsSum)}</dd>
+          <dd>{money(goodsSum)}</dd>
         </div>
         {promo && promoOff > 0 && (
           <div className={styles.rowGood}>
             <dt>Code {promo}</dt>
-            <dd>−{formatMoney(promoOff)}</dd>
+            <dd>−{money(promoOff)}</dd>
           </div>
         )}
         <div>
@@ -821,23 +855,23 @@ export function FriendCheckout() {
             {deliveryPrice === null
               ? "Calculated next"
               : deliveryPrice > 0
-                ? formatMoney(deliveryPrice)
+                ? money(deliveryPrice)
                 : "Free"}
           </dd>
         </div>
         {totals && num(totals.TAX) > 0 && (
           <div>
             <dt>Tax</dt>
-            <dd>{formatMoney(num(totals.TAX))}</dd>
+            <dd>{money(num(totals.TAX))}</dd>
           </div>
         )}
         <div className={styles.rowTotal}>
           <dt>Total</dt>
-          <dd>{shownTotal !== null ? formatMoney(shownTotal) : "—"}</dd>
+          <dd>{shownTotal !== null ? money(shownTotal) : "—"}</dd>
         </div>
       </dl>
       {totalSaving > 0 && (
-        <p className={styles.saved}>You’re saving {formatMoney(totalSaving)}</p>
+        <p className={styles.saved}>You’re saving {money(totalSaving)}</p>
       )}
       {friend && (
         <p className={styles.host}>
@@ -849,7 +883,8 @@ export function FriendCheckout() {
     </div>
   );
 
-  const barTotal = shownTotal !== null ? shownTotal : prices.club;
+  const barTotal =
+    shownTotal !== null ? shownTotal : ownPrices ? prices.club : 0;
 
   return (
     <div className="appShell">
@@ -908,12 +943,10 @@ export function FriendCheckout() {
                   Order summary <Chevron />
                 </span>
                 <span className={styles.sumHeadPrice}>
-                  {prices.regular > barTotal && (
-                    <span className={styles.was}>
-                      {formatMoney(prices.regular)}
-                    </span>
+                  {ownPrices && prices.regular > barTotal && (
+                    <span className={styles.was}>{money(prices.regular)}</span>
                   )}
-                  <strong>{formatMoney(barTotal)}</strong>
+                  <strong>{money(barTotal)}</strong>
                 </span>
               </summary>
               <div className={styles.sumBodyMobile}>{summary}</div>
@@ -1316,12 +1349,12 @@ export function FriendCheckout() {
                           <small>
                             {it.TRANSIT ? `${it.TRANSIT} business days` : ""}
                             {it.FREE_DELIVERY
-                              ? `${it.TRANSIT ? " · " : ""}free over ${formatMoney(it.FREE_DELIVERY)}`
+                              ? `${it.TRANSIT ? " · " : ""}free over ${money(it.FREE_DELIVERY)}`
                               : ""}
                           </small>
                         </span>
                         <span className={styles.optionPrice}>
-                          {it.PRICE ? formatMoney(it.PRICE) : "Free"}
+                          {it.PRICE ? money(it.PRICE) : "Free"}
                         </span>
                       </label>
                     ))}
@@ -1452,12 +1485,12 @@ export function FriendCheckout() {
                     {memberSaving > 0 && (
                       <div className={styles.rowGood}>
                         <dt>Member discount</dt>
-                        <dd>−{formatMoney(memberSaving)}</dd>
+                        <dd>−{money(memberSaving)}</dd>
                       </div>
                     )}
                     <div>
                       <dt>Items</dt>
-                      <dd>{formatMoney(goodsSum)}</dd>
+                      <dd>{money(goodsSum)}</dd>
                     </div>
                     <div>
                       <dt>Shipping</dt>
@@ -1465,15 +1498,13 @@ export function FriendCheckout() {
                         {deliveryPrice === null
                           ? "—"
                           : deliveryPrice > 0
-                            ? formatMoney(deliveryPrice)
+                            ? money(deliveryPrice)
                             : "Free"}
                       </dd>
                     </div>
                     <div className={styles.rowTotal}>
                       <dt>Total</dt>
-                      <dd>
-                        {shownTotal !== null ? formatMoney(shownTotal) : "—"}
-                      </dd>
+                      <dd>{shownTotal !== null ? money(shownTotal) : "—"}</dd>
                     </div>
                   </dl>
                 </div>
@@ -1482,7 +1513,7 @@ export function FriendCheckout() {
                 </p>
                 {totalSaving > 0 && (
                   <p className={styles.saved}>
-                    Total savings {formatMoney(totalSaving)}
+                    Total savings {money(totalSaving)}
                   </p>
                 )}
               </section>

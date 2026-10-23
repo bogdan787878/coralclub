@@ -38,13 +38,20 @@ export const MARKET = {
   placesLanguage: "de",
 } as const;
 
-const money = new Intl.NumberFormat(MARKET.locale, {
-  style: "currency",
-  currency: MARKET.currency,
-});
+const formats = new Map<string, Intl.NumberFormat>();
 
-/** 117 → «117,00 €» */
-export const formatMoney = (n: number): string => money.format(n);
+/** 117 → «117,00 €» (the market's currency, or the one of the shop site asked) */
+export const formatMoney = (
+  n: number,
+  currency: string = MARKET.currency,
+): string => {
+  let f = formats.get(currency);
+  if (!f) {
+    f = new Intl.NumberFormat(MARKET.locale, { style: "currency", currency });
+    formats.set(currency, f);
+  }
+  return f.format(n);
+};
 
 /** The 16 Bundesländer, as the shop's `AREA` takes them. */
 export const REGIONS = [

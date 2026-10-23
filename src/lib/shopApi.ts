@@ -10,6 +10,18 @@
 import { MARKET } from "./market";
 
 export const SHOP_SITE: string = MARKET.site;
+
+/**
+ * The shop site the calls go to. It is the market's site, unless the shopper
+ * picks a country that has a site of its own (only possible through the local
+ * proxy, which can front any site; on the shop's own domain there is one).
+ */
+let currentSite: string = SHOP_SITE;
+export const getShopSite = (): string => currentSite;
+export function setShopSite(host: string): void {
+  currentSite = host;
+  pinShopSite();
+}
 const LANGUAGE: string = MARKET.apiLanguage;
 
 /** The page is served by the shop (or its local proxy): its API can be called. */
@@ -47,7 +59,7 @@ export function shopFetch(url: string, init: RequestInit = {}) {
     cache: "no-store",
     ...init,
     headers: {
-      "x-shop-site": SHOP_SITE,
+      "x-shop-site": currentSite,
       ...((init.headers as Record<string, string> | undefined) ?? {}),
     },
   });
@@ -104,6 +116,7 @@ export async function emptyShopBasket(): Promise<void> {
 export async function fillShopBasket(
   lines: { coralId: string; qty: number }[],
   friend: { refCode: string; memberId: string },
+  language: string = MARKET.linkLanguage,
 ): Promise<void> {
   const pairs = lines
     .filter((l) => l.qty > 0)
@@ -112,7 +125,7 @@ export async function fillShopBasket(
   await shopFetch(
     `/shop/shop_basket.php?${pairs.join("&")}&REF_CODE=${encodeURIComponent(
       friend.refCode,
-    )}&langss=${MARKET.linkLanguage}&user=${encodeURIComponent(friend.memberId)}&f=y`,
+    )}&langss=${language}&user=${encodeURIComponent(friend.memberId)}&f=y`,
   );
 }
 
@@ -138,5 +151,5 @@ export function enqueueBasketSync<T>(job: () => Promise<T>): Promise<T> {
 export function pinShopSite(): void {
   if (typeof document === "undefined") return;
   if (window.location.hostname !== "localhost") return;
-  document.cookie = `cc_shop_site=${SHOP_SITE}; path=/; max-age=86400`;
+  document.cookie = `cc_shop_site=${currentSite}; path=/; max-age=86400`;
 }
