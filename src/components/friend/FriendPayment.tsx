@@ -35,7 +35,7 @@ import { OrderSummary, ShippingFacts } from "./OrderParts";
 import { StateCombobox } from "./StateCombobox";
 import co from "../landing/LandingCheckout.module.css";
 import styles from "./FriendCheckout.module.css";
-import sheet from "./PaySheet.module.css";
+import pp from "./PayPage.module.css";
 
 const Chevron = () => (
   <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -77,8 +77,6 @@ export function FriendPayment() {
   const kind = params.get("kind");
   const paypal = kind === "paypal";
   const transfer = kind === "transfer";
-  // inside the bottom sheet of the checkout: just the card form, no page around it
-  const embed = params.get("embed") === "1";
 
   const live = useSyncExternalStore<boolean | null>(
     () => () => {},
@@ -86,20 +84,9 @@ export function FriendPayment() {
     () => null,
   );
 
-  const toDone = useCallback(
-    (id: string) => {
-      if (embed && window.parent !== window) {
-        // the sheet's page (the checkout) moves on to the confirmation
-        window.parent.postMessage(
-          { type: "cc-paid", order: id },
-          window.location.origin,
-        );
-      } else {
-        window.location.assign(asset(`/friend/checkout/done/?order=${id}`));
-      }
-    },
-    [embed],
-  );
+  const toDone = useCallback((id: string) => {
+    window.location.assign(asset(`/friend/checkout/done/?order=${id}`));
+  }, []);
 
   // the order as the shop sees it (amount to pay, shipping address)
   const [order, setOrder] = useState<PayOrder | null>(null);
@@ -274,10 +261,10 @@ export function FriendPayment() {
 
   // where the shop's gateway has its own card page, this page is not needed
   useEffect(() => {
-    if (!live || !orderId || paypal || transfer || embed) return;
+    if (!live || !orderId || paypal || transfer) return;
     if (MARKET.cardForm !== "shop") return;
     window.location.replace(shopPage);
-  }, [live, orderId, paypal, transfer, embed, shopPage]);
+  }, [live, orderId, paypal, transfer, shopPage]);
   const total = order ? formatMoney(Number(order.amount)) : "";
 
   const field = (key: string) => ({
@@ -403,56 +390,13 @@ export function FriendPayment() {
     </button>
   );
   // the order stays as it is; the shopper picks another way to pay at the checkout
-  const changeMethod = embed ? (
-    <button
-      type="button"
-      className={sheet.ghost}
-      onClick={() =>
-        window.parent.postMessage({ type: "cc-change" }, window.location.origin)
-      }
-    >
-      Change payment method
-    </button>
-  ) : (
-    <Link className={sheet.ghost} href="/friend/checkout/">
+  const changeMethod = (
+    <Link className={pp.ghost} href="/friend/checkout/">
       Change payment method
     </Link>
   );
 
   const summary = order && <OrderSummary order={order} mode="pay" />;
-
-  if (embed) {
-    return (
-      <div className={sheet.embed}>
-        {!orderId || live === false || lost ? (
-          <p className={styles.host}>
-            {lost || "This payment can’t be opened here."}
-          </p>
-        ) : (
-          <>
-            {general && (
-              <p className={styles.error} role="alert">
-                {general}
-              </p>
-            )}
-            {gpay && (
-              <section className={styles.section}>
-                <div ref={gpayHost} className={styles.gpay} aria-busy={busy} />
-                <p className={styles.or}>
-                  <span>or pay by card</span>
-                </p>
-              </section>
-            )}
-            {cardSections}
-            <div className={sheet.embedFoot}>
-              {payButton}
-              {changeMethod}
-            </div>
-          </>
-        )}
-      </div>
-    );
-  }
 
   return (
     <div className="appShell">
@@ -486,7 +430,7 @@ export function FriendPayment() {
               </details>
             )}
 
-            <div className={`${styles.main} ${sheet.fill}`}>
+            <div className={`${styles.main} ${pp.fill}`}>
               <h1 className={styles.title}>Order #{orderId}</h1>
 
               {order && (paypal || transfer) && (
@@ -560,9 +504,9 @@ export function FriendPayment() {
                     </section>
                   )}
 
-                  <div className={sheet.bottom}>
+                  <div className={pp.bottom}>
                     {cardSections}
-                    <div className={sheet.actions}>
+                    <div className={pp.actions}>
                       {payButton}
                       {changeMethod}
                     </div>

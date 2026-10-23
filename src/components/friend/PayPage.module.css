@@ -1,0 +1,50 @@
+/* The standalone payment page: the form sits at the bottom on a phone; a quiet second action. */
+.ghost {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.ghost:hover {
+  background: var(--color-neutral-30);
+}
+
+.fill {
+  min-height: calc(100dvh - 112px);
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+  margin-top: auto;
+  padding-bottom: max(var(--space-16), env(safe-area-inset-bottom));
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+@media (min-width: 1024px) {
+  .fill {
+    min-height: 0;
+  }
+
+  .bottom {
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+}

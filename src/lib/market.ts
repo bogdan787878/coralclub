@@ -26,9 +26,9 @@ export const MARKET = {
   pickup: false,
   /**
    * Where the card is typed. "shop": the shop's own payment page of its
-   * gateway (Germany: Walletto — card, Apple Pay, Google Pay), shown in the
-   * sheet; "own": our card form, which posts to the shop's API the way the
-   * US site does.
+   * gateway (Germany: Walletto — card, Apple Pay, Google Pay); the shopper is
+   * sent there as a whole page. "own": our card form on /friend/checkout/pay/,
+   * which posts to the shop's API the way the US site does.
    */
   cardForm: "shop",
   /** Google Pay in the shop's own payment page is for the US site only. */

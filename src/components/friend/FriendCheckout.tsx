@@ -33,7 +33,6 @@ import {
   shopFetch,
 } from "@/lib/shopApi";
 import { AddressSearch } from "./AddressSearch";
-import { PaySheet } from "./PaySheet";
 import { addressSearchEnabled, splitStreet } from "@/lib/addressSearch";
 import { FloatInput } from "./FloatInput";
 import { CardBadges } from "./PayBadges";
@@ -206,13 +205,6 @@ export function FriendCheckout() {
   const [shaking, setShaking] = useState("");
   const shakeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [sending, setSending] = useState(false);
-  // the order made for a card payment, while its sheet is open or closed again
-  const [payOrder, setPayOrder] = useState<{
-    id: string;
-    pm: string;
-    key: string;
-  } | null>(null);
-  const [sheetOpen, setSheetOpen] = useState(false);
 
   // contact details live in this browser: filled in from the last visit …
   const [contactLoaded, setContactLoaded] = useState(false);
@@ -459,20 +451,6 @@ export function FriendCheckout() {
 
   // 4 ─ totals, re-read on every change of delivery / payment / address / code
   const profileKey = JSON.stringify(profile);
-  // any change to what was ordered makes the earlier order stale: the next
-  // click makes a new one
-  const orderKey = [
-    profileKey,
-    deliveryId,
-    paymentId,
-    promo,
-    email,
-    first,
-    last,
-    phoneShop,
-    lines.map((l) => `${l.coralId}:${l.qty}`).join(),
-  ].join("|");
-  const activePay = payOrder?.key === orderKey ? payOrder : null;
   useEffect(() => {
     if (ready !== "ok" || !deliveryId || !paymentId || !place) return;
     let cancelled = false;
@@ -593,11 +571,6 @@ export function FriendCheckout() {
   // the only place that creates a real order — runs on the shopper's click
   async function submit() {
     if (sending || !canOrder) return;
-    if (activePay) {
-      // the order for this card payment exists already: back to its sheet
-      setSheetOpen(true);
-      return;
-    }
     const gaps = required.filter((f) => f.bad);
     if (gaps.length) {
       setAttempted(true);
@@ -662,15 +635,11 @@ export function FriendCheckout() {
             : code === "bank_transfer"
               ? "transfer"
               : "card";
-        if (kind === "card") {
-          // the card form opens over this page, as a bottom sheet
-          setPayOrder({
-            id: String(data.result),
-            pm: paymentId,
-            key: orderKey,
-          });
-          setSheetOpen(true);
-          setSending(false);
+        if (kind === "card" && MARKET.cardForm === "shop") {
+          // the shop's gateway has its own card page: straight there, no page of ours in between
+          window.location.assign(
+            `/order/payment/${encodeURIComponent(String(data.result))}/${encodeURIComponent(paymentId)}/?new_checkout=1`,
+          );
           return;
         }
         // step 2 is a full page load, on purpose: the card page runs without
@@ -1501,11 +1470,7 @@ export function FriendCheckout() {
                 onClick={submit}
                 data-analytics-id="checkout_pay_btn"
               >
-                {sending
-                  ? "Creating your order…"
-                  : activePay
-                    ? "Enter card details"
-                    : "Continue to payment"}
+                {sending ? "Creating your order…" : "Continue to payment"}
               </button>
             </div>
 
@@ -1513,27 +1478,6 @@ export function FriendCheckout() {
               {summary}
             </aside>
           </div>
-        )}
-        {sheetOpen && activePay && (
-          <PaySheet
-            orderId={activePay.id}
-            tall={MARKET.cardForm === "shop"}
-            src={
-              MARKET.cardForm === "shop"
-                ? `/order/payment/${activePay.id}/${encodeURIComponent(activePay.pm)}/?new_checkout=1`
-                : asset(
-                    `/friend/checkout/pay/?order=${activePay.id}&pm=${encodeURIComponent(activePay.pm)}&kind=card&embed=1`,
-                  )
-            }
-            onClose={() => setSheetOpen(false)}
-            onChangeMethod={() => {
-              // back to the payment methods of the checkout
-              setSheetOpen(false);
-              document
-                .getElementById("payment-method")
-                ?.scrollIntoView({ behavior: "smooth", block: "start" });
-            }}
-          />
         )}
       </main>
     </div>
