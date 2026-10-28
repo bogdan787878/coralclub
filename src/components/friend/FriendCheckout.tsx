@@ -149,8 +149,12 @@ export function FriendCheckout() {
   const [missing, setMissing] = useState<string[]>([]);
 
   const [email, setEmail] = useState("");
-  const [first, setFirst] = useState("");
-  const [last, setLast] = useState("");
+  // one «Full name» field; first and last name are its parts: the first word
+  // and the rest (the shop gets the whole name, the saved contact the parts)
+  const [fullName, setFullName] = useState("");
+  const nameWords = fullName.trim().split(/\s+/).filter(Boolean);
+  const first = nameWords[0] ?? "";
+  const last = nameWords.slice(1).join(" ");
   const [phone, setPhone] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
@@ -282,8 +286,7 @@ export function FriendCheckout() {
       const c = readContact();
       if (c) {
         setEmail((v) => v || c.email);
-        setFirst((v) => v || c.first);
-        setLast((v) => v || c.last);
+        setFullName((v) => v || [c.first, c.last].filter(Boolean).join(" "));
         setPhone((v) => v || c.phone);
       }
       setContactLoaded(true);
@@ -654,8 +657,7 @@ export function FriendCheckout() {
           { key: "state", bad: !state },
         ]),
     { key: "email", bad: !EMAIL_RE.test(email.trim()) },
-    { key: "first", bad: first.trim().length < 1 },
-    { key: "last", bad: last.trim().length < 1 },
+    { key: "first", bad: first === "" || last === "" },
     { key: "phone", bad: digits.length < 6 },
     { key: "terms", bad: !acceptTerms },
     { key: "data", bad: !agreeData },
@@ -1229,7 +1231,7 @@ export function FriendCheckout() {
                                 visiblePoints.map((p) => (
                                   <label
                                     key={p.CODE}
-                                    className={`${styles.option} ${pointCode === p.CODE ? styles.optionOn : ""}`}
+                                    className={`${styles.option} ${extra.optRight} ${pointCode === p.CODE ? styles.optionOn : ""}`}
                                   >
                                     <input
                                       type="radio"
@@ -1281,22 +1283,20 @@ export function FriendCheckout() {
                   inputMode="email"
                   autoComplete="email"
                 />
-                <div className={styles.row}>
-                  <FloatInput
-                    {...field("first")}
-                    label="First name"
-                    value={first}
-                    onChange={setFirst}
-                    autoComplete="given-name"
-                  />
-                  <FloatInput
-                    {...field("last")}
-                    label="Last name"
-                    value={last}
-                    onChange={setLast}
-                    autoComplete="family-name"
-                  />
-                </div>
+                <FloatInput
+                  {...field("first")}
+                  label="Full name"
+                  placeholder="First and last name"
+                  value={fullName}
+                  onChange={setFullName}
+                  error={attempted && first !== "" && last === ""}
+                  hint={
+                    attempted && first !== "" && last === ""
+                      ? "Add your last name"
+                      : undefined
+                  }
+                  autoComplete="name"
+                />
                 <FloatInput
                   {...field("phone")}
                   label="Phone"
@@ -1324,7 +1324,7 @@ export function FriendCheckout() {
                     {items.map((it) => (
                       <label
                         key={it.ID}
-                        className={`${styles.option} ${deliveryId === it.ID ? styles.optionOn : ""}`}
+                        className={`${styles.option} ${extra.optRight} ${deliveryId === it.ID ? styles.optionOn : ""}`}
                       >
                         <input
                           type="radio"
@@ -1341,15 +1341,15 @@ export function FriendCheckout() {
                         />
                         <span className={styles.optionName}>
                           {it.NAME}
-                          <small>
-                            {it.TRANSIT ? `${it.TRANSIT} business days` : ""}
-                            {it.FREE_DELIVERY
-                              ? `${it.TRANSIT ? " · " : ""}free over ${money(it.FREE_DELIVERY)}`
-                              : ""}
-                          </small>
-                        </span>
-                        <span className={styles.optionPrice}>
-                          {it.PRICE ? money(it.PRICE) : "Free"}
+                          {it.TRANSIT
+                            ? `, ${it.TRANSIT} business days`
+                            : ""},{" "}
+                          <span className={styles.optionPrice}>
+                            {it.PRICE ? money(it.PRICE) : "free"}
+                          </span>
+                          {it.FREE_DELIVERY && it.PRICE ? (
+                            <small>free over {money(it.FREE_DELIVERY)}</small>
+                          ) : null}
                         </span>
                       </label>
                     ))}
@@ -1382,7 +1382,7 @@ export function FriendCheckout() {
                     {payments.map((p) => (
                       <label
                         key={p.ID}
-                        className={`${styles.option} ${paymentId === p.ID ? styles.optionOn : ""}`}
+                        className={`${styles.option} ${extra.optRight} ${paymentId === p.ID ? styles.optionOn : ""}`}
                       >
                         <input
                           type="radio"
