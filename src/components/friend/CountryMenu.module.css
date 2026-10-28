@@ -23,15 +23,17 @@
 }
 
 .panel {
-  position: absolute;
-  top: calc(100% + var(--space-8));
-  right: 0;
+  /* anchored to the screen, not to the flag: the flag has the account and the
+     cart to its right, so a panel hanging from it would leave the screen */
+  position: fixed;
+  top: 64px;
+  right: var(--page-padding-inline);
   z-index: 60;
   display: flex;
   flex-direction: column;
   gap: var(--space-8);
-  width: min(320px, calc(100vw - 2 * var(--page-padding-inline)));
-  max-height: min(70dvh, 480px);
+  width: min(360px, calc(100vw - 2 * var(--page-padding-inline)));
+  max-height: min(70dvh, 520px);
   padding: var(--space-8);
   border-radius: var(--radius-md);
   background: var(--color-surface);

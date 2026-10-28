@@ -358,7 +358,11 @@ export function FriendCheckout() {
         const got = Number(o.result?.QUANTITY ?? 0);
         if (got <= 0) {
           setReady("error");
-          setError("The shop did not take the items from your cart.");
+          setError(
+            site === MARKET.site
+              ? "The shop did not take the items from your cart."
+              : `These products are not available on the ${countryName} site yet.`,
+          );
           return;
         }
         setMissing(
@@ -382,7 +386,7 @@ export function FriendCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [live, refCode, memberId, cartKey, site]);
+  }, [live, refCode, memberId, cartKey, site, countryName]);
 
   // begin_checkout, once, when the checkout is open with the cart in it
   useEffect(() => {
@@ -1415,17 +1419,6 @@ export function FriendCheckout() {
                           />
                         ) : (
                           <span />
-                        )}
-                        {paymentId === p.ID && (
-                          <p className={styles.optionNote}>
-                            {paymentTypeCode(p.NAME) === "paypal"
-                              ? "You’ll continue to PayPal to finish your payment."
-                              : paymentTypeCode(p.NAME) === "bank_transfer"
-                                ? "You’ll get the bank details on the next step."
-                                : MARKET.googlePay
-                                  ? "You’ll enter your card details — or use Google Pay where available — on the next step."
-                                  : "You’ll enter your card details on the next step."}
-                          </p>
                         )}
                       </label>
                     ))}

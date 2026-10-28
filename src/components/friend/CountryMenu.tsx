@@ -33,8 +33,15 @@ export function CountryMenu({
     [countries],
   );
   const q = query.trim().toLowerCase();
+  // names that start with what was typed come first
   const shown = q
-    ? entries.filter(([, name]) => name.toLowerCase().includes(q))
+    ? entries
+        .filter(([, name]) => name.toLowerCase().includes(q))
+        .sort(
+          (a, b) =>
+            Number(b[1].toLowerCase().startsWith(q)) -
+            Number(a[1].toLowerCase().startsWith(q)),
+        )
     : entries;
 
   useEffect(() => {
