@@ -110,3 +110,17 @@
   color: var(--color-action);
   font-weight: var(--font-weight-medium);
 }
+
+/* a payment method: its logo to the left of the name */
+.optLead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.optLogo {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}

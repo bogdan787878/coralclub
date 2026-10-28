@@ -1472,9 +1472,6 @@ export function FriendCheckout() {
 
               <section className={styles.section} id="payment-method">
                 <h2 className={styles.h2}>Payment</h2>
-                <p className={styles.sub}>
-                  All transactions are secure and encrypted.
-                </p>
                 {!place ? (
                   <p className={styles.hint}>
                     Payment options appear once you choose your address.
@@ -1503,20 +1500,25 @@ export function FriendCheckout() {
                             });
                           }}
                         />
-                        <span className={styles.optionName}>
-                          {/^bank card$/i.test(p.NAME)
-                            ? "Credit or debit card"
-                            : p.NAME}
+                        <span
+                          className={`${styles.optionName} ${extra.optLead}`}
+                        >
+                          {!/^bank card$/i.test(p.NAME) && p.IMAGE && (
+                            // eslint-disable-next-line @next/next/no-img-element -- the shop's own method logo
+                            <img
+                              src={p.IMAGE}
+                              alt=""
+                              className={extra.optLogo}
+                            />
+                          )}
+                          <span>
+                            {/^bank card$/i.test(p.NAME)
+                              ? "Credit or debit card"
+                              : p.NAME}
+                          </span>
                         </span>
                         {/^bank card$/i.test(p.NAME) ? (
                           <CardBadges wallets={MARKET.googlePay} />
-                        ) : p.IMAGE ? (
-                          // eslint-disable-next-line @next/next/no-img-element -- the shop's own method logo
-                          <img
-                            src={p.IMAGE}
-                            alt=""
-                            className={styles.optionLogo}
-                          />
                         ) : (
                           <span />
                         )}
