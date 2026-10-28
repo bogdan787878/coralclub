@@ -50,6 +50,7 @@ import {
   type ResolvedAddress,
 } from "@/lib/addressSearch";
 import { FloatInput } from "./FloatInput";
+import { OptionCard, OptionCards } from "./OptionCards";
 import { CardBadges } from "./PayBadges";
 import { StateCombobox } from "./StateCombobox";
 import { useFriend } from "./FriendProvider";
@@ -1347,40 +1348,34 @@ export function FriendCheckout() {
                     Loading delivery options…
                   </p>
                 ) : items.length > 0 ? (
-                  <div className={styles.options} role="radiogroup">
+                  <OptionCards label="Shipping method">
                     {items.map((it) => (
-                      <label
+                      <OptionCard
                         key={it.ID}
-                        className={`${styles.option} ${extra.optRight} ${deliveryId === it.ID ? styles.optionOn : ""}`}
-                      >
-                        <input
-                          type="radio"
-                          name="delivery"
-                          checked={deliveryId === it.ID}
-                          onChange={() => {
-                            setDeliveryChoice(it.ID);
-                            track("delivery_method_selected", {
-                              delivery_type_code: pickup ? "pickup" : "courier",
-                              delivery_service: it.NAME,
-                              delivery_cost: Number(it.PRICE) || 0,
-                            });
-                          }}
-                        />
-                        <span className={styles.optionName}>
-                          {it.NAME}
-                          {it.TRANSIT
-                            ? `, ${it.TRANSIT} business days`
-                            : ""},{" "}
-                          <span className={styles.optionPrice}>
-                            {it.PRICE ? money(it.PRICE) : "free"}
-                          </span>
-                          {it.FREE_DELIVERY && it.PRICE ? (
-                            <small>free over {money(it.FREE_DELIVERY)}</small>
-                          ) : null}
-                        </span>
-                      </label>
+                        name="delivery"
+                        checked={deliveryId === it.ID}
+                        onChange={() => {
+                          setDeliveryChoice(it.ID);
+                          track("delivery_method_selected", {
+                            delivery_type_code: pickup ? "pickup" : "courier",
+                            delivery_service: it.NAME,
+                            delivery_cost: Number(it.PRICE) || 0,
+                          });
+                        }}
+                        title={it.NAME}
+                        good={!it.PRICE}
+                        lines={
+                          <>
+                            {it.TRANSIT && <span>{it.TRANSIT} days</span>}
+                            {it.FREE_DELIVERY && it.PRICE ? (
+                              <span>free over {money(it.FREE_DELIVERY)}</span>
+                            ) : null}
+                            <span>{it.PRICE ? money(it.PRICE) : "Free"}</span>
+                          </>
+                        }
+                      />
                     ))}
-                  </div>
+                  </OptionCards>
                 ) : (
                   <p className={styles.hint}>
                     {pickup && !deliveryErr
@@ -1446,14 +1441,12 @@ export function FriendCheckout() {
                     Loading payment options…
                   </p>
                 ) : (
-                  <div className={styles.options} role="radiogroup">
-                    {payments.map((p) => (
-                      <label
-                        key={p.ID}
-                        className={`${styles.option} ${extra.optRight} ${paymentId === p.ID ? styles.optionOn : ""}`}
-                      >
-                        <input
-                          type="radio"
+                  <OptionCards label="Payment method">
+                    {payments.map((p) => {
+                      const card = /^bank card$/i.test(p.NAME);
+                      return (
+                        <OptionCard
+                          key={p.ID}
                           name="payment"
                           checked={paymentId === p.ID}
                           onChange={() => {
@@ -1463,42 +1456,30 @@ export function FriendCheckout() {
                               payment_method_name: p.NAME,
                             });
                           }}
+                          title={card ? "Credit or debit card" : p.NAME}
+                          footer={
+                            card ? (
+                              <CardBadges wallets={MARKET.googlePay} />
+                            ) : p.IMAGE ? (
+                              // eslint-disable-next-line @next/next/no-img-element -- the shop's own method logo
+                              <img
+                                src={p.IMAGE}
+                                alt=""
+                                style={{
+                                  width: 32,
+                                  height: 32,
+                                  objectFit: "contain",
+                                  objectPosition: "left",
+                                }}
+                              />
+                            ) : (
+                              <span />
+                            )
+                          }
                         />
-                        <span
-                          className={styles.optionName}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 12,
-                          }}
-                        >
-                          {!/^bank card$/i.test(p.NAME) && p.IMAGE && (
-                            // eslint-disable-next-line @next/next/no-img-element -- the shop's own method logo
-                            <img
-                              src={p.IMAGE}
-                              alt=""
-                              style={{
-                                flex: "none",
-                                width: 32,
-                                height: 32,
-                                objectFit: "contain",
-                              }}
-                            />
-                          )}
-                          <span>
-                            {/^bank card$/i.test(p.NAME)
-                              ? "Credit or debit card"
-                              : p.NAME}
-                          </span>
-                        </span>
-                        {/^bank card$/i.test(p.NAME) ? (
-                          <CardBadges wallets={MARKET.googlePay} />
-                        ) : (
-                          <span />
-                        )}
-                      </label>
-                    ))}
-                  </div>
+                      );
+                    })}
+                  </OptionCards>
                 )}
               </section>
 
