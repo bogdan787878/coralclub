@@ -55,6 +55,7 @@ import { useFriend } from "./FriendProvider";
 import co from "../landing/LandingCheckout.module.css";
 import styles from "./FriendCheckout.module.css";
 import extra from "./CheckoutExtras.module.css";
+import slots from "./CourierSlots.module.css";
 
 /**
  * The project's real checkout (Germany, see lib/market.ts): the visitor's cart is put into the shop's
@@ -1428,10 +1429,10 @@ export function FriendCheckout() {
                   </p>
                 )}
                 {slotDay && slotHours && (
-                  <div className={extra.slots}>
-                    <p className={extra.slotsTitle}>Delivery date and time</p>
+                  <div className={slots.slots}>
+                    <p className={slots.slotsTitle}>Delivery date and time</p>
                     <div
-                      className={extra.chips}
+                      className={slots.chips}
                       role="radiogroup"
                       aria-label="Delivery day"
                     >
@@ -1441,7 +1442,7 @@ export function FriendCheckout() {
                           type="button"
                           role="radio"
                           aria-checked={d.date === slotDay.date}
-                          className={`${extra.chip} ${d.date === slotDay.date ? extra.chipOn : ""}`}
+                          className={`${slots.chip} ${d.date === slotDay.date ? slots.chipOn : ""}`}
                           onClick={() => setSlotDate(d.date)}
                         >
                           {d.label}
@@ -1449,7 +1450,7 @@ export function FriendCheckout() {
                       ))}
                     </div>
                     <div
-                      className={extra.chips}
+                      className={slots.chips}
                       role="radiogroup"
                       aria-label="Delivery hours"
                     >
@@ -1459,7 +1460,7 @@ export function FriendCheckout() {
                           type="button"
                           role="radio"
                           aria-checked={t === slotHours}
-                          className={`${extra.chip} ${t === slotHours ? extra.chipOn : ""}`}
+                          className={`${slots.chip} ${t === slotHours ? slots.chipOn : ""}`}
                           onClick={() => setSlotTime(t)}
                         >
                           {t.replace("-", " – ")}
@@ -1501,14 +1502,24 @@ export function FriendCheckout() {
                           }}
                         />
                         <span
-                          className={`${styles.optionName} ${extra.optLead}`}
+                          className={styles.optionName}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 12,
+                          }}
                         >
                           {!/^bank card$/i.test(p.NAME) && p.IMAGE && (
                             // eslint-disable-next-line @next/next/no-img-element -- the shop's own method logo
                             <img
                               src={p.IMAGE}
                               alt=""
-                              className={extra.optLogo}
+                              style={{
+                                flex: "none",
+                                width: 32,
+                                height: 32,
+                                objectFit: "contain",
+                              }}
                             />
                           )}
                           <span>
