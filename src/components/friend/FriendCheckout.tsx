@@ -18,6 +18,12 @@ import {
   friendProductById,
   friendTotals,
 } from "@/lib/friendCatalog";
+import {
+  deliverySlots,
+  isMoscow,
+  slotRegion,
+  type DeliveryTimes,
+} from "@/lib/deliverySlots";
 import { loginUrl, registrationUrl, shopBasketUrl } from "@/lib/friend";
 import { MARKET, REGIONS, phoneForShop } from "@/lib/market";
 import { SHOP_SITES, deliveryByPlace } from "@/lib/shopSites";
@@ -99,7 +105,7 @@ const num = (v: unknown) =>
 const paymentTypeCode = (name: string) =>
   /paypal/i.test(name)
     ? "paypal"
-    : /transfer|invoice|überweis/i.test(name)
+    : /transfer|invoice|überweis|перевод/i.test(name)
       ? "bank_transfer"
       : "bank_card";
 
@@ -189,6 +195,13 @@ export function FriendCheckout() {
         : countries,
     [multiSite, countries],
   );
+  // Russia: the courier's days and hours (from the shop's /init) and the shopper's pick
+  const [slotCfg, setSlotCfg] = useState<{
+    moscow?: DeliveryTimes;
+    spb?: DeliveryTimes;
+  }>({});
+  const [slotDate, setSlotDate] = useState("");
+  const [slotTime, setSlotTime] = useState("");
   const countryName = countryMap[country] ?? MARKET.country;
   const site = multiSite
     ? (SHOP_SITES[country]?.host ?? MARKET.site)
@@ -201,9 +214,19 @@ export function FriendCheckout() {
     let alive = true;
     let timer: ReturnType<typeof setTimeout> | undefined;
     const ask = (left: number) => {
-      api<{ result?: { COUNTRIES_FILTERED?: Record<string, string> } }>("/init")
+      api<{
+        result?: {
+          COUNTRIES_FILTERED?: Record<string, string>;
+          moscowDeliveryTimes?: DeliveryTimes;
+          spbDeliveryTimes?: DeliveryTimes;
+        };
+      }>("/init")
         .then((d) => {
           if (!alive) return;
+          setSlotCfg({
+            moscow: d.result?.moscowDeliveryTimes,
+            spb: d.result?.spbDeliveryTimes,
+          });
           const list = Object.entries(
             d.result?.COUNTRIES_FILTERED ?? {},
           ).filter(([code]) => /^[A-Z]{2}$/.test(code));
@@ -243,9 +266,16 @@ export function FriendCheckout() {
 
   // courier services and the pick-up service come in separate groups
   // the cheapest service first, so that it is the one chosen by default
+  // Moscow's same-day service is offered only while the day's cut-off has not passed
+  const expressOff =
+    country === "RU" &&
+    isMoscow(city) &&
+    !!slotCfg.moscow &&
+    deliverySlots(slotCfg.moscow, { express: true, mkad: true }).length === 0;
   const courierItems = groups
     .filter((g) => g.ID !== "PICK_POINT")
     .flatMap((g) => g.ITEMS)
+    .filter((i) => !(expressOff && i.ID === "I_COURIER_1DAY"))
     .sort((a, b) => (a.PRICE ?? 0) - (b.PRICE ?? 0));
   const pickupItems = groups
     .filter((g) => g.ID === "PICK_POINT")
@@ -265,6 +295,19 @@ export function FriendCheckout() {
       ? deliveryChoice
       : (courierItems[0]?.ID ?? "");
   const activeItem = items.find((i) => i.ID === deliveryId);
+  // the courier's days and hours (Moscow, St. Petersburg), when the service has them
+  const slotArea =
+    country === "RU" && !pickup ? slotRegion(city, deliveryId) : null;
+  const slotDays = slotArea
+    ? deliverySlots(slotArea === "moscow" ? slotCfg.moscow : slotCfg.spb, {
+        express: deliveryId === "I_COURIER_1DAY",
+        mkad: true,
+      })
+    : [];
+  const slotDay = slotDays.find((d) => d.date === slotDate) ?? slotDays[0];
+  const slotHours = slotDay?.times.includes(slotTime)
+    ? slotTime
+    : slotDay?.times[0];
   const point = pickup ? points.find((p) => p.CODE === pointCode) : undefined;
   const pickPointParam = point ? point.CODE : false;
 
@@ -721,7 +764,10 @@ export function FriendCheckout() {
         ...(promo ? { promo } : {}),
         // the shopper's two consents, exactly as the shop's own form sends them
         additionalOrderInfo: {
-          orderComment: "",
+          orderComment:
+            slotDay && slotHours
+              ? `Delivery: ${slotDay.label}, ${slotHours}`
+              : "",
           needToContact: false,
           contactMethod: "",
           chosenMessenger: "",
@@ -731,6 +777,13 @@ export function FriendCheckout() {
           agreePersonalData: agreeData,
         },
         dutyEnabled: true,
+        ...(slotDay && slotHours
+          ? {
+              DELIVERY_DATE: slotDay.date,
+              DELIVERY_FROM: slotHours.split("-")[0],
+              DELIVERY_TO: slotHours.split("-")[1],
+            }
+          : {}),
       };
       const r = await shopFetch(`/sv-api/order?language=${language}`, {
         method: "POST",
@@ -1374,6 +1427,47 @@ export function FriendCheckout() {
                           "No delivery options for this address."}
                   </p>
                 )}
+                {slotDay && slotHours && (
+                  <div className={extra.slots}>
+                    <p className={extra.slotsTitle}>Delivery date and time</p>
+                    <div
+                      className={extra.chips}
+                      role="radiogroup"
+                      aria-label="Delivery day"
+                    >
+                      {slotDays.map((d) => (
+                        <button
+                          key={d.date}
+                          type="button"
+                          role="radio"
+                          aria-checked={d.date === slotDay.date}
+                          className={`${extra.chip} ${d.date === slotDay.date ? extra.chipOn : ""}`}
+                          onClick={() => setSlotDate(d.date)}
+                        >
+                          {d.label}
+                        </button>
+                      ))}
+                    </div>
+                    <div
+                      className={extra.chips}
+                      role="radiogroup"
+                      aria-label="Delivery hours"
+                    >
+                      {slotDay.times.map((t) => (
+                        <button
+                          key={t}
+                          type="button"
+                          role="radio"
+                          aria-checked={t === slotHours}
+                          className={`${extra.chip} ${t === slotHours ? extra.chipOn : ""}`}
+                          onClick={() => setSlotTime(t)}
+                        >
+                          {t.replace("-", " – ")}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </section>
 
               <section className={styles.section} id="payment-method">
@@ -1410,11 +1504,11 @@ export function FriendCheckout() {
                           }}
                         />
                         <span className={styles.optionName}>
-                          {paymentTypeCode(p.NAME) === "bank_card"
+                          {/^bank card$/i.test(p.NAME)
                             ? "Credit or debit card"
                             : p.NAME}
                         </span>
-                        {paymentTypeCode(p.NAME) === "bank_card" ? (
+                        {/^bank card$/i.test(p.NAME) ? (
                           <CardBadges wallets={MARKET.googlePay} />
                         ) : p.IMAGE ? (
                           // eslint-disable-next-line @next/next/no-img-element -- the shop's own method logo
