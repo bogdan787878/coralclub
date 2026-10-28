@@ -2,7 +2,7 @@
 .slots {
   display: flex;
   flex-direction: column;
-  gap: var(--space-12);
+  gap: var(--space-8);
 }
 
 .slotsTitle {
@@ -14,19 +14,26 @@
 
 .chips {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-8);
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
 }
 
 .chip {
-  padding: 10px var(--space-12);
+  flex: none;
+  padding: 5px 10px;
   border: 1px solid rgba(0, 65, 68, 0.22);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
   color: var(--color-text);
   font-family: var(--font-sans);
-  font-size: 0.9375rem;
-  line-height: 1.25rem;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  white-space: nowrap;
   cursor: pointer;
 }
 
