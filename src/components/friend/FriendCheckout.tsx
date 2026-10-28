@@ -1379,7 +1379,7 @@ export function FriendCheckout() {
                 <h2 className={styles.h2}>Shipping method</h2>
                 {!place ? (
                   <p className={styles.hint}>
-                    Choose your state to view available shipping methods.
+                    Choose your address to see the delivery options.
                   </p>
                 ) : deliveryLoading ? (
                   <p className={styles.loader} role="status">
