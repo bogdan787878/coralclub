@@ -34,6 +34,7 @@ import {
   shopFetch,
 } from "@/lib/shopApi";
 import { AddressSearch } from "./AddressSearch";
+import { CountryMenu } from "./CountryMenu";
 import {
   addressSearchEnabled,
   splitStreet,
@@ -45,6 +46,7 @@ import { StateCombobox } from "./StateCombobox";
 import { useFriend } from "./FriendProvider";
 import co from "../landing/LandingCheckout.module.css";
 import styles from "./FriendCheckout.module.css";
+import extra from "./CheckoutExtras.module.css";
 
 /**
  * The project's real checkout (Germany, see lib/market.ts): the visitor's cart is put into the shop's
@@ -182,10 +184,6 @@ export function FriendCheckout() {
     [multiSite, countries],
   );
   const countryName = countryMap[country] ?? MARKET.country;
-  const countryNames = useMemo(
-    () => Object.values(countryMap).sort((a, b) => a.localeCompare(b)),
-    [countryMap],
-  );
   const site = multiSite
     ? (SHOP_SITES[country]?.host ?? MARKET.site)
     : MARKET.site;
@@ -246,10 +244,17 @@ export function FriendCheckout() {
   const pickupItems = groups
     .filter((g) => g.ID === "PICK_POINT")
     .flatMap((g) => g.ITEMS);
-  const pickup = mode === "pickup";
+  // pick-up needs a site that has it; a site with nothing else sends everyone there
+  const pickup =
+    pickupItems.length > 0 && (mode === "pickup" || courierItems.length === 0);
   const items = pickup ? pickupItems : courierItems;
+  const chosenPoint = pickup
+    ? points.find((p) => p.CODE === pointCode)
+    : undefined;
   const deliveryId = pickup
-    ? (pickupItems[0]?.ID ?? "")
+    ? pickupItems.some((i) => i.ID === chosenPoint?.TYPE)
+      ? (chosenPoint?.TYPE ?? "")
+      : (pickupItems[0]?.ID ?? "")
     : courierItems.some((i) => i.ID === deliveryChoice)
       ? deliveryChoice
       : (courierItems[0]?.ID ?? "");
@@ -449,7 +454,7 @@ export function FriendCheckout() {
   // 3b ─ pick-up points near the city (the shop answers per city)
   const pointsKey = `${state}|${city}`;
   useEffect(() => {
-    if (ready !== "ok" || !pickup || !state || !city) return;
+    if (ready !== "ok" || !pickup || !city) return;
     let cancelled = false;
     api<{ result?: PickPoint[] }>("/pickpoints", {
       COUNTRY: country,
@@ -464,7 +469,7 @@ export function FriendCheckout() {
       cancelled = true;
     };
   }, [ready, pickup, country, state, city, pointsKey]);
-  const pointsLoading = pickup && !!state && !!city && pointsFor !== pointsKey;
+  const pointsLoading = pickup && !!city && pointsFor !== pointsKey;
   // the shopper's city first, then by city and name; narrowed by the search box
   const visiblePoints = useMemo(() => {
     const q = pointSearch.trim().toLowerCase();
@@ -498,6 +503,10 @@ export function FriendCheckout() {
     setPaymentId("");
     setDeliveryChoice("");
     setTotals(null);
+    setPoints([]);
+    setPointsFor("");
+    setPointCode("");
+    setPointSearch("");
     setAddress("");
     setSearchText("");
     setPicked(false);
@@ -517,7 +526,7 @@ export function FriendCheckout() {
         COUNTRY: country,
         COUNTRY_NAME: countryName,
         CITY: city || cityForShop,
-        AREA: state,
+        AREA: state || city,
         // what the shop's own checkout sends for a pick-up point
         STREET: point?.ADDRESS ?? "",
         DELIVERY_TYPE: activeItem?.TYPE ?? "PICK_POINT",
@@ -611,13 +620,8 @@ export function FriendCheckout() {
 
   // required fields in page order — the first empty one gets the shake
   const required: { key: string; bad: boolean }[] = [
-    { key: "email", bad: !EMAIL_RE.test(email.trim()) },
-    { key: "first", bad: first.trim().length < 1 },
-    { key: "last", bad: last.trim().length < 1 },
-    { key: "phone", bad: digits.length < 6 },
     ...(pickup
       ? [
-          { key: "state", bad: !state },
           { key: "city", bad: !city },
           { key: "point", bad: !point },
         ]
@@ -630,6 +634,10 @@ export function FriendCheckout() {
           { key: "city", bad: !city },
           { key: "state", bad: !state },
         ]),
+    { key: "email", bad: !EMAIL_RE.test(email.trim()) },
+    { key: "first", bad: first.trim().length < 1 },
+    { key: "last", bad: last.trim().length < 1 },
+    { key: "phone", bad: digits.length < 6 },
     { key: "terms", bad: !acceptTerms },
     { key: "data", bad: !agreeData },
   ];
@@ -889,7 +897,16 @@ export function FriendCheckout() {
   return (
     <div className="appShell">
       <main className={styles.page} data-analytics-location="checkout">
-        <LandingHeader homeHref={asset("/friend/")} />
+        <LandingHeader
+          homeHref={asset("/friend/")}
+          end={
+            <CountryMenu
+              countries={countryMap}
+              value={country}
+              onChange={(code) => changeCountry(countryMap[code] ?? "")}
+            />
+          }
+        />
 
         {lines.length === 0 ? (
           <div className={styles.empty}>
@@ -973,71 +990,43 @@ export function FriendCheckout() {
               ))}
 
               <section className={styles.section}>
-                <h2 className={styles.h2}>Contact</h2>
-                <FloatInput
-                  {...field("email")}
-                  error={nonLatinEmail}
-                  hint={
-                    nonLatinEmail
-                      ? "Use Latin letters only (a look-alike letter from another alphabet will not work)"
-                      : undefined
-                  }
-                  label="Email"
-                  placeholder="name@example.com"
-                  value={email}
-                  onChange={setEmail}
-                  inputMode="email"
-                  autoComplete="email"
-                />
-                <div className={styles.row}>
-                  <FloatInput
-                    {...field("first")}
-                    label="First name"
-                    value={first}
-                    onChange={setFirst}
-                    autoComplete="given-name"
-                  />
-                  <FloatInput
-                    {...field("last")}
-                    label="Last name"
-                    value={last}
-                    onChange={setLast}
-                    autoComplete="family-name"
-                  />
-                </div>
-                <FloatInput
-                  {...field("phone")}
-                  label="Phone"
-                  placeholder="0151 23456789"
-                  value={phone}
-                  onChange={setPhone}
-                  inputMode="tel"
-                  autoComplete="tel"
-                />
-              </section>
-
-              <section className={styles.section}>
                 <h2 className={styles.h2}>Delivery</h2>
-                {MARKET.pickup && (
-                  <div
-                    className={styles.toggle}
-                    role="radiogroup"
-                    aria-label="How to receive your order"
-                  >
-                    {(
+                <div
+                  className={styles.toggle}
+                  role="radiogroup"
+                  aria-label="How to receive your order"
+                >
+                  {(
+                    [
                       [
-                        ["courier", "Delivery to address"],
-                        ["pickup", "Pick up point"],
-                      ] as const
-                    ).map(([id, label]) => (
+                        "courier",
+                        "Delivery to address",
+                        courierItems.length > 0,
+                      ],
+                      ["pickup", "Pick up point", pickupItems.length > 0],
+                    ] as const
+                  ).map(([id, label, available]) => {
+                    const on = (id === "pickup") === pickup;
+                    // the shop's answer for the country is still on its way: nothing is greyed yet
+                    const off = !available && deliveryFor === deliveryKey;
+                    return (
                       <button
                         key={id}
                         type="button"
                         role="radio"
-                        aria-checked={mode === id}
-                        className={`${styles.toggleBtn} ${mode === id ? styles.toggleOn : ""}`}
+                        aria-checked={on}
+                        aria-disabled={off}
+                        title={
+                          off
+                            ? id === "pickup"
+                              ? `Pick-up points are not available in ${countryName}`
+                              : `No delivery to an address in ${countryName}`
+                            : undefined
+                        }
+                        className={`${styles.toggleBtn} ${on ? styles.toggleOn : ""} ${off ? extra.toggleOff : ""}`}
                         data-analytics-id={`delivery_mode_${id}`}
                         onClick={() => {
+                          if (off) return;
                           setMode(id);
                           track("delivery_method_selected", {
                             delivery_type_code: id,
@@ -1046,16 +1035,9 @@ export function FriendCheckout() {
                       >
                         {label}
                       </button>
-                    ))}
-                  </div>
-                )}
-                <StateCombobox
-                  options={countryNames}
-                  label="Country/Region"
-                  value={countryName}
-                  onChange={changeCountry}
-                  name="country"
-                />
+                    );
+                  })}
+                </div>
                 {!pickup ? (
                   <>
                     {manual ? (
@@ -1215,32 +1197,20 @@ export function FriendCheckout() {
                   </>
                 ) : (
                   <>
-                    <div className={styles.row}>
-                      <StateCombobox
-                        options={REGIONS}
-                        label="State (Bundesland)"
-                        value={state}
-                        onChange={setState}
-                        name="state"
-                        shake={shaking === "state"}
-                        attention={attempted && !state}
-                      />
-                      <FloatInput
-                        {...field("city")}
-                        label="City"
-                        value={cityDraft}
-                        onChange={setCityDraft}
-                        autoComplete="address-level2"
-                      />
-                    </div>
+                    <FloatInput
+                      {...field("city")}
+                      label="City"
+                      value={cityDraft}
+                      onChange={setCityDraft}
+                      autoComplete="address-level2"
+                    />
                     <div
                       className={`${styles.pickup} ${shaking === "point" ? styles.shake : ""}`}
                       data-field="point"
                     >
-                      {!state || !city ? (
+                      {!city ? (
                         <p className={styles.hint}>
-                          Enter your state and city to find pick-up points near
-                          you.
+                          Enter your city to find pick-up points near you.
                         </p>
                       ) : pointsLoading ? (
                         <p className={styles.loader} role="status">
@@ -1311,6 +1281,50 @@ export function FriendCheckout() {
                     </div>
                   </>
                 )}
+              </section>
+
+              <section className={styles.section}>
+                <h2 className={styles.h2}>Contact</h2>
+                <FloatInput
+                  {...field("email")}
+                  error={nonLatinEmail}
+                  hint={
+                    nonLatinEmail
+                      ? "Use Latin letters only (a look-alike letter from another alphabet will not work)"
+                      : undefined
+                  }
+                  label="Email"
+                  placeholder="name@example.com"
+                  value={email}
+                  onChange={setEmail}
+                  inputMode="email"
+                  autoComplete="email"
+                />
+                <div className={styles.row}>
+                  <FloatInput
+                    {...field("first")}
+                    label="First name"
+                    value={first}
+                    onChange={setFirst}
+                    autoComplete="given-name"
+                  />
+                  <FloatInput
+                    {...field("last")}
+                    label="Last name"
+                    value={last}
+                    onChange={setLast}
+                    autoComplete="family-name"
+                  />
+                </div>
+                <FloatInput
+                  {...field("phone")}
+                  label="Phone"
+                  placeholder="0151 23456789"
+                  value={phone}
+                  onChange={setPhone}
+                  inputMode="tel"
+                  autoComplete="tel"
+                />
               </section>
 
               <section className={styles.section}>

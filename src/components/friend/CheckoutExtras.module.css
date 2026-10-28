@@ -1,0 +1,5 @@
+/* a way to receive the order that the country's shop site does not have */
+.toggleOff {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
