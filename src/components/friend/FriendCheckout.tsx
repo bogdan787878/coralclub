@@ -218,15 +218,18 @@ export function FriendCheckout() {
       api<{
         result?: {
           COUNTRIES_FILTERED?: Record<string, string>;
-          moscowDeliveryTimes?: DeliveryTimes;
-          spbDeliveryTimes?: DeliveryTimes;
+          CHECKOUT_OPTIONS?: {
+            moscowDeliveryTimes?: DeliveryTimes;
+            spbDeliveryTimes?: DeliveryTimes;
+          };
         };
       }>("/init")
         .then((d) => {
           if (!alive) return;
+          // the courier schedules of Russia sit in the checkout options
           setSlotCfg({
-            moscow: d.result?.moscowDeliveryTimes,
-            spb: d.result?.spbDeliveryTimes,
+            moscow: d.result?.CHECKOUT_OPTIONS?.moscowDeliveryTimes,
+            spb: d.result?.CHECKOUT_OPTIONS?.spbDeliveryTimes,
           });
           const list = Object.entries(
             d.result?.COUNTRIES_FILTERED ?? {},
