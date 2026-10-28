@@ -35,10 +35,12 @@ import {
 } from "@/lib/shopApi";
 import { AddressSearch } from "./AddressSearch";
 import { CountryMenu } from "./CountryMenu";
+import { MapPicker } from "./MapPicker";
 import {
   addressSearchEnabled,
   splitStreet,
   streetLine,
+  type ResolvedAddress,
 } from "@/lib/addressSearch";
 import { FloatInput } from "./FloatInput";
 import { CardBadges } from "./PayBadges";
@@ -155,7 +157,7 @@ export function FriendCheckout() {
   const [cityDraft, setCityDraft] = useState("");
   const [address, setAddress] = useState(""); // street and house number
   const [apartment, setApartment] = useState("");
-  const [supplementOpen, setSupplementOpen] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false);
   // one search line by default; the separate fields are filled in the
   // background from the picked address and only shown for manual entry
   const [manual, setManual] = useState(!addressSearchEnabled);
@@ -246,7 +248,7 @@ export function FriendCheckout() {
     .flatMap((g) => g.ITEMS);
   // pick-up needs a site that has it; a site with nothing else sends everyone there
   const pickup =
-    pickupItems.length > 0 && (mode === "pickup" || courierItems.length === 0);
+    mode === "pickup" || (courierItems.length === 0 && pickupItems.length > 0);
   const items = pickup ? pickupItems : courierItems;
   const chosenPoint = pickup
     ? points.find((p) => p.CODE === pointCode)
@@ -491,6 +493,24 @@ export function FriendCheckout() {
       );
   }, [points, pointSearch, city]);
 
+  // an address from a suggestion or from the map fills the whole form in the background
+  function applyAddress(a: ResolvedAddress) {
+    const st = streetLine(country, a.street, a.houseNumber);
+    setAddress(st);
+    setApartment(a.unit);
+    setCityDraft(a.city);
+    setCity(a.city);
+    setState(a.state);
+    setZip(a.zip);
+    if (a.street && a.houseNumber && a.zip && a.city && a.state) {
+      setSearchText(addressLine(st, a.zip, a.city));
+      setPicked(true);
+    } else {
+      // something is missing: let the shopper complete it
+      setManual(true);
+    }
+  }
+
   // another country: the address is for the old one, the shop recounts delivery and payment
   function changeCountry(name: string) {
     const code = Object.entries(countryMap).find(([, n]) => n === name)?.[0];
@@ -511,7 +531,6 @@ export function FriendCheckout() {
     setSearchText("");
     setPicked(false);
     setApartment("");
-    setSupplementOpen(false);
     setZip("");
     setCityDraft("");
     setCity("");
@@ -989,56 +1008,48 @@ export function FriendCheckout() {
                 </p>
               ))}
 
+              <div
+                className={extra.switch}
+                role="radiogroup"
+                aria-label="How to receive your order"
+              >
+                {(
+                  [
+                    ["courier", "Home delivery"],
+                    ["pickup", "Pick-up"],
+                  ] as const
+                ).map(([id, label]) => {
+                  const on = (id === "pickup") === pickup;
+                  return (
+                    <button
+                      key={id}
+                      type="button"
+                      role="radio"
+                      aria-checked={on}
+                      className={`${extra.switchBtn} ${on ? extra.switchOn : ""}`}
+                      data-analytics-id={`delivery_mode_${id}`}
+                      onClick={() => {
+                        setMode(id);
+                        track("delivery_method_selected", {
+                          delivery_type_code: id,
+                        });
+                      }}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+
               <section className={styles.section}>
                 <h2 className={styles.h2}>Delivery</h2>
-                <div
-                  className={styles.toggle}
-                  role="radiogroup"
-                  aria-label="How to receive your order"
-                >
-                  {(
-                    [
-                      [
-                        "courier",
-                        "Delivery to address",
-                        courierItems.length > 0,
-                      ],
-                      ["pickup", "Pick up point", pickupItems.length > 0],
-                    ] as const
-                  ).map(([id, label, available]) => {
-                    const on = (id === "pickup") === pickup;
-                    // the shop's answer for the country is still on its way: nothing is greyed yet
-                    const off = !available && deliveryFor === deliveryKey;
-                    return (
-                      <button
-                        key={id}
-                        type="button"
-                        role="radio"
-                        aria-checked={on}
-                        aria-disabled={off}
-                        title={
-                          off
-                            ? id === "pickup"
-                              ? `Pick-up points are not available in ${countryName}`
-                              : `No delivery to an address in ${countryName}`
-                            : undefined
-                        }
-                        className={`${styles.toggleBtn} ${on ? styles.toggleOn : ""} ${off ? extra.toggleOff : ""}`}
-                        data-analytics-id={`delivery_mode_${id}`}
-                        onClick={() => {
-                          if (off) return;
-                          setMode(id);
-                          track("delivery_method_selected", {
-                            delivery_type_code: id,
-                          });
-                        }}
-                      >
-                        {label}
-                      </button>
-                    );
-                  })}
-                </div>
-                {!pickup ? (
+                {pickup && pickupItems.length === 0 ? (
+                  <p className={styles.hint}>
+                    {deliveryFor === deliveryKey
+                      ? `Pick-up points are not available in ${countryName} yet. Choose home delivery.`
+                      : "Looking for pick-up points…"}
+                  </p>
+                ) : !pickup ? (
                   <>
                     {manual ? (
                       <FloatInput
@@ -1077,46 +1088,27 @@ export function FriendCheckout() {
                         error={attempted && !picked && searchText.trim() !== ""}
                         hint={
                           attempted && !picked && searchText.trim() !== ""
-                            ? "Choose your address from the list, or enter it manually"
+                            ? "Choose your address from the list or on the map"
                             : undefined
                         }
-                        onPick={(a) => {
-                          // a pick fills the whole address form in the background
-                          const st = streetLine(
-                            country,
-                            a.street,
-                            a.houseNumber,
-                          );
-                          setAddress(st);
-                          setApartment(a.unit);
-                          if (a.unit) setSupplementOpen(true);
-                          setCityDraft(a.city);
-                          setCity(a.city);
-                          setState(a.state);
-                          setZip(a.zip);
-                          if (
-                            a.street &&
-                            a.houseNumber &&
-                            a.zip &&
-                            a.city &&
-                            a.state
-                          ) {
-                            setSearchText(addressLine(st, a.zip, a.city));
-                            setPicked(true);
-                          } else {
-                            // something is missing: let the shopper complete it
-                            setManual(true);
-                          }
-                        }}
+                        onPick={applyAddress}
                       />
                     )}
-                    <div className={styles.addLines}>
-                      {addressSearchEnabled && (
+                    {addressSearchEnabled && (
+                      <div className={styles.addLines}>
                         <button
                           type="button"
                           className={styles.addLine}
-                          onClick={() => {
-                            if (manual) {
+                          onClick={() => setMapOpen(true)}
+                          data-analytics-id="address_map"
+                        >
+                          Choose on map
+                        </button>
+                        {manual && (
+                          <button
+                            type="button"
+                            className={styles.addLine}
+                            onClick={() => {
                               const full =
                                 street && build && zip.trim() && city && state;
                               setPicked(Boolean(full));
@@ -1125,26 +1117,15 @@ export function FriendCheckout() {
                                   ? addressLine(address, zip.trim(), city)
                                   : "",
                               );
-                            }
-                            setManual(!manual);
-                          }}
-                        >
-                          {manual
-                            ? "Search for an address instead"
-                            : "Enter address manually"}
-                        </button>
-                      )}
-                      {!supplementOpen && !apartment && (
-                        <button
-                          type="button"
-                          className={styles.addLine}
-                          onClick={() => setSupplementOpen(true)}
-                        >
-                          + Add c/o, floor or entrance
-                        </button>
-                      )}
-                    </div>
-                    {(supplementOpen || apartment) && (
+                              setManual(false);
+                            }}
+                          >
+                            Search for an address instead
+                          </button>
+                        )}
+                      </div>
+                    )}
+                    {(manual || apartment) && (
                       <FloatInput
                         label="Address supplement (optional)"
                         placeholder="c/o, floor, entrance"
@@ -1376,7 +1357,7 @@ export function FriendCheckout() {
                 ) : (
                   <p className={styles.hint}>
                     {pickup && !deliveryErr
-                      ? "Pick-up isn’t available in this state. Choose delivery to an address."
+                      ? `Pick-up isn’t available in ${countryName} yet. Choose home delivery.`
                       : deliveryErr || "No delivery options for this address."}
                   </p>
                 )}
@@ -1613,6 +1594,18 @@ export function FriendCheckout() {
               {summary}
             </aside>
           </div>
+        )}
+        {mapOpen && addressSearchEnabled && (
+          <MapPicker
+            country={country}
+            countryName={countryName}
+            nearby={city || undefined}
+            onSelect={(a) => {
+              applyAddress(a);
+              setMapOpen(false);
+            }}
+            onClose={() => setMapOpen(false)}
+          />
         )}
       </main>
     </div>

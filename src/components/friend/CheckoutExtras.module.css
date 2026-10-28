@@ -1,5 +1,35 @@
-/* a way to receive the order that the country's shop site does not have */
-.toggleOff {
-  opacity: 0.4;
-  cursor: not-allowed;
+/* Home delivery / Pick-up: a pill track with a white raised segment */
+.switch {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 16px;
+  background: var(--color-green-light);
+}
+
+.switchBtn {
+  flex: 1 1 0;
+  height: 40px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.switchOn {
+  background: var(--color-surface);
+  box-shadow:
+    0 1px 3px rgba(0, 32, 34, 0.16),
+    0 1px 1px rgba(0, 32, 34, 0.08);
+}
+
+.switchBtn:focus-visible {
+  outline: 2px solid var(--color-action);
+  outline-offset: 2px;
 }

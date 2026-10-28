@@ -156,25 +156,24 @@ export async function resolveStreet(
 }
 
 /** The chosen suggestion → the fields of the form. */
-export async function resolveAddress(
-  s: AddressSuggestion,
+export type AddressComponent = { long: string; short: string; types: string[] };
+
+/** Google's address components → the fields of the form. */
+export function addressFromComponents(
+  comps: AddressComponent[],
   country: string = MARKET.code,
-): Promise<ResolvedAddress> {
-  const place = (s.ref as PlacePrediction).toPlace();
-  await place.fetchFields({ fields: ["addressComponents"] });
-  const comps = place.addressComponents ?? [];
-  const get = (type: string, short = false) => {
-    const c = comps.find((x) => x.types.includes(type));
-    return c ? (short ? c.shortText : c.longText) : "";
-  };
-  const number = get("street_number");
+  /** the street line to fall back on when Google gives no street part */
+  fallbackStreet = "",
+): ResolvedAddress {
+  const get = (type: string) =>
+    comps.find((x) => x.types.includes(type))?.long ?? "";
+  // a range comes as «5 7» from the geocoder: write it «5-7»
+  const number = get("street_number").replace(/(\d)\s+(\d)/g, "$1-$2");
   const route = get("route");
-  const zip = get("postal_code"); // five digits (PLZ)
   const state = get("administrative_area_level_1");
   return {
-    // never empty: when Google gives no street part, the line that was picked
-    // («Friedrichstraße 43») goes into the field as it is
-    street: route || s.main,
+    // never empty when a line was picked: «Friedrichstraße 43» goes into the field as it is
+    street: route || fallbackStreet,
     houseNumber: route ? number : "",
     unit: get("subpremise"),
     city:
@@ -188,7 +187,132 @@ export async function resolveAddress(
       country === MARKET.code
         ? (REGIONS.find((x) => x === state) ?? "")
         : state,
-    zip,
+    zip: get("postal_code"),
+  };
+}
+
+export async function resolveAddress(
+  s: AddressSuggestion,
+  country: string = MARKET.code,
+): Promise<ResolvedAddress> {
+  const place = (s.ref as PlacePrediction).toPlace();
+  await place.fetchFields({ fields: ["addressComponents"] });
+  const comps = (place.addressComponents ?? []).map((c) => ({
+    long: c.longText,
+    short: c.shortText,
+    types: c.types,
+  }));
+  return addressFromComponents(comps, country, s.main);
+}
+
+/* ---- «Choose on map»: the map and the geocoder of the same Maps script ---- */
+
+export type MapPoint = { lat: number; lng: number };
+type LatLng = { lat(): number; lng(): number };
+type GeoResult = {
+  types: string[];
+  formatted_address: string;
+  address_components: {
+    long_name: string;
+    short_name: string;
+    types: string[];
+  }[];
+  geometry: { location: LatLng; viewport?: unknown };
+};
+export type GoogleMap = {
+  getCenter(): LatLng | undefined;
+  fitBounds(bounds: unknown): void;
+  setCenter(c: MapPoint): void;
+  setZoom(z: number): void;
+  addListener(event: string, fn: () => void): { remove(): void };
+};
+export type MapsKit = {
+  newMap(el: HTMLElement, center: MapPoint, zoom: number): GoogleMap;
+  /** where a place is (a country, a city), as a point and a zoom */
+  find(
+    address: string,
+    region?: string,
+  ): Promise<{ point: MapPoint; bounds: unknown } | null>;
+  /** the address at a point */
+  at(point: MapPoint): Promise<{
+    address: ResolvedAddress;
+    country: string;
+    line: string;
+  } | null>;
+};
+
+export async function loadMapsKit(): Promise<MapsKit> {
+  await load(); // the script (with the Places library) is the same one
+  const w = window as unknown as MapsWindow;
+  const maps = (await w.google!.maps!.importLibrary("maps")) as {
+    Map: new (el: HTMLElement, o: Record<string, unknown>) => GoogleMap;
+  };
+  const geo = (await w.google!.maps!.importLibrary("geocoding")) as {
+    Geocoder: new () => {
+      geocode(r: Record<string, unknown>): Promise<{ results: GeoResult[] }>;
+    };
+  };
+  const geocoder = new geo.Geocoder();
+  const comps = (r: GeoResult) =>
+    r.address_components.map((c) => ({
+      long: c.long_name,
+      short: c.short_name,
+      types: c.types,
+    }));
+  return {
+    newMap: (el, center, zoom) =>
+      new maps.Map(el, {
+        center,
+        zoom,
+        disableDefaultUI: true,
+        zoomControl: true,
+        gestureHandling: "greedy",
+        clickableIcons: false,
+      }),
+    async find(address, region) {
+      try {
+        const { results } = await geocoder.geocode({
+          address,
+          ...(region ? { region } : {}),
+        });
+        const r = results[0];
+        if (!r) return null;
+        return {
+          point: {
+            lat: r.geometry.location.lat(),
+            lng: r.geometry.location.lng(),
+          },
+          bounds: r.geometry.viewport,
+        };
+      } catch {
+        return null;
+      }
+    },
+    async at(point) {
+      try {
+        const { results } = await geocoder.geocode({ location: point });
+        // the first result with a street and a house number, else the first one
+        const hit =
+          results.find((r) => {
+            const c = comps(r);
+            return (
+              c.some((x) => x.types.includes("street_number")) &&
+              c.some((x) => x.types.includes("route"))
+            );
+          }) ?? results[0];
+        if (!hit) return null;
+        const c = comps(hit);
+        const country =
+          c.find((x) => x.types.includes("country"))?.short.toUpperCase() ?? "";
+        return {
+          address: addressFromComponents(c, country, ""),
+          country,
+          line: hit.formatted_address,
+        };
+      } catch {
+        return null;
+      }
+    },
   };
 }
 
