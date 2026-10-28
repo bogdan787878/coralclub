@@ -50,7 +50,7 @@ import {
   type ResolvedAddress,
 } from "@/lib/addressSearch";
 import { FloatInput } from "./FloatInput";
-import { OptionCard, OptionCards } from "./OptionCards";
+import { OptionCard, OptionCards, OptionInfo } from "./OptionCards";
 import { CardBadges } from "./PayBadges";
 import { StateCombobox } from "./StateCombobox";
 import { useFriend } from "./FriendProvider";
@@ -295,7 +295,8 @@ export function FriendCheckout() {
   const pickupNone = deliveryFor === deliveryKey && pickupItems.length === 0;
   const pickup =
     !pickupNone &&
-    (mode === "pickup" || (courierItems.length === 0 && pickupItems.length > 0));
+    (mode === "pickup" ||
+      (courierItems.length === 0 && pickupItems.length > 0));
   const items = pickup ? pickupItems : courierItems;
   const chosenPoint = pickup
     ? points.find((p) => p.CODE === pointCode)
@@ -1053,39 +1054,39 @@ export function FriendCheckout() {
               ))}
 
               {!pickupNone && (
-              <div
-                className={extra.switch}
-                role="radiogroup"
-                aria-label="How to receive your order"
-              >
-                {(
-                  [
-                    ["courier", "Home delivery"],
-                    ["pickup", "Pick-up"],
-                  ] as const
-                ).map(([id, label]) => {
-                  const on = (id === "pickup") === pickup;
-                  return (
-                    <button
-                      key={id}
-                      type="button"
-                      role="radio"
-                      aria-checked={on}
-                      className={`${extra.switchBtn} ${on ? extra.switchOn : ""}`}
-                      data-analytics-id={`delivery_mode_${id}`}
-                      onClick={() => {
-                        setMode(id);
-                        if (id === "pickup" && city) setSheetOpen(true);
-                        track("delivery_method_selected", {
-                          delivery_type_code: id,
-                        });
-                      }}
-                    >
-                      {label}
-                    </button>
-                  );
-                })}
-              </div>
+                <div
+                  className={extra.switch}
+                  role="radiogroup"
+                  aria-label="How to receive your order"
+                >
+                  {(
+                    [
+                      ["courier", "Home delivery"],
+                      ["pickup", "Pick-up"],
+                    ] as const
+                  ).map(([id, label]) => {
+                    const on = (id === "pickup") === pickup;
+                    return (
+                      <button
+                        key={id}
+                        type="button"
+                        role="radio"
+                        aria-checked={on}
+                        className={`${extra.switchBtn} ${on ? extra.switchOn : ""}`}
+                        data-analytics-id={`delivery_mode_${id}`}
+                        onClick={() => {
+                          setMode(id);
+                          if (id === "pickup" && city) setSheetOpen(true);
+                          track("delivery_method_selected", {
+                            delivery_type_code: id,
+                          });
+                        }}
+                      >
+                        {label}
+                      </button>
+                    );
+                  })}
+                </div>
               )}
 
               <section className={styles.section}>
@@ -1262,8 +1263,9 @@ export function FriendCheckout() {
                               {point ? (
                                 <>
                                   <strong>
-                                    {pickupItems.find((i) => i.ID === point.TYPE)
-                                      ?.NAME ?? point.NAME}
+                                    {pickupItems.find(
+                                      (i) => i.ID === point.TYPE,
+                                    )?.NAME ?? point.NAME}
                                   </strong>
                                   <small>
                                     {[point.ADDRESS, point.CITY]
@@ -1276,7 +1278,9 @@ export function FriendCheckout() {
                               )}
                             </span>
                             <span className={extra.pointAction}>
-                              {point ? "Change" : `${points.length} near ${city}`}
+                              {point
+                                ? "Change"
+                                : `${points.length} near ${city}`}
                             </span>
                           </button>
                           {attempted && !point && (
@@ -1348,34 +1352,50 @@ export function FriendCheckout() {
                     Loading delivery options…
                   </p>
                 ) : items.length > 0 ? (
-                  <OptionCards label="Shipping method">
-                    {items.map((it) => (
-                      <OptionCard
-                        key={it.ID}
-                        name="delivery"
-                        checked={deliveryId === it.ID}
-                        onChange={() => {
-                          setDeliveryChoice(it.ID);
-                          track("delivery_method_selected", {
-                            delivery_type_code: pickup ? "pickup" : "courier",
-                            delivery_service: it.NAME,
-                            delivery_cost: Number(it.PRICE) || 0,
-                          });
-                        }}
-                        title={it.NAME}
-                        good={!it.PRICE}
-                        lines={
-                          <>
-                            {it.TRANSIT && <span>{it.TRANSIT} days</span>}
-                            {it.FREE_DELIVERY && it.PRICE ? (
-                              <span>free over {money(it.FREE_DELIVERY)}</span>
-                            ) : null}
-                            <span>{it.PRICE ? money(it.PRICE) : "Free"}</span>
-                          </>
-                        }
-                      />
-                    ))}
-                  </OptionCards>
+                  items.length === 1 ? (
+                    <OptionInfo
+                      title={items[0].NAME}
+                      detail={[
+                        items[0].TRANSIT && `${items[0].TRANSIT} days`,
+                        items[0].FREE_DELIVERY && items[0].PRICE
+                          ? `free over ${money(items[0].FREE_DELIVERY)}`
+                          : "",
+                      ]
+                        .filter(Boolean)
+                        .join(" · ")}
+                      aside={items[0].PRICE ? money(items[0].PRICE) : "Free"}
+                      good={!items[0].PRICE}
+                    />
+                  ) : (
+                    <OptionCards label="Shipping method">
+                      {items.map((it) => (
+                        <OptionCard
+                          key={it.ID}
+                          name="delivery"
+                          checked={deliveryId === it.ID}
+                          onChange={() => {
+                            setDeliveryChoice(it.ID);
+                            track("delivery_method_selected", {
+                              delivery_type_code: pickup ? "pickup" : "courier",
+                              delivery_service: it.NAME,
+                              delivery_cost: Number(it.PRICE) || 0,
+                            });
+                          }}
+                          title={it.NAME}
+                          good={!it.PRICE}
+                          lines={
+                            <>
+                              {it.TRANSIT && <span>{it.TRANSIT} days</span>}
+                              {it.FREE_DELIVERY && it.PRICE ? (
+                                <span>free over {money(it.FREE_DELIVERY)}</span>
+                              ) : null}
+                              <span>{it.PRICE ? money(it.PRICE) : "Free"}</span>
+                            </>
+                          }
+                        />
+                      ))}
+                    </OptionCards>
+                  )
                 ) : (
                   <p className={styles.hint}>
                     {pickup && !deliveryErr
@@ -1440,6 +1460,30 @@ export function FriendCheckout() {
                     <span className={styles.spinner} aria-hidden="true" />
                     Loading payment options…
                   </p>
+                ) : payments.length === 1 ? (
+                  <OptionInfo
+                    title={
+                      /^bank card$/i.test(payments[0].NAME)
+                        ? "Credit or debit card"
+                        : payments[0].NAME
+                    }
+                    aside={
+                      /^bank card$/i.test(payments[0].NAME) ? (
+                        <CardBadges wallets={MARKET.googlePay} />
+                      ) : payments[0].IMAGE ? (
+                        // eslint-disable-next-line @next/next/no-img-element -- the shop's own method logo
+                        <img
+                          src={payments[0].IMAGE}
+                          alt=""
+                          style={{
+                            width: 32,
+                            height: 32,
+                            objectFit: "contain",
+                          }}
+                        />
+                      ) : undefined
+                    }
+                  />
                 ) : (
                   <OptionCards label="Payment method">
                     {payments.map((p) => {

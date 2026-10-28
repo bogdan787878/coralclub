@@ -71,3 +71,31 @@ export function OptionCard({
     </label>
   );
 }
+
+/** The only option: nothing to choose, so the data is just shown (no radio card). */
+export function OptionInfo({
+  title,
+  detail,
+  aside,
+  good,
+}: {
+  title: ReactNode;
+  detail?: ReactNode;
+  aside?: ReactNode;
+  /** the aside is a good thing (free): shown in green */
+  good?: boolean;
+}) {
+  return (
+    <div className={styles.info}>
+      <div className={styles.infoText}>
+        <span className={styles.infoTitle}>{title}</span>
+        {detail && <span className={styles.infoDetail}>{detail}</span>}
+      </div>
+      {aside && (
+        <span className={`${styles.infoAside} ${good ? styles.infoGood : ""}`}>
+          {aside}
+        </span>
+      )}
+    </div>
+  );
+}

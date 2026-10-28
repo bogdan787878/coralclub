@@ -89,3 +89,41 @@
 .on .check circle {
   fill: var(--color-text);
 }
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.infoText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.infoTitle {
+  font-size: 1.0625rem;
+  line-height: 1.5rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.infoDetail {
+  font-size: 0.9375rem;
+  line-height: 1.375rem;
+  color: var(--color-text-muted);
+}
+
+.infoAside {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.0625rem;
+  font-weight: var(--font-weight-medium);
+  text-align: right;
+}
+
+.infoGood {
+  color: #1f9d4d;
+}
