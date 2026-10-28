@@ -228,10 +228,23 @@ export type GoogleMap = {
   fitBounds(bounds: unknown): void;
   setCenter(c: MapPoint): void;
   setZoom(z: number): void;
+  getZoom(): number | undefined;
+  panTo(c: MapPoint): void;
+  getBounds():
+    | { getNorthEast(): LatLng; getSouthWest(): LatLng }
+    | undefined;
   addListener(event: string, fn: () => void): { remove(): void };
 };
+export type MapMarker = { remove(): void };
 export type MapsKit = {
   newMap(el: HTMLElement, center: MapPoint, zoom: number): GoogleMap;
+  /** a pin drawn from an image (an SVG data URL), anchored at the bottom middle or the centre */
+  marker(
+    map: GoogleMap,
+    at: MapPoint,
+    icon: { url: string; width: number; height: number; center?: boolean },
+    onClick: () => void,
+  ): MapMarker;
   /** where a place is (a country, a city), as a point and a zoom */
   find(
     address: string,
@@ -257,6 +270,16 @@ export async function loadMapsKit(): Promise<MapsKit> {
     };
   };
   const geocoder = new geo.Geocoder();
+  const core = (await w.google!.maps!.importLibrary("core")) as {
+    Size: new (w: number, h: number) => unknown;
+    Point: new (x: number, y: number) => unknown;
+  };
+  const mk = (await w.google!.maps!.importLibrary("marker")) as {
+    Marker: new (o: Record<string, unknown>) => {
+      addListener(e: string, fn: () => void): unknown;
+      setMap(m: unknown): void;
+    };
+  };
   const comps = (r: GeoResult) =>
     r.address_components.map((c) => ({
       long: c.long_name,
@@ -273,6 +296,22 @@ export async function loadMapsKit(): Promise<MapsKit> {
         gestureHandling: "greedy",
         clickableIcons: false,
       }),
+    marker(map, at, icon, onClick) {
+      const m = new mk.Marker({
+        map,
+        position: at,
+        icon: {
+          url: icon.url,
+          scaledSize: new core.Size(icon.width, icon.height),
+          anchor: new core.Point(
+            icon.width / 2,
+            icon.center ? icon.height / 2 : icon.height,
+          ),
+        },
+      });
+      m.addListener("click", onClick);
+      return { remove: () => m.setMap(null) };
+    },
     async find(address, region) {
       try {
         const { results } = await geocoder.geocode({

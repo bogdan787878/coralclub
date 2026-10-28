@@ -42,6 +42,7 @@ import { AddressSearch } from "./AddressSearch";
 import { CheckoutHeader } from "./CheckoutHeader";
 import { CountryMenu } from "./CountryMenu";
 import { MapPicker } from "./MapPicker";
+import { PickupSheet, type PickPoint } from "./PickupSheet";
 import {
   addressSearchEnabled,
   splitStreet,
@@ -85,17 +86,6 @@ type DeliveryItem = {
 };
 type DeliveryGroup = { ID: string; NAME: string; ITEMS: DeliveryItem[] };
 type Totals = Record<string, string | number | null | undefined>;
-/** A pick-up point as the shop lists it (FedEx locations near a city). */
-type PickPoint = {
-  CODE: string;
-  TYPE: string;
-  NAME: string;
-  ADDRESS: string;
-  CITY: string;
-  POSTINDEX?: string;
-  WORKTIME?: string | null;
-};
-
 const num = (v: unknown) =>
   parseFloat(
     String(v ?? "")
@@ -258,7 +248,7 @@ export function FriendCheckout() {
   const [points, setPoints] = useState<PickPoint[]>([]);
   const [pointsFor, setPointsFor] = useState("");
   const [pointCode, setPointCode] = useState("");
-  const [pointSearch, setPointSearch] = useState("");
+  const [sheetOpen, setSheetOpen] = useState(false);
   const [deliveryErr, setDeliveryErr] = useState("");
   const [payments, setPayments] = useState<PayMethod[]>([]);
   const [paymentId, setPaymentId] = useState("");
@@ -267,6 +257,21 @@ export function FriendCheckout() {
   const [deliveryFor, setDeliveryFor] = useState("");
   const [paymentsFor, setPaymentsFor] = useState("");
   const [totalsFor, setTotalsFor] = useState("");
+
+  // In Germany the shop's delivery options do not depend on the address, so
+  // they load at once; a site whose options do (Russia, the US …) waits for the
+  // address (its city and region).
+  const byPlace =
+    MARKET.deliveryNeedsRegion || (multiSite && deliveryByPlace(country));
+  const placeCity = byPlace ? city || state : "";
+  const placeArea = byPlace ? state : "";
+  const cityForShop = city || state;
+  const place = byPlace
+    ? placeCity
+      ? `${country}|${placeCity}|${state}`
+      : ""
+    : country;
+  const deliveryKey = `${cartKey}|${place}`;
 
   // courier services and the pick-up service come in separate groups
   // the cheapest service first, so that it is the one chosen by default
@@ -285,8 +290,11 @@ export function FriendCheckout() {
     .filter((g) => g.ID === "PICK_POINT")
     .flatMap((g) => g.ITEMS);
   // pick-up needs a site that has it; a site with nothing else sends everyone there
+  // the site answered for this place and has no pick-up: there is nothing to switch to
+  const pickupNone = deliveryFor === deliveryKey && pickupItems.length === 0;
   const pickup =
-    mode === "pickup" || (courierItems.length === 0 && pickupItems.length > 0);
+    !pickupNone &&
+    (mode === "pickup" || (courierItems.length === 0 && pickupItems.length > 0));
   const items = pickup ? pickupItems : courierItems;
   const chosenPoint = pickup
     ? points.find((p) => p.CODE === pointCode)
@@ -362,20 +370,6 @@ export function FriendCheckout() {
     return () => clearTimeout(t);
   }, [cityDraft]);
 
-  // In Germany the shop's delivery options do not depend on the address, so
-  // they load at once; a site whose options do (Russia, the US …) waits for the
-  // address (its city and region).
-  const byPlace =
-    MARKET.deliveryNeedsRegion || (multiSite && deliveryByPlace(country));
-  const placeCity = byPlace ? city || state : "";
-  const placeArea = byPlace ? state : "";
-  const cityForShop = city || state;
-  const place = byPlace
-    ? placeCity
-      ? `${country}|${placeCity}|${state}`
-      : ""
-    : country;
-  const deliveryKey = `${cartKey}|${place}`;
   const paymentsKey = `${deliveryKey}|${deliveryId}`;
   const totalsKey = `${paymentsKey}|${paymentId}|${promo}|${pickup ? pointCode : ""}`;
 
@@ -529,26 +523,6 @@ export function FriendCheckout() {
     };
   }, [ready, pickup, country, state, city, pointsKey]);
   const pointsLoading = pickup && !!city && pointsFor !== pointsKey;
-  // the shopper's city first, then by city and name; narrowed by the search box
-  const visiblePoints = useMemo(() => {
-    const q = pointSearch.trim().toLowerCase();
-    const own = city.trim().toLowerCase();
-    return points
-      .filter(
-        (p) =>
-          !q ||
-          `${p.NAME} ${p.ADDRESS} ${p.CITY} ${p.POSTINDEX ?? ""}`
-            .toLowerCase()
-            .includes(q),
-      )
-      .sort(
-        (a, b) =>
-          Number(b.CITY.toLowerCase() === own) -
-            Number(a.CITY.toLowerCase() === own) ||
-          a.CITY.localeCompare(b.CITY) ||
-          a.NAME.localeCompare(b.NAME),
-      );
-  }, [points, pointSearch, city]);
 
   // an address from a suggestion or from the map fills the whole form in the background
   function applyAddress(a: ResolvedAddress) {
@@ -583,7 +557,7 @@ export function FriendCheckout() {
     setPoints([]);
     setPointsFor("");
     setPointCode("");
-    setPointSearch("");
+    setSheetOpen(false);
     setAddress("");
     setSearchText("");
     setPicked(false);
@@ -1077,6 +1051,7 @@ export function FriendCheckout() {
                 </p>
               ))}
 
+              {!pickupNone && (
               <div
                 className={extra.switch}
                 role="radiogroup"
@@ -1099,6 +1074,7 @@ export function FriendCheckout() {
                       data-analytics-id={`delivery_mode_${id}`}
                       onClick={() => {
                         setMode(id);
+                        if (id === "pickup" && city) setSheetOpen(true);
                         track("delivery_method_selected", {
                           delivery_type_code: id,
                         });
@@ -1109,10 +1085,11 @@ export function FriendCheckout() {
                   );
                 })}
               </div>
+              )}
 
               <section className={styles.section}>
                 <h2 className={styles.h2}>Delivery</h2>
-                {pickup && pickupItems.length === 0 ? (
+                {pickup && pickupItems.length === 0 && place !== "" ? (
                   <p className={styles.hint}>
                     {deliveryFor === deliveryKey
                       ? `Pick-up points are not available in ${countryName} yet. Choose home delivery.`
@@ -1274,50 +1251,33 @@ export function FriendCheckout() {
                         </p>
                       ) : (
                         <>
-                          <p className={styles.sub}>
-                            {points.length} pick-up points near {city}
-                          </p>
-                          {points.length > 6 && (
-                            <FloatInput
-                              label="Search by name, street or ZIP"
-                              value={pointSearch}
-                              onChange={setPointSearch}
-                            />
-                          )}
-                          <div
-                            className={`${styles.options} ${attempted && !point ? styles.optionsError : ""}`}
-                            role="radiogroup"
-                            aria-label="Pick-up points"
+                          <button
+                            type="button"
+                            className={`${extra.pointBtn} ${attempted && !point ? extra.pointBtnError : ""}`}
+                            onClick={() => setSheetOpen(true)}
+                            data-analytics-id="pickup_open"
                           >
-                            <div className={styles.pointScroll}>
-                              {visiblePoints.length === 0 ? (
-                                <p className={styles.comboEmpty}>
-                                  Nothing matches “{pointSearch}”.
-                                </p>
+                            <span className={extra.pointText}>
+                              {point ? (
+                                <>
+                                  <strong>
+                                    {pickupItems.find((i) => i.ID === point.TYPE)
+                                      ?.NAME ?? point.NAME}
+                                  </strong>
+                                  <small>
+                                    {[point.ADDRESS, point.CITY]
+                                      .filter(Boolean)
+                                      .join(", ")}
+                                  </small>
+                                </>
                               ) : (
-                                visiblePoints.map((p) => (
-                                  <label
-                                    key={p.CODE}
-                                    className={`${styles.option} ${extra.optRight} ${pointCode === p.CODE ? styles.optionOn : ""}`}
-                                  >
-                                    <input
-                                      type="radio"
-                                      name="pickpoint"
-                                      checked={pointCode === p.CODE}
-                                      onChange={() => setPointCode(p.CODE)}
-                                    />
-                                    <span className={styles.optionName}>
-                                      {p.NAME}
-                                      <small>{p.ADDRESS}</small>
-                                      {p.WORKTIME && (
-                                        <small>{p.WORKTIME}</small>
-                                      )}
-                                    </span>
-                                  </label>
-                                ))
+                                <strong>Choose pick-up point</strong>
                               )}
-                            </div>
-                          </div>
+                            </span>
+                            <span className={extra.pointAction}>
+                              {point ? "Change" : `${points.length} near ${city}`}
+                            </span>
+                          </button>
                           {attempted && !point && (
                             <p
                               className={`${styles.floatHint} ${styles.floatHintError}`}
@@ -1706,6 +1666,22 @@ export function FriendCheckout() {
               {summary}
             </aside>
           </div>
+        )}
+        {sheetOpen && pickup && !pointsLoading && points.length > 0 && (
+          <PickupSheet
+            country={country}
+            countryName={countryName}
+            city={city}
+            points={points}
+            services={pickupItems}
+            selected={pointCode}
+            money={money}
+            onSelect={(code) => {
+              setPointCode(code);
+              setSheetOpen(false);
+            }}
+            onClose={() => setSheetOpen(false)}
+          />
         )}
         {mapOpen && addressSearchEnabled && (
           <MapPicker

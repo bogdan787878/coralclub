@@ -1,0 +1,335 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 32, 34, 0.45);
+}
+
+.dialog {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  height: min(94dvh, 820px);
+  border-radius: 20px 20px 0 0;
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .dialog {
+    inset: 50% auto auto 50%;
+    width: 480px;
+    border-radius: 20px;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-16) var(--page-padding-inline) var(--space-12);
+}
+
+.title {
+  margin: 0;
+  flex: 1;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: var(--font-weight-medium);
+  padding-left: 36px; /* balances the close button */
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.body {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  background: var(--color-green-light);
+}
+
+.map {
+  position: absolute;
+  inset: 0;
+}
+
+.state {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--space-24);
+  color: var(--color-text-muted);
+  text-align: center;
+  pointer-events: none;
+}
+
+/* Map / List */
+.views {
+  position: absolute;
+  z-index: 3;
+  top: var(--space-12);
+  left: var(--space-12);
+  display: flex;
+  gap: var(--space-8);
+}
+
+.view {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  height: 48px;
+  padding: 0 var(--space-20, 20px);
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-neutral-30);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 32, 34, 0.18);
+}
+
+.view svg {
+  width: 20px;
+  height: 20px;
+}
+
+.viewOn {
+  background: var(--color-malachite-90, #00464a);
+  color: #fff;
+}
+
+.view:focus-visible,
+.chip:focus-visible,
+.choose:focus-visible,
+.pick:focus-visible {
+  outline: 2px solid var(--color-action);
+  outline-offset: 2px;
+}
+
+/* bottom of the map: the point's card above the carrier filter */
+.over {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: 0 var(--space-12) var(--space-12);
+  pointer-events: none;
+}
+
+.over > * {
+  pointer-events: auto;
+}
+
+.chips,
+.chipsList {
+  display: flex;
+  gap: var(--space-8);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.chips::-webkit-scrollbar,
+.chipsList::-webkit-scrollbar {
+  display: none;
+}
+
+.chipsList {
+  position: absolute;
+  z-index: 4;
+  top: 72px;
+  left: 0;
+  right: 0;
+  padding: 0 var(--space-12) var(--space-8);
+}
+
+.chip {
+  flex: none;
+  height: 44px;
+  padding: 0 var(--space-16);
+  border: 1.5px solid var(--color-malachite-90, #00464a);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.chipOn {
+  background: var(--color-malachite-90, #00464a);
+  color: #fff;
+}
+
+.card {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-16);
+  border-radius: 16px;
+  background: var(--color-surface);
+  box-shadow: 0 4px 16px rgba(0, 32, 34, 0.22);
+}
+
+.cardBody {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.cardName {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.cardLine {
+  margin: 2px 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.375rem;
+}
+
+.cardMuted {
+  margin: 2px 0 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-text-muted);
+}
+
+.choose,
+.pick {
+  flex: none;
+  height: 44px;
+  padding: 0 var(--space-16);
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-action);
+  color: var(--color-action-contrast);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+/* the list view */
+.list {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  overflow-y: auto;
+  padding: 124px var(--space-12) var(--space-12);
+  background: var(--color-surface);
+}
+
+.list > div + div {
+  border-top: 1px solid var(--color-border);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-4, 4px);
+}
+
+.empty {
+  margin: 0;
+  padding: var(--space-24);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.foot {
+  flex: none;
+  padding: var(--space-12) var(--page-padding-inline)
+    max(var(--space-16), env(safe-area-inset-bottom));
+  border-top: 1px solid var(--color-border);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  height: 56px;
+  padding: 0 var(--space-16);
+  border: 1.5px solid var(--color-border);
+  border-radius: 16px;
+  color: var(--color-text-muted);
+}
+
+.search:focus-within {
+  border-color: var(--color-malachite-90, #00464a);
+}
+
+.searchError {
+  border-color: var(--color-error);
+}
+
+.search svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+}
+
+.notFound {
+  margin: var(--space-4, 4px) 0 0;
+  font-size: 0.875rem;
+  color: var(--color-error);
+}
+
+.cardMuted {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
