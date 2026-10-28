@@ -20,7 +20,7 @@ import {
 } from "@/lib/friendCatalog";
 import { loginUrl, registrationUrl, shopBasketUrl } from "@/lib/friend";
 import { MARKET, REGIONS, phoneForShop } from "@/lib/market";
-import { SHOP_SITES } from "@/lib/shopSites";
+import { SHOP_SITES, deliveryByPlace } from "@/lib/shopSites";
 import { readContact, saveContact } from "@/lib/friendContact";
 import {
   api,
@@ -316,13 +316,16 @@ export function FriendCheckout() {
   }, [cityDraft]);
 
   // In Germany the shop's delivery options do not depend on the address, so
-  // they load at once; a market whose options do (the US) waits for the state.
-  const placeCity = MARKET.deliveryNeedsRegion ? city || state : "";
-  const placeArea = MARKET.deliveryNeedsRegion ? state : "";
+  // they load at once; a site whose options do (Russia, the US …) waits for the
+  // address (its city and region).
+  const byPlace =
+    MARKET.deliveryNeedsRegion || (multiSite && deliveryByPlace(country));
+  const placeCity = byPlace ? city || state : "";
+  const placeArea = byPlace ? state : "";
   const cityForShop = city || state;
-  const place = MARKET.deliveryNeedsRegion
-    ? state
-      ? `${placeCity}|${state}`
+  const place = byPlace
+    ? placeCity
+      ? `${country}|${placeCity}|${state}`
       : ""
     : country;
   const deliveryKey = `${cartKey}|${place}`;
@@ -418,7 +421,7 @@ export function FriendCheckout() {
       setDeliveryErr(
         list.length
           ? ""
-          : MARKET.deliveryNeedsRegion
+          : byPlace
             ? "No delivery options for this address."
             : "No delivery options for this country.",
       );
@@ -432,7 +435,7 @@ export function FriendCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [ready, place, country, placeCity, placeArea, deliveryKey]);
+  }, [ready, place, country, byPlace, placeCity, placeArea, deliveryKey]);
 
   // 3 ─ payment methods of the chosen delivery
   useEffect(() => {
@@ -1365,7 +1368,10 @@ export function FriendCheckout() {
                   <p className={styles.hint}>
                     {pickup && !deliveryErr
                       ? `Pick-up isn’t available in ${countryName} yet. Choose home delivery.`
-                      : deliveryErr || "No delivery options for this address."}
+                      : !place
+                        ? "Delivery options appear once you choose your address."
+                        : deliveryErr ||
+                          "No delivery options for this address."}
                   </p>
                 )}
               </section>
@@ -1377,7 +1383,7 @@ export function FriendCheckout() {
                 </p>
                 {!place ? (
                   <p className={styles.hint}>
-                    Payment options appear once you choose your state.
+                    Payment options appear once you choose your address.
                   </p>
                 ) : paymentsLoading ? (
                   <p className={styles.loader} role="status">

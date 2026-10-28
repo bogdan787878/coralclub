@@ -64,7 +64,8 @@ const META: Record<
     form: "30-day set",
   },
   "coral-mine-silver": {
-    id: "2220",
+    // the shop's basket takes 22201 (21 €) and 2221 (10 sachets, 8 €); 2220 is not an article of the site
+    id: "22201",
     club: 21,
     bonus: 14,
     tag: "Mineral water",

@@ -45,3 +45,37 @@ export const SHOP_SITES: Record<string, ShopSite> = {
   US: { name: "United States", currency: "USD", host: "us.coral.club" },
   UZ: { name: "Uzbekistan", currency: "UZS", host: "uz.coral.club" },
 };
+
+/**
+ * The sites whose delivery services and prices depend on the place (city and
+ * region), as the shop's checkout asks for them: they are asked again once an
+ * address is chosen. The others answer the same for the whole country.
+ */
+const DELIVERY_BY_PLACE = new Set([
+  "RU",
+  "BY",
+  "UA",
+  "KZ",
+  "UZ",
+  "AM",
+  "GE",
+  "US",
+  "CA",
+]);
+export const deliveryByPlace = (country: string): boolean =>
+  DELIVERY_BY_PLACE.has(country);
+
+/** The language Google answers address searches in for the country. */
+export function placesLanguageFor(country: string): string | undefined {
+  return (
+    {
+      RU: "ru",
+      BY: "ru",
+      KZ: "ru",
+      UZ: "ru",
+      AM: "ru",
+      GE: "ru",
+      UA: "uk",
+    } as Record<string, string>
+  )[country];
+}

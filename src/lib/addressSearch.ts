@@ -10,6 +10,7 @@
  * only after the shopper has typed a few characters.
  */
 import { MARKET, NUMBER_FIRST, REGIONS } from "./market";
+import { placesLanguageFor } from "./shopSites";
 
 const KEY = process.env.NEXT_PUBLIC_GOOGLE_PLACES_KEY ?? "";
 
@@ -121,7 +122,10 @@ export async function suggestAddresses(
       input,
       sessionToken: session,
       includedRegionCodes: [country.toLowerCase()],
-      language: country === MARKET.code ? MARKET.placesLanguage : "en",
+      language:
+        country === MARKET.code
+          ? MARKET.placesLanguage
+          : (placesLanguageFor(country) ?? "en"),
       // a street alone has no postcode and cannot be delivered to: it is only
       // a step towards the address with its number
       includedPrimaryTypes: streets
