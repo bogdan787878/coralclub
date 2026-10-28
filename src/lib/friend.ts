@@ -145,6 +145,9 @@ export function shopBasketUrl(
   ].join("&")}`;
 }
 
+/** The shop's own sign-in. */
+export const loginUrl = () => `${SHOP}/auth/`;
+
 /** The shop's own sign-up, opened as an invitation from this distributor. */
 export const registrationUrl = (friend: Pick<Friend, "refCode">) =>
   `${SHOP}/auth/registration/?REF_CODE=${encodeURIComponent(friend.refCode)}`;

@@ -9,7 +9,6 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
-import { LandingHeader } from "@/components/landing/LandingHeader";
 import { asset } from "@/lib/asset";
 import { track, trackOnce } from "@/lib/analytics";
 import { summarize } from "@/lib/analyticsRu";
@@ -19,7 +18,7 @@ import {
   friendProductById,
   friendTotals,
 } from "@/lib/friendCatalog";
-import { shopBasketUrl } from "@/lib/friend";
+import { loginUrl, registrationUrl, shopBasketUrl } from "@/lib/friend";
 import { MARKET, REGIONS, phoneForShop } from "@/lib/market";
 import { SHOP_SITES } from "@/lib/shopSites";
 import { readContact, saveContact } from "@/lib/friendContact";
@@ -34,6 +33,7 @@ import {
   shopFetch,
 } from "@/lib/shopApi";
 import { AddressSearch } from "./AddressSearch";
+import { CheckoutHeader } from "./CheckoutHeader";
 import { CountryMenu } from "./CountryMenu";
 import { MapPicker } from "./MapPicker";
 import {
@@ -918,9 +918,12 @@ export function FriendCheckout() {
   return (
     <div className="appShell">
       <main className={styles.page} data-analytics-location="checkout">
-        <LandingHeader
+        <CheckoutHeader
           homeHref={asset("/friend/")}
-          end={
+          loginHref={loginUrl()}
+          registerHref={friend ? registrationUrl(friend) : undefined}
+          cartCount={lines.reduce((n, l) => n + l.qty, 0)}
+          country={
             <CountryMenu
               countries={countryMap}
               value={country}
@@ -991,7 +994,7 @@ export function FriendCheckout() {
             </details>
 
             <div className={styles.main}>
-              <h1 className={styles.title}>Checkout</h1>
+              <h1 className={extra.visuallyHidden}>Checkout</h1>
 
               {ready === "sync" && (
                 <p className={styles.loader} role="status">
