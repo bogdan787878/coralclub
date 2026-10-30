@@ -40,14 +40,18 @@ export const MARKET = {
 
 const formats = new Map<string, Intl.NumberFormat>();
 
-/** 117 → «117 €», 117.5 → «117,50 €»: whole amounts come without cents (the market's currency, or the one of the shop site asked) */
+/** 117 → «117 €», 117.5 → «117,50 €», 10062 → «10.062 ₽»: the currency as its sign, whole amounts without cents (the market's currency, or the one of the shop site asked) */
 export const formatMoney = (
   n: number,
   currency: string = MARKET.currency,
 ): string => {
   let f = formats.get(currency);
   if (!f) {
-    f = new Intl.NumberFormat(MARKET.locale, { style: "currency", currency });
+    f = new Intl.NumberFormat(MARKET.locale, {
+      style: "currency",
+      currency,
+      currencyDisplay: "narrowSymbol",
+    });
     formats.set(currency, f);
   }
   if (Math.abs(n - Math.round(n)) < 0.005) {
@@ -57,6 +61,7 @@ export const formatMoney = (
       g = new Intl.NumberFormat(MARKET.locale, {
         style: "currency",
         currency,
+        currencyDisplay: "narrowSymbol",
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
       });
