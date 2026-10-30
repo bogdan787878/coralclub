@@ -3,9 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { LandingHeader } from "@/components/landing/LandingHeader";
 import { Container } from "@/components/ui";
-import { asset } from "@/lib/asset";
 import { track } from "@/lib/analytics";
 import { summarize } from "@/lib/analyticsRu";
 import { formatMoney } from "@/lib/friendCatalog";
@@ -112,8 +110,6 @@ export function FriendDone() {
   return (
     <div className="appShell">
       <main className={styles.page} data-analytics-location="checkout">
-        <LandingHeader homeHref={asset("/friend/")} />
-
         {!orderId || live === false || problem ? (
           <div className={styles.empty}>
             <h1 className={styles.title}>Your order</h1>

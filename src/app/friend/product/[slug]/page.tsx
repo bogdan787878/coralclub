@@ -8,12 +8,9 @@ import {
   PeriodicElements,
 } from "@/components/organisms";
 import { LandingGallery } from "@/components/landing/LandingGallery";
-import { LandingHeader } from "@/components/landing/LandingHeader";
 import { TrackViewItem } from "@/components/landing/TrackViewItem";
 import { FriendCards } from "@/components/friend/FriendCards";
-import { FriendCartButton } from "@/components/friend/FriendCart";
 import { FriendMemberBlock } from "@/components/friend/FriendMemberBlock";
-import { asset } from "@/lib/asset";
 import {
   FRIEND_PRODUCTS,
   formatMoney,
@@ -30,6 +27,7 @@ import { ShareButton } from "../../../(shop)/products/[slug]/ShareButton";
 // the page chrome is the shop PDP's own, the wide frame is the landing's
 import shop from "../../../(shop)/products/[slug]/page.module.css";
 import styles from "../../../landing/product/[slug]/page.module.css";
+import controls from "./controls.module.css";
 
 type Params = { slug: string };
 
@@ -99,12 +97,9 @@ export default async function FriendProductPage({
   return (
     <div className="appShell">
       <main className={shop.page} data-analytics-location="product_card">
-        <div className={shop.desktopHeader}>
-          <LandingHeader homeHref={asset("/friend/")} />
-        </div>
         <TrackViewItem coralId={p.coralId} />
 
-        <div className={shop.imageControls}>
+        <div className={`${shop.imageControls} ${controls.controls}`}>
           <BackButton className={shop.circleBtn} fallbackHref="/friend/" />
           <ShareButton className={shop.circleBtn} title={p.name} />
         </div>
@@ -190,8 +185,6 @@ export default async function FriendProductPage({
             <FriendMemberBlock />
           </Container>
         </Section>
-
-        <FriendCartButton aboveBar />
       </main>
     </div>
   );

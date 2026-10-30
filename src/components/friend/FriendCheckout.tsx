@@ -24,7 +24,14 @@ import {
   slotRegion,
   type DeliveryTimes,
 } from "@/lib/deliverySlots";
-import { loginUrl, registrationUrl, shopBasketUrl } from "@/lib/friend";
+import { shopBasketUrl } from "@/lib/friend";
+import {
+  onCountryRequest,
+  rememberFriendCountries,
+  setFriendCountry,
+  useFriendCountries,
+  useFriendCountry,
+} from "@/lib/friendCountry";
 import { MARKET, REGIONS, phoneForShop } from "@/lib/market";
 import { SHOP_SITES, deliveryByPlace } from "@/lib/shopSites";
 import { readContact, saveContact } from "@/lib/friendContact";
@@ -39,8 +46,6 @@ import {
   shopFetch,
 } from "@/lib/shopApi";
 import { AddressSearch } from "./AddressSearch";
-import { CheckoutHeader } from "./CheckoutHeader";
-import { CountryMenu } from "./CountryMenu";
 import { MapPicker } from "./MapPicker";
 import { PickupSheet, type PickPoint } from "./PickupSheet";
 import {
@@ -120,7 +125,6 @@ export function FriendCheckout() {
   const cart = useCart();
   // a render can run on a stale snapshot: re-read the cart once on mount
   useEffect(() => refreshCart(), []);
-  useEffect(() => setShopSite(MARKET.site), []);
 
   const { friend, source } = useFriend();
   const refCode = friend?.refCode ?? "";
@@ -170,10 +174,8 @@ export function FriendCheckout() {
     `${st}, ${plz} ${town}`;
   const [zip, setZip] = useState("");
   // the country the order goes to: the shop prices delivery and payment by it
-  const [country, setCountry] = useState<string>(MARKET.code);
-  const [countries, setCountries] = useState<Record<string, string>>({
-    [MARKET.code]: MARKET.country,
-  });
+  const country = useFriendCountry();
+  const countries = useFriendCountries();
   // Through the local proxy every country has a shop site of its own (with its
   // own delivery, payment methods and currency); on the shop's own domain there
   // is the one site, and its own list of countries.
@@ -198,6 +200,8 @@ export function FriendCheckout() {
   const site = multiSite
     ? (SHOP_SITES[country]?.host ?? MARKET.site)
     : MARKET.site;
+  // the calls go to the site of the country
+  useEffect(() => setShopSite(site), [site]);
 
   // the countries the shop ships to (its own list for this site); asked once
   // the basket is in, and again a moment later if the shop is not ready yet
@@ -225,7 +229,7 @@ export function FriendCheckout() {
           const list = Object.entries(
             d.result?.COUNTRIES_FILTERED ?? {},
           ).filter(([code]) => /^[A-Z]{2}$/.test(code));
-          if (list.length) setCountries(Object.fromEntries(list));
+          if (list.length) rememberFriendCountries(Object.fromEntries(list));
           else if (left > 0) timer = setTimeout(() => ask(left - 1), 1500);
         })
         .catch(() => {
@@ -545,12 +549,9 @@ export function FriendCheckout() {
   }
 
   // another country: the address is for the old one, the shop recounts delivery and payment
-  function changeCountry(name: string) {
-    const code = Object.entries(countryMap).find(([, n]) => n === name)?.[0];
+  function changeCountry(code: string) {
     if (!code || code === country) return;
-    // the calls go to the site of the new country from here on
-    if (multiSite) setShopSite(SHOP_SITES[code]?.host ?? MARKET.site);
-    setCountry(code);
+    setFriendCountry(code);
     setGroups([]);
     setPayments([]);
     setPaymentId("");
@@ -569,6 +570,15 @@ export function FriendCheckout() {
     setCity("");
     setState("");
   }
+  // the header's flag asks this page to change the country (it has work to redo)
+  const changeCountryRef = useRef(changeCountry);
+  useEffect(() => {
+    changeCountryRef.current = changeCountry;
+  });
+  useEffect(
+    () => onCountryRequest((code) => changeCountryRef.current(code)),
+    [],
+  );
 
   const fio = `${first.trim()} ${last.trim()}`.trim();
   const digits = phone.replace(/\D/g, "");
@@ -958,20 +968,6 @@ export function FriendCheckout() {
   return (
     <div className="appShell">
       <main className={styles.page} data-analytics-location="checkout">
-        <CheckoutHeader
-          homeHref={asset("/friend/")}
-          loginHref={loginUrl()}
-          registerHref={friend ? registrationUrl(friend) : undefined}
-          cartCount={lines.reduce((n, l) => n + l.qty, 0)}
-          country={
-            <CountryMenu
-              countries={countryMap}
-              value={country}
-              onChange={(code) => changeCountry(countryMap[code] ?? "")}
-            />
-          }
-        />
-
         {lines.length === 0 ? (
           <div className={styles.empty}>
             <h1 className={styles.title}>Checkout</h1>

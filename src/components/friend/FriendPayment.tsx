@@ -9,7 +9,6 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
-import { LandingHeader } from "@/components/landing/LandingHeader";
 import { asset } from "@/lib/asset";
 import {
   checkCard,
@@ -411,8 +410,6 @@ export function FriendPayment() {
   return (
     <div className="appShell">
       <main className={styles.page} data-analytics-location="checkout">
-        <LandingHeader homeHref={asset("/friend/")} />
-
         {!orderId || live === false || lost ? (
           <div className={styles.empty}>
             <h1 className={styles.title}>Payment</h1>

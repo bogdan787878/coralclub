@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 import { Accent, Container, Heading, Section } from "@/components/ui";
 import { CommunityReels, Editorial, Hero } from "@/components/organisms";
-import { LandingHeader } from "@/components/landing/LandingHeader";
 import { FriendAdvisors } from "@/components/friend/FriendAdvisors";
 import { FriendCards } from "@/components/friend/FriendCards";
-import { FriendCartButton } from "@/components/friend/FriendCart";
 import { FriendRegisterCta } from "@/components/friend/FriendRegisterCta";
 import { HOME_CONTENT, type EditorialItem } from "@/content/home";
-import { asset } from "@/lib/asset";
 import { FRIEND_SETS, FRIEND_SINGLES } from "@/lib/friendCatalog";
 import styles from "@/components/friend/Friend.module.css";
 
@@ -31,8 +28,6 @@ export default function FriendHome() {
   return (
     <div className="appShell">
       <main className={styles.page} data-analytics-location="home">
-        <LandingHeader homeHref={asset("/friend/")} />
-
         <Hero
           title={
             <>
@@ -155,7 +150,6 @@ export default function FriendHome() {
             </p>
           </Container>
         </footer>
-        <FriendCartButton />
       </main>
     </div>
   );

@@ -1,0 +1,5 @@
+/* the project's header is on top of every page: the round back/share
+   buttons sit under it, over the picture */
+div.controls {
+  top: calc(60px + var(--space-8) + env(safe-area-inset-top, 0px));
+}
