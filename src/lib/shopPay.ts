@@ -149,6 +149,85 @@ export async function getPayPalLink(
   }
 }
 
+/** Where the shop's gateway takes the shopper: an address, or a form to post to it. */
+export type GatewayTarget = {
+  url: string;
+  method: "GET" | "POST";
+  fields: Record<string, string>;
+};
+
+const SHOP_HOST = /(^|\.)coral\.club$/i;
+
+function externalHttps(raw: string | null | undefined): URL | null {
+  if (!raw) return null;
+  try {
+    const u = new URL(raw.replace(/&amp;/g, "&"));
+    return u.protocol === "https:" && !SHOP_HOST.test(u.hostname) ? u : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * The shop's own page of an order (`/order/payment/<id>/…`) carries the way
+ * to the gateway in its payment block: a «Pay» link or a form that goes to
+ * the bank. This reads it, so the shopper can be sent there straight from our
+ * checkout. Only a gateway of another host is taken; `null` when the page
+ * has none (it is then opened as it is).
+ */
+export async function getGatewayTarget(
+  shopPagePath: string,
+): Promise<GatewayTarget | null> {
+  try {
+    const html = await (await shopFetch(shopPagePath)).text();
+    const box = new DOMParser()
+      .parseFromString(html, "text/html")
+      .querySelector(".paysys-payment");
+    if (!box) return null;
+    const link = externalHttps(
+      box.querySelector("a[href]")?.getAttribute("href"),
+    );
+    if (link) return { url: link.href, method: "GET", fields: {} };
+    const form = box.querySelector("form");
+    const action = externalHttps(form?.getAttribute("action"));
+    if (form && action) {
+      const fields: Record<string, string> = {};
+      form.querySelectorAll<HTMLInputElement>("input[name]").forEach((i) => {
+        fields[i.name] = i.value;
+      });
+      return {
+        url: action.href,
+        method:
+          form.getAttribute("method")?.toUpperCase() === "GET" ? "GET" : "POST",
+        fields,
+      };
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+/** Go to the gateway: a plain visit, or the form the shop would have posted. */
+export function goToGateway(t: GatewayTarget): void {
+  if (t.method === "GET" && !Object.keys(t.fields).length) {
+    window.location.assign(t.url);
+    return;
+  }
+  const f = document.createElement("form");
+  f.method = t.method;
+  f.action = t.url;
+  for (const [name, value] of Object.entries(t.fields)) {
+    const i = document.createElement("input");
+    i.type = "hidden";
+    i.name = name;
+    i.value = value;
+    f.appendChild(i);
+  }
+  document.body.appendChild(f);
+  f.submit();
+}
+
 /** The shop's answers come in three shapes; this makes one of them. */
 function readPayAnswer(data: unknown, ok: boolean): PayResult {
   const d = (data && typeof data === "object" ? data : {}) as Record<

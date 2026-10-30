@@ -22,6 +22,7 @@ import {
 } from "@/lib/deliverySlots";
 import { shopBasketUrl } from "@/lib/friend";
 import { articleFor } from "@/lib/siteArticles";
+import { getGatewayTarget, goToGateway } from "@/lib/shopPay";
 import { currentPricing, pricingFor } from "@/lib/friendPricing";
 import {
   onCountryRequest,
@@ -832,13 +833,16 @@ export function FriendCheckout() {
               : "card";
         if (kind === "card" && MARKET.cardForm === "shop") {
           // the shop's gateway has its own card page: straight there, no page of ours in between
-          window.location.assign(
-            orderPaymentPath(
-              multiSite ? country : MARKET.code,
-              String(data.result),
-              paymentId,
-            ),
+          const shopPage = orderPaymentPath(
+            multiSite ? country : MARKET.code,
+            String(data.result),
+            paymentId,
           );
+          // the shop's order page is only a second checkout: its «Pay» goes to
+          // the gateway, so go there directly (the page itself when it has none)
+          const gateway = await getGatewayTarget(shopPage);
+          if (gateway) goToGateway(gateway);
+          else window.location.assign(shopPage);
           return;
         }
         // step 2 is a full page load, on purpose: the card page runs without
