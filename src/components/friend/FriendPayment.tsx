@@ -17,6 +17,7 @@ import {
   type CardErrors,
 } from "@/lib/cardFormat";
 import { pricingForSite } from "@/lib/friendPricing";
+import { countryOfSite, orderPaymentPath } from "@/lib/shopSites";
 import { MARKET, REGIONS } from "@/lib/market";
 import { onShopOrigin, setShopSite } from "@/lib/shopApi";
 import {
@@ -266,7 +267,11 @@ export function FriendPayment() {
     host.replaceChildren(gpay.button(() => void payGoogleRef.current()));
   }, [gpay]);
 
-  const shopPage = `/order/payment/${orderId}/${encodeURIComponent(paySystemId)}/?new_checkout=1`;
+  const shopPage = orderPaymentPath(
+    countryOfSite(siteParam) ?? MARKET.code,
+    orderId,
+    paySystemId,
+  );
 
   // where the shop's gateway has its own card page, this page is not needed
   useEffect(() => {
@@ -485,7 +490,6 @@ export function FriendPayment() {
                     disabled={!order || paypalLink === undefined}
                     onClick={() => {
                       if (paypalLink) window.location.assign(paypalLink);
-                      // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- a page of the shop
                       else window.location.assign(shopPage);
                     }}
                     data-analytics-id="payment_paypal_btn"

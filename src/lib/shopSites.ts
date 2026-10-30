@@ -79,3 +79,24 @@ export function placesLanguageFor(country: string): string | undefined {
     } as Record<string, string>
   )[country];
 }
+
+/** The country whose shop site this host is (`ru.coral.club` → `RU`). */
+export const countryOfSite = (host: string): string | undefined =>
+  Object.entries(SHOP_SITES).find(([, v]) => v.host === host)?.[0];
+
+/**
+ * The shop's own page where an order is paid. The shop's checkout leaves the
+ * payment method out of the address for Russia and Belarus (the method is
+ * already in the order; with it there the shop sends the shopper to the
+ * personal account instead of the gateway) and puts it in for the rest.
+ */
+export function orderPaymentPath(
+  country: string,
+  orderId: string,
+  paymentId: string,
+): string {
+  const order = encodeURIComponent(orderId);
+  return country === "RU" || country === "BY"
+    ? `/order/payment/${order}/?new_checkout=1`
+    : `/order/payment/${order}/${encodeURIComponent(paymentId)}/?new_checkout=1`;
+}
