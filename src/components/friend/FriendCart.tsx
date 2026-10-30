@@ -58,7 +58,11 @@ export function FriendCartDrawer() {
       onClose={() => setOpen(false)}
       labels={LABELS}
       formatMoney={formatMoney}
-      onCheckout={() => router.push("/friend/checkout/")}
+      onCheckout={() => {
+        // the drawer lives in the layout, so it would stay over the next page
+        setOpen(false);
+        router.push("/friend/checkout/");
+      }}
       banner={<CartBanner lines={cart} />}
       renderPrice={(line) => <LinePrice line={line} />}
       recommendations={<Recommendations />}

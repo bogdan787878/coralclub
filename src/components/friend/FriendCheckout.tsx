@@ -25,6 +25,7 @@ import {
   type DeliveryTimes,
 } from "@/lib/deliverySlots";
 import { shopBasketUrl } from "@/lib/friend";
+import { articleFor } from "@/lib/siteArticles";
 import {
   onCountryRequest,
   rememberFriendCountries,
@@ -148,6 +149,8 @@ export function FriendCheckout() {
 
   const [ready, setReady] = useState<"idle" | "sync" | "ok" | "error">("idle");
   const [error, setError] = useState("");
+  // what the shop counted for the basket (the country's own currency), before the delivery is known
+  const [basketSum, setBasketSum] = useState(0);
   const [missing, setMissing] = useState<string[]>([]);
 
   const [email, setEmail] = useState("");
@@ -382,15 +385,31 @@ export function FriendCheckout() {
   // 1 ─ the cart into the shop's basket, tied to the friend
   useEffect(() => {
     if (!live || !refCode || !memberId || !cartKey) return;
-    const wanted = cartKey.split(",").map((part) => {
+    // the articles of the country's own site; what it does not sell stays out
+    const unsold: string[] = [];
+    const wanted = cartKey.split(",").flatMap((part) => {
       const [coralId, qty] = part.split(":");
-      return { coralId, qty: Number(qty) };
+      const article = multiSite ? articleFor(country, coralId) : coralId;
+      if (article === null) {
+        unsold.push(friendProductById(coralId)?.name ?? coralId);
+        return [];
+      }
+      return [{ coralId: article, qty: Number(qty) }];
     });
+    const unsoldNote = unsold.length
+      ? `${unsold.join(", ")} ${unsold.length > 1 ? "are" : "is"} not sold on the ${countryName} site.`
+      : "";
     let cancelled = false;
     enqueueBasketSync(async () => {
       // a newer run (or leaving the page) made this one stale: do nothing
       if (cancelled) return;
+      if (!wanted.length) {
+        setReady("error");
+        setError(unsoldNote);
+        return;
+      }
       setReady("sync");
+      setBasketSum(0);
       setError("");
       try {
         await emptyShopBasket();
@@ -400,10 +419,11 @@ export function FriendCheckout() {
           { refCode, memberId },
           site === MARKET.site ? MARKET.linkLanguage : MARKET.apiLanguage,
         );
-        const o = await api<{ result?: { QUANTITY?: number | string } }>(
-          "/order",
-        );
+        const o = await api<{
+          result?: { QUANTITY?: number | string; PRICE?: number | string };
+        }>("/order");
         if (cancelled) return;
+        setBasketSum(Number(o.result?.PRICE ?? 0) || 0);
         const want = wanted.reduce((n, l) => n + l.qty, 0);
         const got = Number(o.result?.QUANTITY ?? 0);
         if (got <= 0) {
@@ -415,13 +435,14 @@ export function FriendCheckout() {
           );
           return;
         }
-        setMissing(
-          got < want
+        setMissing([
+          ...(unsoldNote ? [unsoldNote] : []),
+          ...(got < want
             ? [
                 "Some items from your cart are not available in the shop right now.",
               ]
-            : [],
-        );
+            : []),
+        ]);
         setReady("ok");
       } catch (e) {
         if (!cancelled) {
@@ -436,7 +457,7 @@ export function FriendCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [live, refCode, memberId, cartKey, site, countryName]);
+  }, [live, refCode, memberId, cartKey, site, country, countryName, multiSite]);
 
   // begin_checkout, once, when the checkout is open with the cart in it
   useEffect(() => {
@@ -860,7 +881,11 @@ export function FriendCheckout() {
   // our catalogue prices are the market's currency: abroad only the shop's numbers are shown
   const ownPrices = siteCurrency === MARKET.currency;
   const money = (n: number) => formatMoney(n, siteCurrency);
-  const goodsSum = totals ? num(totals.PRICE) : ownPrices ? prices.club : 0;
+  const goodsSum = totals
+    ? num(totals.PRICE)
+    : ownPrices
+      ? prices.club
+      : basketSum;
   const deliveryPrice =
     totals && totals.TOTAL_PRICE !== undefined && totals.PRICE !== undefined
       ? num(totals.TOTAL_PRICE) - num(totals.PRICE)
