@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BodyLong, Container, Heading, Section, Stack } from "@/components/ui";
 import {
-  BuyBox,
   FullDescription,
   InfoAccordion,
   PeriodicElements,
@@ -13,7 +12,6 @@ import { FriendCards } from "@/components/friend/FriendCards";
 import { FriendMemberBlock } from "@/components/friend/FriendMemberBlock";
 import {
   FRIEND_PRODUCTS,
-  formatMoney,
   friendPdpHref,
   friendProduct,
 } from "@/lib/friendCatalog";
@@ -27,6 +25,7 @@ import { ShareButton } from "../../../(shop)/products/[slug]/ShareButton";
 // the page chrome is the shop PDP's own, the wide frame is the landing's
 import shop from "../../../(shop)/products/[slug]/page.module.css";
 import styles from "../../../landing/product/[slug]/page.module.css";
+import { FriendBuyBox } from "@/components/friend/FriendBuyBox";
 import controls from "./controls.module.css";
 
 type Params = { slug: string };
@@ -65,35 +64,6 @@ export default async function FriendProductPage({
   const hasFacts = hasSupplementFacts(facts);
   const title = p.form ? `${p.name} – ${p.form}` : p.name;
 
-  const buyProps = {
-    product: {
-      coralId: p.coralId,
-      slug,
-      name: title,
-      image: p.images[0]?.src,
-    },
-    options: [
-      {
-        id: "club",
-        label: "Member price",
-        note: "−20%",
-        price: formatMoney(p.club),
-        cta: { label: "Add to cart", href },
-      },
-      {
-        id: "regular",
-        label: "Regular price",
-        price: formatMoney(p.regular),
-        cta: { label: "Add to cart", href },
-      },
-    ],
-    labels: {
-      add: "Add to cart",
-      inCart: "In cart",
-      openCart: "Open cart",
-    },
-  };
-
   return (
     <div className="appShell">
       <main className={shop.page} data-analytics-location="product_card">
@@ -116,7 +86,15 @@ export default async function FriendProductPage({
                   </Heading>
 
                   <div id="pdp-buy">
-                    <BuyBox pinned {...buyProps} />
+                    <FriendBuyBox
+                      href={href}
+                      product={{
+                        coralId: p.coralId,
+                        slug,
+                        name: title,
+                        image: p.images[0]?.src,
+                      }}
+                    />
                   </div>
 
                   <BodyLong>{p.lead}</BodyLong>

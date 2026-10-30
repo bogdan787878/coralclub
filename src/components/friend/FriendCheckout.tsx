@@ -13,11 +13,7 @@ import { asset } from "@/lib/asset";
 import { track, trackOnce } from "@/lib/analytics";
 import { summarize } from "@/lib/analyticsRu";
 import { refreshCart, useCart } from "@/lib/cart";
-import {
-  formatMoney,
-  friendProductById,
-  friendTotals,
-} from "@/lib/friendCatalog";
+import { formatMoney, friendProductById } from "@/lib/friendCatalog";
 import {
   deliverySlots,
   isMoscow,
@@ -26,6 +22,7 @@ import {
 } from "@/lib/deliverySlots";
 import { shopBasketUrl } from "@/lib/friend";
 import { articleFor } from "@/lib/siteArticles";
+import { currentPricing, pricingFor } from "@/lib/friendPricing";
 import {
   onCountryRequest,
   rememberFriendCountries,
@@ -138,7 +135,6 @@ export function FriendCheckout() {
   );
   const cartKey = lines.map((l) => `${l.coralId}:${l.qty}`).join(",");
   const goods = useMemo(() => summarize(lines), [lines]);
-  const prices = useMemo(() => friendTotals(lines), [lines]);
 
   /** `null` until the first render on the client (SSR has no window). */
   const live = useSyncExternalStore<boolean | null>(
@@ -466,7 +462,11 @@ export function FriendCheckout() {
       track(
         "begin_checkout",
         { bonus_points: goods.bonus_points },
-        { currency: MARKET.currency, value: goods.value, items: goods.items },
+        {
+          currency: currentPricing().currency,
+          value: goods.value,
+          items: goods.items,
+        },
       ),
     );
   }, [ready, goods]);
@@ -813,7 +813,7 @@ export function FriendCheckout() {
           ),
           payment_gateway: "shop_payment_page",
           order_total: num(grand) || goods.value,
-          currency: MARKET.currency,
+          currency: siteCurrency,
         });
         saveContact({
           first: first.trim(),
@@ -873,13 +873,13 @@ export function FriendCheckout() {
       paymentId !== "" &&
       totalsFor !== totalsKey);
 
-  const siteCurrency = String(
-    totals?.CURRENCY ??
-      (multiSite ? SHOP_SITES[country]?.currency : undefined) ??
-      MARKET.currency,
-  );
-  // our catalogue prices are the market's currency: abroad only the shop's numbers are shown
-  const ownPrices = siteCurrency === MARKET.currency;
+  // the catalogue's prices of the country's own site (only through the proxy
+  // is there more than the market's site)
+  const pr = pricingFor(multiSite ? country : MARKET.code);
+  const prices = pr.totals(lines);
+  const siteCurrency = String(totals?.CURRENCY ?? pr.currency);
+  // a product the country's site does not sell has no price here: the shop's numbers alone
+  const ownPrices = lines.every((l) => pr.sold(l));
   const money = (n: number) => formatMoney(n, siteCurrency);
   const goodsSum = totals
     ? num(totals.PRICE)
@@ -928,9 +928,11 @@ export function FriendCheckout() {
               </span>
               <span className={styles.lineSum}>
                 {ownPrices && p && (
-                  <span className={styles.was}>{money(p.regular * l.qty)}</span>
+                  <span className={styles.was}>
+                    {money(pr.regular(p) * l.qty)}
+                  </span>
                 )}{" "}
-                {ownPrices && money((p?.club ?? 0) * l.qty)}
+                {ownPrices && p && money(pr.club(p) * l.qty)}
               </span>
             </li>
           );
@@ -1024,7 +1026,7 @@ export function FriendCheckout() {
                       "friend_redirect_to_shop",
                       { bonus_points: goods.bonus_points },
                       {
-                        currency: MARKET.currency,
+                        currency: siteCurrency,
                         value: goods.value,
                         items: goods.items,
                       },

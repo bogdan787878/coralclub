@@ -6,7 +6,8 @@ import {
   CartDrawer,
   type CartDrawerLabels,
 } from "@/components/cart/CartDrawer";
-import { formatMoney, friendProductById } from "@/lib/friendCatalog";
+import { friendProductById } from "@/lib/friendCatalog";
+import { useFriendPricing } from "@/lib/friendPricing";
 import { useEffect, useState } from "react";
 import { useFriend } from "./FriendProvider";
 import {
@@ -42,6 +43,7 @@ export function FriendCartDrawer() {
   const { friend: who } = useFriend();
   const [open, setOpen] = useState(false);
   const cart = useCart();
+  const pr = useFriendPricing();
 
   useEffect(() => onCartOpen(() => setOpen(true)), []);
   // articles of an earlier market (or a product the shop no longer sells here)
@@ -57,7 +59,7 @@ export function FriendCartDrawer() {
       open={open}
       onClose={() => setOpen(false)}
       labels={LABELS}
-      formatMoney={formatMoney}
+      formatMoney={pr.money}
       onCheckout={() => {
         // the drawer lives in the layout, so it would stay over the next page
         setOpen(false);

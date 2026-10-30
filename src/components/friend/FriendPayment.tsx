@@ -16,7 +16,7 @@ import {
   formatExpiry,
   type CardErrors,
 } from "@/lib/cardFormat";
-import { formatMoney } from "@/lib/friendCatalog";
+import { pricingForSite } from "@/lib/friendPricing";
 import { MARKET, REGIONS } from "@/lib/market";
 import { onShopOrigin, setShopSite } from "@/lib/shopApi";
 import {
@@ -274,7 +274,9 @@ export function FriendPayment() {
     if (MARKET.cardForm !== "shop") return;
     window.location.replace(shopPage);
   }, [live, orderId, paypal, transfer, shopPage]);
-  const total = order ? formatMoney(Number(order.amount)) : "";
+  const total = order
+    ? pricingForSite(siteParam).money(Number(order.amount))
+    : "";
 
   const field = (key: string) => ({
     name: key,
@@ -405,7 +407,9 @@ export function FriendPayment() {
     </Link>
   );
 
-  const summary = order && <OrderSummary order={order} mode="pay" />;
+  const summary = order && (
+    <OrderSummary order={order} mode="pay" site={siteParam} />
+  );
 
   return (
     <div className="appShell">

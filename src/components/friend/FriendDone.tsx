@@ -6,7 +6,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { Container } from "@/components/ui";
 import { track } from "@/lib/analytics";
 import { summarize } from "@/lib/analyticsRu";
-import { formatMoney } from "@/lib/friendCatalog";
+import { pricingForSite } from "@/lib/friendPricing";
 import { MARKET } from "@/lib/market";
 import { onShopOrigin, setShopSite } from "@/lib/shopApi";
 import { getPayOrder, type PayOrder } from "@/lib/shopPay";
@@ -105,7 +105,9 @@ export function FriendDone() {
     };
   }, [live, orderId, siteParam]);
 
-  const summary = order && <OrderSummary order={order} mode="done" />;
+  const summary = order && (
+    <OrderSummary order={order} mode="done" site={siteParam} />
+  );
 
   return (
     <div className="appShell">
@@ -131,7 +133,9 @@ export function FriendDone() {
                       Order summary <Chevron />
                     </span>
                     <span className={styles.sumHeadPrice}>
-                      <strong>{formatMoney(order.total)}</strong>
+                      <strong>
+                        {pricingForSite(siteParam).money(order.total)}
+                      </strong>
                     </span>
                   </summary>
                   <div className={styles.sumBodyMobile}>{summary}</div>

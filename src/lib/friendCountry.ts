@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from "react";
 import { MARKET } from "./market";
+import { onShopOrigin } from "./shopApi";
 
 /**
  * The country the visitor shops for, shared by every page of the project (the
@@ -36,6 +37,10 @@ const getCountry = (): string => {
   }
   return country;
 };
+
+/** The country now, outside React (event handlers, analytics). */
+export const getFriendCountry = (): string =>
+  typeof window === "undefined" ? MARKET.code : getCountry();
 
 export const useFriendCountry = (): string =>
   useSyncExternalStore(subscribe, getCountry, () => MARKET.code);
@@ -97,3 +102,19 @@ export function requestFriendCountry(code: string): void {
   if (handler) handler(code);
   else setFriendCountry(code);
 }
+
+/**
+ * Through the local proxy every country has a shop site of its own, with its
+ * own prices; on the shop's own domain there is the one site of the market.
+ */
+export const isMultiSite = (): boolean =>
+  typeof window !== "undefined" &&
+  onShopOrigin() &&
+  window.location.hostname === "localhost";
+
+export const useMultiSite = (): boolean =>
+  useSyncExternalStore(
+    () => () => {},
+    isMultiSite,
+    () => false,
+  );

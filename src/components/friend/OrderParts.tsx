@@ -1,5 +1,7 @@
 import Image from "next/image";
-import { formatMoney, friendProductById } from "@/lib/friendCatalog";
+import { friendProductById } from "@/lib/friendCatalog";
+import { pricingForSite } from "@/lib/friendPricing";
+import { canonicalArticle } from "@/lib/siteArticles";
 import type { PayOrder } from "@/lib/shopPay";
 import styles from "./FriendCheckout.module.css";
 
@@ -56,15 +58,20 @@ export function ShippingFacts({ order }: { order: PayOrder }) {
 export function OrderSummary({
   order,
   mode,
+  site,
 }: {
   order: PayOrder;
   mode: "pay" | "done";
+  /** The shop site the order was made on (its currency and articles). */
+  site: string;
 }) {
+  const pr = pricingForSite(site);
+  const formatMoney = pr.money;
   return (
     <div className={styles.sum}>
       <ul className={styles.sumLines}>
         {order.lines.map((l) => {
-          const p = friendProductById(l.code);
+          const p = friendProductById(canonicalArticle(pr.country, l.code));
           return (
             <li key={l.code} className={styles.sumLine}>
               <span className={styles.thumb}>
@@ -82,7 +89,7 @@ export function OrderSummary({
               <span className={styles.lineSum}>
                 {p && (
                   <span className={styles.was}>
-                    {formatMoney(p.regular * l.qty)}
+                    {formatMoney(pr.regular(p) * l.qty)}
                   </span>
                 )}{" "}
                 {formatMoney(l.sum)}

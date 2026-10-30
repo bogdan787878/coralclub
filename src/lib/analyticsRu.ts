@@ -11,15 +11,15 @@ import {
 } from "./landingCatalogRu";
 import { friendProductById } from "./friendCatalog";
 import type { CartLine } from "./cart";
-import { MARKET } from "./market";
+import { currentPricing } from "./friendPricing";
 
 export const CURRENCY = "RUB";
 
-/** The friend project sells in dollars, the Russian landing in roubles. */
+/** The friend project sells in the currency of the chosen country, the Russian landing in roubles. */
 export const currencyNow = (): string =>
   typeof window !== "undefined" &&
   /\/friend(\/|$)/.test(window.location.pathname)
-    ? MARKET.currency
+    ? currentPricing().currency
     : CURRENCY;
 
 export type AnalyticsItem = {
@@ -56,7 +56,7 @@ export function itemFor(coralId: string): AnalyticsItem | null {
     return {
       item_id: friend.coralId,
       item_name: friend.name,
-      price: friend.club,
+      price: currentPricing().club(friend),
       item_category: friend.isSet ? "Sets" : "Hydration",
       ...(friend.form ? { item_variant: friend.form } : {}),
     };

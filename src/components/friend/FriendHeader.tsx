@@ -5,7 +5,6 @@ import {
   useMemo,
   useRef,
   useState,
-  useSyncExternalStore,
   type ReactNode,
 } from "react";
 import { usePathname } from "next/navigation";
@@ -16,9 +15,9 @@ import {
   requestFriendCountry,
   useFriendCountries,
   useFriendCountry,
+  useMultiSite,
 } from "@/lib/friendCountry";
 import { loginUrl, registrationUrl } from "@/lib/friend";
-import { onShopOrigin } from "@/lib/shopApi";
 import { SHOP_SITES } from "@/lib/shopSites";
 import { CountryMenu } from "./CountryMenu";
 import { useFriend } from "./FriendProvider";
@@ -52,11 +51,7 @@ export function FriendHeader() {
   const country = useFriendCountry();
   const known = useFriendCountries();
   // through the local proxy every country has a shop site of its own
-  const multiSite = useSyncExternalStore(
-    () => () => {},
-    () => onShopOrigin() && window.location.hostname === "localhost",
-    () => false,
-  );
+  const multiSite = useMultiSite();
   const countries = useMemo<Record<string, string>>(
     () =>
       multiSite

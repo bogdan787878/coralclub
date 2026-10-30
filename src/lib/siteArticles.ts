@@ -121,3 +121,14 @@ export function articleFor(country: string, coralId: string): string | null {
   const own = OTHER_SITES[country];
   return own && coralId in own ? own[coralId] : coralId;
 }
+
+/** The catalog's article behind an article of the country's site (an order line carries the site's own). */
+export function canonicalArticle(country: string, article: string): string {
+  const own = OTHER_SITES[country];
+  if (own) {
+    for (const [canon, theirs] of Object.entries(own)) {
+      if (theirs === article) return canon;
+    }
+  }
+  return article;
+}
