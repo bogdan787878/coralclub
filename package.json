@@ -5,6 +5,7 @@
   "scripts": {
     "gen": "node scripts/gen-products.mjs",
     "images:sync": "node scripts/sync-images.mjs",
+    "friend:sync": "node scripts/sync-friend-catalog.mjs",
     "predev": "npm run gen",
     "dev": "next dev",
     "prebuild": "npm run gen",
