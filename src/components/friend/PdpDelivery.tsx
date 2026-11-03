@@ -5,7 +5,7 @@ import { useFriendPricing } from "@/lib/friendPricing";
 import { MARKET } from "@/lib/market";
 import { SHOP_SITES } from "@/lib/shopSites";
 import heads from "./PdpHeadings.module.css";
-import styles from "./PdpBlocks.module.css";
+import styles from "./PdpDelivery.module.css";
 
 /**
  * The delivery options of the country the visitor shops for, a block of the
@@ -82,10 +82,6 @@ export function PdpDelivery() {
           Delivery options for your address appear at checkout.
         </p>
       )}
-      <p className={styles.note}>
-        Exact options and prices depend on your address and order; you see them
-        at checkout.
-      </p>
     </section>
   );
 }

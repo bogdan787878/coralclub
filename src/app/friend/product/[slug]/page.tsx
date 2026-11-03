@@ -12,7 +12,7 @@ import { TrackViewItem } from "@/components/landing/TrackViewItem";
 import { FriendCards } from "@/components/friend/FriendCards";
 import { FriendMemberBlock } from "@/components/friend/FriendMemberBlock";
 import { PdpDelivery } from "@/components/friend/PdpDelivery";
-import { PdpFacts, hasPdpFacts } from "@/components/friend/PdpFacts";
+import { PdpFacts } from "@/components/friend/PdpFacts";
 import { PdpTabs, type PdpTab } from "@/components/friend/PdpTabs";
 import {
   FRIEND_PRODUCTS,
@@ -76,23 +76,23 @@ export default async function FriendProductPage({
     title: "Manufacturing details",
     content: <ManufacturingDetails data={p.manufacturing} />,
   };
-  // on the web the details are tabs under the picture
+  const disclaimer = (
+    <p className={shop.disclaimer}>
+      Food supplements are not a substitute for a varied and balanced diet and a
+      healthy lifestyle. Do not exceed the recommended daily intake. Keep out of
+      the reach of young children.
+    </p>
+  );
+  // on the web these details are tabs under the picture (Key Elements and
+  // Supplement Facts stay in the info column)
   const tabs: PdpTab[] = [
-    ...(p.elements.length > 0
-      ? [
-          {
-            id: "elements",
-            label: "Key Elements",
-            content: <PeriodicElements items={p.elements} heading="" />,
-          },
-        ]
-      : []),
     ...(p.fullDescription
       ? [
           {
             id: "description",
             label: "Full Description",
-            content: <FullDescription text={p.fullDescription} title="" />,
+            // the whole text, no «See more» (a phone keeps the folded block)
+            content: <p>{p.fullDescription}</p>,
           },
         ]
       : []),
@@ -101,15 +101,11 @@ export default async function FriendProductPage({
       label: "How to Use",
       content: <p>{p.howToUse || "Details coming soon."}</p>,
     },
-    ...(hasPdpFacts(slug)
-      ? [
-          {
-            id: "facts",
-            label: "Supplement Facts",
-            content: <PdpFacts slug={slug} bare />,
-          },
-        ]
-      : []),
+    {
+      id: "manufacturing",
+      label: "Manufacturing details",
+      content: <ManufacturingDetails data={p.manufacturing} />,
+    },
   ];
 
   return (
@@ -132,11 +128,10 @@ export default async function FriendProductPage({
                   fit="contain"
                 />
 
-                {tabs.length > 0 && (
-                  <div className={tabsCss.webOnly}>
-                    <PdpTabs tabs={tabs} />
-                  </div>
-                )}
+                <div className={tabsCss.webOnly}>
+                  <PdpTabs tabs={tabs} />
+                  {disclaimer}
+                </div>
               </div>
 
               <Stack gap="base" className={shop.infoCol}>
@@ -168,9 +163,8 @@ export default async function FriendProductPage({
                     />
                   </div>
 
-                  {/* a phone keeps the key elements here; on the web they are a tab */}
                   {p.elements.length > 0 && (
-                    <div className={`${tabsCss.mobileOnly} ${tabsCss.keyEls}`}>
+                    <div className={tabsCss.keyEls}>
                       <PeriodicElements items={p.elements} />
                     </div>
                   )}
@@ -178,16 +172,12 @@ export default async function FriendProductPage({
 
                 <PdpDelivery />
 
+                {/* a phone keeps How to Use and Manufacturing as folded rows */}
                 <div className={tabsCss.mobileOnly}>
                   <InfoAccordion items={[howToUse, manufacturing]} />
                 </div>
-                <div className={tabsCss.webOnly}>
-                  <InfoAccordion items={[manufacturing]} />
-                </div>
 
-                <div className={tabsCss.mobileOnly}>
-                  <PdpFacts slug={slug} />
-                </div>
+                <PdpFacts slug={slug} />
 
                 {p.fullDescription && (
                   <div className={tabsCss.mobileOnly}>
@@ -195,12 +185,7 @@ export default async function FriendProductPage({
                   </div>
                 )}
 
-                <p className={shop.disclaimer}>
-                  Food supplements are not a substitute for a varied and
-                  balanced diet and a healthy lifestyle. Do not exceed the
-                  recommended daily intake. Keep out of the reach of young
-                  children.
-                </p>
+                <div className={tabsCss.mobileOnly}>{disclaimer}</div>
               </Stack>
             </div>
           </div>
