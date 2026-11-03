@@ -4,6 +4,7 @@ import { SITE_DELIVERY } from "@/lib/friendCatalog.generated";
 import { useFriendPricing } from "@/lib/friendPricing";
 import { MARKET } from "@/lib/market";
 import { SHOP_SITES } from "@/lib/shopSites";
+import heads from "./PdpHeadings.module.css";
 import styles from "./PdpBlocks.module.css";
 
 /**
@@ -26,7 +27,7 @@ export function PdpDelivery() {
 
   return (
     <section className={styles.block} aria-labelledby="pdp-delivery">
-      <h2 id="pdp-delivery" className={styles.title}>
+      <h2 id="pdp-delivery" className={heads.title}>
         Delivery to {name}
       </h2>
       {options.length > 0 ? (

@@ -1,5 +1,6 @@
 import { friendProduct } from "@/lib/friendCatalog";
 import { getProduct } from "@/lib/products";
+import heads from "./PdpHeadings.module.css";
 import styles from "./PdpBlocks.module.css";
 
 type Row = { name: string; amount: string; dv: string };
@@ -52,12 +53,12 @@ export function PdpFacts({ slug }: { slug: string }) {
 
   return (
     <section className={styles.block} aria-labelledby="pdp-facts">
-      <h2 id="pdp-facts" className={styles.title}>
+      <h2 id="pdp-facts" className={heads.title}>
         Supplement Facts
       </h2>
       {parts.map((x) => (
         <div key={x.slug} className={styles.block}>
-          {named && <h3 className={styles.sub}>{x.name}</h3>}
+          {named && <h3 className={heads.sub}>{x.name}</h3>}
           {x.rows.length > 0 ? (
             <>
               {x.serving && (

@@ -1,0 +1,20 @@
+/* headings of the product page's own blocks (Delivery, Supplement Facts): the
+   same as the accordion rows' titles («How to Use») and Key Elements: 16/24, medium */
+.title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-button-size);
+  line-height: var(--text-button-line);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+/* a product's name inside a set's Supplement Facts */
+.sub {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.375rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+}
