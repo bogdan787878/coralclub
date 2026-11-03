@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui";
 import { addItem, openCart, setQty, useCart } from "@/lib/cart";
 import styles from "./BuyBox.module.css";
+import variants from "./BuyBoxVariants.module.css";
 
 function CheckIcon() {
   return (
@@ -56,6 +57,8 @@ export type BuyBoxProps = {
   /** Compact bar fixed to the top of the viewport (web only) — price + CTA
    *  that stays in reach once the inline block has scrolled away. */
   top?: boolean;
+  /** Put the discount pill beside the struck-through price, not beside the price. */
+  tagByWas?: boolean;
 };
 
 /**
@@ -70,6 +73,7 @@ export function BuyBox({
   labels,
   pinned = false,
   top = false,
+  tagByWas = false,
 }: BuyBoxProps) {
   const cart = useCart();
   const [acted, setActed] = useState(false);
@@ -99,7 +103,7 @@ export function BuyBox({
 
   return (
     <div
-      className={`${styles.bar}${pinned ? ` ${styles.pinned}` : ""}${top ? ` ${styles.top}` : ""}${qty > 0 ? ` ${styles.hasQty}` : ""}`}
+      className={`${styles.bar}${pinned ? ` ${styles.pinned}` : ""}${top ? ` ${styles.top}` : ""}${tagByWas ? ` ${variants.tagByWas}` : ""}${qty > 0 ? ` ${styles.hasQty}` : ""}`}
     >
       <div className={styles.inner}>
         {top && <span className={styles.topName}>{product.name}</span>}

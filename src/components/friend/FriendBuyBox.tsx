@@ -56,6 +56,7 @@ export function FriendBuyBox({
       )}
       <BuyBox
         pinned
+        tagByWas
         product={product}
         options={options}
         labels={{
