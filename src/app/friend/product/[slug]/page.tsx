@@ -83,7 +83,14 @@ export default async function FriendProductPage({
                     {title}
                   </Heading>
 
-                  <DietaryBadges items={p.dietaryBadges} />
+                  {/* in a div of its own: the shop's «badge row sits further from the
+                      text» rule (24px) is for a bare list, here the three blocks
+                      title · tags · price keep the same 16px */}
+                  {p.dietaryBadges.length > 0 && (
+                    <div>
+                      <DietaryBadges items={p.dietaryBadges} />
+                    </div>
+                  )}
 
                   <div id="pdp-buy">
                     <FriendBuyBox
