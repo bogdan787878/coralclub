@@ -63,9 +63,12 @@ export const hasPdpFacts = (slug: string) => factsParts(slug).length > 0;
 export function PdpFacts({
   slug,
   bare = false,
+  headingId = "pdp-facts",
 }: {
   slug: string;
   bare?: boolean;
+  /** The heading's id (a page that shows the block twice needs two). */
+  headingId?: string;
 }) {
   const parts = factsParts(slug);
   if (!parts.length) return null;
@@ -77,10 +80,10 @@ export function PdpFacts({
   return (
     <section
       className={styles.block}
-      aria-labelledby={bare ? undefined : "pdp-facts"}
+      aria-labelledby={bare ? undefined : headingId}
     >
       {!bare && (
-        <h2 id="pdp-facts" className={heads.title}>
+        <h2 id={headingId} className={heads.title}>
           Supplement Facts
         </h2>
       )}

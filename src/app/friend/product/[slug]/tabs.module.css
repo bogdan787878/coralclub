@@ -14,6 +14,19 @@ div.webOnly {
   }
 }
 
+/* the web's picture column below the tabs: key elements, supplement facts, the notice */
+div.webCol {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  div.webCol {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-32);
+  }
+}
+
 /* the key elements keep the shop's 24px from the text above them */
 div.keyEls {
   margin-top: var(--space-24);

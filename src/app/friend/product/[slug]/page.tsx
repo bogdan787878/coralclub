@@ -12,6 +12,7 @@ import { TrackViewItem } from "@/components/landing/TrackViewItem";
 import { FriendCards } from "@/components/friend/FriendCards";
 import { FriendMemberBlock } from "@/components/friend/FriendMemberBlock";
 import { PdpDelivery } from "@/components/friend/PdpDelivery";
+import { PdpSubscribe } from "@/components/friend/PdpSubscribe";
 import { PdpFacts } from "@/components/friend/PdpFacts";
 import { PdpTabs, type PdpTab } from "@/components/friend/PdpTabs";
 import {
@@ -128,8 +129,14 @@ export default async function FriendProductPage({
                   fit="contain"
                 />
 
-                <div className={tabsCss.webOnly}>
+                {/* web: the details as tabs under the picture, then the key
+                    elements, the supplement facts and the notice */}
+                <div className={tabsCss.webCol}>
                   <PdpTabs tabs={tabs} />
+                  {p.elements.length > 0 && (
+                    <PeriodicElements items={p.elements} />
+                  )}
+                  <PdpFacts slug={slug} headingId="pdp-facts-web" />
                   {disclaimer}
                 </div>
               </div>
@@ -163,10 +170,13 @@ export default async function FriendProductPage({
                     />
                   </div>
 
+                  <PdpSubscribe />
+
                   <PdpDelivery />
 
+                  {/* a phone keeps the key elements here; on the web they are under the tabs */}
                   {p.elements.length > 0 && (
-                    <div className={tabsCss.keyEls}>
+                    <div className={`${tabsCss.mobileOnly} ${tabsCss.keyEls}`}>
                       <PeriodicElements items={p.elements} />
                     </div>
                   )}
@@ -177,7 +187,9 @@ export default async function FriendProductPage({
                   <InfoAccordion items={[howToUse, manufacturing]} />
                 </div>
 
-                <PdpFacts slug={slug} />
+                <div className={tabsCss.mobileOnly}>
+                  <PdpFacts slug={slug} />
+                </div>
 
                 {p.fullDescription && (
                   <div className={tabsCss.mobileOnly}>
