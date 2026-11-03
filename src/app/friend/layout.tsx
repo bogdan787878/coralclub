@@ -2,6 +2,7 @@ import { Analytics } from "@/components/landing/Analytics";
 import { FriendCartDrawer } from "@/components/friend/FriendCart";
 import { FriendHeader } from "@/components/friend/FriendHeader";
 import { FriendProvider } from "@/components/friend/FriendProvider";
+import grid from "@/components/friend/FriendGrid.module.css";
 
 /**
  * Everything under /friend: who invited the visitor, the one header of the
@@ -14,7 +15,7 @@ export default function FriendLayout({
 }) {
   return (
     <FriendProvider>
-      <div className="appShell">
+      <div className={`appShell ${grid.edge}`}>
         <FriendHeader />
         {children}
       </div>

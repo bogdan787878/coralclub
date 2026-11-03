@@ -1,0 +1,25 @@
+/* One grid for the web (1024px and up): the content column is the page less
+   56px each side, at most 1200px wide, centred. --grid-edge is the distance
+   from the window edge to that column; the header, the hero and the blocks
+   below all start on it. */
+.edge {
+  --grid-edge: 56px;
+}
+
+/* the home page's own blocks: Container and Carousel take the same column
+   (Container without its extra inline padding, Carousel by its gutter) */
+.home {
+  --grid-edge: 56px;
+}
+
+@media (min-width: 1024px) {
+  .edge,
+  .home {
+    --grid-edge: max(56px, calc((100vw - 1200px) / 2));
+  }
+
+  .home {
+    --container-max: min(1200px, calc(100vw - 112px));
+    --container-gutter: 0px;
+  }
+}

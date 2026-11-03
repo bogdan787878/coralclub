@@ -6,6 +6,7 @@ import { FriendCards } from "@/components/friend/FriendCards";
 import { FriendRegisterCta } from "@/components/friend/FriendRegisterCta";
 import { HOME_CONTENT, type EditorialItem } from "@/content/home";
 import { FRIEND_SETS, FRIEND_SINGLES } from "@/lib/friendCatalog";
+import grid from "@/components/friend/FriendGrid.module.css";
 import styles from "@/components/friend/Friend.module.css";
 
 export const metadata: Metadata = {
@@ -26,7 +27,7 @@ export default function FriendHome() {
   const { hero, reels } = hydration;
 
   return (
-    <div className="appShell">
+    <div className={`appShell ${grid.home}`}>
       <main className={styles.page} data-analytics-location="home">
         <Hero
           title={

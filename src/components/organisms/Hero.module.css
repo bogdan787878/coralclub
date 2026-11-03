@@ -219,7 +219,7 @@ div.body {
     background: var(--color-surface);
     /* mirrors the text column's own 56px left inset, so the photo
        doesn't run all the way to the true right edge either */
-    padding-right: 56px;
+    padding-right: var(--grid-edge, 56px);
   }
 
   /* a normal (static/relative) grid item now, sized to the right-hand
@@ -248,8 +248,13 @@ div.body {
      title sits at 56px */
   .inset,
   div.body {
-    padding-left: 56px;
+    padding-left: var(--grid-edge, 56px);
     padding-right: 0;
+  }
+
+  /* the button sits under the copy, on its left edge (not centred in the column) */
+  .ctaRow {
+    justify-content: flex-start;
   }
 
   .body {

@@ -124,6 +124,14 @@
   background: var(--color-green-light);
 }
 
+/* from 1024px the header's icons sit on the page grid (the glyphs are ~12px
+   inside their 44px buttons) */
+@media (min-width: 1024px) {
+  .root {
+    padding-inline: calc(var(--grid-edge, 28px) - 12px);
+  }
+}
+
 @media (min-width: 768px) {
   .logo {
     height: 28px;

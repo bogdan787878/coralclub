@@ -27,6 +27,7 @@ import shop from "../../../(shop)/products/[slug]/page.module.css";
 import styles from "../../../landing/product/[slug]/page.module.css";
 import { FriendBuyBox } from "@/components/friend/FriendBuyBox";
 import controls from "./controls.module.css";
+import grid from "./grid.module.css";
 
 type Params = { slug: string };
 
@@ -65,7 +66,7 @@ export default async function FriendProductPage({
   const title = p.form ? `${p.name} – ${p.form}` : p.name;
 
   return (
-    <div className="appShell">
+    <div className={`appShell ${grid.column}`}>
       <main className={shop.page} data-analytics-location="product_card">
         <TrackViewItem coralId={p.coralId} />
 
@@ -75,7 +76,7 @@ export default async function FriendProductPage({
         </div>
 
         <Section tone="surface">
-          <div className={styles.wide}>
+          <div className={`${styles.wide} ${grid.wide}`}>
             <div className={`${shop.layout} ${styles.layout}`}>
               <LandingGallery images={p.images} title={p.name} fit="contain" />
 

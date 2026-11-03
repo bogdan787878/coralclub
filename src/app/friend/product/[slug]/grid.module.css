@@ -1,0 +1,14 @@
+/* the product page on the web (1024px and up) sits on the same grid as the
+   home page: the column starts --grid-edge from the window edge (set in the
+   friend layout), the "more" blocks below use the same column */
+@media (min-width: 1024px) {
+  div.wide {
+    max-width: none;
+    padding-inline: var(--grid-edge, 56px);
+  }
+
+  div.column {
+    --container-max: min(1200px, calc(100vw - 112px));
+    --container-gutter: 0px;
+  }
+}

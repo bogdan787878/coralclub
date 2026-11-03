@@ -93,7 +93,7 @@
   }
   div.container {
     max-width: none;
-    padding-inline: 56px;
+    padding-inline: var(--grid-edge, 56px);
   }
 
   .inner {
