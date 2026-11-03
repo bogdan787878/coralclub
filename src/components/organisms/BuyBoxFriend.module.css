@@ -1,0 +1,43 @@
+/* BuyBox variants of the «Друг клуба» product page. The price block is the
+   first <div> of .inner, the action (Add to cart, or the in-cart row) the last. */
+
+/* the discount pill sits right after the struck-through price (second line),
+   the price alone on the first */
+.tagByWas > div > div:first-of-type {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: var(--space-8);
+  row-gap: 2px;
+}
+
+.tagByWas > div > div:first-of-type > div > span:first-child {
+  flex-basis: 100%;
+}
+
+/* «Add to cart» and «In cart» are one size: the button does not change when
+   the product is added (the whole width on the web, the same width on a phone) */
+.steady > div > button:last-child,
+.steady > div > a:last-child,
+.steady > div > div:last-child > button {
+  min-height: 52px;
+  min-width: 11rem;
+  justify-content: center;
+  font-size: var(--text-button-size);
+  line-height: var(--text-button-line);
+  /* no «pop» when the button is swapped: it stays as it was */
+  animation: none;
+}
+
+.steady > div > div:last-child > button {
+  padding-inline: var(--space-40);
+}
+
+@media (min-width: 1024px) {
+  .steady > div > div:last-child > button {
+    width: 100%;
+    padding-inline: var(--space-16);
+  }
+}

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui";
 import { addItem, openCart, setQty, useCart } from "@/lib/cart";
 import styles from "./BuyBox.module.css";
-import variants from "./BuyBoxVariants.module.css";
+import variants from "./BuyBoxFriend.module.css";
 
 function CheckIcon() {
   return (
@@ -59,6 +59,8 @@ export type BuyBoxProps = {
   top?: boolean;
   /** Put the discount pill beside the struck-through price, not beside the price. */
   tagByWas?: boolean;
+  /** The action keeps one size before and after the product is added. */
+  steady?: boolean;
 };
 
 /**
@@ -74,6 +76,7 @@ export function BuyBox({
   pinned = false,
   top = false,
   tagByWas = false,
+  steady = false,
 }: BuyBoxProps) {
   const cart = useCart();
   const [acted, setActed] = useState(false);
@@ -103,7 +106,7 @@ export function BuyBox({
 
   return (
     <div
-      className={`${styles.bar}${pinned ? ` ${styles.pinned}` : ""}${top ? ` ${styles.top}` : ""}${tagByWas ? ` ${variants.tagByWas}` : ""}${qty > 0 ? ` ${styles.hasQty}` : ""}`}
+      className={`${styles.bar}${pinned ? ` ${styles.pinned}` : ""}${top ? ` ${styles.top}` : ""}${tagByWas ? ` ${variants.tagByWas}` : ""}${steady ? ` ${variants.steady}` : ""}${qty > 0 ? ` ${styles.hasQty}` : ""}`}
     >
       <div className={styles.inner}>
         {top && <span className={styles.topName}>{product.name}</span>}

@@ -1,7 +1,0 @@
-/* variant: the discount pill sits beside the struck-through price (second
-   line), not beside the price. The price block is the first <div> of .inner. */
-.tagByWas > div > div:first-of-type {
-  grid-template-areas:
-    "now ."
-    "was tag";
-}
