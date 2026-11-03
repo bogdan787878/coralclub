@@ -1,0 +1,84 @@
+/* classic product-page tabs under the picture (web) */
+.tabs {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.bar {
+  display: flex;
+  gap: var(--space-24);
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.bar::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  flex: none;
+  position: relative;
+  padding: var(--space-12) 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--text-button-size);
+  line-height: var(--text-button-line);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.tab:hover {
+  color: var(--color-text);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--color-action);
+  outline-offset: 2px;
+}
+
+.on {
+  color: var(--color-text);
+}
+
+.on::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--color-text);
+}
+
+.panel {
+  padding-top: var(--space-24);
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.panel p {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-long-size);
+  line-height: var(--text-body-long-line);
+  color: var(--color-text);
+  white-space: pre-line;
+}
+
+/* the panels' own headings repeat the tab's name: they come empty */
+.panel h3:empty {
+  display: none;
+}
+
+/* the description comes without its rule and top padding (the tab bar has one) */
+.panel[data-tab="description"] > div {
+  border-top: 0;
+  padding-top: 0;
+}

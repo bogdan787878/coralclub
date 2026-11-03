@@ -1,0 +1,36 @@
+/* the product page's two layouts: on the web the details are tabs under the
+   picture, on a phone they stay in the info column (accordion and blocks) */
+div.webOnly {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  div.webOnly {
+    display: block;
+  }
+
+  div.mobileOnly {
+    display: none;
+  }
+}
+
+/* the key elements keep the shop's 24px from the text above them */
+div.keyEls {
+  margin-top: var(--space-24);
+}
+
+/* the picture column: the picture, and the tabs below it */
+.mediaCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+  min-width: 0;
+}
+
+/* the picture used to stay in view while the column scrolled; with tabs
+   under it, it scrolls with them */
+@media (min-width: 1024px) {
+  .mediaCol > :first-child {
+    position: static;
+  }
+}

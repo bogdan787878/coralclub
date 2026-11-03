@@ -21,16 +21,20 @@ function servingOf(label: string | undefined): string | null {
   return v && !/^serving$/i.test(v) ? v.toLowerCase() : null;
 }
 
-/**
- * The product page's Supplement Facts, a block of its own (not folded away):
- * the table of the product, and for a set the table of each product in it.
- * What has no table yet shows its ingredient list instead.
- */
-export function PdpFacts({ slug }: { slug: string }) {
+type Part = {
+  slug: string;
+  name: string;
+  rows: Row[];
+  serving: string | null;
+  ingredients: string;
+};
+
+/** The tables (or ingredient lists) to show: the product's own, or each product of a set. */
+function factsParts(slug: string): Part[] {
   const own = friendProduct(slug);
-  if (!own) return null;
+  if (!own) return [];
   const slugs = own.includes.length ? own.includes : [slug];
-  const parts = slugs
+  return slugs
     .map((s) => {
       const p = getProduct(s);
       if (!p) return null;
@@ -43,8 +47,27 @@ export function PdpFacts({ slug }: { slug: string }) {
         ingredients: p.manufacturing.ingredients?.trim() ?? "",
       };
     })
-    .filter((x): x is NonNullable<typeof x> => x !== null)
+    .filter((x): x is Part => x !== null)
     .filter((x) => x.rows.length > 0 || x.ingredients);
+}
+
+/** Whether the product has anything to show under Supplement Facts. */
+export const hasPdpFacts = (slug: string) => factsParts(slug).length > 0;
+
+/**
+ * The product page's Supplement Facts, a block of its own (not folded away):
+ * the table of the product, and for a set the table of each product in it.
+ * What has no table yet shows its ingredient list instead. `bare`: without
+ * the heading (inside a tab that carries the name).
+ */
+export function PdpFacts({
+  slug,
+  bare = false,
+}: {
+  slug: string;
+  bare?: boolean;
+}) {
+  const parts = factsParts(slug);
   if (!parts.length) return null;
 
   const anyDv = parts.some((x) => x.rows.some((r) => r.dv));
@@ -52,10 +75,15 @@ export function PdpFacts({ slug }: { slug: string }) {
   const named = parts.length > 1;
 
   return (
-    <section className={styles.block} aria-labelledby="pdp-facts">
-      <h2 id="pdp-facts" className={heads.title}>
-        Supplement Facts
-      </h2>
+    <section
+      className={styles.block}
+      aria-labelledby={bare ? undefined : "pdp-facts"}
+    >
+      {!bare && (
+        <h2 id="pdp-facts" className={heads.title}>
+          Supplement Facts
+        </h2>
+      )}
       {parts.map((x) => (
         <div key={x.slug} className={styles.block}>
           {named && <h3 className={heads.sub}>{x.name}</h3>}
