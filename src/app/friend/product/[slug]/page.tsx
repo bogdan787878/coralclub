@@ -83,6 +83,8 @@ export default async function FriendProductPage({
                     {title}
                   </Heading>
 
+                  <DietaryBadges items={p.dietaryBadges} />
+
                   <div id="pdp-buy">
                     <FriendBuyBox
                       href={href}
@@ -100,8 +102,6 @@ export default async function FriendProductPage({
                   {p.elements.length > 0 && (
                     <PeriodicElements items={p.elements} />
                   )}
-
-                  <DietaryBadges items={p.dietaryBadges} />
                 </div>
 
                 <PdpDelivery />
