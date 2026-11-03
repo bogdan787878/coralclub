@@ -37,6 +37,10 @@ export type FriendProduct = {
   topSeller: boolean;
   /** A set (shown first, with its own card size). */
   isSet: boolean;
+  /** Dietary tags (gluten-free, soy-free …), as the catalogue slugs them. */
+  dietaryBadges: string[];
+  /** The slugs of the products a set is made of. */
+  includes: string[];
 };
 
 /**
@@ -127,6 +131,8 @@ const build = (slug: string): FriendProduct | null => {
     fullDescription: p.fullDescription,
     topSeller: p.topSeller,
     isSet: p.includedProducts.length > 0,
+    dietaryBadges: p.dietaryBadges,
+    includes: p.includedProducts,
   };
 };
 

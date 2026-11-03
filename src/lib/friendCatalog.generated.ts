@@ -195,3 +195,704 @@ export const CLUB_PRICES: Record<string, Record<string, number>> = {
   US: { "807200": 117, "803800": 82, "22201": 21, "225115": 19, "91883": 58 },
   UZ: { "807200": 1462500, "803800": 1025000, "22201": 262500, "91883": 725000 },
 };
+
+/** How each site delivers (names, days, price and free-shipping sum, in its currency), asked for one unit; the exact options come with the address at checkout. */
+export type SiteDelivery = {
+  name: string;
+  kind: "courier" | "pickup";
+  transit: string;
+  price: number;
+  freeFrom: number;
+}[];
+export const SITE_DELIVERY: Record<string, SiteDelivery> = {
+  "AT": [
+    {
+      "name": "DPD",
+      "kind": "courier",
+      "transit": "3-6",
+      "price": 6,
+      "freeFrom": 200
+    },
+    {
+      "name": "DHL",
+      "kind": "courier",
+      "transit": "5",
+      "price": 6,
+      "freeFrom": 200
+    },
+    {
+      "name": "DHL Express",
+      "kind": "courier",
+      "transit": "1-2",
+      "price": 10,
+      "freeFrom": 350
+    },
+    {
+      "name": "FedEx",
+      "kind": "courier",
+      "transit": "3-4",
+      "price": 10,
+      "freeFrom": 350
+    }
+  ],
+  "BE": [
+    {
+      "name": "DPD",
+      "kind": "courier",
+      "transit": "3-6",
+      "price": 6,
+      "freeFrom": 200
+    },
+    {
+      "name": "DHL Express",
+      "kind": "courier",
+      "transit": "1-2",
+      "price": 10,
+      "freeFrom": 500
+    }
+  ],
+  "AU": [
+    {
+      "name": "FedEx",
+      "kind": "courier",
+      "transit": "9-11",
+      "price": 40,
+      "freeFrom": 0
+    },
+    {
+      "name": "DHL Express",
+      "kind": "courier",
+      "transit": "2-4",
+      "price": 35,
+      "freeFrom": 500
+    }
+  ],
+  "CA": [
+    {
+      "name": "FedEx International Connect",
+      "kind": "courier",
+      "transit": "3",
+      "price": 19,
+      "freeFrom": 350
+    }
+  ],
+  "BY": [
+    {
+      "name": "Курьер AutoLight",
+      "kind": "courier",
+      "transit": "1-3",
+      "price": 0,
+      "freeFrom": 250
+    },
+    {
+      "name": "Курьер Европост",
+      "kind": "courier",
+      "transit": "3-4",
+      "price": 0,
+      "freeFrom": 200
+    },
+    {
+      "name": "Европост пункты выдачи",
+      "kind": "pickup",
+      "transit": "3-4",
+      "price": 0,
+      "freeFrom": 150
+    }
+  ],
+  "CH": [
+    {
+      "name": "DHL Express",
+      "kind": "courier",
+      "transit": "1-3",
+      "price": 15,
+      "freeFrom": 500
+    },
+    {
+      "name": "FedEx",
+      "kind": "courier",
+      "transit": "4-7",
+      "price": 20,
+      "freeFrom": 500
+    }
+  ],
+  "AM": [
+    {
+      "name": "Курьер (Ереван)",
+      "kind": "courier",
+      "transit": "1",
+      "price": 0,
+      "freeFrom": 25000
+    },
+    {
+      "name": "Самовывоз из офиса компании (бесплатно)",
+      "kind": "pickup",
+      "transit": "0-1",
+      "price": 0,
+      "freeFrom": 0
+    }
+  ],
+  "CZ": [
+    {
+      "name": "DHL",
+      "kind": "courier",
+      "transit": "2-6",
+      "price": 0,
+      "freeFrom": 2000
+    },
+    {
+      "name": "DHL Express",
+      "kind": "courier",
+      "transit": "1-4",
+      "price": 199,
+      "freeFrom": 5000
+    },
+    {
+      "name": "Pick-up point",
+      "kind": "courier",
+      "transit": "2-4",
+      "price": 0,
+      "freeFrom": 2000
+    }
+  ],
+  "DE": [
+    {
+      "name": "DHL Express",
+      "kind": "courier",
+      "transit": "1-2",
+      "price": 8,
+      "freeFrom": 300
+    },
+    {
+      "name": "DHL",
+      "kind": "courier",
+      "transit": "2-3",
+      "price": 4,
+      "freeFrom": 200
+    },
+    {
+      "name": "DPD",
+      "kind": "courier",
+      "transit": "3-6",
+      "price": 6,
+      "freeFrom": 200
+    }
+  ],
+  "EE": [
+    {
+      "name": "SmartPost",
+      "kind": "pickup",
+      "transit": "1-2",
+      "price": 0,
+      "freeFrom": 100
+    },
+    {
+      "name": "Courier delivery",
+      "kind": "courier",
+      "transit": "1-2",
+      "price": 0,
+      "freeFrom": 100
+    }
+  ],
+  "CY": [
+    {
+      "name": "",
+      "kind": "courier",
+      "transit": "1-2",
+      "price": 5,
+      "freeFrom": 150
+    }
+  ],
+  "ES": [
+    {
+      "name": "Nasex",
+      "kind": "courier",
+      "transit": "1-2",
+      "price": 0,
+      "freeFrom": 100
+    }
+  ],
+  "FR": [
+    {
+      "name": "DPD",
+      "kind": "courier",
+      "transit": "3-6",
+      "price": 7,
+      "freeFrom": 200
+    },
+    {
+      "name": "DHL",
+      "kind": "courier",
+      "transit": "6",
+      "price": 6,
+      "freeFrom": 200
+    },
+    {
+      "name": "DHL Express",
+      "kind": "courier",
+      "transit": "1-2",
+      "price": 10,
+      "freeFrom": 500
+    }
+  ],
+  "FI": [
+    {
+      "name": "SmartPost",
+      "kind": "pickup",
+      "transit": "3-5",
+      "price": 5,
+      "freeFrom": 200
+    },
+    {
+      "name": "Post offices",
+      "kind": "pickup",
+      "transit": "3-5",
+      "price": 7,
+      "freeFrom": 200
+    }
+  ],
+  "GB": [
+    {
+      "name": "Royal Mail",
+      "kind": "courier",
+      "transit": "2-3",
+      "price": 0,
+      "freeFrom": 100
+    }
+  ],
+  "GR": [
+    {
+      "name": "DHL Express",
+      "kind": "courier",
+      "transit": "2-3",
+      "price": 15,
+      "freeFrom": 500
+    },
+    {
+      "name": "DHL",
+      "kind": "courier",
+      "transit": "5-8",
+      "price": 9,
+      "freeFrom": 200
+    }
+  ],
+  "GE": [
+    {
+      "name": "",
+      "kind": "courier",
+      "transit": "1-3",
+      "price": 0,
+      "freeFrom": 149
+    },
+    {
+      "name": "Georgia Post",
+      "kind": "courier",
+      "transit": "1-3",
+      "price": 0,
+      "freeFrom": 149
+    },
+    {
+      "name": "Smart Express",
+      "kind": "courier",
+      "transit": "1-3",
+      "price": 0,
+      "freeFrom": 149
+    }
+  ],
+  "HU": [
+    {
+      "name": "DPD",
+      "kind": "courier",
+      "transit": "3-4",
+      "price": 0,
+      "freeFrom": 40000
+    },
+    {
+      "name": "",
+      "kind": "pickup",
+      "transit": "3-4",
+      "price": 0,
+      "freeFrom": 40000
+    }
+  ],
+  "IT": [
+    {
+      "name": "BRT (DPD)",
+      "kind": "courier",
+      "transit": "2-3",
+      "price": 0,
+      "freeFrom": 100
+    },
+    {
+      "name": "DHL",
+      "kind": "courier",
+      "transit": "2-3",
+      "price": 10,
+      "freeFrom": 200
+    },
+    {
+      "name": "GLS",
+      "kind": "courier",
+      "transit": "2-3",
+      "price": 0,
+      "freeFrom": 100
+    },
+    {
+      "name": "BRT (DPD)",
+      "kind": "pickup",
+      "transit": "1-3",
+      "price": 0,
+      "freeFrom": 100
+    },
+    {
+      "name": "GLS",
+      "kind": "pickup",
+      "transit": "1-3",
+      "price": 0,
+      "freeFrom": 100
+    }
+  ],
+  "IN": [
+    {
+      "name": "DHL",
+      "kind": "courier",
+      "transit": "14-20",
+      "price": 25,
+      "freeFrom": 500
+    }
+  ],
+  "KR": [
+    {
+      "name": "DHL Express",
+      "kind": "courier",
+      "transit": "2-4",
+      "price": 15,
+      "freeFrom": 300
+    },
+    {
+      "name": "DHL",
+      "kind": "courier",
+      "transit": "14-20",
+      "price": 10,
+      "freeFrom": 500
+    }
+  ],
+  "KZ": [
+    {
+      "name": "Курьер",
+      "kind": "courier",
+      "transit": "1-2",
+      "price": 0,
+      "freeFrom": 25000
+    },
+    {
+      "name": "Экспресс-доставка",
+      "kind": "courier",
+      "transit": "3 часа",
+      "price": 2500,
+      "freeFrom": 0
+    },
+    {
+      "name": "Бесплатный самовывоз из офиса компании",
+      "kind": "pickup",
+      "transit": "0-1",
+      "price": 0,
+      "freeFrom": 0
+    }
+  ],
+  "IL": [
+    {
+      "name": "Pick-up points Cheetah",
+      "kind": "pickup",
+      "transit": "3-5",
+      "price": 20,
+      "freeFrom": 1800
+    },
+    {
+      "name": "Pick up from Coral Club office",
+      "kind": "pickup",
+      "transit": "1-5",
+      "price": 0,
+      "freeFrom": 0
+    },
+    {
+      "name": "Courier delivery",
+      "kind": "courier",
+      "transit": "3-5",
+      "price": 45,
+      "freeFrom": 1800
+    }
+  ],
+  "LT": [
+    {
+      "name": "Omniva",
+      "kind": "courier",
+      "transit": "2-5",
+      "price": 0,
+      "freeFrom": 100
+    },
+    {
+      "name": "Pick points Omniva",
+      "kind": "pickup",
+      "transit": "2-5",
+      "price": 0,
+      "freeFrom": 100
+    }
+  ],
+  "LV": [
+    {
+      "name": "SmartPosti",
+      "kind": "courier",
+      "transit": "2-4",
+      "price": 4,
+      "freeFrom": 150
+    },
+    {
+      "name": "Omniva",
+      "kind": "courier",
+      "transit": "2-4",
+      "price": 4,
+      "freeFrom": 150
+    },
+    {
+      "name": "SmartPosti",
+      "kind": "pickup",
+      "transit": "2-4",
+      "price": 2,
+      "freeFrom": 150
+    },
+    {
+      "name": "Pick points Omniva",
+      "kind": "pickup",
+      "transit": "2-4",
+      "price": 2,
+      "freeFrom": 150
+    },
+    {
+      "name": "Pasts Pakomats",
+      "kind": "pickup",
+      "transit": "2-4",
+      "price": 2,
+      "freeFrom": 150
+    },
+    {
+      "name": "Pasts",
+      "kind": "courier",
+      "transit": "2-4",
+      "price": 2,
+      "freeFrom": 150
+    }
+  ],
+  "NO": [
+    {
+      "name": "DHL Express",
+      "kind": "courier",
+      "transit": "1-3",
+      "price": 200,
+      "freeFrom": 5000
+    },
+    {
+      "name": "FedEx",
+      "kind": "courier",
+      "transit": "4-7",
+      "price": 250,
+      "freeFrom": 5000
+    }
+  ],
+  "PL": [
+    {
+      "name": "DHL",
+      "kind": "courier",
+      "transit": "1-2",
+      "price": 0,
+      "freeFrom": 250
+    },
+    {
+      "name": "Inpost",
+      "kind": "courier",
+      "transit": "1-2",
+      "price": 0,
+      "freeFrom": 250
+    },
+    {
+      "name": "Poczta Polska (Biznes)",
+      "kind": "courier",
+      "transit": "4",
+      "price": 0,
+      "freeFrom": 250
+    },
+    {
+      "name": "InPost Paczkomat",
+      "kind": "pickup",
+      "transit": "1-2",
+      "price": 0,
+      "freeFrom": 250
+    }
+  ],
+  "QA": [
+    {
+      "name": "DHL Express",
+      "kind": "courier",
+      "transit": "2-4",
+      "price": 25,
+      "freeFrom": 500
+    }
+  ],
+  "RO": [
+    {
+      "name": "",
+      "kind": "courier",
+      "transit": "1-3",
+      "price": 0,
+      "freeFrom": 200
+    },
+    {
+      "name": "Sameday",
+      "kind": "courier",
+      "transit": "1-3",
+      "price": 0,
+      "freeFrom": 200
+    }
+  ],
+  "RU": [
+    {
+      "name": "Курьер",
+      "kind": "courier",
+      "transit": "1-2",
+      "price": 0,
+      "freeFrom": 6000
+    },
+    {
+      "name": "Пункт самовывоза СДЭК",
+      "kind": "pickup",
+      "transit": "1-3",
+      "price": 0,
+      "freeFrom": 5000
+    },
+    {
+      "name": "Бесплатный самовывоз из офиса компании",
+      "kind": "pickup",
+      "transit": "1-3",
+      "price": 0,
+      "freeFrom": 0
+    },
+    {
+      "name": "Пункт самовывоза 5Post",
+      "kind": "pickup",
+      "transit": "1-3",
+      "price": 0,
+      "freeFrom": 5000
+    },
+    {
+      "name": "Пункты самовывоза Яндекс.Доставка",
+      "kind": "pickup",
+      "transit": "1-3",
+      "price": 0,
+      "freeFrom": 5000
+    }
+  ],
+  "PT": [
+    {
+      "name": "Nasex",
+      "kind": "courier",
+      "transit": "1-2",
+      "price": 0,
+      "freeFrom": 100
+    }
+  ],
+  "SK": [
+    {
+      "name": "DPD",
+      "kind": "courier",
+      "transit": "1-2",
+      "price": 0,
+      "freeFrom": 100
+    },
+    {
+      "name": "DPD Pickpoint",
+      "kind": "pickup",
+      "transit": "1-2",
+      "price": 0,
+      "freeFrom": 100
+    }
+  ],
+  "UA": [
+    {
+      "name": "Нова Пошта",
+      "kind": "pickup",
+      "transit": "1-3",
+      "price": 0,
+      "freeFrom": 1500
+    },
+    {
+      "name": "Доставка до дверей",
+      "kind": "courier",
+      "transit": "1-3",
+      "price": 0,
+      "freeFrom": 1500
+    }
+  ],
+  "TW": [
+    {
+      "name": "DHL Express",
+      "kind": "courier",
+      "transit": "2-4",
+      "price": 20,
+      "freeFrom": 500
+    },
+    {
+      "name": "DHL",
+      "kind": "courier",
+      "transit": "14-20",
+      "price": 25,
+      "freeFrom": 500
+    }
+  ],
+  "US": [
+    {
+      "name": "FedEx Ground",
+      "kind": "courier",
+      "transit": "2-7",
+      "price": 9.5,
+      "freeFrom": 250
+    },
+    {
+      "name": "FedEx Express 2nd Business Day",
+      "kind": "courier",
+      "transit": "2",
+      "price": 35,
+      "freeFrom": 0
+    },
+    {
+      "name": "Fedex pickpoints",
+      "kind": "pickup",
+      "transit": "2-7",
+      "price": 9.5,
+      "freeFrom": 250
+    }
+  ],
+  "UZ": [
+    {
+      "name": "Emu",
+      "kind": "courier",
+      "transit": "1-3",
+      "price": 0,
+      "freeFrom": 850000
+    },
+    {
+      "name": "Emu",
+      "kind": "pickup",
+      "transit": "1-3",
+      "price": 0,
+      "freeFrom": 700000
+    }
+  ],
+  "TR": [
+    {
+      "name": "Yurtici Kargo kurye",
+      "kind": "courier",
+      "transit": "1-6",
+      "price": 0,
+      "freeFrom": 2200
+    }
+  ]
+};

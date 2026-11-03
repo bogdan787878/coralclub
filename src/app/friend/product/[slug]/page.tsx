@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BodyLong, Container, Heading, Section, Stack } from "@/components/ui";
 import {
+  DietaryBadges,
   FullDescription,
   InfoAccordion,
   PeriodicElements,
@@ -10,16 +11,14 @@ import { LandingGallery } from "@/components/landing/LandingGallery";
 import { TrackViewItem } from "@/components/landing/TrackViewItem";
 import { FriendCards } from "@/components/friend/FriendCards";
 import { FriendMemberBlock } from "@/components/friend/FriendMemberBlock";
+import { PdpDelivery } from "@/components/friend/PdpDelivery";
+import { PdpFacts } from "@/components/friend/PdpFacts";
 import {
   FRIEND_PRODUCTS,
   friendPdpHref,
   friendProduct,
 } from "@/lib/friendCatalog";
-import {
-  ManufacturingDetails,
-  SupplementFacts,
-  hasSupplementFacts,
-} from "../../../(shop)/products/[slug]/ManufacturingDetails";
+import { ManufacturingDetails } from "../../../(shop)/products/[slug]/ManufacturingDetails";
 import { BackButton } from "../../../(shop)/products/[slug]/BackButton";
 import { ShareButton } from "../../../(shop)/products/[slug]/ShareButton";
 // the page chrome is the shop PDP's own, the wide frame is the landing's
@@ -61,8 +60,6 @@ export default async function FriendProductPage({
 
   const others = FRIEND_PRODUCTS.filter((x) => x.slug !== slug);
   const href = friendPdpHref(slug);
-  const facts = p.manufacturing.supplementFacts;
-  const hasFacts = hasSupplementFacts(facts);
   const title = p.form ? `${p.name} – ${p.form}` : p.name;
 
   return (
@@ -103,7 +100,11 @@ export default async function FriendProductPage({
                   {p.elements.length > 0 && (
                     <PeriodicElements items={p.elements} />
                   )}
+
+                  <DietaryBadges items={p.dietaryBadges} />
                 </div>
+
+                <PdpDelivery />
 
                 <InfoAccordion
                   items={[
@@ -119,16 +120,10 @@ export default async function FriendProductPage({
                       title: "Manufacturing details",
                       content: <ManufacturingDetails data={p.manufacturing} />,
                     },
-                    ...(hasFacts
-                      ? [
-                          {
-                            title: "Supplement Facts",
-                            content: <SupplementFacts data={facts} />,
-                          },
-                        ]
-                      : []),
                   ]}
                 />
+
+                <PdpFacts slug={slug} />
 
                 {p.fullDescription && (
                   <FullDescription text={p.fullDescription} />

@@ -29,6 +29,19 @@ const MEMBER_ID = process.env.MEMBER_ID ?? "8819457";
 /** The market's own site: its articles and prices are the catalog's. */
 const MARKET_SITE = "de";
 
+/** A place to ask delivery for where it depends on the place (the capital). */
+const SAMPLE_PLACE = {
+  RU: ["Москва", "Москва"],
+  BY: ["Минск", "Минск"],
+  UA: ["Київ", "Київ"],
+  KZ: ["Алматы", "Алматы"],
+  UZ: ["Ташкент", "Ташкент"],
+  AM: ["Ереван", "Ереван"],
+  GE: ["Тбилиси", "Тбилиси"],
+  US: ["New York", "New York"],
+  CA: ["Toronto", "Ontario"],
+};
+
 /** The project's products: the market's article and the page of each on the shop. */
 const PRODUCTS = [
   { slug: "hydramax-plus", article: "807200", pages: ["hydramax-plus"] },
@@ -184,6 +197,7 @@ async function main() {
   const currency = {};
   const articles = {};
   const prices = {};
+  const delivery = {};
   const queue = [...SITES];
   const work = async (s) => {
     currency[s.code] = (/"priceCurrency":"([A-Z]{3})"/.exec(
@@ -203,9 +217,11 @@ async function main() {
       for (const [i, code] of order.entries()) {
         // the shop answers a rejected article and a just-emptied basket alike:
         // the site's own article gets a second look
+        // a site's stock changes and the shop answers a rejected article and a
+        // just-emptied basket alike: three looks before it counts as «not sold»
         let price = await tryArticle(s.sub, code);
-        if (price === null && i === 0 && sku === code) {
-          await new Promise((r) => setTimeout(r, 800));
+        for (let again = 0; again < 2 && price === null; again++) {
+          await new Promise((r) => setTimeout(r, 1000));
           price = await tryArticle(s.sub, code);
         }
         if (price !== null) {
@@ -215,6 +231,45 @@ async function main() {
       }
       (articles[s.code] ??= {})[p.article] = found?.code ?? null;
       if (found) (prices[s.code] ??= {})[p.article] = found.price;
+    }
+    // what the site delivers with: asked with one unit in the basket, for the
+    // capital where delivery depends on the place
+    const first = PRODUCTS.find((p) => articles[s.code][p.article]);
+    if (first) {
+      await emptyBasket(s.sub);
+      await fetch(
+        `${PROXY}/shop/shop_basket.php?${articles[s.code][first.article]}=1&REF_CODE=${REF_CODE}&langss=${s.sub === MARKET_SITE ? "de" : "us"}&user=${MEMBER_ID}&f=y`,
+        { headers: H(s.sub) },
+      );
+      const [city, area] = SAMPLE_PLACE[s.code] ?? ["", ""];
+      const q = new URLSearchParams({
+        COUNTRY: s.code,
+        CITY: city,
+        AREA: area,
+        language: "us",
+      });
+      try {
+        const d = await (
+          await fetch(`${PROXY}/sv-api/delivery?${q}`, { headers: H(s.sub) })
+        ).json();
+        const list = [];
+        for (const g of Array.isArray(d.result) ? d.result : []) {
+          for (const it of g.ITEMS ?? []) {
+            // the express courier is offered only at some hours: not a standing option
+            if (it.ID === "I_COURIER_1DAY") continue;
+            list.push({
+              name: String(it.NAME ?? "").trim(),
+              kind: g.ID === "PICK_POINT" ? "pickup" : "courier",
+              transit: it.TRANSIT ? String(it.TRANSIT) : "",
+              price: Number(it.PRICE) || 0,
+              freeFrom: Number(it.FREE_DELIVERY) || 0,
+            });
+          }
+        }
+        if (list.length) delivery[s.code] = list;
+      } catch {
+        /* no delivery list for this site: the page says it comes at checkout */
+      }
     }
     await emptyBasket(s.sub);
     console.error("done", s.code, JSON.stringify(articles[s.code]));
@@ -264,6 +319,17 @@ export const CLUB_PRICES: Record<string, Record<string, number>> = {\n`;
       .join(", ")} },\n`;
   }
   out += "};\n";
+  out += `
+/** How each site delivers (names, days, price and free-shipping sum, in its currency), asked for one unit; the exact options come with the address at checkout. */
+export type SiteDelivery = {
+  name: string;
+  kind: "courier" | "pickup";
+  transit: string;
+  price: number;
+  freeFrom: number;
+}[];
+export const SITE_DELIVERY: Record<string, SiteDelivery> = ${JSON.stringify(delivery, null, 2)};
+`;
   writeFileSync(`${ROOT}src/lib/friendCatalog.generated.ts`, out);
 
   // the market's own prices live in lib/friendCatalog.ts: say if they drifted
