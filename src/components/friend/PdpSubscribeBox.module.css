@@ -77,19 +77,21 @@
   height: 12px;
 }
 
+/* the same size as the «Add to cart» button above (52px, 16/24, medium) */
 .btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
-  padding: 0 var(--space-24);
+  min-height: 52px;
+  padding: 0 var(--space-16);
   border: 1.5px solid var(--color-malachite-90);
   border-radius: var(--radius-pill);
   background: transparent;
   color: var(--color-malachite-90);
   font-family: var(--font-sans);
-  font-size: 1rem;
-  font-weight: var(--font-weight-medium);
+  font-size: var(--text-button-size);
+  line-height: var(--text-button-line);
+  font-weight: var(--text-button-weight);
   text-decoration: none;
   transition: background-color var(--duration-fast) var(--ease-standard);
 }
@@ -116,10 +118,5 @@
 
   .perks {
     gap: var(--space-4, 4px);
-  }
-
-  .btn {
-    min-height: 40px;
-    font-size: 0.875rem;
   }
 }

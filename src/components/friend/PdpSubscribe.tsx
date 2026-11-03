@@ -3,7 +3,7 @@
 import { track } from "@/lib/analytics";
 import { registrationUrl } from "@/lib/friend";
 import { useFriend } from "./FriendProvider";
-import styles from "./PdpSubscribeCard.module.css";
+import styles from "./PdpSubscribeBox.module.css";
 
 const PERKS = [
   "Early access to new launches and products",
