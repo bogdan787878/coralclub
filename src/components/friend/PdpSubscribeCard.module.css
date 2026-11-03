@@ -6,7 +6,8 @@
   flex-direction: column;
   gap: var(--space-12);
   padding: var(--space-16);
-  border: 1.5px solid var(--color-malachite-90);
+  /* the same outline as the delivery card */
+  border: 1.5px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
 }
