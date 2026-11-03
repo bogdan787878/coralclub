@@ -163,14 +163,14 @@ export default async function FriendProductPage({
                     />
                   </div>
 
+                  <PdpDelivery />
+
                   {p.elements.length > 0 && (
                     <div className={tabsCss.keyEls}>
                       <PeriodicElements items={p.elements} />
                     </div>
                   )}
                 </div>
-
-                <PdpDelivery />
 
                 {/* a phone keeps How to Use and Manufacturing as folded rows */}
                 <div className={tabsCss.mobileOnly}>
