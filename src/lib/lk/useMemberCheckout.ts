@@ -441,8 +441,9 @@ export function useMemberCheckout() {
 
   /**
    * After the order: online payment opens the gateway the shop picks for the country. The cabinet API gives the order's
-   * payment link (the member's session sits in it); the gateway follows the shop's redirects to the bank, and when it
-   * cannot, the browser opens the link itself and the shop leads on.
+   * payment link (the member's session sits in it); the gateway walks the shop's order page like the shop does (picks the
+   * payment method via orderSelectPaysystem) and hands back the bank address. If no bank is found we stay on the done
+   * screen with a retry: opening the shop in the browser would land on its sign-in page (no session there).
    */
   async function goToPayment(id: string, paymentName: string): Promise<string> {
     if (CASHLIKE.test(paymentName)) return "";
@@ -456,7 +457,7 @@ export function useMemberCheckout() {
     const link = sid ? `${u.origin}/redirect.php?session_id=${sid}&url=${encodeURIComponent(rel)}` : raw;
     let why = "";
     try {
-      const r = await shopFetch("/pay", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ link }) });
+      const r = await shopFetch("/pay", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ link, method: paymentId }) });
       const j = (await r.json().catch(() => null)) as { target?: { url?: string; method?: string; fields?: Record<string, string> }; error?: string } | null;
       why = j?.error ?? (r.ok ? "" : `посредник ответил ${r.status}`);
       const t = j?.target;
@@ -468,8 +469,7 @@ export function useMemberCheckout() {
     } catch {
       why = "нет связи с посредником";
     }
-    window.location.assign(link); // the shop's payment page leads on
-    return why;
+    return why || "банк не найден";
   }
 
   // the only place that creates a real order: runs on the member's click
