@@ -4,7 +4,7 @@ import Image from "next/image";
 import { addItem, useCart, type CartLine } from "@/lib/cart";
 import { FRIEND_PRODUCTS, friendProductById } from "@/lib/friendCatalog";
 import { useFriendPricing } from "@/lib/friendPricing";
-import styles from "./FriendCartParts.module.css";
+import styles from "@/components/cart/CartParts.module.css";
 
 /** Savings so far + progress to free shipping, above the cart lines. */
 export function CartBanner({ lines }: { lines: CartLine[] }) {

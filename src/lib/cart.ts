@@ -21,11 +21,14 @@ const STORAGE_KEY = "coralclub.cart";
 /** The friend project (USD, US articles) keeps its own cart, apart from the
  *  Russian landing and the English prototype on the same origin. */
 const FRIEND_STORAGE_KEY = "coralclub.cart.friend";
-const storageKey = () =>
-  typeof window !== "undefined" &&
-  /\/friend(\/|$)/.test(window.location.pathname)
-    ? FRIEND_STORAGE_KEY
-    : STORAGE_KEY;
+/** The member area (/lk): a mirror of the member's own basket in the cabinet API. */
+const LK_STORAGE_KEY = "coralclub.cart.lk";
+const storageKey = () => {
+  if (typeof window === "undefined") return STORAGE_KEY;
+  const path = window.location.pathname;
+  if (/\/lk(\/|$)/.test(path)) return LK_STORAGE_KEY;
+  return /\/friend(\/|$)/.test(path) ? FRIEND_STORAGE_KEY : STORAGE_KEY;
+};
 const EVENT = "coralclub:cart";
 const CORAL_SHOP = "https://coralclub.us/shop/";
 /** Hardcoded — required by coralclub.us's share-cart link format, not a
@@ -41,6 +44,8 @@ export type CartLine = {
   /** Display price, e.g. "$21.99". */
   price: string;
   image?: string;
+  /** Regular (struck-through) price, when the member price is lower. */
+  was?: string;
   qty: number;
 };
 
@@ -155,6 +160,11 @@ export function removeItem(coralId: string): void {
 
 export function clearCart(): void {
   write([]);
+}
+
+/** Replace the lines with the server's truth (member area): no analytics event, no write-through. */
+export function replaceCart(lines: CartLine[]): void {
+  write(lines);
 }
 
 /* --------------------------- open the drawer ------------------------- */
