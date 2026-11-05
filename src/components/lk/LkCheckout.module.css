@@ -1,0 +1,16 @@
+/* The member area's own bits around the shared checkout screen: the top bar and plain links. */
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-16);
+}
+
+.back,
+.link {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  text-decoration: underline;
+}

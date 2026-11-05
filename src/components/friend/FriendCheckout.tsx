@@ -64,7 +64,7 @@ import { FloatInput, OptionCard, OptionCards, OptionInfo } from "@/components/ui
 import { CardBadges } from "./PayBadges";
 import { useFriend } from "./FriendProvider";
 import co from "../landing/LandingCheckout.module.css";
-import styles from "./FriendCheckout.module.css";
+import styles from "@/components/checkout/CheckoutPage.module.css";
 import extra from "@/components/checkout/CheckoutExtras.module.css";
 
 /**

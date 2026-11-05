@@ -12,7 +12,7 @@ import { onShopOrigin, setShopSite } from "@/lib/shopApi";
 import { getPayOrder, type PayOrder } from "@/lib/shopPay";
 import { FriendMemberBlock } from "./FriendMemberBlock";
 import { OrderSummary, ShippingFacts } from "./OrderParts";
-import styles from "./FriendCheckout.module.css";
+import styles from "@/components/checkout/CheckoutPage.module.css";
 
 const Chevron = () => (
   <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">

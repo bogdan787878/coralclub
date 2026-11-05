@@ -23,6 +23,11 @@ export function setShopSite(host: string): void {
   pinShopSite();
 }
 const LANGUAGE: string = MARKET.apiLanguage;
+/** The language the shop answers in; the member area (Russian) sets its own. */
+let currentLanguage: string = LANGUAGE;
+export function setShopLanguage(language: string | null): void {
+  currentLanguage = language ?? LANGUAGE;
+}
 
 /** The page is served by the shop (or its local proxy): its API can be called. */
 export function onShopOrigin(): boolean {
@@ -88,7 +93,7 @@ export async function api<T = unknown>(
   params: Record<string, unknown> = {},
 ): Promise<T> {
   const r = await shopFetch(
-    `/sv-api${path}?${qs({ ...params, language: LANGUAGE })}`,
+    `/sv-api${path}?${qs({ ...params, language: currentLanguage })}`,
   );
   const text = await r.text();
   try {

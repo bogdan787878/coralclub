@@ -33,7 +33,7 @@ import { AddressSearch, StateCombobox } from "@/components/checkout";
 import { FloatInput } from "@/components/ui";
 import { OrderSummary, ShippingFacts } from "./OrderParts";
 import co from "../landing/LandingCheckout.module.css";
-import styles from "./FriendCheckout.module.css";
+import styles from "@/components/checkout/CheckoutPage.module.css";
 import pp from "./PayPage.module.css";
 
 const Chevron = () => (

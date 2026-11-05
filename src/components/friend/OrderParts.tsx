@@ -3,7 +3,7 @@ import { friendProductById } from "@/lib/friendCatalog";
 import { pricingForSite } from "@/lib/friendPricing";
 import { canonicalArticle } from "@/lib/siteArticles";
 import type { PayOrder } from "@/lib/shopPay";
-import styles from "./FriendCheckout.module.css";
+import styles from "@/components/checkout/CheckoutPage.module.css";
 
 /** The shop's delivery service ids → names (the order carries only the id). */
 const DELIVERY_NAME: Record<string, string> = {

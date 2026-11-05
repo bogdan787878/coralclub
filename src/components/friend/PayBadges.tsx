@@ -1,4 +1,4 @@
-import styles from "./FriendCheckout.module.css";
+import styles from "@/components/checkout/CheckoutPage.module.css";
 
 /**
  * Small «accepted here» marks for the card payment method: Apple Pay,
