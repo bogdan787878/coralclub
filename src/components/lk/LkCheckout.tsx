@@ -8,6 +8,9 @@ import {
   DeliveryModeSwitch,
   MapPicker,
   PickupPointButton,
+  MAP_RU,
+  COUNTRY_RU,
+  PICKUP_RU,
   PickupSheet,
 } from "@/components/checkout";
 import { Consent, FloatInput, Loader, OptionCard, OptionCards, OptionInfo } from "@/components/ui";
@@ -119,7 +122,7 @@ export function LkCheckout() {
         <Link href="/lk/cart/" className={own.back}>
           ← Корзина
         </Link>
-        <CountryMenu countries={c.countries} value={c.country} onChange={c.changeCountry} />
+        <CountryMenu countries={c.countries} value={c.country} onChange={c.changeCountry} labels={COUNTRY_RU} />
       </div>
       {lines.length === 0 ? (
         <div className={styles.empty}>
@@ -498,6 +501,7 @@ export function LkCheckout() {
             d.setSheetOpen(false);
           }}
           onClose={() => d.setSheetOpen(false)}
+          labels={PICKUP_RU}
         />
       )}
       {d.mapOpen && addressSearchEnabled && (
@@ -510,6 +514,7 @@ export function LkCheckout() {
             d.setMapOpen(false);
           }}
           onClose={() => d.setMapOpen(false)}
+          labels={MAP_RU}
         />
       )}
     </main>

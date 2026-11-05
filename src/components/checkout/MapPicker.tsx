@@ -8,6 +8,7 @@ import {
   type MapsKit,
   type ResolvedAddress,
 } from "@/lib/addressSearch";
+import { MAP_EN, type MapLabels } from "./labels";
 import styles from "./MapPicker.module.css";
 
 type Found = { address: ResolvedAddress; country: string; line: string };
@@ -24,6 +25,7 @@ export function MapPicker({
   nearby,
   onSelect,
   onClose,
+  labels,
 }: {
   country: string;
   countryName: string;
@@ -31,7 +33,10 @@ export function MapPicker({
   nearby?: string;
   onSelect: (a: ResolvedAddress) => void;
   onClose: () => void;
+  /** the words of the picker (English by default) */
+  labels?: Partial<MapLabels>;
 }) {
+  const t: MapLabels = { ...MAP_EN, ...labels };
   const el = useRef<HTMLDivElement>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "failed">(
     "loading",
@@ -122,12 +127,12 @@ export function MapPicker({
       >
         <div className={styles.head}>
           <h2 id="map-picker-title" className={styles.title}>
-            Choose on map
+            {t.title}
           </h2>
           <button
             type="button"
             className={styles.close}
-            aria-label="Close"
+            aria-label={t.close}
             onClick={onClose}
           >
             <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -153,36 +158,34 @@ export function MapPicker({
           )}
           {status === "loading" && (
             <p className={styles.state} role="status">
-              Loading the map…
+              {t.loadingMap}
             </p>
           )}
           {status === "failed" && (
             <p className={styles.state} role="alert">
-              The map could not be loaded. Search for the address instead.
+              {t.mapFailed}
             </p>
           )}
         </div>
         <div className={styles.foot}>
           <p className={styles.line} aria-live="polite">
             {reading || !a
-              ? "Move the map to your building"
+              ? t.prompt
               : a.street
                 ? streetLine(country, a.street, a.houseNumber) +
                   (a.zip || a.city
                     ? `, ${[a.zip, a.city].filter(Boolean).join(" ")}`
                     : "")
-                : "Move the map to your building"}
+                : t.prompt}
           </p>
           {wrongCountry && (
             <p className={`${styles.note} ${styles.noteError}`} role="alert">
-              This point is not in {countryName}. Move the pin or change the
-              country in the header.
+              {t.wrongCountry(countryName)}
             </p>
           )}
           {noNumber && (
             <p className={styles.note}>
-              There is no house number here: zoom in and put the pin on a
-              building.
+              {t.noNumber}
             </p>
           )}
           <button
@@ -191,7 +194,7 @@ export function MapPicker({
             disabled={!ok}
             onClick={() => a && onSelect(a)}
           >
-            Confirm address
+            {t.confirm}
           </button>
         </div>
       </div>

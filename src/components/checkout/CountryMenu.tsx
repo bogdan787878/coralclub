@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { COUNTRY_EN, type CountryLabels } from "./labels";
 import styles from "./CountryMenu.module.css";
 
 /** «FR» → 🇫🇷 */
@@ -18,11 +19,15 @@ export function CountryMenu({
   countries,
   value,
   onChange,
+  labels,
 }: {
   countries: Record<string, string>;
   value: string;
   onChange: (code: string) => void;
+  /** the words of the menu (English by default) */
+  labels?: Partial<CountryLabels>;
 }) {
+  const t: CountryLabels = { ...COUNTRY_EN, ...labels };
   const id = useId();
   const root = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
@@ -74,7 +79,7 @@ export function CountryMenu({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={`${id}-panel`}
-        aria-label={`Country: ${countries[value] ?? value}. Change country`}
+        aria-label={t.aria(countries[value] ?? value)}
         data-analytics-id="header_country"
         onClick={() => setOpen((o) => !o)}
       >
@@ -86,8 +91,8 @@ export function CountryMenu({
             <input
               className={styles.search}
               type="search"
-              placeholder="Search country"
-              aria-label="Search country"
+              placeholder={t.search}
+              aria-label={t.search}
               autoFocus
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -100,9 +105,9 @@ export function CountryMenu({
             />
           )}
           {shown.length === 0 ? (
-            <p className={styles.empty}>Nothing found.</p>
+            <p className={styles.empty}>{t.empty}</p>
           ) : (
-            <ul className={styles.list} role="listbox" aria-label="Countries">
+            <ul className={styles.list} role="listbox" aria-label={t.list}>
               {shown.map(([code, name]) => (
                 <li key={code} role="option" aria-selected={code === value}>
                   <button

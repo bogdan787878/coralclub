@@ -8,3 +8,4 @@ export { DeliveryModeSwitch } from "./DeliveryModeSwitch";
 export type { DeliveryMode } from "./DeliveryModeSwitch";
 export { PickupPointButton } from "./PickupPointButton";
 export { CourierSlots } from "./CourierSlots";
+export * from "./labels";

@@ -8,6 +8,7 @@ import {
   type MapPoint,
   type MapsKit,
 } from "@/lib/addressSearch";
+import { PICKUP_EN, type PickupLabels } from "./labels";
 import styles from "./PickupSheet.module.css";
 
 /** A pick-up point as the shop lists it. */
@@ -102,6 +103,7 @@ export function PickupSheet({
   money,
   onSelect,
   onClose,
+  labels,
 }: {
   country: string;
   countryName: string;
@@ -112,7 +114,10 @@ export function PickupSheet({
   money: (n: number) => string;
   onSelect: (code: string) => void;
   onClose: () => void;
+  /** the words of the sheet (English by default) */
+  labels?: Partial<PickupLabels>;
 }) {
+  const t: PickupLabels = { ...PICKUP_EN, ...labels };
   const el = useRef<HTMLDivElement>(null);
   const kitRef = useRef<MapsKit | null>(null);
   const mapRef = useRef<GoogleMap | null>(null);
@@ -139,7 +144,7 @@ export function PickupSheet({
     return COLORS[(i < 0 ? 0 : i) % COLORS.length];
   };
   const shortOf = (type: string) =>
-    SHORT[type] ?? service(type)?.NAME.split(" ").pop() ?? "Pick-up";
+    SHORT[type] ?? service(type)?.NAME.split(" ").pop() ?? t.fallbackService;
   const focused = points.find((p) => p.CODE === focus);
 
   useEffect(() => {
@@ -321,7 +326,7 @@ export function PickupSheet({
         className={list ? styles.pick : styles.choose}
         onClick={() => onSelect(p.CODE)}
       >
-        {p.CODE === selected ? "Chosen" : "Choose"}
+        {p.CODE === selected ? t.chosen : t.choose}
       </button>
     </div>
   );
@@ -337,12 +342,12 @@ export function PickupSheet({
       >
         <div className={styles.head}>
           <h2 id="pickup-title" className={styles.title}>
-            Pick-up point
+            {t.title}
           </h2>
           <button
             type="button"
             className={styles.close}
-            aria-label="Close"
+            aria-label={t.close}
             onClick={onClose}
           >
             <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -360,12 +365,12 @@ export function PickupSheet({
           <div className={styles.map} ref={el} />
           {status === "loading" && (
             <p className={styles.state} role="status">
-              Loading the map…
+              {t.loadingMap}
             </p>
           )}
           {status === "failed" && (
             <p className={styles.state} role="alert">
-              The map could not be loaded. Use the list instead.
+              {t.mapFailed}
             </p>
           )}
 
@@ -396,7 +401,7 @@ export function PickupSheet({
                     />
                   )}
                 </svg>
-                {v === "map" ? "Map" : "List"}
+                {v === "map" ? t.map : t.list}
               </button>
             ))}
           </div>
@@ -404,7 +409,7 @@ export function PickupSheet({
           {view === "list" && (
             <div className={styles.list}>
               {nearest.length === 0 ? (
-                <p className={styles.empty}>No pick-up points match.</p>
+                <p className={styles.empty}>{t.empty}</p>
               ) : (
                 nearest.map(({ p }) => <div key={p.CODE}>{card(p, true)}</div>)
               )}
@@ -463,8 +468,8 @@ export function PickupSheet({
             <input
               type="search"
               enterKeyHint="search"
-              placeholder="Find address"
-              aria-label="Find address"
+              placeholder={t.findAddress}
+              aria-label={t.findAddress}
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);
@@ -474,7 +479,7 @@ export function PickupSheet({
           </div>
           {notFound && (
             <p className={styles.notFound} role="alert">
-              We could not find this address.
+              {t.notFound}
             </p>
           )}
         </form>
