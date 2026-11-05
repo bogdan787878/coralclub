@@ -10,7 +10,7 @@ import {
   type AddressSuggestion,
   type ResolvedAddress,
 } from "@/lib/addressSearch";
-import co from "../landing/LandingCheckout.module.css";
+import co from "../ui/FloatInput.module.css";
 import styles from "./FriendCheckout.module.css";
 
 /**

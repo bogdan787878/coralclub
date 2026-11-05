@@ -1,0 +1,128 @@
+/* UI kit: FloatInput. Единый источник стилей полей с плавающей подписью (раньше жили в LandingCheckout.module.css и FriendCheckout.module.css). */
+
+/* floating-label inputs: the label lives inside the field */
+.float {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.floatBox {
+  position: relative;
+}
+
+.floatInput {
+  width: 100%;
+  height: 52px;
+  padding: 19px var(--space-12) 5px;
+  border: 1px solid rgba(0, 65, 68, 0.22);
+  border-radius: 8px;
+  background: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--color-text);
+  transition: border-color 0.15s var(--ease-standard);
+}
+
+.floatInput::placeholder {
+  color: transparent;
+  transition: color 0.15s var(--ease-standard);
+}
+
+.floatInput:focus {
+  outline: none;
+  border-color: var(--color-malachite-90);
+}
+
+.floatInput:focus::placeholder,
+.floatBoxActive .floatInput::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* a skipped required field looks exactly like a focused one */
+.floatBoxActive .floatInput {
+  border-color: var(--color-malachite-90);
+}
+
+.floatLabel {
+  position: absolute;
+  left: var(--space-12);
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.25rem;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  transition:
+    top 0.15s var(--ease-standard),
+    transform 0.15s var(--ease-standard),
+    font-size 0.15s var(--ease-standard);
+}
+
+/* focused, or holding a value (the placeholder is only "shown" when empty) */
+.floatInput:focus + .floatLabel,
+.floatInput:not(:placeholder-shown) + .floatLabel,
+.floatBoxActive .floatLabel {
+  top: 8px;
+  transform: none;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+/* "this one is missing": a short side-to-side shake, no colour change */
+.shake {
+  animation: ui-shake 0.5s var(--ease-standard);
+}
+
+@keyframes ui-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  15%,
+  55% {
+    transform: translateX(-7px);
+  }
+  35%,
+  75% {
+    transform: translateX(7px);
+  }
+  90% {
+    transform: translateX(-3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shake {
+    animation: none;
+  }
+  .floatLabel,
+  .floatInput,
+  .floatInput::placeholder {
+    transition: none;
+  }
+}
+
+.floatHint {
+  margin: var(--space-8) 0 0 var(--space-12);
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  color: var(--color-text-muted);
+}
+
+.floatHintError {
+  color: var(--color-error);
+}
+
+/* a field that failed validation: red border, also while focused */
+.errorBox input,
+.errorBox select {
+  border-color: var(--color-error);
+}
+
+.errorBox input:focus,
+.errorBox select:focus {
+  border-color: var(--color-error);
+}

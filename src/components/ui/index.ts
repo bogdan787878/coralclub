@@ -10,3 +10,7 @@ export { Sheet } from "./Sheet";
 export type { SheetProps } from "./Sheet";
 export { Chips, Chip } from "./Chips";
 export type { ChipsProps, ChipProps } from "./Chips";
+export { FloatInput } from "./FloatInput";
+export { OptionCard, OptionCards, OptionInfo } from "./OptionCards";
+export { Consent } from "./Consent";
+export { Loader } from "./Loader";

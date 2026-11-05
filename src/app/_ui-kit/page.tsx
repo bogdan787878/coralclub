@@ -18,6 +18,7 @@ import {
   ProductCard,
 } from "@/components/organisms";
 import { asset } from "@/lib/asset";
+import { FormsDemo } from "./FormsDemo";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -331,6 +332,24 @@ export default function UiKitPage() {
                 },
               ]}
             />
+          </Stack>
+        </Container>
+      </Section>
+
+      {/* Forms (checkout building blocks) */}
+      <Section>
+        <Container>
+          <Stack gap="base">
+            <Stack gap="text">
+              <p className={styles.kicker}>FORMS — checkout</p>
+              <Heading as="h2">FloatInput, OptionCards, Consent, Loader</Heading>
+              <BodyLong muted>
+                The one set of form parts used by the checkout (the friend
+                project and the member area). Styles live next to each
+                component; sections do not import each other&apos;s CSS.
+              </BodyLong>
+            </Stack>
+            <FormsDemo />
           </Stack>
         </Container>
       </Section>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useMemo, useState } from "react";
-import co from "../landing/LandingCheckout.module.css";
+import co from "../ui/FloatInput.module.css";
 import styles from "./FriendCheckout.module.css";
 
 /** Lower case, without accents and punctuation: «Thüringen» ~ «thuringen». */

@@ -30,7 +30,7 @@ import {
   type PayResult,
 } from "@/lib/shopPay";
 import { AddressSearch } from "./AddressSearch";
-import { FloatInput } from "./FloatInput";
+import { FloatInput } from "@/components/ui";
 import { OrderSummary, ShippingFacts } from "./OrderParts";
 import { StateCombobox } from "./StateCombobox";
 import co from "../landing/LandingCheckout.module.css";

@@ -1,0 +1,51 @@
+/* UI kit: Consent (флажок с текстом согласия). */
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-12);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.check input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--color-malachite-90);
+}
+
+.check a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.checkActive input {
+  outline: 2px solid var(--color-malachite-90);
+  outline-offset: 2px;
+}
+
+.shake {
+  animation: ui-shake-check 0.5s var(--ease-standard);
+}
+
+@keyframes ui-shake-check {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  15%,
+  55% {
+    transform: translateX(-7px);
+  }
+  35%,
+  75% {
+    transform: translateX(7px);
+  }
+  90% {
+    transform: translateX(-3px);
+  }
+}

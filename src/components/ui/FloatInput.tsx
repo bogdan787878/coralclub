@@ -1,10 +1,12 @@
 "use client";
 
 import { useId } from "react";
-import co from "../landing/LandingCheckout.module.css";
-import styles from "./FriendCheckout.module.css";
+import styles from "./FloatInput.module.css";
 
-/** Text input with its label inside the field (floats up on focus / value). */
+/**
+ * FloatInput: text input with its label inside the field (floats up on focus / value).
+ * Единый компонент UI kit; раньше лежал в friend/ и брал стили из чужих модулей.
+ */
 export function FloatInput({
   label,
   value,
@@ -18,6 +20,7 @@ export function FloatInput({
   hint,
   error,
   maxLength,
+  type,
 }: {
   name?: string;
   shake?: boolean;
@@ -33,24 +36,26 @@ export function FloatInput({
   /** the value failed validation: red border and a red hint */
   error?: boolean;
   maxLength?: number;
+  type?: "text" | "tel" | "email" | "password" | "search";
 }) {
   const id = useId();
   return (
-    <div className={`${co.float} ${shake ? co.shake : ""}`} data-field={name}>
+    <div className={`${styles.float} ${shake ? styles.shake : ""}`} data-field={name}>
       <div
-        className={`${co.floatBox} ${attention ? co.floatBoxActive : ""} ${error ? styles.errorBox : ""}`}
+        className={`${styles.floatBox} ${attention ? styles.floatBoxActive : ""} ${error ? styles.errorBox : ""}`}
       >
         <input
           id={id}
-          className={co.floatInput}
+          className={styles.floatInput}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder ?? " "}
           inputMode={inputMode}
           autoComplete={autoComplete}
           maxLength={maxLength}
+          type={type}
         />
-        <label htmlFor={id} className={co.floatLabel}>
+        <label htmlFor={id} className={styles.floatLabel}>
           {label}
         </label>
       </div>

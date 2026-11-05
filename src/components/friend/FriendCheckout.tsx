@@ -53,8 +53,7 @@ import {
   streetLine,
   type ResolvedAddress,
 } from "@/lib/addressSearch";
-import { FloatInput } from "./FloatInput";
-import { OptionCard, OptionCards, OptionInfo } from "./OptionCards";
+import { FloatInput, OptionCard, OptionCards, OptionInfo } from "@/components/ui";
 import { CardBadges } from "./PayBadges";
 import { StateCombobox } from "./StateCombobox";
 import { useFriend } from "./FriendProvider";
