@@ -29,10 +29,9 @@ import {
   type PayOrder,
   type PayResult,
 } from "@/lib/shopPay";
-import { AddressSearch } from "./AddressSearch";
+import { AddressSearch, StateCombobox } from "@/components/checkout";
 import { FloatInput } from "@/components/ui";
 import { OrderSummary, ShippingFacts } from "./OrderParts";
-import { StateCombobox } from "./StateCombobox";
 import co from "../landing/LandingCheckout.module.css";
 import styles from "./FriendCheckout.module.css";
 import pp from "./PayPage.module.css";

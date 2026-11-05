@@ -11,7 +11,7 @@ import {
   type ResolvedAddress,
 } from "@/lib/addressSearch";
 import co from "../ui/FloatInput.module.css";
-import styles from "./FriendCheckout.module.css";
+import styles from "./Combobox.module.css";
 
 /**
  * The Address field with US address suggestions: type a few characters, pick
@@ -125,7 +125,7 @@ export function AddressSearch({
   return (
     <div className={`${co.float} ${shake ? co.shake : ""}`} data-field={name}>
       <div
-        className={`${co.floatBox} ${styles.combo} ${attention ? co.floatBoxActive : ""} ${error ? styles.errorBox : ""}`}
+        className={`${co.floatBox} ${styles.combo} ${attention ? co.floatBoxActive : ""} ${error ? co.errorBox : ""}`}
       >
         <input
           id={id}
@@ -194,7 +194,7 @@ export function AddressSearch({
       </div>
       {hint && (
         <p
-          className={`${styles.floatHint} ${error ? styles.floatHintError : ""}`}
+          className={`${co.floatHint} ${error ? co.floatHintError : ""}`}
           role={error ? "alert" : undefined}
         >
           {hint}

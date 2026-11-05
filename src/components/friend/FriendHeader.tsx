@@ -19,7 +19,7 @@ import {
 } from "@/lib/friendCountry";
 import { loginUrl, registrationUrl } from "@/lib/friend";
 import { SHOP_SITES } from "@/lib/shopSites";
-import { CountryMenu } from "./CountryMenu";
+import { CountryMenu } from "@/components/checkout";
 import { useFriend } from "./FriendProvider";
 import styles from "./FriendHeader.module.css";
 

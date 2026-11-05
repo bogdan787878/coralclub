@@ -2,7 +2,7 @@
 
 import { useId, useMemo, useState } from "react";
 import co from "../ui/FloatInput.module.css";
-import styles from "./FriendCheckout.module.css";
+import styles from "./Combobox.module.css";
 
 /** Lower case, without accents and punctuation: «Thüringen» ~ «thuringen». */
 const norm = (s: string) =>
@@ -90,7 +90,7 @@ export function StateCombobox({
   return (
     <div className={`${co.float} ${shake ? co.shake : ""}`} data-field={name}>
       <div
-        className={`${co.floatBox} ${styles.combo} ${attention ? co.floatBoxActive : ""} ${error ? styles.errorBox : ""}`}
+        className={`${co.floatBox} ${styles.combo} ${attention ? co.floatBoxActive : ""} ${error ? co.errorBox : ""}`}
       >
         <input
           id={id}
@@ -186,7 +186,7 @@ export function StateCombobox({
       </div>
       {hint && (
         <p
-          className={`${styles.floatHint} ${error ? styles.floatHintError : ""}`}
+          className={`${co.floatHint} ${error ? co.floatHintError : ""}`}
           role={error ? "alert" : undefined}
         >
           {hint}

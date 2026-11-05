@@ -44,9 +44,16 @@ import {
   setShopSite,
   shopFetch,
 } from "@/lib/shopApi";
-import { AddressSearch } from "./AddressSearch";
-import { MapPicker } from "./MapPicker";
-import { PickupSheet, type PickPoint } from "./PickupSheet";
+import {
+  AddressSearch,
+  CourierSlots,
+  DeliveryModeSwitch,
+  MapPicker,
+  PickupPointButton,
+  PickupSheet,
+  StateCombobox,
+  type PickPoint,
+} from "@/components/checkout";
 import {
   addressSearchEnabled,
   splitStreet,
@@ -55,12 +62,10 @@ import {
 } from "@/lib/addressSearch";
 import { FloatInput, OptionCard, OptionCards, OptionInfo } from "@/components/ui";
 import { CardBadges } from "./PayBadges";
-import { StateCombobox } from "./StateCombobox";
 import { useFriend } from "./FriendProvider";
 import co from "../landing/LandingCheckout.module.css";
 import styles from "./FriendCheckout.module.css";
-import extra from "./CheckoutExtras.module.css";
-import slots from "./CourierSlots.module.css";
+import extra from "@/components/checkout/CheckoutExtras.module.css";
 
 /**
  * The project's real checkout (Germany, see lib/market.ts): the visitor's cart is put into the shop's
@@ -1083,39 +1088,16 @@ export function FriendCheckout() {
               ))}
 
               {!pickupNone && (
-                <div
-                  className={extra.switch}
-                  role="radiogroup"
-                  aria-label="How to receive your order"
-                >
-                  {(
-                    [
-                      ["courier", "Home delivery"],
-                      ["pickup", "Pick-up"],
-                    ] as const
-                  ).map(([id, label]) => {
-                    const on = (id === "pickup") === pickup;
-                    return (
-                      <button
-                        key={id}
-                        type="button"
-                        role="radio"
-                        aria-checked={on}
-                        className={`${extra.switchBtn} ${on ? extra.switchOn : ""}`}
-                        data-analytics-id={`delivery_mode_${id}`}
-                        onClick={() => {
-                          setMode(id);
-                          if (id === "pickup" && city) setSheetOpen(true);
-                          track("delivery_method_selected", {
-                            delivery_type_code: id,
-                          });
-                        }}
-                      >
-                        {label}
-                      </button>
-                    );
-                  })}
-                </div>
+                <DeliveryModeSwitch
+                  value={pickup ? "pickup" : "courier"}
+                  onChange={(id) => {
+                    setMode(id);
+                    if (id === "pickup" && city) setSheetOpen(true);
+                    track("delivery_method_selected", {
+                      delivery_type_code: id,
+                    });
+                  }}
+                />
               )}
 
               <section className={styles.section}>
@@ -1282,36 +1264,27 @@ export function FriendCheckout() {
                         </p>
                       ) : (
                         <>
-                          <button
-                            type="button"
-                            className={`${extra.pointBtn} ${attempted && !point ? extra.pointBtnError : ""}`}
+                          <PickupPointButton
+                            error={attempted && !point}
                             onClick={() => setSheetOpen(true)}
-                            data-analytics-id="pickup_open"
-                          >
-                            <span className={extra.pointText}>
-                              {point ? (
-                                <>
-                                  <strong>
-                                    {pickupItems.find(
-                                      (i) => i.ID === point.TYPE,
-                                    )?.NAME ?? point.NAME}
-                                  </strong>
-                                  <small>
-                                    {[point.ADDRESS, point.CITY]
-                                      .filter(Boolean)
-                                      .join(", ")}
-                                  </small>
-                                </>
-                              ) : (
-                                <strong>Choose pick-up point</strong>
-                              )}
-                            </span>
-                            <span className={extra.pointAction}>
-                              {point
-                                ? "Change"
-                                : `${points.length} near ${city}`}
-                            </span>
-                          </button>
+                            title={
+                              point
+                                ? (pickupItems.find((i) => i.ID === point.TYPE)
+                                    ?.NAME ?? point.NAME)
+                                : undefined
+                            }
+                            address={
+                              point
+                                ? [point.ADDRESS, point.CITY]
+                                    .filter(Boolean)
+                                    .join(", ")
+                                : undefined
+                            }
+                            emptyTitle="Choose pick-up point"
+                            action={
+                              point ? "Change" : `${points.length} near ${city}`
+                            }
+                          />
                           {attempted && !point && (
                             <p
                               className={`${styles.floatHint} ${styles.floatHintError}`}
@@ -1436,45 +1409,13 @@ export function FriendCheckout() {
                   </p>
                 )}
                 {slotDay && slotHours && (
-                  <div className={slots.slots}>
-                    <p className={slots.slotsTitle}>Delivery date and time</p>
-                    <div
-                      className={slots.chips}
-                      role="radiogroup"
-                      aria-label="Delivery day"
-                    >
-                      {slotDays.map((d) => (
-                        <button
-                          key={d.date}
-                          type="button"
-                          role="radio"
-                          aria-checked={d.date === slotDay.date}
-                          className={`${slots.chip} ${d.date === slotDay.date ? slots.chipOn : ""}`}
-                          onClick={() => setSlotDate(d.date)}
-                        >
-                          {d.label}
-                        </button>
-                      ))}
-                    </div>
-                    <div
-                      className={slots.chips}
-                      role="radiogroup"
-                      aria-label="Delivery hours"
-                    >
-                      {slotDay.times.map((t) => (
-                        <button
-                          key={t}
-                          type="button"
-                          role="radio"
-                          aria-checked={t === slotHours}
-                          className={`${slots.chip} ${t === slotHours ? slots.chipOn : ""}`}
-                          onClick={() => setSlotTime(t)}
-                        >
-                          {t.replace("-", " – ")}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+                  <CourierSlots
+                    days={slotDays}
+                    day={slotDay}
+                    hours={slotHours}
+                    onDay={setSlotDate}
+                    onHours={setSlotTime}
+                  />
                 )}
               </section>
 
