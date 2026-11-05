@@ -1,0 +1,13 @@
+{
+  "name": "@coral/layout",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Layout Coral Club: шапка, меню и корзина одним веб-компонентом <cc-layout>. Сервисы подключают собранный layout.js по адресу.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@coral/api": "0.1.0"
+  }
+}

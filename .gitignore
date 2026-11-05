@@ -48,3 +48,6 @@ dist/
 # licensed fonts: ship inside the bundle, never in the public repo
 /public/fonts/*.woff
 /public/fonts/*.woff2
+
+# Layout: собирается из packages/layout перед dev/build
+/public/layout/

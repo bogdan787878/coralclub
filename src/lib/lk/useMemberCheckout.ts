@@ -23,6 +23,7 @@ import {
 } from "@/lib/checkout/types";
 import { cc4 } from "./session";
 import { rub } from "./catalog";
+import { announceCartChanged } from "./memberCart";
 import { rememberLkCountries, setLkCountry, useLkCountries, useLkCountry } from "./country";
 
 const SHAKE_MS = 600;
@@ -513,6 +514,7 @@ export function useMemberCheckout() {
       if (data.result) {
         const name = payments.find((x) => x.ID === paymentId)?.NAME ?? "";
         const id = String(data.result);
+        announceCartChanged(); // корзина после заказа пуста: Layout перечитает её в общем меню
         setOrder({ id, paymentName: name, failed: "" });
         const failed = await goToPayment(id, name);
         setOrder({ id, paymentName: name, failed });

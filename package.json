@@ -6,16 +6,19 @@
     "gen": "node scripts/gen-products.mjs",
     "images:sync": "node scripts/sync-images.mjs",
     "friend:sync": "node scripts/sync-friend-catalog.mjs",
-    "predev": "npm run gen",
+    "predev": "npm run gen && npm run layout:build",
     "dev": "next dev",
-    "prebuild": "npm run gen",
+    "prebuild": "npm run gen && npm run layout:build",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "dev:proxy": "node scripts/dev-proxy.mjs",
-    "build:labspace": "node scripts/build-labspace.mjs"
+    "build:labspace": "node scripts/build-labspace.mjs",
+    "layout:build": "node packages/layout/build.mjs"
   },
   "dependencies": {
+    "@coral/api": "0.1.0",
+    "@coral/layout": "0.1.0",
     "next": "16.3.3",
     "react": "19.2.8",
     "react-dom": "19.2.8"
@@ -24,8 +27,12 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "esbuild": "^0.25.12",
     "eslint": "^9",
     "eslint-config-next": "16.3.3",
     "typescript": "^5"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

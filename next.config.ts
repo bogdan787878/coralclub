@@ -20,6 +20,8 @@ const basePath = isLabspace
 const nextConfig: NextConfig = {
   // Static HTML export — no Node server on GitHub Pages / on the shop's host.
   output: "export",
+  // общие пакеты монорепозитория (packages/*) лежат исходниками на TypeScript
+  transpilePackages: ["@coral/api", "@coral/layout"],
   trailingSlash: true,
   // the labspace build exports into its own folder, `out/` stays untouched
   ...(isLabspace ? { distDir: "dist/labspace-build" } : {}),
