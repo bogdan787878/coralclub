@@ -2,11 +2,14 @@
 
 Монорепозиторий на npm workspaces (`"workspaces": ["packages/*"]` в корневом `package.json`). Приложение магазина
 (Next, корень репозитория) и другие сервисы берут общий код только через эти пакеты. Линтер запрещает пакетам
-импортировать код приложения, React и Next, а приложению запрещает импортировать файлы пакетов по пути.
+импортировать код приложения и Next (а API, Layout и шлюзу ещё и React), а приложению запрещает импортировать файлы пакетов по пути.
 
 | Пакет | Что внутри | Как подключается |
 |---|---|---|
 | `@coral/api` | API кабинета (`api.coral.club`): сессия участника, каталог, корзина участника (basket) | импорт по имени; без React, годится для любого сервиса |
+| `@coral/api/shop` | чек-аут магазина (`/sv-api/*`), сменный транспорт, клиент шлюза; рынок задаёт приложение (`configureShop`) | импорт по имени |
+| `@coral/ui` | токены `tokens.css` и UI kit на React (Button, FloatInput, OptionCards, Sheet, Loader…); внутренние ссылки кнопки подставляет приложение (`linkAs`) | импорт по имени; в Next через фасад `@/components/ui` |
+| `@coral/gateway` | шлюз чек-аута на Cloudflare Worker и общее ядро прохода оплаты для Node-стенда; офлайн-тесты `npm test -w @coral/gateway` | деплой `npx wrangler deploy` из `packages/gateway` |
 | `@coral/layout` | Layout продукта: веб-компонент `<cc-layout>` (шапка, нижнее меню, выдвижная корзина) | **по адресу**: собранный `layout.js` (`npm run layout:build` → `public/layout/layout.js`, на Pages `/coralclub/layout/layout.js`) |
 
 ## Layout: контракт

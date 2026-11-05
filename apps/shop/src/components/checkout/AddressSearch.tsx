@@ -10,7 +10,7 @@ import {
   type AddressSuggestion,
   type ResolvedAddress,
 } from "@/lib/addressSearch";
-import co from "../ui/FloatInput.module.css";
+import co from "@coral/ui/FloatInput.module.css"; // поля чек-аута выглядят как FloatInput из UI kit
 import styles from "./Combobox.module.css";
 
 /**

@@ -1,16 +1,6 @@
-export { Container } from "./Container";
-export { Section } from "./Section";
-export { Stack } from "./Stack";
-export { Heading, BodyLong, Accent } from "./Text";
+/**
+ * UI kit приложения: компоненты из общего пакета @coral/ui, кнопка со ссылками Next (basePath, переходы без
+ * перезагрузки). Импорт в приложении прежний: `@/components/ui`.
+ */
+export * from "@coral/ui";
 export { Button } from "./Button";
-export { Rating } from "./Rating";
-export type { RatingProps } from "./Rating";
-export { Accordion, AccordionItem } from "./Accordion";
-export { Sheet } from "./Sheet";
-export type { SheetProps } from "./Sheet";
-export { Chips, Chip } from "./Chips";
-export type { ChipsProps, ChipProps } from "./Chips";
-export { FloatInput } from "./FloatInput";
-export { OptionCard, OptionCards, OptionInfo } from "./OptionCards";
-export { Consent } from "./Consent";
-export { Loader } from "./Loader";

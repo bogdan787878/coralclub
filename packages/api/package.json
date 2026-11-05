@@ -5,6 +5,7 @@
   "type": "module",
   "description": "Клиент бэкенда Coral Club: API кабинета (api.coral.club), каталог, корзина участника. Без React и без Next: годится для любого сервиса.",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./shop": "./src/shop/index.ts"
   }
 }

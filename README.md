@@ -4,8 +4,10 @@
 
 ```
 apps/shop          # магазин на Next: витрина, «Друг клуба», лендинги, кабинет /lk (бывший корень репозитория)
-packages/api       # @coral/api: API кабинета Coral Club, каталог, корзина участника
+packages/api       # @coral/api: API кабинета Coral Club, каталог, корзина; @coral/api/shop: чек-аут магазина и клиент шлюза
+packages/ui        # @coral/ui: токены (tokens.css) и UI kit на React (CSS Modules)
 packages/layout    # @coral/layout: <cc-layout> — шапка, меню и корзина, подключается по адресу
+packages/gateway   # @coral/gateway: шлюз чек-аута (Cloudflare Worker), деплой: cd packages/gateway && npx wrangler deploy
 ```
 
 Пути из старых инструкций теперь внутри `apps/shop/` (например, `apps/shop/src/lib/image-manifest.json`,

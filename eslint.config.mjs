@@ -16,7 +16,22 @@ const eslintConfig = defineConfig([
         {
           patterns: [
             { group: ["@/*", "**/apps/**"], message: "Пакет не импортирует код приложения." },
-            { group: ["react", "react-dom", "react/*", "next", "next/*"], message: "Общие пакеты без React и Next: их подключают любые сервисы." },
+            { group: ["next", "next/*"], message: "Общие пакеты без Next: их подключают любые сервисы." },
+          ],
+        },
+      ],
+    },
+  },
+  // API, Layout и шлюз без React: их подключают и сервисы на чистом JS (UI kit — пакет на React)
+  {
+    files: ["packages/{api,layout,gateway}/**/*.{ts,tsx,js,mjs}"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            { group: ["@/*", "**/apps/**"], message: "Пакет не импортирует код приложения." },
+            { group: ["react", "react-dom", "react/*", "next", "next/*"], message: "Без React и Next: пакет подключают любые сервисы." },
           ],
         },
       ],

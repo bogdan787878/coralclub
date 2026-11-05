@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useMemo, useState } from "react";
-import co from "../ui/FloatInput.module.css";
+import co from "@coral/ui/FloatInput.module.css"; // поля чек-аута выглядят как FloatInput из UI kit
 import styles from "./Combobox.module.css";
 
 /** Lower case, without accents and punctuation: «Thüringen» ~ «thuringen». */

@@ -1,0 +1,192 @@
+/**
+ * Calls to the shop's own checkout API (/sv-api/*), made from the page. The
+ * shop is the market's site: the app names it once with `configureShop`
+ * (the friend project: lib/market.ts).
+ * They work only on the shop's origin: on the shop's own domain, or through the
+ * local proxy (`npm run dev:proxy`, http://localhost:3200) that makes the shop
+ * look like the page's own domain. Every request names its site in a header,
+ * so overlapping requests can never end up on another site's session.
+ */
+
+export type ShopConfig = {
+  /** the market's shop site, e.g. de.coral.club */
+  site: string;
+  /** `language` the shop's API is asked in */
+  apiLanguage: string;
+  /** `langss` of the shop's links (the visitor's session language) */
+  linkLanguage: string;
+};
+
+let config: ShopConfig = { site: "coralclub.ru", apiLanguage: "ru", linkLanguage: "ru" };
+/** The app names its market once, before the first call (the friend project: lib/shopApi.ts). */
+export function configureShop(next: ShopConfig): void {
+  config = { ...next };
+  currentSite = next.site;
+  currentLanguage = next.apiLanguage;
+}
+export const shopSite = (): string => config.site;
+
+/**
+ * The shop site the calls go to. It is the market's site, unless the shopper
+ * picks a country that has a site of its own (only possible through the local
+ * proxy, which can front any site; on the shop's own domain there is one).
+ */
+let currentSite: string = config.site;
+export const getShopSite = (): string => currentSite;
+export function setShopSite(host: string): void {
+  currentSite = host;
+  pinShopSite();
+}
+/** The language the shop answers in; the member area (Russian) sets its own. */
+let currentLanguage: string = config.apiLanguage;
+export function setShopLanguage(language: string | null): void {
+  currentLanguage = language ?? config.apiLanguage;
+}
+
+/** The page is served by the shop (or its local proxy): its API can be called. */
+export function onShopOrigin(): boolean {
+  if (typeof window === "undefined") return false;
+  if (transport !== sameOrigin) return true; // a gateway answers instead of the shop's own origin
+  const { hostname, port } = window.location;
+  return (
+    hostname === config.site ||
+    hostname.endsWith(`.${config.site}`) ||
+    (hostname === "localhost" && port === "3200")
+  );
+}
+
+/** Nested params → `a[b]=c&…`, the way the shop's own client sends them. */
+export function qs(params: Record<string, unknown>): string {
+  const out: string[] = [];
+  const add = (key: string, value: unknown) => {
+    if (value === undefined || value === null) return;
+    if (typeof value === "object") {
+      for (const [k, v] of Object.entries(value as object))
+        add(`${key}[${k}]`, v);
+    } else {
+      out.push(
+        `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`,
+      );
+    }
+  };
+  for (const [k, v] of Object.entries(params)) add(k, v);
+  return out.join("&");
+}
+
+/**
+ * How a shop call travels. By default it goes to the page's own origin (the
+ * shop's domain, or the local proxy), carrying the site in a header. The member
+ * area lives on another origin and plugs the checkout gateway in with
+ * `setShopTransport` (see lib/gateway.ts): the same calls, another road.
+ */
+export type ShopTransport = (url: string, init: RequestInit) => Promise<Response>;
+
+const sameOrigin: ShopTransport = (url, init) =>
+  fetch(url, {
+    credentials: "same-origin",
+    cache: "no-store",
+    ...init,
+    headers: {
+      "x-shop-site": currentSite,
+      ...((init.headers as Record<string, string> | undefined) ?? {}),
+    },
+  });
+
+let transport: ShopTransport = sameOrigin;
+export function setShopTransport(t: ShopTransport | null): void {
+  transport = t ?? sameOrigin;
+}
+
+export function shopFetch(url: string, init: RequestInit = {}) {
+  return transport(url, init);
+}
+
+/** GET /sv-api<path> → JSON; a non-JSON body becomes `{ error }`. */
+export async function api<T = unknown>(
+  path: string,
+  params: Record<string, unknown> = {},
+): Promise<T> {
+  const r = await shopFetch(
+    `/sv-api${path}?${qs({ ...params, language: currentLanguage })}`,
+  );
+  const text = await r.text();
+  try {
+    return JSON.parse(text) as T;
+  } catch {
+    return {
+      error: `The shop answered with something other than JSON (HTTP ${r.status}) for ${path}`,
+    } as T;
+  }
+}
+
+/** Empty the shop's session basket (so a re-sync never doubles quantities). */
+export async function emptyShopBasket(): Promise<void> {
+  const html = await (await shopFetch("/basket/")).text();
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  const items = [
+    ...doc.querySelectorAll<HTMLElement>(".basket-member__basic-item"),
+  ];
+  if (!items.length) return;
+  const body = new URLSearchParams();
+  items.forEach((el, i) => {
+    body.append(`basket_products[${i}][basket_id]`, el.dataset.basket_id ?? "");
+    body.append(`basket_products[${i}][member_id]`, el.dataset.member ?? "");
+    body.append(`basket_products[${i}][vendor_code]`, el.dataset.code ?? "");
+  });
+  body.append("basket_count", String(items.length));
+  body.append("basket_member_count", "1");
+  await shopFetch("/ajax/deleteBasketItems.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body,
+  });
+}
+
+/**
+ * Put these lines into the shop's basket, tied to the friend's REF_CODE: the
+ * session is marked «friend of the club» — member prices, no sign-up, and the
+ * order is counted for that member.
+ */
+export async function fillShopBasket(
+  lines: { coralId: string; qty: number }[],
+  friend: { refCode: string; memberId: string },
+  language: string = config.linkLanguage,
+): Promise<void> {
+  const pairs = lines
+    .filter((l) => l.qty > 0)
+    .map((l) => `${encodeURIComponent(l.coralId)}=${l.qty}`);
+  if (!pairs.length) return;
+  await shopFetch(
+    `/shop/shop_basket.php?${pairs.join("&")}&REF_CODE=${encodeURIComponent(
+      friend.refCode,
+    )}&langss=${language}&user=${encodeURIComponent(friend.memberId)}&f=y`,
+  );
+}
+
+/** The market's API language (not the one a page may have switched to). */
+export const apiLanguage = (): string => config.apiLanguage;
+
+/**
+ * Basket syncs run strictly one after another: two overlapping runs (a
+ * double-mounted effect, a quick quantity change) would each empty and fill
+ * the same session basket and leave every line doubled.
+ */
+let basketQueue: Promise<unknown> = Promise.resolve();
+export function enqueueBasketSync<T>(job: () => Promise<T>): Promise<T> {
+  const run = basketQueue.then(job, job);
+  basketQueue = run.catch(() => undefined);
+  return run;
+}
+
+/**
+ * Requests made by the browser itself (a frame, a page change) carry no
+ * `x-shop-site` header; the local proxy then falls back to this cookie.
+ * Pin it to the US site, or those requests would land on the Russian one.
+ */
+export function pinShopSite(): void {
+  if (typeof document === "undefined") return;
+  if (window.location.hostname !== "localhost") return;
+  document.cookie = `cc_shop_site=${currentSite}; path=/; max-age=86400`;
+}

@@ -1,0 +1,15 @@
+{
+  "name": "@coral/gateway",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Шлюз чек-аута Coral Club (Cloudflare Worker): держит сессию магазина для страниц на другом origin, доводит оплату до банка. Ядро на стандартном fetch: Worker и Node-стенд.",
+  "exports": {
+    "./payment": "./src/payment.mjs",
+    "./bootstrap": "./src/bootstrap.mjs"
+  },
+  "scripts": {
+    "test": "node test/payment.test.mjs",
+    "deploy": "npx wrangler deploy"
+  }
+}
