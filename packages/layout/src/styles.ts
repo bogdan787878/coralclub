@@ -44,6 +44,15 @@ svg { display: block; }
   .brand { font-size: 1.5rem; }
   .desk { grid-column: 3; justify-self: end; display: flex; align-items: center; gap: 24px; }
 }
+/* шапка «полосой» («Друг клуба»): меню и логотип слева, слоты сервиса и корзина справа, на всех ширинах */
+.head.bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px var(--page-padding-inline, 16px); }
+.head.bar .brand { display: inline-flex; font-size: inherit; line-height: 0; }
+.side { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.iconBtn { position: relative; display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 999px;
+  transition: background-color var(--duration-fast, .15s) var(--ease); }
+.iconBtn:hover { background: var(--c-thumb); }
+.iconBtn svg { width: 26px; height: 26px; }
+.iconBtn .badge { top: 1px; left: auto; right: 0; background: var(--color-error, var(--c-badge)); box-shadow: none; font-size: .75rem; }
 
 /* ---------- нижнее меню (телефон и планшет) ---------- */
 .tabbar { position: fixed; z-index: 45; left: 50%; transform: translateX(-50%); bottom: calc(12px + env(safe-area-inset-bottom, 0px));
@@ -57,6 +66,8 @@ svg { display: block; }
 .tab.on { background: var(--tab-on-bg, #e6f4f1); color: var(--tab-on, #00474d); }
 .tab.on svg { color: var(--tab-on, #00474d); }
 .tab:active { opacity: .6; }
+.tabbar { transition: transform .2s var(--ease), opacity .2s var(--ease); }
+.tabbar.hide { transform: translate(-50%, 140%); opacity: 0; pointer-events: none; }
 .badge { position: absolute; top: 1px; left: 52%; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 10px; background: var(--c-badge);
   color: #fff; font-style: normal; font-size: .72rem; line-height: 20px; font-weight: var(--fw); text-align: center; box-shadow: 0 0 0 2px #fff; }
 @media (min-width: 1024px) { .tabbar { display: none; } }
@@ -82,6 +93,9 @@ svg { display: block; }
 .lbody { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .lname { font-size: .9375rem; line-height: 1.25rem; font-weight: var(--fw); }
 .price { font-size: .8125rem; }
+.price.muted { color: var(--c-muted); }
+.skel { padding: 16px 24px; }
+.cta.wide { padding: 0 28px; }
 .was { color: var(--c-muted); text-decoration: line-through; margin-left: 6px; }
 .save { display: block; color: #1f8a5b; font-size: .75rem; }
 .qty { margin-top: 8px; display: inline-flex; align-items: center; gap: 12px; align-self: flex-start; padding: 4px; border-radius: 999px; background: var(--c-thumb); }
@@ -114,5 +128,9 @@ svg { display: block; }
 }
 `;
 
-/** Отступ снизу у страницы под плавающее меню (вне shadow DOM, одно правило на документ). */
-export const PAGE_CSS = `@media (max-width: 1023px) { html.cc-has-tabbar body { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); } }`;
+/** Отступ снизу у страницы под плавающее меню (вне shadow DOM, одно правило на документ). Фиксированные панели
+ *  сервиса (например, плашка покупки на странице товара) встают над меню по переменной --cc-tabbar-space. */
+export const PAGE_CSS = `@media (max-width: 1023px) {
+  html.cc-has-tabbar { --cc-tabbar-space: calc(94px + env(safe-area-inset-bottom, 0px)); }
+  html.cc-has-tabbar body { padding-bottom: var(--cc-tabbar-space); }
+}`;

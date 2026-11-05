@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-export const VERSION = "1.0.0";
+export const VERSION = "1.1.0";
 
 if (typeof window !== "undefined" && !window.customElements.get("cc-layout")) {
   // адрес сборки для разработки: на localhost можно подменить API ключами sessionStorage (см. @coral/api config)
