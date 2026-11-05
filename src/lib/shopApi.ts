@@ -27,6 +27,7 @@ const LANGUAGE: string = MARKET.apiLanguage;
 /** The page is served by the shop (or its local proxy): its API can be called. */
 export function onShopOrigin(): boolean {
   if (typeof window === "undefined") return false;
+  if (transport !== sameOrigin) return true; // a gateway answers instead of the shop's own origin
   const { hostname, port } = window.location;
   return (
     hostname === SHOP_SITE ||
@@ -53,8 +54,16 @@ export function qs(params: Record<string, unknown>): string {
   return out.join("&");
 }
 
-export function shopFetch(url: string, init: RequestInit = {}) {
-  return fetch(url, {
+/**
+ * How a shop call travels. By default it goes to the page's own origin (the
+ * shop's domain, or the local proxy), carrying the site in a header. The member
+ * area lives on another origin and plugs the checkout gateway in with
+ * `setShopTransport` (see lib/gateway.ts): the same calls, another road.
+ */
+export type ShopTransport = (url: string, init: RequestInit) => Promise<Response>;
+
+const sameOrigin: ShopTransport = (url, init) =>
+  fetch(url, {
     credentials: "same-origin",
     cache: "no-store",
     ...init,
@@ -63,6 +72,14 @@ export function shopFetch(url: string, init: RequestInit = {}) {
       ...((init.headers as Record<string, string> | undefined) ?? {}),
     },
   });
+
+let transport: ShopTransport = sameOrigin;
+export function setShopTransport(t: ShopTransport | null): void {
+  transport = t ?? sameOrigin;
+}
+
+export function shopFetch(url: string, init: RequestInit = {}) {
+  return transport(url, init);
 }
 
 /** GET /sv-api<path> → JSON; a non-JSON body becomes `{ error }`. */
