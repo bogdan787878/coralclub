@@ -5,6 +5,8 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  // монорепозиторий: приложение Next лежит в apps/shop
+  { settings: { next: { rootDir: "apps/shop/" } } },
   // границы сервисов (ARCHITECTURE.md): общие пакеты не знают ни про приложение, ни про React/Next
   {
     files: ["packages/**/*.{ts,tsx,js,mjs}"],
@@ -13,7 +15,7 @@ const eslintConfig = defineConfig([
         "error",
         {
           patterns: [
-            { group: ["@/*", "../../src/*", "../../../src/*"], message: "Пакет не импортирует код приложения." },
+            { group: ["@/*", "**/apps/**"], message: "Пакет не импортирует код приложения." },
             { group: ["react", "react-dom", "react/*", "next", "next/*"], message: "Общие пакеты без React и Next: их подключают любые сервисы." },
           ],
         },
@@ -22,7 +24,7 @@ const eslintConfig = defineConfig([
   },
   // приложение берёт общий код только через пакеты, не через пути к их файлам
   {
-    files: ["src/**/*.{ts,tsx}"],
+    files: ["apps/*/src/**/*.{ts,tsx}"],
     rules: {
       "no-restricted-imports": ["error", { patterns: [{ group: ["**/packages/*", "**/packages/**"], message: "Импортируйте пакет по имени (@coral/...)." }] }],
     },
@@ -35,6 +37,11 @@ const eslintConfig = defineConfig([
     "dist/**",
     "build/**",
     "next-env.d.ts",
+    "apps/*/.next/**",
+    "apps/*/out/**",
+    "apps/*/dist/**",
+    "apps/*/next-env.d.ts",
+    "packages/*/dist/**",
   ]),
 ]);
 

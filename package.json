@@ -1,38 +1,24 @@
 {
-  "name": "coral-club-shop",
+  "name": "coral-club",
   "version": "0.1.0",
   "private": true,
+  "description": "Coral Club: монорепозиторий сервисов (apps/*) и общих пакетов (packages/*). См. README.md.",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
-    "gen": "node scripts/gen-products.mjs",
-    "images:sync": "node scripts/sync-images.mjs",
-    "friend:sync": "node scripts/sync-friend-catalog.mjs",
-    "predev": "npm run gen && npm run layout:build",
-    "dev": "next dev",
-    "prebuild": "npm run gen && npm run layout:build",
-    "build": "next build",
-    "start": "next start",
+    "dev": "npm run dev -w @coral/shop",
+    "build": "npm run build -w @coral/shop && node -e \"const fs=require('fs');fs.rmSync('out',{recursive:true,force:true});fs.cpSync('apps/shop/out','out',{recursive:true})\"",
+    "images:sync": "npm run images:sync -w @coral/shop",
+    "build:labspace": "npm run build:labspace -w @coral/shop",
     "lint": "eslint",
-    "dev:proxy": "node scripts/dev-proxy.mjs",
-    "build:labspace": "node scripts/build-labspace.mjs",
-    "layout:build": "node packages/layout/build.mjs"
-  },
-  "dependencies": {
-    "@coral/api": "0.1.0",
-    "@coral/layout": "0.1.0",
-    "next": "16.3.3",
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "typecheck": "npm run typecheck --workspaces --if-present"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
     "esbuild": "^0.25.12",
     "eslint": "^9",
     "eslint-config-next": "16.3.3",
     "typescript": "^5"
-  },
-  "workspaces": [
-    "packages/*"
-  ]
+  }
 }

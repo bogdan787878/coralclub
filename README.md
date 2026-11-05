@@ -1,4 +1,24 @@
-# Coral Club — content-shop
+# Coral Club — монорепозиторий
+
+Сервисы Coral Club и их общие пакеты (npm workspaces). Архитектура и порядок работ: `ARCHITECTURE.md` в репозитории кабинета.
+
+```
+apps/shop          # магазин на Next: витрина, «Друг клуба», лендинги, кабинет /lk (бывший корень репозитория)
+packages/api       # @coral/api: API кабинета Coral Club, каталог, корзина участника
+packages/layout    # @coral/layout: <cc-layout> — шапка, меню и корзина, подключается по адресу
+```
+
+Пути из старых инструкций теперь внутри `apps/shop/` (например, `apps/shop/src/lib/image-manifest.json`,
+`apps/shop/content/products/`). Команды запускаются из корня, корень передаёт их в нужный сервис:
+`npm run dev`, `npm run build` (собирает магазин и кладёт экспорт в `out/` для GitHub Pages), `npm run images:sync`,
+`npm run build:labspace`, `npm run lint`.
+
+> Workflow GitHub Pages (`.github/workflows/deploy.yml`) не менялся. Одно его место ещё смотрит на старый путь:
+> шаг «Persist refreshed image manifest» коммитит `src/lib/image-manifest.json`. Пока путь не заменён на
+> `apps/shop/src/lib/image-manifest.json`, обновлённый манифест картинок не сохраняется в репозиторий, и сборка
+> заново заливает новые картинки при каждом деплое (сайт при этом работает).
+
+## Магазин (apps/shop)
 
 Контент-витрина Coral Club с мини-магазином. Регистрация/авторизация и
 добавление в корзину — **редиректом во внешний магазин Coral Club**; это

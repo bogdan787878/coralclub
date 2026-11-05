@@ -15,7 +15,9 @@
 
 # next.js
 /.next/
+/apps/*/.next/
 /out/
+/apps/*/out/
 
 # production
 /build
@@ -46,8 +48,9 @@ next-env.d.ts
 dist/
 
 # licensed fonts: ship inside the bundle, never in the public repo
-/public/fonts/*.woff
-/public/fonts/*.woff2
+/apps/shop/public/fonts/*.woff
+/apps/shop/public/fonts/*.woff2
 
-# Layout: собирается из packages/layout перед dev/build
-/public/layout/
+# Layout: собирается из packages/layout (dist/) и копируется в public магазина перед dev/build
+/apps/shop/public/layout/
+/packages/*/dist/

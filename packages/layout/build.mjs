@@ -1,12 +1,12 @@
-// Сборка Layout в один файл для подключения по адресу: public/layout/layout.js сервиса магазина
-// (попадает в out/layout/ при экспорте Next и публикуется на GitHub Pages вместе с ним).
+// Сборка Layout в один файл для подключения по адресу: dist/layout.js. Сервисы кладут его себе в public
+// (магазин: apps/shop/public/layout/layout.js, публикуется на GitHub Pages как /coralclub/layout/layout.js).
 import { build } from "esbuild";
 import { mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const out = resolve(here, "../../public/layout/layout.js");
+const out = resolve(here, "dist/layout.js");
 mkdirSync(dirname(out), { recursive: true });
 await build({
   entryPoints: [resolve(here, "src/index.ts")],
@@ -18,4 +18,4 @@ await build({
   sourcemap: false,
   legalComments: "none",
 });
-console.log("layout → public/layout/layout.js");
+console.log("layout → packages/layout/dist/layout.js");

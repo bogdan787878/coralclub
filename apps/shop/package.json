@@ -1,0 +1,32 @@
+{
+  "name": "@coral/shop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Магазин Coral Club на Next: витрина, «Друг клуба», лендинги, кабинет /lk. Статический экспорт на GitHub Pages.",
+  "scripts": {
+    "gen": "node scripts/gen-products.mjs",
+    "images:sync": "node scripts/sync-images.mjs",
+    "friend:sync": "node scripts/sync-friend-catalog.mjs",
+    "layout": "npm run build -w @coral/layout && node -e \"const fs=require('fs');fs.mkdirSync('public/layout',{recursive:true});fs.copyFileSync(require.resolve('@coral/layout/dist/layout.js'),'public/layout/layout.js')\"",
+    "predev": "npm run gen && npm run layout",
+    "dev": "next dev",
+    "prebuild": "npm run gen && npm run layout",
+    "build": "next build",
+    "start": "next start",
+    "dev:proxy": "node scripts/dev-proxy.mjs",
+    "build:labspace": "node scripts/build-labspace.mjs"
+  },
+  "dependencies": {
+    "@coral/api": "0.1.0",
+    "@coral/layout": "0.1.0",
+    "next": "16.3.3",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  }
+}
