@@ -33,6 +33,8 @@ type Ready = "idle" | "ok" | "error";
 const titleCase = (s: string) =>
   s.toLowerCase().replace(/(^|[\s-])(\S)/g, (_, a: string, b: string) => a + b.toUpperCase());
 
+const CITY_REGIONS = /^(москва|санкт-петербург|севастополь)$/i;
+
 export function useMemberCheckout() {
   const cart = useCart();
   // a render can run on a stale snapshot: re-read the cart once on mount
@@ -229,13 +231,18 @@ export function useMemberCheckout() {
   const paymentsKey = `${deliveryKey}|${deliveryId}`;
   const totalsKey = `${paymentsKey}|${paymentId}|${promo}|${bonus}|${pickup ? pointCode : ""}`;
 
+  // регион, как его пишет справочник магазина («Республика Татарстан»): без него доставка в РФ не считается
+  // («Ошибка получения доступных методов доставки»); город вместо региона годится только для городов-регионов
+  const area = region || (country !== "RU" || CITY_REGIONS.test(city) ? city : "");
+  const needsRegion = country === "RU" && Boolean(city) && !area;
+
   const fio = fullName.trim();
   const profile = pickup
     ? {
         COUNTRY: country,
         COUNTRY_NAME: countryName,
         CITY: city,
-        AREA: region || city,
+        AREA: area,
         STREET: point?.ADDRESS ?? "",
         DELIVERY_TYPE: activeItem?.TYPE ?? "PICK_POINT",
         PICK_POINT_SERVICE: point?.TYPE ?? "",
@@ -248,7 +255,7 @@ export function useMemberCheckout() {
         COUNTRY: country,
         COUNTRY_NAME: countryName,
         CITY: city,
-        AREA: region || city,
+        AREA: area,
         STREET: street,
         BUILD: build,
         APARTMENT: apartment.trim(),
@@ -263,8 +270,16 @@ export function useMemberCheckout() {
   /* ---- 2 ─ delivery ---- */
   useEffect(() => {
     if (ready !== "ok" || !place) return;
+    if (needsRegion) {
+      const t = setTimeout(() => {
+        setGroups([]);
+        setDeliveryFor(deliveryKey);
+        setDeliveryErr("Укажите регион, например «Республика Татарстан» или «Московская область».");
+      }, 0);
+      return () => clearTimeout(t);
+    }
     let cancelled = false;
-    api<{ result?: DeliveryGroup[]; error?: string }>("/delivery", { COUNTRY: country, CITY: city, AREA: region || city }).then((d) => {
+    api<{ result?: DeliveryGroup[]; error?: string }>("/delivery", { COUNTRY: country, CITY: city, AREA: area }).then((d) => {
       if (cancelled) return;
       // the shop says which payments each service allows: only cash (pay the courier) is not offered here
       const hasOnline = (i: DeliveryGroup["ITEMS"][number]) => !Array.isArray(i.PAYSYSTEMS) || i.PAYSYSTEMS.length === 0 || onlineOnly(i.PAYSYSTEMS).length > 0;
@@ -282,13 +297,13 @@ export function useMemberCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [ready, place, country, city, region, deliveryKey]);
+  }, [ready, place, country, city, region, area, needsRegion, deliveryKey]);
 
   /* ---- 3 ─ payments of the chosen delivery (online only) ---- */
   useEffect(() => {
     if (ready !== "ok" || !deliveryId || !place) return;
     let cancelled = false;
-    api<{ result?: PayMethod[] }>("/payments", { deliveryId, COUNTRY: country, CITY: city, AREA: region || city }).then((p) => {
+    api<{ result?: PayMethod[] }>("/payments", { deliveryId, COUNTRY: country, CITY: city, AREA: area }).then((p) => {
       if (cancelled) return;
       setPayments(onlineOnly(Array.isArray(p.result) ? p.result : []));
       setPaymentsFor(paymentsKey);
@@ -296,14 +311,14 @@ export function useMemberCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [ready, deliveryId, place, country, city, region, paymentsKey]);
+  }, [ready, deliveryId, place, country, city, region, area, paymentsKey]);
 
   /* ---- 3b ─ pick-up points of the city ---- */
   const pointsKey = `${region}|${city}`;
   useEffect(() => {
     if (ready !== "ok" || !pickup || !city) return;
     let cancelled = false;
-    api<{ result?: PickPoint[] }>("/pickpoints", { COUNTRY: country, CITY: city, AREA: region || city }).then((d) => {
+    api<{ result?: PickPoint[] }>("/pickpoints", { COUNTRY: country, CITY: city, AREA: area }).then((d) => {
       if (cancelled) return;
       setPoints(Array.isArray(d.result) ? d.result : []);
       setPointsFor(pointsKey);
@@ -311,7 +326,7 @@ export function useMemberCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [ready, pickup, country, region, city, pointsKey]);
+  }, [ready, pickup, country, region, area, city, pointsKey]);
   const pointsLoading = pickup && !!city && pointsFor !== pointsKey;
 
   /* ---- 4 ─ totals, re-read on every change ---- */
@@ -327,7 +342,7 @@ export function useMemberCheckout() {
         pickPoint: pickPointParam,
         COUNTRY: country,
         CITY: city,
-        AREA: region || city,
+        AREA: area,
         PROFILE: JSON.parse(profileKey),
         dutyEnabled: true,
       }).then((r) => {
@@ -340,7 +355,7 @@ export function useMemberCheckout() {
       cancelled = true;
       clearTimeout(t);
     };
-  }, [ready, deliveryId, paymentId, place, country, city, region, promo, bonus, profileKey, pickPointParam, totalsKey]);
+  }, [ready, deliveryId, paymentId, place, country, city, region, area, promo, bonus, profileKey, pickPointParam, totalsKey]);
 
   /* ---- actions ---- */
   function applyAddress(a: ResolvedAddress) {
@@ -387,7 +402,7 @@ export function useMemberCheckout() {
     if (!code || !deliveryId) return;
     setPromoMsg("");
     // the order calculation answers 500 for an unknown code, so ask first
-    const r = await api<{ result?: { DISCOUNT?: number | string } | number }>("/promo", { promo: code, deliveryId, COUNTRY: country, CITY: city, AREA: region || city });
+    const r = await api<{ result?: { DISCOUNT?: number | string } | number }>("/promo", { promo: code, deliveryId, COUNTRY: country, CITY: city, AREA: area });
     const discount = typeof r.result === "object" && r.result ? num(r.result.DISCOUNT) : 0;
     if (discount > 0) {
       setPromo(code);
@@ -410,12 +425,14 @@ export function useMemberCheckout() {
     ...(pickup
       ? [
           { key: "city", bad: !city },
+          { key: "region", bad: needsRegion },
           { key: "point", bad: !point },
         ]
       : [
           { key: "address", bad: manual || !addressSearchEnabled ? street === "" || build === "" : !picked },
           { key: "zip", bad: zip.trim().length < 5 },
           { key: "city", bad: !city },
+          { key: "region", bad: needsRegion },
         ]),
     { key: "first", bad: fio.split(/\s+/).filter(Boolean).length < 2 },
     { key: "phone", bad: phone.replace(/\D/g, "").length < 10 },
@@ -556,7 +573,7 @@ export function useMemberCheckout() {
     // state of the page
     ready, error, warn, order, sending, attempted,
     // form
-    form: { email, setEmail, fullName, setFullName, phone, setPhone, address, setAddress, apartment, setApartment, zip, setZip, cityDraft, setCityDraft, city, region, manual, setManual, picked, setPicked, searchText, setSearchText, street, build, acceptTerms, setAcceptTerms, agreeData, setAgreeData },
+    form: { email, setEmail, fullName, setFullName, phone, setPhone, address, setAddress, apartment, setApartment, zip, setZip, cityDraft, setCityDraft, city, region, setRegion, needsRegion, manual, setManual, picked, setPicked, searchText, setSearchText, street, build, acceptTerms, setAcceptTerms, agreeData, setAgreeData },
     applyAddress, field, required,
     // delivery
     delivery: { pickup, pickupNone, mode, setMode, items, activeItem, deliveryId, setDeliveryChoice, deliveryErr, deliveryLoading, deliveryFor, deliveryKey, point, pickupItems, points, pointsLoading, setPointCode, sheetOpen, setSheetOpen, mapOpen, setMapOpen, slotDays, slotDay, slotHours, setSlotDate, setSlotTime },

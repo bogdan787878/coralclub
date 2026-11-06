@@ -1,7 +1,7 @@
 /**
  * Стили Layout внутри shadow DOM: внешние стили страницы их не меняют. Цвета и отступы берутся из токенов
  * UI kit (custom properties проходят в shadow DOM), с запасными значениями для сервисов без токенов.
- * Нижнее меню: плавающая панель кабинета. Корзина — отдельное приложение (@coral/cart), здесь только кнопка с бейджем.
+ * Нижнее меню: классическая панель магазина (как TabBar витрины). Корзина — отдельное приложение (@coral/cart), здесь только кнопка с бейджем.
  */
 export const CSS = `
 :host {
@@ -35,7 +35,7 @@ svg { display: block; }
 .icon { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; transition: opacity .15s var(--ease); }
 .icon:hover { opacity: .7; }
 .icon svg { width: 24px; height: 24px; }
-.icon .badge { top: -6px; left: 14px; }
+.icon .badge { top: -6px; right: -10px; }
 @media (min-width: 768px) {
   .head { grid-template-columns: 1fr auto 1fr; }
   .brand { grid-column: 2; justify-self: center; }
@@ -52,24 +52,24 @@ svg { display: block; }
   transition: background-color var(--duration-fast, .15s) var(--ease); }
 .iconBtn:hover { background: var(--c-thumb); }
 .iconBtn svg { width: 26px; height: 26px; }
-.iconBtn .badge { top: 1px; left: auto; right: 0; background: var(--color-error, var(--c-badge)); box-shadow: none; font-size: .75rem; }
+.iconBtn .badge { top: 1px; right: 0; min-width: 20px; height: 20px; padding: 0 5px; line-height: 20px; background: var(--color-error, var(--c-badge)); font-size: .75rem; }
 
-/* ---------- нижнее меню (телефон и планшет) ---------- */
-.tabbar { position: fixed; z-index: 45; left: 50%; transform: translateX(-50%); bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-  width: min(436px, calc(100vw - 24px)); display: flex; align-items: stretch; gap: 2px; padding: 6px; border-radius: 34px;
-  background: rgba(255, 255, 255, .94); -webkit-backdrop-filter: saturate(180%) blur(16px); backdrop-filter: saturate(180%) blur(16px);
-  box-shadow: 0 8px 30px rgba(20, 30, 40, .16), 0 1px 3px rgba(20, 30, 40, .08); }
-.tab { position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
-  padding: 8px 2px 7px; border-radius: 28px; font-size: .7rem; line-height: .9rem; -webkit-tap-highlight-color: transparent; }
-.tab svg { width: 25px; height: 25px; color: #7b8791; }
+/* ---------- нижнее меню (телефон и планшет): классическая панель магазина, прижата к низу ---------- */
+.tabbar { position: fixed; z-index: 45; left: 50%; transform: translateX(-50%); bottom: 0; width: 100%; max-width: var(--cc-tabbar-max, 100%);
+  height: calc(64px + env(safe-area-inset-bottom, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px);
+  display: flex; justify-content: space-around; align-items: stretch;
+  background: var(--c-surface); border-top: 1px solid var(--c-thumb); box-shadow: 0 -8px 24px rgba(1, 17, 48, .08);
+  transition: transform .2s var(--ease), opacity .2s var(--ease); }
+.tabbar.hide { transform: translate(-50%, 100%); opacity: 0; pointer-events: none; }
+.tab { position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  padding: 8px 0; color: var(--c-muted); font-size: .6875rem; line-height: .875rem; font-weight: var(--fw); -webkit-tap-highlight-color: transparent; }
+.tab svg { width: 24px; height: 24px; }
 .tab span { white-space: nowrap; }
-.tab.on { background: var(--tab-on-bg, #e6f4f1); color: var(--tab-on, #00474d); }
-.tab.on svg { color: var(--tab-on, #00474d); }
+.tab.on { color: var(--c-text); }
 .tab:active { opacity: .6; }
-.tabbar { transition: transform .2s var(--ease), opacity .2s var(--ease); }
-.tabbar.hide { transform: translate(-50%, 140%); opacity: 0; pointer-events: none; }
-.badge { position: absolute; top: 1px; left: 52%; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 10px; background: var(--c-badge);
-  color: #fff; font-style: normal; font-size: .72rem; line-height: 20px; font-weight: var(--fw); text-align: center; box-shadow: 0 0 0 2px #fff; }
+.tab .ico { position: relative; display: inline-flex; }
+.badge { position: absolute; top: -4px; right: -8px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 999px; background: var(--c-action);
+  color: #fff; font-style: normal; font-size: .625rem; line-height: 16px; font-weight: var(--fw); text-align: center; }
 @media (min-width: 1024px) { .tabbar { display: none; } }
 
 `;
@@ -77,6 +77,6 @@ svg { display: block; }
 /** Отступ снизу у страницы под плавающее меню (вне shadow DOM, одно правило на документ). Фиксированные панели
  *  сервиса (например, плашка покупки на странице товара) встают над меню по переменной --cc-tabbar-space. */
 export const PAGE_CSS = `@media (max-width: 1023px) {
-  html.cc-has-tabbar { --cc-tabbar-space: calc(94px + env(safe-area-inset-bottom, 0px)); }
+  html.cc-has-tabbar { --cc-tabbar-space: calc(64px + env(safe-area-inset-bottom, 0px)); }
   html.cc-has-tabbar body { padding-bottom: var(--cc-tabbar-space); }
 }`;

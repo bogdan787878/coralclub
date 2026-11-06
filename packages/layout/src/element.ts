@@ -132,7 +132,7 @@ export class CcLayout extends HTMLElement {
     const icon = { home: ICON.home, catalog: ICON.catalog, cart: ICON.bag, fav: ICON.heart, me: ICON.user };
     const tab = (key: TabKey) =>
       key === "cart"
-        ? cartBtn("tab", `${ICON.bag}<span>${esc(T.cart)}</span>${badge}`)
+        ? cartBtn("tab", `<span class="ico">${ICON.bag}${badge}</span><span>${esc(T.cart)}</span>`)
         : `<a class="tab${active === key ? " on" : ""}" href="${esc(L[key])}"${active === key ? ' aria-current="page"' : ""}>${icon[key]}<span>${esc(T[key])}</span></a>`;
     const desk = (key: TabKey) =>
       key === "cart" ? cartBtn("icon", `${ICON.bag}${badge}`) : `<a class="icon" href="${esc(L[key])}" aria-label="${esc(T[key])}">${icon[key]}</a>`;

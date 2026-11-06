@@ -93,7 +93,10 @@ export function LkCheckout() {
         <div className={styles.empty}>
           <h1 className={styles.title}>Заказ № {c.order.id} оформлен</h1>
           {c.sending ? (
-            <Loader>Переходим к оплате…</Loader>
+            <>
+              <p className={styles.host}>Переходим к оплате…</p>
+              <Loader lines={3}>Переходим к оплате</Loader>
+            </>
           ) : (
             <>
               <p className={styles.host}>
@@ -149,7 +152,7 @@ export function LkCheckout() {
           <div className={styles.main}>
             <h1 className={extra.visuallyHidden}>Оформление заказа</h1>
 
-            {c.ready === "idle" && <Loader>Готовим заказ…</Loader>}
+            {c.ready === "idle" && <Loader lines={6}>Готовим заказ…</Loader>}
             {c.error && (
               <p className={styles.error} role="alert">
                 {c.error}
@@ -239,12 +242,18 @@ export function LkCheckout() {
                         <FloatInput {...field("zip")} label="Индекс" placeholder="125009" value={form.zip} onChange={form.setZip} inputMode="numeric" autoComplete="postal-code" />
                         <FloatInput {...field("city")} label="Город" value={form.cityDraft} onChange={form.setCityDraft} autoComplete="address-level2" />
                       </div>
+                      {(form.needsRegion || form.region) && (
+                        <FloatInput {...field("region")} label="Регион, например Республика Татарстан" value={form.region} onChange={form.setRegion} autoComplete="address-level1" />
+                      )}
                     </>
                   )}
                 </>
               ) : (
                 <>
                   <FloatInput {...field("city")} label="Город" value={form.cityDraft} onChange={form.setCityDraft} autoComplete="address-level2" />
+                  {(form.needsRegion || form.region) && (
+                    <FloatInput {...field("region")} label="Регион, например Республика Татарстан" value={form.region} onChange={form.setRegion} autoComplete="address-level1" />
+                  )}
                   <div className={`${styles.pickup} ${c.field("point").shake ? styles.shake : ""}`} data-field="point">
                     {!form.city ? (
                       <p className={styles.hint}>Введите город, чтобы найти пункты выдачи рядом.</p>

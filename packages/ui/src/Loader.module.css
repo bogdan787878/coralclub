@@ -1,33 +1,38 @@
-/* UI kit: Loader (индикатор и подпись, пока блок ждёт магазин). */
+/* UI kit: Loader — шимер на месте блока, пока он ждёт магазин (как во всём кабинете). */
 
 .loader {
-  margin: 0;
   display: flex;
-  align-items: center;
-  gap: var(--space-8);
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  color: var(--color-text-muted);
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 0;
 }
 
-.spinner {
-  flex: none;
-  width: 18px;
-  height: 18px;
-  border: 2px solid rgba(0, 65, 68, 0.2);
-  border-top-color: var(--color-malachite-90);
-  border-radius: 50%;
-  animation: ui-spin 0.8s linear infinite;
+/* подпись только для экранного диктора */
+.label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
-@keyframes ui-spin {
+.bar {
+  display: block;
+  height: 14px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #e8eeed 25%, #f6f9f8 50%, #e8eeed 75%) 0 0 / 200% 100%;
+  animation: ui-shimmer 1.4s linear infinite;
+}
+
+@keyframes ui-shimmer {
   to {
-    transform: rotate(360deg);
+    background-position: -200% 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .spinner {
-    animation-duration: 2.4s;
+  .bar {
+    animation-duration: 4s;
   }
 }
