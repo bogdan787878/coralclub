@@ -23,7 +23,8 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "@coral/ui": "0.1.0",
-    "@coral/cart": "0.1.0"
+    "@coral/cart": "0.1.0",
+    "@coral/icons": "0.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -2,7 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
-import { Accent, BodyLong, Container, Heading } from "@/components/ui";
+import { Accent, BodyLong, Container, Heading, Icon } from "@/components/ui";
 import { addItem, useCart, setQty } from "@/lib/cart";
 import { productHref } from "@/lib/catalog";
 import { Carousel } from "./Carousel";
@@ -47,17 +47,7 @@ export type SeriesFeatureProps = {
 
 function CartIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M4 5h2.2l1.9 9.6a2 2 0 0 0 2 1.6h7a2 2 0 0 0 2-1.6L21 8.5H6.6"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="10" cy="20" r="1.4" fill="currentColor" />
-      <circle cx="17" cy="20" r="1.4" fill="currentColor" />
-    </svg>
+    <Icon name="cart" size={24} />
   );
 }
 

@@ -5,7 +5,6 @@ import {
   useMemo,
   useRef,
   useState,
-  type ReactNode,
 } from "react";
 import { usePathname } from "next/navigation";
 import { CoralClubLogo } from "@/components/landing/CoralClubLogo";
@@ -20,14 +19,10 @@ import {
 import { loginUrl, registrationUrl } from "@/lib/friend";
 import { SHOP_SITES } from "@/lib/shopSites";
 import { CountryMenu } from "@/components/checkout";
+import { Icon } from "@/components/ui";
 import { useFriend } from "./FriendProvider";
 import styles from "./FriendHeader.module.css";
 
-const Icon = ({ d }: { d: ReactNode }) => (
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    {d}
-  </svg>
-);
 
 /**
  * The header of every page of the project: menu and logo on the left; the
@@ -70,17 +65,7 @@ export function FriendHeader() {
   );
   const cartIcon = (
     <>
-      <Icon
-        d={
-          <path
-            d="M3 4h2.4l2 10.2h9.8l2-7.7H6.6M9.5 19.2h.01M16.5 19.2h.01"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        }
-      />
+      <Icon name="cart" />
       {count > 0 && <span className={styles.badge}>{count}</span>}
     </>
   );
@@ -117,16 +102,7 @@ export function FriendHeader() {
             aria-expanded={open}
             onClick={() => setOpen((o) => !o)}
           >
-            <Icon
-              d={
-                <path
-                  d="M4 7h16M4 12h16M4 17h16"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                />
-              }
-            />
+            <Icon name="menu" />
           </button>
           {open && (
             <nav className={styles.menu} aria-label="Menu">
@@ -162,25 +138,7 @@ export function FriendHeader() {
           data-analytics-id="header_account"
         >
           <span className={styles.avatar}>
-            <Icon
-              d={
-                <>
-                  <circle
-                    cx="12"
-                    cy="8.5"
-                    r="3.6"
-                    stroke="currentColor"
-                    strokeWidth="1.7"
-                  />
-                  <path
-                    d="M4.8 19.5c.9-3.4 3.6-5 7.2-5s6.3 1.6 7.2 5"
-                    stroke="currentColor"
-                    strokeWidth="1.7"
-                    strokeLinecap="round"
-                  />
-                </>
-              }
-            />
+            <Icon name="user" />
           </span>
         </a>
         {inCheckout ? (

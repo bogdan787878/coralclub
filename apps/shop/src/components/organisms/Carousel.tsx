@@ -8,7 +8,7 @@ import {
   type CSSProperties,
   type ReactNode,
 } from "react";
-import { Heading } from "@/components/ui";
+import { Heading, Icon } from "@/components/ui";
 import styles from "./Carousel.module.css";
 
 export type CarouselProps = {
@@ -37,17 +37,7 @@ export type CarouselProps = {
 };
 
 function ChevronIcon({ direction }: { direction: "left" | "right" }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d={direction === "left" ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7"}
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+  return <Icon name={direction === "left" ? "back" : "next"} />;
 }
 
 /**

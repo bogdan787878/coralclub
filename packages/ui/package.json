@@ -11,5 +11,8 @@
   },
   "peerDependencies": {
     "react": ">=19"
+  },
+  "dependencies": {
+    "@coral/icons": "0.1.0"
   }
 }

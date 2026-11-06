@@ -60,7 +60,7 @@ import {
   streetLine,
   type ResolvedAddress,
 } from "@/lib/addressSearch";
-import { FloatInput, OptionCard, OptionCards, OptionInfo } from "@/components/ui";
+import { FloatInput, OptionCard, OptionCards, OptionInfo, Icon } from "@/components/ui";
 import { CardBadges } from "./PayBadges";
 import { useFriend } from "./FriendProvider";
 import co from "../landing/LandingCheckout.module.css";
@@ -113,15 +113,7 @@ const paymentTypeCode = (name: string) =>
 const EMAIL_RE = /^[\x21-\x7E]+@[\x21-\x7E]+\.[\x21-\x7E]+$/;
 
 const Chevron = () => (
-  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path
-      d="M4 6l4 4 4-4"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
+  <Icon name="down" size={16} />
 );
 
 export function FriendCheckout() {

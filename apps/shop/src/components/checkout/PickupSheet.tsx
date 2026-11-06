@@ -1,5 +1,6 @@
 "use client";
 
+import { Icon } from "@/components/ui";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   loadMapsKit,
@@ -350,14 +351,7 @@ export function PickupSheet({
             aria-label={t.close}
             onClick={onClose}
           >
-            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path
-                d="M3.5 3.5l9 9m0-9l-9 9"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-              />
-            </svg>
+            <Icon name="close" size={16} />
           </button>
         </div>
 
@@ -384,23 +378,7 @@ export function PickupSheet({
                 className={`${styles.view} ${view === v ? styles.viewOn : ""}`}
                 onClick={() => setView(v)}
               >
-                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                  {v === "map" ? (
-                    <path
-                      d="M2.5 5l5-2 5 2 5-2v12l-5 2-5-2-5 2V5zM7.5 3v12M12.5 5v12"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinejoin="round"
-                    />
-                  ) : (
-                    <path
-                      d="M3 5h14M3 10h14M3 15h14"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      strokeLinecap="round"
-                    />
-                  )}
-                </svg>
+                <Icon name={v === "map" ? "map" : "list"} size={20} />
                 {v === "map" ? t.map : t.list}
               </button>
             ))}
@@ -461,10 +439,7 @@ export function PickupSheet({
           }}
         >
           <div className={`${styles.search} ${notFound ? styles.searchError : ""}`}>
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <circle cx="9" cy="9" r="5.5" stroke="currentColor" strokeWidth="1.6" />
-              <path d="M13.5 13.5L17 17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-            </svg>
+            <Icon name="search" size={20} />
             <input
               type="search"
               enterKeyHint="search"

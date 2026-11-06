@@ -1,3 +1,5 @@
+import { Icon } from "@/components/ui";
+
 export function AppleMark() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -29,30 +31,6 @@ export function GoogleMark() {
   );
 }
 
-export function ChevronLeft() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M15 6l-6 6 6 6"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-export function ChevronRight() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M9 6l6 6-6 6"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
+/** Шевроны из общей библиотеки иконок продукта (@coral/icons). Знаки Apple и Google выше — логотипы, не иконки. */
+export const ChevronLeft = () => <Icon name="back" />;
+export const ChevronRight = () => <Icon name="next" />;

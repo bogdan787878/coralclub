@@ -1,0 +1,16 @@
+{
+  "name": "@coral/icons",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Одна библиотека иконок Coral Club для всех сервисов: Lucide (MIT), набор интерфейса. src/icons.ts генерируется скриптом build.mjs из lucide-static; svg(name) отдаёт строку SVG для веб-компонентов и чистого JS, React-обёртка — Icon в @coral/ui.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "gen": "node gen.mjs"
+  },
+  "devDependencies": {
+    "lucide-static": "0.460.0"
+  }
+}

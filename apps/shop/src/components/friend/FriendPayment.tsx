@@ -30,22 +30,14 @@ import {
   type PayResult,
 } from "@/lib/shopPay";
 import { AddressSearch, StateCombobox } from "@/components/checkout";
-import { FloatInput } from "@/components/ui";
+import { FloatInput, Icon } from "@/components/ui";
 import { OrderSummary, ShippingFacts } from "./OrderParts";
 import co from "../landing/LandingCheckout.module.css";
 import styles from "@/components/checkout/CheckoutPage.module.css";
 import pp from "./PayPage.module.css";
 
 const Chevron = () => (
-  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path
-      d="M4 6l4 4 4-4"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
+  <Icon name="down" size={16} />
 );
 
 /** The shop's field names → ours, for the messages it sends back. */

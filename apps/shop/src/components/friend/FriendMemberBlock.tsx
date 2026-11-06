@@ -1,5 +1,6 @@
 "use client";
 
+import { Icon } from "@/components/ui";
 import { track } from "@/lib/analytics";
 import { registrationUrl } from "@/lib/friend";
 import { useFriend } from "./FriendProvider";
@@ -16,15 +17,7 @@ const PERKS = [
 ];
 
 const Check = () => (
-  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path
-      d="M4 8.4l2.6 2.6L12 5.6"
-      stroke="currentColor"
-      strokeWidth="1.7"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
+  <Icon name="check" size={16} />
 );
 
 /**

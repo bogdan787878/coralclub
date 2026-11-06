@@ -14,3 +14,4 @@ export { FloatInput } from "./FloatInput";
 export { OptionCard, OptionCards, OptionInfo } from "./OptionCards";
 export { Consent } from "./Consent";
 export { Loader } from "./Loader";
+export { Icon, type IconName } from "./Icon";

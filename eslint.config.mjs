@@ -24,7 +24,7 @@ const eslintConfig = defineConfig([
   },
   // API, корзина, Layout и шлюз без React: их подключают и сервисы на чистом JS (UI kit — пакет на React)
   {
-    files: ["packages/{api,cart,layout,gateway}/**/*.{ts,tsx,js,mjs}"],
+    files: ["packages/{api,cart,icons,layout,gateway}/**/*.{ts,tsx,js,mjs}"],
     rules: {
       "no-restricted-imports": [
         "error",

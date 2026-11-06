@@ -1,5 +1,6 @@
 "use client";
 
+import { Icon } from "@/components/ui";
 import { useId, useMemo, useState } from "react";
 import co from "@coral/ui/FloatInput.module.css"; // поля чек-аута выглядят как FloatInput из UI kit
 import styles from "./Combobox.module.css";
@@ -145,20 +146,7 @@ export function StateCombobox({
         <label htmlFor={id} className={co.floatLabel}>
           {label}
         </label>
-        <svg
-          className={styles.comboChevron}
-          viewBox="0 0 16 16"
-          fill="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M4 6l4 4 4-4"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <Icon name="down" size={16} className={styles.comboChevron} />
 
         {open && (
           <ul id={listId} role="listbox" className={styles.comboList}>

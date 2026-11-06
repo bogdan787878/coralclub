@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@coral/api": "0.1.0",
-    "@coral/cart": "0.1.0"
+    "@coral/cart": "0.1.0",
+    "@coral/icons": "0.1.0"
   },
   "scripts": {
     "build": "node build.mjs"

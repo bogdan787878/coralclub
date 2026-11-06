@@ -1,5 +1,6 @@
 "use client";
 
+import { Icon } from "@/components/ui";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
@@ -181,20 +182,7 @@ export function AccountForm() {
         <p className={styles.brand}>coralclub</p>
         <div className={styles.locale}>
           <span aria-hidden="true">USA</span>
-          <svg
-            viewBox="0 0 12 12"
-            aria-hidden="true"
-            className={styles.localeChevron}
-          >
-            <path
-              d="M2.5 4.5 6 8l3.5-3.5"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <Icon name="down" size={12} className={styles.localeChevron} />
           <span className={styles.srOnly}>
             Region: USA (fixed while the shop is US-only)
           </span>

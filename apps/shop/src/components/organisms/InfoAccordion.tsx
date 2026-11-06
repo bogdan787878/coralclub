@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import { Sheet } from "@/components/ui";
+import { Sheet, Icon } from "@/components/ui";
 import styles from "./InfoAccordion.module.css";
 
 export type InfoSection = {
@@ -32,22 +32,7 @@ export function InfoAccordion({ items }: InfoAccordionProps) {
             onClick={() => setOpenIndex(i)}
           >
             <span className={styles.title}>{item.title}</span>
-            <svg
-              className={styles.chevron}
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              aria-hidden="true"
-            >
-              <path
-                d="M7.5 4.5 13 10l-5.5 5.5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <Icon name="next" size={20} className={styles.chevron} />
           </button>
         ))}
       </div>

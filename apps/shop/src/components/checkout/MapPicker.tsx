@@ -1,5 +1,6 @@
 "use client";
 
+import { Icon } from "@/components/ui";
 import { useEffect, useRef, useState } from "react";
 import {
   loadMapsKit,
@@ -135,14 +136,7 @@ export function MapPicker({
             aria-label={t.close}
             onClick={onClose}
           >
-            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path
-                d="M3.5 3.5l9 9m0-9l-9 9"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-              />
-            </svg>
+            <Icon name="close" size={16} />
           </button>
         </div>
         <div className={styles.mapWrap}>

@@ -13,7 +13,7 @@ import {
   PICKUP_RU,
   PickupSheet,
 } from "@/components/checkout";
-import { Consent, FloatInput, Loader, OptionCard, OptionCards, OptionInfo } from "@/components/ui";
+import { Consent, FloatInput, Loader, OptionCard, OptionCards, OptionInfo, Icon } from "@/components/ui";
 import { addressSearchEnabled } from "@/lib/addressSearch";
 import { useMemberCheckout } from "@/lib/lk/useMemberCheckout";
 import styles from "@/components/checkout/CheckoutPage.module.css";
@@ -21,9 +21,7 @@ import extra from "@/components/checkout/CheckoutExtras.module.css";
 import own from "./LkCheckout.module.css";
 
 const Chevron = () => (
-  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
+  <Icon name="down" size={16} />
 );
 
 /**

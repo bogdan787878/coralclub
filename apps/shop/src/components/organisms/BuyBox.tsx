@@ -1,22 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui";
+import { Button, Icon } from "@/components/ui";
 import { addItem, openCart, setQty, useCart } from "@/lib/cart";
 import styles from "./BuyBox.module.css";
 import variants from "./BuyBoxFriend.module.css";
 
 function CheckIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M5 12.5l4.5 4.5L19 7"
-        stroke="currentColor"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <Icon name="check" size={24} />
   );
 }
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { Icon } from "@/components/ui";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
@@ -161,15 +162,7 @@ export function QuizFlow() {
                 aria-label="Back"
                 onClick={() => go(-1)}
               >
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path
-                    d="M15 6l-6 6 6 6"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <Icon name="back" size={24} />
               </button>
             )}
             <button

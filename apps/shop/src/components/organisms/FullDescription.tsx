@@ -1,5 +1,6 @@
 "use client";
 
+import { Icon } from "@/components/ui";
 import { useState } from "react";
 import styles from "./FullDescription.module.css";
 
@@ -39,22 +40,7 @@ export function FullDescription({
         onClick={() => setExpanded((e) => !e)}
       >
         {expanded ? lessLabel : moreLabel}
-        <svg
-          className={`${styles.chevron}${expanded ? ` ${styles.chevronUp}` : ""}`}
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          aria-hidden="true"
-        >
-          <path
-            d="M4.5 7.5 10 13l5.5-5.5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <Icon name="down" size={20} className={`${styles.chevron}${expanded ? ` ${styles.chevronUp}` : ""}`} />
       </button>
     </div>
   );

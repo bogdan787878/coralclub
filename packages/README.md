@@ -10,6 +10,7 @@
 | `@coral/api/shop` | чек-аут магазина (`/sv-api/*`), сменный транспорт, клиент шлюза; рынок задаёт приложение (`configureShop`) | импорт по имени |
 | `@coral/ui` | токены `tokens.css` и UI kit на React (Button, FloatInput, OptionCards, Sheet, Loader…); внутренние ссылки кнопки подставляет приложение (`linkAs`) | импорт по имени; в Next через фасад `@/components/ui` |
 | `@coral/gateway` | шлюз чек-аута на Cloudflare Worker и общее ядро прохода оплаты для Node-стенда; офлайн-тесты `npm test -w @coral/gateway` | деплой `npx wrangler deploy` из `packages/gateway` |
+| `@coral/icons` | одна библиотека иконок продукта (Lucide, ISC): `svg(name)` для веб-компонентов и чистого JS, `Icon` в `@coral/ui` для React; набор генерирует `gen.mjs` (`npm run gen -w @coral/icons`), кабинету на чистом JS — файлом `docs/icons.js` (`--lk`) | импорт по имени |
 | `@coral/layout` | Layout продукта: веб-компонент `<cc-layout>` (шапка, нижнее меню с кнопкой и бейджем корзины) | **по адресу**: `layout.js` (на Pages `/coralclub/layout/layout.js`) |
 | `@coral/cart` | Корзина как отдельное приложение: веб-компонент `<cc-cart>` (страница корзины) и общее хранилище корзины | **по адресу**: `cart.js` (на Pages `/coralclub/cart/cart.js`) на странице корзины сервиса |
 

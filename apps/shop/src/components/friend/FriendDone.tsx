@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { Container } from "@/components/ui";
+import { Container, Icon } from "@/components/ui";
 import { track } from "@/lib/analytics";
 import { summarize } from "@/lib/analyticsRu";
 import { pricingForSite } from "@/lib/friendPricing";
@@ -15,15 +15,7 @@ import { OrderSummary, ShippingFacts } from "./OrderParts";
 import styles from "@/components/checkout/CheckoutPage.module.css";
 
 const Chevron = () => (
-  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path
-      d="M4 6l4 4 4-4"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
+  <Icon name="down" size={16} />
 );
 
 /** `purchase` goes out once per order, even if the page is reloaded. */
@@ -145,15 +137,7 @@ export function FriendDone() {
               <div className={styles.main}>
                 <div className={styles.doneHead}>
                   <span className={styles.doneMark} aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none">
-                      <path
-                        d="M6 12.5l4 4 8-9"
-                        stroke="currentColor"
-                        strokeWidth="2.2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    <Icon name="check" size={24} />
                   </span>
                   <h1 className={styles.title}>Thank you for your order!</h1>
                   <p className={styles.sub}>
