@@ -78,7 +78,10 @@ async function shopCall(request, env, rest, url) {
     if (!isPaymentLink(link)) return reply(request, env, 400, { error: "Это не ссылка оплаты магазина" });
     // method: способ оплаты из чек-аута (например 160:bank_card); на странице заказа выбирается такой же
     const method = typeof body?.method === "string" ? body.method.slice(0, 40) : "";
+    const started = Date.now();
     const r = await resolveFrom({ jar: new Map(), url: new URL(link), method });
+    // журнал (wrangler tail): только статусы, хосты и пути, без сессий, ссылок и параметров
+    console.log(`pay ${r.target ? `→ ${new URL(r.target.url).host}` : `✗ ${r.error}`} · ${Date.now() - started} мс · ${(r.hops ?? []).join(" › ")}`);
     return r.target ? reply(request, env, 200, { target: r.target }) : reply(request, env, 502, { error: r.error, hops: r.hops });
   }
   const allowed = request.method === "POST" ? POST_OK : request.method === "GET" ? GET_OK : [];

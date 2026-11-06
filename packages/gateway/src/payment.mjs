@@ -6,6 +6,9 @@ import { cookieHeader, storeCookies } from "./bootstrap.mjs";
 
 const SHOP_HOST = /(^|\.)(coral\.club|coralclub\.[a-z]+)$/i;
 const MAX_HOPS = 8;
+/** Сколько ждём один ответ магазина: дольше — значит магазин не отвечает, проход заканчивается понятной ошибкой. */
+const HOP_TIMEOUT_MS = 10000;
+const timeout = () => (typeof AbortSignal !== "undefined" && AbortSignal.timeout ? AbortSignal.timeout(HOP_TIMEOUT_MS) : undefined);
 
 /** Что на странице оплаты (без параметров и значений): для разбора, когда банк не найден. */
 export function describePage(html, base) {
@@ -128,12 +131,18 @@ async function choosePaysystem({ jar, html, url, method }) {
   const pick = options.find((o) => methodKey(o.value) === want) ?? options.find((o) => methodKey(o.value) === "bank_card") ?? options[0];
   const ajax = new URL("/ajax/order/orderSelectPaysystem.php", url);
   const cookie = cookieHeader(jar);
-  const res = await fetch(ajax.href, {
+  let res;
+  try {
+    res = await fetch(ajax.href, {
+    signal: timeout(),
     method: "POST",
     redirect: "manual",
     headers: { accept: "application/json", "content-type": "application/x-www-form-urlencoded; charset=UTF-8", "x-requested-with": "XMLHttpRequest", referer: url.href, ...(cookie ? { cookie } : {}) },
     body: new URLSearchParams({ sessid, delivery, order_id: orderId, paysystem: pick.value }).toString(),
   });
+  } catch {
+    return { error: "Магазин не ответил при выборе способа оплаты", hops: [`— ${ajax.host}${ajax.pathname}`] };
+  }
   storeCookies(jar, res);
   const hops = [`${res.status} ${ajax.host}${ajax.pathname} (${methodKey(pick.value)})`];
   const data = await res.json().catch(() => null);
@@ -190,7 +199,13 @@ export async function resolveFrom({ jar, url: start, method = "" }) {
     const paying = url.pathname.match(/^\/order\/payment\/(\d+)\//);
     if (paying) jar.set("orderResultId", paying[1]);
     const cookie = cookieHeader(jar);
-    const res = await fetch(url.href, { redirect: "manual", headers: { accept: "text/html,application/json,*/*", ...(cookie ? { cookie } : {}) } });
+    let res;
+    try {
+      res = await fetch(url.href, { redirect: "manual", signal: timeout(), headers: { accept: "text/html,application/json,*/*", ...(cookie ? { cookie } : {}) } });
+    } catch (e) {
+      hops.push(`— ${url.host}${url.pathname}`);
+      return { error: e?.name === "TimeoutError" || e?.name === "AbortError" ? "Магазин не ответил вовремя" : "Магазин недоступен", hops };
+    }
     storeCookies(jar, res);
     hops.push(`${res.status} ${url.host}${url.pathname}`);
     const loc = res.headers.get("location");
