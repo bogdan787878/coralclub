@@ -6,11 +6,12 @@ import {
   useSyncExternalStore,
   type ReactNode,
 } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { refreshCart } from "@/lib/cart";
 import { LkLayout } from "./LkLayout";
 import { forgetGatewaySession, gatewayTransport } from "@/lib/gateway";
 import { setShopTransport } from "@/lib/shopApi";
-import { LOGIN_URL, gatewayUrl } from "@/lib/lk/config";
+import { gatewayUrl } from "@/lib/lk/config";
 import { followLayoutCart, loadMemberCart } from "@/lib/lk/memberCart";
 import { getToken } from "@/lib/lk/session";
 import { Loader } from "@/components/ui";
@@ -22,11 +23,23 @@ import { Loader } from "@/components/ui";
 export function LkShell({ children }: { children: ReactNode }) {
   // `null` while rendering on the server (no sessionStorage there), then whether a token exists
   const signedIn = useSyncExternalStore<boolean | null>(
-    () => () => {},
+    (cb) => {
+      // вход и выход сообщают о себе (@coral/api: cc:auth:changed)
+      window.addEventListener("cc:auth:changed", cb);
+      return () => window.removeEventListener("cc:auth:changed", cb);
+    },
     () => Boolean(getToken()),
     () => null,
   );
   const [ready, setReady] = useState(false);
+  const path = usePathname() ?? "";
+  const router = useRouter();
+  const onLogin = path.startsWith("/lk/login");
+
+  // без входа — на страницу входа, а после него обратно сюда
+  useEffect(() => {
+    if (signedIn === false && !onLogin) router.replace(`/lk/login/?next=${encodeURIComponent(path)}`);
+  }, [signedIn, onLogin, path, router]);
 
   useEffect(() => {
     if (!signedIn) return;
@@ -43,23 +56,10 @@ export function LkShell({ children }: { children: ReactNode }) {
     };
   }, [signedIn]);
 
-  if (signedIn === false) {
-    return (
-      <>
-        <LkLayout />
-        <div style={{ padding: "48px 16px", fontFamily: "var(--font-sans)" }}>
-          <p>
-            Чтобы пользоваться корзиной и оформлением, сначала войдите в личный
-            кабинет.
-          </p>
-          <p>
-            <a href={LOGIN_URL}>Войти в личный кабинет</a>
-          </p>
-        </div>
-      </>
-    );
-  }
-  if (!ready) {
+  if (onLogin) return <>{children}</>;
+  if (signedIn === false) return null;
+  // корзину ждём только перед оформлением (оно считает итог по её копии); остальные экраны грузят свои данные сами
+  if (!ready && path.startsWith("/lk/checkout")) {
     return (
       <>
         <LkLayout />

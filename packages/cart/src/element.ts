@@ -90,10 +90,11 @@ export class CcCart extends HTMLElement {
     return this.imageFn;
   }
 
-  get links(): CartLinks {
+  /** Адреса из атрибута links (не свойство links: React 19 присваивает атрибуты веб-компонента как свойства). */
+  get linkMap(): CartLinks {
     return json(this.getAttribute("links"), { checkout: "", shop: "", login: "" });
   }
-  private get text(): Text {
+  private get labelSet(): Text {
     return json(this.getAttribute("labels"), (this.getAttribute("locale") === "en" ? TEXT.en : TEXT.ru) as Text);
   }
   private money(n: number): string {
@@ -128,14 +129,14 @@ export class CcCart extends HTMLElement {
       const lines = this.store.cartState().lines;
       if (!lines.length) return;
       const ev = new CustomEvent("cc:cart:checkout", { detail: { lines: lines.map((l) => l.raw) }, cancelable: true, bubbles: true, composed: true });
-      if (this.dispatchEvent(ev) && this.links.checkout) window.location.assign(this.links.checkout);
+      if (this.dispatchEvent(ev) && this.linkMap.checkout) window.location.assign(this.linkMap.checkout);
     }
   }
 
   private render() {
     const s: CartState = this.store.cartState();
-    const T = this.text;
-    const L = this.links;
+    const T = this.labelSet;
+    const L = this.linkMap;
     const lines = s.lines;
     const n = this.store.count();
     const sum = lines.reduce((t, l) => t + (l.now ?? 0) * l.qty, 0);

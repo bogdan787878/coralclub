@@ -19,7 +19,7 @@
  * Хранилище корзины общее с приложением корзины (@coral/cart/store), бейдж обновляется сам.
  * Внутрь: window.coralLayout.cart.open() — перейти на страницу корзины; .count(), .refresh(), .add(…).
  */
-import { LOGIN_URL } from "@coral/api";
+import { LEGACY_LK_URL, PAGES_URL } from "@coral/api";
 import { getStore } from "@coral/cart/store";
 import { ICON } from "./icons";
 import { CSS, PAGE_CSS } from "./styles";
@@ -28,9 +28,8 @@ export type Links = { home: string; catalog: string; cart: string; fav: string; 
 type TabKey = "home" | "catalog" | "cart" | "fav" | "me";
 const cart = getStore();
 
-/** По умолчанию разделы ведут в кабинет (там сейчас магазин участника). */
-const LK = LOGIN_URL;
-export const DEFAULT_LINKS: Links = { home: `${LK}#/`, catalog: `${LK}#/catalog`, cart: `${LK}#/cart`, fav: `${LK}#/fav`, me: `${LK}#/me` };
+/** По умолчанию: главная, корзина и профиль — кабинет на Next; каталог и избранное — пока кабинет на чистом JS. */
+export const DEFAULT_LINKS: Links = { home: `${PAGES_URL}/lk/`, catalog: `${LEGACY_LK_URL}#/catalog`, cart: `${PAGES_URL}/lk/cart/`, fav: `${LEGACY_LK_URL}#/fav`, me: `${PAGES_URL}/lk/me/` };
 
 const TEXT = {
   ru: { home: "Главная", catalog: "Каталог", cart: "Корзина", fav: "Избранное", me: "Профиль", menu: "Разделы", cartCount: (n: number) => `Корзина, товаров: ${n}` },
@@ -59,19 +58,20 @@ export class CcLayout extends HTMLElement {
     this.root = this.attachShadow({ mode: "open" });
   }
 
-  get links(): Links {
+  /** Адреса из атрибута links (не свойство links: React 19 присваивает атрибуты веб-компонента как свойства). */
+  get linkMap(): Links {
     return json(this.getAttribute("links"), DEFAULT_LINKS);
   }
-  private get text(): Text {
+  private get labelSet(): Text {
     const base = this.getAttribute("locale") === "en" ? TEXT.en : TEXT.ru;
     return json(this.getAttribute("labels"), base as Text);
   }
-  private get parts() {
+  private get partSet() {
     // нет атрибута: всё; пустой атрибут: ничего (внутренние страницы сервиса прячут меню)
     const p = (this.hasAttribute("parts") ? this.getAttribute("parts") ?? "" : "header tabbar").split(/\s+/);
     return { header: p.includes("header"), tabbar: p.includes("tabbar") };
   }
-  private get tabs(): TabKey[] {
+  private get tabList(): TabKey[] {
     const list = (this.getAttribute("tabs") || "home catalog cart fav me").split(/\s+/);
     return list.filter((t): t is TabKey => ["home", "catalog", "cart", "fav", "me"].includes(t));
   }
@@ -98,7 +98,7 @@ export class CcLayout extends HTMLElement {
     this.render();
   }
   private syncPageClass() {
-    document.documentElement.classList.toggle("cc-has-tabbar", this.parts.tabbar);
+    document.documentElement.classList.toggle("cc-has-tabbar", this.partSet.tabbar);
   }
 
   /** reveal-after: меню появляется, когда якорь дошёл до верхней части экрана или уже прокручен. */
@@ -121,8 +121,8 @@ export class CcLayout extends HTMLElement {
   }
 
   private render() {
-    const L = this.links;
-    const T = this.text;
+    const L = this.linkMap;
+    const T = this.labelSet;
     const active = this.getAttribute("active") || "";
     const n = cart.count();
     const badge = n ? `<em class="badge">${n > 99 ? "99+" : n}</em>` : "";
@@ -136,7 +136,7 @@ export class CcLayout extends HTMLElement {
         : `<a class="tab${active === key ? " on" : ""}" href="${esc(L[key])}"${active === key ? ' aria-current="page"' : ""}>${icon[key]}<span>${esc(T[key])}</span></a>`;
     const desk = (key: TabKey) =>
       key === "cart" ? cartBtn("icon", `${ICON.bag}${badge}`) : `<a class="icon" href="${esc(L[key])}" aria-label="${esc(T[key])}">${icon[key]}</a>`;
-    const { header, tabbar } = this.parts;
+    const { header, tabbar } = this.partSet;
     const variant = this.getAttribute("header") === "bar" ? "bar" : "center";
     const head =
       variant === "bar"
@@ -146,16 +146,16 @@ export class CcLayout extends HTMLElement {
           </header>`
         : `<header class="head">
             <a class="brand" href="${esc(L.home)}"><slot name="brand">coralclub</slot></a>
-            <nav class="desk" aria-label="${esc(T.menu)}"><slot name="actions"></slot>${this.tabs.map(desk).join("")}</nav>
+            <nav class="desk" aria-label="${esc(T.menu)}"><slot name="actions"></slot>${this.tabList.map(desk).join("")}</nav>
           </header>`;
     this.root.innerHTML = `<style>${CSS}</style>
       ${header ? head : ""}
-      ${tabbar ? `<nav class="tabbar${this.revealed ? "" : " hide"}" aria-label="${esc(T.menu)}">${this.tabs.map(tab).join("")}</nav>` : ""}`;
+      ${tabbar ? `<nav class="tabbar${this.revealed ? "" : " hide"}" aria-label="${esc(T.menu)}">${this.tabList.map(tab).join("")}</nav>` : ""}`;
   }
 }
 
 /** Страница корзины первого Layout на странице (для window.coralLayout.cart.open и openCart() магазина). */
 export function cartPage(): string {
   const el = document.querySelector<CcLayout>("cc-layout");
-  return el?.links.cart ?? DEFAULT_LINKS.cart;
+  return el?.linkMap.cart ?? DEFAULT_LINKS.cart;
 }

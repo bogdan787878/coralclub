@@ -4,6 +4,7 @@
   "private": true,
   "description": "Магазин Coral Club на Next: витрина, «Друг клуба», лендинги, кабинет /lk. Статический экспорт на GitHub Pages.",
   "scripts": {
+    "lk:css": "python3 scripts/scope-lk-css.py ../../../coral-club-lk-test/docs/style.css src/app/lk/lk.css",
     "gen": "node scripts/gen-products.mjs",
     "images:sync": "node scripts/sync-images.mjs",
     "friend:sync": "node scripts/sync-friend-catalog.mjs",

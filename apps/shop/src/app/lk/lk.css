@@ -1,0 +1,569 @@
+/* Стили кабинета, перенесённые из coral-club-lk-test/docs/style.css под корневой класс .lkapp
+   (scripts/scope-lk-css.py). Экраны кабинета на Next используют те же классы, что и кабинет на чистом JS. */
+.lkapp { min-height: 100vh; background: #f1f3f4; --cc-page-bg: #f1f3f4; }
+.lkapp {--ink: #0b2b2d;
+  --muted: #5d7472;
+  --line: #dfe8e6;
+  --bg: #f4f7f6;
+  --card: #fff;
+  --teal: #00464a;
+  --lime: #c9f27a;
+  --bad: #b3261e;
+  --ok: #1f7a46;
+  --fw-strong: 500; 
+  font-family: "Suisse Intl", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ink);}
+.lkapp * {box-sizing: border-box;}
+.lkapp h1, .lkapp h2, .lkapp h3, .lkapp h4, .lkapp b, .lkapp strong, .lkapp th {font-weight: var(--fw-strong);}
+.lkapp {margin: 0; background: var(--bg);}
+.lkapp [hidden] {display: none !important;}
+.lkapp h1 {margin: 0; font-size: 1.5rem; line-height: 1.9rem;}
+.lkapp h2 {margin: 0 0 .5rem; font-size: 1rem; line-height: 1.5rem;}
+.lkapp .eyebrow {margin: 0 0 .25rem; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: var(--fw-strong);}
+.lkapp .muted {color: var(--muted); font-size: .9rem; margin: 0;}
+.lkapp .center {min-height: 100vh; display: grid; place-items: center; padding: 24px;}
+.lkapp .card {background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 24px;}
+.lkapp .login {width: min(420px, 100%); display: flex; flex-direction: column; gap: 14px;}
+.lkapp label {display: flex; flex-direction: column; gap: 6px; font-size: .85rem; color: var(--muted); font-weight: 500;}
+.lkapp input, .lkapp select, .lkapp textarea {font: inherit; font-size: 16px;  color: var(--ink); background: #fff;
+  border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; width: 100%;}
+.lkapp textarea {resize: vertical; margin-top: 8px; font-family: ui-monospace, Menlo, monospace; font-size: 16px;}
+.lkapp input:focus, .lkapp select:focus, .lkapp textarea:focus {outline: 2px solid var(--teal); outline-offset: 1px; border-color: transparent;}
+.lkapp .row {display: flex; gap: 12px;}
+.lkapp .row > * {flex: 1;}
+.lkapp .row.tight {gap: 8px; align-items: center;}
+.lkapp .row.tight select {flex: 0 0 90px;}
+.lkapp .row.tight button {flex: none;}
+.lkapp .btn {font: inherit; font-weight: var(--fw-strong); cursor: pointer; border: 0; border-radius: 999px;
+  background: var(--teal); color: #fff; padding: 12px 20px;}
+.lkapp .btn:hover {background: #0a5a5f;}
+.lkapp .btn:disabled {opacity: .5; cursor: progress;}
+.lkapp .btn.small {padding: 8px 14px; font-size: .85rem;}
+.lkapp .btn.ghost {background: transparent; color: var(--teal); border: 1.5px solid var(--teal);}
+.lkapp .btn.ghost:hover {background: #e8f1ef;}
+.lkapp .msg {margin: 0; min-height: 1.3rem; font-size: .9rem; white-space: pre-wrap;}
+.lkapp .msg.bad {color: var(--bad);}
+.lkapp .msg.ok {color: var(--ok);}
+.lkapp .bar {display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 20px 32px; background: #fff; border-bottom: 1px solid var(--line);}
+.lkapp .chips {display: flex; gap: 8px; align-items: center; flex-wrap: wrap;}
+.lkapp .chip {font-size: .78rem; font-weight: var(--fw-strong); padding: 4px 10px; border-radius: 999px; background: #eaf0ef; color: var(--ink);}
+.lkapp .chip.ok {background: var(--lime);}
+.lkapp .chip.bad {background: #fbe3e1; color: var(--bad);}
+.lkapp .wrap {max-width: 1100px; margin: 0 auto; padding: 24px 32px 64px; display: flex; flex-direction: column; gap: 20px;}
+.lkapp .tools {display: grid; grid-template-columns: 1fr 1fr; gap: 24px;}
+@media (max-width: 800px) {
+.lkapp .tools {grid-template-columns: 1fr;}
+.lkapp .wrap {padding: 16px;}
+.lkapp .bar {padding: 16px;}
+}
+.lkapp .results {display: flex; flex-direction: column; gap: 16px;}
+.lkapp .res {background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden;}
+.lkapp .res-head {display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 14px 20px; border-bottom: 1px solid var(--line);}
+.lkapp .res-head h3 {margin: 0; font-size: 1rem;}
+.lkapp .res-head code {color: var(--muted); font-size: .8rem; word-break: break-all;}
+.lkapp .res-head .grow {flex: 1;}
+.lkapp .res-note {padding: 8px 20px 0; color: var(--muted); font-size: .85rem;}
+.lkapp .res-body {padding: 14px 20px 20px; overflow-x: auto; font-size: .88rem;}
+.lkapp .kv {display: grid; grid-template-columns: minmax(120px, 220px) 1fr; gap: 6px 16px;}
+.lkapp .kv dt {color: var(--muted);}
+.lkapp .kv dd {margin: 0; word-break: break-word;}
+.lkapp table {border-collapse: collapse; width: 100%;}
+.lkapp th, .lkapp td {text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top;}
+.lkapp th {background: #eef4f3; font-weight: var(--fw-strong); position: sticky; top: 0;}
+.lkapp details {margin: 2px 0 2px 14px;}
+.lkapp details > summary {cursor: pointer; color: var(--teal);}
+.lkapp pre {margin: 0; font-size: .8rem; white-space: pre-wrap; word-break: break-word;}
+.lkapp .tabs {display: flex; gap: 6px;}
+.lkapp .tab {font: inherit; font-size: .8rem; border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 3px 10px; cursor: pointer;}
+.lkapp .tab.on {background: var(--teal); color: #fff; border-color: var(--teal);}
+.lkapp .desk {background: #fafafa; --coral: #f25c54; --orange: #ffaa2b; --slate: #37424c; --grey: #7c8a99;}
+.lkapp .hero {height: 200px;
+  background:
+    radial-gradient(60% 40% at 70% 55%, rgba(120, 190, 235, 0.45), transparent 70%),
+    radial-gradient(40% 25% at 25% 60%, rgba(70, 150, 205, 0.4), transparent 70%),
+    linear-gradient(180deg, #0a3558 0%, #082a49 55%, #0a3d63 100%);}
+.lkapp .desk-cards {max-width: 1100px; margin: -48px auto 0; padding: 0 24px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;}
+@media (max-width: 800px) {
+.lkapp .desk-cards {grid-template-columns: 1fr; padding: 0 16px;}
+}
+.lkapp .dcard {position: relative; background: #fff; border-radius: 8px; min-height: 295px;
+  box-shadow: 0 1px 2px rgba(20, 40, 60, .06), 0 6px 20px rgba(20, 40, 60, .06);
+  display: flex; flex-direction: column; align-items: center; padding: 64px 24px 24px; text-align: center;}
+.lkapp .avatar {position: absolute; top: -48px; left: 50%; transform: translateX(-50%);
+  width: 96px; height: 96px; border-radius: 50%; overflow: hidden;
+  background: #c3ccd8; color: #fff; display: grid; place-items: center;}
+.lkapp .avatar img {width: 100%; height: 100%; object-fit: cover;}
+.lkapp .avatar svg {width: 64px; height: 64px; margin-top: 14px;}
+.lkapp .avatar.orange {background: var(--orange);}
+.lkapp .avatar.orange svg {width: 34px; height: 34px; margin: 0;}
+.lkapp .crown {color: var(--coral); width: 34px; margin-top: 18px;}
+.lkapp .crown svg {width: 34px; height: 30px; display: block;}
+.lkapp .pname {margin: 8px 0 0; font-size: 1.6rem; line-height: 2rem; font-weight: var(--fw-strong); color: #1c262e; letter-spacing: .01em;}
+.lkapp .pstatus {margin: 2px 0 0; color: var(--grey); font-size: 1.05rem;}
+.lkapp .pid {margin: 2px 0 0; color: var(--grey); font-size: 1.05rem;}
+.lkapp .badges {position: absolute; left: 24px; bottom: 24px; display: flex; gap: 28px; color: var(--grey);}
+.lkapp .badge {display: inline-flex; align-items: center; gap: 8px; font-size: 1.1rem;}
+.lkapp .badge svg {width: 20px; height: 22px;}
+.lkapp .redbar {position: absolute; left: 0; right: 0; bottom: 0; height: 4px; border-radius: 0 0 8px 8px; background: var(--coral);}
+.lkapp .account .amount {margin: 36px 0 0; font-size: 2.6rem; line-height: 3rem; font-weight: var(--fw-strong); color: var(--slate);}
+.lkapp .account .alabel {margin: 4px 0 0; color: var(--grey); font-size: 1.15rem;}
+.lkapp .arrows {position: absolute; right: 24px; bottom: 24px; display: flex; gap: 8px;}
+.lkapp .sq {width: 32px; height: 32px; border: 0; border-radius: 2px; background: var(--coral); color: #fff; cursor: pointer; display: grid; place-items: center; padding: 0;}
+.lkapp .sq:disabled {opacity: .45; cursor: default;}
+.lkapp .sq svg {width: 16px; height: 16px;}
+.lkapp .desk-hint {max-width: 1100px; margin: 12px auto 0; padding: 0 24px; color: var(--muted); font-size: .85rem;}
+.lkapp .bind {display: flex; gap: 6px;}
+.lkapp .bind .tab {font-size: .75rem;}
+.lkapp .desk-cards.single {grid-template-columns: minmax(0, 420px);}
+@media (max-width: 800px) {
+.lkapp .desk-cards.single {grid-template-columns: 1fr;}
+}
+.lkapp .metrics {max-width: 1100px; margin: 28px auto 0; padding: 0 24px;}
+.lkapp .mtitle {margin: 0 0 14px; font-size: 1.15rem; letter-spacing: .02em; color: #37424c; font-weight: var(--fw-strong);}
+.lkapp .mgrid {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px;}
+@media (max-width: 800px) {
+.lkapp .mgrid {grid-template-columns: 1fr;}
+.lkapp .metrics {padding: 0 16px;}
+}
+.lkapp .mcard {background: #fff; border: 1px solid #e3e8ed; border-radius: 12px; padding: 22px 24px; box-shadow: 0 1px 3px rgba(20, 40, 60, .06);}
+.lkapp .mcard h3 {margin: 0 0 18px; font-size: 1rem; font-weight: 500; color: #37424c;}
+.lkapp .mrow {display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; min-height: 96px;}
+.lkapp .mbig {margin: 0; font-size: 1.9rem; line-height: 2.2rem; font-weight: var(--fw-strong); color: #2c3640;}
+.lkapp .msub {margin: 4px 0 0; font-size: .85rem; color: #7c8a99;}
+.lkapp .trend {font-size: 1.1rem; font-weight: var(--fw-strong);}
+.lkapp .trend.up {color: #5aa83c;}
+.lkapp .trend.down {color: #d6453d;}
+.lkapp .mtiles {display: flex; gap: 8px; align-items: flex-end;}
+.lkapp .mtile {display: flex; flex-direction: column; align-items: center; gap: 4px; width: 44px;}
+.lkapp .mtile .mtop, .lkapp .mtile .mbot {font-size: .72rem; font-weight: var(--fw-strong); color: #37424c;}
+.lkapp .mtile i {display: block; width: 44px; height: 54px; border-radius: 8px; background: #dedcf8;}
+.lkapp .mtile i.now {background: #d3e5cc;}
+.lkapp .mtiles.slim .pill {height: 10px; border-radius: 6px; background: #dfe3e8; overflow: hidden; width: 44px;}
+.lkapp .mtiles.slim .pill b {display: block; height: 100%; background: #9d8be6;}
+.lkapp .mtiles.slim .mtile {gap: 6px;}
+.lkapp .mchartbox {width: min(55%, 240px);}
+.lkapp .mchart {display: block; width: 100%; height: 80px;}
+.lkapp .mx {display: flex; justify-content: space-between; font-size: .7rem; color: #7c8a99; margin-top: 2px;}
+.lkapp .mleg {margin: 6px 0 0; font-size: .75rem; color: #5d6b78; display: flex; align-items: center; gap: 6px; flex-wrap: wrap;}
+.lkapp .mleg i {display: inline-block; width: 9px; height: 9px; border-radius: 50%;}
+.lkapp .trend.flat {color: #7c8a99;}
+.lkapp:has(#dash-view:not([hidden])) {background: #f1f3f4; --cc-page-bg: #f1f3f4;}
+.lkapp.ck-full, .lkapp.ck-full:has(#dash-view:not([hidden])) {background: #fff; --cc-page-bg: #fff;}
+.lkapp.ck-full .home {max-width: none; padding: 0 0 48px;}
+.lkapp.ck-full .h-dhead {margin: 0; padding: 0 8px; background: rgba(255, 255, 255, .9);}
+.lkapp .ck-skel {display: flex; flex-direction: column; gap: 10px; padding: 4px 0;}
+.lkapp .ck-skel .sk {height: 14px;}
+.lkapp .ck-skTitle {width: 60%; height: 28px !important;}
+.lkapp .ck-skHead {width: 40%; height: 18px !important; margin-bottom: 12px;}
+.lkapp .ck-skField {height: 52px !important; border-radius: 12px; margin-bottom: 12px;}
+.lkapp .ck-skSide {display: none;}
+@media (min-width: 1024px) {
+.lkapp .ck-skSide {display: flex; flex-direction: column; gap: 12px; padding: 24px; border-radius: 24px; background: #f6f6f6;}
+}
+.lkapp .cartapp {background: transparent;}
+.lkapp .bar.slim {background: transparent; border: 0; padding: 12px 20px;}
+.lkapp .home {max-width: 460px; margin: 0 auto; padding: 8px 16px 48px;}
+.lkapp .h-top {display: flex; align-items: center; gap: 12px;}
+.lkapp .h-avatar {width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #ffd35a, #f29a1f); color: #fff; font-weight: var(--fw-strong); display: grid; place-items: center; overflow: hidden; flex: none;}
+.lkapp .h-avatar img {width: 100%; height: 100%; object-fit: cover;}
+.lkapp .h-balance {display: flex; flex-direction: column; align-items: center; text-align: center; padding: 56px 0 40px; gap: 6px;}
+.lkapp .h-tag {display: inline-flex; align-items: center; gap: 6px; border: 0; border-radius: 999px; background: #3b3b3e; color: #fff; font: inherit; font-size: .8rem; font-weight: var(--fw-strong); padding: 4px 11px; cursor: default;}
+.lkapp .h-tag svg {width: 14px; height: 12px;}
+.lkapp .h-amount {margin: 6px 0 0; font-size: 2.7rem; line-height: 3rem; font-weight: var(--fw-strong); letter-spacing: -.01em; color: #2b2b2e;}
+.lkapp .h-caption {margin: 0; color: var(--muted); font-size: .95rem;}
+.lkapp .h-actions {display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px;}
+.lkapp .h-act {display: flex; flex-direction: column; align-items: center; gap: 8px; border: 0; background: none; font: inherit; font-size: .8rem; color: #333; cursor: pointer; padding: 0; text-align: center;}
+.lkapp .h-act span {width: 64px; height: 64px; border-radius: 50%; background: #fff; display: grid; place-items: center; box-shadow: 0 4px 14px rgba(20, 30, 40, .08); transition: transform .12s;}
+.lkapp .h-act:active span {transform: scale(.94);}
+.lkapp .h-act svg {width: 26px; height: 26px; color: #2b2b2e;}
+.lkapp .home .metrics {max-width: none; padding: 0; margin: 28px 0 0;}
+.lkapp .home .mgrid {grid-template-columns: 1fr;}
+.lkapp .home .mcard {border: 0; border-radius: 20px; box-shadow: 0 4px 18px rgba(20, 30, 40, .07);}
+.lkapp .home .mtitle {font-size: 1rem;}
+.lkapp .sheet-wrap {position: fixed; inset: 0; z-index: 50; display: flex; align-items: flex-end; justify-content: center;}
+.lkapp .sheet-back {position: absolute; inset: 0; background: rgba(15, 23, 30, .45);}
+.lkapp .sheet {position: relative; width: min(460px, 100%); max-height: 90vh; overflow-y: auto; background: #fff; border-radius: 24px 24px 0 0; padding: 20px 20px 28px; animation: sheetUp .2s ease;}
+@keyframes sheetUp { from { transform: translateY(24px); opacity: .6; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+.lkapp .sheet {animation: none;}
+}
+@media (min-width: 700px) {
+.lkapp .sheet-wrap {align-items: center;}
+.lkapp .sheet {border-radius: 24px;}
+}
+.lkapp .sheet-head {display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;}
+.lkapp .sheet-head h2 {margin: 0; font-size: 1.15rem;}
+.lkapp .sheet-x {border: 0; background: #eef1f2; border-radius: 50%; width: 36px; height: 36px; display: grid; place-items: center; cursor: pointer; padding: 0;}
+.lkapp .sheet-x svg {width: 18px; height: 18px;}
+.lkapp .sheet-form {display: flex; flex-direction: column; gap: 14px;}
+.lkapp .sheet-empty {color: var(--muted);}
+.lkapp .inline {display: flex; gap: 8px; align-items: center;}
+.lkapp .inline input {flex: 1;}
+.lkapp .person {display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 12px; background: #f3f6f5;}
+.lkapp .person img {width: 40px; height: 40px; border-radius: 50%; object-fit: cover;}
+.lkapp .person div {display: flex; flex-direction: column;}
+.lkapp .person span {color: var(--muted); font-size: .8rem;}
+.lkapp .linkbox {font-family: ui-monospace, Menlo, monospace; font-size: .8rem;}
+.lkapp .row2 {display: flex; gap: 8px;}
+.lkapp .row2 .btn {flex: 1;}
+.lkapp .note {min-height: 1.2rem; margin: 0; font-size: .88rem;}
+.lkapp .note.bad {color: var(--bad);}
+.lkapp .note.ok {color: var(--ok);}
+.lkapp .h-card {background: #fff; border-radius: 20px; box-shadow: 0 4px 18px rgba(20, 30, 40, .07); padding: 20px 20px 16px; margin-top: 16px;}
+.lkapp .h-card h3 {margin: 0; font-size: 1rem; font-weight: var(--fw-strong); color: #37424c;}
+.lkapp .h-head {display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px;}
+.lkapp .seg {display: inline-flex; background: #eef1f2; border-radius: 999px; padding: 2px;}
+.lkapp .seg button {border: 0; background: none; font: inherit; font-size: .75rem; padding: 4px 10px; border-radius: 999px; cursor: pointer; color: #5d6b78;}
+.lkapp .seg button.on {background: #fff; color: #1c262e; font-weight: var(--fw-strong); box-shadow: 0 1px 3px rgba(20, 30, 40, .12);}
+.lkapp .h-stats {display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;}
+.lkapp .h-stats div {background: #f4f6f7; border-radius: 12px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px;}
+.lkapp .h-stats span {font-size: .75rem; color: #7c8a99;}
+.lkapp .h-stats b {font-size: 1rem;}
+.lkapp .h-stats b.in, .lkapp .h-sum.in {color: #1f8a4c;}
+.lkapp .h-list {list-style: none; margin: 0; padding: 0;}
+.lkapp .h-row {display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid #edf0f2;}
+.lkapp .h-row:first-child {border-top: 0;}
+.lkapp .h-ico {flex: none; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-weight: var(--fw-strong); background: #f0f2f4; color: #5d6b78;}
+.lkapp .h-ico.in {background: #e3f5ea; color: #1f8a4c;}
+.lkapp .h-main {flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;}
+.lkapp .h-main b {font-size: .9rem; font-weight: var(--fw-strong);}
+.lkapp .h-main span {font-size: .78rem; color: #7c8a99; overflow-wrap: anywhere;}
+.lkapp .h-side {display: flex; flex-direction: column; align-items: flex-end; gap: 4px;}
+.lkapp .h-sum {font-weight: var(--fw-strong); font-size: .92rem; white-space: nowrap;}
+.lkapp .pill {font-style: normal; font-size: .7rem; font-weight: var(--fw-strong); padding: 2px 8px; border-radius: 999px; background: #eef1f2; color: #5d6b78;}
+.lkapp .pill.ok {background: #e3f5ea; color: #1f8a4c;}
+.lkapp .pill.wait {background: #fff2d6; color: #8a6200;}
+.lkapp .pill.bad {background: #fbe3e1; color: #b3261e;}
+.lkapp .h-tags {display: flex; gap: 4px; flex-wrap: wrap;}
+.lkapp .h-tags i {font-style: normal; font-size: .68rem; background: #eef1f2; color: #5d6b78; border-radius: 6px; padding: 1px 6px;}
+.lkapp .h-more {width: 100%; margin-top: 8px; border: 0; background: #f1f3f4; border-radius: 12px; padding: 10px; font: inherit; font-size: .88rem; font-weight: var(--fw-strong); color: #2b2b2e; cursor: pointer;}
+.lkapp .h-link {display: flex; align-items: center; gap: 14px; background: #fff; border-radius: 20px; padding: 16px 20px; margin-top: 12px; box-shadow: 0 4px 18px rgba(20, 30, 40, .07); color: inherit; text-decoration: none; min-height: 84px; overflow: hidden;}
+.lkapp .h-link:first-of-type {margin-top: 0;}
+.lkapp .h-link:focus-visible {outline: 2px solid var(--teal); outline-offset: 2px;}
+.lkapp .h-link-text {display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0;}
+.lkapp .h-link-ic {flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--teal); color: #fff; display: grid; place-items: center;}
+.lkapp .h-link-ic svg {width: 22px; height: 22px;}
+.lkapp .h-link-text b {font-size: 1.05rem; font-weight: var(--fw-strong); color: #2b2b2e;}
+.lkapp .h-link-text span {font-size: .88rem; color: #6b7480;}
+.lkapp .h-dhead {position: sticky; top: 0; z-index: 20; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 48px; margin: 0 -16px 8px; padding: 0 8px; background: rgba(241, 243, 244, .88); -webkit-backdrop-filter: saturate(180%) blur(14px); backdrop-filter: saturate(180%) blur(14px); border-bottom: .5px solid transparent; transition: border-color .15s;}
+.lkapp .h-dhead.scrolled {border-bottom-color: rgba(60, 80, 78, .22);}
+.lkapp .h-dhead h2 {margin: 0; max-width: 56vw; font-size: 1.06rem; line-height: 1.3rem; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink);}
+.lkapp .h-back {justify-self: start; display: inline-flex; align-items: center; gap: 2px; min-height: 44px; padding: 0 8px 0 2px; color: var(--teal); font-size: 1.06rem; text-decoration: none; -webkit-tap-highlight-color: transparent;}
+.lkapp .h-back svg {width: 24px; height: 24px; flex: none; margin-right: -1px;}
+.lkapp .h-back:active {opacity: .45;}
+.lkapp #h-detail .h-card {margin-top: 0;}
+.lkapp #h-detail .h-card h3 {display: none;}
+.lkapp #h-detail .h-head {justify-content: flex-end;}
+.lkapp #h-detail .h-card > h3 + .muted {margin: 0;}
+.lkapp .h-actions {margin-bottom: 20px;}
+.lkapp .h-user {background: #8b6a41; color: #fff; border-radius: 28px; padding: 18px 20px 20px;}
+.lkapp .h-rank {margin: 2px 0 18px; font-size: 1.75rem; line-height: 2.1rem; font-weight: 500; letter-spacing: -.01em;}
+.lkapp .h-crit {list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px;}
+.lkapp .h-crit li {background: rgba(255, 255, 255, .2); color: #fff; border-radius: 14px; padding: 8px 4px; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-align: center;}
+.lkapp .h-crit li span {font-size: .62rem; line-height: .8rem; opacity: .85;}
+.lkapp .h-crit li b {font-size: .72rem; line-height: .9rem; font-weight: var(--fw-strong); white-space: nowrap;}
+.lkapp .h-crit li.done {background: #fff; color: #5a3f1d;}
+.lkapp .h-crit li.done span {opacity: 1; font-weight: var(--fw-strong);}
+.lkapp .h-balance {padding-top: 40px;}
+.lkapp .home .mgrid {grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;}
+.lkapp .mtop {display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin: 0 0 10px;}
+.lkapp .mtop .mtitle {margin: 0;}
+.lkapp .home .mcard {padding: 16px 16px 16px; border-radius: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 14px; min-width: 0; min-height: 132px;}
+.lkapp .mhead {display: flex; align-items: flex-start; justify-content: space-between; gap: 6px;}
+.lkapp .home .mcard h3 {margin: 0; font-size: .78rem; line-height: 1.05rem; font-weight: var(--fw-strong); color: #4a5560;}
+.lkapp .mi {flex: none; width: 20px; height: 20px; border-radius: 50%; border: 0; background: #eef1f2; color: #6b7480; font: inherit; font-size: .72rem; font-weight: var(--fw-strong); cursor: pointer; padding: 0; line-height: 20px;}
+.lkapp .mi:hover, .lkapp .mi[aria-expanded="true"] {background: #dfe6e8; color: #1c262e;}
+.lkapp .mnote {margin: 0 0 8px; padding: 8px 10px; border-radius: 10px; background: #f3f6f7; font-size: .74rem; line-height: 1.05rem; color: #4a5560;}
+.lkapp .home .mbig {font-size: 1.75rem; line-height: 2rem; font-weight: var(--fw-strong); margin: 0; word-break: break-word;}
+.lkapp .home .msub {font-size: .78rem; line-height: 1.05rem; margin: 4px 0 0; color: #8a96a3;}
+.lkapp .home .msub b {color: #2c3640; font-weight: var(--fw-strong);}
+.lkapp .rkslider {list-style: none; margin: 0 -16px; padding: 2px 16px 4px; display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 16px; scrollbar-width: none;}
+.lkapp .rkslider::-webkit-scrollbar {display: none;}
+.lkapp .rk {--bg: #5a6672; --ink: #3b2a14; flex: 0 0 86%; scroll-snap-align: start; background: var(--bg); color: #fff; border-radius: 28px; padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 4px; min-width: 0;}
+.lkapp .rk-d {--bg: #3f7f86; --ink: #1c4a50;}
+.lkapp .rk-sd {--bg: #7d8895; --ink: #3a434d;}
+.lkapp .rk-gd {--bg: #8b6a41; --ink: #5a3f1d;}
+.lkapp .rk-ed {--bg: #1f7a5a; --ink: #0f4a36;}
+.lkapp .rk-bd {--bg: #4a73c2; --ink: #1f3f80;}
+.lkapp .rk-m {--bg: #3d3566; --ink: #2a2250;}
+.lkapp .rk-top {display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: .8rem; min-height: 22px; color: rgba(255, 255, 255, .75);}
+.lkapp .rk-now .rk-top span {color: #fff; font-weight: var(--fw-strong);}
+.lkapp .rk-top i {display: grid; place-items: center; color: #fff;}
+.lkapp .rk-name {margin: 0; font-size: 1.6rem; line-height: 2rem; font-weight: 500; letter-spacing: -.01em;}
+.lkapp .rk-phrase {margin: 0 0 12px; font-size: .88rem; line-height: 1.2rem; color: rgba(255, 255, 255, .85);}
+.lkapp .rk-perk {margin: auto 0 0; font-size: .8rem; color: rgba(255, 255, 255, .7);}
+.lkapp .rkdots {display: flex; justify-content: center; gap: 6px; margin-top: 10px;}
+.lkapp .rkdots i {width: 6px; height: 6px; border-radius: 3px; background: #cfd6db; transition: width .2s, background .2s;}
+.lkapp .rkdots i.on {width: 18px; background: #4a5560;}
+.lkapp .rk-who {display: flex; align-items: baseline; gap: 8px; min-width: 0; font-size: .9rem; color: #fff; white-space: nowrap; overflow: hidden;}
+.lkapp .rk-who em {font-style: normal; color: rgba(255, 255, 255, .7); font-size: .8rem;}
+.lkapp .rk-now {box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .5);}
+.lkapp .rk {padding: 14px 16px 14px; border-radius: 24px; gap: 2px;}
+.lkapp .rk-name {display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 1.3rem; line-height: 1.6rem;}
+.lkapp .rk-name i {display: grid; place-items: center; font-style: normal;}
+.lkapp .rk-name i svg {width: 20px; height: 20px;}
+.lkapp .rk-phrase {margin: 0 0 10px; font-size: .8rem; line-height: 1.05rem;}
+.lkapp .rk-past .rk-phrase {margin-bottom: 0;}
+.lkapp .h-tag {cursor: pointer;}
+.lkapp .h-actions-one {grid-template-columns: 1fr; justify-items: center;}
+.lkapp #h-transfer .h-balance {padding: 8px 0 28px;}
+.lkapp #h-transfer .h-card {margin-top: 8px;}
+.lkapp #h-detail #h-transfer .h-card h3 {display: block;}
+.lkapp #h-transfer .h-head {margin-bottom: 4px;}
+.lkapp #h-transfer .h-head {justify-content: flex-start;}
+.lkapp .st-wrap {padding: 16px;}
+.lkapp .st-me {display: flex; align-items: center; gap: 12px; padding-bottom: 12px;}
+.lkapp .st-me b {display: block; font-size: 1.05rem; color: #2b2b2e;}
+.lkapp .st-me span {font-size: .85rem; color: #6b7480;}
+.lkapp .st-av {--h: 160; flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; overflow: hidden; background: hsl(var(--h) 40% 86%); color: hsl(var(--h) 45% 28%); font-weight: var(--fw-strong); font-size: .95rem;}
+.lkapp .st-av img {width: 100%; height: 100%; object-fit: cover;}
+.lkapp .st-av.big {width: 56px; height: 56px;}
+.lkapp .st-av.sel {width: 64px; height: 64px; box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--teal);}
+.lkapp .st-level {border-top: 1px solid #e8edf0; padding-top: 10px; margin-top: 10px;}
+.lkapp .st-label {margin: 0 0 8px; font-size: .78rem; color: #8a96a3;}
+.lkapp .st-row {display: flex; gap: 10px; align-items: center; overflow-x: auto; padding: 8px 6px 10px; scrollbar-width: none;}
+.lkapp .st-row::-webkit-scrollbar {display: none;}
+.lkapp .st-chip {flex: none; border: 0; background: none; padding: 0; cursor: pointer;}
+.lkapp .st-pick {text-align: center;}
+.lkapp .st-pick b {display: block; font-size: 1rem; color: #2b2b2e;}
+.lkapp .st-pick span {font-size: .82rem; color: #6b7480;}
+.lkapp .st-grid {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 8px;}
+.lkapp .st-card {display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; border: 0; background: none; font: inherit; cursor: pointer; padding: 6px 2px;}
+.lkapp .st-card .st-av {width: 56px; height: 56px;}
+.lkapp .st-card b {font-size: .88rem; line-height: 1.1rem; color: #2b2b2e;}
+.lkapp .st-card span {font-size: .76rem; color: #6b7480; line-height: 1rem;}
+.lkapp .st-card em {font-style: normal; font-size: .7rem; color: var(--teal); background: #e4f0ee; border-radius: 999px; padding: 1px 8px;}
+.lkapp .st-empty {margin: 4px 0 0;}
+.lkapp .st-row {padding: 10px 8px 12px;}
+.lkapp .st-bar {display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-bottom: 12px;}
+.lkapp .st-bar .muted {font-size: .8rem;}
+.lkapp .st-note {font-size: .78rem; margin: 0 0 10px;}
+.lkapp .st-filter {display: inline-flex; align-items: center; gap: 6px; border: 0; border-radius: 999px; background: var(--teal); color: #fff; font: inherit; font-size: .85rem; font-weight: var(--fw-strong); padding: 7px 14px; cursor: pointer;}
+.lkapp .st-filter em {font-style: normal; background: #fff; color: var(--teal); border-radius: 999px; font-size: .72rem; min-width: 18px; text-align: center; padding: 0 5px;}
+.lkapp .fl-set {border: 0; margin: 0 0 12px; padding: 0;}
+.lkapp .fl-set legend {font-size: .85rem; color: #6b7480; padding: 0; margin-bottom: 6px;}
+.lkapp .fl-seg {width: 100%;}
+.lkapp .fl-seg button {flex: 1;}
+.lkapp .fl-chips {display: flex; flex-wrap: wrap; gap: 6px;}
+.lkapp .fl-chip input {position: absolute; opacity: 0; pointer-events: none;}
+.lkapp .fl-chip span {display: inline-block; border-radius: 999px; background: #eef1f2; color: #3b4651; font-size: .8rem; padding: 5px 11px; cursor: pointer; border: 1px solid transparent;}
+.lkapp .fl-chip input:checked + span {background: #e4f0ee; color: var(--teal); border-color: var(--teal); font-weight: var(--fw-strong);}
+.lkapp .fl-chip input:focus-visible + span {outline: 2px solid var(--teal); outline-offset: 1px;}
+.lkapp .fl-check {display: flex; align-items: center; gap: 8px; margin-bottom: 12px;}
+.lkapp .fl-check input {width: auto;}
+.lkapp .fl-two {display: grid; grid-template-columns: 1fr 1fr; gap: 8px;}
+.lkapp .fl-det {margin-bottom: 10px; border-top: 1px solid #e8edf0; padding-top: 8px;}
+.lkapp .fl-det summary {cursor: pointer; font-size: .9rem; font-weight: var(--fw-strong); color: #37424c; padding: 4px 0;}
+.lkapp .fl-vol {display: grid; grid-template-columns: 52px 1fr 1fr; gap: 6px 8px; align-items: center; margin-top: 6px;}
+.lkapp .fl-name {font-size: .82rem; color: #6b7480;}
+.lkapp .sheet-form label.fl-check {flex-direction: row; align-items: center; justify-content: flex-start; gap: 8px;}
+.lkapp .sheet-form label.fl-check input {width: 18px; height: 18px;}
+.lkapp .h-bal {display: flex; flex-direction: column; align-items: center; gap: 6px; border: 0; background: none; font: inherit; padding: 0; cursor: pointer; color: inherit;}
+.lkapp .h-bal .h-amount {display: block;}
+.lkapp .h-bal .h-caption {display: inline-flex; align-items: center; gap: 2px;}
+.lkapp .h-bal .h-caption i {display: inline-grid; width: 16px; height: 16px;}
+.lkapp .h-bal .h-caption svg {width: 14px; height: 14px;}
+.lkapp #h-wallet .h-balance {padding: 8px 0 28px;}
+.lkapp #h-wallet .h-card {margin-top: 8px;}
+.lkapp .h-actions-4 {grid-template-columns: repeat(4, 1fr); gap: 4px;}
+.lkapp .h-actions-4 .h-act {font-size: .72rem; line-height: 1.2;}
+.lkapp .h-actions-4 .h-act span {width: 56px; height: 56px;}
+.lkapp #h-detail #h-wallet .h-card h3 {display: block;}
+.lkapp .sheet-form a.btn {display: block; text-align: center; text-decoration: none;}
+.lkapp .sheet-sub {margin: 4px 0 0; font-size: .95rem;}
+.lkapp .sheet-form .seg {align-self: flex-start;}
+.lkapp #h-wallet .h-head h3 {white-space: nowrap;}
+.lkapp #h-wallet .seg button {white-space: nowrap;}
+.lkapp .rk-info {border: 0; background: none; color: #fff; padding: 0; margin: -2px -4px 0 0; width: 32px; height: 32px; display: grid; place-items: center; cursor: pointer; opacity: .9; flex: none;}
+.lkapp .rk-info:active {opacity: .6;}
+.lkapp .rk-name > i svg {width: 22px; height: 22px;}
+.lkapp .rk-goal {margin: 6px 0 8px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: .85rem; line-height: 1.1rem; color: rgba(255, 255, 255, .88);}
+.lkapp .rk-goal b {font-weight: var(--fw-strong); color: #fff; white-space: nowrap;}
+.lkapp .rk-bar {height: 6px; border-radius: 3px; background: rgba(255, 255, 255, .28); overflow: hidden;}
+.lkapp .rk-bar i {display: block; height: 100%; border-radius: 3px; background: #fff; min-width: 4px;}
+.lkapp .rk-phrase {margin: 6px 0 0; display: flex; align-items: center; gap: 6px;}
+.lkapp .rk-lock {display: inline-grid; opacity: .85;}
+.lkapp .rk-lock svg {width: 15px; height: 15px;}
+.lkapp .rk-past {opacity: .62;}
+.lkapp .rk-list {list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px;}
+.lkapp .rk-list li {display: flex; gap: 12px; align-items: center;}
+.lkapp .rk-list li div {display: flex; flex-direction: column;}
+.lkapp .rk-list li b {font-weight: var(--fw-strong);}
+.lkapp .rk-list li span {color: var(--muted); font-size: .85rem;}
+.lkapp .rk-list .rk-box {flex: none; width: 24px; height: 24px; border-radius: 8px; border: 2px solid #c3ccd2; display: grid; place-items: center; color: #fff; font-size: .85rem; font-weight: var(--fw-strong);}
+.lkapp .rk-list li.ok .rk-box {background: #2f9e6b; border-color: #2f9e6b;}
+.lkapp .rk-goal {font-size: .78rem; gap: 6px;}
+.lkapp .rk-goal span {min-width: 0;}
+.lkapp .mtap {cursor: pointer;}
+.lkapp .mtap:active {transform: scale(.98);}
+.lkapp #tasks {margin-top: 20px;}
+.lkapp .sheet-form .h-list {margin: 0;}
+.lkapp #tasks .tcar {display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 16px; margin: 0 -16px; padding: 2px 16px 6px; scrollbar-width: none;}
+.lkapp #tasks .tcar::-webkit-scrollbar {display: none;}
+.lkapp #tasks .tcar .mcard {flex: 0 0 46%; scroll-snap-align: start;}
+@media (min-width: 560px) {
+.lkapp #tasks .tcar .mcard {flex-basis: 200px;}
+}
+.lkapp .hint-pop {position: fixed; z-index: 60; background: #2b2b2e; color: #fff; border-radius: 12px; padding: 10px 12px; font-size: .8rem; line-height: 1.15rem; box-shadow: 0 8px 24px rgba(0, 0, 0, .25); pointer-events: auto;}
+.lkapp .mi[aria-expanded="true"] {background: #2b2b2e; color: #fff;}
+.lkapp .h-who {display: flex; align-items: center; gap: 10px; margin: 0 0 12px; padding: 0 4px; color: #2b2b2e; text-decoration: none;}
+.lkapp .h-who .h-avatar {width: 40px; height: 40px; font-size: .95rem;}
+.lkapp .h-who b {font-weight: var(--fw-strong); font-size: 1rem; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.lkapp .h-who i {display: grid; width: 18px; height: 18px; color: #8a96a3; flex: none;}
+.lkapp .h-who i svg {width: 16px; height: 16px;}
+.lkapp .pf-head {display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 4px 0 20px;}
+.lkapp .pf-head h2 {margin: 8px 0 0; font-size: 1.35rem;}
+.lkapp .pf-head p {margin: 0; color: var(--muted);}
+.lkapp .h-avatar.pf-ava {width: 88px; height: 88px; font-size: 1.6rem;}
+.lkapp #h-profile .h-card {margin-bottom: 10px;}
+.lkapp #h-detail #h-profile .h-card h3 {display: block;}
+.lkapp .pf-list {list-style: none; margin: 0; padding: 0;}
+.lkapp .pf-list li {display: flex; justify-content: space-between; gap: 16px; padding: 11px 0; border-top: 1px solid #edf0f2;}
+.lkapp .pf-list li:first-child {border-top: 0;}
+.lkapp .pf-list span {color: var(--muted); flex: none;}
+.lkapp .pf-list b {font-weight: 500; text-align: right; word-break: break-word;}
+.lkapp .pf-note {text-align: center; font-size: .8rem;}
+@keyframes shimmer { to { background-position: -200% 0; } }
+.lkapp .sk {display: block; border-radius: 8px; color: transparent !important; user-select: none; pointer-events: none;
+  background: linear-gradient(90deg, #e8eeed 25%, #f6f9f8 50%, #e8eeed 75%) 0 0 / 200% 100%;
+  animation: shimmer 1.4s linear infinite;}
+.lkapp .sk-lines {display: flex; flex-direction: column; gap: 10px;}
+.lkapp .sk-lines .sk, .lkapp .sk-rows .sk, .lkapp .sk-card .sk {height: 12px;}
+.lkapp .sk-rows {list-style: none; margin: 0; padding: 0;}
+.lkapp .sk-rows li {display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #edf0f2;}
+.lkapp .sk-rows li:first-child {border-top: 0;}
+.lkapp .sk-rows li > span {flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px;}
+.lkapp .sk-rows .sk-dot {flex: none; width: 36px; height: 36px; border-radius: 50%;}
+.lkapp .sk-rows .sk-sum {flex: none; width: 56px;}
+.lkapp .sk-card {gap: 14px; min-height: 132px; justify-content: center;}
+.lkapp .sk-card .sk-big {height: 28px; width: 60%; border-radius: 10px;}
+.lkapp .sk-block {height: 90px; border-radius: 10px;}
+.lkapp .h-amount.sk {display: block; width: 10rem; height: 2.4rem; margin: 10px auto 0; border-radius: 14px;}
+.lkapp .h-who b.sk {display: block; width: 9rem; height: 1rem;}
+.lkapp .h-avatar.sk {box-shadow: none; border-radius: 50%;}
+.lkapp .rk-load {background: #5a6672;}
+.lkapp .rk .sk {background: linear-gradient(90deg, rgba(255, 255, 255, .16) 25%, rgba(255, 255, 255, .32) 50%, rgba(255, 255, 255, .16) 75%) 0 0 / 200% 100%; animation: shimmer 1.4s linear infinite;}
+.lkapp .rk-name .sk {width: 55%; height: 1.2rem;}
+.lkapp .rk-sk .sk {height: 10px; width: 80%;}
+.lkapp .note.busy, .lkapp .msg.busy {color: transparent; -webkit-background-clip: text; background-clip: text;
+  background-image: linear-gradient(90deg, #7a8a88 30%, #c3cfcd 50%, #7a8a88 70%); background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;}
+@media (prefers-reduced-motion: reduce) {
+.lkapp .sk, .lkapp .rk .sk, .lkapp .note.busy, .lkapp .msg.busy {animation: none;}
+}
+.lkapp .pf-logout {display: block; width: 100%; margin-top: 16px; padding: 14px; border: 0; border-radius: 16px; background: #fff; color: var(--bad); font: inherit; font-size: 1rem; font-weight: var(--fw-strong); text-align: center; cursor: pointer; box-shadow: 0 4px 18px rgba(20, 30, 40, .07);}
+.lkapp .pf-logout:active {opacity: .6;}
+.lkapp .btn.pf-out {background: var(--bad);}
+.lkapp .btn.pf-out:hover {background: #8f1e18;}
+.lkapp .home .mcar {display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 16px; margin: 0 -16px; padding: 2px 16px 6px; scrollbar-width: none;}
+.lkapp .mcar::-webkit-scrollbar {display: none;}
+.lkapp .home .mcar .mcard {flex: 0 0 82%; scroll-snap-align: start;}
+@media (min-width: 560px) {
+.lkapp .home .mcar .mcard {flex-basis: 300px;}
+}
+.lkapp .mbody {display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; min-width: 0;}
+.lkapp .mbody .mval {min-width: 0;}
+.lkapp .mchart {flex: none; width: 88px; height: 52px;}
+.lkapp .mchart rect {fill: #d3e1df;}
+.lkapp .mchart rect.now {fill: var(--teal);}
+.lkapp {--tab-on: #d4574a; --tab-on-bg: #ececec;}
+.lkapp .tabbar {position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(12px + env(safe-area-inset-bottom)); width: min(436px, calc(100vw - 24px)); display: flex; align-items: stretch; gap: 2px; padding: 6px; border-radius: 34px; background: rgba(255, 255, 255, .94); -webkit-backdrop-filter: saturate(180%) blur(16px); backdrop-filter: saturate(180%) blur(16px); box-shadow: 0 8px 30px rgba(20, 30, 40, .16), 0 1px 3px rgba(20, 30, 40, .08);}
+.lkapp .tabbar[hidden] {display: none;}
+.lkapp .tabbar a {position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; padding: 8px 2px 7px; border-radius: 28px; color: var(--ink); text-decoration: none; font-size: .7rem; line-height: .9rem; -webkit-tap-highlight-color: transparent;}
+.lkapp .tabbar a svg {width: 25px; height: 25px; color: #7b8791;}
+.lkapp .tabbar a span {white-space: nowrap;}
+.lkapp .tabbar a.on {background: var(--tab-on-bg); color: var(--tab-on);}
+.lkapp .tabbar a.on svg {color: var(--tab-on);}
+.lkapp .tabbar a:active {opacity: .6;}
+.lkapp .tb-badge {position: absolute; top: 1px; left: 52%; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 10px; background: #e5484d; color: #fff; font-style: normal; font-size: .72rem; line-height: 20px; font-weight: var(--fw-strong); text-align: center; box-shadow: 0 0 0 2px #fff;}
+.lkapp .tb-badge[hidden] {display: none;}
+.lkapp.has-tabbar .home {padding-bottom: calc(112px + env(safe-area-inset-bottom));}
+.lkapp .shop {padding-top: 6px;}
+.lkapp .s-hero {margin: 0 0 18px; padding: 22px 20px 20px; border-radius: 24px; background: var(--teal); color: #fff;}
+.lkapp .s-hero h1 {margin: 2px 0 6px; font-size: 1.9rem; line-height: 2.2rem; color: #fff;}
+.lkapp .s-hero p {margin: 0; font-size: .92rem; line-height: 1.3rem; color: rgba(255, 255, 255, .82);}
+.lkapp .s-hero .s-eyebrow {font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--lime);}
+.lkapp .s-title {margin: 6px 0 14px; font-size: 1.7rem; line-height: 2rem;}
+.lkapp .s-h {margin: 22px 0 10px; font-size: 1.1rem;}
+.lkapp .s-warn {margin: 0 0 12px; padding: 10px 12px; border-radius: 12px; background: #fdf1e3; color: #7a4a12; font-size: .85rem;}
+.lkapp .s-empty {color: var(--muted);}
+.lkapp .s-emptybox {display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 48px 20px; text-align: center; color: var(--muted);}
+.lkapp .s-emptybox > span svg {width: 54px; height: 54px; color: #b9c5c3;}
+.lkapp .s-emptybox p {margin: 0;}
+.lkapp .s-emptybox .btn {text-decoration: none; display: inline-block; padding: 12px 26px;}
+.lkapp .s-grid {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;}
+.lkapp .s-car {display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -16px; padding: 2px 16px 6px; scrollbar-width: none;}
+.lkapp .s-car::-webkit-scrollbar {display: none;}
+.lkapp .s-car .s-card {flex: 0 0 72%; scroll-snap-align: start;}
+.lkapp .s-card {position: relative; display: flex; flex-direction: column; min-width: 0; border-radius: 22px; background: #fff; box-shadow: 0 4px 18px rgba(20, 30, 40, .07); overflow: hidden;}
+.lkapp .s-img {display: grid; place-items: center; width: 100%; aspect-ratio: 1 / 1; padding: 0; border: 0; background: #f6f6f6; cursor: pointer;}
+.lkapp .s-img img {width: 100%; height: 100%; object-fit: contain;}
+.lkapp .s-img svg {width: 40px; height: 40px; color: #b9c5c3;}
+.lkapp .s-img-sk {aspect-ratio: 1 / 1; border-radius: 0; height: auto;}
+.lkapp .s-fav {position: absolute; top: 8px; right: 8px; width: 34px; height: 34px; display: grid; place-items: center; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .9); color: #7b8791; cursor: pointer; padding: 0;}
+.lkapp .s-fav svg {width: 19px; height: 19px;}
+.lkapp .s-fav.on {color: #e5484d;}
+.lkapp .s-fav.on svg {fill: #e5484d;}
+.lkapp .s-info {display: flex; flex-direction: column; gap: 4px; padding: 12px 14px 14px; flex: 1;}
+.lkapp .s-info h3 {margin: 0; font-size: .95rem; line-height: 1.2rem; cursor: pointer;}
+.lkapp .s-note {margin: 0; font-size: .8rem; line-height: 1.05rem; color: var(--muted);}
+.lkapp .s-buy {display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 8px;}
+.lkapp .s-price {display: flex; flex-direction: column; min-width: 0;}
+.lkapp .s-price b {font-size: 1rem;}
+.lkapp .s-price s {font-size: .78rem; color: var(--muted);}
+.lkapp .s-add {flex: none; width: 38px; height: 38px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--teal); color: #fff; cursor: pointer; padding: 0; transition: background .15s;}
+.lkapp .s-add svg {width: 20px; height: 20px;}
+.lkapp .s-add.done {background: var(--ok);}
+.lkapp .s-add:disabled {opacity: .4; cursor: default;}
+.lkapp .s-chips {display: flex; gap: 8px; overflow-x: auto; margin: 0 -16px 14px; padding: 2px 16px; scrollbar-width: none;}
+.lkapp .s-chips::-webkit-scrollbar {display: none;}
+.lkapp .s-chip {flex: none; padding: 8px 15px; border: 0; border-radius: 999px; background: #fff; color: var(--ink); font: inherit; font-size: .88rem; cursor: pointer; box-shadow: 0 1px 4px rgba(20, 30, 40, .08);}
+.lkapp .s-chip.on {background: var(--teal); color: #fff;}
+.lkapp .s-lines {list-style: none; margin: 0 0 16px; padding: 0; display: flex; flex-direction: column; gap: 10px;}
+.lkapp .s-line {display: flex; gap: 12px; align-items: flex-start; padding: 12px; border-radius: 20px; background: #fff; box-shadow: 0 4px 18px rgba(20, 30, 40, .07);}
+.lkapp .s-lthumb {flex: none; width: 76px; height: 76px; display: grid; place-items: center; border-radius: 14px; background: #f6f6f6; overflow: hidden;}
+.lkapp .s-lthumb img {width: 100%; height: 100%; object-fit: contain;}
+.lkapp .s-lthumb svg {width: 28px; height: 28px; color: #b9c5c3;}
+.lkapp .s-lmain {flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;}
+.lkapp .s-lmain h3 {margin: 0; font-size: .95rem; line-height: 1.2rem;}
+.lkapp .s-step {display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; align-self: flex-start; border-radius: 999px; background: #f1f3f4; padding: 3px;}
+.lkapp .s-step button {width: 30px; height: 30px; display: grid; place-items: center; border: 0; border-radius: 50%; background: #fff; color: var(--ink); cursor: pointer; padding: 0; box-shadow: 0 1px 3px rgba(20, 30, 40, .12);}
+.lkapp .s-step button svg {width: 16px; height: 16px;}
+.lkapp .s-step b {min-width: 28px; text-align: center; font-size: .95rem;}
+.lkapp .s-del {flex: none; width: 34px; height: 34px; display: grid; place-items: center; border: 0; border-radius: 50%; background: none; color: #9aa5ad; cursor: pointer; padding: 0;}
+.lkapp .s-del svg {width: 19px; height: 19px;}
+.lkapp .s-sum {padding: 18px; border-radius: 22px; background: #fff; box-shadow: 0 4px 18px rgba(20, 30, 40, .07); display: flex; flex-direction: column; gap: 10px;}
+.lkapp .s-sumrow {display: flex; justify-content: space-between; align-items: baseline; color: var(--muted);}
+.lkapp .s-sumrow b {color: var(--ink);}
+.lkapp .s-total {font-size: 1.2rem;}
+.lkapp .s-total b {font-size: 1.4rem;}
+.lkapp .s-go {width: 100%; padding: 14px; font-size: 1rem;}
+.lkapp .s-pdp {gap: 14px;}
+.lkapp .s-pdpimg {display: grid; place-items: center; padding: 12px; border-radius: 18px; background: #f6f6f6;}
+.lkapp .s-pdpimg img {max-width: 100%; max-height: 260px; object-fit: contain;}
+.lkapp .s-pdprow {display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;}
+.lkapp .s-pdprow h3 {margin: 0; font-size: 1.15rem;}
+.lkapp .s-desc {margin: 0; font-size: .88rem; line-height: 1.3rem; color: #4a5560;}
+.lkapp .s-toast {position: fixed; z-index: 60; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom)); transform: translate(-50%, 12px); max-width: calc(100vw - 32px); padding: 11px 18px; border-radius: 999px; background: #2b2b2e; color: #fff; font-size: .88rem; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;}
+.lkapp .s-toast.show {opacity: 1; transform: translate(-50%, 0);}
+.lkapp .s-toast.bad {background: var(--bad);}
+@media (prefers-reduced-motion: reduce) {
+.lkapp .s-toast {transition: none;}
+}
+.lkapp .s-badges {position: absolute; top: 10px; left: 10px; display: flex; flex-wrap: wrap; gap: 4px; max-width: calc(100% - 60px);}
+.lkapp .s-badges i {padding: 3px 8px; border-radius: 999px; background: #fff; color: #5d6b78; font-style: normal; font-size: .68rem; font-weight: var(--fw-strong); box-shadow: 0 1px 3px rgba(20, 30, 40, .1);}
+.lkapp .shop-bar {position: sticky; top: 0; z-index: 25; display: flex; align-items: center; justify-content: space-between; height: 48px; margin: 0 -16px; padding: 0 16px; background: rgba(241, 243, 244, .88); -webkit-backdrop-filter: saturate(180%) blur(14px); backdrop-filter: saturate(180%) blur(14px);}
+.lkapp .shop-brand {font-size: 1.06rem; font-weight: var(--fw-strong); letter-spacing: .01em;}
+.lkapp .h-dside {justify-self: end; padding-right: 8px;}
+.lkapp .h-dside[hidden] {display: none;}
+.lkapp .cm-root {position: relative;}
+.lkapp .cm-panel {right: 0; left: auto;}
+.lkapp #h-checkout .ck-page {padding: 0;}
+.lkapp .ps-sheet {gap: 12px;}
+.lkapp .shop .cp-banner {border-radius: 18px; margin-bottom: 12px;}
+.lkapp .shop .cp-summary {margin: 16px 0 12px; padding: 0 4px;}
+.lkapp .shop .ck-pay {width: 100%; margin-top: 4px;}
+.lkapp .shop .cp-recs {padding: 18px 0 0;}
+/* фон экранов кабинета (в кабинете на чистом JS его задавал body:has(#dash-view)) */
+.lkapp { background: #f1f3f4; }

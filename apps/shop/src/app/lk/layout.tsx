@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { LkShell } from "@/components/lk/LkShell";
+import "./lk.css";
 
 export const metadata: Metadata = {
   title: "Личный кабинет — Coral Club",

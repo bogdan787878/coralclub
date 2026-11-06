@@ -10,12 +10,14 @@ import { asset } from "@/lib/asset";
  */
 export function LkLayout() {
   const path = usePathname() ?? "";
-  const links = JSON.stringify({ home: asset("/lk/"), cart: asset("/lk/cart/") });
+  const links = JSON.stringify({ home: asset("/lk/"), cart: asset("/lk/cart/"), me: asset("/lk/me/") }); // каталог и избранное — по умолчанию Layout (пока кабинет на чистом JS)
   const active = /^\/lk\/?$/.test(path) ? "home" : path.startsWith("/lk/cart") ? "cart" : path.startsWith("/lk/checkout") ? "" : "me";
+  // внутренние страницы кабинета (кошелёк, заказы, профиль…) — без нижнего меню, как в кабинете на чистом JS
+  const inner = /^\/lk\/(wallet|transfer|orders|profile|checkout)/.test(path);
   return (
     <>
       <Script src={asset("/layout/layout.js")} strategy="afterInteractive" />
-      <cc-layout active={active} links={links} />
+      <cc-layout active={active} links={links} {...(inner ? { parts: "" } : {})} />
     </>
   );
 }

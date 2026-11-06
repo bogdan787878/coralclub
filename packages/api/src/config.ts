@@ -4,8 +4,12 @@
  */
 export const CC4_BASE = "https://api.coral.club/api/v1";
 export const GATEWAY_URL = "https://coral-lk-checkout.bogdan787878.workers.dev";
-/** Вход участника: кабинет на чистом JS (токен общий через sessionStorage, пока сервисы на одном origin). */
-export const LOGIN_URL = "https://bogdan787878.github.io/coralclub-lk/docs/";
+/** Адрес магазина и кабинета на Next (GitHub Pages). */
+export const PAGES_URL = "https://bogdan787878.github.io/coralclub";
+/** Вход участника: кабинет на Next (токен общий через sessionStorage, пока сервисы на одном origin). */
+export const LOGIN_URL = `${PAGES_URL}/lk/login/`;
+/** Кабинет на чистом JS: в нём ещё живут каталог, избранное и структура, пока не перенесены в Next. */
+export const LEGACY_LK_URL = "https://bogdan787878.github.io/coralclub-lk/docs/";
 
 type Env = { production: boolean };
 let env: Env = { production: true };
