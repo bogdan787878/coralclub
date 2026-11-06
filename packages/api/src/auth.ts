@@ -5,6 +5,7 @@
  */
 import { cc4Base } from "./config";
 import { cc4, getToken, TOKEN_KEY } from "./session";
+import { normalizeProduct, type Product } from "./catalog";
 
 /** Идентификатор приложения кабинета для открытия сессии (публичный, как у сайта). */
 export const APPLICATION_TOKEN = "1ec82603-8332-6dd2-9af6-4309c012a93e";
@@ -95,4 +96,51 @@ export async function switchStore(deliveryId: string): Promise<boolean> {
   const r = await cc4("/auth/session", { method: "PATCH", body: { deliveryId } });
   if (r.ok) store(SHOP_SID_KEY, null);
   return r.ok;
+}
+
+/* ---------- гость: каталог без входа участника ---------- */
+const guestKey = (country: string, language: string) => `cc_guest:${country}:${language}`;
+const read = (key: string) => {
+  try {
+    return window.sessionStorage.getItem(key);
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Анонимная сессия приложения для страны: по ней API каталога отдаёт цены и наличие витрины страны (Германия —
+ * EUR, deliveryId GERMANY), без входа участника. Токен хранится на вкладку; кэш по стране и языку.
+ */
+export async function guestToken(country: string, language = "en"): Promise<string | null> {
+  const key = guestKey(country, language);
+  const have = typeof window === "undefined" ? null : read(key);
+  if (have) return have;
+  const s = await post("/auth/session", { applicationToken: APPLICATION_TOKEN, country, language });
+  const t = findToken(s.json) ?? null;
+  if (t) store(key, t);
+  return t;
+}
+
+/** Товары витрины страны для гостя (GET /catalog/products по анонимной сессии). Кодов, которых нет, в ответе нет. */
+export async function guestProducts(codes: string[], { country, language = "en" }: { country: string; language?: string }): Promise<Product[]> {
+  if (!codes.length) return [];
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const token = await guestToken(country, language);
+    if (!token) return [];
+    try {
+      const r = await fetch(`${cc4Base()}/catalog/products?${codes.map((c) => `products[]=${encodeURIComponent(c)}`).join("&")}`, {
+        headers: { accept: "application/json", authorization: `Bearer ${token}` },
+      });
+      if (r.status === 401) {
+        store(guestKey(country, language), null); // сессия истекла: откроем новую, один раз
+        continue;
+      }
+      const j = (await r.json().catch(() => null)) as { data?: Parameters<typeof normalizeProduct>[0][] } | null;
+      return (j?.data ?? []).map(normalizeProduct).filter((p): p is Product => !!p);
+    } catch {
+      return [];
+    }
+  }
+  return [];
 }

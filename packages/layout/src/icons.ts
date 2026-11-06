@@ -6,6 +6,5 @@ export const ICON = {
   catalog: svg("catalog"),
   bag: svg("cart"),
   cart: svg("cart"),
-  heart: svg("heart"),
   user: svg("user"),
 };

@@ -1,12 +1,11 @@
 import { Analytics } from "@/components/landing/Analytics";
-import { FriendCartDrawer } from "@/components/friend/FriendCart";
-import { FriendHeader } from "@/components/friend/FriendHeader";
+import { FriendLayout as SharedLayout } from "@/components/friend/FriendLayout";
 import { FriendProvider } from "@/components/friend/FriendProvider";
 import grid from "@/components/friend/FriendGrid.module.css";
 
 /**
- * Everything under /friend: who invited the visitor, the one header of the
- * project (with the cart it opens) and the analytics runtime.
+ * Everything under /friend: who invited the visitor, the product's shared Layout (header and menu, the cart is
+ * its own page /friend/cart/) and the analytics runtime.
  */
 export default function FriendLayout({
   children,
@@ -16,10 +15,9 @@ export default function FriendLayout({
   return (
     <FriendProvider>
       <div className={`appShell ${grid.edge}`}>
-        <FriendHeader />
+        <SharedLayout />
         {children}
       </div>
-      <FriendCartDrawer />
       <Analytics />
     </FriendProvider>
   );

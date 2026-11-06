@@ -15,11 +15,10 @@ export type Product = {
   available: boolean;
   bonuses: number | null;
   badges: string[];
-  favorite: boolean;
 };
 
 type Raw = {
-  code?: number;
+  code?: number | string;
   name?: string | null;
   breadCrumbs?: string;
   previewPicture?: string;
@@ -28,17 +27,19 @@ type Raw = {
   retailAmount?: number | null;
   currency?: string;
   isAvailable?: boolean;
-  isFavorite?: boolean;
   bonuses?: number;
   badges?: { text?: string }[];
 };
 
 export function normalizeProduct(raw: Raw): Product | null {
-  if (typeof raw.code !== "number") return null;
+  // код приходит числом или строкой из цифр (артикулы витрин: «807200»)
+  const code = typeof raw.code === "number" ? raw.code : typeof raw.code === "string" && /^\d+$/.test(raw.code) ? Number(raw.code) : null;
+  if (code === null) return null;
+
   const club = raw.clubAmount ?? raw.originalAmount ?? raw.retailAmount ?? null;
   return {
-    code: raw.code,
-    name: raw.name ?? `Артикул ${raw.code}`,
+    code,
+    name: raw.name ?? `Артикул ${code}`,
     note: raw.breadCrumbs ?? "",
     image: raw.previewPicture ?? "",
     club,
@@ -47,7 +48,6 @@ export function normalizeProduct(raw: Raw): Product | null {
     available: raw.isAvailable !== false,
     bonuses: raw.bonuses ?? null,
     badges: (raw.badges ?? []).map((b) => b.text ?? "").filter(Boolean).slice(0, 2),
-    favorite: raw.isFavorite === true,
   };
 }
 

@@ -10,13 +10,12 @@ import { MARKET, formatMoney } from "./market";
 import { CLUB_PRICES, SITE_CURRENCY } from "./friendCatalog.generated";
 import { articleFor } from "./siteArticles";
 import { SHOP_SITES } from "./shopSites";
+import { liveSnapshot, useFriendLive, type LiveCatalog } from "./friendLive";
 
 /**
- * Club prices of the project's products on each country's own shop site, in
- * that site's currency, by the catalog's article (Germany's own prices are the
- * catalog's); a guest pays 25% more everywhere. Generated from the shop's own
- * basket (`npm run friend:sync`). The checkout always shows the shop's live
- * totals, these are for browsing.
+ * Цены товаров проекта на витрине страны. Источник — API каталога (friendLive: цена участника, обычная цена,
+ * наличие); пока он не ответил — сгенерированные цены (`npm run friend:sync`, гость платит на 25% больше).
+ * Оформление всегда показывает живые итоги магазина.
  */
 const CLUB = CLUB_PRICES;
 
@@ -49,15 +48,25 @@ export const currencyOf = (country: string): string =>
       SHOP_SITES[country]?.currency ??
       MARKET.currency);
 
-export function pricingFor(country: string): Pricing {
-  const currency = currencyOf(country);
+export function pricingFor(country: string, live: LiveCatalog = liveSnapshot(country)): Pricing {
+  const currency = [...live.values()].find((x) => x.currency)?.currency ?? currencyOf(country);
   const home = country === MARKET.code || !CLUB[country];
-  const sold = (p: Pick<FriendProduct, "coralId">) =>
-    home || articleFor(country, p.coralId) !== null;
-  const club = (p: FriendProduct) =>
-    home ? p.club : sold(p) ? (CLUB[country][p.coralId] ?? 0) : 0;
-  const regular = (p: FriendProduct) =>
-    home ? p.regular : round2(club(p) * 1.25);
+  const fromApi = (p: Pick<FriendProduct, "coralId">) => live.get(p.coralId);
+  const sold = (p: Pick<FriendProduct, "coralId">) => {
+    const l = fromApi(p);
+    if (l) return l.available && l.club !== null;
+    return home || articleFor(country, p.coralId) !== null;
+  };
+  const club = (p: FriendProduct) => {
+    const l = fromApi(p);
+    if (l) return l.available && l.club !== null ? l.club : 0;
+    return home ? p.club : sold(p) ? (CLUB[country][p.coralId] ?? 0) : 0;
+  };
+  const regular = (p: FriendProduct) => {
+    const l = fromApi(p);
+    if (l?.retail) return l.retail;
+    return home ? p.regular : round2(club(p) * 1.25);
+  };
   return {
     country,
     currency,
@@ -91,7 +100,8 @@ export function useFriendPricing(): Pricing {
   const chosen = useFriendCountry();
   const multi = useMultiSite();
   const country = multi ? chosen : MARKET.code;
-  return useMemo(() => pricingFor(country), [country]);
+  const live = useFriendLive(country);
+  return useMemo(() => pricingFor(country, live), [country, live]);
 }
 
 /** The same outside React (analytics, event handlers). */

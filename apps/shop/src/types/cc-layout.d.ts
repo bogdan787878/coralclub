@@ -8,7 +8,7 @@ declare module "react" {
   namespace JSX {
     interface IntrinsicElements {
       "cc-layout": El & { active?: string; parts?: string; links?: string; labels?: string; locale?: string; tabs?: string; header?: string; cart?: string; "cart-key"?: string; "reveal-after"?: string };
-      "cc-cart": El & { links?: string; labels?: string; locale?: string; cart?: string; "cart-key"?: string; currency?: string; "money-locale"?: string };
+      "cc-cart": El & { ref?: React.Ref<HTMLElement>; links?: string; labels?: string; locale?: string; cart?: string; "cart-key"?: string; currency?: string; "money-locale"?: string };
     }
   }
 }

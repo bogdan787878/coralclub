@@ -103,6 +103,15 @@ export class CcCart extends HTMLElement {
   }
 
   connectedCallback() {
+    // свойства, заданные до загрузки cart.js (страница успела раньше), лежат на самом элементе и прячут сеттеры:
+    // забираем их и присваиваем заново
+    for (const key of ["linePrice", "imageUrl"] as const) {
+      if (Object.prototype.hasOwnProperty.call(this, key)) {
+        const value = (this as unknown as Record<string, unknown>)[key];
+        delete (this as unknown as Record<string, unknown>)[key];
+        (this as unknown as Record<string, unknown>)[key] = value;
+      }
+    }
     this.stop = this.store.subscribe(() => this.render());
     this.store.start(this.getAttribute("cart") === "local" ? { kind: "local", key: this.getAttribute("cart-key") || "coralclub.cart" } : { kind: "member" });
     window.dispatchEvent(new Event("coralclub:cart:view")); // аналитика магазина: «view_cart»

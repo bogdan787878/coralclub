@@ -86,8 +86,13 @@ function write(lines: CartLine[]): void {
 let snapshot: CartLine[] = read();
 
 function subscribe(cb: () => void): () => void {
-  // same-tab: write() already refreshed `snapshot`, just notify React
-  const onEvent = () => cb();
+  // same-tab: write() already refreshed `snapshot`; but the shared cart store (Layout, the cart app) writes
+  // localStorage itself and fires the same event — re-read when the lines differ
+  const onEvent = () => {
+    const now = read();
+    if (JSON.stringify(now) !== JSON.stringify(snapshot)) snapshot = now;
+    cb();
+  };
   // cross-tab: re-read from storage, then notify
   const onStorage = (e: StorageEvent) => {
     if (e.key !== storageKey()) return;

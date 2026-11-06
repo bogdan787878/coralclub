@@ -3,19 +3,20 @@
  * приложение (<cc-cart>, пакет @coral/cart) на своей странице: кнопка ведёт туда (links.cart).
  *
  * Атрибуты:
- *   active       текущий раздел (подсвечивается): home | catalog | fav | me
+ *   active       текущий раздел (подсвечивается): home | catalog | cart | me
  *   parts        что рисовать: без атрибута "header tabbar"; "tabbar"; "header"; "" (ничего)
  *   header       вид шапки: "center" (по умолчанию: слово-логотип по центру, значки на десктопе) | "bar" (меню и
  *                логотип слева, слоты и корзина справа, как в «Друге клуба»)
- *   tabs         разделы нижнего меню и значков шапки, по порядку: по умолчанию "home catalog cart fav me"
- *   links        JSON с адресами: {"home","catalog","cart","fav","me"}
- *   labels       JSON с подписями поверх языка: {"home","catalog","cart","fav","me"}
+ *   tabs         разделы нижнего меню и значков шапки, по порядку: по умолчанию "home catalog cart me"
+ *   links        JSON с адресами: {"home","catalog","cart","me"}
+ *   labels       JSON с подписями поверх языка: {"home","catalog","cart","me"}
  *   locale       язык подписей: ru (по умолчанию) | en
  *   cart         чей бейдж: member (корзина участника в API кабинета, по умолчанию) | local (гостевая в браузере)
  *   cart-key     ключ гостевой корзины в localStorage (по умолчанию coralclub.cart)
  *   reveal-after id элемента: нижнее меню появляется, когда страница до него докрутилась
  *
- * Слоты (разметка сервиса со своими стилями): menu, brand, actions — в шапке.
+ * Слоты (разметка сервиса со своими стилями): corner — справа в шапке на всех ширинах (например, флаг страны);
+ * menu, brand, actions — в шапке «полосой».
  * Хранилище корзины общее с приложением корзины (@coral/cart/store), бейдж обновляется сам.
  * Внутрь: window.coralLayout.cart.open() — перейти на страницу корзины; .count(), .refresh(), .add(…).
  */
@@ -24,16 +25,16 @@ import { getStore } from "@coral/cart/store";
 import { ICON } from "./icons";
 import { CSS, PAGE_CSS } from "./styles";
 
-export type Links = { home: string; catalog: string; cart: string; fav: string; me: string };
-type TabKey = "home" | "catalog" | "cart" | "fav" | "me";
+export type Links = { home: string; catalog: string; cart: string; me: string };
+type TabKey = "home" | "catalog" | "cart" | "me";
 const cart = getStore();
 
 /** По умолчанию разделы ведут в кабинет на Next. */
-export const DEFAULT_LINKS: Links = { home: `${PAGES_URL}/lk/`, catalog: `${PAGES_URL}/lk/catalog/`, cart: `${PAGES_URL}/lk/cart/`, fav: `${PAGES_URL}/lk/fav/`, me: `${PAGES_URL}/lk/me/` };
+export const DEFAULT_LINKS: Links = { home: `${PAGES_URL}/lk/`, catalog: `${PAGES_URL}/lk/catalog/`, cart: `${PAGES_URL}/lk/cart/`, me: `${PAGES_URL}/lk/me/` };
 
 const TEXT = {
-  ru: { home: "Главная", catalog: "Каталог", cart: "Корзина", fav: "Избранное", me: "Профиль", menu: "Разделы", cartCount: (n: number) => `Корзина, товаров: ${n}` },
-  en: { home: "Home", catalog: "Catalog", cart: "Cart", fav: "Favorites", me: "Account", menu: "Primary", cartCount: (n: number) => (n ? `Cart, ${n} items` : "Cart") },
+  ru: { home: "Главная", catalog: "Каталог", cart: "Корзина", me: "Профиль", menu: "Разделы", cartCount: (n: number) => `Корзина, товаров: ${n}` },
+  en: { home: "Home", catalog: "Catalog", cart: "Cart", me: "Account", menu: "Primary", cartCount: (n: number) => (n ? `Cart, ${n} items` : "Cart") },
 };
 type Text = (typeof TEXT)["ru"];
 
@@ -72,8 +73,8 @@ export class CcLayout extends HTMLElement {
     return { header: p.includes("header"), tabbar: p.includes("tabbar") };
   }
   private get tabList(): TabKey[] {
-    const list = (this.getAttribute("tabs") || "home catalog cart fav me").split(/\s+/);
-    return list.filter((t): t is TabKey => ["home", "catalog", "cart", "fav", "me"].includes(t));
+    const list = (this.getAttribute("tabs") || "home catalog cart me").split(/\s+/);
+    return list.filter((t): t is TabKey => ["home", "catalog", "cart", "me"].includes(t));
   }
   connectedCallback() {
     if (!document.getElementById("cc-layout-page")) {
@@ -129,7 +130,7 @@ export class CcLayout extends HTMLElement {
     // корзина — отдельная страница (приложение корзины): кнопка просто ведёт туда
     const cartBtn = (cls: string, inner: string) =>
       `<a class="${cls}${active === "cart" ? " on" : ""}" href="${esc(L.cart)}" aria-label="${esc(T.cartCount(n))}"${active === "cart" ? ' aria-current="page"' : ""}>${inner}</a>`;
-    const icon = { home: ICON.home, catalog: ICON.catalog, cart: ICON.bag, fav: ICON.heart, me: ICON.user };
+    const icon = { home: ICON.home, catalog: ICON.catalog, cart: ICON.bag, me: ICON.user };
     const tab = (key: TabKey) =>
       key === "cart"
         ? cartBtn("tab", `<span class="ico">${ICON.bag}${badge}</span><span>${esc(T.cart)}</span>`)
@@ -146,7 +147,7 @@ export class CcLayout extends HTMLElement {
           </header>`
         : `<header class="head">
             <a class="brand" href="${esc(L.home)}"><slot name="brand">coralclub</slot></a>
-            <nav class="desk" aria-label="${esc(T.menu)}"><slot name="actions"></slot>${this.tabList.map(desk).join("")}</nav>
+            <div class="right"><slot name="corner"></slot><nav class="desk" aria-label="${esc(T.menu)}"><slot name="actions"></slot>${this.tabList.map(desk).join("")}</nav></div>
           </header>`;
     this.root.innerHTML = `<style>${CSS}</style>
       ${header ? head : ""}

@@ -31,6 +31,7 @@ svg { display: block; }
 .head { position: sticky; top: 0; z-index: 50; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px;
   padding: 16px var(--page-padding-inline, 16px); background: var(--c-surface); }
 .brand { justify-self: start; font-size: 1.375rem; line-height: 1.5rem; font-weight: var(--fw); letter-spacing: -.01em; }
+.right { justify-self: end; display: flex; align-items: center; gap: 16px; }
 .desk { display: none; }
 .icon { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; transition: opacity .15s var(--ease); }
 .icon:hover { opacity: .7; }
@@ -39,10 +40,11 @@ svg { display: block; }
 @media (min-width: 768px) {
   .head { grid-template-columns: 1fr auto 1fr; }
   .brand { grid-column: 2; justify-self: center; }
+  .right { grid-column: 3; }
 }
 @media (min-width: 1024px) {
   .brand { font-size: 1.5rem; }
-  .desk { grid-column: 3; justify-self: end; display: flex; align-items: center; gap: 24px; }
+  .desk { display: flex; align-items: center; gap: 24px; }
 }
 /* шапка «полосой» («Друг клуба»): меню и логотип слева, слоты сервиса и корзина справа, на всех ширинах */
 .head.bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px var(--page-padding-inline, 16px); }

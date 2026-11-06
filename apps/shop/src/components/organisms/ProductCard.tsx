@@ -78,8 +78,7 @@ export type ProductCardProps = {
   onSetQty?: (qty: number) => void;
   /** Fill the container (for a grid) instead of the fixed 150px carousel width. */
   fluid?: boolean;
-  /** Сердечко «в избранное» в углу фото (кабинет участника). Нет — нет сердечка. */
-  favorite?: { on: boolean; onToggle: () => void };
+
 };
 
 function ChevronIcon({ direction }: { direction: "left" | "right" }) {
@@ -137,7 +136,6 @@ export function ProductCard({
   cartQty = 0,
   onSetQty,
   fluid = false,
-  favorite,
 }: ProductCardProps) {
   const [active, setActive] = useState(0);
   const [acted, setActed] = useState(false);
@@ -161,17 +159,6 @@ export function ProductCard({
   return (
     <article className={`${styles.card}${fluid ? ` ${styles.fluid}` : ""}`}>
       <div className={styles.media}>
-        {favorite && (
-          <button
-            type="button"
-            className={`${styles.fav}${favorite.on ? ` ${styles.favOn}` : ""}`}
-            aria-pressed={favorite.on}
-            aria-label={favorite.on ? "Убрать из избранного" : "В избранное"}
-            onClick={favorite.onToggle}
-          >
-            <Icon name="heart" size={20} />
-          </button>
-        )}
         {badge && (
           <span className={styles.badge}>
             <span className={styles.badgeCount}>{badge.count}</span>
