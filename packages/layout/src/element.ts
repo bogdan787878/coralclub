@@ -19,7 +19,7 @@
  * Хранилище корзины общее с приложением корзины (@coral/cart/store), бейдж обновляется сам.
  * Внутрь: window.coralLayout.cart.open() — перейти на страницу корзины; .count(), .refresh(), .add(…).
  */
-import { LEGACY_LK_URL, PAGES_URL } from "@coral/api";
+import { PAGES_URL } from "@coral/api";
 import { getStore } from "@coral/cart/store";
 import { ICON } from "./icons";
 import { CSS, PAGE_CSS } from "./styles";
@@ -28,8 +28,8 @@ export type Links = { home: string; catalog: string; cart: string; fav: string; 
 type TabKey = "home" | "catalog" | "cart" | "fav" | "me";
 const cart = getStore();
 
-/** По умолчанию: главная, корзина и профиль — кабинет на Next; каталог и избранное — пока кабинет на чистом JS. */
-export const DEFAULT_LINKS: Links = { home: `${PAGES_URL}/lk/`, catalog: `${LEGACY_LK_URL}#/catalog`, cart: `${PAGES_URL}/lk/cart/`, fav: `${LEGACY_LK_URL}#/fav`, me: `${PAGES_URL}/lk/me/` };
+/** По умолчанию разделы ведут в кабинет на Next. */
+export const DEFAULT_LINKS: Links = { home: `${PAGES_URL}/lk/`, catalog: `${PAGES_URL}/lk/catalog/`, cart: `${PAGES_URL}/lk/cart/`, fav: `${PAGES_URL}/lk/fav/`, me: `${PAGES_URL}/lk/me/` };
 
 const TEXT = {
   ru: { home: "Главная", catalog: "Каталог", cart: "Корзина", fav: "Избранное", me: "Профиль", menu: "Разделы", cartCount: (n: number) => `Корзина, товаров: ${n}` },

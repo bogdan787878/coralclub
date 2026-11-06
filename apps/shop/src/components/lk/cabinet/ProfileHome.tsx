@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { LEGACY_LK_URL } from "@coral/api";
 import { Icon } from "@/components/ui";
 import { fio, initials, money, points } from "@/lib/lk/cabinet/format";
 import { BonusSheet, InviteSheet, PayoutSheet, PointsSheet } from "./Actions";
@@ -104,8 +103,7 @@ export function ProfileHome() {
             <span>Все заказы и их статусы</span>
           </span>
         </Link>
-        {/* структура (дерево команды) пока в кабинете на чистом JS: переносится следующим шагом */}
-        <a className="h-link" href={`${LEGACY_LK_URL}#/structure`}>
+        <Link className="h-link" href="/lk/structure/">
           <span className="h-link-ic" aria-hidden="true">
             <Icon name="users" />
           </span>
@@ -113,7 +111,7 @@ export function ProfileHome() {
             <b>Моя структура</b>
             <span>Кто в вашей команде</span>
           </span>
-        </a>
+        </Link>
         <Metrics cab={cab} />
         <TasksBlock cab={cab} />
       </div>

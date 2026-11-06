@@ -393,3 +393,26 @@
   line-height: 0.6875rem;
   font-weight: var(--font-weight-medium);
 }
+
+/* сердечко «в избранное» (кабинет участника): в правом верхнем углу фото */
+.fav {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 3;
+  width: 36px;
+  height: 36px;
+  display: inline-grid;
+  place-items: center;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.favOn {
+  color: #e5484d;
+}
+.favOn svg {
+  fill: currentColor;
+}

@@ -5,6 +5,7 @@ import { getStore } from "@coral/cart/store";
 import { Accent, Container, Heading, Section } from "@/components/ui";
 import { Carousel, CommunityReels, Editorial, Hero, ProductCard } from "@/components/organisms";
 import { FriendAdvisors } from "@/components/friend/FriendAdvisors";
+import { ShopSkeleton } from "@/components/lk/LkShop";
 import { HOME_CONTENT, type EditorialItem } from "@/content/home";
 import { useCart } from "@/lib/cart";
 import { fetchProducts, rub, type LkProduct } from "@/lib/lk/catalog";
@@ -55,11 +56,7 @@ function Cards({ codes, products, label, failed, onRetry }: { codes: number[]; p
   if (!products) {
     return (
       <Container>
-        <div className={styles.lead} role="status" aria-label="Загружаем товары" style={{ display: "grid", gap: 12 }}>
-          {[0, 1, 2].map((i) => (
-            <i key={i} className="sk" style={{ display: "block", height: 160, borderRadius: 16 }} />
-          ))}
-        </div>
+        <ShopSkeleton n={2} />
       </Container>
     );
   }

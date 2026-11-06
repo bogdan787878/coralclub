@@ -1,0 +1,89 @@
+/* Каталог и избранное участника: сетка карточек «Друга клуба» */
+.page {
+  padding: var(--space-16) var(--page-padding-inline) var(--space-48);
+}
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+.title {
+  margin: var(--space-8) 0 var(--space-16);
+  font-family: var(--font-sans);
+  font-size: 1.75rem;
+  line-height: 2rem;
+  font-weight: var(--font-weight-medium);
+}
+.chips {
+  display: flex;
+  gap: var(--space-8);
+  overflow-x: auto;
+  margin: 0 calc(var(--page-padding-inline) * -1) var(--space-16);
+  padding: 0 var(--page-padding-inline);
+  scrollbar-width: none;
+}
+.chip {
+  flex: none;
+  min-height: 36px;
+  padding: 0 var(--space-16);
+  border: 1px solid var(--color-neutral-30);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+.chipOn {
+  background: var(--color-action);
+  border-color: var(--color-action);
+  color: #fff;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-16) var(--space-12);
+}
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.note {
+  margin: 0 0 var(--space-16);
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+}
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-16);
+  padding: var(--space-48) var(--space-16);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+}
+.empty a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sk {
+  display: block;
+  aspect-ratio: 3 / 4;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #e8eeed 25%, #f6f9f8 50%, #e8eeed 75%) 0 0 / 200% 100%;
+  animation: lk-shimmer 1.4s linear infinite;
+}
+@keyframes lk-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
