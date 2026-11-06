@@ -7,6 +7,8 @@ import { cc4, logout } from "@coral/api";
 import { Icon } from "@/components/ui";
 import { count, dmy, fio, money, points, problem, titleCase } from "@/lib/lk/cabinet/format";
 import { RANKS, rankRu } from "@/lib/lk/cabinet/ranks";
+import { useLkCountry } from "@/lib/lk/country";
+import { openBank } from "@/lib/lk/pay";
 import { PaySheet, PayoutSheet, PointsSheet, StatementSheet } from "./Actions";
 import { Avatar } from "./ProfileHome";
 import { SkRows, useSheet } from "./Sheet";
@@ -236,6 +238,29 @@ export function TransferPage() {
 /* ---------- история заказов ---------- */
 type Order = { id: number | string; status?: string; createdAt?: string; productsCount?: number; isPersonal?: boolean; isTransfer?: boolean; isGroup?: boolean; bonus?: { total?: number | string }; totalPrice?: { amount?: number | string; currency?: string } };
 const STATUS: Record<string, [string, string]> = { PAID: ["Оплачен", "ok"], UNPAID: ["Не оплачен", "wait"], CANCELED: ["Отменён", "bad"], CANCELLED: ["Отменён", "bad"], PARTIALLY_PAID: ["Оплачен частично", "wait"] };
+/** «Оплатить» у неоплаченного заказа: тот же переход к банку, что после оформления. */
+function PayButton({ id }: { id: string }) {
+  const country = useLkCountry();
+  const [state, setState] = useState<{ busy: boolean; error: string }>({ busy: false, error: "" });
+  return (
+    <>
+      <button
+        type="button"
+        className="btn small"
+        disabled={state.busy}
+        onClick={async () => {
+          setState({ busy: true, error: "" });
+          const why = await openBank(id, { country });
+          setState({ busy: false, error: why });
+        }}
+      >
+        {state.busy ? "Открываем банк…" : "Оплатить"}
+      </button>
+      {state.error && <span className="note bad">Не удалось открыть оплату: {state.error}</span>}
+    </>
+  );
+}
+
 export function OrdersPage() {
   const [orders, setOrders] = useState<{ items: Order[] } | { error: string } | null>(null);
   const [shown, setShown] = useState(5);
@@ -293,6 +318,7 @@ export function OrdersPage() {
                       <div className="h-side">
                         <span className="h-sum">{o.totalPrice ? money(Number(o.totalPrice.amount), o.totalPrice.currency || currency) : "—"}</span>
                         <em className={`pill ${kind}`}>{label}</em>
+                        {o.status === "UNPAID" && <PayButton id={String(o.id)} />}
                       </div>
                     </li>
                   );

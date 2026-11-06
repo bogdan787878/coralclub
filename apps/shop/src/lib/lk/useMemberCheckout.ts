@@ -24,6 +24,7 @@ import {
 import { cc4 } from "./session";
 import { rub } from "./catalog";
 import { announceCartChanged } from "./memberCart";
+import { openBank } from "./pay";
 import { rememberLkCountries, setLkCountry, useLkCountries, useLkCountry } from "./country";
 
 const SHAKE_MS = 600;
@@ -473,30 +474,7 @@ export function useMemberCheckout() {
     }
   }
   async function findBank(id: string): Promise<string> {
-    const o = await cc4<{ data?: { paymentLink?: string } }>(`/personal-new/shop/orders/${id}`);
-    const raw = o.json?.data?.paymentLink;
-    if (!raw) return "у заказа нет ссылки оплаты";
-    const u = new URL(raw);
-    const sid = u.searchParams.get("session_id");
-    const short = country === "RU" || country.startsWith("BY");
-    const rel = short ? `/order/payment/${id}/?new_checkout=1` : `/order/payment/${id}/${paymentId}/?new_checkout=1`;
-    const link = sid ? `${u.origin}/redirect.php?session_id=${sid}&url=${encodeURIComponent(rel)}` : raw;
-    let why = "";
-    try {
-      // шлюз проходит страницы магазина до банка (несколько запросов); дольше 40 секунд не ждём
-      const r = await shopFetch("/pay", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ link, method: paymentId }), signal: AbortSignal.timeout(40000) });
-      const j = (await r.json().catch(() => null)) as { target?: { url?: string; method?: string; fields?: Record<string, string> }; error?: string } | null;
-      why = j?.error ?? (r.ok ? "" : `посредник ответил ${r.status}`);
-      const t = j?.target;
-      const target = t?.url ? new URL(t.url) : null;
-      if (target && target.protocol === "https:" && !/(^|\.)(coral\.club|coralclub\.[a-z]+)$/i.test(target.hostname)) {
-        submitToGateway(target.href, t?.method === "POST" ? "POST" : "GET", t?.fields ?? {});
-        return "";
-      }
-    } catch (e) {
-      why = (e as Error)?.name === "TimeoutError" ? "шлюз не ответил вовремя" : "нет связи со шлюзом";
-    }
-    return why || "банк не найден";
+    return openBank(id, { country, paymentId });
   }
 
   // the only place that creates a real order: runs on the member's click
@@ -608,21 +586,3 @@ function savingOf(l: CartLine): number {
 }
 
 /** Go to the bank: a plain visit, or the form the shop would have posted. */
-function submitToGateway(url: string, method: "GET" | "POST", fields: Record<string, string>): void {
-  if (method === "GET" && !Object.keys(fields).length) {
-    window.location.assign(url);
-    return;
-  }
-  const f = document.createElement("form");
-  f.method = method;
-  f.action = url;
-  for (const [name, value] of Object.entries(fields)) {
-    const i = document.createElement("input");
-    i.type = "hidden";
-    i.name = name;
-    i.value = value;
-    f.appendChild(i);
-  }
-  document.body.appendChild(f);
-  f.submit();
-}
