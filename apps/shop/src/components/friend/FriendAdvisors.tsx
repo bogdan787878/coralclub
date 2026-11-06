@@ -38,26 +38,61 @@ const ADVISORS: Advisor[] = [
   },
 ];
 
+/** Те же люди по-русски (главная участника в кабинете). */
+const ADVISORS_RU: Advisor[] = [
+  {
+    name: "Тори Паркер",
+    degrees: "PhD, MS",
+    role: "Нутрициолог · разработчик продуктов",
+    bio: "PhD по питанию Иллинойсского университета в Урбане-Шампейне: технология и химия пищевых продуктов, питание человека. Пять лет преподавала в университете и пятнадцать работает в индустрии: более 100 разработанных продуктов, 30+ научных статей, патент.",
+    photo: "/images/advisors/card/tori-parker.webp",
+  },
+  {
+    name: "Ральф Ягер",
+    degrees: "PhD, MBA, FISSN",
+    role: "Биоорганический химик · спортивное питание",
+    bio: "PhD по органической химии (Боннский университет), постдок в Калтехе, MBA. Был вице-президентом международной компании ингредиентов, сооснователь Increnovo. Ведёт клинические исследования спортивного питания, здоровья мозга, суставов, сердца и кишечника; эксперт по пробиотикам, пребиотикам и постбиотикам.",
+    photo: "/images/advisors/card/ralph-jager.webp",
+  },
+  {
+    name: "Майкл Лила",
+    degrees: "PhD, MSc, MBA",
+    role: "Инженер-химик · ингредиенты и стандарты",
+    bio: "PhD по химической технологии (Висконсинский университет в Мадисоне), 30+ научных публикаций и несколько патентов. Участвовал в разработке технических стандартов Американской ассоциации растительных продуктов. Знает всю цепочку: от сырья до клинических исследований и готового продукта.",
+    photo: "/images/advisors/card/michael-lila.webp",
+  },
+];
+
 /**
  * The Scientific Advisory Board for the friend project: one card per member —
- * photo, name, degrees, a one-line role and a short bio.
+ * photo, name, degrees, a one-line role and a short bio. `lang="ru"` — для главной участника.
  */
-export function FriendAdvisors() {
+export function FriendAdvisors({ lang = "en" }: { lang?: "en" | "ru" } = {}) {
+  const ru = lang === "ru";
+  const list = ru ? ADVISORS_RU : ADVISORS;
   return (
     <Section tone="default" className={styles.section}>
       <Container className={styles.container}>
         <h2 className={styles.title}>
-          Backed by a <Accent>Scientific Advisory Board</Accent>
+          {ru ? (
+            <>
+              За продуктами — <Accent>научный совет</Accent>
+            </>
+          ) : (
+            <>
+              Backed by a <Accent>Scientific Advisory Board</Accent>
+            </>
+          )}
         </h2>
 
         <ul className={styles.list}>
-          {ADVISORS.map((a) => (
+          {list.map((a) => (
             <li key={a.name} className={styles.card}>
               <div className={styles.head}>
                 <Image
                   className={styles.photo}
                   src={asset(a.photo)}
-                  alt={`Portrait of ${a.name}`}
+                  alt={ru ? `Портрет: ${a.name}` : `Portrait of ${a.name}`}
                   width={224}
                   height={256}
                 />

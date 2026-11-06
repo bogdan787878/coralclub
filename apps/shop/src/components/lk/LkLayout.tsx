@@ -10,8 +10,8 @@ import { asset } from "@/lib/asset";
  */
 export function LkLayout() {
   const path = usePathname() ?? "";
-  const links = JSON.stringify({ cart: asset("/lk/cart/") });
-  const active = path.startsWith("/lk/cart") ? "cart" : path.startsWith("/lk/checkout") ? "" : "me";
+  const links = JSON.stringify({ home: asset("/lk/"), cart: asset("/lk/cart/") });
+  const active = /^\/lk\/?$/.test(path) ? "home" : path.startsWith("/lk/cart") ? "cart" : path.startsWith("/lk/checkout") ? "" : "me";
   return (
     <>
       <Script src={asset("/layout/layout.js")} strategy="afterInteractive" />
