@@ -1,23 +1,19 @@
 "use client";
 
-import { useEffect } from "react";
-import Link from "next/link";
+import Script from "next/script";
+import { asset } from "@/lib/asset";
+import { LOGIN_URL } from "@/lib/lk/config";
 
-/** Корзина живёт в общем Layout: страница просто открывает её (адрес /lk/cart/ остаётся рабочим). */
+/**
+ * Корзина участника: отдельное приложение корзины (<cc-cart>, пакет @coral/cart), подключённое по адресу.
+ * Оформление — следующий отдельный шаг (/lk/checkout/).
+ */
 export default function LkCartPage() {
-  useEffect(() => {
-    let alive = true;
-    customElements.whenDefined("cc-layout").then(() => alive && window.coralLayout?.cart.open());
-    return () => {
-      alive = false;
-    };
-  }, []);
+  const links = JSON.stringify({ checkout: asset("/lk/checkout/"), shop: `${LOGIN_URL}#/catalog`, login: LOGIN_URL });
   return (
-    <main style={{ padding: "32px 16px", fontFamily: "var(--font-sans)" }}>
-      <p>Корзина открыта в общем меню.</p>
-      <p>
-        <Link href="/lk/checkout/">Перейти к оформлению</Link>
-      </p>
-    </main>
+    <>
+      <Script src={asset("/cart/cart.js")} strategy="afterInteractive" />
+      <cc-cart links={links} />
+    </>
   );
 }

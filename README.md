@@ -6,7 +6,8 @@
 apps/shop          # магазин на Next: витрина, «Друг клуба», лендинги, кабинет /lk (бывший корень репозитория)
 packages/api       # @coral/api: API кабинета Coral Club, каталог, корзина; @coral/api/shop: чек-аут магазина и клиент шлюза
 packages/ui        # @coral/ui: токены (tokens.css) и UI kit на React (CSS Modules)
-packages/layout    # @coral/layout: <cc-layout> — шапка, меню и корзина, подключается по адресу
+packages/layout    # @coral/layout: <cc-layout> — шапка и меню с бейджем корзины, подключается по адресу
+packages/cart      # @coral/cart: <cc-cart> — корзина отдельным приложением (своя страница), подключается по адресу
 packages/gateway   # @coral/gateway: шлюз чек-аута (Cloudflare Worker), деплой: cd packages/gateway && npx wrangler deploy
 ```
 

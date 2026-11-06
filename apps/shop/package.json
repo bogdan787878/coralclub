@@ -7,14 +7,14 @@
     "gen": "node scripts/gen-products.mjs",
     "images:sync": "node scripts/sync-images.mjs",
     "friend:sync": "node scripts/sync-friend-catalog.mjs",
-    "layout": "npm run build -w @coral/layout && node -e \"const fs=require('fs');fs.mkdirSync('public/layout',{recursive:true});fs.copyFileSync(require.resolve('@coral/layout/dist/layout.js'),'public/layout/layout.js')\"",
-    "predev": "npm run gen && npm run layout",
+    "predev": "npm run gen && npm run mfe",
     "dev": "next dev",
-    "prebuild": "npm run gen && npm run layout",
+    "prebuild": "npm run gen && npm run mfe",
     "build": "next build",
     "start": "next start",
     "dev:proxy": "node scripts/dev-proxy.mjs",
-    "build:labspace": "node scripts/build-labspace.mjs"
+    "build:labspace": "node scripts/build-labspace.mjs",
+    "mfe": "npm run build -w @coral/cart -w @coral/layout && node scripts/copy-mfe.mjs"
   },
   "dependencies": {
     "@coral/api": "0.1.0",
@@ -22,7 +22,8 @@
     "next": "16.3.3",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "@coral/ui": "0.1.0"
+    "@coral/ui": "0.1.0",
+    "@coral/cart": "0.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",

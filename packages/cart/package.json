@@ -1,0 +1,18 @@
+{
+  "name": "@coral/cart",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Корзина Coral Club как отдельное приложение: веб-компонент <cc-cart> (страница корзины) и общее хранилище корзины (корзина участника в API кабинета или гостевая в браузере). Собирается в dist/cart.js.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./store": "./src/shared.ts",
+    "./dist/cart.js": "./dist/cart.js"
+  },
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "@coral/api": "0.1.0"
+  }
+}

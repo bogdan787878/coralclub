@@ -22,9 +22,9 @@ const eslintConfig = defineConfig([
       ],
     },
   },
-  // API, Layout и шлюз без React: их подключают и сервисы на чистом JS (UI kit — пакет на React)
+  // API, корзина, Layout и шлюз без React: их подключают и сервисы на чистом JS (UI kit — пакет на React)
   {
-    files: ["packages/{api,layout,gateway}/**/*.{ts,tsx,js,mjs}"],
+    files: ["packages/{api,cart,layout,gateway}/**/*.{ts,tsx,js,mjs}"],
     rules: {
       "no-restricted-imports": [
         "error",
@@ -57,6 +57,8 @@ const eslintConfig = defineConfig([
     "apps/*/dist/**",
     "apps/*/next-env.d.ts",
     "packages/*/dist/**",
+    "apps/shop/public/layout/**",
+    "apps/shop/public/cart/**",
   ]),
 ]);
 

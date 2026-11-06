@@ -1,24 +1,27 @@
 /**
  * Точка входа Layout. Собранный файл (layout.js) подключается сервисами по адресу:
  *   <script src="/coralclub/layout/layout.js" defer></script>
- *   <cc-layout active="me" links='{"checkout":"#/checkout"}'></cc-layout>
+ *   <cc-layout active="me" links='{"cart":"#/cart"}'></cc-layout>
+ * Корзина — отдельное приложение (cart.js, <cc-cart>) на странице links.cart.
  */
 import { configureApi } from "@coral/api";
-import * as cart from "./cart";
-import { CcLayout, listenKeys } from "./element";
+import { getStore } from "@coral/cart/store";
+import { CcLayout, cartPage } from "./element";
 
 declare global {
   interface Window {
-    coralLayout?: { version: string; cart: { add: typeof cart.add; open: typeof cart.open; close: typeof cart.close; count: typeof cart.count; refresh: () => Promise<void> } };
+    coralLayout?: { version: string; cart: { open: () => void; count: () => number; refresh: () => Promise<void>; add: (item: number | string | object, qty?: number) => Promise<void> } };
   }
 }
 
-export const VERSION = "1.1.0";
+export const VERSION = "2.0.0";
 
 if (typeof window !== "undefined" && !window.customElements.get("cc-layout")) {
-  // адрес сборки для разработки: на localhost можно подменить API ключами sessionStorage (см. @coral/api config)
+  // на localhost можно подменить API ключами sessionStorage (см. @coral/api config)
   configureApi({ production: !/^(localhost|127\.0\.0\.1)$/.test(location.hostname) });
-  window.coralLayout = { version: VERSION, cart: { add: cart.add, open: cart.open, close: cart.close, count: cart.count, refresh: () => cart.refresh(true) } };
+  const store = getStore();
+  const openCart = () => window.location.assign(cartPage());
+  window.coralLayout = { version: VERSION, cart: { open: openCart, count: store.count, refresh: () => store.refresh(true), add: (item, qty) => store.add(item as never, qty) } };
+  window.addEventListener("coralclub:cart:open", openCart); // openCart() приложения магазина ведёт на страницу корзины
   window.customElements.define("cc-layout", CcLayout);
-  listenKeys();
 }

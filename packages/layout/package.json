@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Layout Coral Club: шапка, меню и корзина одним веб-компонентом <cc-layout>. Сервисы подключают собранный layout.js по адресу.",
+  "description": "Layout Coral Club: шапка и нижнее меню (с кнопкой корзины и бейджем) одним веб-компонентом <cc-layout>. Сервисы подключают собранный layout.js по адресу.",
   "exports": {
     ".": "./src/index.ts",
     "./dist/layout.js": "./dist/layout.js"
   },
   "dependencies": {
-    "@coral/api": "0.1.0"
+    "@coral/api": "0.1.0",
+    "@coral/cart": "0.1.0"
   },
   "scripts": {
     "build": "node build.mjs"

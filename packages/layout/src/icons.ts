@@ -9,8 +9,4 @@ export const ICON = {
   cart: svg(`<path d="M3 4h2.4l2 10.2h9.8l2-7.7H6.6M9.5 19.2h.01M16.5 19.2h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`),
   heart: svg(`<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" ${s}/>`),
   user: svg(`<circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.7"/><path d="M4.5 20c1.5-4 4.5-6 7.5-6s6 2 7.5 6" ${s}/>`),
-  close: svg(`<path d="M6 6l12 12M18 6L6 18" ${s}/>`),
-  minus: svg(`<path d="M5 12h14" ${s}/>`),
-  plus: svg(`<path d="M12 5v14M5 12h14" ${s}/>`),
-  trash: svg(`<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" ${s}/>`),
 };

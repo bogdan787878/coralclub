@@ -54,3 +54,4 @@ dist/
 # Layout: собирается из packages/layout (dist/) и копируется в public магазина перед dev/build
 /apps/shop/public/layout/
 /packages/*/dist/
+/apps/shop/public/cart/

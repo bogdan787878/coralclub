@@ -1,12 +1,14 @@
 /**
- * Корзина принадлежит Layout: одна на все сервисы, два источника правды.
+ * Хранилище корзины: одно на все сервисы, два источника правды. Им пользуются приложение корзины (<cc-cart>,
+ * отдельная страница) и Layout (бейдж в меню). Оба собраны отдельно, но на странице хранилище одно: первый, кто его
+ * создал, кладёт его в window.__ccCartStore (см. index.ts).
  *
  *  - member: корзина участника в API кабинета (она же корзина магазина на сервере); здесь только её копия.
  *  - local:  гостевая корзина в localStorage (витрина, «Друг клуба», лендинги). Формат и события те же, что у
  *            корзины приложения магазина (lib/cart.ts): строки CartLine под ключом, событие `coralclub:cart` после
- *            записи, `coralclub:cart:change` для аналитики, `coralclub:cart:open` открывает корзину.
+ *            записи, `coralclub:cart:change` для аналитики.
  *
- * Сервисы меняют корзину через window.coralLayout.cart или сами (локальная корзина: lib/cart.ts) и сообщают об этом;
+ * Сервисы меняют корзину через window.coralCart или сами (локальная корзина: lib/cart.ts) и сообщают об этом;
  * Layout перечитывает источник. Другие вкладки узнают через BroadcastChannel("cc") и событие storage.
  */
 import { addToBasket, decreaseInBasket, getToken, money, readBasket, removeFromBasket, type BasketLine } from "@coral/api";
@@ -30,11 +32,11 @@ export type ViewLine = {
   raw: RawLine;
 };
 
-export type CartState = { status: "guest" | "loading" | "ready" | "error"; lines: ViewLine[]; open: boolean; busy: boolean };
+export type CartState = { status: "guest" | "loading" | "ready" | "error"; lines: ViewLine[]; busy: boolean };
 export type Source = { kind: "member" } | { kind: "local"; key: string };
 
 let source: Source = { kind: "member" };
-let state: CartState = { status: "loading", lines: [], open: false, busy: false };
+let state: CartState = { status: "loading", lines: [], busy: false };
 const listeners = new Set<(s: CartState) => void>();
 const channel = typeof BroadcastChannel === "undefined" ? null : new BroadcastChannel("cc");
 
@@ -186,15 +188,6 @@ export function setQty(id: string, qty: number): Promise<void> {
 export function remove(id: string): Promise<void> {
   return setQty(id, 0);
 }
-export function open(): void {
-  set({ open: true });
-  window.dispatchEvent(new Event("coralclub:cart:view")); // аналитика магазина: «view_cart»
-  if (state.status !== "guest") void refresh();
-}
-export function close(): void {
-  set({ open: false });
-}
-
 let started = false;
 /** Запуск один раз на страницу: источник задаёт первый <cc-layout> (атрибуты cart и cart-key). */
 export function start(next: Source): void {
@@ -205,7 +198,6 @@ export function start(next: Source): void {
   channel?.addEventListener("message", (e) => e.data?.type === "cart" && void refresh());
   window.addEventListener("cc:cart:refresh", () => void refresh(true));
   window.addEventListener("cc:auth:changed", () => void refresh(true));
-  window.addEventListener("coralclub:cart:open", () => open()); // openCart() приложения магазина
   if (next.kind === "local") {
     window.addEventListener("coralclub:cart", () => reloadLocal(false));
     window.addEventListener("storage", (e) => e.key === next.key && reloadLocal(false));
