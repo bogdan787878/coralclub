@@ -42,8 +42,15 @@
 
 .priceRow {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--space-8);
+  column-gap: var(--space-8);
+  row-gap: 0;
+}
+/* Длинная цена (рубли с копейками) переносит старую цену на строку ниже, а не наезжает на кнопку. */
+.now,
+.was {
+  white-space: nowrap;
 }
 
 .now {
