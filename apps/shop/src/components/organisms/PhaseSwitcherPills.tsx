@@ -8,6 +8,8 @@ export type PhaseSwitcherPillsProps = {
   onChange: (id: string) => void;
   /** Accessible name of the tab list (default English). */
   label?: string;
+  /** Короткие подписи фаз для пилюль (по умолчанию английские: personalization → «Individual»). */
+  short?: Record<string, string>;
 };
 
 /** Shorter label for the compact pill — everywhere else on the site
@@ -26,6 +28,7 @@ export function PhaseSwitcherPills({
   value,
   onChange,
   label,
+  short = SHORT_LABEL,
 }: PhaseSwitcherPillsProps) {
   return (
     <div
@@ -44,7 +47,7 @@ export function PhaseSwitcherPills({
             className={`${styles.tab} ${selected ? styles.tabOn : ""}`}
             onClick={() => onChange(phase.id)}
           >
-            {SHORT_LABEL[phase.id] ?? phase.name}
+            {short[phase.id] ?? phase.name}
           </button>
         );
       })}

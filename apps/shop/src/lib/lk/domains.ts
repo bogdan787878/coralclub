@@ -26,5 +26,6 @@ export const LK_DOMAINS: LkDomain[] = [
 /** Фазы главной (Health Concept): гидратация и перезагрузка — свои разделы; персонализация — 12 доменов. */
 export const LK_PHASE_SECTIONS = {
   hydration: ["hydration"],
-  restart: ["detox"],
+  // перезагрузка — шаги витрины по порядку: Корал Детокс Плюс → Парашилд → Программа Коло-Вада Плюс
+  restart: ["coral-detox-plus", "parashield", "programm-colo-vada-plus"],
 } as const;

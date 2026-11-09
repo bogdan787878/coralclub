@@ -1,6 +1,6 @@
-import { LkHome } from "@/components/lk/LkHome";
+import { LkHomeView } from "@/components/lk/catalog/LkHomeView";
 
-/** Главная участника: интерфейс главной «Друга клуба» с товарами и ценами участника. */
+/** Главная участника: главная витрины (фазы, домены, статьи) с товарами и ценами из API каталога. */
 export default function LkHomePage() {
-  return <LkHome />;
+  return <LkHomeView />;
 }
