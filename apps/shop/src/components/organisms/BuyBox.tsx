@@ -53,6 +53,9 @@ export type BuyBoxProps = {
   tagByWas?: boolean;
   /** The action keeps one size before and after the product is added. */
   steady?: boolean;
+  /** Своя корзина вместо локальной (кабинет: корзина участника в API). Нет — addItem/setQty из lib/cart. */
+  onAdd?: () => void;
+  onSetQty?: (next: number) => void;
 };
 
 /**
@@ -69,6 +72,8 @@ export function BuyBox({
   top = false,
   tagByWas = false,
   steady = false,
+  onAdd,
+  onSetQty,
 }: BuyBoxProps) {
   const cart = useCart();
   const [acted, setActed] = useState(false);
@@ -82,6 +87,7 @@ export function BuyBox({
 
   const add = () => {
     setActed(true);
+    if (onAdd) return onAdd();
     addItem({
       coralId: product.coralId as string,
       slug: product.slug,
@@ -93,6 +99,7 @@ export function BuyBox({
 
   const bump = (next: number) => {
     setActed(true);
+    if (onSetQty) return onSetQty(next);
     setQty(product.coralId as string, next);
   };
 

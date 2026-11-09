@@ -11,7 +11,7 @@ import { asset } from "@/lib/asset";
 export function LkLayout() {
   const path = usePathname() ?? "";
   const links = JSON.stringify({ home: asset("/lk/"), catalog: asset("/lk/catalog/"), cart: asset("/lk/cart/"), me: asset("/lk/me/") });
-  const active = /^\/lk\/?$/.test(path) ? "home" : path.startsWith("/lk/catalog") ? "catalog" : path.startsWith("/lk/cart") ? "cart" : path.startsWith("/lk/checkout") ? "" : "me";
+  const active = /^\/lk\/?$/.test(path) ? "home" : path.startsWith("/lk/catalog") || path.startsWith("/lk/product") ? "catalog" : path.startsWith("/lk/cart") ? "cart" : path.startsWith("/lk/checkout") ? "" : "me";
   // внутренние страницы кабинета (кошелёк, заказы, профиль…) — без нижнего меню, как в кабинете на чистом JS
   const inner = /^\/lk\/(wallet|transfer|orders|profile|structure|checkout)/.test(path);
   return (

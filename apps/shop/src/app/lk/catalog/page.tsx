@@ -1,5 +1,5 @@
-import { CatalogPage } from "@/components/lk/LkShop";
+import { LkCatalog } from "@/components/lk/catalog/LkCatalog";
 
 export default function Page() {
-  return <CatalogPage />;
+  return <LkCatalog />;
 }
