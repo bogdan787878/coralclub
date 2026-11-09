@@ -28,6 +28,17 @@ const saveSid = (sid: string | null): void => {
   }
 };
 
+/** Ошибка шлюза с HTTP-статусом: 401 — вход истёк (токен кабинета не принят), остальное — шлюз или магазин. */
+export class GatewayError extends Error {
+  constructor(
+    message: string,
+    readonly status: number,
+  ) {
+    super(message);
+    this.name = "GatewayError";
+  }
+}
+
 export type GatewayOptions = {
   /** e.g. https://coral-lk-checkout.<account>.workers.dev */
   baseUrl: string;
@@ -42,13 +53,14 @@ export function gatewayTransport({ baseUrl, getToken }: GatewayOptions): ShopTra
     const have = force ? null : readSid();
     if (have) return have;
     const token = getToken();
-    if (!token) throw new Error("Sign in first");
+    if (!token) throw new GatewayError("нужно войти", 401);
     const r = await fetch(`${base}/session`, {
       method: "POST",
       headers: { authorization: `Bearer ${token}` },
     });
-    const sid = ((await r.json().catch(() => null)) as { sid?: string } | null)?.sid;
-    if (!sid) throw new Error(`The gateway answered ${r.status}`);
+    const j = (await r.json().catch(() => null)) as { sid?: string; error?: string } | null;
+    if (!j?.sid) throw new GatewayError(j?.error || `шлюз ответил ${r.status}`, r.status);
+    const sid = j.sid;
     saveSid(sid);
     return sid;
   }

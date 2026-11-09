@@ -12,7 +12,7 @@ import type { PickPoint } from "@/components/checkout";
 import { refreshCart, useCart, type CartLine } from "@/lib/cart";
 import { addressSearchEnabled, splitStreet, streetLine, type ResolvedAddress } from "@/lib/addressSearch";
 import { deliverySlots, isMoscow, slotRegion, type DeliveryTimes } from "@/lib/deliverySlots";
-import { api, shopFetch } from "@/lib/shopApi";
+import { api, GatewayError, shopFetch } from "@/lib/shopApi";
 import {
   CASHLIKE,
   num,
@@ -164,11 +164,16 @@ export function useMemberCheckout() {
         const want = cartKey.split(",").reduce((n, p) => n + Number(p.split(":")[1] ?? 0), 0);
         setWarn(got !== want ? `В корзине магазина ${got} шт., у вас в списке ${want}. Проверьте состав перед оформлением.` : "");
         setReady("ok");
-      } catch {
-        if (!cancelled) {
-          setReady("error");
-          setError("Не удалось связаться с магазином. Обновите страницу и попробуйте снова.");
+      } catch (e) {
+        if (cancelled) return;
+        // вход истёк (токен кабинета не принят): на вход и обратно сюда
+        if (e instanceof GatewayError && e.status === 401) {
+          window.location.assign(`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/lk/login/?next=${encodeURIComponent("/lk/checkout/")}`);
+          return;
         }
+        setReady("error");
+        const why = e instanceof GatewayError ? e.message : e instanceof TypeError ? "нет связи со шлюзом" : (e as Error)?.message || "неизвестная ошибка";
+        setError(`Не удалось связаться с магазином (${why}). Обновите страницу и попробуйте снова.`);
       }
     })();
     return () => {

@@ -55,9 +55,14 @@ async function createSession(request, env) {
   if (!/^Bearer \S{10,}$/.test(auth)) return reply(request, env, 401, { error: "Нужен токен API кабинета" });
   const base = env.CC4_BASE ?? "https://api.coral.club";
   const r = await fetch(`${base}/api/v1/web_views/checkout_new`, { headers: { authorization: auth, accept: "application/json" } });
-  if (r.status === 401) return reply(request, env, 401, { error: "Токен не принят, войдите заново" });
+  // журнал (wrangler tail): только статусы и хосты, без токенов и ссылок
+  if (r.status === 401) {
+    console.log("session ✗ API кабинета: 401 (токен не принят)");
+    return reply(request, env, 401, { error: "Токен не принят, войдите заново" });
+  }
   const data = (await r.json().catch(() => null))?.data;
   const opened = await openShopSession(data);
+  console.log(`session ${opened.jar ? `→ ${opened.host}` : `✗ ${opened.error ?? "магазин не открыл сессию"}`} · web_views ${r.status}`);
   if (!opened.jar) return reply(request, env, 502, { error: opened.error ?? "Магазин не открыл сессию" });
   const sid = newSid();
   await env.SESSIONS.put(sid, JSON.stringify({ jar: [...opened.jar], host: opened.host }), { expirationTtl: TTL });
@@ -119,7 +124,8 @@ const gateway = {
       if (url.pathname === "/session" && request.method === "POST") return await createSession(request, env);
       if (url.pathname.startsWith("/shop/")) return await shopCall(request, env, url.pathname.slice("/shop".length), url);
       return reply(request, env, 404, { error: "not found" });
-    } catch {
+    } catch (e) {
+      console.log(`✗ ${url.pathname}: ${e?.message ?? e}`);
       return reply(request, env, 502, { error: "Посредник не смог ответить" });
     }
   },
