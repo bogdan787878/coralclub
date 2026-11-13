@@ -39,6 +39,8 @@ export const MARKET = {
 } as const;
 
 const formats = new Map<string, Intl.NumberFormat>();
+/** Roubles are written the Russian way (10 062 ₽), everything else the market's way. */
+const localeFor = (currency: string): string => (currency === "RUB" ? "ru-RU" : MARKET.locale);
 
 /** 117 → «117 €», 117.5 → «117,50 €», 10062 → «10.062 ₽»: the currency as its sign, whole amounts without cents (the market's currency, or the one of the shop site asked) */
 export const formatMoney = (
@@ -47,7 +49,7 @@ export const formatMoney = (
 ): string => {
   let f = formats.get(currency);
   if (!f) {
-    f = new Intl.NumberFormat(MARKET.locale, {
+    f = new Intl.NumberFormat(localeFor(currency), {
       style: "currency",
       currency,
       currencyDisplay: "narrowSymbol",
@@ -58,7 +60,7 @@ export const formatMoney = (
     const w = `whole:${currency}`;
     let g = formats.get(w);
     if (!g) {
-      g = new Intl.NumberFormat(MARKET.locale, {
+      g = new Intl.NumberFormat(localeFor(currency), {
         style: "currency",
         currency,
         currencyDisplay: "narrowSymbol",

@@ -5,7 +5,7 @@
  */
 import { cc4Base } from "./config";
 import { cc4, getToken, TOKEN_KEY } from "./session";
-import { normalizeProduct, type Product } from "./catalog";
+import { normalizeProduct, productDetailFrom, type Product, type ProductDetail } from "./catalog";
 
 /** Идентификатор приложения кабинета для открытия сессии (публичный, как у сайта). */
 export const APPLICATION_TOKEN = "1ec82603-8332-6dd2-9af6-4309c012a93e";
@@ -143,4 +143,26 @@ export async function guestProducts(codes: string[], { country, language = "en" 
     }
   }
   return [];
+}
+
+/** Товар целиком для гостя (GET /catalog/product/{code} по анонимной сессии страны и языка), например русские тексты. */
+export async function guestProductDetail(code: string, { country, language = "en" }: { country: string; language?: string }): Promise<ProductDetail | null> {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const token = await guestToken(country, language);
+    if (!token) return null;
+    try {
+      const r = await fetch(`${cc4Base()}/catalog/product/${encodeURIComponent(code)}`, {
+        headers: { accept: "application/json", authorization: `Bearer ${token}` },
+      });
+      if (r.status === 401) {
+        store(guestKey(country, language), null);
+        continue;
+      }
+      const j = (await r.json().catch(() => null)) as { data?: Record<string, unknown> } | null;
+      return j?.data ? productDetailFrom(j.data) : null;
+    } catch {
+      return null;
+    }
+  }
+  return null;
 }

@@ -13,7 +13,8 @@
     "images:sync": "npm run images:sync -w @coral/shop",
     "build:labspace": "npm run build:labspace -w @coral/shop",
     "lint": "eslint",
-    "typecheck": "npm run typecheck --workspaces --if-present"
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "dev:gateway": "npm run dev -w @coral/gateway"
   },
   "devDependencies": {
     "esbuild": "^0.25.12",

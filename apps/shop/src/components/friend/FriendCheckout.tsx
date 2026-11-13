@@ -25,15 +25,25 @@ import { articleFor } from "@/lib/siteArticles";
 import { getGatewayTarget, goToGateway } from "@/lib/shopPay";
 import { currentPricing, pricingFor } from "@/lib/friendPricing";
 import {
+  friendSiteList,
   onCountryRequest,
   rememberFriendCountries,
   setFriendCountry,
   useFriendCountries,
   useFriendCountry,
+  useMultiSite,
 } from "@/lib/friendCountry";
 import { MARKET, REGIONS, phoneForShop } from "@/lib/market";
-import { SHOP_SITES, deliveryByPlace, orderPaymentPath } from "@/lib/shopSites";
+import { SHOP_SITES, orderPaymentPath } from "@/lib/shopSites";
 import { readContact, saveContact } from "@/lib/friendContact";
+import {
+  apiLanguageFor,
+  getFriendLang,
+  tr,
+  useFriendLang,
+} from "@/lib/friendLang";
+import { friendForm, friendName } from "@/lib/friendRu";
+import { MAP_RU, PICKUP_RU } from "@/components/checkout/labels";
 import {
   api,
   emptyShopBasket,
@@ -41,6 +51,7 @@ import {
   fillShopBasket,
   language,
   onShopOrigin,
+  setShopLanguage,
   setShopSite,
   shopFetch,
 } from "@/lib/shopApi";
@@ -60,7 +71,13 @@ import {
   streetLine,
   type ResolvedAddress,
 } from "@/lib/addressSearch";
-import { FloatInput, OptionCard, OptionCards, OptionInfo, Icon } from "@/components/ui";
+import {
+  FloatInput,
+  OptionCard,
+  OptionCards,
+  OptionInfo,
+  Icon,
+} from "@/components/ui";
 import { CardBadges } from "./PayBadges";
 import { useFriend } from "./FriendProvider";
 import co from "../landing/LandingCheckout.module.css";
@@ -109,14 +126,20 @@ const paymentTypeCode = (name: string) =>
       ? "bank_transfer"
       : "bank_card";
 
+/** The shop's own picture (a method logo): a path of the shop's site gets its host, so it loads off the shop's domain too. */
+const shopAsset = (src: string, site: string): string =>
+  src.startsWith("/") && !src.startsWith("//") ? `https://${site}${src}` : src;
+
 /** Latin letters, digits and the usual symbols only: a look-alike Cyrillic letter in an address breaks the payment gateway. */
 const EMAIL_RE = /^[\x21-\x7E]+@[\x21-\x7E]+\.[\x21-\x7E]+$/;
 
-const Chevron = () => (
-  <Icon name="down" size={16} />
-);
+const Chevron = () => <Icon name="down" size={16} />;
 
 export function FriendCheckout() {
+  const lang = useFriendLang();
+  const ru = lang === "ru";
+  /** text in the page's language */
+  const T = (en: string, ruText: string) => tr(lang, en, ruText);
   const cart = useCart();
   // a render can run on a stale snapshot: re-read the cart once on mount
   useEffect(() => refreshCart(), []);
@@ -175,14 +198,10 @@ export function FriendCheckout() {
   // Through the local proxy every country has a shop site of its own (with its
   // own delivery, payment methods and currency); on the shop's own domain there
   // is the one site, and its own list of countries.
-  const multiSite = live === true && window.location.hostname === "localhost";
+  // every country of the list has its own shop site (through our gateway or the local proxy)
+  const multiSite = useMultiSite();
   const countryMap = useMemo<Record<string, string>>(
-    () =>
-      multiSite
-        ? Object.fromEntries(
-            Object.entries(SHOP_SITES).map(([code, v]) => [code, v.name]),
-          )
-        : countries,
+    () => (multiSite ? friendSiteList() : countries),
     [multiSite, countries],
   );
   // Russia: the courier's days and hours (from the shop's /init) and the shopper's pick
@@ -197,7 +216,10 @@ export function FriendCheckout() {
     ? (SHOP_SITES[country]?.host ?? MARKET.site)
     : MARKET.site;
   // the calls go to the site of the country
-  useEffect(() => setShopSite(site), [site]);
+  useEffect(() => {
+    setShopSite(site);
+    setShopLanguage(country === "RU" ? "ru" : null);
+  }, [site, country]);
 
   // the countries the shop ships to (its own list for this site); asked once
   // the basket is in, and again a moment later if the shop is not ready yet
@@ -259,11 +281,9 @@ export function FriendCheckout() {
   const [paymentsFor, setPaymentsFor] = useState("");
   const [totalsFor, setTotalsFor] = useState("");
 
-  // In Germany the shop's delivery options do not depend on the address, so
-  // they load at once; a site whose options do (Russia, the US …) waits for the
-  // address (its city and region).
-  const byPlace =
-    MARKET.deliveryNeedsRegion || (multiSite && deliveryByPlace(country));
+  // Delivery and payment wait for the address in every country: until it is
+  // chosen, both blocks show «Choose your address…» (the shop prices them by place).
+  const byPlace = true;
   const placeCity = byPlace ? city || state : "";
   const placeArea = byPlace ? state : "";
   const cityForShop = city || state;
@@ -281,7 +301,8 @@ export function FriendCheckout() {
     country === "RU" &&
     isMoscow(city) &&
     !!slotCfg.moscow &&
-    deliverySlots(slotCfg.moscow, { express: true, mkad: true }).length === 0;
+    deliverySlots(slotCfg.moscow, { express: true, mkad: true, lang })
+      .length === 0;
   const courierItems = groups
     .filter((g) => g.ID !== "PICK_POINT")
     .flatMap((g) => g.ITEMS)
@@ -316,6 +337,7 @@ export function FriendCheckout() {
     ? deliverySlots(slotArea === "moscow" ? slotCfg.moscow : slotCfg.spb, {
         express: deliveryId === "I_COURIER_1DAY",
         mkad: true,
+        lang,
       })
     : [];
   const slotDay = slotDays.find((d) => d.date === slotDate) ?? slotDays[0];
@@ -390,7 +412,11 @@ export function FriendCheckout() {
       return [{ coralId: article, qty: Number(qty) }];
     });
     const unsoldNote = unsold.length
-      ? `${unsold.join(", ")} ${unsold.length > 1 ? "are" : "is"} not sold on the ${countryName} site.`
+      ? tr(
+          getFriendLang(),
+          `${unsold.join(", ")} ${unsold.length > 1 ? "are" : "is"} not sold on the ${countryName} site.`,
+          `Нет в продаже в вашей стране: ${unsold.join(", ")}.`,
+        )
       : "";
     let cancelled = false;
     enqueueBasketSync(async () => {
@@ -410,7 +436,7 @@ export function FriendCheckout() {
         await fillShopBasket(
           wanted,
           { refCode, memberId },
-          site === MARKET.site ? MARKET.linkLanguage : MARKET.apiLanguage,
+          site === MARKET.site ? MARKET.linkLanguage : apiLanguageFor(country),
         );
         const o = await api<{
           result?: { QUANTITY?: number | string; PRICE?: number | string };
@@ -423,8 +449,16 @@ export function FriendCheckout() {
           setReady("error");
           setError(
             site === MARKET.site
-              ? "The shop did not take the items from your cart."
-              : `These products are not available on the ${countryName} site yet.`,
+              ? tr(
+                  getFriendLang(),
+                  "The shop did not take the items from your cart.",
+                  "Магазин не принял товары из корзины.",
+                )
+              : tr(
+                  getFriendLang(),
+                  `These products are not available on the ${countryName} site yet.`,
+                  "Этих товаров пока нет в магазине вашей страны.",
+                ),
           );
           return;
         }
@@ -432,7 +466,11 @@ export function FriendCheckout() {
           ...(unsoldNote ? [unsoldNote] : []),
           ...(got < want
             ? [
-                "Some items from your cart are not available in the shop right now.",
+                tr(
+                  getFriendLang(),
+                  "Some items from your cart are not available in the shop right now.",
+                  "Часть товаров из корзины сейчас нет в наличии.",
+                ),
               ]
             : []),
         ]);
@@ -441,7 +479,11 @@ export function FriendCheckout() {
         if (!cancelled) {
           setReady("error");
           setError(
-            "We couldn’t reach the shop. Please reload the page and try again.",
+            tr(
+              getFriendLang(),
+              "We couldn’t reach the shop. Please reload the page and try again.",
+              "Не удалось связаться с магазином. Обновите страницу и попробуйте снова.",
+            ),
           );
           console.error(e);
         }
@@ -487,8 +529,16 @@ export function FriendCheckout() {
         list.length
           ? ""
           : byPlace
-            ? "No delivery options for this address."
-            : "No delivery options for this country.",
+            ? tr(
+                getFriendLang(),
+                "No delivery options for this address.",
+                "Для этого адреса нет способов доставки.",
+              )
+            : tr(
+                getFriendLang(),
+                "No delivery options for this country.",
+                "Для этой страны нет способов доставки.",
+              ),
       );
       const all = list.flatMap((g) => g.ITEMS);
       if (!all.length) {
@@ -694,7 +744,7 @@ export function FriendCheckout() {
       setPromoMsg("");
     } else {
       setPromo("");
-      setPromoMsg("This code isn’t valid.");
+      setPromoMsg(T("This code isn’t valid.", "Промокод не подходит."));
     }
   }
 
@@ -774,7 +824,7 @@ export function FriendCheckout() {
         additionalOrderInfo: {
           orderComment:
             slotDay && slotHours
-              ? `Delivery: ${slotDay.label}, ${slotHours}`
+              ? `${T("Delivery", "Доставка")}: ${slotDay.label}, ${slotHours}`
               : "",
           needToContact: false,
           contactMethod: "",
@@ -852,11 +902,19 @@ export function FriendCheckout() {
       }
       setError(
         data.error ||
-          "The shop did not accept the order. Please check the details.",
+          T(
+            "The shop did not accept the order. Please check the details.",
+            "Магазин не принял заказ. Проверьте данные.",
+          ),
       );
     } catch (e) {
       console.error(e);
-      setError("We couldn’t send the order. Please try again.");
+      setError(
+        T(
+          "We couldn’t send the order. Please try again.",
+          "Не удалось отправить заказ. Попробуйте ещё раз.",
+        ),
+      );
     }
     setSending(false);
   }
@@ -926,8 +984,8 @@ export function FriendCheckout() {
                 <span className={styles.badge}>{l.qty}</span>
               </span>
               <span className={styles.lineName}>
-                {p?.name ?? l.name}
-                {p?.form && <span className={styles.lineSub}>{p.form}</span>}
+                {p ? friendName(p, lang) : l.name}
+                {p && friendForm(p, lang) && <span className={styles.lineSub}>{friendForm(p, lang)}</span>}
               </span>
               <span className={styles.lineSum}>
                 {ownPrices && p && (
@@ -944,49 +1002,58 @@ export function FriendCheckout() {
       <dl className={styles.rows}>
         {memberSaving > 0 && (
           <div className={styles.rowGood}>
-            <dt>Member discount</dt>
+            <dt>{T("Member discount", "Скидка участника")}</dt>
             <dd>−{money(memberSaving)}</dd>
           </div>
         )}
         <div>
-          <dt>Subtotal</dt>
+          <dt>{T("Subtotal", "Товары")}</dt>
           <dd>{money(goodsSum)}</dd>
         </div>
         {promo && promoOff > 0 && (
           <div className={styles.rowGood}>
-            <dt>Code {promo}</dt>
+            <dt>
+              {T("Code", "Промокод")} {promo}
+            </dt>
             <dd>−{money(promoOff)}</dd>
           </div>
         )}
         <div>
-          <dt>Shipping</dt>
+          <dt>{T("Shipping", "Доставка")}</dt>
           <dd>
             {deliveryPrice === null
-              ? "Calculated next"
+              ? T("Calculated next", "Рассчитаем дальше")
               : deliveryPrice > 0
                 ? money(deliveryPrice)
-                : "Free"}
+                : T("Free", "Бесплатно")}
           </dd>
         </div>
         {totals && num(totals.TAX) > 0 && (
           <div>
-            <dt>Tax</dt>
+            <dt>{T("Tax", "Налог")}</dt>
             <dd>{money(num(totals.TAX))}</dd>
           </div>
         )}
         <div className={styles.rowTotal}>
-          <dt>Total</dt>
+          <dt>{T("Total", "Итого")}</dt>
           <dd>{shownTotal !== null ? money(shownTotal) : "—"}</dd>
         </div>
       </dl>
       {totalSaving > 0 && (
-        <p className={styles.saved}>You’re saving {money(totalSaving)}</p>
+        <p className={styles.saved}>
+          {T("You’re saving", "Вы экономите")} {money(totalSaving)}
+        </p>
       )}
       {friend && (
         <p className={styles.host}>
-          The sale goes to <strong>{friend.name}</strong> · Coral ID{" "}
-          {friend.memberId}
-          {source === "demo" ? " (test: no link, default member)" : ""}
+          {T("The sale goes to", "Покупка засчитывается")}{" "}
+          <strong>{friend.name}</strong> · Coral ID {friend.memberId}
+          {source === "demo"
+            ? T(
+                " (test: no link, default member)",
+                " (тест: без ссылки, участник по умолчанию)",
+              )
+            : ""}
         </p>
       )}
     </div>
@@ -1000,10 +1067,14 @@ export function FriendCheckout() {
       <main className={styles.page} data-analytics-location="checkout">
         {lines.length === 0 ? (
           <div className={styles.empty}>
-            <h1 className={styles.title}>Checkout</h1>
-            <p className={styles.host}>Your cart is empty.</p>
+            <h1 className={styles.title}>
+              {T("Checkout", "Оформление заказа")}
+            </h1>
+            <p className={styles.host}>
+              {T("Your cart is empty.", "Корзина пуста.")}
+            </p>
             <Link href="/friend/" className={co.link}>
-              Back to the sets
+              {T("Back to the sets", "К наборам")}
             </Link>
           </div>
         ) : live === false ? (
@@ -1047,7 +1118,7 @@ export function FriendCheckout() {
             <details className={styles.sumMobile}>
               <summary className={styles.sumHead}>
                 <span>
-                  Order summary <Chevron />
+                  {T("Order summary", "Состав заказа")} <Chevron />
                 </span>
                 <span className={styles.sumHeadPrice}>
                   {ownPrices && prices.regular > barTotal && (
@@ -1060,12 +1131,14 @@ export function FriendCheckout() {
             </details>
 
             <div className={styles.main}>
-              <h1 className={extra.visuallyHidden}>Checkout</h1>
+              <h1 className={extra.visuallyHidden}>
+                {T("Checkout", "Оформление заказа")}
+              </h1>
 
               {ready === "sync" && (
                 <p className={styles.loader} role="status">
                   <span className={styles.spinner} aria-hidden="true" />
-                  Preparing your order…
+                  {T("Preparing your order…", "Готовим заказ…")}
                 </p>
               )}
               {error && (
@@ -1081,6 +1154,11 @@ export function FriendCheckout() {
 
               {!pickupNone && (
                 <DeliveryModeSwitch
+                  labels={
+                    ru
+                      ? { courier: "Доставка", pickup: "Самовывоз" }
+                      : undefined
+                  }
                   value={pickup ? "pickup" : "courier"}
                   onChange={(id) => {
                     setMode(id);
@@ -1093,26 +1171,35 @@ export function FriendCheckout() {
               )}
 
               <section className={styles.section}>
-                <h2 className={styles.h2}>Delivery</h2>
+                <h2 className={styles.h2}>{T("Delivery", "Доставка")}</h2>
                 {pickup && pickupItems.length === 0 && place !== "" ? (
                   <p className={styles.hint}>
                     {deliveryFor === deliveryKey
-                      ? `Pick-up points are not available in ${countryName} yet. Choose home delivery.`
-                      : "Looking for pick-up points…"}
+                      ? T(
+                          `Pick-up points are not available in ${countryName} yet. Choose home delivery.`,
+                          "В вашей стране пока нет пунктов выдачи. Выберите доставку.",
+                        )
+                      : T("Looking for pick-up points…", "Ищем пункты выдачи…")}
                   </p>
                 ) : !pickup ? (
                   <>
                     {manual ? (
                       <FloatInput
                         {...field("address")}
-                        label="Street and house number"
-                        placeholder="Friedrichstraße 43"
+                        label={T("Street and house number", "Улица и дом")}
+                        placeholder={T(
+                          "Friedrichstraße 43",
+                          "Тверская ул., 12",
+                        )}
                         value={address}
                         onChange={setAddress}
                         error={attempted && street !== "" && build === ""}
                         hint={
                           attempted && street !== "" && build === ""
-                            ? "Add the house number, e.g. Friedrichstraße 43"
+                            ? T(
+                                "Add the house number, e.g. Friedrichstraße 43",
+                                "Добавьте номер дома, например: Тверская ул., 12",
+                              )
                             : undefined
                         }
                         autoComplete="address-line1"
@@ -1121,8 +1208,11 @@ export function FriendCheckout() {
                       <AddressSearch
                         {...field("address")}
                         country={country}
-                        label="Search address"
-                        placeholder="Street, house number, city"
+                        label={T("Search address", "Найти адрес")}
+                        placeholder={T(
+                          "Street, house number, city",
+                          "Улица, дом, город",
+                        )}
                         value={searchText}
                         onChange={(v) => {
                           setSearchText(v);
@@ -1139,7 +1229,10 @@ export function FriendCheckout() {
                         error={attempted && !picked && searchText.trim() !== ""}
                         hint={
                           attempted && !picked && searchText.trim() !== ""
-                            ? "Choose your address from the list or on the map"
+                            ? T(
+                                "Choose your address from the list or on the map",
+                                "Выберите адрес из списка или на карте",
+                              )
                             : undefined
                         }
                         onPick={applyAddress}
@@ -1153,7 +1246,7 @@ export function FriendCheckout() {
                           onClick={() => setMapOpen(true)}
                           data-analytics-id="address_map"
                         >
-                          Choose on map
+                          {T("Choose on map", "Выбрать на карте")}
                         </button>
                         {manual && (
                           <button
@@ -1171,15 +1264,24 @@ export function FriendCheckout() {
                               setManual(false);
                             }}
                           >
-                            Search for an address instead
+                            {T(
+                              "Search for an address instead",
+                              "Найти адрес поиском",
+                            )}
                           </button>
                         )}
                       </div>
                     )}
                     {(manual || apartment) && (
                       <FloatInput
-                        label="Address supplement (optional)"
-                        placeholder="c/o, floor, entrance"
+                        label={T(
+                          "Address supplement (optional)",
+                          "Квартира, подъезд, этаж (необязательно)",
+                        )}
+                        placeholder={T(
+                          "c/o, floor, entrance",
+                          "кв. 5, подъезд 2, этаж 3",
+                        )}
                         value={apartment}
                         onChange={setApartment}
                         autoComplete="address-line2"
@@ -1190,7 +1292,7 @@ export function FriendCheckout() {
                         <div className={styles.row}>
                           <FloatInput
                             {...field("zip")}
-                            label="Postcode"
+                            label={T("Postcode", "Индекс")}
                             placeholder="10117"
                             value={zip}
                             onChange={setZip}
@@ -1199,7 +1301,7 @@ export function FriendCheckout() {
                           />
                           <FloatInput
                             {...field("city")}
-                            label="City"
+                            label={T("City", "Город")}
                             value={cityDraft}
                             onChange={setCityDraft}
                             autoComplete="address-level2"
@@ -1218,7 +1320,7 @@ export function FriendCheckout() {
                         ) : (
                           <FloatInput
                             {...field("state")}
-                            label="State / region"
+                            label={T("State / region", "Регион")}
                             value={state}
                             onChange={setState}
                             autoComplete="address-level1"
@@ -1231,7 +1333,7 @@ export function FriendCheckout() {
                   <>
                     <FloatInput
                       {...field("city")}
-                      label="City"
+                      label={T("City", "Город")}
                       value={cityDraft}
                       onChange={setCityDraft}
                       autoComplete="address-level2"
@@ -1242,17 +1344,25 @@ export function FriendCheckout() {
                     >
                       {!city ? (
                         <p className={styles.hint}>
-                          Enter your city to find pick-up points near you.
+                          {T(
+                            "Enter your city to find pick-up points near you.",
+                            "Укажите город, чтобы найти пункты выдачи рядом.",
+                          )}
                         </p>
                       ) : pointsLoading ? (
                         <p className={styles.loader} role="status">
                           <span className={styles.spinner} aria-hidden="true" />
-                          Looking for pick-up points…
+                          {T(
+                            "Looking for pick-up points…",
+                            "Ищем пункты выдачи…",
+                          )}
                         </p>
                       ) : points.length === 0 ? (
                         <p className={styles.hint}>
-                          No pick-up points near {city}. Try a nearby city, or
-                          choose delivery to an address.
+                          {T(
+                            `No pick-up points near ${city}. Try a nearby city, or choose delivery to an address.`,
+                            `Рядом с городом ${city} нет пунктов выдачи. Попробуйте соседний город или выберите доставку по адресу.`,
+                          )}
                         </p>
                       ) : (
                         <>
@@ -1272,9 +1382,17 @@ export function FriendCheckout() {
                                     .join(", ")
                                 : undefined
                             }
-                            emptyTitle="Choose pick-up point"
+                            emptyTitle={T(
+                              "Choose pick-up point",
+                              "Выберите пункт выдачи",
+                            )}
                             action={
-                              point ? "Change" : `${points.length} near ${city}`
+                              point
+                                ? T("Change", "Изменить")
+                                : T(
+                                    `${points.length} near ${city}`,
+                                    `${points.length} рядом`,
+                                  )
                             }
                           />
                           {attempted && !point && (
@@ -1282,7 +1400,10 @@ export function FriendCheckout() {
                               className={`${styles.floatHint} ${styles.floatHintError}`}
                               role="alert"
                             >
-                              Choose a pick-up point
+                              {T(
+                                "Choose a pick-up point",
+                                "Выберите пункт выдачи",
+                              )}
                             </p>
                           )}
                         </>
@@ -1293,16 +1414,19 @@ export function FriendCheckout() {
               </section>
 
               <section className={styles.section}>
-                <h2 className={styles.h2}>Contact</h2>
+                <h2 className={styles.h2}>{T("Contact", "Контакты")}</h2>
                 <FloatInput
                   {...field("email")}
                   error={nonLatinEmail}
                   hint={
                     nonLatinEmail
-                      ? "Use Latin letters only (a look-alike letter from another alphabet will not work)"
+                      ? T(
+                          "Use Latin letters only (a look-alike letter from another alphabet will not work)",
+                          "Только латинские буквы (похожая буква из другого алфавита не подойдёт)",
+                        )
                       : undefined
                   }
-                  label="Email"
+                  label={T("Email", "E-mail")}
                   placeholder="name@example.com"
                   value={email}
                   onChange={setEmail}
@@ -1311,22 +1435,22 @@ export function FriendCheckout() {
                 />
                 <FloatInput
                   {...field("first")}
-                  label="Full name"
-                  placeholder="First and last name"
+                  label={T("Full name", "Имя и фамилия")}
+                  placeholder={T("First and last name", "Имя и фамилия")}
                   value={fullName}
                   onChange={setFullName}
                   error={attempted && first !== "" && last === ""}
                   hint={
                     attempted && first !== "" && last === ""
-                      ? "Add your last name"
+                      ? T("Add your last name", "Добавьте фамилию")
                       : undefined
                   }
                   autoComplete="name"
                 />
                 <FloatInput
                   {...field("phone")}
-                  label="Phone"
-                  placeholder="0151 23456789"
+                  label={T("Phone", "Телефон")}
+                  placeholder={T("0151 23456789", "+7 900 123-45-67")}
                   value={phone}
                   onChange={setPhone}
                   inputMode="tel"
@@ -1335,33 +1459,49 @@ export function FriendCheckout() {
               </section>
 
               <section className={styles.section}>
-                <h2 className={styles.h2}>Shipping method</h2>
+                <h2 className={styles.h2}>
+                  {T("Shipping method", "Способ доставки")}
+                </h2>
                 {!place ? (
                   <p className={styles.hint}>
-                    Choose your address to see the delivery options.
+                    {T(
+                      "Choose your address to see the delivery options.",
+                      "Укажите адрес, чтобы увидеть способы доставки.",
+                    )}
                   </p>
                 ) : deliveryLoading ? (
                   <p className={styles.loader} role="status">
                     <span className={styles.spinner} aria-hidden="true" />
-                    Loading delivery options…
+                    {T(
+                      "Loading delivery options…",
+                      "Загружаем способы доставки…",
+                    )}
                   </p>
                 ) : items.length > 0 ? (
                   items.length === 1 ? (
                     <OptionInfo
                       title={items[0].NAME}
                       detail={[
-                        items[0].TRANSIT && `${items[0].TRANSIT} days`,
+                        items[0].TRANSIT &&
+                          `${items[0].TRANSIT} ${T("days", "дн.")}`,
                         items[0].FREE_DELIVERY && items[0].PRICE
-                          ? `free over ${money(items[0].FREE_DELIVERY)}`
+                          ? `${T("free over", "бесплатно от")} ${money(items[0].FREE_DELIVERY)}`
                           : "",
                       ]
                         .filter(Boolean)
                         .join(" · ")}
-                      aside={items[0].PRICE ? money(items[0].PRICE) : "Free"}
+                      aside={
+                        items[0].PRICE
+                          ? money(items[0].PRICE)
+                          : T("Free", "Бесплатно")
+                      }
                       good={!items[0].PRICE}
                     />
                   ) : (
-                    <OptionCards label="Shipping method">
+                    <OptionCards
+                      label={T("Shipping method", "Способ доставки")}
+                      layout="list"
+                    >
                       {items.map((it) => (
                         <OptionCard
                           key={it.ID}
@@ -1379,11 +1519,22 @@ export function FriendCheckout() {
                           good={!it.PRICE}
                           lines={
                             <>
-                              {it.TRANSIT && <span>{it.TRANSIT} days</span>}
+                              {it.TRANSIT && (
+                                <span>
+                                  {it.TRANSIT} {T("days", "дн.")}
+                                </span>
+                              )}
                               {it.FREE_DELIVERY && it.PRICE ? (
-                                <span>free over {money(it.FREE_DELIVERY)}</span>
+                                <span>
+                                  {T("free over", "бесплатно от")}{" "}
+                                  {money(it.FREE_DELIVERY)}
+                                </span>
                               ) : null}
-                              <span>{it.PRICE ? money(it.PRICE) : "Free"}</span>
+                              <span>
+                                {it.PRICE
+                                  ? money(it.PRICE)
+                                  : T("Free", "Бесплатно")}
+                              </span>
                             </>
                           }
                         />
@@ -1393,15 +1544,31 @@ export function FriendCheckout() {
                 ) : (
                   <p className={styles.hint}>
                     {pickup && !deliveryErr
-                      ? `Pick-up isn’t available in ${countryName} yet. Choose home delivery.`
+                      ? T(
+                          `Pick-up isn’t available in ${countryName} yet. Choose home delivery.`,
+                          "В вашей стране пока нет самовывоза. Выберите доставку.",
+                        )
                       : !place
-                        ? "Delivery options appear once you choose your address."
+                        ? T(
+                            "Delivery options appear once you choose your address.",
+                            "Способы доставки появятся, когда вы укажете адрес.",
+                          )
                         : deliveryErr ||
-                          "No delivery options for this address."}
+                          T(
+                            "No delivery options for this address.",
+                            "Для этого адреса нет способов доставки.",
+                          )}
                   </p>
                 )}
                 {slotDay && slotHours && (
                   <CourierSlots
+                    {...(ru
+                      ? {
+                          title: "Дата и время доставки",
+                          dayLabel: "День доставки",
+                          hoursLabel: "Время доставки",
+                        }
+                      : {})}
                     days={slotDays}
                     day={slotDay}
                     hours={slotHours}
@@ -1412,21 +1579,24 @@ export function FriendCheckout() {
               </section>
 
               <section className={styles.section} id="payment-method">
-                <h2 className={styles.h2}>Payment</h2>
+                <h2 className={styles.h2}>{T("Payment", "Оплата")}</h2>
                 {!place ? (
                   <p className={styles.hint}>
-                    Payment options appear once you choose your address.
+                    {T(
+                      "Payment options appear once you choose your address.",
+                      "Способы оплаты появятся, когда вы укажете адрес.",
+                    )}
                   </p>
                 ) : paymentsLoading ? (
                   <p className={styles.loader} role="status">
                     <span className={styles.spinner} aria-hidden="true" />
-                    Loading payment options…
+                    {T("Loading payment options…", "Загружаем способы оплаты…")}
                   </p>
                 ) : payments.length === 1 ? (
                   <OptionInfo
                     title={
                       /^bank card$/i.test(payments[0].NAME)
-                        ? "Credit or debit card"
+                        ? T("Credit or debit card", "Банковская карта")
                         : payments[0].NAME
                     }
                     aside={
@@ -1435,7 +1605,7 @@ export function FriendCheckout() {
                       ) : payments[0].IMAGE ? (
                         // eslint-disable-next-line @next/next/no-img-element -- the shop's own method logo
                         <img
-                          src={payments[0].IMAGE}
+                          src={shopAsset(payments[0].IMAGE, site)}
                           alt=""
                           style={{
                             width: 32,
@@ -1447,7 +1617,10 @@ export function FriendCheckout() {
                     }
                   />
                 ) : (
-                  <OptionCards label="Payment method">
+                  <OptionCards
+                    label={T("Payment method", "Способ оплаты")}
+                    layout="list"
+                  >
                     {payments.map((p) => {
                       const card = /^bank card$/i.test(p.NAME);
                       return (
@@ -1462,22 +1635,20 @@ export function FriendCheckout() {
                               payment_method_name: p.NAME,
                             });
                           }}
-                          title={card ? "Credit or debit card" : p.NAME}
+                          title={
+                            card
+                              ? T("Credit or debit card", "Банковская карта")
+                              : p.NAME
+                          }
+                          icon={
+                            !card && p.IMAGE ? (
+                              // eslint-disable-next-line @next/next/no-img-element -- the shop's own method logo
+                              <img src={shopAsset(p.IMAGE, site)} alt="" />
+                            ) : undefined
+                          }
                           footer={
                             card ? (
                               <CardBadges wallets={MARKET.googlePay} />
-                            ) : p.IMAGE ? (
-                              // eslint-disable-next-line @next/next/no-img-element -- the shop's own method logo
-                              <img
-                                src={p.IMAGE}
-                                alt=""
-                                style={{
-                                  width: 32,
-                                  height: 32,
-                                  objectFit: "contain",
-                                  objectPosition: "left",
-                                }}
-                              />
                             ) : (
                               <span />
                             )
@@ -1497,7 +1668,7 @@ export function FriendCheckout() {
                     onClick={() => setPromoOpen(true)}
                     disabled={!deliveryId}
                   >
-                    Add discount
+                    {T("Add discount", "Добавить промокод")}
                   </button>
                 ) : (
                   <>
@@ -1505,8 +1676,8 @@ export function FriendCheckout() {
                       <input
                         value={promoDraft || promo}
                         onChange={(e) => setPromoDraft(e.target.value)}
-                        placeholder="Discount code"
-                        aria-label="Discount code"
+                        placeholder={T("Discount code", "Промокод")}
+                        aria-label={T("Discount code", "Промокод")}
                         autoCapitalize="characters"
                       />
                       <button
@@ -1515,59 +1686,67 @@ export function FriendCheckout() {
                         onClick={applyPromo}
                         disabled={!promoDraft.trim() || !deliveryId}
                       >
-                        Apply
+                        {T("Apply", "Применить")}
                       </button>
                     </div>
                     {promoMsg && <p className={styles.fieldHint}>{promoMsg}</p>}
                     {promo && (
-                      <p className={styles.fieldHint}>Code {promo} applied.</p>
+                      <p className={styles.fieldHint}>
+                        {T(
+                          `Code ${promo} applied.`,
+                          `Промокод ${promo} применён.`,
+                        )}
+                      </p>
                     )}
                   </>
                 )}
               </div>
 
               <section className={styles.totalCard}>
-                <h2 className={styles.h2}>Total</h2>
+                <h2 className={styles.h2}>{T("Total", "Итого")}</h2>
                 {totalsLoading && (
                   <p className={styles.loader} role="status">
                     <span className={styles.spinner} aria-hidden="true" />
-                    Calculating…
+                    {T("Calculating…", "Считаем…")}
                   </p>
                 )}
                 <div className={totalsLoading ? styles.dim : undefined}>
                   <dl className={styles.rows}>
                     {memberSaving > 0 && (
                       <div className={styles.rowGood}>
-                        <dt>Member discount</dt>
+                        <dt>{T("Member discount", "Скидка участника")}</dt>
                         <dd>−{money(memberSaving)}</dd>
                       </div>
                     )}
                     <div>
-                      <dt>Items</dt>
+                      <dt>{T("Items", "Товары")}</dt>
                       <dd>{money(goodsSum)}</dd>
                     </div>
                     <div>
-                      <dt>Shipping</dt>
+                      <dt>{T("Shipping", "Доставка")}</dt>
                       <dd>
                         {deliveryPrice === null
                           ? "—"
                           : deliveryPrice > 0
                             ? money(deliveryPrice)
-                            : "Free"}
+                            : T("Free", "Бесплатно")}
                       </dd>
                     </div>
                     <div className={styles.rowTotal}>
-                      <dt>Total</dt>
+                      <dt>{T("Total", "Итого")}</dt>
                       <dd>{shownTotal !== null ? money(shownTotal) : "—"}</dd>
                     </div>
                   </dl>
                 </div>
                 <p className={styles.host}>
-                  All prices include VAT. Shipping is shown above.
+                  {T(
+                    "All prices include VAT. Shipping is shown above.",
+                    "Цены включают НДС. Доставка указана выше.",
+                  )}
                 </p>
                 {totalSaving > 0 && (
                   <p className={styles.saved}>
-                    Total savings {money(totalSaving)}
+                    {T("Total savings", "Общая экономия")} {money(totalSaving)}
                   </p>
                 )}
               </section>
@@ -1584,32 +1763,53 @@ export function FriendCheckout() {
                     checked={acceptTerms}
                     onChange={(e) => setAcceptTerms(e.target.checked)}
                   />
-                  <span>
-                    I accept the{" "}
-                    <a
-                      href="/faq/terms/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Terms and conditions (AGB)
-                    </a>{" "}
-                    and the{" "}
-                    <a
-                      href="/faq/privacy/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Privacy policy (Datenschutz)
-                    </a>
-                    , and I have read the{" "}
-                    <a
-                      href="/support/question.php?q=return"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      information on returns and withdrawal
-                    </a>
-                  </span>
+                  {ru ? (
+                    <span>
+                      Принимаю{" "}
+                      <a
+                        href={`https://${site}/faq/terms/`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        условия оферты
+                      </a>{" "}
+                      и{" "}
+                      <a
+                        href={`https://${site}/faq/privacy/`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        политику конфиденциальности
+                      </a>
+                    </span>
+                  ) : (
+                    <span>
+                      I accept the{" "}
+                      <a
+                        href={`https://${site}/faq/terms/`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Terms and conditions (AGB)
+                      </a>{" "}
+                      and the{" "}
+                      <a
+                        href={`https://${site}/faq/privacy/`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Privacy policy (Datenschutz)
+                      </a>
+                      , and I have read the{" "}
+                      <a
+                        href={`https://${site}/support/question.php?q=return`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        information on returns and withdrawal
+                      </a>
+                    </span>
+                  )}
                 </label>
                 <label
                   className={`${co.check} ${shaking === "data" ? co.shake : ""} ${
@@ -1623,13 +1823,17 @@ export function FriendCheckout() {
                     onChange={(e) => setAgreeData(e.target.checked)}
                   />
                   <span>
-                    I agree to the processing of my personal data (
+                    {T(
+                      "I agree to the processing of my personal data",
+                      "Согласен на обработку персональных данных",
+                    )}{" "}
+                    (
                     <a
-                      href="/faq/privacy/"
+                      href={`https://${site}/faq/privacy/`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      details
+                      {T("details", "подробнее")}
                     </a>
                     )
                   </span>
@@ -1645,11 +1849,16 @@ export function FriendCheckout() {
                 onClick={submit}
                 data-analytics-id="checkout_pay_btn"
               >
-                {sending ? "Creating your order…" : "Continue to payment"}
+                {sending
+                  ? T("Creating your order…", "Создаём заказ…")
+                  : T("Continue to payment", "Перейти к оплате")}
               </button>
             </div>
 
-            <aside className={styles.sumDesktop} aria-label="Order summary">
+            <aside
+              className={styles.sumDesktop}
+              aria-label={T("Order summary", "Состав заказа")}
+            >
               {summary}
             </aside>
           </div>
@@ -1663,6 +1872,7 @@ export function FriendCheckout() {
             services={pickupItems}
             selected={pointCode}
             money={money}
+            labels={ru ? PICKUP_RU : undefined}
             onSelect={(code) => {
               setPointCode(code);
               setSheetOpen(false);
@@ -1675,6 +1885,7 @@ export function FriendCheckout() {
             country={country}
             countryName={countryName}
             nearby={city || undefined}
+            labels={ru ? MAP_RU : undefined}
             onSelect={(a) => {
               applyAddress(a);
               setMapOpen(false);

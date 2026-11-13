@@ -4,6 +4,7 @@
  * send; the gateway keeps that session for the page.
  *
  *   POST {base}/session            Authorization: Bearer <cabinet API token>  →  { sid }
+ *   POST {base}/session/guest      { site }  (a guest, «friend of the club»)  →  { sid }
  *   GET|POST {base}/shop/<path>    X-Lk-Sid: <sid>                            →  the shop's answer
  *
  * No password is involved: the shop opens the member's session from the
@@ -12,17 +13,19 @@
 import type { ShopTransport } from "./client";
 
 const SID_KEY = "lk_shop_sid";
-const readSid = (): string | null => {
+/** A guest's shop session is kept per shop site (each site is its own basket and currency). */
+const guestKey = (site: string) => `cc_guest_sid:${site}`;
+const readSid = (key = SID_KEY): string | null => {
   try {
-    return sessionStorage.getItem(SID_KEY);
+    return sessionStorage.getItem(key);
   } catch {
     return null;
   }
 };
-const saveSid = (sid: string | null): void => {
+const saveSid = (sid: string | null, key = SID_KEY): void => {
   try {
-    if (sid) sessionStorage.setItem(SID_KEY, sid);
-    else sessionStorage.removeItem(SID_KEY);
+    if (sid) sessionStorage.setItem(key, sid);
+    else sessionStorage.removeItem(key);
   } catch {
     /* without storage the session is opened again after a reload */
   }
@@ -44,24 +47,35 @@ export type GatewayOptions = {
   baseUrl: string;
   /** the member's cabinet API token; `null` when signed out */
   getToken: () => string | null;
+  /**
+   * A guest checkout (no sign-in, «friend of the club»): the shop site whose
+   * session the gateway opens for this visitor, e.g. `de.coral.club`.
+   * Used when there is no cabinet token.
+   */
+  guestSite?: () => string;
 };
 
-export function gatewayTransport({ baseUrl, getToken }: GatewayOptions): ShopTransport {
+export function gatewayTransport({ baseUrl, getToken, guestSite }: GatewayOptions): ShopTransport {
   const base = baseUrl.replace(/\/+$/, "");
 
   async function session(force = false): Promise<string> {
-    const have = force ? null : readSid();
-    if (have) return have;
     const token = getToken();
-    if (!token) throw new GatewayError("нужно войти", 401);
-    const r = await fetch(`${base}/session`, {
-      method: "POST",
-      headers: { authorization: `Bearer ${token}` },
-    });
+    const site = token ? "" : (guestSite?.() ?? "");
+    const key = site ? guestKey(site) : SID_KEY;
+    const have = force ? null : readSid(key);
+    if (have) return have;
+    if (!token && !site) throw new GatewayError("нужно войти", 401);
+    const r = token
+      ? await fetch(`${base}/session`, { method: "POST", headers: { authorization: `Bearer ${token}` } })
+      : await fetch(`${base}/session/guest`, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ site }),
+        });
     const j = (await r.json().catch(() => null)) as { sid?: string; error?: string } | null;
     if (!j?.sid) throw new GatewayError(j?.error || `шлюз ответил ${r.status}`, r.status);
     const sid = j.sid;
-    saveSid(sid);
+    saveSid(sid, key);
     return sid;
   }
 

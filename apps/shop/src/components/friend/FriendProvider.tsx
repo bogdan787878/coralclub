@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { setTrackingContext, track, trackOnce } from "@/lib/analytics";
+import { enableFriendGateway } from "@/lib/friendGateway";
 import {
   DEMO_REF_CODE,
   lookupDistributor,
@@ -40,6 +41,11 @@ export const useFriend = () => useContext(FriendCtx);
  * distributor), and keeps it for every page of the project.
  */
 export function FriendProvider({ children }: { children: ReactNode }) {
+  // чек-аут вне домена магазина — через наш шлюз; включается до рендера страниц (они читают это при первом рендере)
+  useState(() => {
+    enableFriendGateway();
+    return true;
+  });
   const saved = useSavedFriend();
   const [fresh, setFresh] = useState<{
     friend: Friend;

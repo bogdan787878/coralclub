@@ -46,6 +46,9 @@
 }
 
 .title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 1.0625rem;
   line-height: 1.5rem;
   font-weight: var(--font-weight-medium);
@@ -126,4 +129,68 @@
 
 .infoGood {
   color: #1f9d4d;
+}
+
+/* ── list: one option per line (check on the left, name, then the details in one line) ── */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.list .card {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  grid-template-areas:
+    "check title"
+    "check lines";
+  align-items: center;
+  column-gap: 12px;
+  row-gap: 2px;
+  min-width: 0;
+  padding: 14px 16px;
+  border-radius: 12px;
+}
+
+.list .foot {
+  display: contents;
+}
+
+.list .check {
+  grid-area: check;
+  width: 24px;
+  height: 24px;
+}
+
+.list .title {
+  grid-area: title;
+  font-size: 1rem;
+  line-height: 1.375rem;
+}
+
+.list .lines {
+  grid-area: lines;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 12px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.list .lines > span:empty {
+  display: none;
+}
+
+.icon {
+  flex: none;
+  display: inline-flex;
+  width: 32px;
+  height: 24px;
+}
+
+.icon > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }

@@ -3,6 +3,7 @@ import { Accent, Container, Heading, Section } from "@/components/ui";
 import { CommunityReels, Editorial, Hero } from "@/components/organisms";
 import { FriendAdvisors } from "@/components/friend/FriendAdvisors";
 import { FriendCards } from "@/components/friend/FriendCards";
+import { FriendHomeLang } from "@/components/friend/FriendHomeLang";
 import { FriendRegisterCta } from "@/components/friend/FriendRegisterCta";
 import { HOME_CONTENT, type EditorialItem } from "@/content/home";
 import { FRIEND_SETS, FRIEND_SINGLES } from "@/lib/friendCatalog";
@@ -27,131 +28,133 @@ export default function FriendHome() {
   const { hero, reels } = hydration;
 
   return (
-    <div className={`appShell ${grid.home}`}>
-      <main className={styles.page} data-analytics-location="home">
-        <Hero
-          title={
-            <>
-              {hero.title.lead}
-              <br />
-              <Accent>{hero.title.accent}</Accent>
-            </>
-          }
-          body={
-            <>
-              {hero.body.map((t) => (
-                <p key={t}>{t}</p>
-              ))}
-            </>
-          }
-          image={hero.image}
-          cta={{ label: "Choose my set", href: "#hydration" }}
-        />
-
-        <Section
-          id="hydration"
-          tone="default"
-          className={styles.section}
-          data-analytics-section="sets"
-        >
-          <Container>
-            <Heading as="h2" className={styles.h2}>
-              Water alone doesn’t hydrate. <Accent>Minerals do.</Accent>
-            </Heading>
-            <p className={styles.lead}>
-              Plain water passes through you quickly — minerals and electrolytes
-              are what help your body hold on to it.
-            </p>
-          </Container>
-          <FriendCards
-            products={FRIEND_SETS}
-            listId="friend_sets"
-            listName="Hydration sets"
-            label="Hydration sets"
-            minCols={2}
-          />
-        </Section>
-
-        <Section
-          tone="surface"
-          className={styles.section}
-          data-analytics-section="singles"
-        >
-          <Container>
-            <Heading as="h2" className={styles.h2}>
-              Or <Accent>one at a time</Accent>
-            </Heading>
-          </Container>
-          <FriendCards
-            products={FRIEND_SINGLES}
-            listId="friend_singles"
-            listName="Hydration, one by one"
-            label="Hydration products"
-            minCols={4}
-          />
-        </Section>
-
-        {water && (
-          <Editorial
-            title={water.title}
-            image={water.image}
-            badge={water.badge?.text}
-            body={
+    <FriendHomeLang>
+      <div className={`appShell ${grid.home}`}>
+        <main className={styles.page} data-analytics-location="home">
+          <Hero
+            title={
               <>
-                {water.body.map((t) => (
-                  <p key={t}>{t}</p>
-                ))}
-              </>
-            }
-          />
-        )}
-
-        {minerals && (
-          <Editorial
-            title={minerals.title}
-            image={minerals.image}
-            badge={
-              <>
-                {minerals.badge?.flag && (
-                  <span aria-hidden="true">{minerals.badge.flag} </span>
-                )}
-                {minerals.badge?.text}
+                {hero.title.lead}
+                <br />
+                <Accent>{hero.title.accent}</Accent>
               </>
             }
             body={
               <>
-                {minerals.body.map((t) => (
+                {hero.body.map((t) => (
                   <p key={t}>{t}</p>
                 ))}
               </>
             }
+            image={hero.image}
+            cta={{ label: "Choose my set", href: "#hydration" }}
           />
-        )}
 
-        <FriendAdvisors />
+          <Section
+            id="hydration"
+            tone="default"
+            className={styles.section}
+            data-analytics-section="sets"
+          >
+            <Container>
+              <Heading as="h2" className={styles.h2}>
+                Water alone doesn’t hydrate. <Accent>Minerals do.</Accent>
+              </Heading>
+              <p className={styles.lead}>
+                Plain water passes through you quickly — minerals and
+                electrolytes are what help your body hold on to it.
+              </p>
+            </Container>
+            <FriendCards
+              products={FRIEND_SETS}
+              listId="friend_sets"
+              listName="Hydration sets"
+              label="Hydration sets"
+              minCols={2}
+            />
+          </Section>
 
-        <CommunityReels
-          title={reels.title}
-          body={reels.body}
-          reels={reels.reels}
-        />
+          <Section
+            tone="surface"
+            className={styles.section}
+            data-analytics-section="singles"
+          >
+            <Container>
+              <Heading as="h2" className={styles.h2}>
+                Or <Accent>one at a time</Accent>
+              </Heading>
+            </Container>
+            <FriendCards
+              products={FRIEND_SINGLES}
+              listId="friend_singles"
+              listName="Hydration, one by one"
+              label="Hydration products"
+              minCols={4}
+            />
+          </Section>
 
-        <Section tone="default" className={styles.section}>
-          <Container>
-            <FriendRegisterCta where="home" />
-          </Container>
-        </Section>
+          {water && (
+            <Editorial
+              title={water.title}
+              image={water.image}
+              badge={water.badge?.text}
+              body={
+                <>
+                  {water.body.map((t) => (
+                    <p key={t}>{t}</p>
+                  ))}
+                </>
+              }
+            />
+          )}
 
-        <footer className={styles.footer} data-analytics-location="footer">
-          <Container>
-            <p>
-              Food supplements are not a substitute for a varied and balanced
-              diet and a healthy lifestyle. Do not exceed the recommended daily
-              intake. Keep out of the reach of young children.
-            </p>
-          </Container>
-        </footer>
-      </main>
-    </div>
+          <FriendAdvisors />
+
+          {minerals && (
+            <Editorial
+              title={minerals.title}
+              image={minerals.image}
+              badge={
+                <>
+                  {minerals.badge?.flag && (
+                    <span aria-hidden="true">{minerals.badge.flag} </span>
+                  )}
+                  {minerals.badge?.text}
+                </>
+              }
+              body={
+                <>
+                  {minerals.body.map((t) => (
+                    <p key={t}>{t}</p>
+                  ))}
+                </>
+              }
+            />
+          )}
+
+          <CommunityReels
+            title={reels.title}
+            body={reels.body}
+            reels={reels.reels}
+          />
+
+          <Section tone="default" className={styles.section}>
+            <Container>
+              <FriendRegisterCta where="home" />
+            </Container>
+          </Section>
+
+          <footer className={styles.footer} data-analytics-location="footer">
+            <Container>
+              <p>
+                Food supplements are not a substitute for a varied and balanced
+                diet and a healthy lifestyle. Do not exceed the recommended
+                daily intake. Keep out of the reach of young children.
+              </p>
+            </Container>
+          </footer>
+        </main>
+      </div>
+    </FriendHomeLang>
   );
 }

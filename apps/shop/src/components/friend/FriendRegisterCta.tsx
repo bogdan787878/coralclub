@@ -3,6 +3,7 @@
 import { Accent, Heading } from "@/components/ui";
 import { track } from "@/lib/analytics";
 import { registrationUrl } from "@/lib/friend";
+import { useFriendLang } from "@/lib/friendLang";
 import { useFriend } from "./FriendProvider";
 import styles from "./Friend.module.css";
 
@@ -13,15 +14,25 @@ import styles from "./Friend.module.css";
 export function FriendRegisterCta({ where }: { where: "home" | "checkout" }) {
   const { friend } = useFriend();
   const href = friend ? registrationUrl(friend) : undefined;
+  const ru = useFriendLang() === "ru";
 
   return (
     <div className={styles.cta} data-analytics-section={`register_${where}`}>
       <Heading as="h2" className={styles.ctaTitle}>
-        Want member prices <Accent>every time?</Accent>
+        {ru ? (
+          <>
+            Цены участника — <Accent>всегда?</Accent>
+          </>
+        ) : (
+          <>
+            Want member prices <Accent>every time?</Accent>
+          </>
+        )}
       </Heading>
       <p className={styles.ctaText}>
-        Become a club member: sign-up takes a couple of minutes. You can do it
-        any time — before you buy, after, or never. No pressure.
+        {ru
+          ? "Станьте участником клуба: регистрация занимает пару минут. Это можно сделать когда угодно — до покупки, после или никогда. Без давления."
+          : "Become a club member: sign-up takes a couple of minutes. You can do it any time — before you buy, after, or never. No pressure."}
       </p>
       <a
         className={styles.ctaBtn}
@@ -32,7 +43,7 @@ export function FriendRegisterCta({ where }: { where: "home" | "checkout" }) {
         data-analytics-id={`${where}_register_cta`}
         onClick={() => track("friend_register_click", { cta_location: where })}
       >
-        Sign up
+        {ru ? "Зарегистрироваться" : "Sign up"}
       </a>
     </div>
   );

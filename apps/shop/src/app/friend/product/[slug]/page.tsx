@@ -10,7 +10,6 @@ import {
 import { LandingGallery } from "@/components/landing/LandingGallery";
 import { TrackViewItem } from "@/components/landing/TrackViewItem";
 import { FriendCards } from "@/components/friend/FriendCards";
-import { FriendMemberBlock } from "@/components/friend/FriendMemberBlock";
 import { PdpDelivery } from "@/components/friend/PdpDelivery";
 import { PdpSubscribe } from "@/components/friend/PdpSubscribe";
 import { PdpFacts } from "@/components/friend/PdpFacts";
@@ -27,6 +26,7 @@ import { ShareButton } from "../../../(shop)/products/[slug]/ShareButton";
 import shop from "../../../(shop)/products/[slug]/page.module.css";
 import styles from "../../../landing/product/[slug]/page.module.css";
 import { FriendBuyBox } from "@/components/friend/FriendBuyBox";
+import { FriendPdpLang } from "@/components/friend/FriendPdpLang";
 import controls from "./controls.module.css";
 import grid from "./grid.module.css";
 import tabsCss from "./tabs.module.css";
@@ -110,119 +110,117 @@ export default async function FriendProductPage({
   ];
 
   return (
-    <div className={`appShell ${grid.column}`}>
-      <main className={shop.page} data-analytics-location="product_card">
-        <TrackViewItem coralId={p.coralId} />
+    <FriendPdpLang slug={slug}>
+      <div className={`appShell ${grid.column}`}>
+        <main className={shop.page} data-analytics-location="product_card">
+          <TrackViewItem coralId={p.coralId} />
 
-        <div className={`${shop.imageControls} ${controls.controls}`}>
-          <BackButton className={shop.circleBtn} fallbackHref="/friend/" />
-          <ShareButton className={shop.circleBtn} title={p.name} />
-        </div>
+          <div className={`${shop.imageControls} ${controls.controls}`}>
+            <BackButton className={shop.circleBtn} fallbackHref="/friend/" />
+            <ShareButton className={shop.circleBtn} title={p.name} />
+          </div>
 
-        <Section tone="surface">
-          <div className={`${styles.wide} ${grid.wide}`}>
-            <div className={`${shop.layout} ${styles.layout}`}>
-              <div className={tabsCss.mediaCol}>
-                <LandingGallery
-                  images={p.images}
-                  title={p.name}
-                  fit="contain"
-                />
+          <Section tone="surface">
+            <div className={`${styles.wide} ${grid.wide}`}>
+              <div className={`${shop.layout} ${styles.layout}`}>
+                <div className={tabsCss.mediaCol}>
+                  <LandingGallery
+                    images={p.images}
+                    title={p.name}
+                    fit="contain"
+                  />
 
-                {/* web: the details as tabs under the picture, then the key
+                  {/* web: the details as tabs under the picture, then the key
                     elements, the supplement facts and the notice */}
-                <div className={tabsCss.webCol}>
-                  <PdpTabs tabs={tabs} />
-                  {p.elements.length > 0 && (
-                    <PeriodicElements items={p.elements} />
-                  )}
-                  <PdpFacts slug={slug} headingId="pdp-facts-web" />
-                  {disclaimer}
+                  <div className={tabsCss.webCol}>
+                    <PdpTabs tabs={tabs} />
+                    {p.elements.length > 0 && (
+                      <PeriodicElements items={p.elements} />
+                    )}
+                    <PdpFacts slug={slug} headingId="pdp-facts-web" />
+                    {disclaimer}
+                  </div>
                 </div>
-              </div>
 
-              <Stack gap="base" className={shop.infoCol}>
-                <div className={shop.headGroup}>
-                  <Heading className={`${shop.name} ${styles.pdpTitle}`}>
-                    {title}
-                  </Heading>
+                <Stack gap="base" className={shop.infoCol}>
+                  <div className={shop.headGroup}>
+                    <Heading className={`${shop.name} ${styles.pdpTitle}`}>
+                      {title}
+                    </Heading>
 
-                  <BodyLong>{p.lead}</BodyLong>
+                    <BodyLong>{p.lead}</BodyLong>
 
-                  {/* in a div of its own: the shop's «badge row sits further from the
+                    {/* in a div of its own: the shop's «badge row sits further from the
                       text» rule (24px) is for a bare list, here title · text · tags
                       · price keep the same 16px */}
-                  {p.dietaryBadges.length > 0 && (
-                    <div>
-                      <DietaryBadges items={p.dietaryBadges} />
-                    </div>
-                  )}
+                    {p.dietaryBadges.length > 0 && (
+                      <div>
+                        <DietaryBadges items={p.dietaryBadges} />
+                      </div>
+                    )}
 
-                  <div id="pdp-buy">
-                    <FriendBuyBox
-                      href={href}
-                      product={{
-                        coralId: p.coralId,
-                        slug,
-                        name: title,
-                        image: p.images[0]?.src,
-                      }}
-                    />
+                    <div id="pdp-buy">
+                      <FriendBuyBox
+                        href={href}
+                        product={{
+                          coralId: p.coralId,
+                          slug,
+                          name: title,
+                          image: p.images[0]?.src,
+                        }}
+                      />
+                    </div>
+
+                    <PdpSubscribe />
+
+                    <PdpDelivery />
+
+                    {/* a phone keeps the key elements here; on the web they are under the tabs */}
+                    {p.elements.length > 0 && (
+                      <div
+                        className={`${tabsCss.mobileOnly} ${tabsCss.keyEls}`}
+                      >
+                        <PeriodicElements items={p.elements} />
+                      </div>
+                    )}
                   </div>
 
-                  <PdpSubscribe />
-
-                  <PdpDelivery />
-
-                  {/* a phone keeps the key elements here; on the web they are under the tabs */}
-                  {p.elements.length > 0 && (
-                    <div className={`${tabsCss.mobileOnly} ${tabsCss.keyEls}`}>
-                      <PeriodicElements items={p.elements} />
-                    </div>
-                  )}
-                </div>
-
-                {/* a phone keeps How to Use and Manufacturing as folded rows */}
-                <div className={tabsCss.mobileOnly}>
-                  <InfoAccordion items={[howToUse, manufacturing]} />
-                </div>
-
-                <div className={tabsCss.mobileOnly}>
-                  <PdpFacts slug={slug} />
-                </div>
-
-                {p.fullDescription && (
+                  {/* a phone keeps How to Use and Manufacturing as folded rows */}
                   <div className={tabsCss.mobileOnly}>
-                    <FullDescription text={p.fullDescription} />
+                    <InfoAccordion items={[howToUse, manufacturing]} />
                   </div>
-                )}
 
-                <div className={tabsCss.mobileOnly}>{disclaimer}</div>
-              </Stack>
+                  <div className={tabsCss.mobileOnly}>
+                    <PdpFacts slug={slug} />
+                  </div>
+
+                  {p.fullDescription && (
+                    <div className={tabsCss.mobileOnly}>
+                      <FullDescription text={p.fullDescription} />
+                    </div>
+                  )}
+
+                  <div className={tabsCss.mobileOnly}>{disclaimer}</div>
+                </Stack>
+              </div>
             </div>
-          </div>
-        </Section>
+          </Section>
 
-        <Section tone="default" className={styles.more}>
-          <Container>
-            <Heading as="h2" className={shop.moreTitle}>
-              More from Hydration
-            </Heading>
-          </Container>
-          <FriendCards
-            products={others}
-            listId="pdp_similar"
-            listName="More from Hydration"
-            label="More from Hydration"
-          />
-        </Section>
-
-        <Section tone="default">
-          <Container>
-            <FriendMemberBlock />
-          </Container>
-        </Section>
-      </main>
-    </div>
+          <Section tone="default" className={styles.more}>
+            <Container>
+              <Heading as="h2" className={shop.moreTitle}>
+                More from Hydration
+              </Heading>
+            </Container>
+            <FriendCards
+              products={others}
+              listId="pdp_similar"
+              listName="More from Hydration"
+              label="More from Hydration"
+            />
+          </Section>
+        </main>
+      </div>
+    </FriendPdpLang>
   );
 }

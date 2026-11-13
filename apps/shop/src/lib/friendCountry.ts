@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from "react";
 import { MARKET } from "./market";
 import { onShopOrigin } from "./shopApi";
+import { FRIEND_SITES, SHOP_SITES } from "./shopSites";
 
 /**
  * The country the visitor shops for, shared by every page of the project (the
@@ -30,7 +31,7 @@ const getCountry = (): string => {
     country = MARKET.code;
     try {
       const v = window.localStorage.getItem(COUNTRY_KEY);
-      if (v && /^[A-Z]{2}$/.test(v)) country = v;
+      if (v && /^[A-Z]{2}$/.test(v) && (viaProxy() || (FRIEND_SITES as readonly string[]).includes(v))) country = v;
     } catch {
       /* storage blocked: the market's country */
     }
@@ -103,14 +104,24 @@ export function requestFriendCountry(code: string): void {
   else setFriendCountry(code);
 }
 
+/** The page runs through the local proxy (3200): every shop site is offered. */
+const viaProxy = (): boolean =>
+  typeof window !== "undefined" && window.location.hostname === "localhost" && window.location.port === "3200";
+
 /**
- * Through the local proxy every country has a shop site of its own, with its
- * own prices; on the shop's own domain there is the one site of the market.
+ * Every country of the list has a shop site of its own, with its own prices: through our gateway (localhost,
+ * Pages) or the local proxy. On the shop's own domain there is the one site of the market.
  */
 export const isMultiSite = (): boolean =>
   typeof window !== "undefined" &&
   onShopOrigin() &&
-  window.location.hostname === "localhost";
+  (viaProxy() || !/(^|\.)coral\.club$/.test(window.location.hostname));
+
+/** The countries the header's flag offers (code → name). */
+export function friendSiteList(): Record<string, string> {
+  const codes = viaProxy() ? Object.keys(SHOP_SITES) : [...FRIEND_SITES];
+  return Object.fromEntries(codes.map((c) => [c, SHOP_SITES[c]?.name ?? c]));
+}
 
 export const useMultiSite = (): boolean =>
   useSyncExternalStore(

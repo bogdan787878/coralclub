@@ -78,8 +78,12 @@ export type ProductCardProps = {
   onSetQty?: (qty: number) => void;
   /** Fill the container (for a grid) instead of the fixed 150px carousel width. */
   fluid?: boolean;
-
+  /** Words of the card's buttons (screen readers); English by default. */
+  labels?: Partial<ProductCardLabels>;
 };
+export type ProductCardLabels = { prev: string; next: string; removeOne: string; addOne: string; add: string };
+const CARD_EN: ProductCardLabels = { prev: "Previous image", next: "Next image", removeOne: "Remove one", addOne: "Add one", add: "Add to bag" };
+export const CARD_RU: ProductCardLabels = { prev: "Предыдущее фото", next: "Следующее фото", removeOne: "Убрать одну", addOne: "Добавить ещё", add: "В корзину" };
 
 function ChevronIcon({ direction }: { direction: "left" | "right" }) {
   return <Icon name={direction === "left" ? "back" : "next"} />;
@@ -136,7 +140,9 @@ export function ProductCard({
   cartQty = 0,
   onSetQty,
   fluid = false,
+  labels,
 }: ProductCardProps) {
+  const L = { ...CARD_EN, ...labels };
   const [active, setActive] = useState(0);
   const [acted, setActed] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -227,7 +233,7 @@ export function ProductCard({
               type="button"
               className={`${styles.arrow} ${styles.arrowPrev}`}
               onClick={() => page(-1)}
-              aria-label="Previous image"
+              aria-label={L.prev}
               data-analytics-id="card_image_prev"
               disabled={active === 0}
               tabIndex={-1}
@@ -238,7 +244,7 @@ export function ProductCard({
               type="button"
               className={`${styles.arrow} ${styles.arrowNext}`}
               onClick={() => page(1)}
-              aria-label="Next image"
+              aria-label={L.next}
               data-analytics-id="card_image_next"
               disabled={active === images.length - 1}
               tabIndex={-1}
@@ -253,7 +259,7 @@ export function ProductCard({
             <span className={styles.stepper + anim}>
               <button
                 type="button"
-                aria-label="Remove one"
+                aria-label={L.removeOne}
                 data-analytics-id="card_qty_dec"
                 onClick={() => {
                   setActed(true);
@@ -267,7 +273,7 @@ export function ProductCard({
               </span>
               <button
                 type="button"
-                aria-label="Add one"
+                aria-label={L.addOne}
                 data-analytics-id="card_qty_inc"
                 onClick={() => {
                   setActed(true);
@@ -285,7 +291,7 @@ export function ProductCard({
                 onAddToCart();
               }}
               className={styles.cart + anim}
-              aria-label="Add to bag"
+              aria-label={L.add}
               data-analytics-id="card_add_to_cart_btn"
             >
               <CartIcon />
@@ -295,14 +301,14 @@ export function ProductCard({
           <a
             href={cartHref}
             className={styles.cart}
-            aria-label="Add to bag"
+            aria-label={L.add}
             target="_blank"
             rel="noopener noreferrer"
           >
             <CartIcon />
           </a>
         ) : (
-          <Link href={cartHref} className={styles.cart} aria-label="Add to bag">
+          <Link href={cartHref} className={styles.cart} aria-label={L.add}>
             <CartIcon />
           </Link>
         )}

@@ -11,7 +11,11 @@ export const LOGIN_URL = `${PAGES_URL}/lk/login/`;
 /** Кабинет на чистом JS: в нём ещё живут каталог, избранное и структура, пока не перенесены в Next. */
 export const LEGACY_LK_URL = "https://bogdan787878.github.io/coralclub-lk/docs/";
 
-type Env = { production: boolean };
+type Env = {
+  production: boolean;
+  /** The checkout gateway this build uses (e.g. the local one, `npm run dev:gateway`); empty = the deployed Worker. */
+  gateway?: string;
+};
 let env: Env = { production: true };
 /** Сервис сообщает пакету, собран ли он для продакшена (в Next: process.env.NODE_ENV). */
 export function configureApi(next: Partial<Env>): void {
@@ -27,4 +31,4 @@ const devOverride = (key: string): string | null => {
   }
 };
 export const cc4Base = (): string => devOverride("lk_cc4_base") ?? CC4_BASE;
-export const gatewayUrl = (): string => devOverride("lk_gateway") ?? GATEWAY_URL;
+export const gatewayUrl = (): string => devOverride("lk_gateway") ?? (env.gateway || GATEWAY_URL);

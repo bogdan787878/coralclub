@@ -115,7 +115,11 @@ const text = (v: unknown): string => (typeof v === "string" ? v.replace(/<[^>]*>
 export async function catalogProduct(code: number | string): Promise<ProductDetail | null> {
   const r = await cc4<{ data?: Record<string, unknown> }>(`/catalog/product/${encodeURIComponent(String(code))}`);
   const d = r.json?.data;
-  if (!r.ok || !d) return null;
+  return r.ok && d ? productDetailFrom(d) : null;
+}
+
+/** Ответ GET /catalog/product/{code} → ProductDetail (общий для участника и гостя). */
+export function productDetailFrom(d: Record<string, unknown>): ProductDetail | null {
   const base = normalizeProduct(d as Raw);
   if (!base) return null;
   const pictures = Array.isArray(d.detailPictures) ? (d.detailPictures as unknown[]).filter((x): x is string => typeof x === "string") : [];

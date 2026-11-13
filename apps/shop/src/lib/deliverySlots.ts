@@ -48,6 +48,8 @@ const MONTHS = [
   "Nov",
   "Dec",
 ];
+const WEEKDAYS_RU = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
+const MONTHS_RU = ["янв", "фев", "мар", "апр", "мая", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"];
 const pad = (n: number) => String(n).padStart(2, "0");
 
 function moscowNow(at: Date) {
@@ -76,7 +78,8 @@ export function deliverySlots(
     express,
     mkad,
     at = new Date(),
-  }: { express: boolean; mkad: boolean; at?: Date },
+    lang = "en",
+  }: { express: boolean; mkad: boolean; at?: Date; lang?: "en" | "ru" },
 ): SlotDay[] {
   const intervals = times?.[express ? "express" : mkad ? "mkad" : "outside"];
   if (!Array.isArray(intervals)) return [];
@@ -106,9 +109,19 @@ export function deliverySlots(
     if (slots.length === 0 || restricted.includes(`${dd}.${mm}.${yyyy}`))
       continue;
     const name =
-      c === 0 ? "Today" : c === 1 ? "Tomorrow" : WEEKDAYS[date.getUTCDay()];
+      lang === "ru"
+        ? c === 0
+          ? "Сегодня"
+          : c === 1
+            ? "Завтра"
+            : WEEKDAYS_RU[date.getUTCDay()]
+        : c === 0
+          ? "Today"
+          : c === 1
+            ? "Tomorrow"
+            : WEEKDAYS[date.getUTCDay()];
     days.push({
-      label: `${name}, ${date.getUTCDate()} ${MONTHS[date.getUTCMonth()]}`,
+      label: `${name}, ${date.getUTCDate()} ${(lang === "ru" ? MONTHS_RU : MONTHS)[date.getUTCMonth()]}`,
       date: `${yyyy}${mm}${dd}`,
       times: slots,
     });

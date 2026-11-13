@@ -1,6 +1,7 @@
 "use client";
 
 import type { Product } from "@coral/api";
+import { CARD_RU } from "@/components/organisms/ProductCard";
 import { getStore } from "@coral/cart/store";
 import { ProductCard } from "@/components/organisms";
 import { useCart } from "@/lib/cart";
@@ -20,6 +21,7 @@ export function MemberCard({ p }: { p: Product }) {
   const off = p.club !== null && p.retail && p.retail > p.club ? Math.round((1 - p.club / p.retail) * 100) : 0;
   return (
     <ProductCard
+      labels={CARD_RU}
       fluid
       title={p.note ? `${p.name} – ${p.note}` : p.name}
       tag={p.badges[0]}

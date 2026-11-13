@@ -100,3 +100,10 @@ export function orderPaymentPath(
     ? `/order/payment/${order}/?new_checkout=1`
     : `/order/payment/${order}/${encodeURIComponent(paymentId)}/?new_checkout=1`;
 }
+
+/**
+ * The countries a visitor can switch the friend storefront to (header flag): the market's own and these.
+ * Each is the shop site of that country (prices, basket, delivery, payment); off the shop's domain the calls go
+ * through our gateway. Through the local proxy (3200) every site is offered.
+ */
+export const FRIEND_SITES = ["DE", "RU"] as const;

@@ -47,6 +47,12 @@ export function setShopLanguage(language: string | null): void {
 export function onShopOrigin(): boolean {
   if (typeof window === "undefined") return false;
   if (transport !== sameOrigin) return true; // a gateway answers instead of the shop's own origin
+  return onShopDomain();
+}
+
+/** The page itself is on the shop's domain (or the local proxy), so it needs no gateway. */
+export function onShopDomain(): boolean {
+  if (typeof window === "undefined") return false;
   const { hostname, port } = window.location;
   return (
     hostname === config.site ||

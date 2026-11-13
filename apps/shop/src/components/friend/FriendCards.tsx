@@ -1,17 +1,21 @@
 "use client";
 
 import { Carousel, ProductCard } from "@/components/organisms";
+import { CARD_RU } from "@/components/organisms/ProductCard";
 import { addItem, setQty, useCart } from "@/lib/cart";
 import { friendPdpHref, type FriendProduct } from "@/lib/friendCatalog";
 import { useFriendPricing } from "@/lib/friendPricing";
+import { tr, useFriendLang } from "@/lib/friendLang";
+import { friendTag, friendTitle } from "@/lib/friendRu";
 
 function FriendCard({ p, index }: { p: FriendProduct; index: number }) {
   const cart = useCart();
   const qty = cart.find((l) => l.coralId === p.coralId)?.qty ?? 0;
   const pr = useFriendPricing();
+  const lang = useFriendLang();
   const sold = pr.sold(p);
-  const club = sold ? pr.money(pr.club(p)) : "Not sold here";
-  const title = p.form ? `${p.name} – ${p.form}` : p.name;
+  const club = sold ? pr.money(pr.club(p)) : tr(lang, "Not sold here", "Нет в продаже");
+  const title = friendTitle(p, lang);
 
   return (
     // analytics: which product / position this card is (see Analytics.tsx)
@@ -23,7 +27,8 @@ function FriendCard({ p, index }: { p: FriendProduct; index: number }) {
       <ProductCard
         fluid
         title={title}
-        tag={p.tag}
+        tag={friendTag(p, lang)}
+        labels={lang === "ru" ? CARD_RU : undefined}
         price={club}
         priceWas={sold ? pr.money(pr.regular(p)) : undefined}
         priceTag={sold ? "−20%" : undefined}

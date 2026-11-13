@@ -132,11 +132,16 @@ export async function getPayPalLink(
   paySystemId: string,
 ): Promise<string | null> {
   try {
-    const html = await (
-      await shopFetch(
-        `/order/payment/${encodeURIComponent(orderId)}/${encodeURIComponent(paySystemId)}/?new_checkout=1`,
-      )
-    ).text();
+    const r = await shopFetch(
+      `/order/payment/${encodeURIComponent(orderId)}/${encodeURIComponent(paySystemId)}/?new_checkout=1`,
+    );
+    const fromGateway = await gatewayAnswer(r);
+    if (fromGateway !== undefined) {
+      return fromGateway && /^https:\/\/(www\.)?paypal\.com\//i.test(fromGateway.url)
+        ? fromGateway.url
+        : null;
+    }
+    const html = await r.text();
     const tag = /<a\b[^>]*class="[^"]*order-payment-button[^"]*"[^>]*>/i.exec(
       html,
     )?.[0];
@@ -147,6 +152,17 @@ export async function getPayPalLink(
   } catch {
     return null;
   }
+}
+
+/**
+ * Our checkout gateway (packages/gateway) answers the shop's order page with JSON:
+ * `{ target }` — the bank, already resolved — or `{ error }`. `undefined` = an
+ * ordinary HTML page of the shop (the page is on the shop's own domain).
+ */
+async function gatewayAnswer(r: Response): Promise<GatewayTarget | null | undefined> {
+  if (!(r.headers.get("content-type") ?? "").includes("application/json")) return undefined;
+  const j = (await r.json().catch(() => null)) as { target?: GatewayTarget } | null;
+  return j?.target ?? null;
 }
 
 /** Where the shop's gateway takes the shopper: an address, or a form to post to it. */
@@ -179,7 +195,11 @@ export async function getGatewayTarget(
   shopPagePath: string,
 ): Promise<GatewayTarget | null> {
   try {
-    const html = await (await shopFetch(shopPagePath)).text();
+    const r = await shopFetch(shopPagePath);
+    // через наш шлюз страница заказа уже пройдена до банка: приходит готовый адрес
+    const fromGateway = await gatewayAnswer(r);
+    if (fromGateway !== undefined) return fromGateway;
+    const html = await r.text();
     const box = new DOMParser()
       .parseFromString(html, "text/html")
       .querySelector(".paysys-payment");

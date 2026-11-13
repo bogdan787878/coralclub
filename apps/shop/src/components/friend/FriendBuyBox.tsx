@@ -4,6 +4,7 @@ import { BuyBox, type BuyBoxProduct } from "@/components/organisms";
 import { friendProductById } from "@/lib/friendCatalog";
 import { useFriendPricing } from "@/lib/friendPricing";
 import { SHOP_SITES } from "@/lib/shopSites";
+import { tr, useFriendLang } from "@/lib/friendLang";
 
 /** The product page's buy block, priced for the country the visitor shops for. */
 export function FriendBuyBox({
@@ -14,30 +15,32 @@ export function FriendBuyBox({
   href: string;
 }) {
   const pr = useFriendPricing();
+  const lang = useFriendLang();
+  const add = tr(lang, "Add to cart", "В корзину");
   const p = friendProductById(product.coralId);
   const options =
     p && pr.sold(p)
       ? [
           {
             id: "club",
-            label: "Member price",
+            label: tr(lang, "Member price", "Цена участника"),
             note: "−20%",
             price: pr.money(pr.club(p)),
-            cta: { label: "Add to cart", href },
+            cta: { label: add, href },
           },
           {
             id: "regular",
-            label: "Regular price",
+            label: tr(lang, "Regular price", "Обычная цена"),
             price: pr.money(pr.regular(p)),
-            cta: { label: "Add to cart", href },
+            cta: { label: add, href },
           },
         ]
       : [
           {
             id: "club",
-            label: "Not sold here",
+            label: tr(lang, "Not sold here", "Нет в продаже"),
             price: "—",
-            cta: { label: "Add to cart", href },
+            cta: { label: add, href },
           },
         ];
 
@@ -51,7 +54,11 @@ export function FriendBuyBox({
             color: "var(--color-text-muted)",
           }}
         >
-          Not sold on the {SHOP_SITES[pr.country]?.name ?? pr.country} site.
+          {tr(
+            lang,
+            `Not sold on the ${SHOP_SITES[pr.country]?.name ?? pr.country} site.`,
+            "Этого товара нет в магазине вашей страны.",
+          )}
         </p>
       )}
       <BuyBox
@@ -61,9 +68,9 @@ export function FriendBuyBox({
         product={product}
         options={options}
         labels={{
-          add: "Add to cart",
-          inCart: "In cart",
-          openCart: "Open cart",
+          add,
+          inCart: tr(lang, "In cart", "В корзине"),
+          openCart: tr(lang, "Open cart", "Открыть корзину"),
         }}
       />
     </>

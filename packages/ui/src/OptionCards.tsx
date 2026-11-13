@@ -1,16 +1,21 @@
 import type { ReactNode } from "react";
 import styles from "./OptionCards.module.css";
 
-/** A row of radio cards that scrolls sideways (delivery services, payment methods). */
+/**
+ * Radio options (delivery services, payment methods): a row of cards that
+ * scrolls sideways, or `layout="list"` — one option per line, stacked.
+ */
 export function OptionCards({
   label,
   children,
+  layout = "row",
 }: {
   label: string;
   children: ReactNode;
+  layout?: "row" | "list";
 }) {
   return (
-    <div className={styles.row} role="radiogroup" aria-label={label}>
+    <div className={layout === "list" ? styles.list : styles.row} role="radiogroup" aria-label={label}>
       {children}
     </div>
   );
@@ -28,6 +33,7 @@ export function OptionCard({
   lines,
   good,
   footer,
+  icon,
 }: {
   name: string;
   checked: boolean;
@@ -39,6 +45,8 @@ export function OptionCard({
   good?: boolean;
   /** replaces the lines: a logo, card badges */
   footer?: ReactNode;
+  /** a small logo before the title (a payment system's icon) */
+  icon?: ReactNode;
 }) {
   return (
     <label className={`${styles.card} ${checked ? styles.on : ""}`}>
@@ -49,7 +57,10 @@ export function OptionCard({
         checked={checked}
         onChange={onChange}
       />
-      <span className={styles.title}>{title}</span>
+      <span className={styles.title}>
+        {icon && <span className={styles.icon}>{icon}</span>}
+        {title}
+      </span>
       <span className={styles.foot}>
         <span className={`${styles.lines} ${good ? styles.good : ""}`}>
           {footer ?? lines}
