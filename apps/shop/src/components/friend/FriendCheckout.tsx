@@ -1068,6 +1068,19 @@ export function FriendCheckout() {
 
   return (
     <div className="appShell">
+      {sending && (
+        // the order is being created: a full-page shimmer, the filled form is hidden
+        <div className={styles.sending} role="status">
+          <p className={styles.sendingText}>
+            {T("Creating your order…", "Создаём заказ…")}
+          </p>
+          <i className={styles.sendingBar} style={{ width: "38%" }} aria-hidden="true" />
+          <i className={styles.sendingBar} style={{ width: "94%" }} aria-hidden="true" />
+          <i className={styles.sendingBar} style={{ width: "72%" }} aria-hidden="true" />
+          <i className={styles.sendingBar} style={{ width: "88%" }} aria-hidden="true" />
+          <i className={styles.sendingBtn} aria-hidden="true" />
+        </div>
+      )}
       <main className={styles.page} data-analytics-location="checkout">
         {lines.length === 0 ? (
           <div className={styles.empty}>

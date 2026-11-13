@@ -465,6 +465,59 @@ details[open] > .sumHead svg {
   }
 }
 
+/* ---- creating the order: a full-page shimmer; the interface is hidden so the page does not look alive ---- */
+.sending {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  width: min(440px, calc(100% - 48px));
+  margin: 0 auto;
+  background: var(--color-bg);
+}
+
+.sendingText {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.sendingBar,
+.sendingBtn {
+  display: block;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #e8eeed 25%, #f6f9f8 50%, #e8eeed 75%) 0 0 / 200% 100%;
+  animation: fc-sending 1.4s linear infinite;
+}
+
+.sendingBar {
+  height: 16px;
+}
+
+.sendingBtn {
+  height: 52px;
+  margin-top: 14px;
+  border-radius: 14px;
+}
+
+@keyframes fc-sending {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sendingBar,
+  .sendingBtn {
+    animation-duration: 4s;
+  }
+}
+
 /* ---- option cards (shipping, payment) ---- */
 .options {
   display: flex;
