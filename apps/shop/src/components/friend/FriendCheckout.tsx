@@ -66,11 +66,11 @@ import {
   type PickPoint,
 } from "@/components/checkout";
 import {
-  addressSearchEnabled,
   splitStreet,
   streetLine,
   type ResolvedAddress,
 } from "@/lib/addressSearch";
+import { useAddressSearchEnabled } from "@/lib/useAddressSearch";
 import {
   FloatInput,
   OptionCard,
@@ -184,8 +184,12 @@ export function FriendCheckout() {
   const [apartment, setApartment] = useState("");
   const [mapOpen, setMapOpen] = useState(false);
   // one search line by default; the separate fields are filled in the
-  // background from the picked address and only shown for manual entry
-  const [manual, setManual] = useState(!addressSearchEnabled);
+  // background from the picked address and only shown for manual entry.
+  // A key arriving from the gateway mid-page flips to search unless the
+  // shopper has already switched by hand.
+  const searchOn = useAddressSearchEnabled();
+  const [manualChoice, setManual] = useState<boolean | null>(null);
+  const manual = manualChoice ?? !searchOn;
   const [picked, setPicked] = useState(false);
   const [searchText, setSearchText] = useState("");
   const { street, build } = splitStreet(address);
@@ -1238,7 +1242,7 @@ export function FriendCheckout() {
                         onPick={applyAddress}
                       />
                     )}
-                    {addressSearchEnabled && (
+                    {searchOn && (
                       <div className={styles.addLines}>
                         <button
                           type="button"
@@ -1880,7 +1884,7 @@ export function FriendCheckout() {
             onClose={() => setSheetOpen(false)}
           />
         )}
-        {mapOpen && addressSearchEnabled && (
+        {mapOpen && searchOn && (
           <MapPicker
             country={country}
             countryName={countryName}

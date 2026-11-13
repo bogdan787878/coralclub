@@ -60,7 +60,7 @@ export function AddressSearch({
 
   // suggestions for the text, after a short pause in typing
   useEffect(() => {
-    if (!addressSearchEnabled) return;
+    if (!addressSearchEnabled()) return;
     if (anchor.current && !value.startsWith(anchor.current.text)) {
       anchor.current = null;
     }
@@ -130,14 +130,14 @@ export function AddressSearch({
         <input
           id={id}
           className={co.floatInput}
-          role={addressSearchEnabled ? "combobox" : undefined}
-          aria-expanded={addressSearchEnabled ? shown : undefined}
-          aria-controls={addressSearchEnabled ? listId : undefined}
-          aria-autocomplete={addressSearchEnabled ? "list" : undefined}
+          role={addressSearchEnabled() ? "combobox" : undefined}
+          aria-expanded={addressSearchEnabled() ? shown : undefined}
+          aria-controls={addressSearchEnabled() ? listId : undefined}
+          aria-autocomplete={addressSearchEnabled() ? "list" : undefined}
           aria-activedescendant={
             shown && items[active] ? `${id}-o${active}` : undefined
           }
-          autoComplete={addressSearchEnabled ? "off" : autoComplete}
+          autoComplete={addressSearchEnabled() ? "off" : autoComplete}
           placeholder={placeholder ?? " "}
           value={value}
           onFocus={() => setOpen(true)}

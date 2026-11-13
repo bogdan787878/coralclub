@@ -2,9 +2,12 @@
  * Address suggestions for the market's country (Google Places, «Autocomplete»
  * of the Places API).
  *
- * The key is a browser key from the environment (NEXT_PUBLIC_GOOGLE_PLACES_KEY,
- * restricted by HTTP referrer in the Google console) — never in the repository.
- * Without it the address field is a plain input and nothing is requested.
+ * The key is a browser key (restricted by HTTP referrer in the Google console)
+ * — never in the repository. It comes either from the environment
+ * (NEXT_PUBLIC_GOOGLE_PLACES_KEY, a build on the shop's own domain) or, at
+ * runtime, from the checkout gateway's secret (`GET /config`, pages on another
+ * origin — see loadPlacesKeyFromGateway). Until a key arrives the address
+ * field is a plain input and nothing is requested.
  *
  * Only a typed address and Google's own session token leave the page, and
  * only after the shopper has typed a few characters.
@@ -12,10 +15,51 @@
 import { MARKET, NUMBER_FIRST, REGIONS } from "./market";
 import { placesLanguageFor } from "./shopSites";
 
-const KEY = process.env.NEXT_PUBLIC_GOOGLE_PLACES_KEY ?? "";
+let KEY = process.env.NEXT_PUBLIC_GOOGLE_PLACES_KEY ?? "";
 
-/** Is address search configured in this build? */
-export const addressSearchEnabled = KEY !== "";
+/** Is address search available right now (a key is known)? */
+export const addressSearchEnabled = (): boolean => KEY !== "";
+
+const keyListeners = new Set<() => void>();
+/** A key arrived at runtime (the gateway's `/config`): pages re-render into search mode. */
+export function setPlacesKey(key: string): void {
+  if (!key || KEY) return;
+  KEY = key;
+  keyListeners.forEach((cb) => cb());
+}
+/** Notified when a runtime key arrives; returns an unlisten function. */
+export function onPlacesKeyChanged(cb: () => void): () => void {
+  keyListeners.add(cb);
+  return () => keyListeners.delete(cb);
+}
+
+let keyLoad: Promise<boolean> | null = null;
+/**
+ * Ask the checkout gateway for its Places key (its `GOOGLE_PLACES_KEY` secret,
+ * `GET /config` → `{ placesKey }`). Asked once per page no matter how many
+ * components need the answer; a gateway that is down or has no key leaves the
+ * plain input, exactly as before.
+ */
+export function loadPlacesKeyFromGateway(base: string): Promise<boolean> {
+  keyLoad ??= (async () => {
+    try {
+      const r = await fetch(`${base.replace(/\/+$/, "")}/config`, {
+        headers: { accept: "application/json" },
+      });
+      const j = (await r.json().catch(() => null)) as
+        | { placesKey?: string }
+        | null;
+      if (j?.placesKey) {
+        setPlacesKey(j.placesKey);
+        return true;
+      }
+    } catch {
+      /* no key from the gateway: the field stays a plain input */
+    }
+    return false;
+  })();
+  return keyLoad;
+}
 
 export type AddressSuggestion = {
   /** What was found: «350 5th Avenue» */

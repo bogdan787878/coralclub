@@ -435,7 +435,7 @@ export function useMemberCheckout() {
           { key: "point", bad: !point },
         ]
       : [
-          { key: "address", bad: manual || !addressSearchEnabled ? street === "" || build === "" : !picked },
+          { key: "address", bad: manual || !addressSearchEnabled() ? street === "" || build === "" : !picked },
           { key: "zip", bad: zip.trim().length < 5 },
           { key: "city", bad: !city },
           { key: "region", bad: needsRegion },

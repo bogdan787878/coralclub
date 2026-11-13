@@ -14,7 +14,7 @@ import {
   PickupSheet,
 } from "@/components/checkout";
 import { Consent, FloatInput, Loader, OptionCard, OptionCards, OptionInfo, Icon } from "@/components/ui";
-import { addressSearchEnabled } from "@/lib/addressSearch";
+import { useAddressSearchEnabled } from "@/lib/useAddressSearch";
 import { useMemberCheckout } from "@/lib/lk/useMemberCheckout";
 import styles from "@/components/checkout/CheckoutPage.module.css";
 import extra from "@/components/checkout/CheckoutExtras.module.css";
@@ -31,6 +31,7 @@ const Chevron = () => (
  */
 export function LkCheckout() {
   const c = useMemberCheckout();
+  const searchOn = useAddressSearchEnabled();
   const { form, delivery: d, payment: p, promoState: pr, bonusState: b, lines, money, field, attempted } = c;
   const place = Boolean(form.city);
   const nonLatinEmail = form.email.trim() !== "" && !/^[\x21-\x7E]+@[\x21-\x7E]+\.[\x21-\x7E]+$/.test(form.email.trim());
@@ -178,7 +179,7 @@ export function LkCheckout() {
                 </p>
               ) : !d.pickup ? (
                 <>
-                  {form.manual || !addressSearchEnabled ? (
+                  {form.manual || !searchOn ? (
                     <FloatInput
                       {...field("address")}
                       label="Улица и дом"
@@ -211,7 +212,7 @@ export function LkCheckout() {
                       onPick={c.applyAddress}
                     />
                   )}
-                  {addressSearchEnabled && (
+                  {searchOn && (
                     <div className={styles.addLines}>
                       <button type="button" className={styles.addLine} onClick={() => d.setMapOpen(true)}>
                         Выбрать на карте
@@ -234,7 +235,7 @@ export function LkCheckout() {
                   {(form.manual || form.apartment) && (
                     <FloatInput label="Квартира, подъезд (необязательно)" placeholder="кв. 5, подъезд 2" value={form.apartment} onChange={form.setApartment} autoComplete="address-line2" />
                   )}
-                  {(form.manual || !addressSearchEnabled) && (
+                  {(form.manual || !searchOn) && (
                     <>
                       <div className={styles.row}>
                         <FloatInput {...field("zip")} label="Индекс" placeholder="125009" value={form.zip} onChange={form.setZip} inputMode="numeric" autoComplete="postal-code" />
@@ -511,7 +512,7 @@ export function LkCheckout() {
           labels={PICKUP_RU}
         />
       )}
-      {d.mapOpen && addressSearchEnabled && (
+      {d.mapOpen && searchOn && (
         <MapPicker
           country={c.country}
           countryName={c.countryName}
