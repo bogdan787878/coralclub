@@ -42,11 +42,44 @@ const formats = new Map<string, Intl.NumberFormat>();
 /** Roubles are written the Russian way (10 062 ₽), everything else the market's way. */
 const localeFor = (currency: string): string => (currency === "RUB" ? "ru-RU" : MARKET.locale);
 
-/** 117 → «117 €», 117.5 → «117,50 €», 10062 → «10.062 ₽»: the currency as its sign, whole amounts without cents (the market's currency, or the one of the shop site asked) */
+/** € and $ are written tight before the amount («€117», «$130»); the rouble and the rest keep the market's own way («10 062 ₽»). */
+const SIGN_BEFORE = new Set(["EUR", "USD"]);
+const signs = new Map<string, string>();
+const signFor = (currency: string): string => {
+  let s = signs.get(currency);
+  if (!s) {
+    s =
+      new Intl.NumberFormat(localeFor(currency), {
+        style: "currency",
+        currency,
+        currencyDisplay: "narrowSymbol",
+      })
+        .formatToParts(0)
+        .find((p) => p.type === "currency")?.value ?? currency;
+    signs.set(currency, s);
+  }
+  return s;
+};
+
+/** 117 → «€117», 117.5 → «€117,50», 10062 → «10 062 ₽»: the currency as its sign, whole amounts without cents (the market's currency, or the one of the shop site asked) */
 export const formatMoney = (
   n: number,
   currency: string = MARKET.currency,
 ): string => {
+  const whole = Math.abs(n - Math.round(n)) < 0.005;
+  if (SIGN_BEFORE.has(currency)) {
+    // the sign tight before the amount; the amount itself as the market writes numbers
+    const key = `plain:${currency}:${whole ? "0" : "2"}`;
+    let g = formats.get(key);
+    if (!g) {
+      g = new Intl.NumberFormat(localeFor(currency), {
+        minimumFractionDigits: whole ? 0 : 2,
+        maximumFractionDigits: whole ? 0 : 2,
+      });
+      formats.set(key, g);
+    }
+    return `${signFor(currency)}${g.format(whole ? Math.round(n) : n)}`;
+  }
   let f = formats.get(currency);
   if (!f) {
     f = new Intl.NumberFormat(localeFor(currency), {
@@ -56,7 +89,7 @@ export const formatMoney = (
     });
     formats.set(currency, f);
   }
-  if (Math.abs(n - Math.round(n)) < 0.005) {
+  if (whole) {
     const w = `whole:${currency}`;
     let g = formats.get(w);
     if (!g) {
