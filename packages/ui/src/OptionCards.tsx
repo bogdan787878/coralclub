@@ -34,6 +34,9 @@ export function OptionCard({
   good,
   footer,
   icon,
+  price,
+  priceNote,
+  priceGood,
 }: {
   name: string;
   checked: boolean;
@@ -47,6 +50,12 @@ export function OptionCard({
   footer?: ReactNode;
   /** a small logo before the title (a payment system's icon) */
   icon?: ReactNode;
+  /** the price at the right of the card (the delivery cost), larger than the lines */
+  price?: ReactNode;
+  /** a small hint under the price («free over 60 €») */
+  priceNote?: ReactNode;
+  /** the price is a good thing (free): shown in green */
+  priceGood?: boolean;
 }) {
   return (
     <label className={`${styles.card} ${checked ? styles.on : ""}`}>
@@ -65,6 +74,16 @@ export function OptionCard({
         <span className={`${styles.lines} ${good ? styles.good : ""}`}>
           {footer ?? lines}
         </span>
+        {(price || priceNote) && (
+          <span
+            className={`${styles.side} ${priceGood ? styles.sideGood : ""}`}
+          >
+            {price && <span className={styles.price}>{price}</span>}
+            {priceNote && (
+              <span className={styles.priceNote}>{priceNote}</span>
+            )}
+          </span>
+        )}
         <svg className={styles.check} viewBox="0 0 28 28" aria-hidden="true">
           <circle cx="14" cy="14" r="14" />
           {checked && (
@@ -88,11 +107,14 @@ export function OptionInfo({
   title,
   detail,
   aside,
+  asideNote,
   good,
 }: {
   title: ReactNode;
   detail?: ReactNode;
   aside?: ReactNode;
+  /** a small hint under the aside («free over 60 €») */
+  asideNote?: ReactNode;
   /** the aside is a good thing (free): shown in green */
   good?: boolean;
 }) {
@@ -102,9 +124,18 @@ export function OptionInfo({
         <span className={styles.infoTitle}>{title}</span>
         {detail && <span className={styles.infoDetail}>{detail}</span>}
       </div>
-      {aside && (
-        <span className={`${styles.infoAside} ${good ? styles.infoGood : ""}`}>
-          {aside}
+      {(aside || asideNote) && (
+        <span className={styles.infoAsideBox}>
+          {aside && (
+            <span
+              className={`${styles.infoAside} ${good ? styles.infoGood : ""}`}
+            >
+              {aside}
+            </span>
+          )}
+          {asideNote && (
+            <span className={styles.infoAsideNote}>{asideNote}</span>
+          )}
         </span>
       )}
     </div>

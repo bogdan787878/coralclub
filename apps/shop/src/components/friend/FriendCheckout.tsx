@@ -1485,15 +1485,16 @@ export function FriendCheckout() {
                   items.length === 1 ? (
                     <OptionInfo
                       title={items[0].NAME}
-                      detail={[
-                        items[0].TRANSIT &&
-                          `${items[0].TRANSIT} ${T("days", "дн.")}`,
+                      detail={
+                        items[0].TRANSIT
+                          ? `${items[0].TRANSIT} ${T("days", "дн.")}`
+                          : undefined
+                      }
+                      asideNote={
                         items[0].FREE_DELIVERY && items[0].PRICE
                           ? `${T("free over", "бесплатно от")} ${money(items[0].FREE_DELIVERY)}`
-                          : "",
-                      ]
-                        .filter(Boolean)
-                        .join(" · ")}
+                          : undefined
+                      }
                       aside={
                         items[0].PRICE
                           ? money(items[0].PRICE)
@@ -1520,27 +1521,22 @@ export function FriendCheckout() {
                             });
                           }}
                           title={it.NAME}
-                          good={!it.PRICE}
                           lines={
-                            <>
-                              {it.TRANSIT && (
-                                <span>
-                                  {it.TRANSIT} {T("days", "дн.")}
-                                </span>
-                              )}
-                              {it.FREE_DELIVERY && it.PRICE ? (
-                                <span>
-                                  {T("free over", "бесплатно от")}{" "}
-                                  {money(it.FREE_DELIVERY)}
-                                </span>
-                              ) : null}
+                            it.TRANSIT ? (
                               <span>
-                                {it.PRICE
-                                  ? money(it.PRICE)
-                                  : T("Free", "Бесплатно")}
+                                {it.TRANSIT} {T("days", "дн.")}
                               </span>
-                            </>
+                            ) : null
                           }
+                          price={
+                            it.PRICE ? money(it.PRICE) : T("Free", "Бесплатно")
+                          }
+                          priceNote={
+                            it.FREE_DELIVERY && it.PRICE
+                              ? `${T("free over", "бесплатно от")} ${money(it.FREE_DELIVERY)}`
+                              : undefined
+                          }
+                          priceGood={!it.PRICE}
                         />
                       ))}
                     </OptionCards>

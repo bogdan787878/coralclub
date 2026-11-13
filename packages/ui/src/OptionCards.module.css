@@ -58,8 +58,38 @@
 .foot {
   display: flex;
   align-items: flex-end;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 8px;
+}
+
+/* the price column at the right of a card (the delivery cost) */
+.side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  min-width: 0;
+}
+
+.row .side {
+  margin-left: auto;
+}
+
+.price {
+  font-size: 1.0625rem;
+  line-height: 1.5rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.priceNote {
+  margin-top: 2px;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  color: var(--color-text-muted);
+}
+
+.sideGood .price {
+  color: #1f9d4d;
 }
 
 .lines {
@@ -83,6 +113,7 @@
   flex: none;
   width: 28px;
   height: 28px;
+  margin-left: auto;
 }
 
 .check circle {
@@ -127,6 +158,21 @@
   text-align: right;
 }
 
+.infoAsideBox {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.infoAsideNote {
+  margin-top: 2px;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  color: var(--color-text-muted);
+}
+
 .infoGood {
   color: #1f9d4d;
 }
@@ -140,16 +186,21 @@
 
 .list .card {
   display: grid;
-  grid-template-columns: 24px minmax(0, 1fr);
+  grid-template-columns: 24px minmax(0, 1fr) auto;
   grid-template-areas:
-    "check title"
-    "check lines";
+    "check title side"
+    "check lines side";
   align-items: center;
   column-gap: 12px;
   row-gap: 2px;
   min-width: 0;
   padding: 14px 16px;
   border-radius: 12px;
+}
+
+.list .side {
+  grid-area: side;
+  margin-left: 0;
 }
 
 .list .foot {
@@ -176,6 +227,11 @@
   column-gap: 12px;
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+
+/* the price has its own column at the right: the lines stay muted */
+.list .lines > span {
+  color: var(--color-text-muted);
 }
 
 .list .lines > span:empty {

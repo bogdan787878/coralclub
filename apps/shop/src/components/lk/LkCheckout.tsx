@@ -318,7 +318,8 @@ export function LkCheckout() {
                 d.items.length === 1 ? (
                   <OptionInfo
                     title={d.items[0].NAME}
-                    detail={[d.items[0].TRANSIT, d.items[0].FREE_DELIVERY && d.items[0].PRICE ? `бесплатно от ${money(d.items[0].FREE_DELIVERY)}` : ""].filter(Boolean).join(" · ")}
+                    detail={d.items[0].TRANSIT || undefined}
+                    asideNote={d.items[0].FREE_DELIVERY && d.items[0].PRICE ? `бесплатно от ${money(d.items[0].FREE_DELIVERY)}` : undefined}
                     aside={d.items[0].PRICE ? money(d.items[0].PRICE) : "Бесплатно"}
                     good={!d.items[0].PRICE}
                   />
@@ -331,14 +332,10 @@ export function LkCheckout() {
                         checked={d.deliveryId === it.ID}
                         onChange={() => d.setDeliveryChoice(it.ID)}
                         title={it.NAME}
-                        good={!it.PRICE}
-                        lines={
-                          <>
-                            {it.TRANSIT && <span>{it.TRANSIT}</span>}
-                            {it.FREE_DELIVERY && it.PRICE ? <span>бесплатно от {money(it.FREE_DELIVERY)}</span> : null}
-                            <span>{it.PRICE ? money(it.PRICE) : "Бесплатно"}</span>
-                          </>
-                        }
+                        lines={it.TRANSIT ? <span>{it.TRANSIT}</span> : null}
+                        price={it.PRICE ? money(it.PRICE) : "Бесплатно"}
+                        priceNote={it.FREE_DELIVERY && it.PRICE ? `бесплатно от ${money(it.FREE_DELIVERY)}` : undefined}
+                        priceGood={!it.PRICE}
                       />
                     ))}
                   </OptionCards>
