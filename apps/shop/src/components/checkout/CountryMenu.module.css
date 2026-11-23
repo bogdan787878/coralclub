@@ -19,7 +19,8 @@
 
 .flagBtn:hover,
 .flagBtn[aria-expanded="true"] {
-  background: var(--color-neutral-30);
+  /* на светлом и на тёмной шапке (primary) */
+  background: rgba(127, 127, 127, 0.18);
 }
 
 .panel {
@@ -94,8 +95,8 @@
 }
 
 .optionFlag {
-  font-size: 1.375rem;
-  line-height: 1;
+  display: inline-flex;
+  align-items: center;
 }
 
 .empty {

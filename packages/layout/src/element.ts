@@ -23,6 +23,7 @@
 import { PAGES_URL } from "@coral/api";
 import { getStore } from "@coral/cart/store";
 import { ICON } from "./icons";
+import { LOGO } from "./logo";
 import { CSS, PAGE_CSS } from "./styles";
 
 export type Links = { home: string; catalog: string; cart: string; me: string };
@@ -142,11 +143,11 @@ export class CcLayout extends HTMLElement {
     const head =
       variant === "bar"
         ? `<header class="head bar">
-            <div class="side"><slot name="menu"></slot><a class="brand" href="${esc(L.home)}"><slot name="brand">coralclub</slot></a></div>
+            <div class="side"><slot name="menu"></slot><a class="brand" href="${esc(L.home)}"><slot name="brand">${LOGO}</slot></a></div>
             <div class="side"><slot name="actions"></slot>${cartBtn("iconBtn", `${ICON.cart}${badge}`)}</div>
           </header>`
         : `<header class="head">
-            <a class="brand" href="${esc(L.home)}"><slot name="brand">coralclub</slot></a>
+            <a class="brand" href="${esc(L.home)}"><slot name="brand">${LOGO}</slot></a>
             <div class="right"><slot name="corner"></slot><nav class="desk" aria-label="${esc(T.menu)}"><slot name="actions"></slot>${this.tabList.map(desk).join("")}</nav></div>
           </header>`;
     this.root.innerHTML = `<style>${CSS}</style>

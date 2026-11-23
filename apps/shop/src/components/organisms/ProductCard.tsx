@@ -80,6 +80,8 @@ export type ProductCardProps = {
   fluid?: boolean;
   /** Words of the card's buttons (screen readers); English by default. */
   labels?: Partial<ProductCardLabels>;
+  /** One card across the whole row: a lower, wider picture tile. */
+  wide?: boolean;
 };
 export type ProductCardLabels = { prev: string; next: string; removeOne: string; addOne: string; add: string };
 const CARD_EN: ProductCardLabels = { prev: "Previous image", next: "Next image", removeOne: "Remove one", addOne: "Add one", add: "Add to bag" };
@@ -141,6 +143,7 @@ export function ProductCard({
   onSetQty,
   fluid = false,
   labels,
+  wide = false,
 }: ProductCardProps) {
   const L = { ...CARD_EN, ...labels };
   const [active, setActive] = useState(0);
@@ -163,7 +166,7 @@ export function ProductCard({
   };
 
   return (
-    <article className={`${styles.card}${fluid ? ` ${styles.fluid}` : ""}`}>
+    <article className={`${styles.card}${fluid ? ` ${styles.fluid}` : ""}${wide ? ` ${styles.wide}` : ""}`}>
       <div className={styles.media}>
         {badge && (
           <span className={styles.badge}>

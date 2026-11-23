@@ -70,7 +70,7 @@ export default function FriendHome() {
               listId="friend_sets"
               listName="Hydration sets"
               label="Hydration sets"
-              minCols={2}
+              minCols={1}
             />
           </Section>
 

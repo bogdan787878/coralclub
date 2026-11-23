@@ -68,7 +68,7 @@ function FriendHomeRu() {
               Обычная вода быстро уходит из организма — удержать её помогают минералы и электролиты.
             </p>
           </Container>
-          <FriendCards products={FRIEND_SETS} listId="friend_sets" listName="Hydration sets" label="Наборы для гидратации" minCols={2} />
+          <FriendCards products={FRIEND_SETS} listId="friend_sets" listName="Hydration sets" label="Наборы для гидратации" minCols={1} />
         </Section>
 
         <Section tone="surface" className={styles.section} data-analytics-section="singles">

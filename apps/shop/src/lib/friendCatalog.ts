@@ -94,7 +94,6 @@ const META: Record<
 /** In display order: the sets first, then one by one. */
 const ORDER = [
   "hydramax-plus",
-  "hydramax",
   "coral-mine-silver",
   "oceanmin",
   "h-500",

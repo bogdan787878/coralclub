@@ -28,6 +28,16 @@
   }
 }
 
+/* one card across the whole row: a lower, wider tile */
+.fluid.wide .media {
+  aspect-ratio: 3 / 2;
+}
+@media (min-width: 1024px) {
+  [data-carousel-item] .fluid.wide .media {
+    height: 360px;
+  }
+}
+
 /* ---------- Packshot tile — the only blue surface ---------- */
 .media {
   position: relative;

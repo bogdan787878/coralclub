@@ -2,13 +2,8 @@
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { COUNTRY_EN, type CountryLabels } from "./labels";
+import { Flag } from "./Flag";
 import styles from "./CountryMenu.module.css";
-
-/** «FR» → 🇫🇷 */
-export const flagEmoji = (code: string): string =>
-  [...code.toUpperCase()]
-    .map((c) => String.fromCodePoint(127397 + c.charCodeAt(0)))
-    .join("");
 
 /**
  * The country of the order as a flag in the header; a click opens the list of
@@ -83,7 +78,7 @@ export function CountryMenu({
         data-analytics-id="header_country"
         onClick={() => setOpen((o) => !o)}
       >
-        <span aria-hidden="true">{flagEmoji(value)}</span>
+        <Flag code={value} size={24} />
       </button>
       {open && (
         <div className={styles.panel} id={`${id}-panel`}>
@@ -116,7 +111,7 @@ export function CountryMenu({
                     onClick={() => pick(code)}
                   >
                     <span className={styles.optionFlag} aria-hidden="true">
-                      {flagEmoji(code)}
+                      <Flag code={code} />
                     </span>
                     {name}
                   </button>

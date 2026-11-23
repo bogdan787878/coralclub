@@ -14,6 +14,9 @@ export const CSS = `
   --c-action-hover: var(--color-action-hover, #002022);
   --c-soft: var(--color-malachite-10, #e3f7fa);
   --c-badge: #e5484d;
+  /* шапка: фон — primary бренда, текст и значки — белые (переопределяются --cc-head-bg / --cc-head-fg) */
+  --c-head-bg: var(--cc-head-bg, var(--color-primary-100, #011130));
+  --c-head-fg: var(--cc-head-fg, var(--color-text-on-primary, #fff));
   --f: var(--font-sans, "Suisse Intl", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
   --fw: var(--font-weight-medium, 500);
   --ease: var(--ease-standard, cubic-bezier(.2, 0, 0, 1));
@@ -29,8 +32,12 @@ svg { display: block; }
 
 /* ---------- шапка ---------- */
 .head { position: sticky; top: 0; z-index: 50; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px;
-  padding: 16px var(--page-padding-inline, 16px); background: var(--c-surface); }
+  padding: 16px var(--page-padding-inline, 16px); background: var(--c-head-bg); color: var(--c-head-fg); }
 .brand { justify-self: start; font-size: 1.375rem; line-height: 1.5rem; font-weight: var(--fw); letter-spacing: -.01em; }
+.brand { display: inline-flex; align-items: center; color: inherit; }
+.logo { display: block; height: 24px; width: auto; }
+.head .badge { background: var(--c-head-fg); color: var(--c-head-bg); }
+.head .iconBtn:hover { background: rgba(255, 255, 255, .12); }
 .right { justify-self: end; display: flex; align-items: center; gap: 16px; }
 .desk { display: none; }
 .icon { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; transition: opacity .15s var(--ease); }
@@ -44,6 +51,7 @@ svg { display: block; }
 }
 @media (min-width: 1024px) {
   .brand { font-size: 1.5rem; }
+  .logo { height: 28px; }
   .desk { display: flex; align-items: center; gap: 24px; }
 }
 /* шапка «полосой» («Друг клуба»): меню и логотип слева, слоты сервиса и корзина справа, на всех ширинах */

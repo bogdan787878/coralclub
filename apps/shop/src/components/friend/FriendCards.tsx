@@ -8,7 +8,7 @@ import { useFriendPricing } from "@/lib/friendPricing";
 import { tr, useFriendLang } from "@/lib/friendLang";
 import { friendTag, friendTitle } from "@/lib/friendRu";
 
-function FriendCard({ p, index }: { p: FriendProduct; index: number }) {
+function FriendCard({ p, index, wide }: { p: FriendProduct; index: number; wide?: boolean }) {
   const cart = useCart();
   const qty = cart.find((l) => l.coralId === p.coralId)?.qty ?? 0;
   const pr = useFriendPricing();
@@ -29,6 +29,7 @@ function FriendCard({ p, index }: { p: FriendProduct; index: number }) {
         title={title}
         tag={friendTag(p, lang)}
         labels={lang === "ru" ? CARD_RU : undefined}
+        wide={wide}
         price={club}
         priceWas={sold ? pr.money(pr.regular(p)) : undefined}
         priceTag={sold ? "−20%" : undefined}
@@ -73,7 +74,7 @@ export function FriendCards({
     >
       <Carousel label={label} maxCols={4} minCols={minCols} stretchFew>
         {products.map((p, i) => (
-          <FriendCard key={p.slug} p={p} index={i + 1} />
+          <FriendCard key={p.slug} p={p} index={i + 1} wide={products.length === 1} />
         ))}
       </Carousel>
     </div>
