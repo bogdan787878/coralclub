@@ -14,8 +14,8 @@ export const CSS = `
   --c-action-hover: var(--color-action-hover, #002022);
   --c-soft: var(--color-malachite-10, #e3f7fa);
   --c-badge: #e5484d;
-  /* шапка: фон — primary бренда, текст и значки — белые (переопределяются --cc-head-bg / --cc-head-fg) */
-  --c-head-bg: var(--cc-head-bg, var(--color-primary-100, #011130));
+  /* шапка: фон — primary (зелёный, как кнопки), текст и значки — белые (переопределяются --cc-head-bg / --cc-head-fg) */
+  --c-head-bg: var(--cc-head-bg, var(--color-malachite-90, #004144));
   --c-head-fg: var(--cc-head-fg, var(--color-text-on-primary, #fff));
   --f: var(--font-sans, "Suisse Intl", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
   --fw: var(--font-weight-medium, 500);
