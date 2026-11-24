@@ -1,6 +1,10 @@
-/* the project's header is on top of every page: the round back/share
-   buttons sit under it, over the picture. 76px — the header's height on
-   mobile/tablet (16px padding × 2 + its 44px icon buttons). */
+/* the project's header is on top of the page and scrolls away with it: the
+   round back/share buttons follow its bottom edge (PdpControls sets
+   --head-bottom) — under the header while it shows, at the top of the screen
+   once it is gone. 76px — the header's mobile height, until the script runs. */
 div.controls {
-  top: calc(76px + var(--space-16) + env(safe-area-inset-top, 0px));
+  top: max(
+    calc(var(--space-16) + env(safe-area-inset-top, 0px)),
+    calc(var(--head-bottom, 76px) + var(--space-16))
+  );
 }

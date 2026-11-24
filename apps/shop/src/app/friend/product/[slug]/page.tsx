@@ -23,11 +23,11 @@ import { ManufacturingDetails } from "../../../(shop)/products/[slug]/Manufactur
 import { BackButton } from "../../../(shop)/products/[slug]/BackButton";
 import { ShareButton } from "../../../(shop)/products/[slug]/ShareButton";
 // the page chrome is the shop PDP's own, the wide frame is the landing's
+import { PdpControls } from "@/app/friend/product/[slug]/PdpControls";
 import shop from "../../../(shop)/products/[slug]/page.module.css";
 import styles from "../../../landing/product/[slug]/page.module.css";
 import { FriendBuyBox } from "@/components/friend/FriendBuyBox";
 import { FriendPdpLang } from "@/components/friend/FriendPdpLang";
-import controls from "./controls.module.css";
 import grid from "./grid.module.css";
 import tabsCss from "./tabs.module.css";
 
@@ -115,10 +115,10 @@ export default async function FriendProductPage({
         <main className={shop.page} data-analytics-location="product_card">
           <TrackViewItem coralId={p.coralId} />
 
-          <div className={`${shop.imageControls} ${controls.controls}`}>
+          <PdpControls>
             <BackButton className={shop.circleBtn} fallbackHref="/friend/" />
             <ShareButton className={shop.circleBtn} title={p.name} />
-          </div>
+          </PdpControls>
 
           <Section tone="surface">
             <div className={`${styles.wide} ${grid.wide}`}>

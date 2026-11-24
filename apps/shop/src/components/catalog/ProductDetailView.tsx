@@ -8,9 +8,9 @@ import { LandingGallery } from "@/components/landing/LandingGallery";
 import { PdpTabs, type PdpTab } from "@/components/friend/PdpTabs";
 import { BackButton } from "@/app/(shop)/products/[slug]/BackButton";
 import { ShareButton } from "@/app/(shop)/products/[slug]/ShareButton";
+import { PdpControls } from "@/app/friend/product/[slug]/PdpControls";
 import shop from "@/app/(shop)/products/[slug]/page.module.css";
 import styles from "@/app/landing/product/[slug]/page.module.css";
-import controls from "@/app/friend/product/[slug]/controls.module.css";
 import grid from "@/app/friend/product/[slug]/grid.module.css";
 import tabsCss from "@/app/friend/product/[slug]/tabs.module.css";
 import facts from "@/components/friend/PdpBlocks.module.css";
@@ -132,10 +132,10 @@ export function ProductDetailView({
   return (
     <div className={`appShell ${grid.column}`}>
       <main className={shop.page} data-analytics-location="product_card">
-        <div className={`${shop.imageControls} ${controls.controls}`}>
+        <PdpControls>
           <BackButton className={shop.circleBtn} fallbackHref={backHref} />
           <ShareButton className={shop.circleBtn} title={p.name} />
-        </div>
+        </PdpControls>
 
         <Section tone="surface">
           <div className={`${styles.wide} ${grid.wide}`}>
