@@ -5,12 +5,14 @@ import { useEffect, useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { CountryMenu } from "@/components/checkout";
 import { COUNTRY_RU } from "@/components/checkout/labels";
+import { Icon } from "@/components/ui";
 import { asset } from "@/lib/asset";
 import { removeItem, replaceCart, useCart } from "@/lib/cart";
 import { useFriendLang } from "@/lib/friendLang";
 import { friendTitle } from "@/lib/friendRu";
 import { loginUrl } from "@/lib/friend";
 import { friendProductById } from "@/lib/friendCatalog";
+import menu from "@/components/checkout/CountryMenu.module.css";
 import { friendSiteList, requestFriendCountry, useFriendCountries, useFriendCountry, useMultiSite } from "@/lib/friendCountry";
 
 /**
@@ -18,6 +20,9 @@ import { friendSiteList, requestFriendCountry, useFriendCountries, useFriendCoun
  * та же шапка и нижнее меню, что в кабинете, на английском; корзина — гостевая (coralclub.cart.friend), её
  * страница — /friend/cart/ (приложение корзины). Справа в шапке — флаг страны.
  */
+/** Временно: в шапке вместо флага страны — иконка поиска (ведёт к товарам). Вернуть флаг — `true`. */
+const SHOW_COUNTRY_FLAG = false;
+
 const COUNTRY_NAMES_RU: Record<string, string> = { DE: "Германия", RU: "Россия" };
 
 export function FriendLayout() {
@@ -67,7 +72,13 @@ export function FriendLayout() {
       >
         {!hasOrder && (
           <div slot="corner">
-            <CountryMenu countries={names} value={country} onChange={requestFriendCountry} labels={ru ? COUNTRY_RU : undefined} />
+            {SHOW_COUNTRY_FLAG ? (
+              <CountryMenu countries={names} value={country} onChange={requestFriendCountry} labels={ru ? COUNTRY_RU : undefined} />
+            ) : (
+              <a className={menu.flagBtn} href={asset("/friend/#hydration")} aria-label={ru ? "Поиск" : "Search"} style={{ color: "inherit" }}>
+                <Icon name="search" />
+              </a>
+            )}
           </div>
         )}
       </cc-layout>
