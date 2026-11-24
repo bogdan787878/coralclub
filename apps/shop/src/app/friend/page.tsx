@@ -36,14 +36,7 @@ export default function FriendHome() {
               <>
                 {hero.title.lead}
                 <br />
-                <Accent>{hero.title.accent}</Accent>
-              </>
-            }
-            body={
-              <>
-                {hero.body.map((t) => (
-                  <p key={t}>{t}</p>
-                ))}
+                <Accent className={styles.heroAccent}>{hero.title.accent}</Accent>
               </>
             }
             image={hero.image}

@@ -425,3 +425,9 @@ select.select {
   background-repeat: no-repeat;
   background-position: right 14px center;
 }
+
+/* hero: no description under the title, so its accent line ("with water")
+   carries a little more weight */
+.heroAccent {
+  font-size: 1.15em;
+}

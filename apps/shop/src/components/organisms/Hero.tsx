@@ -14,7 +14,8 @@ export type HeroImage = {
 
 export type HeroProps = {
   title: ReactNode;
-  body: ReactNode;
+  /** Text under the title; leave out for a title-only hero. */
+  body?: ReactNode;
   /** Fills the panel as its background. */
   image: HeroImage;
   cta: { label: string; href?: string; onClick?: () => void };
@@ -98,9 +99,11 @@ export function Hero({
           <div className={styles.inset}>
             <Heading className={styles.title}>{title}</Heading>
           </div>
-          <BodyLong as="div" className={styles.body}>
-            {body}
-          </BodyLong>
+          {body ? (
+            <BodyLong as="div" className={styles.body}>
+              {body}
+            </BodyLong>
+          ) : null}
         </div>
 
         <div className={`${styles.inset} ${styles.ctaRow}`}>

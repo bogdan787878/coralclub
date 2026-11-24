@@ -45,14 +45,7 @@ function FriendHomeRu() {
                   <br />
                 </span>
               ))}
-              <Accent>{c.hero.title.accent}</Accent>
-            </>
-          }
-          body={
-            <>
-              {c.hero.body.map((t) => (
-                <p key={t}>{t}</p>
-              ))}
+              <Accent className={styles.heroAccent}>{c.hero.title.accent}</Accent>
             </>
           }
           image={lkHeroImage("hydration")}
