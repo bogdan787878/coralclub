@@ -1,5 +1,6 @@
 /* the project's header is on top of every page: the round back/share
-   buttons sit under it, over the picture */
+   buttons sit under it, over the picture. 76px — the header's height on
+   mobile/tablet (16px padding × 2 + its 44px icon buttons). */
 div.controls {
-  top: calc(60px + var(--space-8) + env(safe-area-inset-top, 0px));
+  top: calc(76px + var(--space-16) + env(safe-area-inset-top, 0px));
 }
