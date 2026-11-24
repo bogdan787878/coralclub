@@ -101,6 +101,16 @@ const ORDER = [
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
+/**
+ * Square (1:1) versions of the lifestyle shot — the second photo of the
+ * gallery. The shared catalogue keeps the portrait (mobile) crop for some.
+ */
+const SQUARE_SHOT: Record<string, string> = {
+  "hydramax-plus": "/images/products/ChatGPT Image Sep 12, 2026 at 01_00_26 AM.png",
+  oceanmin: "/images/products/ChatGPT Image Sep 14, 2026 at 12_22_20 AM.png",
+  "h-500": "/images/products/ChatGPT Image Sep 14, 2026 at 12_14_21 AM.png",
+};
+
 const build = (slug: string): FriendProduct | null => {
   const p = getProduct(slug);
   const meta = META[slug];
@@ -118,7 +128,11 @@ const build = (slug: string): FriendProduct | null => {
     lead: p.description.split("\n\n")[0],
     images: [
       // our own first two photos (Hydramax's only one shows the Plus box)
-      ...(slug === "hydramax" ? [] : p.carouselImages.slice(0, 2)),
+      ...(slug === "hydramax"
+        ? []
+        : p.carouselImages
+            .slice(0, 2)
+            .map((src, i) => (i === 1 && SQUARE_SHOT[slug] ? SQUARE_SHOT[slug] : src))),
       // then every photo of the product page on coralclub.us
       ...(FRIEND_SITE_PHOTOS[slug] ?? []).map((n) =>
         asset(`/images/products/us/${n}`),
