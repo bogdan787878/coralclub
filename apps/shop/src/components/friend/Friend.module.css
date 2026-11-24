@@ -430,4 +430,12 @@ select.select {
    carries a little more weight */
 .heroAccent {
   font-size: 1.15em;
+  white-space: nowrap; /* "with water" never splits */
+}
+/* mobile: the accent follows the title on the same line ("starts with
+   water"), not on a line of its own */
+@media (max-width: 767px) {
+  .heroBreak {
+    display: none;
+  }
 }

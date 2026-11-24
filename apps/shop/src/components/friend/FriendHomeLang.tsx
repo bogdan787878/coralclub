@@ -42,7 +42,7 @@ function FriendHomeRu() {
               {lines(c.hero.title.lead).map((l) => (
                 <span key={l}>
                   {l}
-                  <br />
+                  <br className={styles.heroBreak} />{" "}
                 </span>
               ))}
               <Accent className={styles.heroAccent}>{c.hero.title.accent}</Accent>

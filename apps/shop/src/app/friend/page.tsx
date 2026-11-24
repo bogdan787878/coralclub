@@ -35,7 +35,7 @@ export default function FriendHome() {
             title={
               <>
                 {hero.title.lead}
-                <br />
+                <br className={styles.heroBreak} />{" "}
                 <Accent className={styles.heroAccent}>{hero.title.accent}</Accent>
               </>
             }
