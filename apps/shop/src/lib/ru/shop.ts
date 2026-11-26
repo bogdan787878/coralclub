@@ -13,9 +13,8 @@ import { getProduct } from "@/lib/products";
 
 export const RU_BASE = "/ru";
 export const RU_CART_KEY = "coralclub.cart.ru";
-/** Сайт магазина России: регистрация и баннеры. */
+/** Сайт магазина России: баннеры акций. */
 export const RU_SITE = "https://coralclub.ru";
-export const RU_REGISTRATION_URL = `${RU_SITE}/auth/registration/`;
 
 export type RuProduct = {
   slug: string;

@@ -5,7 +5,8 @@
 //
 //   POST /session          Authorization: Bearer <токен API кабинета>  →  { sid }   (сессия магазина лежит в KV)
 //   POST /session/guest    { site: "de.coral.club" }                    →  { sid }   (гость «Друга клуба»: без входа)
-//   GET|POST /shop/<путь>  X-Lk-Sid: <sid>                              →  ответ магазина (только разрешённые пути)
+//   GET|POST /shop/<путь>  X-Lk-Sid: <sid>                              →  ответ магазина (только разрешённые пути;
+//                          гостю ещё регистрация: /restApi/registration/{init,consultant,new}, /restApi/validEmail)
 //
 //   GET /config            →  { placesKey }   (секрет GOOGLE_PLACES_KEY, если задан)
 //
@@ -23,8 +24,13 @@ const GET_OK = [
   /^\/order\/payment\/\d+(\/[^/]+)?\/?$/,
 ];
 const POST_OK = [/^\/sv-api\/order$/]; // единственный POST: создание заказа, только по нажатию участника на странице
+// регистрация на сайте магазина (магазин России): настройки формы, поиск консультанта, проверка e-mail и создание
+// аккаунта — только для гостевой сессии; создаёт аккаунт лишь отправка формы человеком
+const REG_GET = [/^\/restApi\/registration\/init\/?$/, /^\/restApi\/registration\/consultant\/?$/];
+const REG_POST = [/^\/restApi\/validEmail\/?$/, /^\/restApi\/registration\/new\/?$/];
 // гостю «Друга клуба» ещё можно очистить корзину своей сессии перед заполнением (иначе позиции удваиваются)
-const GUEST_POST_OK = [...POST_OK, /^\/ajax\/deleteBasketItems\.php$/];
+const GUEST_POST_OK = [...POST_OK, /^\/ajax\/deleteBasketItems\.php$/, ...REG_POST];
+const GUEST_GET_OK = [...GET_OK, ...REG_GET];
 // сайты магазина, на которых открывается гостевая сессия
 const GUEST_SITE = /^([a-z]{2,3}\.)?coral\.club$|^(www\.)?coralclub\.(ru|us)$/;
 
@@ -111,7 +117,7 @@ async function shopCall(request, env, rest, url) {
     console.log(`pay ${r.target ? `→ ${new URL(r.target.url).host}` : `✗ ${r.error}`} · ${Date.now() - started} мс · ${(r.hops ?? []).join(" › ")}`);
     return r.target ? reply(request, env, 200, { target: r.target }) : reply(request, env, 502, { error: r.error, hops: r.hops });
   }
-  const allowed = request.method === "POST" ? (guest ? GUEST_POST_OK : POST_OK) : request.method === "GET" ? GET_OK : [];
+  const allowed = request.method === "POST" ? (guest ? GUEST_POST_OK : POST_OK) : request.method === "GET" ? (guest ? GUEST_GET_OK : GET_OK) : [];
   if (!allowed.some((re) => re.test(rest))) return reply(request, env, 403, { error: "Этот путь чек-аута не пропускается", path: rest });
   // страница оплаты отвечает редиректом на банк: проходим его здесь и отдаём готовый адрес банка
   if (request.method === "GET" && /^\/order\/payment\//.test(rest)) {

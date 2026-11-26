@@ -5,8 +5,9 @@ import { useSearchParams } from "next/navigation";
 import { cc4, login, logout } from "@coral/api";
 import { Button, FloatInput } from "@/components/ui";
 import { moveGuestCartToMember } from "@/lib/ru/cart";
-import { RU_BASE, RU_REGISTRATION_URL } from "@/lib/ru/shop";
+import { RU_BASE } from "@/lib/ru/shop";
 import { useRuMember } from "@/lib/ru/live";
+import { RuRegister } from "./RuRegister";
 import styles from "./Ru.module.css";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -51,6 +52,9 @@ export function RuLogin() {
     };
   }, [member]);
 
+  /** Куда после входа или регистрации: из корзины — в оформление; из меню с товарами в корзине — тоже в оформление. */
+  const dest = (moved: number) => (raw ? next : moved > 0 ? `${RU_BASE}/checkout/` : `${RU_BASE}/`);
+
   const submit = async (e: FormEvent) => {
     e.preventDefault();
     setBusy(true);
@@ -65,10 +69,8 @@ export function RuLogin() {
       return;
     }
     const moved = await moveGuestCartToMember();
-    // сразу дальше: из корзины — в оформление; вход из меню с товарами в корзине — тоже в оформление.
-    // Новая загрузка: Layout и корзина начинают работать с корзиной участника.
-    const dest = raw ? next : moved > 0 ? `${RU_BASE}/checkout/` : `${RU_BASE}/`;
-    window.location.assign(`${base}${dest}`);
+    // новая загрузка: Layout и корзина начинают работать с корзиной участника
+    window.location.assign(`${base}${dest(moved)}`);
   };
 
   const signOut = async () => {
@@ -109,9 +111,13 @@ export function RuLogin() {
   return (
     <main className={styles.auth}>
       {checkout && <p className={styles.authStep}>Оформление заказа</p>}
-      <h1 className={styles.authTitle}>{checkout ? "Войдите, чтобы оформить заказ" : "Вход в магазин"}</h1>
+      <h1 className={styles.authTitle}>
+        {tab === "register" ? (checkout ? "Зарегистрируйтесь, чтобы оформить заказ" : "Регистрация") : checkout ? "Войдите, чтобы оформить заказ" : "Вход в магазин"}
+      </h1>
       <p className={styles.authText}>
-        Заказы оформляют участники клуба — по ценам участника. Регистрация бесплатная, корзина сохранится.
+        {tab === "register"
+          ? "Регистрация бесплатная: цены участника — до 20% ниже обычных и бонусные баллы за каждую покупку. Корзина сохранится."
+          : "Заказы оформляют участники клуба — по ценам участника. Нет аккаунта — зарегистрируйтесь, корзина сохранится."}
       </p>
 
       <div className={styles.authTabs} role="tablist" aria-label="Вход или регистрация">
@@ -135,23 +141,17 @@ export function RuLogin() {
           </p>
         </form>
       ) : (
-        <div className={styles.authForm}>
-          <p className={styles.authText}>Регистрация бесплатная и даёт:</p>
-          <ul className={styles.authPerks}>
-            <li>цены участника — до 20% ниже обычных;</li>
-            <li>бонусные баллы за каждую покупку.</li>
-          </ul>
-          <Button variant="primary" block href={RU_REGISTRATION_URL} target="_blank" rel="noopener noreferrer">
-            Зарегистрироваться на coralclub.ru
-          </Button>
-          <p className={styles.authText}>
-            Регистрация откроется в новой вкладке. После неё вернитесь сюда и{" "}
-            <button type="button" className={styles.authLink} onClick={() => setTab("login")}>
-              войдите
-            </button>{" "}
-            — корзина будет ждать.
-          </p>
-        </div>
+        <>
+          <RuRegister
+            dest={dest}
+            onLeaving={setLeaving}
+            onLogin={(id) => {
+              setUser(id);
+              setTab("login");
+              setMsg({ text: "Аккаунт создан. Войдите с паролем, который вы придумали.", bad: false });
+            }}
+          />
+        </>
       )}
     </main>
   );

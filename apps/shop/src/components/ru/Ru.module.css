@@ -153,6 +153,63 @@
   text-decoration: underline;
   cursor: pointer;
 }
+.regField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+.regErr {
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  color: var(--color-error, #c0392b);
+}
+.regRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-8);
+  align-items: start;
+}
+.regRow > button {
+  min-height: 56px;
+}
+.regSponsor {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-12);
+  border-radius: var(--radius-m, 16px);
+  background: var(--color-malachite-10);
+}
+.regSponsor img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.regSponsor span {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9375rem;
+}
+.regSponsor small {
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+}
+.regCheck {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-8);
+  font-size: 0.9375rem;
+  line-height: 1.375rem;
+  cursor: pointer;
+}
+.regCheck input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 1px 0 0;
+  accent-color: var(--color-malachite-90);
+}
 .authPerks {
   margin: 0;
   padding-left: 1.1em;
