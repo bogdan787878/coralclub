@@ -65,6 +65,8 @@ export function RuShell({ children }: { children: ReactNode }) {
           labels={JSON.stringify({ catalog: "Каталог", me: member ? "Аккаунт" : "Войти" })}
           links={links}
           active={active}
+          tabbar="glass"
+          hide-on-scroll=""
           {...(inCheckout ? { parts: "header" } : {})}
         >
           <div slot="corner">

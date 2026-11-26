@@ -14,6 +14,9 @@
  *   cart         чей бейдж: member (корзина участника в API кабинета, по умолчанию) | local (гостевая в браузере)
  *   cart-key     ключ гостевой корзины в localStorage (по умолчанию coralclub.cart)
  *   reveal-after id элемента: нижнее меню появляется, когда страница до него докрутилась
+ *   tabbar       вид нижнего меню: без атрибута — панель во всю ширину, прижата к низу; "glass" — плавающая
+ *                скруглённая панель «жидкое стекло» (полупрозрачная, размытие под ней)
+ *   hide-on-scroll  нижнее меню прячется при прокрутке вниз и появляется при прокрутке вверх
  *
  * Слоты (разметка сервиса со своими стилями): corner — справа в шапке на всех ширинах (например, флаг страны);
  * menu, brand, actions — в шапке «полосой».
@@ -49,11 +52,14 @@ const json = <T,>(raw: string | null, fallback: T): T => {
 };
 
 export class CcLayout extends HTMLElement {
-  static observedAttributes = ["active", "parts", "links", "labels", "locale", "tabs", "header"];
+  static observedAttributes = ["active", "parts", "links", "labels", "locale", "tabs", "header", "tabbar"];
   private root: ShadowRoot;
   private stop: (() => void) | null = null;
   private revealed = true;
   private observer: IntersectionObserver | null = null;
+  /** hide-on-scroll: меню спрятано, пока страницу листают вниз */
+  private scrollHidden = false;
+  private offScroll: (() => void) | null = null;
 
   constructor() {
     super();
@@ -86,13 +92,15 @@ export class CcLayout extends HTMLElement {
     }
     this.syncPageClass();
     this.watchReveal();
+    this.watchScroll();
     this.stop = cart.subscribe(() => this.render());
     cart.start(this.getAttribute("cart") === "local" ? { kind: "local", key: this.getAttribute("cart-key") || "coralclub.cart" } : { kind: "member" });
   }
   disconnectedCallback() {
     this.stop?.();
     this.observer?.disconnect();
-    document.documentElement.classList.remove("cc-has-tabbar");
+    this.offScroll?.();
+    document.documentElement.classList.remove("cc-has-tabbar", "cc-tabbar-glass");
   }
   attributeChangedCallback() {
     if (!this.isConnected) return;
@@ -101,6 +109,40 @@ export class CcLayout extends HTMLElement {
   }
   private syncPageClass() {
     document.documentElement.classList.toggle("cc-has-tabbar", this.partSet.tabbar);
+    document.documentElement.classList.toggle("cc-tabbar-glass", this.partSet.tabbar && this.glass);
+  }
+  private get glass() {
+    return this.getAttribute("tabbar") === "glass";
+  }
+  private get tabbarHidden() {
+    return !this.revealed || this.scrollHidden;
+  }
+
+  /** hide-on-scroll: вниз больше чем на 8px (и ниже первых 80px) — меню уезжает; вверх или в самом верху — возвращается. */
+  private watchScroll() {
+    if (!this.hasAttribute("hide-on-scroll")) return;
+    let last = window.scrollY;
+    let frame = 0;
+    const check = () => {
+      frame = 0;
+      const y = Math.max(0, window.scrollY);
+      const dy = y - last;
+      if (Math.abs(dy) < 8 && y > 80) return;
+      last = y;
+      const next = dy > 0 && y > 80;
+      if (next === this.scrollHidden) return;
+      this.scrollHidden = next;
+      // без перерисовки: только класс панели, чтобы сработал переход
+      this.root.querySelector(".tabbar")?.classList.toggle("hide", this.tabbarHidden);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(check);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    this.offScroll = () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }
 
   /** reveal-after: меню появляется, когда якорь дошёл до верхней части экрана или уже прокручен. */
@@ -152,7 +194,7 @@ export class CcLayout extends HTMLElement {
           </header>`;
     this.root.innerHTML = `<style>${CSS}</style>
       ${header ? head : ""}
-      ${tabbar ? `<nav class="tabbar${this.revealed ? "" : " hide"}" aria-label="${esc(T.menu)}">${this.tabList.map(tab).join("")}</nav>` : ""}`;
+      ${tabbar ? `<nav class="tabbar${this.glass ? " glass" : ""}${this.tabbarHidden ? " hide" : ""}" aria-label="${esc(T.menu)}">${this.tabList.map(tab).join("")}</nav>` : ""}`;
   }
 }
 

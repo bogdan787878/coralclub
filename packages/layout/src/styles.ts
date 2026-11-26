@@ -80,6 +80,19 @@ svg { display: block; }
 .tab .ico { position: relative; display: inline-flex; }
 .badge { position: absolute; top: -4px; right: -8px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 999px; background: var(--c-action);
   color: #fff; font-style: normal; font-size: .625rem; line-height: 16px; font-weight: var(--fw); text-align: center; }
+/* «жидкое стекло» (tabbar="glass"): плавающая скруглённая панель над контентом, полупрозрачная, с размытием и бликом */
+.tabbar.glass { bottom: calc(12px + env(safe-area-inset-bottom, 0px)); width: calc(100% - 24px); max-width: min(var(--cc-tabbar-max, 100%), 440px);
+  height: 64px; padding: 0 6px; border-radius: 32px; border: 1px solid rgba(255, 255, 255, .55);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .62), rgba(255, 255, 255, .42));
+  -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%);
+  box-shadow: 0 10px 30px rgba(1, 17, 48, .14), 0 1px 2px rgba(1, 17, 48, .08), inset 0 1px 0 rgba(255, 255, 255, .85), inset 0 -1px 0 rgba(255, 255, 255, .25);
+  transition: transform .35s cubic-bezier(.32, .72, 0, 1), opacity .25s var(--ease); overflow: hidden; }
+.tabbar.glass::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(120% 90% at 50% -30%, rgba(255, 255, 255, .7), transparent 60%); opacity: .55; }
+.tabbar.glass.hide { transform: translate(-50%, calc(100% + 24px + env(safe-area-inset-bottom, 0px))); opacity: 0; }
+.tabbar.glass .tab { padding: 6px 0; margin: 6px 0; border-radius: 26px; transition: background-color .2s var(--ease); }
+.tabbar.glass .tab.on { background: rgba(255, 255, 255, .7); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .6), 0 1px 4px rgba(1, 17, 48, .06); }
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) { .tabbar.glass { background: rgba(255, 255, 255, .94); } }
 @media (min-width: 1024px) { .tabbar { display: none; } }
 
 `;
@@ -89,4 +102,5 @@ svg { display: block; }
 export const PAGE_CSS = `@media (max-width: 1023px) {
   html.cc-has-tabbar { --cc-tabbar-space: calc(64px + env(safe-area-inset-bottom, 0px)); }
   html.cc-has-tabbar body { padding-bottom: var(--cc-tabbar-space); }
+  html.cc-has-tabbar.cc-tabbar-glass { --cc-tabbar-space: calc(76px + env(safe-area-inset-bottom, 0px)); }
 }`;
