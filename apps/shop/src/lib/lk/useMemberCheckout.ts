@@ -36,7 +36,8 @@ const titleCase = (s: string) =>
 
 const CITY_REGIONS = /^(москва|санкт-петербург|севастополь)$/i;
 
-export function useMemberCheckout() {
+/** `base`: the service the checkout lives in ("/lk" — the cabinet, "/ru" — the Russian shop): its sign-in page. */
+export function useMemberCheckout(base = "/lk") {
   const cart = useCart();
   // a render can run on a stale snapshot: re-read the cart once on mount
   useEffect(() => refreshCart(), []);
@@ -168,7 +169,7 @@ export function useMemberCheckout() {
         if (cancelled) return;
         // вход истёк (токен кабинета не принят): на вход и обратно сюда
         if (e instanceof GatewayError && e.status === 401) {
-          window.location.assign(`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/lk/login/?next=${encodeURIComponent("/lk/checkout/")}`);
+          window.location.assign(`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${base}/login/?next=${encodeURIComponent(`${base}/checkout/`)}`);
           return;
         }
         setReady("error");
@@ -179,7 +180,7 @@ export function useMemberCheckout() {
     return () => {
       cancelled = true;
     };
-  }, [cartKey]);
+  }, [cartKey, base]);
 
   // the shop's own data once the basket is in: countries, courier schedules, how the member paid last time, a city to start from
   useEffect(() => {

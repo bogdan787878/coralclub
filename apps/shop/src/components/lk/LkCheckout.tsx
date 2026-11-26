@@ -29,8 +29,8 @@ const Chevron = () => (
  * sections, same styles and parts) in Russian, on the member's own session. All
  * the logic is in lib/lk/useMemberCheckout; this file only draws it.
  */
-export function LkCheckout() {
-  const c = useMemberCheckout();
+export function LkCheckout({ base = "/lk", doneLink = { href: "/lk/", label: "В личный кабинет" } }: { base?: string; doneLink?: { href: string; label: string } } = {}) {
+  const c = useMemberCheckout(base);
   const searchOn = useAddressSearchEnabled();
   const { form, delivery: d, payment: p, promoState: pr, bonusState: b, lines, money, field, attempted } = c;
   const place = Boolean(form.city);
@@ -108,8 +108,8 @@ export function LkCheckout() {
                   Повторить переход к оплате
                 </button>
               )}
-              <Link href="/lk/" className={own.link}>
-                В личный кабинет
+              <Link href={doneLink.href} className={own.link}>
+                {doneLink.label}
               </Link>
             </>
           )}
@@ -121,7 +121,7 @@ export function LkCheckout() {
   return (
     <main className={styles.page} data-analytics-location="checkout">
       <div className={own.bar}>
-        <Link href="/lk/cart/" className={own.back}>
+        <Link href={`${base}/cart/`} className={own.back}>
           ← Корзина
         </Link>
         <CountryMenu countries={c.countries} value={c.country} onChange={c.changeCountry} labels={COUNTRY_RU} />
@@ -130,7 +130,7 @@ export function LkCheckout() {
         <div className={styles.empty}>
           <h1 className={styles.title}>Оформление заказа</h1>
           <p className={styles.host}>В корзине пусто.</p>
-          <Link href="/lk/cart/" className={own.link}>
+          <Link href={`${base}/cart/`} className={own.link}>
             Вернуться в корзину
           </Link>
         </div>

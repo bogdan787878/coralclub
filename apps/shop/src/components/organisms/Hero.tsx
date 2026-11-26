@@ -24,6 +24,8 @@ export type HeroProps = {
   /** Skip mounting the <Image> entirely (off-screen carousel slide, no
    *  interaction yet) — the navy panel + copy still render. */
   renderImage?: boolean;
+  /** Phone and tablet: the title sits centred just above the button (photo's subject stays clear at the top). */
+  align?: "top" | "bottom";
 };
 
 /**
@@ -38,9 +40,10 @@ export function Hero({
   cta,
   priority = true,
   renderImage = true,
+  align = "top",
 }: HeroProps) {
   return (
-    <section className={styles.panel}>
+    <section className={`${styles.panel}${align === "bottom" ? ` ${styles.bottom}` : ""}`}>
       {/* No src yet (a hero block with a missing/not-yet-uploaded image) —
           skip <Image> entirely and let the neutral-gray .panel background
           show through, instead of passing next/image an empty src. */}

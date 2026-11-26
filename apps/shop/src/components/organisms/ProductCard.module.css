@@ -357,6 +357,16 @@
   text-decoration: line-through;
 }
 
+/* second price line (the member price for a guest) */
+.priceNote {
+  margin: 2px 0 0;
+  font-family: var(--font-sans);
+  font-size: 0.75rem; /* 12 */
+  line-height: 1rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-malachite-70, #2e7d5b);
+}
+
 /* discount-size pill after the prices */
 .priceTag {
   align-self: center;

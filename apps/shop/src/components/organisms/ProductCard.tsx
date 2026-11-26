@@ -62,6 +62,8 @@ export type ProductCardProps = {
   priceWas?: ReactNode;
   /** Small pill after the prices — e.g. the discount size "−20%". */
   priceTag?: ReactNode;
+  /** A second, smaller line under the prices — e.g. the member price for a guest. */
+  priceNote?: ReactNode;
   /** Round "sticker" over the photo's top-left corner, e.g. 5 / масок. */
   badge?: { count: string; unit: string };
   /** Product page the name links to; leave out for a card with no page. */
@@ -134,6 +136,7 @@ export function ProductCard({
   price,
   priceWas,
   priceTag,
+  priceNote,
   badge,
   href,
   images = [],
@@ -351,6 +354,7 @@ export function ProductCard({
           {priceWas && <span className={styles.priceWas}>{priceWas}</span>}
           {priceTag && <span className={styles.priceTag}>{priceTag}</span>}
         </p>
+        {priceNote && <p className={styles.priceNote}>{priceNote}</p>}
       </div>
     </article>
   );

@@ -23,10 +23,14 @@ const STORAGE_KEY = "coralclub.cart";
 const FRIEND_STORAGE_KEY = "coralclub.cart.friend";
 /** The member area (/lk): a mirror of the member's own basket in the cabinet API. */
 const LK_STORAGE_KEY = "coralclub.cart.lk";
+/** The Russian shop (/ru): a mirror of its cart (the guest's in the browser or the member's basket), apart from
+ *  the guest cart itself (coralclub.cart.ru, owned by the Layout's store). */
+const RU_STORAGE_KEY = "coralclub.cart.ru.copy";
 const storageKey = () => {
   if (typeof window === "undefined") return STORAGE_KEY;
   const path = window.location.pathname;
   if (/\/lk(\/|$)/.test(path)) return LK_STORAGE_KEY;
+  if (/\/ru(\/|$)/.test(path)) return RU_STORAGE_KEY;
   return /\/friend(\/|$)/.test(path) ? FRIEND_STORAGE_KEY : STORAGE_KEY;
 };
 const EVENT = "coralclub:cart";

@@ -105,7 +105,7 @@ const round2 = (n: number) => Math.round(n * 100) / 100;
  * Square (1:1) versions of the lifestyle shot — the second photo of the
  * gallery. The shared catalogue keeps the portrait (mobile) crop for some.
  */
-const SQUARE_SHOT: Record<string, string> = {
+export const SQUARE_SHOT: Record<string, string> = {
   "hydramax-plus": "/images/products/ChatGPT Image Sep 12, 2026 at 01_00_26 AM.png",
   oceanmin: "/images/products/ChatGPT Image Sep 14, 2026 at 12_22_20 AM.png",
   "h-500": "/images/products/ChatGPT Image Sep 14, 2026 at 12_14_21 AM.png",
