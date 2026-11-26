@@ -21,6 +21,9 @@ export function RuLogin() {
   const q = useSearchParams();
   const raw = q?.get("next") ?? "";
   const next = raw.startsWith(`${RU_BASE}/`) ? raw : `${RU_BASE}/`;
+  // пришли из корзины («Оформить заказ») — это шаг оформления, а не просто вход
+  const checkout = next.startsWith(`${RU_BASE}/checkout`);
+  const [tab, setTab] = useState<"login" | "register">("login");
 
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
@@ -83,29 +86,51 @@ export function RuLogin() {
 
   return (
     <main className={styles.auth}>
-      <h1 className={styles.authTitle}>Вход</h1>
-      <p className={styles.authText}>Войдите, чтобы покупать по цене участника. Логин и пароль уходят только в Coral Club.</p>
-      <form className={styles.authForm} onSubmit={submit} autoComplete="on">
-        <FloatInput name="login" label="Coral ID или e-mail" value={user} onChange={setUser} autoComplete="username" />
-        <FloatInput name="password" type="password" label="Пароль" value={password} onChange={setPassword} autoComplete="current-password" />
-        <Button variant="primary" block type="submit" disabled={busy || !user.trim() || !password}>
-          Войти
-        </Button>
-        <p className={`${styles.authMsg} ${msg.bad ? styles.authBad : ""}`} role="status">
-          {msg.text}
-        </p>
-      </form>
+      {checkout && <p className={styles.authStep}>Оформление заказа</p>}
+      <h1 className={styles.authTitle}>{checkout ? "Войдите, чтобы оформить заказ" : "Вход в магазин"}</h1>
+      <p className={styles.authText}>
+        Заказы оформляют участники клуба — по ценам участника. Регистрация бесплатная, корзина сохранится.
+      </p>
 
-      <div className={styles.authAlt}>
-        <p className={styles.authText}>Ещё не участник? Регистрация бесплатная и даёт:</p>
-        <ul className={styles.authPerks}>
-          <li>цены участника — до 20% ниже обычных;</li>
-          <li>бонусные баллы за каждую покупку.</li>
-        </ul>
-        <Button variant="secondary" block href={RU_REGISTRATION_URL} target="_blank" rel="noopener noreferrer">
-          Зарегистрироваться
-        </Button>
+      <div className={styles.authTabs} role="tablist" aria-label="Вход или регистрация">
+        <button type="button" role="tab" aria-selected={tab === "login"} className={tab === "login" ? styles.authTabOn : ""} onClick={() => setTab("login")}>
+          Вход
+        </button>
+        <button type="button" role="tab" aria-selected={tab === "register"} className={tab === "register" ? styles.authTabOn : ""} onClick={() => setTab("register")}>
+          Регистрация
+        </button>
       </div>
+
+      {tab === "login" ? (
+        <form className={styles.authForm} onSubmit={submit} autoComplete="on">
+          <FloatInput name="login" label="Coral ID или e-mail" value={user} onChange={setUser} autoComplete="username" />
+          <FloatInput name="password" type="password" label="Пароль" value={password} onChange={setPassword} autoComplete="current-password" />
+          <Button variant="primary" block type="submit" disabled={busy || !user.trim() || !password}>
+            {checkout ? "Войти и продолжить" : "Войти"}
+          </Button>
+          <p className={`${styles.authMsg} ${msg.bad ? styles.authBad : ""}`} role="status">
+            {msg.text}
+          </p>
+        </form>
+      ) : (
+        <div className={styles.authForm}>
+          <p className={styles.authText}>Регистрация бесплатная и даёт:</p>
+          <ul className={styles.authPerks}>
+            <li>цены участника — до 20% ниже обычных;</li>
+            <li>бонусные баллы за каждую покупку.</li>
+          </ul>
+          <Button variant="primary" block href={RU_REGISTRATION_URL} target="_blank" rel="noopener noreferrer">
+            Зарегистрироваться на coralclub.ru
+          </Button>
+          <p className={styles.authText}>
+            Регистрация откроется в новой вкладке. После неё вернитесь сюда и{" "}
+            <button type="button" className={styles.authLink} onClick={() => setTab("login")}>
+              войдите
+            </button>{" "}
+            — корзина будет ждать.
+          </p>
+        </div>
+      )}
     </main>
   );
 }

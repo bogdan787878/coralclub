@@ -6,10 +6,7 @@ import { addRu, qtyOf, setRuQty, useRuCart } from "@/lib/ru/cart";
 import { ruHref, rub, ruTitle, type RuProduct } from "@/lib/ru/shop";
 import { useRuMember, useRuPrices } from "@/lib/ru/live";
 
-/**
- * Карточка товара магазина России. Гость: обычная цена и под ней цена участника (её он получит после
- * регистрации); участник: только его цена.
- */
+/** Карточка товара магазина России: цена участника, зачёркнутая обычная и тег скидки — для гостя и участника. */
 function RuCard({ p, index, wide }: { p: RuProduct; index: number; wide?: boolean }) {
   const member = useRuMember();
   const prices = useRuPrices();
@@ -20,15 +17,10 @@ function RuCard({ p, index, wide }: { p: RuProduct; index: number; wide?: boolea
   const sold = live ? live.available && club !== null : true;
   const title = ruTitle(p);
 
-  let price: string;
-  let note: string | undefined;
-  if (!live) price = "…";
-  else if (!sold) price = "Нет в наличии";
-  else if (member) price = rub(club as number);
-  else {
-    price = rub(retail ?? (club as number));
-    note = retail && club !== null && retail > club ? `${rub(club)} — цена участника` : undefined;
-  }
+  // для всех одинаково: цена участника, зачёркнутая обычная и тег скидки (вход — при оформлении заказа)
+  const off = club !== null && retail && retail > club ? Math.round((1 - club / retail) * 100) : 0;
+  const price = !live ? "…" : !sold ? "Нет в наличии" : rub(club as number);
+  const was = live && sold && off > 0 ? rub(retail as number) : undefined;
 
   return (
     <div data-analytics-item={p.code} data-analytics-index={index} style={{ display: "contents" }}>
@@ -39,13 +31,14 @@ function RuCard({ p, index, wide }: { p: RuProduct; index: number; wide?: boolea
         tag={p.tag}
         labels={CARD_RU}
         price={price}
-        priceNote={note}
+        priceWas={was}
+        priceTag={was ? `−${off}%` : undefined}
         href={ruHref(p.slug)}
         cartHref={ruHref(p.slug)}
         images={wide && p.images.length > 1 ? [p.images[1], p.images[0], ...p.images.slice(2)] : p.images}
         cartQty={qtyOf(cart, p.code)}
         onSetQty={(next) => setRuQty(p.code, next)}
-        onAddToCart={live && sold ? () => addRu(p, Boolean(member), rub(retail ?? (club as number))) : undefined}
+        onAddToCart={live && sold ? () => addRu(p, Boolean(member), rub(club as number), was) : undefined}
       />
     </div>
   );

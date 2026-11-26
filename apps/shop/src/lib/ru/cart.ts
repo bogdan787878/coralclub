@@ -23,16 +23,46 @@ export function useRuCart(): CartState {
 export const qtyOf = (s: CartState, code: number) => s.lines.find((l) => l.id === String(code))?.qty ?? 0;
 
 /**
- * Положить в корзину. Участнику — по артикулу (цену считает сервер), гостю — строкой с обычной ценой
- * (по ней гость и видит корзину; цена участника — после входа).
+ * Положить в корзину. Участнику — по артикулу (цену считает сервер), гостю — строкой с ценой участника и
+ * зачёркнутой обычной (так он видит корзину; войти или зарегистрироваться — при оформлении заказа).
  */
-export function addRu(p: RuProduct, member: boolean, price: string, qty = 1): void {
+export function addRu(p: RuProduct, member: boolean, price: string, was?: string, qty = 1): void {
   const store = getStore();
   if (member) {
     void store.add(p.code, qty);
     return;
   }
-  void store.add({ coralId: String(p.code), slug: p.slug, name: ruTitle(p), price, image: p.images[0]?.src }, qty);
+  void store.add({ coralId: String(p.code), slug: p.slug, name: ruTitle(p), price, ...(was ? { was } : {}), image: p.images[0]?.src }, qty);
+}
+
+/**
+ * Корзина гостя по текущим ценам: цена участника и зачёркнутая обычная (строки, положенные раньше, могли быть
+ * по обычной цене). Пишет в браузер, только если что-то поменялось, и обновляет хранилище.
+ */
+export function repriceGuestCart(prices: ReadonlyMap<number, { club: number | null; retail: number | null }>, fmt: (n: number) => string): void {
+  let lines: LocalLine[];
+  try {
+    const raw: unknown = JSON.parse(window.localStorage.getItem(RU_CART_KEY) ?? "[]");
+    if (!Array.isArray(raw)) return;
+    lines = raw as LocalLine[];
+  } catch {
+    return;
+  }
+  let changed = false;
+  const next = lines.map((l) => {
+    const p = prices.get(Number(l.coralId));
+    if (!p || p.club === null) return l;
+    const price = fmt(p.club);
+    const was = p.retail && p.retail > p.club ? fmt(p.retail) : undefined;
+    if (l.price === price && l.was === was) return l;
+    changed = true;
+    const { was: _old, ...rest } = l;
+    void _old;
+    return { ...rest, price, ...(was ? { was } : {}) };
+  });
+  if (!changed) return;
+  window.localStorage.setItem(RU_CART_KEY, JSON.stringify(next));
+  window.dispatchEvent(new Event("cc:cart:refresh"));
 }
 
 export const setRuQty = (code: number, qty: number) => void getStore().setQty(String(code), qty);
