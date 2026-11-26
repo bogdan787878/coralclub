@@ -32,6 +32,10 @@
 .fluid.wide .media {
   aspect-ratio: 3 / 2;
 }
+/* широкая карточка одна в ряду — выравнивать цену не с кем: без запаса под вторую строку названия */
+.wide .title {
+  min-height: 0;
+}
 @media (min-width: 1024px) {
   [data-carousel-item] .fluid.wide .media {
     height: 360px;

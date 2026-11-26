@@ -59,12 +59,15 @@
 
 .item {
   flex: 0 0 var(--carousel-item-width, var(--carousel-item-size));
+  /* ширина — только из flex-basis: длинная метка или цена не растягивают карточку (иначе фото выше соседних) */
+  min-width: 0;
   scroll-snap-align: start;
   display: flex;
 }
 
 .item > * {
   width: 100%;
+  min-width: 0;
 }
 
 /* phones/tablets, one or two cards: share the full width (no scrolling) */

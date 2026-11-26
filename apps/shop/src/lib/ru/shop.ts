@@ -53,7 +53,7 @@ const GALLERY: Record<string, { src: string; alt: string }[]> = {
 
 const LIST: Omit<RuProduct, "images">[] = [
   { slug: "hydramax-plus", code: 80720, name: "Гидрамакс Плюс", form: "набор на 30 дней", tag: "Набор на 30 дней" },
-  { slug: "coral-mine-silver", code: 2200, name: "Корал-Майн Сильвер", form: "3×10 саше", tag: "Минерализация воды" },
+  { slug: "coral-mine-silver", code: 2200, name: "Корал-Майн Сильвер", form: "3×10 саше", tag: "Минерализация" },
   { slug: "pentokan", code: 2141, name: "ПентоКан", form: "20 шипучих таблеток", tag: "Калий и магний" },
   { slug: "oceanmin", code: 225115, name: "Оушенмин", form: "15 стиков", tag: "Магний" },
   { slug: "h-500", code: 91800, name: "H-500", form: "60 капсул", tag: "Антиоксидант" },
