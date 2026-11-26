@@ -1,0 +1,35 @@
+/* Блоки гайда поверх стилей Eclectica DS (ds.css): промт, референсы, заметки. Цвета — токены DS. */
+.guide-photo{width:100%;height:auto;border-radius:8px;display:block}
+.case-preview a{display:block;width:100%}
+.single-preview .comparison-item,.comparison-grid .comparison-item{margin-bottom:24px}
+.comparison-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.guide-list{margin:0 0 24px;padding-left:20px;color:var(--content-foreground-neutral-secondary);font-size:16px;line-height:24px}
+.guide-list li{margin:0 0 8px}
+.guide-list a,.case-description a,.comparison-description a{color:var(--action-background-primary-solid-normal, #00747a)}
+.guide-note{border-radius:8px;padding:16px 20px;margin:0 0 24px;font-size:15px;line-height:22px}
+.guide-note--info{background:#eef6ff;color:#1d3b66;border:1px solid #cfe2fb}
+.guide-note--warn{background:#fff6e5;color:#6b4300;border:1px solid #f5dca8}
+.guide-prompt{border:1px solid var(--content-border-default-normal, #e4e7ea);border-radius:8px;margin:0 0 16px;overflow:hidden}
+.guide-prompt__head{display:flex;justify-content:space-between;align-items:center;padding:8px 12px 8px 16px;background:var(--content-background-neutral-subtle, #f5f6f7);font-size:13px;font-weight:500;color:var(--content-foreground-neutral-secondary)}
+.guide-copy{font:inherit;font-size:13px;padding:6px 12px;border-radius:6px;border:1px solid var(--content-border-default-normal, #d9dde1);background:#fff;cursor:pointer;color:var(--content-foreground-neutral-primary)}
+.guide-copy:hover{background:#f0f2f4}
+.guide-prompt pre{margin:0;padding:16px;white-space:pre-wrap;word-break:break-word;font:13px/20px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--content-foreground-neutral-primary);max-height:340px;overflow:auto}
+.guide-refs-title{margin:8px 0 8px!important}
+.guide-refs{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin:0 0 40px}
+.guide-ref{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--content-foreground-neutral-secondary);font-size:12px;line-height:16px}
+.guide-ref img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;background:var(--content-background-neutral-subtle, #f5f6f7)}
+.guide-ref:hover span{color:var(--content-foreground-neutral-primary)}
+.guide-ai-links{display:flex;gap:16px;font-size:14px}
+.guide-ai-links a{color:var(--content-foreground-neutral-secondary);text-decoration:none}
+.guide-ai-links a:hover{color:var(--content-foreground-neutral-primary)}
+.header-inner{justify-content:space-between}
+.guide-foot{color:var(--content-foreground-neutral-secondary);font-size:13px}
+.comparison-description code,.case-description code{font-size:12px;word-break:break-all}
+.custom-table td div a{color:inherit}
+@media (max-width:1024px){.toc-sidebar{display:none}.main-content-layout{grid-template-columns:1fr;padding:40px 24px}}
+@media (max-width:768px){.layout-container{grid-template-columns:1fr}.sidebar{position:static;height:auto}}
+html,body{background:#fff;color-scheme:light}
+.guide-card{display:grid;grid-template-columns:minmax(200px,300px) 1fr;gap:32px;align-items:start;margin:0 0 24px}
+.guide-card__img{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:var(--content-foreground-neutral-secondary);font-size:12px}
+.guide-card__img img{width:100%;height:auto;border-radius:8px;display:block}
+@media (max-width:768px){.guide-card{grid-template-columns:1fr}}

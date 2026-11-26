@@ -1,0 +1,20 @@
+# Coral Club — гайд по картинкам галереи карточки товара (PDP)
+
+> Правила, факты о продуктах и готовые промты для генерации картинок галереи карточки товара Coral Club: пэкшот на сером фоне, упаковка в интерьере с содержимым (объём), killer claims, как применять, состав. Монопродукты и наборы. Все референсы — по прямым ссылкам.
+
+## Документы
+- [Весь гайд (Markdown)](https://bogdan787878.github.io/coralclub/pdp-guide/guide.md): правила, факты, промты и ссылки на референсы одним файлом
+- [Данные и промты (JSON)](https://bogdan787878.github.io/coralclub/pdp-guide/spec.json): то же в структуре — products[].cards[].prompt и attach[]
+
+## Продукты
+- [Корал-Майн Сильвер](https://bogdan787878.github.io/coralclub/pdp-guide/coral-mine.html): монопродукт, саше
+- [ПентоКан](https://bogdan787878.github.io/coralclub/pdp-guide/pentokan.html): монопродукт, шипучая таблетка
+- [Оушенмин](https://bogdan787878.github.io/coralclub/pdp-guide/oceanmin.html): монопродукт, стик с порошком
+- [H-500](https://bogdan787878.github.io/coralclub/pdp-guide/h-500.html): монопродукт, капсула
+- [Гидрамакс Плюс](https://bogdan787878.github.io/coralclub/pdp-guide/hydramax-plus.html): набор, набор из 4 продуктов
+
+## Референсы
+- [Интерьеры](https://bogdan787878.github.io/coralclub/pdp-guide/interiors.html)
+- [Предметы интерьера](https://bogdan787878.github.io/coralclub/pdp-guide/props.html)
+- [Формы продуктов](https://bogdan787878.github.io/coralclub/pdp-guide/forms.html)
+- [Масштаб упаковок](https://bogdan787878.github.io/coralclub/pdp-guide/scale.html)
