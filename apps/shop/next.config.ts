@@ -1,4 +1,12 @@
 import type { NextConfig } from "next";
+import { networkInterfaces } from "node:os";
+
+// Dev server opened from a phone on the same Wi-Fi (http://<Mac's IP>:3100): Next blocks its dev
+// resources (scripts, HMR) for other origins unless they are allowed — allow this Mac's own LAN addresses.
+const lanHosts = Object.values(networkInterfaces())
+  .flat()
+  .filter((n) => n && n.family === "IPv4" && !n.internal)
+  .map((n) => n!.address);
 
 // Two deployments of the same code:
 //  - GitHub Pages (GITHUB_PAGES=true): https://bogdan787878.github.io/coralclub/
@@ -23,6 +31,7 @@ const nextConfig: NextConfig = {
   // общие пакеты монорепозитория (packages/*) лежат исходниками на TypeScript
   transpilePackages: ["@coral/api", "@coral/cart", "@coral/icons", "@coral/layout", "@coral/ui"],
   trailingSlash: true,
+  allowedDevOrigins: lanHosts,
   // the labspace build exports into its own folder, `out/` stays untouched
   ...(isLabspace ? { distDir: "dist/labspace-build" } : {}),
   // labspace: only files named page.labspace.tsx / layout.labspace.tsx are routes

@@ -112,14 +112,25 @@ const read = (key: string) => {
  * Анонимная сессия приложения для страны: по ней API каталога отдаёт цены и наличие витрины страны (Германия —
  * EUR, deliveryId GERMANY), без входа участника. Токен хранится на вкладку; кэш по стране и языку.
  */
+const opening = new Map<string, Promise<string | null>>();
 export async function guestToken(country: string, language = "en"): Promise<string | null> {
   const key = guestKey(country, language);
   const have = typeof window === "undefined" ? null : read(key);
   if (have) return have;
-  const s = await post("/auth/session", { applicationToken: APPLICATION_TOKEN, country, language });
-  const t = findToken(s.json) ?? null;
-  if (t) store(key, t);
-  return t;
+  // одна сессия на страну и язык: параллельные запросы (цены, баннеры) ждут ту же, а не открывают свои —
+  // иначе API отвечает 500 на запрос с токеном сессии, которую сменила соседняя
+  let p = opening.get(key);
+  if (!p) {
+    p = post("/auth/session", { applicationToken: APPLICATION_TOKEN, country, language })
+      .then((s) => {
+        const t = findToken(s.json) ?? null;
+        if (t) store(key, t);
+        return t;
+      })
+      .finally(() => opening.delete(key));
+    opening.set(key, p);
+  }
+  return p;
 }
 
 /** Товары витрины страны для гостя (GET /catalog/products по анонимной сессии). Кодов, которых нет, в ответе нет. */
@@ -132,7 +143,7 @@ export async function guestProducts(codes: string[], { country, language = "en" 
       const r = await fetch(`${cc4Base()}/catalog/products?${codes.map((c) => `products[]=${encodeURIComponent(c)}`).join("&")}`, {
         headers: { accept: "application/json", authorization: `Bearer ${token}` },
       });
-      if (r.status === 401) {
+      if (r.status === 401 || r.status >= 500) {
         store(guestKey(country, language), null); // сессия истекла: откроем новую, один раз
         continue;
       }
@@ -154,7 +165,7 @@ export async function guestProductDetail(code: string, { country, language = "en
       const r = await fetch(`${cc4Base()}/catalog/product/${encodeURIComponent(code)}`, {
         headers: { accept: "application/json", authorization: `Bearer ${token}` },
       });
-      if (r.status === 401) {
+      if (r.status === 401 || r.status >= 500) {
         store(guestKey(country, language), null);
         continue;
       }

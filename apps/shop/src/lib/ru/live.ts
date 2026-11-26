@@ -27,17 +27,22 @@ const loading = new Set<string>();
 const listeners = new Set<() => void>();
 const emit = () => listeners.forEach((l) => l());
 
-function load(mode: "guest" | "member") {
-  if (cache.has(mode) || loading.has(mode)) return;
+function load(mode: "guest" | "member", attempt = 0) {
+  if (cache.has(mode) || (attempt === 0 && loading.has(mode))) return;
   loading.add(mode);
   const codes = RU_PRODUCTS.map((p) => p.code);
   const ask = mode === "member" ? fetchProducts(codes) : guestProducts(codes.map(String), { country: "RU", language: "ru" });
-  ask
-    .then((list) => {
+  ask.then((list) => {
+    if (list.length) {
       cache.set(mode, new Map(list.map((p) => [p.code, p])));
+      loading.delete(mode);
       emit();
-    })
-    .finally(() => loading.delete(mode));
+      return;
+    }
+    // API не ответил (сбой сессии, сеть): ещё пара попыток с паузой
+    if (attempt < 2) setTimeout(() => load(mode, attempt + 1), 1200 * (attempt + 1));
+    else loading.delete(mode);
+  });
 }
 
 /** Цены и наличие товаров главной: по сессии участника, если он вошёл, иначе — гостя России. */
