@@ -109,14 +109,6 @@
 .authBad {
   color: #8a1c14;
 }
-.authAlt {
-  margin-top: var(--space-8);
-  padding-top: var(--space-16);
-  border-top: 1px solid var(--color-neutral-30, #e5e7e5);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-12);
-}
 .authStep {
   margin: 0;
   font-size: 0.8125rem;
@@ -168,61 +160,6 @@
   line-height: 1.5rem;
 }
 
-/* ---- блок покупки на странице товара ---- */
-.buy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-12);
-  font-family: var(--font-sans);
-}
-.prices {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-8);
-}
-.priceRow {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-12);
-  padding: var(--space-12) var(--space-16);
-  border-radius: var(--radius-m, 16px);
-  background: var(--color-neutral-20, #f4f5f4);
-}
-.priceRowClub {
-  background: var(--color-malachite-10);
-}
-.priceLabel {
-  font-size: 0.9375rem;
-  line-height: 1.25rem;
-}
-.priceSub {
-  display: block;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  color: var(--color-text-muted);
-}
-.priceValue {
-  font-size: 1.25rem;
-  line-height: 1.5rem;
-  font-weight: 600;
-  white-space: nowrap;
-}
-.memberPrice {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-8);
-  flex-wrap: wrap;
-}
-.memberPrice .priceValue {
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-.memberNote {
-  font-size: 0.8125rem;
-  color: var(--color-malachite-70);
-  font-weight: var(--font-weight-medium);
-}
 .regHint {
   margin: 0;
   font-size: 0.875rem;
@@ -230,82 +167,6 @@
   color: var(--color-text-muted);
 }
 .regHint a {
-  color: var(--color-malachite-70);
-  font-weight: 600;
-}
-.stepper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 48px;
-  border-radius: var(--radius-pill);
-  border: 1.5px solid var(--color-malachite-90);
-  color: var(--color-malachite-90);
-  font-size: 1.125rem;
-}
-.stepper button {
-  width: 56px;
-  height: 100%;
-  border: 0;
-  background: none;
-  color: inherit;
-  font-size: 1.375rem;
-  cursor: pointer;
-}
-.stepper span {
-  font-weight: 600;
-}
-
-/* цена на странице товара: цена участника, зачёркнутая обычная, тег скидки */
-.pdpPrice {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: var(--space-8) var(--space-12);
-  margin: 0;
-}
-.pdpNow {
-  font-size: 1.75rem;
-  line-height: 2.25rem;
-  font-weight: 600;
-  white-space: nowrap;
-}
-.pdpWas {
-  font-size: 1.0625rem;
-  color: var(--color-text-muted);
-  white-space: nowrap;
-}
-.pdpTag {
-  align-self: center;
-  padding: 2px var(--space-8);
-  border-radius: var(--radius-pill);
-  background: var(--color-special);
-  color: #fff;
-  font-size: 0.8125rem;
-  line-height: 1.25rem;
-  font-weight: 600;
-}
-
-/* ---- корзина гостя ---- */
-.cartBanner {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-8);
-  padding: var(--space-16);
-  border-radius: var(--radius-m, 16px);
-  background: var(--color-malachite-10);
-  font-family: var(--font-sans);
-  font-size: 0.9375rem;
-  line-height: 1.375rem;
-}
-.cartBanner p {
-  margin: 0;
-}
-.cartBannerLinks {
-  display: flex;
-  gap: var(--space-16);
-}
-.cartBannerLinks a {
   color: var(--color-malachite-70);
   font-weight: 600;
 }

@@ -56,6 +56,8 @@ export type BuyBoxProps = {
   /** Своя корзина вместо локальной (кабинет: корзина участника в API). Нет — addItem/setQty из lib/cart. */
   onAdd?: () => void;
   onSetQty?: (next: number) => void;
+  /** Сколько товара в корзине, если корзина своя (вместе с onAdd/onSetQty). Нет — из lib/cart. */
+  qty?: number;
 };
 
 /**
@@ -74,15 +76,16 @@ export function BuyBox({
   steady = false,
   onAdd,
   onSetQty,
+  qty: qtyOverride,
 }: BuyBoxProps) {
   const cart = useCart();
   const [acted, setActed] = useState(false);
   const club = options.find((o) => o.id === "club") ?? options[0];
   const regular = options.find((o) => o.id === "regular") ?? options[0];
   const canAddToCart = Boolean(product.coralId);
-  const qty = canAddToCart
-    ? (cart.find((l) => l.coralId === product.coralId)?.qty ?? 0)
-    : 0;
+  const qty = !canAddToCart
+    ? 0
+    : (qtyOverride ?? cart.find((l) => l.coralId === product.coralId)?.qty ?? 0);
   const anim = acted ? ` ${styles.animIn}` : "";
 
   const add = () => {

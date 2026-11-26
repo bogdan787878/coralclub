@@ -51,6 +51,8 @@ export function RuShell({ children }: { children: ReactNode }) {
         ? "home"
         : "";
   const inCheckout = path.startsWith(`${RU_BASE}/checkout`);
+  // как на главной магазина: на главной нижнее меню появляется, когда докрутили до первого раздела после обложки
+  const isHome = active === "home";
 
   return (
     <>
@@ -58,15 +60,14 @@ export function RuShell({ children }: { children: ReactNode }) {
       {/* источник корзины Layout выбирает один раз за загрузку страницы: ждём, пока станет известно, вошёл ли участник */}
       {member !== null && (
         <cc-layout
-          key={member ? "member" : "guest"}
+          key={`${member ? "member" : "guest"}-${isHome ? "home" : "page"}`}
+          {...(isHome ? { "reveal-after": "minerals" } : {})}
           locale="ru"
           {...(member ? {} : { cart: "local", "cart-key": RU_CART_KEY })}
           tabs="home catalog cart me"
           labels={JSON.stringify({ catalog: "Каталог", me: member ? "Аккаунт" : "Войти" })}
           links={links}
           active={active}
-          tabbar="glass"
-          hide-on-scroll=""
           {...(inCheckout ? { parts: "header" } : {})}
         >
           <div slot="corner">

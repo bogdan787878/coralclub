@@ -1,13 +1,14 @@
 "use client";
 
-import { Button } from "@/components/ui";
+import { BuyBox } from "@/components/organisms";
 import { addRu, qtyOf, setRuQty, useRuCart } from "@/lib/ru/cart";
-import { RU_BASE, rub, type RuProduct } from "@/lib/ru/shop";
+import { RU_BASE, rub, ruTitle, type RuProduct } from "@/lib/ru/shop";
 import styles from "./Ru.module.css";
 
 /**
- * Блок покупки страницы товара: цена участника клуба, рядом зачёркнутая обычная и тег скидки — одинаково для
- * гостя и участника. Гость кладёт товар в корзину в браузере; вход или регистрация — при оформлении заказа.
+ * Блок покупки страницы товара — компонент главного магазина (BuyBox): на телефоне плашка над нижним меню, на
+ * вебе колонка рядом с описанием. Цена участника, зачёркнутая обычная, под ними тег «Цена участника −N%»;
+ * «В корзину» сменяется степпером «− N +». Одинаково для гостя и участника (вход — при оформлении заказа).
  */
 export function RuBuyBox({
   p,
@@ -23,45 +24,25 @@ export function RuBuyBox({
   available: boolean;
 }) {
   const cart = useRuCart();
-  const qty = qtyOf(cart, p.code);
-  const off = club !== null && retail && retail > club ? Math.round((1 - club / retail) * 100) : 0;
 
   if (!available || club === null) {
     return <p className={styles.regHint}>Сейчас нет в наличии.</p>;
   }
 
+  const off = retail && retail > club ? Math.round((1 - club / retail) * 100) : 0;
+  const was = off > 0 ? rub(retail as number) : undefined;
+  const href = `${RU_BASE}/product/${p.slug}/`;
   return (
-    <div className={styles.buy}>
-      <p className={styles.pdpPrice}>
-        <span className={styles.pdpNow}>{rub(club)}</span>
-        {off > 0 && (
-          <>
-            <s className={styles.pdpWas}>{rub(retail as number)}</s>
-            <span className={styles.pdpTag}>−{off}%</span>
-          </>
-        )}
-      </p>
-
-      {qty > 0 ? (
-        <>
-          <div className={styles.stepper}>
-            <button type="button" aria-label="Убрать одну" onClick={() => setRuQty(p.code, qty - 1)}>
-              −
-            </button>
-            <span aria-live="polite">В корзине: {qty}</span>
-            <button type="button" aria-label="Добавить ещё" onClick={() => setRuQty(p.code, qty + 1)}>
-              +
-            </button>
-          </div>
-          <Button variant="secondary" block href={`${RU_BASE}/cart/`}>
-            Перейти в корзину
-          </Button>
-        </>
-      ) : (
-        <Button variant="primary" block data-analytics-id="pdp_add_to_cart_btn" onClick={() => addRu(p, member, rub(club), off > 0 ? rub(retail as number) : undefined)}>
-          В корзину
-        </Button>
-      )}
-    </div>
+    <BuyBox
+      product={{ coralId: String(p.code), slug: p.slug, name: ruTitle(p), image: p.images[0]?.src }}
+      options={[
+        { id: "club", label: "Цена участника", note: off ? `Цена участника −${off}%` : undefined, price: rub(club), cta: { label: "В корзину", href } },
+        { id: "regular", label: "Обычная цена", price: was ?? "", cta: { label: "В корзину", href } },
+      ]}
+      labels={{ add: "В корзину", removeOne: "Убрать одну", addOne: "Добавить ещё" }}
+      qty={qtyOf(cart, p.code)}
+      onAdd={() => addRu(p, member, rub(club), was)}
+      onSetQty={(next) => setRuQty(p.code, next)}
+    />
   );
 }
