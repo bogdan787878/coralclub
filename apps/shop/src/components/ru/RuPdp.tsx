@@ -58,7 +58,7 @@ export function RuPdp({ slug }: { slug: string }) {
   }
 
   const title = ruTitle(p);
-  const images = [...p.images, ...detail.pictures.map((src) => ({ src, alt: title }))];
+  const images = p.gallery ?? [...p.images, ...detail.pictures.map((src) => ({ src, alt: title }))];
   const others = RU_PRODUCTS.filter((x) => x.slug !== slug);
   return (
     <ProductDetailView

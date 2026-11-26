@@ -26,6 +26,30 @@ export type RuProduct = {
   /** зелёная метка над названием */
   tag: string;
   images: { src: string; alt: string }[];
+  /** галерея страницы товара по раскадровке гайда (/pdp-guide/): если есть — вместо фото карточки и API */
+  gallery?: { src: string; alt: string }[];
+};
+
+/**
+ * Галереи PDP по раскадровке: упаковка, объём, claims, применение, состав.
+ * Гидрамакс Плюс: без «Как принимать» (схема на картинке расходится с сайтом) и без составов ПентоКан, Оушенмин,
+ * H-500 (в них данные Корал-Майн) — их добавить, когда картинки поправят.
+ */
+const g = (slug: string, alts: string[]) => alts.map((alt, i) => ({ src: `/images/products/ru/pdp/${slug}-${i + 1}.webp`, alt }));
+const GALLERY: Record<string, { src: string; alt: string }[]> = {
+  "coral-mine-silver": g("coral-mine-silver", [
+    "Корал-Майн Сильвер — упаковка",
+    "Корал-Майн Сильвер в интерьере: пакет, саше и стакан воды",
+    "Корал-Майн: природный коралл из Японии; кальций, магний, натрий и калий; серебро и витамин C",
+    "Как применять Корал-Майн: 1 саше на 1,5 л воды",
+    "Состав Корал-Майн Сильвер на 1 саше",
+  ]),
+  "hydramax-plus": g("hydramax-plus", [
+    "Гидрамакс Плюс — коробка набора",
+    "Гидрамакс Плюс: коробка и всё, что внутри — Корал-Майн, ПентоКан, Оушенмин, H-500",
+    "Гидрамакс Плюс — набор на 30 дней",
+    "Состав: Корал-Майн Сильвер",
+  ]),
 };
 
 const LIST: Omit<RuProduct, "images">[] = [
@@ -39,7 +63,7 @@ const LIST: Omit<RuProduct, "images">[] = [
 export const RU_PRODUCTS: RuProduct[] = LIST.map((p) => {
   const own = getProduct(p.slug)?.carouselImages ?? [];
   const images = own.slice(0, 2).map((src, i) => (i === 1 && SQUARE_SHOT[p.slug] ? SQUARE_SHOT[p.slug] : src));
-  return { ...p, images: images.map((src) => ({ src, alt: p.name })) };
+  return { ...p, images: images.map((src) => ({ src, alt: p.name })), gallery: GALLERY[p.slug] };
 });
 
 /** Наборы — широкой карточкой первыми, затем по одному. */
