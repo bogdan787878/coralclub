@@ -30,6 +30,14 @@ export function RuLogin() {
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<{ text: string; bad: boolean }>({ text: "", bad: false });
   const [name, setName] = useState("");
+  // вход прошёл — уходим дальше без экрана «Вы вошли» (он мелькал, пока переносится корзина)
+  const [leaving, setLeaving] = useState(false);
+  const goCheckout = raw !== "" && checkout;
+
+  // уже вошёл и пришёл из корзины — сразу в оформление
+  useEffect(() => {
+    if (member && goCheckout && !leaving) window.location.replace(`${base}${next}`);
+  }, [member, goCheckout, leaving, next]);
 
   useEffect(() => {
     if (!member) return;
@@ -46,18 +54,21 @@ export function RuLogin() {
   const submit = async (e: FormEvent) => {
     e.preventDefault();
     setBusy(true);
+    setLeaving(true);
     setMsg({ text: "Входим…", bad: false });
     const r = await login({ login: user.trim(), password, country: "RU", language: "ru" });
     setPassword(""); // пароль не остаётся в форме
     if (!r.ok) {
       setBusy(false);
+      setLeaving(false);
       setMsg({ text: r.step === "auth" ? `Не удалось войти: ${r.message}` : `Нет связи с Coral Club (${r.message}).`, bad: true });
       return;
     }
-    setMsg({ text: "Переносим корзину…", bad: false });
-    await moveGuestCartToMember();
-    // новая загрузка: Layout и корзина начинают работать с корзиной участника
-    window.location.assign(`${base}${next}`);
+    const moved = await moveGuestCartToMember();
+    // сразу дальше: из корзины — в оформление; вход из меню с товарами в корзине — тоже в оформление.
+    // Новая загрузка: Layout и корзина начинают работать с корзиной участника.
+    const dest = raw ? next : moved > 0 ? `${RU_BASE}/checkout/` : `${RU_BASE}/`;
+    window.location.assign(`${base}${dest}`);
   };
 
   const signOut = async () => {
@@ -67,6 +78,17 @@ export function RuLogin() {
   };
 
   if (member === null) return null;
+
+  // идёт вход или переход в оформление — без промежуточного экрана
+  if (leaving || (member && goCheckout)) {
+    return (
+      <main className={styles.auth} aria-busy="true">
+        <p className={styles.authText} role="status">
+          {checkout ? "Переходим к оформлению заказа…" : "Входим…"}
+        </p>
+      </main>
+    );
+  }
 
   if (member) {
     return (
