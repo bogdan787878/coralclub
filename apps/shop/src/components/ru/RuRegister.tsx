@@ -10,6 +10,32 @@ import styles from "./Ru.module.css";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
+/** 10 цифр номера → «+7 (900) 000-00-00», по мере ввода. */
+function formatRuPhone(d: string): string {
+  if (!d) return "";
+  let s = `+7 (${d.slice(0, 3)}`;
+  if (d.length > 3) s += `) ${d.slice(3, 6)}`;
+  if (d.length > 6) s += `-${d.slice(6, 8)}`;
+  if (d.length > 8) s += `-${d.slice(8, 10)}`;
+  return s;
+}
+
+/**
+ * Маска российского номера: +7 (XXX) XXX-XX-XX. Первая 8 или 7 — код страны («8 900…» и «+7 900…» дают одно и
+ * то же), вставка номера целиком — тоже; стирание сквозь скобки и дефисы убирает цифру.
+ */
+function maskRuPhone(next: string, prev: string): string {
+  let d = next.replace(/\D/g, "");
+  if (next.trim().startsWith("+7")) d = d.slice(1);
+  else if (d.length >= 11 && /^[78]/.test(d)) d = d.slice(1);
+  else if (!prev && (d === "7" || d === "8")) return "+7 (";
+  d = d.slice(0, 10);
+  const had = prev.replace(/\D/g, "").replace(/^7/, "");
+  // стёрли скобку, пробел или дефис — цифры те же: убираем последнюю цифру
+  if (next.length < prev.length && d === had) d = d.slice(0, -1);
+  return formatRuPhone(d);
+}
+
 /**
  * Регистрация магазина России — упрощённая, как на coralclub.ru для России: имя, фамилия, телефон, e-mail, пароль,
  * согласие (и подписка по желанию). Консультант: по пригласительной ссылке он уже известен, иначе — поиск по
@@ -75,7 +101,7 @@ export function RuRegister({
   const surname = words.slice(1).join(" ");
   const errors = {
     fullName: (!fullName.trim() && "Укажите имя и фамилию") || (words.length < 2 && "Добавьте фамилию, например: Анна Иванова"),
-    phone: phoneDigits.length !== 10 && "10 цифр номера без +7",
+    phone: phoneDigits.length !== 10 && "Введите номер полностью: +7 (900) 000-00-00",
     email: (!EMAIL_RX.test(email.trim()) && "Введите корректный e-mail") || emailTaken,
     password: !validPassword(password) && "Не короче 6 символов, хотя бы одна цифра или символ",
     consultant: !consultant && "Найдите консультанта по Coral ID или телефону",
@@ -159,10 +185,10 @@ export function RuRegister({
       <FloatInput
         name="tel"
         type="tel"
-        label="Телефон, +7"
-        placeholder="900 000-00-00"
+        label="Телефон"
+        placeholder="+7 (900) 000-00-00"
         value={phone}
-        onChange={(v) => setPhone(v.replace(/[^\d\s()+-]/g, "").slice(0, 18))}
+        onChange={(v) => setPhone((prev) => maskRuPhone(v, prev))}
         inputMode="tel"
         autoComplete="tel"
         error={bad("phone")}
