@@ -18,6 +18,9 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
  * корзина гостя переносится в корзину участника, и страница открывается заново уже с его ценами.
  * Вошедшему — кто он и «Выйти».
  */
+/** «TEST TEST» → «Test Test»: имя из аккаунта бывает набрано капсом. */
+const niceName = (s: string) => (s === s.toUpperCase() ? s.toLowerCase().replace(/(^|[\s-])(\p{L})/gu, (_, sep: string, c: string) => sep + c.toUpperCase()) : s);
+
 export function RuLogin() {
   const member = useRuMember();
   const q = useSearchParams();
@@ -146,16 +149,19 @@ export function RuLogin() {
   if (member) {
     return (
       <main className={styles.auth}>
-        <h1 className={styles.authTitle}>Вы вошли</h1>
-        {name && <p className={styles.authText}>{name}</p>}
-        <p className={styles.authText}>В магазине для вас цены участника клуба.</p>
-        <Button variant="primary" block href={`${RU_BASE}/`}>
-          В магазин
-        </Button>
-        <Button variant="secondary" block onClick={signOut} disabled={busy}>
+        {/* аккаунт в магазине — только имя и приглашение; остальное — в личном кабинете на сайте */}
+        <h1 className={styles.authTitle}>{name ? niceName(name) : "Аккаунт"}</h1>
+        {memberId && <p className={styles.authText}>Coral ID {memberId}</p>}
+        <RuInvite memberId={memberId} accountWhy={accountFailed ? accountWhy : ""} onManual={() => setManual({ done: "" })} />
+        <div className={styles.lkInfo} role="note">
+          <p>Заказы, баллы, бонусы, структуру и остальные данные можно посмотреть в личном кабинете на сайте Coral Club.</p>
+          <a href="https://coralclub.ru/personal-new/" target="_blank" rel="noopener noreferrer">
+            Открыть личный кабинет ↗
+          </a>
+        </div>
+        <Button variant="ghost" block onClick={signOut} disabled={busy}>
           Выйти
         </Button>
-        <RuInvite memberId={memberId} accountWhy={accountFailed ? accountWhy : ""} onManual={() => setManual({ done: "" })} />
       </main>
     );
   }

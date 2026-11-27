@@ -1,5 +1,5 @@
-/* Пригласить в клуб (components/ru/RuInvite.tsx) — по макету: светлая красная кнопка во всю ширину,
-   под ней две кнопки с рамкой «Ссылка» и «QR-код» с иконкой «поделиться». */
+/* Пригласить в клуб (components/ru/RuInvite.tsx): кнопки UI kit — «Зарегистрировать вручную» во всю ширину,
+   под ней «Ссылка» и «QR-код» с иконкой «поделиться». */
 
 .invite {
   display: grid;
@@ -14,45 +14,15 @@
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
 }
-.manual {
-  min-height: 64px;
-  padding: 0 var(--space-16);
-  border: 0;
-  border-radius: 16px;
-  background: #fbefec;
-  color: #c8513f;
-  font: inherit;
-  font-size: 1.125rem;
-  font-weight: var(--font-weight-regular);
-  cursor: pointer;
-}
-.manual:active {
-  background: #f6e1db;
-}
 .row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-12);
 }
-.share {
+.btnIcon {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: var(--space-8);
-  min-height: 64px;
-  padding: 0 var(--space-12);
-  border: 2px solid #d5dce0;
-  border-radius: 16px;
-  background: var(--color-bg);
-  color: #39444c;
-  font: inherit;
-  font-size: 1.125rem;
-  font-weight: var(--font-weight-regular);
-  cursor: pointer;
-}
-.share:disabled {
-  opacity: 0.5;
-  cursor: default;
 }
 .note {
   margin: 0;

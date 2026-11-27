@@ -409,3 +409,25 @@
   color: inherit;
   text-decoration: underline;
 }
+
+/* аккаунт: остальное — в личном кабинете на сайте */
+.lkInfo {
+  display: grid;
+  gap: var(--space-8);
+  margin-top: var(--space-8);
+  padding: var(--space-16);
+  border-radius: 16px;
+  background: var(--color-neutral-30);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-long-size);
+  line-height: var(--text-body-long-line);
+}
+.lkInfo p {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+.lkInfo a {
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+  text-decoration: underline;
+}

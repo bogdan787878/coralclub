@@ -112,18 +112,23 @@ export function RuInvite({ memberId, accountWhy = "", onManual }: { memberId: st
       <h2 id="ru-invite-h" className={styles.title}>
         Пригласить в клуб
       </h2>
-      <button type="button" className={styles.manual} onClick={onManual}>
+      {/* кнопки — UI kit: главная — регистрация вручную, ссылка и QR — второстепенные */}
+      <Button variant="primary" block onClick={onManual}>
         Зарегистрировать вручную
-      </button>
+      </Button>
       <div className={styles.row}>
-        <button type="button" className={styles.share} onClick={shareLink} disabled={!link}>
-          <ShareIcon />
-          Ссылка
-        </button>
-        <button type="button" className={styles.share} onClick={() => setQrOpen(true)} disabled={!link || !qr}>
-          <ShareIcon />
-          QR-код
-        </button>
+        <Button variant="secondary" block onClick={shareLink} disabled={!link}>
+          <span className={styles.btnIcon}>
+            <ShareIcon />
+            Ссылка
+          </span>
+        </Button>
+        <Button variant="secondary" block onClick={() => setQrOpen(true)} disabled={!link || !qr}>
+          <span className={styles.btnIcon}>
+            <ShareIcon />
+            QR-код
+          </span>
+        </Button>
       </div>
       {link === null && <p className={styles.note}>Загружаем вашу ссылку…</p>}
       {error && <p className={styles.note}>{error}</p>}
