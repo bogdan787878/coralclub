@@ -431,3 +431,11 @@
   font-weight: var(--font-weight-medium);
   text-decoration: underline;
 }
+
+/* веб: вход и аккаунт — узкая колонка по центру, с воздухом сверху */
+@media (min-width: 1024px) {
+  .auth {
+    padding-top: var(--space-64);
+    padding-bottom: var(--space-64);
+  }
+}

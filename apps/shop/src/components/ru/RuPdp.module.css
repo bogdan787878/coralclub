@@ -326,6 +326,31 @@ button.row {
   flex: 1 1 auto;
   min-width: 0;
 }
+.stickyName {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .sticky {
+    padding: var(--space-12) 0;
+  }
+  .stickyName {
+    display: block;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: var(--text-button-size);
+    line-height: var(--text-button-line);
+    font-weight: var(--font-weight-medium);
+  }
+  .stickyPrice {
+    text-align: right;
+  }
+  .stickyBtn {
+    flex: 0 0 320px;
+  }
+}
 
 /* ---------- шторки ---------- */
 .stockHere {
@@ -423,16 +448,18 @@ button.row {
   .topBar {
     display: none;
   }
+  /* веб: колонка сетки магазина (RuGrid); фото крупнее (7/12), справа текст и покупка (5/12) — строки
+     описания не длиннее ~70 знаков */
   .layout {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: var(--space-48, 48px);
-    max-width: 1200px;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-56, 56px);
+    max-width: var(--container-max, 1200px);
     margin: 0 auto;
-    padding: var(--space-32) var(--space-56, 56px) 0;
+    padding: var(--space-32) 0 0;
   }
   .gallery {
     position: sticky;
-    top: 88px;
+    top: calc(var(--ru-sticky-top, 0px) + var(--space-24));
     align-self: start;
     border-radius: 24px;
     overflow: hidden;
@@ -440,25 +467,12 @@ button.row {
   .info {
     padding: 0 0 var(--space-48, 48px);
   }
-  .cert {
-    flex-direction: row;
-    align-items: center;
-  }
-  .certMedia {
-    flex: none;
-    width: 45%;
-    height: 198px;
-  }
-  .sticky {
-    display: none;
-  }
 }
 
 /* низ страницы на телефоне: последняя карусель не уходит под кнопку «В корзину» (≈72px) над меню */
-@media (max-width: 1023px) {
-  .page {
-    padding-bottom: calc(88px + var(--space-16));
-  }
+/* место под кнопку «В корзину», прилипающую к низу (и на вебе) */
+.page {
+  padding-bottom: calc(88px + var(--space-16));
 }
 
 /* ---------- таблица состава: в ширину экрана и тем же шрифтом, что описание ---------- */
@@ -513,5 +527,13 @@ button.row {
   }
   to {
     opacity: 1;
+  }
+}
+
+/* планшет: фото квадратом во всю ширину выходит выше экрана — ограничиваем, фон остаётся во всю ширину */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .gallery > * {
+    max-width: 560px;
+    margin-inline: auto;
   }
 }

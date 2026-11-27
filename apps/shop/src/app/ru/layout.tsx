@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { RuShell } from "@/components/ru/RuShell";
-import grid from "@/components/friend/FriendGrid.module.css";
+import grid from "@/components/ru/RuGrid.module.css";
 
 export const metadata: Metadata = {
   title: "Coral Club — магазин",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function RuLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div className={`appShell ${grid.edge}`}>
+      <div className={`appShell ${grid.ru}`}>
         <RuShell>{children}</RuShell>
       </div>
     </>

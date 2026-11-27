@@ -22,7 +22,8 @@ export function RuPromo({ title }: { title?: ReactNode } = {}) {
     };
   }, []);
   if (banners && !banners.length) return null;
-  // одна акция — карточка на всю ширину, баннер сайта целиком (16:9)
+  // одна акция — на телефоне карточка на всю ширину, баннер сайта целиком (16:9); на вебе — половина колонки
+  // (на всю ширину 1200 px баннер выходит выше экрана)
   const single = banners?.length === 1;
 
   return (
@@ -31,7 +32,7 @@ export function RuPromo({ title }: { title?: ReactNode } = {}) {
       title={title}
       itemWidth={single ? "100%" : "var(--ru-promo-w)"}
       maxCols={single ? 1 : 4}
-      minCols={single ? 1 : 3}
+      minCols={single ? 2 : 3}
     >
       {(banners ?? [null, null]).map((b, i) =>
         b ? (

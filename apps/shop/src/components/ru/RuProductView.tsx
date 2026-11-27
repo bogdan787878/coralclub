@@ -498,6 +498,8 @@ export function RuProductView({
         <div className={`${styles.sticky} ${sticky ? styles.stickyOn : ""}`} aria-hidden={!sticky}>
           <Container>
             <div className={styles.stickyRow}>
+              {/* веб: название слева, цена и кнопка справа; на телефоне — только цена и кнопка */}
+              <span className={styles.stickyName}>{title}</span>
               <span className={styles.stickyPrice}>
                 <strong>{price}</strong>
                 {was && <s>{was}</s>}

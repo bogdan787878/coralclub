@@ -70,7 +70,7 @@
 .filters {
   display: grid;
   gap: var(--space-12);
-  margin: var(--space-16) 0 var(--space-16);
+  margin: var(--space-16) 0;
 }
 /* фильтр — одна строка с прокруткой вбок, до краёв экрана */
 .facet {
@@ -128,7 +128,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-12);
-  margin-top: var(--space-4, 4px);
+  margin: 0 0 var(--space-16);
 }
 .count {
   font-size: var(--text-body-long-size);
@@ -177,14 +177,13 @@
   }
 }
 @media (min-width: 1024px) {
-  /* веб: фильтры переносятся, без прокрутки */
-  .facet {
-    flex-wrap: wrap;
-    margin-inline: 0;
-    padding-inline: 0;
-    overflow: visible;
+  .page {
+    padding-top: var(--space-32);
   }
-  /* веб: плитки в два ряда без прокрутки */
+  .title {
+    margin-bottom: var(--space-24);
+  }
+  /* веб: плитки доменов — 6 в ряд, в колонке сетки, без прокрутки */
   .domains {
     grid-auto-flow: row;
     grid-template-rows: none;
@@ -192,11 +191,60 @@
     overflow: visible;
     max-width: var(--container-max);
     margin: 0 auto;
-    padding-inline: var(--page-padding-inline);
+    padding: 0;
   }
   .domain {
-    min-height: 120px;
+    min-height: 104px;
   }
+  .domain:hover:not(.domainOn) {
+    background: var(--color-border);
+  }
+
+  /* веб: фильтры — липкая колонка слева, справа сортировка и сетка */
+  .body {
+    display: grid;
+    grid-template-columns: 248px minmax(0, 1fr);
+    column-gap: var(--space-40);
+    align-items: start;
+    margin-top: var(--space-32);
+  }
+  .filters {
+    position: sticky;
+    top: calc(var(--ru-sticky-top, 0px) + var(--space-24));
+    gap: var(--space-24);
+    margin: 0;
+    max-height: calc(100vh - var(--ru-sticky-top, 0px) - var(--space-48));
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+  /* группа фильтра: название — заголовком, значения переносятся */
+  .facet {
+    flex-wrap: wrap;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+  .facet > * {
+    white-space: normal;
+  }
+  .facetName {
+    flex-basis: 100%;
+    margin: 0 0 var(--space-4, 4px);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+  }
+  .chip:hover:not(.chipOn) {
+    border-color: var(--color-text-muted);
+  }
+  .bar {
+    margin: 0 0 var(--space-16);
+  }
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-32) var(--space-16);
+  }
+}
+@media (min-width: 1280px) {
   .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }

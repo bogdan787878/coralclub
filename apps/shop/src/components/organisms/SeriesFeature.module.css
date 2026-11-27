@@ -165,7 +165,8 @@
      viewports — the 56px padding alone doesn't undo that cap. */
   div.container {
     max-width: none;
-    padding-inline: 56px;
+    /* --block-edge: a page may align these blocks to its own grid (the RU shop does); default 56px */
+    padding-inline: var(--block-edge, 56px);
   }
 
   .title {
@@ -218,7 +219,7 @@
        block's 56px inset instead of the page's usual container-max
        column, so the product row's edges line up with the image/text
        above it */
-    --carousel-gutter: 56px;
+    --carousel-gutter: var(--block-edge, 56px);
   }
 }
 

@@ -112,7 +112,8 @@ details[open] > .sumHead svg {
   .sumDesktop {
     display: block;
     position: sticky;
-    top: var(--space-24);
+    /* под липкой шапкой страницы, если она есть (магазин России: --ru-sticky-top) */
+    top: calc(var(--ru-sticky-top, 0px) + var(--space-24));
     padding: var(--space-24);
     border-radius: var(--radius-base);
     background: var(--color-neutral-30);

@@ -46,7 +46,16 @@ export function RuCatalog() {
     if (RU_DOMAINS.some((x) => x.id === d)) setDomain(d);
     if (params.get("sale") === "1") {
       setSale([]);
-      loadRuSale().then((codes) => setSale([...new Map(codes.map((c) => ruProductByCode(c)).filter((p): p is RuProduct => Boolean(p)).map((p) => [p.code, p])).values()]));
+      loadRuSale().then((codes) =>
+        setSale([
+          ...new Map(
+            codes
+              .map((c) => ruProductByCode(c))
+              .filter((p): p is RuProduct => Boolean(p))
+              .map((p) => [p.code, p]),
+          ).values(),
+        ]),
+      );
     }
   }, []);
 
@@ -101,7 +110,14 @@ export function RuCatalog() {
           const Icon = DOMAIN_ICONS[d.id];
           const on = d.id === domain;
           return (
-            <button key={d.id} type="button" role="tab" aria-selected={on} className={`${styles.domain} ${on ? styles.domainOn : ""}`} onClick={() => pick(d.id)}>
+            <button
+              key={d.id}
+              type="button"
+              role="tab"
+              aria-selected={on}
+              className={`${styles.domain} ${on ? styles.domainOn : ""}`}
+              onClick={() => pick(d.id)}
+            >
               <span className={styles.domainLabel}>{d.label}</span>
               {Icon && <Icon className={styles.domainIcon} />}
             </button>
@@ -110,55 +126,72 @@ export function RuCatalog() {
       </div>
 
       <Container>
-        <div className={styles.filters}>
-          {formFacet.length > 1 && (
-            <div className={styles.facet}>
-              <span className={styles.facetName}>Форма</span>
-              {formFacet.map(([v, n]) => (
-                <button key={v} type="button" aria-pressed={forms.includes(v)} className={`${styles.chip} ${forms.includes(v) ? styles.chipOn : ""}`} onClick={() => setForms((s) => toggle(s, v))}>
-                  {v} <span>{n}</span>
-                </button>
-              ))}
-            </div>
-          )}
-          {featFacet.length > 0 && (
-            <div className={styles.facet}>
-              <span className={styles.facetName}>Особенности</span>
-              {featFacet.map(([v, n]) => (
-                <button key={v} type="button" aria-pressed={feats.includes(v)} className={`${styles.chip} ${feats.includes(v) ? styles.chipOn : ""}`} onClick={() => setFeats((s) => toggle(s, v))}>
-                  {v} <span>{n}</span>
-                </button>
-              ))}
-            </div>
-          )}
-          <div className={styles.bar}>
-            <span className={styles.count}>
-              {shown.length} {plural(shown.length)}
-            </span>
-            <label className={styles.sort}>
-              <span className={styles.visuallyHidden}>Сортировка</span>
-              <select value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
-                {SORTS.map((s) => (
-                  <option key={s.id} value={s.id}>
-                    {s.label}
-                  </option>
+        {/* веб: фильтры — липкая колонка слева, справа сортировка и сетка (как у маркетплейсов) */}
+        <div className={styles.body}>
+          <aside className={styles.filters} aria-label="Фильтры">
+            {formFacet.length > 1 && (
+              <div className={styles.facet}>
+                <span className={styles.facetName}>Форма</span>
+                {formFacet.map(([v, n]) => (
+                  <button
+                    key={v}
+                    type="button"
+                    aria-pressed={forms.includes(v)}
+                    className={`${styles.chip} ${forms.includes(v) ? styles.chipOn : ""}`}
+                    onClick={() => setForms((s) => toggle(s, v))}
+                  >
+                    {v} <span>{n}</span>
+                  </button>
                 ))}
-              </select>
-            </label>
+              </div>
+            )}
+            {featFacet.length > 0 && (
+              <div className={styles.facet}>
+                <span className={styles.facetName}>Особенности</span>
+                {featFacet.map(([v, n]) => (
+                  <button
+                    key={v}
+                    type="button"
+                    aria-pressed={feats.includes(v)}
+                    className={`${styles.chip} ${feats.includes(v) ? styles.chipOn : ""}`}
+                    onClick={() => setFeats((s) => toggle(s, v))}
+                  >
+                    {v} <span>{n}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </aside>
+          <div className={styles.main}>
+            <div className={styles.bar}>
+              <span className={styles.count}>
+                {shown.length} {plural(shown.length)}
+              </span>
+              <label className={styles.sort}>
+                <span className={styles.visuallyHidden}>Сортировка</span>
+                <select value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
+                  {SORTS.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+
+            {shown.length ? (
+              <ul className={styles.grid} data-analytics-list={`catalog_${domain || "all"}`}>
+                {shown.map((p, i) => (
+                  <li key={p.code}>
+                    <RuCard p={p} index={i + 1} />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className={styles.empty}>Под эти фильтры товаров нет.</p>
+            )}
           </div>
         </div>
-
-        {shown.length ? (
-          <ul className={styles.grid} data-analytics-list={`catalog_${domain || "all"}`}>
-            {shown.map((p, i) => (
-              <li key={p.code}>
-                <RuCard p={p} index={i + 1} />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className={styles.empty}>Под эти фильтры товаров нет.</p>
-        )}
       </Container>
     </main>
   );

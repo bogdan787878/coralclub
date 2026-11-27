@@ -1,0 +1,36 @@
+/*
+ * Сетка веба магазина России (1024 px и шире) — одна на все страницы, как у маркетплейсов:
+ *   колонка контента — окно минус 56 px с каждой стороны, не шире 1200 px, по центру;
+ *   шапка, обложка, блоки главной (SeriesFeature), Container и карусели начинаются на одной линии (--grid-edge);
+ *   шапка на вебе липкая — навигация, поиск и корзина всегда под рукой (на телефоне их держит нижнее меню).
+ * Телефон и планшет не меняются.
+ */
+.ru {
+  --grid-edge: 56px;
+}
+
+@media (min-width: 1024px) {
+  .ru {
+    --grid-edge: max(56px, calc((100vw - 1200px) / 2));
+    --block-edge: var(--grid-edge);
+    --container-max: min(1200px, calc(100vw - 112px));
+    --container-gutter: 0px;
+    /* высота липкой шапки: под неё встают липкие элементы страниц */
+    --ru-sticky-top: 76px;
+  }
+  .ru cc-layout {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: block;
+    --page-padding-inline: var(--grid-edge);
+  }
+}
+
+/* корзина (<cc-cart>) — на той же колонке сетки, а не в своей (1120 px) */
+@media (min-width: 1024px) {
+  .ru cc-cart {
+    --cc-cart-max: none;
+    --page-padding-inline: var(--grid-edge);
+  }
+}

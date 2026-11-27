@@ -140,3 +140,21 @@
   font-size: var(--text-body-long-size);
   color: var(--color-text-muted);
 }
+
+/* веб: поле — на ширину колонки сетки, выдача плотнее (без колонки фильтров — 4–5 в ряд) */
+@media (min-width: 1024px) {
+  .page {
+    padding-top: var(--space-32);
+  }
+  .form {
+    margin-bottom: var(--space-24);
+  }
+  ul.results {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1280px) {
+  ul.results {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}

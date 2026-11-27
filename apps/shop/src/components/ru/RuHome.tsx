@@ -178,8 +178,8 @@ export function RuHome() {
         }))}
       />
 
-      {/* шапка магазина России не липкая — переключатель прилипает к самому верху экрана, а не под шапку (64 px) */}
-      <div className={home.phaseSwitcherSticky} style={{ top: "calc(env(safe-area-inset-top, 0px) + 12px)" }}>
+      {/* на телефоне шапка не липкая — переключатель у самого верха экрана; на вебе — под липкой шапкой (RuGrid) */}
+      <div className={home.phaseSwitcherSticky} style={{ top: "calc(var(--ru-sticky-top, 0px) + env(safe-area-inset-top, 0px) + 12px)" }}>
         <PhaseSwitcherPills
           phases={RU_PHASES.map((p) => ({ id: p.id, name: p.name }))}
           value={phase}

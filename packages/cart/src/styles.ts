@@ -25,7 +25,7 @@ a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; border: 0; background: none; padding: 0; cursor: pointer; }
 svg { display: block; }
 
-.page { max-width: 1120px; margin: 0 auto; padding: 8px var(--page-padding-inline, 16px) 24px; }
+.page { max-width: var(--cc-cart-max, 1120px); margin: 0 auto; padding: 8px var(--page-padding-inline, 16px) 24px; }
 .top { display: flex; align-items: baseline; gap: 12px; margin: 8px 0 16px; }
 .top h1 { margin: 0; font-size: 1.75rem; line-height: 2rem; font-weight: var(--fw); letter-spacing: -.01em; }
 .count { color: var(--c-muted); font-size: .9375rem; }
