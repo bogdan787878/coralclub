@@ -124,7 +124,7 @@ export function RuSearch() {
             type="search"
             inputMode="search"
             enterKeyHint="search"
-            placeholder="Название, артикул, состав или что беспокоит"
+            placeholder="Название, артикул, состав или беспокоит"
             aria-label="Поиск по магазину"
             value={q}
             onChange={(e) => setQ(e.target.value)}

@@ -47,7 +47,7 @@ function Pack({ pack, tightTop }: { pack: RuPack; tightTop?: boolean }) {
         name: ruTitle(p),
         now,
         was,
-        note: was ? `Цена участника −${off}%` : undefined,
+        note: was ? `−${off}%` : undefined,
         qty: qtyOf(cart, p.code),
         onAdd: live && sold ? () => addRu(p, Boolean(member), rub(club as number), was) : undefined,
         onSetQty: (n) => setRuQty(p.code, n),
