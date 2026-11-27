@@ -209,7 +209,7 @@ export class CcCart extends HTMLElement {
             </dl></slot>
             <slot name="cart-note"></slot>
             <button class="cta" type="button" data-act="checkout">${esc(T.checkout)}</button>
-            ${this.shareFn ? `<button class="ghostBtn" type="button" data-act="share"${this.shareState === "busy" ? " disabled" : ""}>${ICON.share}<span>${esc(this.shareState === "copied" ? T.copied : T.share)}</span></button>` : ""}
+            ${this.shareFn ? `<button class="ghostBtn" type="button" data-act="share"${this.shareState === "busy" ? " disabled" : ""}>${esc(this.shareState === "copied" ? T.copied : T.share)}</button>` : ""}
           </aside>
         </div>`;
     }

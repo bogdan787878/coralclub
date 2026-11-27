@@ -82,13 +82,12 @@ svg { display: block; }
 .cta:hover:not(:disabled) { background: var(--c-action-hover); }
 .cta:disabled { opacity: .45; cursor: not-allowed; }
 .cta.wide { width: auto; }
-/* ghost-кнопка UI kit: «Поделиться корзиной» под «Оформить заказ» */
-.ghostBtn { width: 100%; min-height: 52px; padding: 0 24px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  border-radius: 999px; border: 1px solid rgba(0, 32, 34, .16); background: transparent; color: var(--c-text); font-size: 1rem; font-weight: var(--fw);
+/* ghost-кнопка: «Поделиться корзиной» под «Оформить заказ» — без обводки и иконки */
+.ghostBtn { width: 100%; min-height: 52px; padding: 0 24px; display: inline-flex; align-items: center; justify-content: center;
+  border: 0; border-radius: 999px; background: transparent; color: var(--c-text); font-size: 1rem; font-weight: var(--fw);
   transition: background-color .15s var(--ease); }
-.ghostBtn:hover:not(:disabled) { background: var(--c-surface); }
+.ghostBtn:hover:not(:disabled) { background: rgba(0, 32, 34, .06); }
 .ghostBtn:disabled { opacity: .6; cursor: progress; }
-.ghostBtn svg { width: 20px; height: 20px; }
 .ghost { align-self: center; padding: 10px 4px; font-size: .9375rem; text-decoration: underline; text-underline-offset: 3px; }
 
 .empty { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 56px 16px; text-align: center; color: var(--c-muted); }

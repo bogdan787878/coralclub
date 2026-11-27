@@ -60,6 +60,10 @@
 }
 .gallery {
   background: var(--color-surface, #efefef);
+  /* рамка фото основного магазина (.media) выходит за поля колонки отрицательными отступами — здесь галерея и так
+     во всю ширину: без них фото шире экрана на 16 px с каждой стороны и страница ходит вбок */
+  --page-padding-inline: 0px;
+  --page-padding-block: 0px;
 }
 .info {
   display: grid;
