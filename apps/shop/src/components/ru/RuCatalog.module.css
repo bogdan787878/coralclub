@@ -171,10 +171,25 @@
   color: var(--color-text-muted);
 }
 
-@media (min-width: 768px) {
+/* до веба — резиновая сетка: столько карточек в ряд, сколько помещается (2 на телефоне, 3–5 на планшете) */
+@media (min-width: 560px) and (max-width: 1023px) {
   .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
     gap: var(--space-32) var(--space-16);
+  }
+  /* домены — плитками в несколько рядов, без прокрутки */
+  .domains {
+    grid-auto-flow: row;
+    grid-template-rows: none;
+    /* 12 доменов — ровными рядами: 4 × 3, с 900 px — 6 × 2 */
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: visible;
+    padding-bottom: 0;
+  }
+}
+@media (min-width: 900px) and (max-width: 1023px) {
+  .domains {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
 @media (min-width: 1024px) {

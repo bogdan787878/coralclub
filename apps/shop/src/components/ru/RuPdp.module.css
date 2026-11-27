@@ -534,10 +534,19 @@ button.row {
   }
 }
 
-/* планшет: фото квадратом во всю ширину выходит выше экрана — ограничиваем, фон остаётся во всю ширину */
-@media (min-width: 768px) and (max-width: 1023px) {
+/* планшет и большой телефон: фото квадратом во всю ширину выходит выше экрана — кадр не выше 72% экрана, по
+   центру, серый фон во всю ширину; текст — колонкой для чтения (строка не длиннее ~80 знаков) */
+@media (min-width: 560px) and (max-width: 1023px) {
+  .gallery {
+    background: var(--color-neutral-30);
+  }
   .gallery > * {
-    max-width: 560px;
+    max-width: min(100%, 72vh, 640px);
+    margin-inline: auto;
+  }
+  .info {
+    width: 100%;
+    max-width: 720px;
     margin-inline: auto;
   }
 }

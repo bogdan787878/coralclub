@@ -9,6 +9,14 @@
   --grid-edge: 56px;
 }
 
+/* телефон и планшет — резиново: колонка во всю ширину (а не 480/720 px по центру), поля растут с экраном */
+@media (max-width: 1023px) {
+  .ru {
+    --container-max: 100%;
+    --page-padding-inline: clamp(16px, 4vw, 40px);
+  }
+}
+
 @media (min-width: 1024px) {
   .ru {
     --grid-edge: max(56px, calc((100vw - 1200px) / 2));
