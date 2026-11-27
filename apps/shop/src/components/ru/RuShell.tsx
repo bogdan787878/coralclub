@@ -2,7 +2,7 @@
 
 import Script from "next/script";
 import Link from "next/link";
-import { useEffect, useRef, useSyncExternalStore, type ReactNode } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Icon } from "@/components/ui";
 import { asset } from "@/lib/asset";
@@ -16,6 +16,7 @@ import { RU_BASE, RU_CART_KEY } from "@/lib/ru/shop";
 import { useRuMember } from "@/lib/ru/live";
 import menu from "@/components/checkout/CountryMenu.module.css";
 import { RuCityButton, RuCitySheet } from "./RuCity";
+import shell from "./RuShell.module.css";
 
 /** Телефон и планшет (до 1024px) — там на странице товара своя верхняя полоса вместо шапки магазина. */
 const PHONE = "(max-width: 1023px)";
@@ -78,6 +79,32 @@ export function RuShell({ children }: { children: ReactNode }) {
   }, [path, inSearch]);
   /** Выйти из поиска — туда, откуда пришли (или на главную, если поиск открыли по ссылке). */
   const closeSearch = () => router.push(beforeSearch.current || `${RU_BASE}/`);
+
+  // переходы как в iOS: ссылки магазина (и в шапке, и в нижнем меню Layout — они в его shadow DOM) открываются
+  // внутри приложения, без перезагрузки; новая страница въезжает справа, «назад» — слева
+  const [dir, setDir] = useState<1 | -1>(1);
+  useEffect(() => {
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = e.composedPath().find((n): n is HTMLAnchorElement => n instanceof HTMLAnchorElement);
+      if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
+      const url = new URL(a.href, window.location.href);
+      if (url.origin !== window.location.origin || !url.pathname.startsWith(`${basePath}${RU_BASE}/`)) return;
+      // якорь на этой же странице — пусть браузер прокрутит сам
+      if (url.pathname === window.location.pathname && url.search === window.location.search && url.hash) return;
+      e.preventDefault();
+      setDir(1);
+      router.push(url.pathname.slice(basePath.length) + url.search + url.hash);
+    };
+    const onPop = () => setDir(-1);
+    document.addEventListener("click", onClick);
+    window.addEventListener("popstate", onPop);
+    return () => {
+      document.removeEventListener("click", onClick);
+      window.removeEventListener("popstate", onPop);
+    };
+  }, [router]);
   // страница товара на телефоне: без шапки (кнопки «назад» и «поделиться» — над фото, как у маркетплейсов)
   const phone = usePhone();
   const pdpPhone = phone && path.startsWith(`${RU_BASE}/product/`);
@@ -116,7 +143,9 @@ export function RuShell({ children }: { children: ReactNode }) {
           </div>
         </cc-layout>
       )}
-      {children}
+      <div key={path} className={`${shell.page} ${dir > 0 ? shell.forward : shell.back}`}>
+        {children}
+      </div>
       {!inCheckout && <RuCitySheet isHome={isHome} />}
     </>
   );

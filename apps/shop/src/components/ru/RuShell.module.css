@@ -1,0 +1,30 @@
+/* Переход между страницами магазина — как push в iOS: новая въезжает справа с проявлением, «назад» — слева.
+   Коротко и без прозрачного провала: страница сразу на месте почти целиком. */
+.page {
+  animation-duration: 0.34s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: backwards; /* после анимации transform не остаётся: fixed-элементы страниц (кнопка «В корзину», шторки) — от окна */
+}
+.forward {
+  animation-name: pushIn;
+}
+.back {
+  animation-name: popIn;
+}
+@keyframes pushIn {
+  from {
+    opacity: 0.4;
+    transform: translateX(28px);
+  }
+}
+@keyframes popIn {
+  from {
+    opacity: 0.4;
+    transform: translateX(-28px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page {
+    animation: none;
+  }
+}
