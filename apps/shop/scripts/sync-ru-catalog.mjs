@@ -167,6 +167,8 @@ for (const [code, c0] of entries) {
     feat: c?.feat ?? [],
     form: clean(c?.form),
     own: own.slice(0, 2),
+    // пэкшот на сером фоне — карточка каталога сайта; первым в каруселях
+    preview: item.previewPicture ?? "",
     pictures,
   });
 }

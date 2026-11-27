@@ -37,7 +37,7 @@ export function RuCard({ p, index, wide }: { p: RuProduct; index: number; wide?:
         priceTag={was ? `−${off}%` : undefined}
         href={ruHref(p.slug)}
         cartHref={ruHref(p.slug)}
-        images={wide && p.images.length > 1 ? [p.images[1], p.images[0], ...p.images.slice(2)] : p.images}
+        images={p.images /* первым всегда пэкшот на сером, и у широкой карточки */}
         cartQty={qtyOf(cart, p.code)}
         onSetQty={(next) => setRuQty(p.code, next)}
         onAddToCart={live && sold ? () => addRu(p, Boolean(member), rub(club as number), was) : undefined}

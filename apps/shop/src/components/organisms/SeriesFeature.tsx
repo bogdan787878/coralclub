@@ -39,6 +39,8 @@ export type SeriesFeatureProps = {
    *  the whole block instead (same treatment as Restart's own product
    *  carousel), rather than staying confined next to the card. */
   carouselItems?: ReactNode[];
+  /** Подзаголовок над рядом «что входит» (на телефоне и на вебе), например «Что входит в набор». */
+  carouselTitle?: ReactNode;
   /** Drops the block's own top margin — for callers that already sit in a
    *  flex column with its own gap (e.g. PhasesSection), where the
    *  self-margin would double up on that gap. */
@@ -82,6 +84,7 @@ export function SeriesFeature({
   tightTop,
   buy,
   labels,
+  carouselTitle,
 }: SeriesFeatureProps) {
   const cart = useCart();
   const [acted, setActed] = useState(false);
@@ -245,6 +248,9 @@ export function SeriesFeature({
 
           {/* mobile/tablet only (hidden at 1024px+, see .carouselSlot) — a
               scroll row confined to the card's own column */}
+          {carouselItems && carouselItems.length > 0 && carouselTitle && (
+            <h3 className={`${styles.insideTitle} ${styles.insideMobile}`}>{carouselTitle}</h3>
+          )}
           {carouselItems && carouselItems.length > 0 && (
             <div className={styles.carouselSlot}>
               {carouselItems.map((item, i) => (
@@ -263,6 +269,11 @@ export function SeriesFeature({
           beside it */}
       {carouselItems && carouselItems.length > 0 && (
         <div className={styles.desktopCarousel}>
+          {carouselTitle && (
+            <Container>
+              <h3 className={styles.insideTitle}>{carouselTitle}</h3>
+            </Container>
+          )}
           <Carousel label={`${seriesName} — ${labels?.inside ?? "what's in it"}`}>
             {carouselItems}
           </Carousel>

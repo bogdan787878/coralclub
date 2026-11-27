@@ -411,3 +411,21 @@
     animation: none;
   }
 }
+
+/* подзаголовок над рядом «что входит» — 16/24 medium, как «Ключевые элементы» */
+.insideTitle {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-button-size);
+  line-height: var(--text-button-line);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+@media (min-width: 1024px) {
+  .insideMobile {
+    display: none;
+  }
+  .desktopCarousel .insideTitle {
+    margin-bottom: var(--space-12);
+  }
+}

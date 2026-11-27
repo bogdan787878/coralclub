@@ -30,6 +30,8 @@ type Raw = {
   feat: string[];
   form: string;
   own: string[];
+  /** пэкшот на сером фоне (картинка карточки каталога сайта) */
+  preview?: string;
   pictures: string[];
 };
 type Img = { src: string; alt: string };
@@ -140,7 +142,9 @@ function fromRaw(r: Raw): RuProduct {
   const name = own.name ?? fixName(r.name);
   // наши пэкшоты: первый — квадрат на сером, второй — сцена (как на главной магазина); иначе фото сайта
   const mine = r.own.map((src, i) => (i === 1 && SQUARE_SHOT[r.slug] ? SQUARE_SHOT[r.slug] : src));
-  const images = (mine.length ? mine : r.pictures.slice(0, 2)).map((src) => ({ src, alt: name }));
+  // первым всегда пэкшот на сером: свой или карточка каталога сайта, за ним сцена
+  const site = r.preview ? [r.preview, ...r.pictures.filter((x) => x !== r.preview)] : r.pictures;
+  const images = (mine.length ? mine : site.slice(0, 2)).map((src) => ({ src, alt: name }));
   return {
     slug: r.slug,
     code: r.code,
@@ -158,7 +162,7 @@ function fromRaw(r: Raw): RuProduct {
     feat: r.feat ?? [],
     release: r.form === "Набор" || r.form === "Уход и косметика" ? "" : (r.form ?? ""),
     images,
-    pictures: r.pictures,
+    pictures: r.preview ? [r.preview, ...r.pictures.filter((x) => x !== r.preview)] : r.pictures,
     gallery: GALLERY[r.slug],
   };
 }
