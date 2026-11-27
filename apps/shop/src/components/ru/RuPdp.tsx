@@ -3,14 +3,13 @@
 import { useEffect, useState } from "react";
 import { catalogProduct, guestProductDetail, type ProductDetail } from "@coral/api";
 import { Container, Heading, Section } from "@/components/ui";
-import { ShopSkeleton } from "@/components/lk/LkShop";
 import { RU_BASE, RU_PRODUCTS, ruProduct, ruProducts, ruTitle, type RuProduct } from "@/lib/ru/shop";
 import { DETOX_PACKS, HYDRATION_PACK } from "@/lib/ru/home";
 import { useRuMember } from "@/lib/ru/live";
 import { cityKey, useRuCity } from "@/lib/ru/city";
 import shop from "@/app/(shop)/products/[slug]/page.module.css";
 import styles from "@/app/landing/product/[slug]/page.module.css";
-import { RuProductView } from "./RuProductView";
+import { RuProductSkeleton, RuProductView } from "./RuProductView";
 import { RuCards } from "./RuCards";
 
 /** Состав наборов главной — как на витрине (у канона он бывает другим). */
@@ -61,17 +60,8 @@ export function RuPdp({ slug }: { slug: string }) {
   if (!p) return null;
   const detail = got?.key === key ? got.detail : undefined;
 
-  if (detail === undefined) {
-    return (
-      <main className={shop.page}>
-        <Container>
-          <div style={{ padding: "24px 0" }}>
-            <ShopSkeleton n={2} />
-          </div>
-        </Container>
-      </main>
-    );
-  }
+  const title = ruTitle(p);
+  if (detail === undefined) return <RuProductSkeleton p={p} title={title} images={p.gallery ?? p.images} backHref={`${RU_BASE}/`} />;
   if (detail === null) {
     return (
       <main className={shop.page}>
@@ -82,7 +72,6 @@ export function RuPdp({ slug }: { slug: string }) {
     );
   }
 
-  const title = ruTitle(p);
   const seen = new Set<string>();
   const images = p.gallery ?? [...p.images, ...detail.pictures.map((src) => ({ src, alt: title }))].filter((i) => !seen.has(i.src) && seen.add(i.src));
   const { heading, list } = moreFor(p);

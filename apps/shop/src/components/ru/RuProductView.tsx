@@ -530,3 +530,50 @@ export function RuProductView({
     </main>
   );
 }
+
+/**
+ * Пока грузятся цена и наличие — та же страница товара: фото, название и краткое описание уже известны
+ * (каталог), вместо цены, кнопки, доставки и блоков — серые плашки тех же размеров. Ничего не прыгает.
+ */
+export function RuProductSkeleton({ p, title, images, backHref }: { p: RuProduct; title: string; images: { src: string; alt: string }[]; backHref: string }) {
+  const gallery = useRef<HTMLDivElement>(null);
+  const bar = (w: string, h: number, r = 8) => <span className={styles.skel} style={{ width: w, height: h, borderRadius: r }} />;
+  return (
+    <main className={styles.page} aria-busy="true">
+      <TopBar title={title} backHref={backHref} galleryRef={gallery} />
+      <div className={styles.layout}>
+        <div ref={gallery} className={styles.gallery}>
+          <LandingGallery images={images} title={title} fit="contain" zoom />
+        </div>
+        <div className={styles.info}>
+          <section className={styles.head}>
+            <Heading className={styles.title}>{title}</Heading>
+            {p.lead && <BodyLong muted>{p.lead}</BodyLong>}
+            <div className={styles.price}>
+              {bar("96px", 28)}
+              {bar("64px", 20)}
+            </div>
+            <div className={styles.buy}>{bar("100%", 48, 999)}</div>
+          </section>
+          <section className={styles.rows}>
+            {[0, 1].map((i) => (
+              <div key={i} className={styles.row}>
+                <i className={styles.skel} style={{ width: 22, height: 22, borderRadius: 6, flex: "none" }} />
+                <span>
+                  {bar("55%", 18)}
+                  {bar("80%", 16)}
+                </span>
+              </div>
+            ))}
+          </section>
+          <section className={styles.block}>
+            {bar("40%", 20)}
+            {bar("100%", 16)}
+            {bar("100%", 16)}
+            {bar("70%", 16)}
+          </section>
+        </div>
+      </div>
+    </main>
+  );
+}

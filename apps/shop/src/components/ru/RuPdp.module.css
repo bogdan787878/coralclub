@@ -537,3 +537,19 @@ button.row {
 .facts td:last-child {
   padding-right: var(--space-12);
 }
+
+/* скелетон страницы товара — серые плашки на месте цены, кнопки, доставки и текста */
+.skel {
+  display: block;
+  max-width: 100%;
+  background: var(--color-neutral-30, #eceef1);
+  animation: pdpPulse 1.2s ease-in-out infinite alternate;
+}
+@keyframes pdpPulse {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 1;
+  }
+}
