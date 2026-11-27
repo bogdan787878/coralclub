@@ -12,6 +12,6 @@ export { Chips, Chip } from "./Chips";
 export type { ChipsProps, ChipProps } from "./Chips";
 export { FloatInput } from "./FloatInput";
 export { OptionCard, OptionCards, OptionInfo } from "./OptionCards";
-export { Consent } from "./Consent";
+export { Checkbox, Consent } from "./Consent";
 export { Loader } from "./Loader";
 export { Icon, type IconName } from "./Icon";

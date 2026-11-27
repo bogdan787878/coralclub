@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import { login } from "@coral/api";
-import { Button, FloatInput } from "@/components/ui";
+import { Button, Checkbox, FloatInput } from "@/components/ui";
 import { moveGuestCartToMember } from "@/lib/ru/cart";
 import { savedRef } from "@/lib/ru/ref";
 import { EMAIL_RX, checkEmail, findConsultant, registerSimple, validPassword, type Consultant } from "@/lib/ru/registration";
@@ -241,10 +241,9 @@ export function RuRegister({
         </div>
       )}
 
-      <label className={styles.regCheck}>
-        <input type="checkbox" checked={subscribe} onChange={(e) => setSubscribe(e.target.checked)} />
-        <span>Я хочу получать новости, специальные предложения и другую информацию о товарах и услугах Coral Club по электронной почте, в смс и через мессенджеры</span>
-      </label>
+      <Checkbox name="subscribe" checked={subscribe} onChange={setSubscribe}>
+        Я хочу получать новости, специальные предложения и другую информацию о товарах и услугах Coral Club по электронной почте, в смс и через мессенджеры
+      </Checkbox>
 
       <Button variant="primary" block type="submit" disabled={busy === "create"}>
         {busy === "create" ? "Регистрируем…" : sponsor ? "Зарегистрировать участника" : "Стать членом клуба"}

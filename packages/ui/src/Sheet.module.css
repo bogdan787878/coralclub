@@ -7,7 +7,8 @@
 .backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(1, 17, 48, 0.45);
+  /* затемнение — тёмно-зелёный дизайн-системы (malachite-100), не синий */
+  background: color-mix(in srgb, var(--color-malachite-100, #002022) 50%, transparent);
   animation: fade var(--duration-base) var(--ease-standard);
 }
 

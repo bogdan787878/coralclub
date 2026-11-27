@@ -2,11 +2,11 @@ import type { ReactNode } from "react";
 import styles from "./Consent.module.css";
 
 /**
- * Consent: a checkbox with its text (terms, personal data …). `attention`
- * outlines a skipped required box, `shake` makes it shake once; `name` is the
- * `data-field` the form scrolls to.
+ * Checkbox: флажок с текстом — как в оформлении заказа (согласия, подписка, фильтры). `attention` обводит
+ * пропущенный обязательный флажок, `shake` встряхивает его один раз; `name` — `data-field`, к которому
+ * прокручивает форма. Consent — то же самое (прежнее имя, для согласий).
  */
-export function Consent({
+export function Checkbox({
   checked,
   onChange,
   children,
@@ -41,3 +41,6 @@ export function Consent({
     </label>
   );
 }
+
+/** Флажок согласия (условия, персональные данные) — тот же Checkbox. */
+export const Consent = Checkbox;

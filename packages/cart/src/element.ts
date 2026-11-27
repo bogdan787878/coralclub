@@ -9,10 +9,12 @@
  *   labels       JSON с подписями поверх языка
  *   locale       ru (по умолчанию) | en
  *   currency, money-locale  как писать суммы гостевой корзины (по умолчанию RUB, ru-RU)
+ *   free-from    порог бесплатной доставки (число в валюте корзины): полоска «ещё N до бесплатной доставки»
  *
  * Слоты (разметка сервиса со своими стилями): cart-banner (над строками), cart-extra (под строками, например
  * «Вам может понравиться»), cart-summary (вместо строк итога), cart-note (над кнопкой оформления).
- * Свойства: linePrice(raw) → {now, was, save, note} — цена строки по правилам сервиса; imageUrl(src) → адрес картинки.
+ * Свойства: linePrice(raw) → {now, was, save, note} — цена строки по правилам сервиса; imageUrl(src) → адрес картинки;
+ * lineSub(id) → подпись под названием строки (например, домен здоровья).
  *
  * События: cc:cart:checkout {lines} на элементе — отменяемое (preventDefault: переход делает сервис, иначе
  * links.checkout); cc:cart:changed на window — от хранилища при каждом изменении.
@@ -38,6 +40,8 @@ const TEXT = {
     guest: "Войдите в личный кабинет, чтобы видеть корзину и оформлять заказы.", signIn: "Войти", error: "Не удалось загрузить корзину.",
     retry: "Повторить", priceLater: "Цена при оформлении", remove: "Удалить", dec: (n: string) => `Уменьшить: ${n}`, inc: (n: string) => `Добавить: ${n}`,
     loading: "Загрузка", summary: "Ваш заказ", next: "Доставку и оплату выберете на следующем шаге.",
+    freeLeft: (s: string) => `Ещё ${s} до бесплатной доставки`, freeDone: "Доставка будет бесплатной", delivery: "Доставка",
+    deliveryFree: "Бесплатно", deliveryNext: "На следующем шаге",
   },
   en: {
     title: "Cart", items: (n: number) => `${n} ${n === 1 ? "item" : "items"}`, empty: "Your cart is empty.",
@@ -46,6 +50,8 @@ const TEXT = {
     guest: "Sign in to see your cart.", signIn: "Sign in", error: "Could not load the cart.",
     retry: "Try again", priceLater: "Price at checkout", remove: "Remove", dec: (n: string) => `Decrease ${n}`, inc: (n: string) => `Increase ${n}`,
     loading: "Loading", summary: "Your order", next: "Delivery and payment come at the next step.",
+    freeLeft: (s: string) => `Add ${s} more for free shipping`, freeDone: "You’ve unlocked free shipping", delivery: "Shipping",
+    deliveryFree: "Free", deliveryNext: "At checkout",
   },
 };
 type Text = (typeof TEXT)["ru"];
@@ -60,11 +66,12 @@ const json = <T,>(raw: string | null, fallback: T): T => {
 };
 
 export class CcCart extends HTMLElement {
-  static observedAttributes = ["links", "labels", "locale", "currency", "money-locale"];
+  static observedAttributes = ["links", "labels", "locale", "currency", "money-locale", "free-from"];
   private root: ShadowRoot;
   private stop: (() => void) | null = null;
   private priceFn: ((raw: RawLine) => LinePrice | null) | null = null;
   private imageFn: ((src: string) => string) | null = null;
+  private subFn: ((id: string) => string) | null = null;
   private store = getStore();
 
   constructor() {
@@ -89,6 +96,14 @@ export class CcCart extends HTMLElement {
   get imageUrl() {
     return this.imageFn;
   }
+  /** Подпись под названием строки (по id строки — артикулу). */
+  set lineSub(fn: ((id: string) => string) | null) {
+    this.subFn = typeof fn === "function" ? fn : null;
+    if (this.isConnected) this.render();
+  }
+  get lineSub() {
+    return this.subFn;
+  }
 
   /** Адреса из атрибута links (не свойство links: React 19 присваивает атрибуты веб-компонента как свойства). */
   get linkMap(): CartLinks {
@@ -105,7 +120,7 @@ export class CcCart extends HTMLElement {
   connectedCallback() {
     // свойства, заданные до загрузки cart.js (страница успела раньше), лежат на самом элементе и прячут сеттеры:
     // забираем их и присваиваем заново
-    for (const key of ["linePrice", "imageUrl"] as const) {
+    for (const key of ["linePrice", "imageUrl", "lineSub"] as const) {
       if (Object.prototype.hasOwnProperty.call(this, key)) {
         const value = (this as unknown as Record<string, unknown>)[key];
         delete (this as unknown as Record<string, unknown>)[key];
@@ -152,6 +167,8 @@ export class CcCart extends HTMLElement {
     const saving = lines.reduce((t, l) => t + (l.was !== null && l.now !== null ? (l.was - l.now) * l.qty : 0), 0);
     const shopLink = L.shop ? `<a class="ghost" href="${esc(L.shop)}">${esc(T.shop)}</a>` : "";
     let main: string;
+    let top = "";
+    let withBar = false;
     if (s.status === "guest") {
       main = `<div class="empty"><p>${esc(T.guest)}</p>${L.login ? `<a class="cta wide" href="${esc(L.login)}">${esc(T.signIn)}</a>` : ""}</div>`;
     } else if (s.status === "loading" && !lines.length) {
@@ -161,27 +178,38 @@ export class CcCart extends HTMLElement {
     } else if (!lines.length) {
       main = `<div class="empty">${ICON.bag}<p>${esc(T.empty)}</p>${shopLink}</div>`;
     } else {
-      main = `<slot name="cart-banner">${saving > 0 ? `<p class="banner">${esc(T.saving(this.money(saving)))}</p>` : ""}</slot>
+      withBar = true;
+      const free = Number(this.getAttribute("free-from")) || 0;
+      const left = Math.max(0, free - sum);
+      const ship = free
+        ? `<div class="ship"><p>${esc(left > 0 ? T.freeLeft(this.money(left)) : T.freeDone)}</p><div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="${free}" aria-valuenow="${Math.min(sum, free)}"><span style="width:${Math.min(100, (sum / free) * 100).toFixed(1)}%"></span></div></div>`
+        : "";
+      // сверху — экономия (как в корзинах Ritual), под заголовком — сколько до бесплатной доставки
+      top = `<slot name="cart-banner">${saving > 0 ? `<p class="banner"><i class="dot" aria-hidden="true"></i>${esc(T.saving(this.money(saving)))}</p>` : ""}</slot>`;
+      main = `${ship}
         <div class="grid">
-          <ul class="lines${s.busy ? " busy" : ""}">${lines.map((l) => this.line(l, T)).join("")}</ul>
+          <div class="col">
+            <ul class="lines${s.busy ? " busy" : ""}">${lines.map((l) => this.line(l, T)).join("")}</ul>
+            <slot name="cart-extra"></slot>
+          </div>
           <aside class="sum" aria-label="${esc(T.summary)}">
             <h2 class="sumTitle">${esc(T.summary)}</h2>
             <slot name="cart-summary"><dl class="rows">
               ${saving > 0 ? `<div class="disc"><dt>${esc(T.discount)}</dt><dd>−${esc(this.money(saving))}</dd></div>` : ""}
               <div class="total"><dt>${esc(T.subtotal)}</dt><dd>${esc(this.money(sum))}</dd></div>
+              <div><dt>${esc(T.delivery)}</dt><dd>${esc(free && left === 0 ? T.deliveryFree : T.deliveryNext)}</dd></div>
             </dl></slot>
-            <slot name="cart-note"><p class="note">${esc(T.next)}</p></slot>
+            <slot name="cart-note"></slot>
             <div class="bar">
-              <span class="barSum">${esc(this.money(sum))}</span>
               <button class="cta" type="button" data-act="checkout">${esc(T.checkout)}</button>
             </div>
             ${shopLink}
           </aside>
-        </div>
-        <slot name="cart-extra"></slot>`;
+        </div>`;
     }
     this.root.innerHTML = `<style>${CSS}</style>
-      <section class="page">
+      <section class="page${withBar ? " has-bar" : ""}">
+        ${top}
         <header class="top"><h1>${esc(T.title)}</h1>${lines.length ? `<span class="count">${esc(T.items(n))}</span>` : ""}</header>
         ${main}
       </section>`;
@@ -198,18 +226,19 @@ export class CcCart extends HTMLElement {
         ? `<span class="price"><b>${esc(now)}</b>${was ? `<span class="was">${esc(was)}</span>` : ""}${save ? `<span class="save">${esc(save)}</span>` : ""}</span>`
         : `<span class="price muted">${esc(T.priceLater)}</span>`;
     const img = l.image ? `<img src="${esc(this.imageFn ? this.imageFn(l.image) : l.image)}" alt="" loading="lazy">` : "";
+    const sub = this.subFn?.(l.id) ?? "";
     return `<li class="line">
       <span class="thumb">${img}</span>
       <div class="lbody">
         <span class="lname">${esc(l.name)}</span>
-        ${price}
+        ${sub ? `<span class="lsub">${esc(sub)}</span>` : ""}
         <div class="lfoot">
+          ${price}
           <div class="qty">
             <button type="button" data-act="dec" data-id="${esc(l.id)}" aria-label="${esc(l.qty <= 1 ? T.remove : T.dec(l.name))}">${l.qty <= 1 ? ICON.trash : ICON.minus}</button>
             <span aria-live="polite">${l.qty}</span>
             <button type="button" data-act="inc" data-id="${esc(l.id)}" aria-label="${esc(T.inc(l.name))}">${ICON.plus}</button>
           </div>
-          <button class="remove" type="button" data-act="remove" data-id="${esc(l.id)}">${esc(T.remove)}</button>
         </div>
       </div>
     </li>`;
