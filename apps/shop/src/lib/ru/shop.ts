@@ -115,6 +115,12 @@ const SQUARE_SHOT: Record<string, string> = {
   "h-500": "/images/products/ChatGPT Image Sep 14, 2026 at 12_14_21 AM.png",
 };
 
+/** Первый кадр (превью на карточках): наш пэкшот бывает другой фасовки — заменяем верной упаковкой на сером. */
+const FIRST_SHOT: Record<string, string> = {
+  // coral-mine-silver.png — обычный Корал-Майн; Сильвер — упаковка с «Ag» (первый кадр галереи PDP)
+  "coral-mine-silver": "/images/products/ru/pdp/coral-mine-silver-1.webp",
+};
+
 /** Своё у товаров главной: подпись после названия и метка (остальным — метка по фазе или домену). */
 const OWN_COPY: Record<number, { form?: string; tag?: string; name?: string }> = {
   80720: { form: "набор на 30 дней", tag: "Набор на 30 дней" },
@@ -162,7 +168,7 @@ function fromRaw(r: Raw): RuProduct {
   const own = OWN_COPY[r.code] ?? {};
   const name = own.name ?? fixName(r.name);
   // наши пэкшоты: первый — квадрат на сером, второй — сцена (как на главной магазина); иначе фото сайта
-  const mine = r.own.map((src, i) => (i === 1 && SQUARE_SHOT[r.slug] ? SQUARE_SHOT[r.slug] : src));
+  const mine = r.own.map((src, i) => (i === 0 && FIRST_SHOT[r.slug] ? FIRST_SHOT[r.slug] : i === 1 && SQUARE_SHOT[r.slug] ? SQUARE_SHOT[r.slug] : src));
   // первым всегда пэкшот на сером: свой или карточка каталога сайта, за ним сцена
   const site = r.preview ? [r.preview, ...r.pictures.filter((x) => x !== r.preview)] : r.pictures;
   const images = (mine.length ? mine : site.slice(0, 2)).map((src) => ({ src, alt: name }));
