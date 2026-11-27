@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import {
   AddressSearch,
@@ -29,7 +30,46 @@ const Chevron = () => (
  * sections, same styles and parts) in Russian, on the member's own session. All
  * the logic is in lib/lk/useMemberCheckout; this file only draws it.
  */
-export function LkCheckout({ base = "/lk", doneLink = { href: "/lk/", label: "В личный кабинет" } }: { base?: string; doneLink?: { href: string; label: string } } = {}) {
+/** Логотип способа оплаты: сайт магазина отдаёт путь от своего корня («/upload/uf/…»). */
+const payIcon = (src: string) => (/^https?:\/\//.test(src) ? src : `https://coralclub.ru${src.startsWith("/") ? "" : "/"}${src}`);
+
+/** Карандаш «Изменить». */
+function EditIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 20h9" />
+      <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+    </svg>
+  );
+}
+
+/** Скелетон всего оформления, пока магазин готовит заказ. */
+function CheckoutSkeleton() {
+  return (
+    <div className={own.skeleton} aria-busy="true">
+      {["Доставка", "Контакты", "Способ доставки", "Способ оплаты"].map((t, i) => (
+        <section key={t} className={styles.section}>
+          <h2 className={styles.h2}>{t}</h2>
+          <Loader lines={i === 0 ? 3 : 2}>{i === 0 ? "Готовим заказ…" : ""}</Loader>
+        </section>
+      ))}
+    </div>
+  );
+}
+
+export function LkCheckout({
+  base = "/lk",
+  doneLink = { href: "/lk/", label: "В личный кабинет" },
+  bar = true,
+  taxNote = true,
+}: {
+  base?: string;
+  doneLink?: { href: string; label: string };
+  /** верхняя полоса: «← Корзина» и страна (магазину России не нужна) */
+  bar?: boolean;
+  /** «Цены включают налоги» в итоге */
+  taxNote?: boolean;
+} = {}) {
   const c = useMemberCheckout(base);
   const searchOn = useAddressSearchEnabled();
   const { form, delivery: d, payment: p, promoState: pr, bonusState: b, lines, money, field, attempted } = c;
@@ -37,6 +77,11 @@ export function LkCheckout({ base = "/lk", doneLink = { href: "/lk/", label: "В
   const nonLatinEmail = form.email.trim() !== "" && !/^[\x21-\x7E]+@[\x21-\x7E]+\.[\x21-\x7E]+$/.test(form.email.trim());
   const nameGap = attempted && form.fullName.trim() !== "" && form.fullName.trim().split(/\s+/).length < 2;
   const addressGap = attempted && !form.picked && form.searchText.trim() !== "";
+  // контакты из аккаунта уже заполнены — показываем текстом, «Изменить» открывает поля
+  const [editContacts, setEditContacts] = useState(false);
+  const contactsFilled =
+    form.email.trim() !== "" && !nonLatinEmail && form.fullName.trim().split(/\s+/).length >= 2 && form.phone.replace(/\D/g, "").length >= 10;
+  const contactsAsText = contactsFilled && !editContacts;
 
   const summary = (
     <div className={styles.sum}>
@@ -120,12 +165,14 @@ export function LkCheckout({ base = "/lk", doneLink = { href: "/lk/", label: "В
 
   return (
     <main className={styles.page} data-analytics-location="checkout">
-      <div className={own.bar}>
-        <Link href={`${base}/cart/`} className={own.back}>
-          ← Корзина
-        </Link>
-        <CountryMenu countries={c.countries} value={c.country} onChange={c.changeCountry} labels={COUNTRY_RU} />
-      </div>
+      {bar && (
+        <div className={own.bar}>
+          <Link href={`${base}/cart/`} className={own.back}>
+            ← Корзина
+          </Link>
+          <CountryMenu countries={c.countries} value={c.country} onChange={c.changeCountry} labels={COUNTRY_RU} />
+        </div>
+      )}
       {lines.length === 0 ? (
         <div className={styles.empty}>
           <h1 className={styles.title}>Оформление заказа</h1>
@@ -151,7 +198,7 @@ export function LkCheckout({ base = "/lk", doneLink = { href: "/lk/", label: "В
           <div className={styles.main}>
             <h1 className={extra.visuallyHidden}>Оформление заказа</h1>
 
-            {c.ready === "idle" && <Loader lines={6}>Готовим заказ…</Loader>}
+            {c.ready === "idle" && <CheckoutSkeleton />}
             {c.error && (
               <p className={styles.error} role="alert">
                 {c.error}
@@ -159,6 +206,8 @@ export function LkCheckout({ base = "/lk", doneLink = { href: "/lk/", label: "В
             )}
             {c.warn && <p className={styles.error}>{c.warn}</p>}
 
+            {c.ready !== "idle" && (
+              <>
             {!d.pickupNone && (
               <DeliveryModeSwitch
                 value={d.pickup ? "pickup" : "courier"}
@@ -283,7 +332,23 @@ export function LkCheckout({ base = "/lk", doneLink = { href: "/lk/", label: "В
             </section>
 
             <section className={styles.section}>
-              <h2 className={styles.h2}>Контакты</h2>
+              <div className={own.headRow}>
+                <h2 className={styles.h2}>Контакты</h2>
+                {contactsAsText && (
+                  <button type="button" className={own.ghost} onClick={() => setEditContacts(true)}>
+                    <EditIcon />
+                    Изменить
+                  </button>
+                )}
+              </div>
+              {contactsAsText ? (
+                <div className={own.contacts}>
+                  <p>{form.fullName}</p>
+                  <p>{form.email}</p>
+                  <p>{form.phone}</p>
+                </div>
+              ) : (
+              <>
               <FloatInput
                 {...field("email")}
                 error={nonLatinEmail}
@@ -306,6 +371,8 @@ export function LkCheckout({ base = "/lk", doneLink = { href: "/lk/", label: "В
                 autoComplete="name"
               />
               <FloatInput {...field("phone")} label="Телефон" placeholder="+7 900 000-00-00" value={form.phone} onChange={form.setPhone} inputMode="tel" autoComplete="tel" />
+              </>
+              )}
             </section>
 
             <section className={styles.section}>
@@ -368,7 +435,7 @@ export function LkCheckout({ base = "/lk", doneLink = { href: "/lk/", label: "В
                       footer={
                         m.IMAGE ? (
                           // eslint-disable-next-line @next/next/no-img-element -- the shop's own method logo
-                          <img src={m.IMAGE} alt="" style={{ width: 32, height: 32, objectFit: "contain", objectPosition: "left" }} />
+                          <img src={payIcon(m.IMAGE)} alt="" style={{ width: 32, height: 32, objectFit: "contain", objectPosition: "left" }} />
                         ) : (
                           <span />
                         )
@@ -462,7 +529,7 @@ export function LkCheckout({ base = "/lk", doneLink = { href: "/lk/", label: "В
                   </div>
                 </dl>
               </div>
-              <p className={styles.host}>Цены включают налоги. Доставка указана выше.</p>
+              {taxNote && <p className={styles.host}>Цены включают налоги. Доставка указана выше.</p>}
               {c.totalSaving > 0 && <p className={styles.saved}>Общая экономия {money(c.totalSaving)}</p>}
             </section>
 
@@ -485,6 +552,8 @@ export function LkCheckout({ base = "/lk", doneLink = { href: "/lk/", label: "В
             <button type="button" className={styles.pay} disabled={c.sending || c.ready !== "ok" || c.totalsLoading || !c.canOrder} onClick={() => void c.submit()}>
               {c.sending ? "Оформляем заказ…" : "Перейти к оплате"}
             </button>
+              </>
+            )}
           </div>
 
           <aside className={styles.sumDesktop} aria-label="Состав заказа">

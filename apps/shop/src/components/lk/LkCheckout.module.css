@@ -14,3 +14,50 @@
   color: var(--color-text);
   text-decoration: underline;
 }
+
+/* скелетон всего оформления */
+.skeleton {
+  display: grid;
+  gap: var(--space-8);
+}
+
+/* «Контакты» и справа «Изменить» */
+.headRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+.ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 var(--space-12);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-long-size);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+.ghost:hover {
+  background: var(--color-neutral-30);
+}
+.contacts {
+  display: grid;
+  gap: 2px;
+  font-family: var(--font-sans);
+  font-size: var(--text-button-size);
+  line-height: var(--text-button-line);
+}
+.contacts p {
+  margin: 0;
+}
+.contacts p + p {
+  color: var(--color-text-muted);
+  font-size: var(--text-body-long-size);
+  line-height: var(--text-body-long-line);
+}

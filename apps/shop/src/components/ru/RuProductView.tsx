@@ -364,8 +364,6 @@ export function RuProductView({
   const badges = p.feat.map((f) => BADGE_SLUG[f]).filter((x): x is string => Boolean(x));
   const storage = [d.storage && `Хранение: ${d.storage}`, d.shelfLife && `Срок годности: ${d.shelfLife}`, d.country && `Страна производства: ${d.country}`].filter(Boolean) as string[];
   const details = [
-    ...(d.howToUse.length ? [{ title: "Способ применения", content: <RichText text={d.howToUse.join("\n\n")} /> }] : []),
-    ...(d.contraindications ? [{ title: "Противопоказания", content: <RichText text={d.contraindications} /> }] : []),
     ...(storage.length ? [{ title: "Хранение", content: <RichText text={storage.join("\n\n")} /> }] : []),
   ];
 
@@ -429,6 +427,20 @@ export function RuProductView({
             <section className={styles.block}>
               <h3 className={styles.h3}>Описание</h3>
               <RichText text={d.components} />
+            </section>
+          )}
+
+          {/* применение и противопоказания — на странице, не в свёрнутых строках */}
+          {d.howToUse.length > 0 && (
+            <section className={styles.block}>
+              <h3 className={styles.h3}>Способ применения</h3>
+              <RichText text={d.howToUse.join("\n\n")} />
+            </section>
+          )}
+          {d.contraindications && (
+            <section className={styles.block}>
+              <h3 className={styles.h3}>Противопоказания</h3>
+              <RichText text={d.contraindications} />
             </section>
           )}
 

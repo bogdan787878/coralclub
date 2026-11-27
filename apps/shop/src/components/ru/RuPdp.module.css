@@ -490,3 +490,10 @@ button.row {
     display: none;
   }
 }
+
+/* низ страницы на телефоне: последняя карусель не уходит под кнопку «В корзину» (≈72px) над меню */
+@media (max-width: 1023px) {
+  .page {
+    padding-bottom: calc(88px + var(--space-16));
+  }
+}

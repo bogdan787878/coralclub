@@ -36,5 +36,5 @@ export function RuCheckout() {
       </div>
     );
   }
-  return <LkCheckout base={RU_BASE} doneLink={{ href: `${RU_BASE}/`, label: "Вернуться в магазин" }} />;
+  return <LkCheckout base={RU_BASE} doneLink={{ href: `${RU_BASE}/`, label: "Вернуться в магазин" }} bar={false} taxNote={false} />;
 }

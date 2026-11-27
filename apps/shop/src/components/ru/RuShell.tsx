@@ -88,7 +88,7 @@ export function RuShell({ children }: { children: ReactNode }) {
           labels={JSON.stringify({ catalog: "Каталог", me: member ? "Аккаунт" : "Войти" })}
           links={links}
           active={active}
-          {...(inCheckout ? { parts: "header" } : pdpPhone ? { parts: "tabbar" } : {})}
+          {...(pdpPhone ? { parts: "tabbar" } : {})}
         >
           <div slot="corner" style={{ display: "flex", alignItems: "center" }}>
             {!inCheckout && <RuCityButton />}
