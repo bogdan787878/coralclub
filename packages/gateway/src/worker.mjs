@@ -24,7 +24,10 @@ const GET_OK = [
   /^\/restApi\/v4\/location\/getLocation$/,
   /^\/order\/payment\/\d+(\/[^/]+)?\/?$/,
 ];
-const POST_OK = [/^\/sv-api\/order$/]; // единственный POST: создание заказа, только по нажатию участника на странице
+const POST_OK = [/^\/sv-api\/order$/]; // создание заказа — только по нажатию участника на странице
+// очистить корзину сайта в сессии участника перед оформлением: в ней могли остаться строки прошлого визита или
+// товары на других участников, и сайт считал бы заказ не по корзине магазина (затрагивает только эту сессию)
+const MEMBER_POST_OK = [...POST_OK, /^\/ajax\/deleteBasketItems\.php$/];
 // регистрация на сайте магазина (магазин России): настройки формы, поиск консультанта, проверка e-mail и создание
 // аккаунта — только для гостевой сессии; создаёт аккаунт лишь отправка формы человеком
 const REG_GET = [/^\/restApi\/registration\/init\/?$/, /^\/restApi\/registration\/consultant\/?$/];
@@ -118,7 +121,7 @@ async function shopCall(request, env, rest, url) {
     console.log(`pay ${r.target ? `→ ${new URL(r.target.url).host}` : `✗ ${r.error}`} · ${Date.now() - started} мс · ${(r.hops ?? []).join(" › ")}`);
     return r.target ? reply(request, env, 200, { target: r.target }) : reply(request, env, 502, { error: r.error, hops: r.hops });
   }
-  const allowed = request.method === "POST" ? (guest ? GUEST_POST_OK : POST_OK) : request.method === "GET" ? (guest ? GUEST_GET_OK : GET_OK) : [];
+  const allowed = request.method === "POST" ? (guest ? GUEST_POST_OK : MEMBER_POST_OK) : request.method === "GET" ? (guest ? GUEST_GET_OK : GET_OK) : [];
   if (!allowed.some((re) => re.test(rest))) return reply(request, env, 403, { error: "Этот путь чек-аута не пропускается", path: rest });
   // страница оплаты отвечает редиректом на банк: проходим его здесь и отдаём готовый адрес банка
   if (request.method === "GET" && /^\/order\/payment\//.test(rest)) {

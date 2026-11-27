@@ -37,6 +37,72 @@ const titleCase = (s: string) =>
 const CITY_REGIONS = /^(москва|санкт-петербург|севастополь)$/i;
 
 /** `base`: the service the checkout lives in ("/lk" — the cabinet, "/ru" — the Russian shop): its sign-in page. */
+/** Строка корзины сайта магазина (страница /basket/): артикул, количество, название, для какого участника. */
+type SiteLine = { code: string; qty: number; name: string; basketId: string; member: string };
+
+/** Корзина сайта по его странице /basket/ — у API заказа (/sv-api/order) есть только общее количество. */
+async function readSiteBasket(): Promise<SiteLine[]> {
+  const html = await (await shopFetch("/basket/")).text();
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  const seen = new Set<string>();
+  const out: SiteLine[] = [];
+  for (const el of doc.querySelectorAll<HTMLElement>(".basket-member__basic-item[data-code]")) {
+    const code = el.dataset.code ?? "";
+    const basketId = el.dataset.basket_id ?? "";
+    if (!code || seen.has(basketId)) continue;
+    seen.add(basketId);
+    const input = el.querySelector<HTMLInputElement>("input.product-quantity");
+    const qty = Number(input?.value ?? input?.getAttribute("value") ?? 1) || 1;
+    const name = (el.querySelector(".basket-member__basic-item__name")?.textContent ?? "").replace(/\s+/g, " ").trim();
+    out.push({ code, qty, name, basketId, member: el.dataset.member ?? "" });
+  }
+  return out;
+}
+
+/** Очистить корзину сайта (в сессии этого участника) — тем же запросом, что кнопка «удалить» на сайте. */
+async function clearSiteBasket(items: SiteLine[]): Promise<boolean> {
+  if (!items.length) return true;
+  const body = new URLSearchParams();
+  items.forEach((it, i) => {
+    body.append(`basket_products[${i}][basket_id]`, it.basketId);
+    body.append(`basket_products[${i}][member_id]`, it.member);
+    body.append(`basket_products[${i}][vendor_code]`, it.code);
+  });
+  body.append("basket_count", String(items.length));
+  body.append("basket_member_count", String(new Set(items.map((i) => i.member)).size || 1));
+  try {
+    const r = await shopFetch("/ajax/deleteBasketItems.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" },
+      body,
+    });
+    return r.ok;
+  } catch {
+    return false; // шлюз ещё не разрешает (старая версия) — останется понятное предупреждение
+  }
+}
+
+/** Чем корзина сайта отличается от списка покупателя: «лишнее» и «не хватает» по артикулам. */
+function basketDiff(site: SiteLine[], want: Map<string, number>, names: Map<string, string>): string {
+  const have = new Map<string, number>();
+  const label = new Map<string, string>();
+  for (const l of site) {
+    have.set(l.code, (have.get(l.code) ?? 0) + l.qty);
+    if (l.name) label.set(l.code, l.name);
+  }
+  const extra: string[] = [];
+  const missing: string[] = [];
+  for (const [code, q] of have) {
+    const w = want.get(code) ?? 0;
+    if (q > w) extra.push(`${label.get(code) || names.get(code) || code} ×${q - w}`);
+  }
+  for (const [code, w] of want) {
+    const q = have.get(code) ?? 0;
+    if (w > q) missing.push(`${names.get(code) || label.get(code) || code} ×${w - q}`);
+  }
+  return [extra.length ? `в корзине сайта лишнее: ${extra.join(", ")}` : "", missing.length ? `не хватает: ${missing.join(", ")}` : ""].filter(Boolean).join("; ");
+}
+
 export function useMemberCheckout(base = "/lk") {
   const cart = useCart();
   // a render can run on a stale snapshot: re-read the cart once on mount
@@ -162,8 +228,29 @@ export function useMemberCheckout(base = "/lk") {
           setError(o.error || "Магазин не принял корзину.");
           return;
         }
-        const want = cartKey.split(",").reduce((n, p) => n + Number(p.split(":")[1] ?? 0), 0);
-        setWarn(got !== want ? `В корзине магазина ${got} шт., у вас в списке ${want}. Проверьте состав перед оформлением.` : "");
+        const wantMap = new Map(cartKey.split(",").map((p) => [p.split(":")[0], Number(p.split(":")[1] ?? 0)] as [string, number]));
+        const want = [...wantMap.values()].reduce((n, q) => n + q, 0);
+        let have = got;
+        if (have !== want) {
+          // в корзине сайта осталось своё (прошлый визит, товары на других участников) — собираем её заново по
+          // списку покупателя: очистить и положить ровно то, что в корзине магазина
+          const site = await readSiteBasket().catch(() => [] as SiteLine[]);
+          if (cancelled) return;
+          if (await clearSiteBasket(site)) {
+            const pairs = [...wantMap].map(([id, q]) => `${encodeURIComponent(id)}=${q}`).join("&");
+            await shopFetch(`/shop/shop_basket.php?${pairs}`);
+            o = await read();
+            if (cancelled) return;
+            have = Number(o.result?.QUANTITY ?? 0);
+          }
+          if (have !== want) {
+            const now = await readSiteBasket().catch(() => site);
+            if (cancelled) return;
+            const names = new Map(cartKey ? lines.map((l) => [l.coralId, l.name] as [string, string]) : []);
+            const diff = basketDiff(now, wantMap, names);
+            setWarn(`Корзина на сайте магазина не совпадает с вашей (${have} шт. против ${want})${diff ? `: ${diff}` : ""}. Проверьте состав перед оформлением.`);
+          } else setWarn("");
+        } else setWarn("");
         setReady("ok");
       } catch (e) {
         if (cancelled) return;
@@ -180,6 +267,8 @@ export function useMemberCheckout(base = "/lk") {
     return () => {
       cancelled = true;
     };
+    // lines — тот же состав, что cartKey (из них и собран): перезапуск по cartKey
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartKey, base]);
 
   // the shop's own data once the basket is in: countries, courier schedules, how the member paid last time, a city to start from
