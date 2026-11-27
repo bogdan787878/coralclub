@@ -54,11 +54,13 @@ export function RuShell({ children }: { children: ReactNode }) {
 
   const links = JSON.stringify({
     home: asset(`${RU_BASE}/`),
-    catalog: asset(`${RU_BASE}/#phases`),
+    catalog: asset(`${RU_BASE}/catalog/`),
     cart: asset(`${RU_BASE}/cart/`),
     me: asset(`${RU_BASE}/login/`),
   });
-  const active = path.startsWith(`${RU_BASE}/cart`)
+  const active = path.startsWith(`${RU_BASE}/catalog`)
+    ? "catalog"
+    : path.startsWith(`${RU_BASE}/cart`)
     ? "cart"
     : path.startsWith(`${RU_BASE}/login`)
       ? "me"
@@ -90,7 +92,7 @@ export function RuShell({ children }: { children: ReactNode }) {
         >
           <div slot="corner" style={{ display: "flex", alignItems: "center" }}>
             {!inCheckout && <RuCityButton />}
-            <a className={menu.flagBtn} href={asset(`${RU_BASE}/#phases`)} aria-label="Поиск" style={{ color: "inherit" }}>
+            <a className={menu.flagBtn} href={asset(`${RU_BASE}/catalog/`)} aria-label="Каталог" style={{ color: "inherit" }}>
               <Icon name="search" />
             </a>
           </div>

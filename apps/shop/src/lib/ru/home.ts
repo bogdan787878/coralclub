@@ -11,7 +11,7 @@ import heroImages from "../../../content/hero-images.json";
 import hydramaxSeries from "../../../content/series/hydramax-plus.json";
 import detoxSeries from "../../../content/series/coral-detox.json";
 import goDetoxSeries from "../../../content/series/go-detox.json";
-import { RU_PRODUCTS, type RuProduct } from "./shop";
+import { RU_DOMAINS, RU_PRODUCTS, type RuProduct } from "./shop";
 
 export type RuPhaseId = "hydration" | "detox" | "balance";
 
@@ -111,25 +111,9 @@ export const DETOX_PACKS: RuPack[] = [
 
 /* --------------------------------- Баланс --------------------------------- */
 
-/** Домены канона → иконки основного сайта (DomainCarousel) и подписи. Гормонов и сахара на основном сайте нет. */
-const DOMAINS: { canon: string; id: string; label: string }[] = [
-  { canon: "energy", id: "energy", label: "Энергия" },
-  { canon: "sleep_stress", id: "sleep-stress", label: "Сон и стресс" },
-  { canon: "immunity", id: "immunity", label: "Иммунитет" },
-  { canon: "digestive_gut_health", id: "digestion-gut", label: "Пищеварение" },
-  { canon: "skin_hair_nails", id: "skin-hair-nails", label: "Кожа и волосы" },
-  { canon: "metabolism_weight", id: "weight-metabolism", label: "Метаболизм" },
-  { canon: "brain_focus_memory", id: "brain-focus", label: "Мозг и память" },
-  { canon: "heart_cardiovascular", id: "heart-vessels", label: "Сердце и сосуды" },
-  { canon: "bones_joints", id: "bones-joints", label: "Суставы" },
-  { canon: "healthy_aging", id: "longevity", label: "Долголетие" },
-  { canon: "vision_eye_care", id: "vision-eyes", label: "Зрение" },
-  { canon: "reproductive_health", id: "reproductive", label: "Женское здоровье" },
-];
-
 export type RuDomain = { id: string; label: string; packs: RuProduct[]; products: RuProduct[] };
 
-export const BALANCE_DOMAINS: RuDomain[] = DOMAINS.map(({ canon, id, label }) => {
+export const BALANCE_DOMAINS: RuDomain[] = RU_DOMAINS.map(({ canon, id, label }) => {
   const inDomain = RU_PRODUCTS.filter((p) => p.domains.includes(canon) && p.phase.includes("personalization"));
   return { id, label, packs: inDomain.filter((p) => p.set), products: inDomain.filter((p) => !p.set) };
 }).filter((d) => d.packs.length + d.products.length > 0);

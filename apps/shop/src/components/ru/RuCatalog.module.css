@@ -1,0 +1,203 @@
+/* Каталог магазина России (components/ru/RuCatalog.tsx). */
+
+.page {
+  padding: var(--space-24) 0 var(--page-padding-block);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+.title {
+  margin: 0 0 var(--space-16);
+}
+
+/* ---------- домены: плитки, на телефоне два ряда с прокруткой вбок ---------- */
+.domains {
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  grid-auto-flow: column;
+  grid-auto-columns: 148px;
+  gap: var(--space-8);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--page-padding-inline);
+  padding: 0 var(--page-padding-inline) var(--space-8);
+  scrollbar-width: none;
+}
+.domains::-webkit-scrollbar {
+  display: none;
+}
+.domain {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-height: 104px;
+  padding: var(--space-12) var(--space-16);
+  border: 0;
+  border-radius: 20px;
+  background: var(--color-neutral-30);
+  color: var(--color-text);
+  font: inherit;
+  text-align: left;
+  scroll-snap-align: start;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+.domainLabel {
+  font-size: var(--text-body-long-size);
+  line-height: var(--text-body-long-line);
+  font-weight: var(--font-weight-medium);
+}
+.domainIcon {
+  align-self: flex-end;
+  width: 36px;
+  height: 36px;
+  color: var(--color-text);
+  opacity: 0.85;
+}
+.domainOn {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+.domainOn .domainIcon {
+  color: var(--color-bg);
+  opacity: 1;
+}
+
+/* ---------- фильтры ---------- */
+.filters {
+  display: grid;
+  gap: var(--space-12);
+  margin: var(--space-16) 0 var(--space-16);
+}
+/* фильтр — одна строка с прокруткой вбок, до краёв экрана */
+.facet {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--space-8);
+  margin-inline: calc(-1 * var(--page-padding-inline));
+  padding-inline: var(--page-padding-inline);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.facet::-webkit-scrollbar {
+  display: none;
+}
+.facet > * {
+  flex: none;
+  white-space: nowrap;
+}
+.facetName {
+  margin-right: var(--space-4, 4px);
+  font-size: var(--text-body-long-size);
+  line-height: var(--text-body-long-line);
+  color: var(--color-text-muted);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 var(--space-12);
+  border: 1px solid var(--color-neutral-30);
+  border-radius: var(--radius-pill);
+  background: var(--color-neutral-30);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--text-body-long-size);
+  cursor: pointer;
+}
+.chip span {
+  color: var(--color-text-muted);
+}
+.chipOn {
+  background: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-bg);
+}
+.chipOn span {
+  color: inherit;
+  opacity: 0.7;
+}
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  margin-top: var(--space-4, 4px);
+}
+.count {
+  font-size: var(--text-body-long-size);
+  color: var(--color-text-muted);
+}
+.sort select {
+  min-height: 36px;
+  padding: 0 var(--space-12);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--text-body-long-size);
+}
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- товары: два в ряд ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-24) var(--space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.grid > li {
+  min-width: 0;
+}
+.empty {
+  padding: var(--space-32) 0;
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-32) var(--space-16);
+  }
+}
+@media (min-width: 1024px) {
+  /* веб: фильтры переносятся, без прокрутки */
+  .facet {
+    flex-wrap: wrap;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+  /* веб: плитки в два ряда без прокрутки */
+  .domains {
+    grid-auto-flow: row;
+    grid-template-rows: none;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    overflow: visible;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding-inline: var(--page-padding-inline);
+  }
+  .domain {
+    min-height: 120px;
+  }
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

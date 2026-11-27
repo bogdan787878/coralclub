@@ -60,6 +60,8 @@ export type RuProduct = {
   feat: string[];
   /** форма выпуска: «Капсулы», «Таблетки», «Саше и стики» (канон) */
   release: string;
+  /** группа формы для фильтра каталога: форма выпуска, «Набор» или «Уход и косметика» (канон) */
+  formGroup: string;
   images: Img[];
   /** фото товара с сайта магазина */
   pictures: string[];
@@ -84,6 +86,25 @@ export const DOMAIN_SHORT: Record<string, string> = {
   vision_eye_care: "Зрение",
   reproductive_health: "Женское здоровье",
 };
+/**
+ * 12 доменов магазина — домены канона с иконками основного сайта (DomainCarousel, domainIcons) и подписями.
+ * Гормонов и сахара на основном сайте нет — у них нет иконок, в магазине их нет.
+ */
+export const RU_DOMAINS: { canon: string; id: string; label: string }[] = [
+  { canon: "energy", id: "energy", label: "Энергия" },
+  { canon: "sleep_stress", id: "sleep-stress", label: "Сон и стресс" },
+  { canon: "immunity", id: "immunity", label: "Иммунитет" },
+  { canon: "digestive_gut_health", id: "digestion-gut", label: "Пищеварение" },
+  { canon: "skin_hair_nails", id: "skin-hair-nails", label: "Кожа и волосы" },
+  { canon: "metabolism_weight", id: "weight-metabolism", label: "Метаболизм" },
+  { canon: "brain_focus_memory", id: "brain-focus", label: "Мозг и память" },
+  { canon: "heart_cardiovascular", id: "heart-vessels", label: "Сердце и сосуды" },
+  { canon: "bones_joints", id: "bones-joints", label: "Суставы" },
+  { canon: "healthy_aging", id: "longevity", label: "Долголетие" },
+  { canon: "vision_eye_care", id: "vision-eyes", label: "Зрение" },
+  { canon: "reproductive_health", id: "reproductive", label: "Женское здоровье" },
+];
+
 /** Полные названия доменов (канон). */
 export const DOMAIN_NAME = catalog.domains as Record<string, string>;
 
@@ -161,6 +182,7 @@ function fromRaw(r: Raw): RuProduct {
     lead: r.lead,
     feat: r.feat ?? [],
     release: r.form === "Набор" || r.form === "Уход и косметика" ? "" : (r.form ?? ""),
+    formGroup: r.form || (r.set ? "Набор" : ""),
     images,
     pictures: r.preview ? [r.preview, ...r.pictures.filter((x) => x !== r.preview)] : r.pictures,
     gallery: GALLERY[r.slug],
