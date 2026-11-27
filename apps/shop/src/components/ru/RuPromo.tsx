@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
+import Link from "next/link";
 import { Carousel } from "@/components/organisms/Carousel";
+import { RU_BASE } from "@/lib/ru/shop";
 import { loadRuBanners, type RuBanner } from "@/lib/ru/live";
 import styles from "./Ru.module.css";
 
 /**
- * «Акции» главной: баннеры сайта России (тот же список, что в слайдере coralclub.ru, из API 2.0 /home),
+ * «Акции» главной: по нажатию — каталог с акционными товарами (/catalog/?sale=1). Баннеры сайта России (тот же список, что в слайдере coralclub.ru, из API 2.0 /home),
  * вертикальными карточками в карусели; одна акция — карточка на всю ширину. Пока список не пришёл — серые
  * заглушки; пустой — блока нет.
  */
@@ -33,7 +35,7 @@ export function RuPromo({ title }: { title?: ReactNode } = {}) {
     >
       {(banners ?? [null, null]).map((b, i) =>
         b ? (
-          <a key={b.href + i} className={`${styles.promo} ${single ? styles.promoWide : ""}`} href={b.href} target="_blank" rel="noopener noreferrer" data-analytics-id="promo_banner">
+          <Link key={b.href + i} className={`${styles.promo} ${single ? styles.promoWide : ""}`} href={`${RU_BASE}/catalog/?sale=1`} data-analytics-id="promo_banner">
             <span className={styles.promoMedia}>
               {/* eslint-disable-next-line @next/next/no-img-element -- баннер с сайта магазина, внешний адрес */}
               <img src={b.image} alt="" loading={i > 1 ? "lazy" : undefined} />
@@ -43,8 +45,8 @@ export function RuPromo({ title }: { title?: ReactNode } = {}) {
               )}
             </span>
             <span className={styles.promoTitle}>{b.title}</span>
-            <span className={styles.promoCta}>{b.button} →</span>
-          </a>
+            <span className={styles.promoCta}>Смотреть товары →</span>
+          </Link>
         ) : (
           <span key={i} className={styles.promo} aria-hidden="true">
             <span className={`${styles.promoMedia} ${styles.promoSkeleton}`} />

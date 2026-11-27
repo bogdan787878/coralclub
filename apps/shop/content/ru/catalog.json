@@ -2827,7 +2827,7 @@
    "code": 120050,
    "slug": "program-colo-vada-light",
    "name": "Программа Коло-Вада Лайт",
-   "pack": "",
+   "pack": "набор",
    "category": "набор",
    "phase": [
     "reset"
@@ -2850,6 +2850,10 @@
    "own": [],
    "preview": "https://ru.coral.club/upload/iblock/cb8/8xjk94sle5cz3as61s3nlp0kg0s8ifab.webp",
    "pictures": [
+    "https://ru.coral.club/upload/iblock/3d3/l0hwbf97ho8y1yd7grn6sd49a39rzlaq.webp",
+    "https://ru.coral.club/upload/iblock/47e/m6ixia7y2j1urou9dq87eh56xaasmwzf.webp",
+    "https://ru.coral.club/upload/iblock/46b/pn937ewjolqrj6fa1om4fja616vobwsy.webp",
+    "https://ru.coral.club/upload/iblock/80d/q09cmzrdlbze9axfjz3f4dle92f4tql9.webp",
     "https://ru.coral.club/upload/iblock/cb8/8xjk94sle5cz3as61s3nlp0kg0s8ifab.webp"
    ]
   },

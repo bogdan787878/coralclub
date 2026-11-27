@@ -1,0 +1,111 @@
+/* Поиск магазина России (components/ru/RuSearch.tsx). */
+
+.page {
+  padding: var(--space-16) 0 var(--page-padding-block);
+  font-family: var(--font-sans);
+  color: var(--color-text);
+}
+.form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-16);
+}
+.icon {
+  position: absolute;
+  left: var(--space-16);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+.input {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 48px 0 48px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-neutral-30);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--text-button-size);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.input:focus {
+  border-color: var(--color-text);
+  background: var(--color-bg);
+}
+.input::-webkit-search-cancel-button {
+  display: none;
+}
+.clear {
+  position: absolute;
+  right: var(--space-8);
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.block {
+  display: grid;
+  gap: var(--space-8);
+  margin-bottom: var(--space-16);
+}
+.label {
+  margin: 0;
+  font-size: var(--text-body-long-size);
+  color: var(--color-text-muted);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 var(--space-12);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-neutral-30);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--text-body-long-size);
+  text-decoration: none;
+  cursor: pointer;
+}
+.chipIntent {
+  justify-self: start;
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-weight: var(--font-weight-medium);
+}
+.notice {
+  margin-bottom: var(--space-16);
+  padding: var(--space-12) var(--space-16);
+  border-radius: 16px;
+  background: #fbefec;
+  color: #8a3a2c;
+  font-size: var(--text-body-long-size);
+  line-height: var(--text-body-long-line);
+}
+.noticeStrong {
+  font-size: var(--text-button-size);
+  line-height: var(--text-button-line);
+}
+.note {
+  margin: 0 0 var(--space-16);
+  font-size: var(--text-body-long-size);
+  color: var(--color-text-muted);
+}
+.count {
+  margin: 0 0 var(--space-12);
+  font-size: var(--text-body-long-size);
+  color: var(--color-text-muted);
+}

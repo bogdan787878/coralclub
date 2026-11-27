@@ -9,7 +9,8 @@ import { DomainCarousel } from "@/components/organisms/DomainCarousel";
 import home from "@/components/organisms/HomeView.module.css";
 import phasesCss from "@/components/organisms/PhasesSection.module.css";
 import { addRu, qtyOf, setRuQty, useRuCart } from "@/lib/ru/cart";
-import { loadRuHits, loadRuSale, useRuMember, useRuPrices } from "@/lib/ru/live";
+import { loadRuHits, useRuMember, useRuPrices } from "@/lib/ru/live";
+import { RuPromo } from "./RuPromo";
 import { BALANCE_DOMAINS, DETOX_PACKS, HYDRATION_PACK, RU_PHASES, type RuPack, type RuPhaseId } from "@/lib/ru/home";
 import { ruHref, ruProductByCode, ruProducts, rub, ruTitle, type RuProduct } from "@/lib/ru/shop";
 import { RuCard, RuCards } from "./RuCards";
@@ -93,11 +94,13 @@ function SiteRow({ id, load, lead, accent }: { id: string; load: () => Promise<n
   );
 }
 
-/** Акции (товары по акции сайта) и хиты — под каждой фазой. */
+/** Акции (баннеры сайта, по нажатию — каталог с акционными товарами) и хиты — под каждой фазой. */
 function Tail() {
   return (
     <>
-      <SiteRow id="sale" load={loadRuSale} lead="Акции" />
+      <Section tone="surface" data-analytics-section="promo">
+        <RuPromo title="Акции" />
+      </Section>
       <SiteRow id="hits" load={loadRuHits} lead="Хиты" accent="продаж" />
     </>
   );

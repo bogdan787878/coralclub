@@ -35,7 +35,7 @@ const nextConfig: NextConfig = {
   // Static HTML export — no Node server on GitHub Pages / on the shop's host.
   output: "export",
   // общие пакеты монорепозитория (packages/*) лежат исходниками на TypeScript
-  transpilePackages: ["@coral/api", "@coral/cart", "@coral/icons", "@coral/layout", "@coral/ui"],
+  transpilePackages: ["@coral/api", "@coral/cart", "@coral/icons", "@coral/layout", "@coral/search", "@coral/ui"],
   trailingSlash: true,
   allowedDevOrigins: lanHosts,
   // the labspace build exports into its own folder, `out/` stays untouched

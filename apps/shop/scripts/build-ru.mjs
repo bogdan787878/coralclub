@@ -120,7 +120,7 @@ for (const f of walk(OUT).filter((x) => x.endsWith(".html"))) {
 const pages = walk(OUT)
   .filter((f) => f.endsWith("index.html"))
   .map((f) => "/" + path.dirname(f).split(path.sep).join("/").replace(/^\.$/, ""));
-const extra = pages.filter((p) => !/^\/(|product\/[^/]+|catalog|cart|login|checkout|_not-found|404)$/.test(p));
+const extra = pages.filter((p) => !/^\/(|product\/[^/]+|catalog|search|cart|login|checkout|_not-found|404)$/.test(p));
 const products = pages.filter((p) => p.startsWith("/product/")).length;
 console.log(`страниц: ${pages.length} (товаров ${products}), файлов: ${walk(OUT).length}`);
 if (extra.length) {

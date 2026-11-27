@@ -188,5 +188,22 @@ writeFileSync(
   ) + "\n",
 );
 console.log(`записано ${products.length} товаров → ${path.relative(ROOT, OUT)}`);
+
+// ── индекс поиска (content/ru/search.json): что ещё знает канон — английское название, служебные названия,
+//    вещества состава, короткое описание. Грузится только страницей поиска.
+const ingredientName = (n) => clean(String(n).replace(/\(.*?\)/g, " ").replace(/,\s*[^,]*$/, ""));
+const search = products.map((p) => {
+  const c = entries.get(p.code) ?? byCode.get(p.code);
+  const ingredients = [
+    ...new Set(
+      (c?.comp ?? []).flatMap((block) => (block.tables ?? []).flatMap((t) => (t.rows ?? []).map((r) => ingredientName(r.n)))).filter((n) => n && n.length < 60),
+    ),
+  ];
+  const text = clean([c?.lead, c?.purpose, ...(c?.desc ?? []).slice(0, 3)].filter(Boolean).join(" ")).slice(0, 700);
+  return { code: p.code, en: clean(c?.en), terms: (c?.terms ?? []).map(clean).filter((t) => t && !/^\d+[a-z]*$/i.test(t)), ingredients, text };
+});
+const SEARCH_OUT = path.join(ROOT, "content/ru/search.json");
+writeFileSync(SEARCH_OUT, JSON.stringify(search) + "\n");
+console.log(`индекс поиска → ${path.relative(ROOT, SEARCH_OUT)}`);
 const missing = canon.products.filter((c) => ![c.code, ...(c.codes ?? [])].some((x) => listed.has(Number(x))));
 if (missing.length) console.log(`нет на витрине России: ${missing.map((c) => `${c.code} ${c.name}`).join("; ")}`);

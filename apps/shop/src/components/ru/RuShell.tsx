@@ -92,7 +92,7 @@ export function RuShell({ children }: { children: ReactNode }) {
         >
           <div slot="corner" style={{ display: "flex", alignItems: "center" }}>
             {!inCheckout && <RuCityButton />}
-            <a className={menu.flagBtn} href={asset(`${RU_BASE}/catalog/`)} aria-label="Каталог" style={{ color: "inherit" }}>
+            <a className={menu.flagBtn} href={asset(`${RU_BASE}/search/`)} aria-label="Поиск" style={{ color: "inherit" }}>
               <Icon name="search" />
             </a>
           </div>

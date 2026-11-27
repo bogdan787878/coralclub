@@ -66,7 +66,14 @@ export function createSearch(docs: SearchDoc[]) {
   const codes = new Map<string, number>();
 
   const add = (text: string, weight: number, seen: Map<string, number>) => {
-    for (const word of tokens(text)) {
+    const base = tokens(text);
+    const list = [...base];
+    // названия пишут и слитно: «Би-Лурон» → ещё «билурон», «Корал-Майн Сильвер» → «коралмайн», «коралмайнсильвер»
+    if (weight >= W.alias && base.length > 1) {
+      for (let i = 0; i + 1 < base.length; i++) list.push(base[i] + base[i + 1]);
+      if (base.length > 2) list.push(base.join(""));
+    }
+    for (const word of list) {
       const s = stem(word);
       words.set(word, s);
       words.set(s, s);

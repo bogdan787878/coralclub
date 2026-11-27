@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Container, Heading } from "@/components/ui";
 import { DOMAIN_ICONS } from "@/components/organisms/domainIcons";
-import { useRuPrices } from "@/lib/ru/live";
-import { RU_DOMAINS, RU_PRODUCTS, type RuProduct } from "@/lib/ru/shop";
+import { loadRuSale, useRuPrices } from "@/lib/ru/live";
+import { RU_DOMAINS, RU_PRODUCTS, ruProductByCode, type RuProduct } from "@/lib/ru/shop";
 import { RuCard } from "./RuCards";
 import styles from "./RuCatalog.module.css";
 
@@ -35,12 +35,19 @@ export function RuCatalog() {
   const [forms, setForms] = useState<string[]>([]);
   const [feats, setFeats] = useState<string[]>([]);
   const [sort, setSort] = useState<Sort>("name");
+  // ?sale=1 — товары по акции (блок «Акции» главной сайта); null — не режим акций
+  const [sale, setSale] = useState<RuProduct[] | null>(null);
 
   // домен из адреса (ссылки с главной) — после загрузки, страница статическая
   useEffect(() => {
-    const d = new URLSearchParams(window.location.search).get("d") ?? "";
+    const params = new URLSearchParams(window.location.search);
+    const d = params.get("d") ?? "";
     // eslint-disable-next-line react-hooks/set-state-in-effect -- адрес известен только в браузере
     if (RU_DOMAINS.some((x) => x.id === d)) setDomain(d);
+    if (params.get("sale") === "1") {
+      setSale([]);
+      loadRuSale().then((codes) => setSale([...new Map(codes.map((c) => ruProductByCode(c)).filter((p): p is RuProduct => Boolean(p)).map((p) => [p.code, p])).values()]));
+    }
   }, []);
 
   const pick = (id: string) => {
@@ -48,14 +55,16 @@ export function RuCatalog() {
     setDomain(next);
     setForms([]);
     setFeats([]);
+    setSale(null);
     const url = new URL(window.location.href);
+    url.searchParams.delete("sale");
     if (next) url.searchParams.set("d", next);
     else url.searchParams.delete("d");
     window.history.replaceState(null, "", url);
   };
 
   const canon = RU_DOMAINS.find((d) => d.id === domain)?.canon;
-  const inDomain = useMemo(() => (canon ? RU_PRODUCTS.filter((p) => p.domains.includes(canon)) : RU_PRODUCTS), [canon]);
+  const inDomain = useMemo(() => (sale ? sale : canon ? RU_PRODUCTS.filter((p) => p.domains.includes(canon)) : RU_PRODUCTS), [canon, sale]);
   const formFacet = facet(inDomain, (p) => [p.formGroup]);
   const featFacet = facet(inDomain, (p) => p.feat);
 
@@ -78,7 +87,7 @@ export function RuCatalog() {
     return [...sorted.filter(sold), ...sorted.filter((p) => !sold(p))];
   }, [inDomain, forms, feats, sort, prices]);
 
-  const title = RU_DOMAINS.find((d) => d.id === domain)?.label ?? "Каталог";
+  const title = sale ? "Акции" : (RU_DOMAINS.find((d) => d.id === domain)?.label ?? "Каталог");
 
   return (
     <main className={styles.page} data-analytics-location="catalog">
