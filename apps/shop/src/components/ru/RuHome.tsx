@@ -52,7 +52,7 @@ function Pack({ pack, tightTop }: { pack: RuPack; tightTop?: boolean }) {
         onAdd: live && sold ? () => addRu(p, Boolean(member), rub(club as number), was) : undefined,
         onSetQty: (n) => setRuQty(p.code, n),
       }}
-      carouselItems={parts.length ? parts.map((x, i) => <RuCard key={x.code} p={x} index={i + 1} />) : undefined}
+      carouselItems={parts.length ? parts.map((x, i) => <RuCard key={x.code} p={x} index={i + 1} single />) : undefined}
       carouselTitle={parts.length ? "Что входит в набор" : undefined}
       labels={SERIES_RU}
       tightTop={tightTop}

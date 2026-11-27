@@ -9,7 +9,7 @@ import { ruHref, rub, ruTitle, type RuProduct } from "@/lib/ru/shop";
 import { useRuMember, useRuPrices } from "@/lib/ru/live";
 
 /** Карточка товара магазина России: цена участника, зачёркнутая обычная и тег скидки — для гостя и участника. */
-export function RuCard({ p, index, wide }: { p: RuProduct; index: number; wide?: boolean }) {
+export function RuCard({ p, index, wide, single }: { p: RuProduct; index: number; wide?: boolean; /** одно фото, без слайдера (карусели) */ single?: boolean }) {
   const member = useRuMember();
   const prices = useRuPrices();
   const cart = useRuCart();
@@ -37,7 +37,7 @@ export function RuCard({ p, index, wide }: { p: RuProduct; index: number; wide?:
         priceTag={was ? `−${off}%` : undefined}
         href={ruHref(p.slug)}
         cartHref={ruHref(p.slug)}
-        images={p.images /* первым всегда пэкшот на сером, и у широкой карточки */}
+        images={single ? p.images.slice(0, 1) : p.images /* первым всегда пэкшот на сером, и у широкой карточки */}
         cartQty={qtyOf(cart, p.code)}
         onSetQty={(next) => setRuQty(p.code, next)}
         onAddToCart={live && sold ? () => addRu(p, Boolean(member), rub(club as number), was) : undefined}
@@ -76,7 +76,8 @@ export function RuCards({
     <div data-analytics-list={listId} data-analytics-list-items={list.map((p) => p.code).join(",")}>
       <Carousel label={label} title={title} maxCols={4} minCols={minCols} stretchFew>
         {list.map((p, i) => (
-          <RuCard key={p.slug} p={p} index={i + 1} wide={products.length === 1} />
+          // в каруселях — одно фото: слайдер фото внутри прокручиваемого ряда мешает листать ряд
+          <RuCard key={p.slug} p={p} index={i + 1} wide={products.length === 1} single />
         ))}
       </Carousel>
     </div>

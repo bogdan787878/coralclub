@@ -262,7 +262,11 @@ export function LkCheckout({
                       }}
                       error={addressGap}
                       hint={addressGap ? "Выберите адрес из списка или на карте" : undefined}
-                      onPick={c.applyAddress}
+                      onPick={(a) => {
+                        c.applyAddress(a);
+                        // адрес выбран — клавиатура телефона больше не нужна
+                        (document.activeElement as HTMLElement | null)?.blur();
+                      }}
                     />
                   )}
                   {searchOn && (
