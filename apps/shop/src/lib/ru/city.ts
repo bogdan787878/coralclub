@@ -11,7 +11,7 @@
  * по списку ниже. Город хранится в браузере; пока человек его не подтвердил, это догадка (`chosen: false`).
  */
 import { useSyncExternalStore } from "react";
-import { clearProductCache, setSessionLocation, getToken, type SessionLocation } from "@coral/api";
+import type { SessionLocation } from "@coral/api";
 import { gatewayUrl } from "@/lib/lk/config";
 import {
   addressSearchEnabled,
@@ -242,31 +242,6 @@ export function chooseRuCity(c: RuCity) {
 function guessRuCity(c: RuCity) {
   if (snapshot()) return;
   save({ ...c, chosen: false });
-}
-
-/* ------------------------- сессия участника ------------------------- */
-
-const MEMBER_MARK = "ru_member_city";
-const mark = (c: RuCity) => `${(getToken() ?? "").slice(-12)}:${cityKey(c)}`;
-
-/** Записать город в сессию участника (один раз на вход и город): его каталог и корзина — со склада этого города. */
-export async function applyMemberCity(c: RuCity): Promise<void> {
-  if (!getToken()) return;
-  const want = mark(c);
-  try {
-    if (window.sessionStorage.getItem(MEMBER_MARK) === want) return;
-  } catch {
-    /* без хранилища — запишем каждый раз */
-  }
-  const ok = await setSessionLocation(c).catch(() => false);
-  if (ok) {
-    clearProductCache(); // наличие прежнего города больше не годится
-    try {
-      window.sessionStorage.setItem(MEMBER_MARK, want);
-    } catch {
-      /* без хранилища */
-    }
-  }
 }
 
 /* ----------------------------- определение ----------------------------- */

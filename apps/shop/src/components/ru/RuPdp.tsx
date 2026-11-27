@@ -7,7 +7,7 @@ import { ShopSkeleton } from "@/components/lk/LkShop";
 import { RU_BASE, RU_PRODUCTS, ruProduct, ruProducts, ruTitle, type RuProduct } from "@/lib/ru/shop";
 import { DETOX_PACKS, HYDRATION_PACK } from "@/lib/ru/home";
 import { useRuMember } from "@/lib/ru/live";
-import { applyMemberCity, cityKey, useRuCity } from "@/lib/ru/city";
+import { cityKey, useRuCity } from "@/lib/ru/city";
 import shop from "@/app/(shop)/products/[slug]/page.module.css";
 import styles from "@/app/landing/product/[slug]/page.module.css";
 import { RuProductView } from "./RuProductView";
@@ -45,7 +45,10 @@ export function RuPdp({ slug }: { slug: string }) {
     if (!p || member === null || !city) return;
     let alive = true;
     const ask = member
-      ? applyMemberCity(city).then(() => catalogProduct(p.code))
+      ? // цены участника — его сессия; наличие — склад города (город в сессию участника не пишем: там его корзина)
+        Promise.all([catalogProduct(p.code), guestProductDetail(String(p.code), { country: "RU", language: "ru", location: city })]).then(([mine, stock]) =>
+          mine && stock ? { ...mine, available: stock.available } : mine,
+        )
       : guestProductDetail(String(p.code), { country: "RU", language: "ru", location: city });
     ask.then((detail) => alive && setGot({ key, detail }));
     return () => {

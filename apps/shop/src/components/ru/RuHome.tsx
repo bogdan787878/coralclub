@@ -9,11 +9,10 @@ import { DomainCarousel } from "@/components/organisms/DomainCarousel";
 import home from "@/components/organisms/HomeView.module.css";
 import phasesCss from "@/components/organisms/PhasesSection.module.css";
 import { addRu, qtyOf, setRuQty, useRuCart } from "@/lib/ru/cart";
-import { loadRuHits, useRuMember, useRuPrices } from "@/lib/ru/live";
+import { loadRuHits, loadRuSale, useRuMember, useRuPrices } from "@/lib/ru/live";
 import { BALANCE_DOMAINS, DETOX_PACKS, HYDRATION_PACK, RU_PHASES, type RuPack, type RuPhaseId } from "@/lib/ru/home";
 import { ruHref, ruProductByCode, ruProducts, rub, ruTitle, type RuProduct } from "@/lib/ru/shop";
 import { RuCard, RuCards } from "./RuCards";
-import { RuPromo } from "./RuPromo";
 import styles from "./Ru.module.css";
 
 const SERIES_RU = { add: "В корзину", removeOne: "Убрать одну", addOne: "Добавить ещё", inside: "что входит" };
@@ -60,44 +59,46 @@ function Pack({ pack, tightTop }: { pack: RuPack; tightTop?: boolean }) {
   );
 }
 
-/** Хиты продаж сайта России (API главной); пока сайт не ответил — раздела нет. */
-function Hits() {
+/** Подборка с главной сайта России (API): хиты, акции; пока сайт не ответил — раздела нет. */
+function SiteRow({ id, load, lead, accent }: { id: string; load: () => Promise<number[]>; lead: string; accent?: string }) {
   const [codes, setCodes] = useState<number[] | null>(null);
   useEffect(() => {
     let alive = true;
-    loadRuHits().then((c) => alive && setCodes(c));
+    load().then((c) => alive && setCodes(c));
     return () => {
       alive = false;
     };
-  }, []);
+  }, [load]);
   // фасовки одного товара (2200 и 2201) — одна карточка
   const products = [...new Map((codes ?? []).map((c) => ruProductByCode(c)).filter((p): p is RuProduct => Boolean(p)).map((p) => [p.code, p])).values()].slice(0, 12);
   if (!products.length) return null;
   return (
-    <Section tone="surface" data-analytics-section="hits">
+    <Section tone="surface" data-analytics-section={id}>
       <RuCards
         products={products}
-        listId="hits"
-        label="Хиты продаж"
+        listId={id}
+        label={accent ? `${lead} ${accent}` : lead}
         availableFirst
         title={
-          <>
-            Хиты <Accent>продаж</Accent>
-          </>
+          accent ? (
+            <>
+              {lead} <Accent>{accent}</Accent>
+            </>
+          ) : (
+            lead
+          )
         }
       />
     </Section>
   );
 }
 
-/** Акции и хиты — под каждой фазой. */
+/** Акции (товары по акции сайта) и хиты — под каждой фазой. */
 function Tail() {
   return (
     <>
-      <Section tone="surface" data-analytics-section="promo">
-        <RuPromo title="Акции" />
-      </Section>
-      <Hits />
+      <SiteRow id="sale" load={loadRuSale} lead="Акции" />
+      <SiteRow id="hits" load={loadRuHits} lead="Хиты" accent="продаж" />
     </>
   );
 }

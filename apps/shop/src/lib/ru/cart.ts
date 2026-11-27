@@ -67,7 +67,10 @@ export function repriceGuestCart(prices: ReadonlyMap<number, { club: number | nu
 
 export const setRuQty = (code: number, qty: number) => void getStore().setQty(String(code), qty);
 
-/** После входа: корзина гостя из браузера — в корзину участника на сервере, затем очищается. */
+/**
+ * После входа: корзина гостя из браузера — в корзину участника на сервере. Из браузера убираются только
+ * перенесённые строки: то, что сервер не принял, остаётся (не теряем товары покупателя).
+ */
 export async function moveGuestCartToMember(): Promise<number> {
   let lines: LocalLine[] = [];
   try {
@@ -77,13 +80,16 @@ export async function moveGuestCartToMember(): Promise<number> {
     return 0;
   }
   let moved = 0;
+  const left: LocalLine[] = [];
   for (const l of lines) {
     const code = Number(l.coralId);
     if (!Number.isFinite(code) || !(l.qty > 0)) continue;
     if (await addToBasket(code, l.qty)) moved += l.qty;
+    else left.push(l);
   }
   try {
-    window.localStorage.removeItem(RU_CART_KEY);
+    if (left.length) window.localStorage.setItem(RU_CART_KEY, JSON.stringify(left));
+    else window.localStorage.removeItem(RU_CART_KEY);
   } catch {
     /* ignore */
   }

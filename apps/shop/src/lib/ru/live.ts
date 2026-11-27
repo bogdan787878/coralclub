@@ -5,7 +5,7 @@ import "@/lib/lk/config";
 import { useEffect, useSyncExternalStore } from "react";
 import { cc4Base, fetchProducts, getToken, guestProducts, guestToken, type Product } from "@coral/api";
 import { RU_PRODUCTS, RU_SITE } from "./shop";
-import { applyMemberCity, cityKey, useRuCity, type RuCity } from "./city";
+import { cityKey, useRuCity, type RuCity } from "./city";
 
 /* ---------------------------------- вход ---------------------------------- */
 
@@ -36,7 +36,11 @@ function load(mode: "guest" | "member", city: RuCity, attempt = 0) {
   const codes = RU_PRODUCTS.map((p) => p.code);
   const ask =
     mode === "member"
-      ? applyMemberCity(city).then(() => fetchProducts(codes))
+      ? // цены участника — его сессия (город в неё не пишем: в той же сессии его корзина), наличие — склад города
+        Promise.all([fetchProducts(codes), guestProducts(codes.map(String), { country: "RU", language: "ru", location: city })]).then(([mine, stock]) => {
+          const avail = new Map(stock.map((g) => [g.code, g.available]));
+          return mine.map((p) => (avail.has(p.code) ? { ...p, available: avail.get(p.code) as boolean } : p));
+        })
       : guestProducts(codes.map(String), { country: "RU", language: "ru", location: city });
   ask.then((list) => {
     if (list.length) {
@@ -136,8 +140,12 @@ export async function loadRuBanners(): Promise<RuBanner[]> {
     });
 }
 
-/** Хиты продаж сайта России (блок «Хиты продаж» главной): артикулы по порядку сайта. */
-export async function loadRuHits(): Promise<number[]> {
-  const block = (await loadHome()).find((b) => b.type === "PRODUCTS_CAROUSEL" && /хит/i.test(b.title ?? ""));
+/** Подборка товаров главной сайта России по названию блока: артикулы по порядку сайта. */
+async function loadRuCarousel(title: RegExp): Promise<number[]> {
+  const block = (await loadHome()).find((b) => b.type === "PRODUCTS_CAROUSEL" && title.test(b.title ?? ""));
   return (block?.items ?? []).map((it) => Number(it.code)).filter((c) => Number.isFinite(c) && c > 0);
 }
+/** Хиты продаж (блок «Хиты продаж» главной сайта). */
+export const loadRuHits = () => loadRuCarousel(/хит/i);
+/** Акционные товары (блок «Акции» главной сайта). */
+export const loadRuSale = () => loadRuCarousel(/акци/i);
