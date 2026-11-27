@@ -2,17 +2,15 @@
 
 import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { asset } from "@/lib/asset";
-import { Button } from "@/components/ui";
-import { addRu, qtyOf, repriceGuestCart, useRuCart } from "@/lib/ru/cart";
-import { RU_BASE, RU_CART_KEY, RU_PRODUCTS, ruProductByCode, ruTitle, rub, type RuProduct } from "@/lib/ru/shop";
+import { repriceGuestCart, useRuCart } from "@/lib/ru/cart";
+import { RU_BASE, RU_CART_KEY, RU_PRODUCTS, ruProductByCode, rub, type RuProduct } from "@/lib/ru/shop";
 import { useRuMember, useRuPrices } from "@/lib/ru/live";
 import { cityKey, useRuCity } from "@/lib/ru/city";
 import { loadDelivery } from "@/lib/ru/delivery";
 import friend from "@/components/friend/Friend.module.css";
+import { RuCards } from "./RuCards";
 import styles from "./RuCart.module.css";
 
 const LOGIN_NEXT = `${RU_BASE}/login/?next=${encodeURIComponent(`${RU_BASE}/checkout/`)}`;
@@ -84,7 +82,7 @@ export function RuCart() {
       {member ? (
         <cc-cart ref={el} key="member" locale="ru" links={links} {...(freeFrom ? { "free-from": String(freeFrom) } : {})}>
           <div slot="cart-extra">
-            <RuCartRecs member />
+            <RuCartRecs />
           </div>
         </cc-cart>
       ) : (
@@ -100,7 +98,7 @@ export function RuCart() {
           {...(freeFrom ? { "free-from": String(freeFrom) } : {})}
         >
           <div slot="cart-extra">
-            <RuCartRecs member={false} />
+            <RuCartRecs />
           </div>
         </cc-cart>
       )}
@@ -109,10 +107,10 @@ export function RuCart() {
 }
 
 /**
- * «Вам может понравиться» под строками корзины: товары тех же доменов и фаз, что уже в корзине (иначе — хиты
- * гидратации), которых в корзине нет и которые есть в наличии в городе. Добавляются одной кнопкой.
+ * «Вам может понравиться» под строками корзины — карусель карточек, как на главной: товары тех же доменов и фаз,
+ * что уже в корзине (иначе — гидратация), которых в корзине нет и которые есть в наличии в городе.
  */
-function RuCartRecs({ member }: { member: boolean }) {
+function RuCartRecs() {
   const cart = useRuCart();
   const prices = useRuPrices();
   const inCart = new Set(cart.lines.map((l) => l.id));
@@ -128,45 +126,8 @@ function RuCartRecs({ member }: { member: boolean }) {
   const list = [...pool.filter(near), ...pool.filter((p) => !near(p) && p.phase.includes("hydration"))].slice(0, 8);
   if (!list.length) return null;
   return (
-    <section className={styles.recs} aria-labelledby="ru-cart-recs">
-      <h2 id="ru-cart-recs" className={styles.recsTitle}>
-        Вам может понравиться
-      </h2>
-      <ul className={styles.recsList}>
-        {list.map((p) => {
-          const l = prices.get(p.code);
-          const club = l?.club ?? 0;
-          const was = l?.retail && l.retail > club ? rub(l.retail) : undefined;
-          return (
-            <li key={p.code} className={styles.rec}>
-              <Link className={styles.recImg} href={`${RU_BASE}/product/${p.slug}/`}>
-                {p.images[0] && <Image src={p.images[0].src} alt="" fill sizes="96px" />}
-              </Link>
-              <span className={styles.recBody}>
-                <Link className={styles.recName} href={`${RU_BASE}/product/${p.slug}/`}>
-                  {ruTitle(p)}
-                </Link>
-                {p.tag && <span className={styles.recSub}>{p.tag}</span>}
-                <span className={styles.recFoot}>
-                  <span className={styles.recPrice}>
-                    <b>{rub(club)}</b>
-                    {was && <s>{was}</s>}
-                  </span>
-                  <Button
-                    variant="ghost"
-                    className={styles.recAdd}
-                    data-analytics-id="cart_recommend_add"
-                    disabled={qtyOf(cart, p.code) > 0}
-                    onClick={() => addRu(p, member, rub(club), was)}
-                  >
-                    Добавить
-                  </Button>
-                </span>
-              </span>
-            </li>
-          );
-        })}
-      </ul>
-    </section>
+    <div className={styles.recs}>
+      <RuCards products={list} title="Вам может понравиться" label="Вам может понравиться" listId="cart_recommend" />
+    </div>
   );
 }
