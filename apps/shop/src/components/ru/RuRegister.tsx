@@ -25,7 +25,21 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
  * консультант и согласия. После регистрации — сразу вход, перенос корзины и переход дальше (из корзины — в
  * оформление), без промежуточного экрана. Аккаунт создаётся только по нажатию «Зарегистрироваться».
  */
-export function RuRegister({ dest, onLeaving, onLogin }: { dest: (moved: number) => string; onLeaving: (v: boolean) => void; onLogin: (login: string) => void }) {
+export function RuRegister({
+  dest,
+  onLeaving,
+  onLogin,
+  sponsor,
+  onDone,
+}: {
+  dest?: (moved: number) => string;
+  onLeaving?: (v: boolean) => void;
+  onLogin?: (login: string) => void;
+  /** Регистрация вручную дистрибьютором: его Coral ID — консультант, после регистрации входа нет. */
+  sponsor?: string;
+  /** зарегистрирован (вручную) — Coral ID нового участника */
+  onDone?: (memberId: string) => void;
+}) {
   const [init, setInit] = useState<RegInit | null>(null);
   const [initFailed, setInitFailed] = useState(false);
 
@@ -51,6 +65,18 @@ export function RuRegister({ dest, onLeaving, onLogin }: { dest: (moved: number)
   const [tried, setTried] = useState(false);
   const [busy, setBusy] = useState("");
   const [msg, setMsg] = useState<{ text: string; bad: boolean }>({ text: "", bad: false });
+
+  // регистрация вручную: консультант — сам дистрибьютор
+  useEffect(() => {
+    if (!sponsor) return;
+    let alive = true;
+    findConsultant({ memberId: sponsor })
+      .then((c) => alive && setConsultant(c))
+      .catch(() => undefined);
+    return () => {
+      alive = false;
+    };
+  }, [sponsor]);
 
   useEffect(() => {
     let alive = true;
@@ -138,19 +164,27 @@ export function RuRegister({ dest, onLeaving, onLogin }: { dest: (moved: number)
       setMsg({ text: r.error, bad: true });
       return;
     }
+    // регистрация вручную: новый участник создан, дистрибьютор остаётся в своём аккаунте
+    if (sponsor) {
+      setBusy("");
+      setMsg({ text: "", bad: false });
+      setPassword("");
+      onDone?.(r.memberId);
+      return;
+    }
     // аккаунт создан — сразу входим и идём дальше, без экрана «готово»
-    onLeaving(true);
+    onLeaving?.(true);
     const signed = await login({ login: email.trim(), password, country: "RU", language: "ru" });
     setPassword("");
     if (!signed.ok) {
       // вход сразу не прошёл (например, нужно подтвердить e-mail) — вход по Coral ID
-      onLeaving(false);
+      onLeaving?.(false);
       setBusy("");
-      onLogin(r.memberId || email.trim());
+      onLogin?.(r.memberId || email.trim());
       return;
     }
     const moved = await moveGuestCartToMember();
-    window.location.assign(`${base}${dest(moved)}`);
+    window.location.assign(`${base}${dest ? dest(moved) : "/"}`);
   };
 
   if (initFailed) {
@@ -230,6 +264,16 @@ export function RuRegister({ dest, onLeaving, onLogin }: { dest: (moved: number)
         hint={hint("password") ?? "Не короче 6 символов, хотя бы одна цифра или символ"}
       />
 
+      {sponsor ? (
+        consultant && (
+          <div className={styles.regSponsor}>
+            <span>
+              <strong>Консультант: {consultant.name}</strong>
+              <small>Coral ID {consultant.id} — вы</small>
+            </span>
+          </div>
+        )
+      ) : (
       <div className={styles.regField}>
         <p className={styles.authText}>Консультант — участник клуба, который вас пригласил.</p>
         <div className={styles.regRow}>
@@ -262,6 +306,7 @@ export function RuRegister({ dest, onLeaving, onLogin }: { dest: (moved: number)
           </div>
         )}
       </div>
+      )}
 
       <label className={styles.regCheck}>
         <input type="checkbox" checked={agreement} onChange={(e) => setAgreement(e.target.checked)} />
@@ -279,7 +324,7 @@ export function RuRegister({ dest, onLeaving, onLogin }: { dest: (moved: number)
       </label>
 
       <Button variant="primary" block type="submit" disabled={busy === "create" || !init}>
-        {busy === "create" ? "Регистрируем…" : "Зарегистрироваться"}
+        {busy === "create" ? "Регистрируем…" : sponsor ? "Зарегистрировать участника" : "Зарегистрироваться"}
       </Button>
       <p className={`${styles.authMsg} ${msg.bad ? styles.authBad : ""}`} role="status">
         {msg.text}

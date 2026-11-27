@@ -7,6 +7,7 @@ import { Button, FloatInput } from "@/components/ui";
 import { moveGuestCartToMember } from "@/lib/ru/cart";
 import { RU_BASE } from "@/lib/ru/shop";
 import { useRuMember } from "@/lib/ru/live";
+import { RuInvite } from "./RuInvite";
 import { RuRegister } from "./RuRegister";
 import styles from "./Ru.module.css";
 
@@ -31,6 +32,10 @@ export function RuLogin() {
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<{ text: string; bad: boolean }>({ text: "", bad: false });
   const [name, setName] = useState("");
+  const [memberId, setMemberId] = useState("");
+  const [accountFailed, setAccountFailed] = useState(false);
+  // дистрибьютор регистрирует нового участника под собой; done — Coral ID зарегистрированного
+  const [manual, setManual] = useState<{ done: string } | null>(null);
   // вход прошёл — уходим дальше без экрана «Вы вошли» (он мелькал, пока переносится корзина)
   const [leaving, setLeaving] = useState(false);
   const goCheckout = raw !== "" && checkout;
@@ -45,7 +50,11 @@ export function RuLogin() {
     let alive = true;
     cc4<{ data?: { name?: string; surname?: string; id?: number } }>("/account").then((r) => {
       const d = r.json?.data;
-      if (alive && d) setName([d.name, d.surname].filter(Boolean).join(" ") || (d.id ? `Coral ID ${d.id}` : ""));
+      if (alive && !d?.id) setAccountFailed(true);
+      if (alive && d) {
+        setName([d.name, d.surname].filter(Boolean).join(" ") || (d.id ? `Coral ID ${d.id}` : ""));
+        if (d.id) setMemberId(String(d.id));
+      }
     });
     return () => {
       alive = false;
@@ -92,6 +101,39 @@ export function RuLogin() {
     );
   }
 
+  if (member && manual) {
+    return (
+      <main className={styles.auth}>
+        <h1 className={styles.authTitle}>Регистрация участника</h1>
+        {manual.done ? (
+          <>
+            <p className={styles.authText} role="status">
+              Участник зарегистрирован{manual.done ? `: Coral ID ${manual.done}` : ""}. Данные для входа придут ему на e-mail.
+            </p>
+            <Button variant="primary" block onClick={() => setManual({ done: "" })}>
+              Зарегистрировать ещё
+            </Button>
+            <Button variant="secondary" block onClick={() => setManual(null)}>
+              Готово
+            </Button>
+          </>
+        ) : (
+          <>
+            <p className={styles.authText}>Новый участник будет зарегистрирован под вами. Заполните его данные.</p>
+            {memberId ? (
+              <RuRegister key={manual.done} sponsor={memberId} onDone={(id) => setManual({ done: id || "—" })} />
+            ) : (
+              <p className={styles.authText}>{accountFailed ? "Не удалось получить ваш Coral ID. Обновите страницу или войдите заново." : "Загружаем ваш Coral ID…"}</p>
+            )}
+            <Button variant="secondary" block onClick={() => setManual(null)}>
+              Назад
+            </Button>
+          </>
+        )}
+      </main>
+    );
+  }
+
   if (member) {
     return (
       <main className={styles.auth}>
@@ -104,6 +146,7 @@ export function RuLogin() {
         <Button variant="secondary" block onClick={signOut} disabled={busy}>
           Выйти
         </Button>
+        <RuInvite onManual={() => setManual({ done: "" })} />
       </main>
     );
   }
