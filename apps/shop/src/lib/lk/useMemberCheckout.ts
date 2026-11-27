@@ -329,7 +329,7 @@ export function useMemberCheckout(base = "/lk", shopCity?: { city: string; area:
   const point = chosenPoint;
   const pickPointParam = point ? point.CODE : false;
   const slotArea = country === "RU" && !pickup ? slotRegion(city, deliveryId) : null;
-  const slotDays = slotArea ? deliverySlots(slotArea === "moscow" ? slotCfg.moscow : slotCfg.spb, { express: deliveryId === "I_COURIER_1DAY", mkad: true }) : [];
+  const slotDays = slotArea ? deliverySlots(slotArea === "moscow" ? slotCfg.moscow : slotCfg.spb, { express: deliveryId === "I_COURIER_1DAY", mkad: true, lang: "ru" }) : [];
   const slotDay = slotDays.find((d) => d.date === slotDate) ?? slotDays[0];
   const slotHours = slotDay?.times.includes(slotTime) ? slotTime : slotDay?.times[0];
   const paymentId = payments.some((p) => p.ID === paymentChoice)
