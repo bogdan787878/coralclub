@@ -24,7 +24,7 @@
     --container-max: min(1200px, calc(100vw - 112px));
     --container-gutter: 0px;
     /* высота липкой шапки: под неё встают липкие элементы страниц */
-    --ru-sticky-top: 76px;
+    --ru-sticky-top: 72px;
   }
   .ru cc-layout {
     position: sticky;

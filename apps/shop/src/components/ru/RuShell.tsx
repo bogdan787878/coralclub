@@ -16,6 +16,7 @@ import { RU_BASE, RU_CART_KEY } from "@/lib/ru/shop";
 import { useRuMember } from "@/lib/ru/live";
 import menu from "@/components/checkout/CountryMenu.module.css";
 import { RuCityButton, RuCitySheet } from "./RuCity";
+import { RuHeaderSearch } from "./RuHeaderSearch";
 import { captureRef } from "@/lib/ru/ref";
 import shell from "./RuShell.module.css";
 
@@ -131,16 +132,20 @@ export function RuShell({ children }: { children: ReactNode }) {
           active={active}
           {...(pdpPhone ? { parts: "tabbar" } : {})}
         >
+          {/* веб: поиск — сразу поле в шапке; на телефоне — иконка в углу */}
+          <div slot="search">
+            <RuHeaderSearch />
+          </div>
           <div slot="corner" style={{ display: "flex", alignItems: "center" }}>
             {!inCheckout && <RuCityButton />}
             {inSearch ? (
               // в поиске лупа становится крестиком: выйти из режима поиска
-              <button type="button" className={menu.flagBtn} onClick={closeSearch} aria-label="Закрыть поиск" style={{ color: "inherit" }}>
+              <button type="button" className={`${menu.flagBtn} ${shell.phoneOnly}`} onClick={closeSearch} aria-label="Закрыть поиск" style={{ color: "inherit" }}>
                 <Icon name="close" />
               </button>
             ) : (
               // переход внутри приложения, без перезагрузки страницы — поиск появляется плавно
-              <Link className={menu.flagBtn} href={`${RU_BASE}/search/`} aria-label="Поиск" style={{ color: "inherit" }}>
+              <Link className={`${menu.flagBtn} ${shell.phoneOnly}`} href={`${RU_BASE}/search/`} aria-label="Поиск" style={{ color: "inherit" }}>
                 <Icon name="search" />
               </Link>
             )}

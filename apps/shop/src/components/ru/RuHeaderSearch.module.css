@@ -1,0 +1,45 @@
+/* Поиск в шапке на вебе: белое поле во всю ширину и кнопка цвета действия справа (как у маркетплейсов) */
+.form {
+  display: flex;
+  align-items: stretch;
+  height: 44px;
+  padding: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--color-neutral-white);
+}
+.input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0 var(--space-16);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  outline: none;
+}
+.input::placeholder {
+  color: var(--color-text-muted);
+}
+.input::-webkit-search-cancel-button {
+  display: none;
+}
+.form:focus-within {
+  box-shadow: 0 0 0 2px var(--color-malachite-30);
+}
+.btn {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-action);
+  color: var(--color-action-contrast);
+  cursor: pointer;
+}
+.btn:hover {
+  background: var(--color-action-hover);
+}

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createSearch, type Search, type SearchDoc } from "@coral/search";
 import { Container } from "@/components/ui";
 import { useRuPrices } from "@/lib/ru/live";
+import { searchQueryNow, setSearchQuery, useSearchQuery } from "@/lib/ru/searchQuery";
 import { RU_BASE, RU_PRODUCTS, ruProductByCode, type RuProduct } from "@/lib/ru/shop";
 import { RuCard } from "./RuCards";
 import grid from "./RuCatalog.module.css";
@@ -64,16 +65,22 @@ function loadEngine(): Promise<Search> {
 export function RuSearch() {
   const prices = useRuPrices();
   const [search, setSearch] = useState<Search | null>(null);
-  const [q, setQ] = useState("");
+  // запрос — общий с полем в шапке (веб)
+  const q = useSearchQuery();
+  const setQ = setSearchQuery;
   const input = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     let alive = true;
     loadEngine().then((s) => alive && setSearch(s));
     const fromUrl = new URLSearchParams(window.location.search).get("q") ?? "";
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- адрес известен только в браузере
-    if (fromUrl) setQ(fromUrl);
-    input.current?.focus();
+    // из адреса — если в поле ещё нет этого (в шапке могли успеть допечатать)
+    if (fromUrl) {
+      const cur = searchQueryNow();
+      if (!cur.startsWith(fromUrl)) setQ(fromUrl);
+    }
+    // на телефоне — сразу в поле страницы; на вебе ввод уже в шапке
+    if (window.matchMedia("(max-width: 1023px)").matches) input.current?.focus();
     return () => {
       alive = false;
     };

@@ -49,10 +49,23 @@ svg { display: block; }
   .brand { grid-column: 2; justify-self: center; }
   .right { grid-column: 3; }
 }
+.search { display: none; }
+.lbl { display: none; }
 @media (min-width: 1024px) {
   .brand { font-size: 1.5rem; }
   .logo { height: 28px; }
-  .desk { display: flex; align-items: center; gap: 24px; }
+  /* веб: логотип слева, поиск (слот search) на всю ширину, справа город и разделы с подписями */
+  .head { grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 32px; padding-block: 14px; }
+  .brand { grid-column: 1; justify-self: start; }
+  .search { display: block; grid-column: 2; min-width: 0; }
+  .right { grid-column: 3; gap: 20px; }
+  .desk { display: flex; align-items: center; gap: 20px; }
+  .desk .icon { width: auto; height: auto; flex-direction: column; gap: 2px; min-width: 48px; }
+  .desk .ico { position: relative; display: inline-flex; }
+  .desk .ico svg { width: 24px; height: 24px; }
+  .desk .lbl { display: block; font-size: .75rem; line-height: 1rem; white-space: nowrap; opacity: .85; }
+  .desk .on .lbl, .desk .icon[aria-current] .lbl { opacity: 1; font-weight: var(--fw); }
+  .desk .badge { top: -6px; right: -10px; }
 }
 /* шапка «полосой» («Друг клуба»): меню и логотип слева, слоты сервиса и корзина справа, на всех ширинах */
 .head.bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px var(--page-padding-inline, 16px); }

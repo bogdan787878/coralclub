@@ -19,6 +19,7 @@
  *   hide-on-scroll  нижнее меню прячется при прокрутке вниз и появляется при прокрутке вверх
  *
  * Слоты (разметка сервиса со своими стилями): corner — справа в шапке на всех ширинах (например, флаг страны);
+ * search — поле поиска в шапке на вебе (1024+): логотип слева, поиск на всю ширину, справа разделы с подписями;
  * menu, brand, actions — в шапке «полосой».
  * Хранилище корзины общее с приложением корзины (@coral/cart/store), бейдж обновляется сам.
  * Внутрь: window.coralLayout.cart.open() — перейти на страницу корзины; .count(), .refresh(), .add(…).
@@ -178,8 +179,11 @@ export class CcLayout extends HTMLElement {
       key === "cart"
         ? cartBtn("tab", `<span class="ico">${ICON.bag}${badge}</span><span>${esc(T.cart)}</span>`)
         : `<a class="tab${active === key ? " on" : ""}" href="${esc(L[key])}"${active === key ? ' aria-current="page"' : ""}>${icon[key]}<span>${esc(T[key])}</span></a>`;
+    // веб: разделы — иконка с подписью под ней (как у маркетплейсов)
     const desk = (key: TabKey) =>
-      key === "cart" ? cartBtn("icon", `${ICON.bag}${badge}`) : `<a class="icon" href="${esc(L[key])}" aria-label="${esc(T[key])}">${icon[key]}</a>`;
+      key === "cart"
+        ? cartBtn("icon", `<span class="ico">${ICON.bag}${badge}</span><span class="lbl">${esc(T.cart)}</span>`)
+        : `<a class="icon${active === key ? " on" : ""}" href="${esc(L[key])}" aria-label="${esc(T[key])}"${active === key ? ' aria-current="page"' : ""}><span class="ico">${icon[key]}</span><span class="lbl">${esc(T[key])}</span></a>`;
     const { header, tabbar } = this.partSet;
     const variant = this.getAttribute("header") === "bar" ? "bar" : "center";
     const head =
@@ -190,6 +194,7 @@ export class CcLayout extends HTMLElement {
           </header>`
         : `<header class="head">
             <a class="brand" href="${esc(L.home)}"><slot name="brand">${LOGO}</slot></a>
+            <div class="search"><slot name="search"></slot></div>
             <div class="right"><slot name="corner"></slot><nav class="desk" aria-label="${esc(T.menu)}"><slot name="actions"></slot>${this.tabList.map(desk).join("")}</nav></div>
           </header>`;
     this.root.innerHTML = `<style>${CSS}</style>

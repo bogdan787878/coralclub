@@ -28,3 +28,10 @@
     animation: none;
   }
 }
+
+/* иконка поиска в углу шапки — только телефон и планшет: на вебе в шапке поле поиска */
+@media (min-width: 1024px) {
+  .phoneOnly {
+    display: none !important;
+  }
+}

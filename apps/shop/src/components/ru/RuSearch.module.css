@@ -146,8 +146,9 @@
   .page {
     padding-top: var(--space-32);
   }
+  /* на вебе поиск — поле в шапке, своё поле страницы не нужно */
   .form {
-    margin-bottom: var(--space-24);
+    display: none;
   }
   ul.results {
     grid-template-columns: repeat(4, minmax(0, 1fr));
