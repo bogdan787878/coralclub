@@ -315,7 +315,36 @@ export function detectRuCity(): Promise<void> {
   return detecting;
 }
 
-/** Город по геолокации браузера (только по нажатию человека: браузер спросит разрешение). */
+const GEO_ASKED = "coralclub.ru.geoAsked";
+
+/**
+ * Город по геолокации сразу при первом заходе: браузер показывает свой баннер разрешения. Один раз на браузер
+ * (разрешение уже дано — определяем молча, запрещено — не спрашиваем). Нашли город России — он выбран; отказ,
+ * ошибка или не Россия — null (остаётся догадка по IP и вопрос «Ваш город — …?»).
+ */
+export async function autoGeolocateRuCity(): Promise<RuCity | null> {
+  if (typeof navigator === "undefined" || !navigator.geolocation) return null;
+  const st = snapshot();
+  if (st && st.chosen) return null;
+  let perm: PermissionState | "" = "";
+  try {
+    perm = (await navigator.permissions?.query({ name: "geolocation" }))?.state ?? "";
+  } catch {
+    /* Permissions API нет (старый Safari) */
+  }
+  if (perm === "denied") return null;
+  try {
+    if (perm !== "granted" && window.localStorage.getItem(GEO_ASKED)) return null;
+    window.localStorage.setItem(GEO_ASKED, "1");
+  } catch {
+    /* без хранилища — спросим */
+  }
+  const c = await cityByGeolocation().catch(() => null);
+  if (c && !snapshot()?.chosen) chooseRuCity(c);
+  return c;
+}
+
+/** Город по геолокации браузера (браузер спросит разрешение). */
 export function cityByGeolocation(): Promise<RuCity | null> {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {

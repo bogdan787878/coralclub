@@ -10,6 +10,7 @@ import {
 } from "@/lib/addressSearch";
 import {
   POPULAR,
+  autoGeolocateRuCity,
   chooseRuCity,
   cityByGeolocation,
   cityFromComponents,
@@ -74,9 +75,11 @@ export function RuCitySheet({ isHome }: { isHome: boolean }) {
       return false;
     }
   });
+  // геолокация при первом заходе: пока браузер спрашивает разрешение — шторку «Ваш город?» не показываем
+  const [geo, setGeo] = useState<"wait" | "done">("wait");
   const shownMode =
     mode === "auto"
-      ? isHome && state && !state.chosen && !askedBefore
+      ? isHome && state && !state.chosen && !askedBefore && geo === "done"
         ? "confirm"
         : "closed"
       : mode;
@@ -88,9 +91,18 @@ export function RuCitySheet({ isHome }: { isHome: boolean }) {
   const [busy, setBusy] = useState("");
   const [msg, setMsg] = useState("");
 
-  // догадка по IP — один раз, если город ещё не известен
+  // догадка по IP — один раз, если город ещё не известен; сразу — геолокация (нативный баннер разрешения браузера):
+  // разрешили — город выбран, не спрашиваем; отказ — остаётся догадка по IP и «Ваш город — …?»
   useEffect(() => {
     void detectRuCity();
+    let alive = true;
+    // на баннер могут не ответить — через 8 с показываем вопрос; разрешат позже — город выберется, шторка закроется
+    Promise.race([autoGeolocateRuCity().catch(() => null), new Promise((r) => setTimeout(r, 8000))]).finally(
+      () => alive && setGeo("done"),
+    );
+    return () => {
+      alive = false;
+    };
   }, []);
 
   // спросили — больше в этой вкладке не спрашивать
