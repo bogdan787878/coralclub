@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ProductDetail } from "@coral/api";
 import { BodyLong, Button, Container, Heading, Icon, Sheet } from "@/components/ui";
-import { InfoAccordion } from "@/components/organisms/InfoAccordion";
 import { DietaryBadges } from "@/components/organisms/DietaryBadges";
 import { PeriodicElements } from "@/components/organisms/PeriodicElements";
 import { LandingGallery } from "@/components/landing/LandingGallery";
@@ -363,9 +362,15 @@ export function RuProductView({
   const elements = keyElements(d);
   const badges = p.feat.map((f) => BADGE_SLUG[f]).filter((x): x is string => Boolean(x));
   const storage = [d.storage && `Хранение: ${d.storage}`, d.shelfLife && `Срок годности: ${d.shelfLife}`, d.country && `Страна производства: ${d.country}`].filter(Boolean) as string[];
-  const details = [
-    ...(storage.length ? [{ title: "Хранение", content: <RichText text={storage.join("\n\n")} /> }] : []),
-  ];
+  // таблица состава: строки без количества (вспомогательные компоненты, сноски «*…») — не строки таблицы, а
+  // пояснение под ней; текст «Состав: …» при таблице не нужен — он её повторяет
+  const rows = d.ingredients.filter((r) => r.amount || r.percent);
+  // сноску «* Рекомендуемый уровень суточного потребления» таблица пишет сама — из API её не повторяем
+  const notes = d.ingredients
+    .filter((r) => !r.amount && !r.percent)
+    .map((r) => r.name)
+    .filter((n) => n && !/^\*\s*рекомендуемый уровень суточного потребления\.?$/i.test(n.trim()));
+  const facts = { ...d, ingredients: rows, composition: rows.length ? "" : d.composition };
 
   return (
     <main className={styles.page} data-analytics-location="product_card">
@@ -445,10 +450,22 @@ export function RuProductView({
           )}
 
           {/* таблица состава — открыто, не в свёрнутой строке */}
-          {(d.ingredients.length > 0 || d.composition) && (
+          {(rows.length > 0 || d.composition) && (
             <div className={styles.facts}>
-              <Facts p={d} headingId={`ru-facts-${p.code}`} />
+              <Facts p={facts} headingId={`ru-facts-${p.code}`} />
+              {notes.map((n) => (
+                <p key={n} className={styles.small}>
+                  {n}
+                </p>
+              ))}
             </div>
+          )}
+
+          {storage.length > 0 && (
+            <section className={styles.block}>
+              <h3 className={styles.h3}>Хранение</h3>
+              <RichText text={storage.join("\n\n")} />
+            </section>
           )}
 
           {/* сертификаты */}
@@ -473,11 +490,6 @@ export function RuProductView({
             </section>
           )}
 
-          {details.length > 0 && (
-            <div className={styles.details}>
-              <InfoAccordion items={details} />
-            </div>
-          )}
           {d.isSupplement && <p className={styles.small}>Биологически активная добавка. Не является лекарственным средством.</p>}
         </div>
       </div>

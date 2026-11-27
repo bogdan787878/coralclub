@@ -227,6 +227,7 @@ button.row {
 }
 .facts {
   display: grid;
+  gap: var(--space-8);
 }
 
 /* ---------- полное описание ---------- */
@@ -496,4 +497,43 @@ button.row {
   .page {
     padding-bottom: calc(88px + var(--space-16));
   }
+}
+
+/* ---------- таблица состава: в ширину экрана и тем же шрифтом, что описание ---------- */
+.facts h2 {
+  /* «Состав» — как остальные заголовки блоков (16/24, medium); у таблицы «Друга клуба» он крупнее */
+  font-size: var(--text-button-size) !important;
+  line-height: var(--text-button-line) !important;
+  font-weight: var(--font-weight-medium);
+  margin: 0;
+}
+.facts p {
+  font-size: var(--text-body-long-size);
+  line-height: var(--text-body-long-line);
+}
+.facts table {
+  width: 100%;
+  table-layout: auto;
+  font-size: var(--text-body-long-size);
+  line-height: var(--text-body-long-line);
+}
+.facts th,
+.facts td {
+  padding: var(--space-8) var(--space-8);
+}
+.facts th:first-child,
+.facts td:first-child {
+  padding-left: var(--space-12);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+.facts th:not(:first-child),
+.facts td:not(:first-child) {
+  width: 1%;
+  white-space: nowrap;
+  text-align: right;
+}
+.facts th:last-child,
+.facts td:last-child {
+  padding-right: var(--space-12);
 }
