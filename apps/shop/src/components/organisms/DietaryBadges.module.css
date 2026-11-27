@@ -26,3 +26,26 @@
   line-height: 1rem;
   color: var(--color-text-muted);
 }
+
+/* chip — each badge in a light pill (RU storefront PDP) */
+.chips {
+  gap: var(--space-8);
+}
+.chips .badge {
+  gap: var(--space-8);
+  padding: 10px 16px 10px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-primary-10) 50%, var(--color-white));
+}
+/* the icon files are drawn inside a ring — in a chip the ring is cropped off, only the glyph stays */
+.chips .icon {
+  width: 32px;
+  height: 32px;
+  margin: -4px;
+  clip-path: circle(37%);
+}
+.chips .label {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  color: var(--color-text);
+}

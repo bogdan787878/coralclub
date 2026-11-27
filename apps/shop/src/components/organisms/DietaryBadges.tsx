@@ -24,6 +24,8 @@ export type DietaryBadgesProps = {
   items: string[];
   /** Per-slug label override (e.g. a translated storefront). */
   labels?: Record<string, string>;
+  /** plain — icon + muted caption (default); chip — each badge in a light pill. */
+  variant?: "plain" | "chip";
 };
 
 /**
@@ -32,7 +34,7 @@ export type DietaryBadgesProps = {
  * to navy. Sits under Key Elements on the PDP. Renders nothing when there
  * are no known badges.
  */
-export function DietaryBadges({ items, labels }: DietaryBadgesProps) {
+export function DietaryBadges({ items, labels, variant = "plain" }: DietaryBadgesProps) {
   const badges = items
     .map((slug) =>
       BADGES[slug]
@@ -43,7 +45,7 @@ export function DietaryBadges({ items, labels }: DietaryBadgesProps) {
   if (!badges.length) return null;
 
   return (
-    <ul className={styles.list}>
+    <ul className={`${styles.list} ${variant === "chip" ? styles.chips : ""}`}>
       {badges.map((b) => (
         <li className={styles.badge} key={b.icon}>
           {/* eslint-disable-next-line @next/next/no-img-element */}

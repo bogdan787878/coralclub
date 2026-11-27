@@ -414,7 +414,7 @@ export function RuProductView({
           </section>
 
           {/* теги и ключевые элементы — компоненты основного магазина */}
-          {badges.length > 0 && <DietaryBadges items={badges} labels={BADGE_LABEL} />}
+          {badges.length > 0 && <DietaryBadges items={badges} labels={BADGE_LABEL} variant="chip" />}
           {elements.length > 0 && <PeriodicElements items={elements} heading="Ключевые элементы" />}
           {(p.release || p.pack) && (
             <section className={styles.block}>
