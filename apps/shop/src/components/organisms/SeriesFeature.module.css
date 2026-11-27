@@ -412,20 +412,16 @@
   }
 }
 
-/* подзаголовок над рядом «что входит» — 16/24 medium, как «Ключевые элементы» */
+/* заголовок над рядом «что входит» — h2 UI-кита, отступы как у отдельной карусели главной:
+   64 от предыдущего блока (32 секции + 32 следующей), 24 до карточек. .block сам даёт 16 между детьми. */
 .insideTitle {
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: var(--text-button-size);
-  line-height: var(--text-button-line);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text);
+  margin: calc(2 * var(--page-padding-block) - var(--space-16)) 0 calc(var(--gap-base) - var(--space-16));
 }
 @media (min-width: 1024px) {
   .insideMobile {
     display: none;
   }
-  .desktopCarousel .insideTitle {
-    margin-bottom: var(--space-12);
+  .desktopCarouselTitled {
+    margin-top: calc(2 * var(--page-padding-block));
   }
 }

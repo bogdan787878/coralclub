@@ -39,7 +39,7 @@ export type SeriesFeatureProps = {
    *  the whole block instead (same treatment as Restart's own product
    *  carousel), rather than staying confined next to the card. */
   carouselItems?: ReactNode[];
-  /** Подзаголовок над рядом «что входит» (на телефоне и на вебе), например «Что входит в набор». */
+  /** Заголовок над рядом «что входит» — как у остальных каруселей главной (h2), например «Что входит в набор». */
   carouselTitle?: ReactNode;
   /** Drops the block's own top margin — for callers that already sit in a
    *  flex column with its own gap (e.g. PhasesSection), where the
@@ -249,7 +249,9 @@ export function SeriesFeature({
           {/* mobile/tablet only (hidden at 1024px+, see .carouselSlot) — a
               scroll row confined to the card's own column */}
           {carouselItems && carouselItems.length > 0 && carouselTitle && (
-            <h3 className={`${styles.insideTitle} ${styles.insideMobile}`}>{carouselTitle}</h3>
+            <Heading as="h2" className={`${styles.insideTitle} ${styles.insideMobile}`}>
+              {carouselTitle}
+            </Heading>
           )}
           {carouselItems && carouselItems.length > 0 && (
             <div className={styles.carouselSlot}>
@@ -268,13 +270,9 @@ export function SeriesFeature({
           carousel, sitting below the whole card instead of confined
           beside it */}
       {carouselItems && carouselItems.length > 0 && (
-        <div className={styles.desktopCarousel}>
-          {carouselTitle && (
-            <Container>
-              <h3 className={styles.insideTitle}>{carouselTitle}</h3>
-            </Container>
-          )}
-          <Carousel label={`${seriesName} — ${labels?.inside ?? "what's in it"}`}>
+        <div className={`${styles.desktopCarousel}${carouselTitle ? ` ${styles.desktopCarouselTitled}` : ""}`}>
+          {/* заголовок — родной заголовок карусели, как у остальных рядов главной («Хиты продаж») */}
+          <Carousel label={`${seriesName} — ${labels?.inside ?? "what's in it"}`} title={carouselTitle}>
             {carouselItems}
           </Carousel>
         </div>
