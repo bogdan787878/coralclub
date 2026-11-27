@@ -182,7 +182,7 @@ export function RuLogin() {
 
       {tab === "login" ? (
         <form className={styles.authForm} onSubmit={submit} autoComplete="on">
-          <FloatInput name="login" label="Coral ID или e-mail" value={user} onChange={setUser} autoComplete="username" />
+          <FloatInput name="login" label="Coral ID" value={user} onChange={setUser} autoComplete="username" />
           <FloatInput name="password" type="password" label="Пароль" value={password} onChange={setPassword} autoComplete="current-password" />
           <Button variant="primary" block type="submit" disabled={busy || !user.trim() || !password}>
             {checkout ? "Войти и продолжить" : "Войти"}
