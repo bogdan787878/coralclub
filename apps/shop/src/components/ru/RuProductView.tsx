@@ -4,8 +4,10 @@ import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ProductDetail } from "@coral/api";
-import { Button, Container, Icon, Sheet } from "@/components/ui";
+import { BodyLong, Button, Container, Heading, Icon, Sheet } from "@/components/ui";
 import { InfoAccordion } from "@/components/organisms/InfoAccordion";
+import { DietaryBadges } from "@/components/organisms/DietaryBadges";
+import { PeriodicElements } from "@/components/organisms/PeriodicElements";
 import { LandingGallery } from "@/components/landing/LandingGallery";
 import { Facts } from "@/components/catalog/ProductDetailView";
 import { BackButton } from "@/app/(shop)/products/[slug]/BackButton";
@@ -14,6 +16,7 @@ import shop from "@/app/(shop)/products/[slug]/page.module.css";
 import { addRu, qtyOf, setRuQty, useRuCart } from "@/lib/ru/cart";
 import { useRuCity } from "@/lib/ru/city";
 import { WAREHOUSES, inStock } from "@/lib/ru/stock";
+import { cheapest, daysText, loadDelivery, type DeliveryOption } from "@/lib/ru/delivery";
 import { RU_BASE, rub, type RuProduct } from "@/lib/ru/shop";
 import { openRuCity } from "./RuCity";
 import styles from "./RuPdp.module.css";
@@ -68,16 +71,140 @@ export function RichText({ text }: { text: string }) {
   );
 }
 
-/** Ключевые элементы состава: первые строки таблицы активных веществ — «Калий · 420 мг». */
-function keyElements(p: ProductDetail): { name: string; amount: string }[] {
-  return p.ingredients
-    .filter((r) => r.name && r.amount && !/^(энергетическая|калорийность|белки|жиры|углеводы)/i.test(r.name))
-    .slice(0, 6)
-    .map((r) => {
-      const unit = /,\s*([^,()]+)\s*$/.exec(r.name)?.[1]?.trim() ?? "";
-      const name = r.name.replace(/\s*\(.*$/, "").replace(/,\s*[^,]+$/, "").trim();
-      return { name, amount: `${r.amount.replace(".", ",")}${unit ? ` ${unit}` : ""}` };
-    });
+/* ----------------------- теги и ключевые элементы ----------------------- */
+
+/** Теги канона → значки основного магазина (DietaryBadges); «Без ГМО» значка не имеет — не показываем. */
+const BADGE_SLUG: Record<string, string> = {
+  "Без сои": "soy-free",
+  "Без глютена": "gluten-free",
+  "Без лактозы": "lactose-free",
+  "Содержит лактозу": "contains-lactose",
+  "Растительные капсулы": "plant-capsule",
+  "Капсулы из говяжьего желатина": "beef-gelatin",
+  "Капсулы из рыбьего желатина": "fish-gelatin",
+  "Для вегетарианцев": "vegetarian",
+  "Для пескетарианцев": "pescatarian",
+  Халяль: "halal",
+  Кошер: "kosher",
+};
+const BADGE_LABEL: Record<string, string> = {
+  "gluten-free": "Без глютена",
+  "soy-free": "Без сои",
+  "lactose-free": "Без лактозы",
+  "contains-lactose": "Содержит лактозу",
+  "plant-capsule": "Растительная капсула",
+  "beef-gelatin": "Капсула из говяжьего желатина",
+  "fish-gelatin": "Капсула из рыбьего желатина",
+  vegetarian: "Для вегетарианцев",
+  pescatarian: "Для пескетарианцев",
+  halal: "Сертификат «Халяль»",
+  kosher: "Сертификат «Кошер»",
+};
+
+/** Вещество таблицы состава → плитка «как в таблице Менделеева» (символ и название), как на основном сайте. */
+const SYMBOLS: [RegExp, string, string][] = [
+  [/^калий/i, "K", "Калий"],
+  [/^кальций/i, "Ca", "Кальций"],
+  [/^магний/i, "Mg", "Магний"],
+  [/^натрий/i, "Na", "Натрий"],
+  [/^цинк/i, "Zn", "Цинк"],
+  [/^селен/i, "Se", "Селен"],
+  [/^железо/i, "Fe", "Железо"],
+  [/^йод/i, "I", "Йод"],
+  [/^медь/i, "Cu", "Медь"],
+  [/^марганец/i, "Mn", "Марганец"],
+  [/^хром/i, "Cr", "Хром"],
+  [/^кремний/i, "Si", "Кремний"],
+  [/^фосфор/i, "P", "Фосфор"],
+  [/^серебро/i, "Ag", "Серебро"],
+  [/^бор\b/i, "B", "Бор"],
+  [/^молибден/i, "Mo", "Молибден"],
+  [/^(тиамин|витамин\s*b1\b)/i, "B1", "Витамин B1"],
+  [/^(рибофлавин|витамин\s*b2\b)/i, "B2", "Витамин B2"],
+  [/^(ниацин|никотинамид|витамин\s*(b3|pp)\b)/i, "B3", "Витамин B3"],
+  [/^(пантотенов|витамин\s*b5\b)/i, "B5", "Витамин B5"],
+  [/^(пиридоксин|витамин\s*b6\b)/i, "B6", "Витамин B6"],
+  [/^(биотин|витамин\s*b7\b)/i, "B7", "Биотин"],
+  [/^(фолиев|фолат|витамин\s*b9\b)/i, "B9", "Фолиевая кислота"],
+  [/^(цианокобаламин|метилкобаламин|витамин\s*b12\b)/i, "B12", "Витамин B12"],
+  [/^витамин\s*[cс]\b/i, "C", "Витамин C"],
+  [/^витамин\s*d3/i, "D3", "Витамин D3"],
+  [/^витамин\s*d/i, "D", "Витамин D"],
+  [/^витамин\s*e\b|^витамин\s*е\b/i, "E", "Витамин E"],
+  [/^витамин\s*a\b|^витамин\s*а\b/i, "A", "Витамин A"],
+  [/^витамин\s*k2/i, "K2", "Витамин K2"],
+  [/^коллаген|^гидролизованный коллаген/i, "Col", "Коллаген"],
+  [/^коэнзим|^убихинон/i, "Q10", "Коэнзим Q10"],
+  [/^(омега|эпк|дгк|эйкозапентаен|докозагексаен)/i, "Ω3", "Омега-3"],
+  [/^гиалурон/i, "HA", "Гиалуроновая кислота"],
+  [/^куркумин/i, "Cur", "Куркумин"],
+  [/^l-?карнитин|^карнитин/i, "Car", "Карнитин"],
+  [/^(мсм|метилсульфонилметан)/i, "MSM", "МСМ"],
+];
+
+function keyElements(p: ProductDetail): { symbol: string; name: string }[] {
+  const out: { symbol: string; name: string }[] = [];
+  for (const r of p.ingredients) {
+    const hit = SYMBOLS.find(([re]) => re.test(r.name.trim()));
+    if (hit && !out.some((e) => e.symbol === hit[1])) out.push({ symbol: hit[1], name: hit[2] });
+    if (out.length === 6) break;
+  }
+  return out;
+}
+
+/* ------------------------------- доставка ------------------------------- */
+
+function Delivery({ price }: { price: number | null }) {
+  const city = useRuCity();
+  const [state, setState] = useState<{ key: string; list: DeliveryOption[] } | null>(null);
+  const key = city ? `${city.city}|${city.area}` : "";
+  useEffect(() => {
+    if (!city) return;
+    let alive = true;
+    loadDelivery(city).then((list) => alive && setState({ key, list }));
+    return () => {
+      alive = false;
+    };
+    // city — новый объект на каждый рендер: следим за ключом
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
+  const list = state?.key === key ? state.list : null;
+  const rows = list
+    ? [
+        { label: "Пункт выдачи", o: cheapest(list, "PICK_POINT") },
+        { label: "Курьером", o: cheapest(list, "COURIER") },
+        { label: "Почтой", o: cheapest(list, "POST") },
+        { label: "Офис Coral Club", o: cheapest(list, "OFFICE") },
+      ].filter((r): r is { label: string; o: DeliveryOption } => Boolean(r.o))
+    : [];
+  // порог бесплатной доставки у способов разный — показываем самый низкий
+  const frees = (list ?? []).filter((o) => o.price > 0).map((o) => o.free).filter((f): f is number => f !== null);
+  const free = frees.length ? Math.min(...frees) : null;
+  const freeNow = free !== null && price !== null && price >= free;
+
+  return (
+    <div className={styles.row}>
+      <Icon name="truck" size={22} />
+      <span>
+        <span className={styles.rowTitle}>Доставка — {city?.city ?? "Москва"}</span>
+        {list === null ? (
+          <small>Считаем…</small>
+        ) : rows.length ? (
+          <>
+            {rows.map(({ label, o }) => (
+              <small key={label}>
+                {label} · {o.price === 0 || freeNow ? "бесплатно" : `от ${rub(o.price)}`}
+                {o.days && ` · ${daysText(o.days)}`}
+              </small>
+            ))}
+            {free !== null && !freeNow && <small>Бесплатно при заказе от {rub(free)}</small>}
+          </>
+        ) : (
+          <small>Способы и стоимость — при оформлении заказа</small>
+        )}
+      </span>
+    </div>
+  );
 }
 
 /* ------------------------------ покупка ------------------------------ */
@@ -213,7 +340,6 @@ export function RuProductView({
   backHref: string;
   more?: ReactNode;
 }) {
-  const city = useRuCity();
   const gallery = useRef<HTMLDivElement>(null);
   const buyRef = useRef<HTMLDivElement>(null);
   const [sticky, setSticky] = useState(false);
@@ -235,10 +361,10 @@ export function RuProductView({
   }, []);
 
   const elements = keyElements(d);
+  const badges = p.feat.map((f) => BADGE_SLUG[f]).filter((x): x is string => Boolean(x));
   const storage = [d.storage && `Хранение: ${d.storage}`, d.shelfLife && `Срок годности: ${d.shelfLife}`, d.country && `Страна производства: ${d.country}`].filter(Boolean) as string[];
   const details = [
     ...(d.howToUse.length ? [{ title: "Способ применения", content: <RichText text={d.howToUse.join("\n\n")} /> }] : []),
-    ...(d.ingredients.length || d.composition ? [{ title: "Состав", content: <Facts p={d} headingId={`ru-facts-${p.code}`} /> }] : []),
     ...(d.contraindications ? [{ title: "Противопоказания", content: <RichText text={d.contraindications} /> }] : []),
     ...(storage.length ? [{ title: "Хранение", content: <RichText text={storage.join("\n\n")} /> }] : []),
   ];
@@ -255,18 +381,17 @@ export function RuProductView({
         <div className={styles.info}>
           {/* название, описание, цена */}
           <section className={styles.head}>
-            <h1 className={styles.title}>{title}</h1>
-            {(d.description || p.lead) && <p className={styles.lead}>{d.description || p.lead}</p>}
+            <Heading className={styles.title}>{title}</Heading>
+            {(d.description || p.lead) && <BodyLong muted>{d.description || p.lead}</BodyLong>}
             {sold ? (
               <div className={styles.price}>
-                <strong>{price}</strong>
-                {was && <s>{was}</s>}
+                <span className={styles.now}>{price}</span>
+                {was && <span className={styles.was}>{was}</span>}
                 {off > 0 && <span className={styles.off}>−{off}%</span>}
               </div>
             ) : (
               <p className={styles.soldOut}>Нет в наличии</p>
             )}
-            {sold && off > 0 && <p className={styles.priceNote}>Цена участника клуба — после входа или регистрации при оформлении</p>}
             <div ref={buyRef} className={styles.buy}>
               {sold && <Qty p={p} member={member} price={price} was={was} />}
             </div>
@@ -274,62 +399,44 @@ export function RuProductView({
 
           {/* доставка и наличие */}
           <section className={styles.rows}>
-            <div className={styles.row}>
-              <Icon name="truck" size={22} />
-              <span>
-                <strong>Доставка в {city?.city ?? "Москва"}</strong>
-                <small>Курьером, в пункт выдачи или офис Coral Club — сроки и стоимость при оформлении</small>
-              </span>
-            </div>
+            <Delivery price={d.club} />
             <button type="button" className={styles.row} onClick={() => setStockOpen(true)}>
               <Icon name="package" size={22} />
               <span>
-                <strong className={sold ? styles.yes : styles.no}>{sold ? "В наличии" : "Нет в наличии"}</strong>
+                <span className={`${styles.rowTitle} ${sold ? styles.yes : styles.no}`}>{sold ? "В наличии" : "Нет в наличии"}</span>
                 <small>Наличие на складах в других городах</small>
               </span>
               <Icon name="next" size={20} />
             </button>
           </section>
 
-          {/* теги, ключевые элементы, форма выпуска */}
-          {p.feat.length > 0 && (
-            <ul className={styles.tags} aria-label="Особенности">
-              {p.feat.map((t) => (
-                <li key={t}>{t}</li>
-              ))}
-            </ul>
-          )}
-          {elements.length > 0 && (
-            <section className={styles.block}>
-              <h2 className={styles.h2}>Ключевые элементы</h2>
-              <ul className={styles.elements}>
-                {elements.map((e) => (
-                  <li key={e.name}>
-                    <strong>{e.amount}</strong>
-                    <span>{e.name}</span>
-                  </li>
-                ))}
-              </ul>
-              {d.ingredientsHeader && <p className={styles.small}>{d.ingredientsHeader.replace(/^Количество\s*/i, "")}</p>}
-            </section>
-          )}
+          {/* теги и ключевые элементы — компоненты основного магазина */}
+          {badges.length > 0 && <DietaryBadges items={badges} labels={BADGE_LABEL} />}
+          {elements.length > 0 && <PeriodicElements items={elements} heading="Ключевые элементы" />}
           {(p.release || p.pack) && (
             <section className={styles.block}>
-              <h2 className={styles.h2}>Форма выпуска</h2>
-              <p className={styles.form}>
-                {p.release && <strong>{p.release}</strong>}
+              <h3 className={styles.h3}>Форма выпуска</h3>
+              <BodyLong>
+                {p.release}
                 {p.release && p.pack && " · "}
                 {p.pack}
-              </p>
+              </BodyLong>
             </section>
           )}
 
           {/* полное описание */}
           {d.components && (
             <section className={styles.block}>
-              <h2 className={styles.h2}>Описание</h2>
+              <h3 className={styles.h3}>Описание</h3>
               <RichText text={d.components} />
             </section>
+          )}
+
+          {/* таблица состава — открыто, не в свёрнутой строке */}
+          {(d.ingredients.length > 0 || d.composition) && (
+            <div className={styles.facts}>
+              <Facts p={d} headingId={`ru-facts-${p.code}`} />
+            </div>
           )}
 
           {/* сертификаты */}

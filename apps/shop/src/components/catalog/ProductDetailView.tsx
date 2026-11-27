@@ -26,7 +26,8 @@ export function Facts({ p, headingId }: { p: ProductDetail; headingId: string })
       </h2>
       {p.ingredients.length > 0 && (
         <>
-          {p.ingredientsHeader && <p className={facts.serving}>Содержание в {p.ingredientsHeader}</p>}
+          {/* заголовок колонки сайта — «Количество на 1 таблетку» */}
+          {p.ingredientsHeader && <p className={facts.serving}>Содержание {p.ingredientsHeader.replace(/^количество\s*/i, "").trim() || "в порции"}</p>}
           <div className={facts.tableWrap}>
             <table className={facts.table}>
               <thead>
