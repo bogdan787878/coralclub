@@ -1,0 +1,115 @@
+/* Фото на весь экран с зумом (ImageViewer.tsx). */
+
+.viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg, #fff);
+  animation: fade var(--duration-base, 0.2s) var(--ease-standard);
+}
+.top {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(var(--space-12) + env(safe-area-inset-top, 0px)) var(--space-16) var(--space-12);
+  pointer-events: none;
+}
+.top > * {
+  pointer-events: auto;
+}
+.count {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-long-size);
+  line-height: var(--text-body-long-line);
+  color: var(--color-text-muted);
+}
+.btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg, #fff);
+  color: var(--color-text);
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.stage {
+  position: relative;
+  flex: 1 1 auto;
+  overflow: hidden;
+  touch-action: none; /* жесты — свои: свайп, щипок, перетаскивание */
+  cursor: zoom-in;
+  user-select: none;
+}
+.track {
+  display: flex;
+  height: 100%;
+}
+.slide {
+  position: relative;
+  flex: 0 0 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.zoom {
+  position: absolute;
+  inset: 56px 0 24px;
+  transform-origin: center center;
+  will-change: transform;
+}
+.animate {
+  transition: transform 0.22s var(--ease-standard);
+}
+
+/* стрелки — на вебе; на телефоне листают свайпом */
+.prev,
+.next {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none;
+}
+.prev {
+  left: var(--space-16);
+}
+.next {
+  right: var(--space-16);
+}
+@media (min-width: 1024px) {
+  .prev,
+  .next {
+    display: grid;
+  }
+  .zoom {
+    inset: 72px 80px 32px;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .viewer,
+  .animate {
+    animation: none;
+    transition: none;
+  }
+}

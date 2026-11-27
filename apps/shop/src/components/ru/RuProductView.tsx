@@ -375,7 +375,7 @@ export function RuProductView({
 
       <div className={styles.layout}>
         <div ref={gallery} className={styles.gallery}>
-          <LandingGallery images={images} title={title} fit="contain" />
+          <LandingGallery images={images} title={title} fit="contain" zoom />
         </div>
 
         <div className={styles.info}>

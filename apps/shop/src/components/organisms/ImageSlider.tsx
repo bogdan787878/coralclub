@@ -37,6 +37,11 @@ export type ImageSliderProps = {
   activeIndex?: number;
   /** Reports the frame the swipe settled on. */
   onActiveChange?: (index: number) => void;
+  /** Tap on a frame opens it (e.g. the full-screen ImageViewer with zoom). Like `href`, the button lives
+   *  inside the scroll track so a swipe still scrolls. */
+  onOpen?: (index: number) => void;
+  /** Accessible name of the open button (default English). */
+  openLabel?: string;
 };
 
 /**
@@ -52,6 +57,8 @@ export function ImageSlider({
   lightDots = false,
   activeIndex,
   onActiveChange,
+  onOpen,
+  openLabel = "Open photo",
 }: ImageSliderProps) {
   const [active, setActive] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -101,7 +108,11 @@ export function ImageSlider({
           );
           return (
             <div className={styles.slide} key={i}>
-              {href ? (
+              {onOpen ? (
+                <button type="button" className={`${styles.slideLink} ${styles.slideOpen}`} onClick={() => onOpen(i)} aria-label={openLabel}>
+                  {image}
+                </button>
+              ) : href ? (
                 <Link href={href} className={styles.slideLink} tabIndex={-1}>
                   {image}
                 </Link>

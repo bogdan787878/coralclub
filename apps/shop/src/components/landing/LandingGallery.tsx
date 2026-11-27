@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ImageSlider, type SliderImage } from "@/components/organisms/ImageSlider";
+import { ImageViewer } from "@/components/organisms/ImageViewer";
 import { ShareButton } from "../../app/(shop)/products/[slug]/ShareButton";
 // the frame itself is the shop PDP's — same classes, same look
 import shop from "../../app/(shop)/products/[slug]/page.module.css";
@@ -17,12 +18,16 @@ export function LandingGallery({
   images,
   title,
   fit = "contain",
+  zoom = false,
 }: {
   images: SliderImage[];
   title: string;
   fit?: "contain" | "cover";
+  /** нажатие на фото открывает его во весь экран с зумом (ImageViewer) */
+  zoom?: boolean;
 }) {
   const [active, setActive] = useState(0);
+  const [open, setOpen] = useState<number | null>(null);
   const multi = images.length > 1;
 
   return (
@@ -61,6 +66,7 @@ export function LandingGallery({
             lightDots
             activeIndex={active}
             onActiveChange={setActive}
+            {...(zoom ? { onOpen: setOpen, openLabel: "Открыть фото во весь экран" } : {})}
           />
         </div>
         {/* desktop only — replaces the floating share button */}
@@ -69,6 +75,7 @@ export function LandingGallery({
           title={title}
         />
       </div>
+      {open !== null && <ImageViewer images={images} start={open} onClose={() => setOpen(null)} />}
     </div>
   );
 }

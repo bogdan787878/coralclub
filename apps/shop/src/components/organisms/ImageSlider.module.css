@@ -69,3 +69,11 @@
 .dotsLight .dotOn {
   background: var(--color-white);
 }
+
+/* фото открывается во весь экран (ImageViewer) */
+.slideOpen {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
