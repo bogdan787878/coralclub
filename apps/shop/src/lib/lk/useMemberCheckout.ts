@@ -103,7 +103,7 @@ function basketDiff(site: SiteLine[], want: Map<string, number>, names: Map<stri
   return [extra.length ? `в корзине сайта лишнее: ${extra.join(", ")}` : "", missing.length ? `не хватает: ${missing.join(", ")}` : ""].filter(Boolean).join("; ");
 }
 
-export function useMemberCheckout(base = "/lk") {
+export function useMemberCheckout(base = "/lk", shopCity?: { city: string; area: string }) {
   const cart = useCart();
   // a render can run on a stale snapshot: re-read the cart once on mount
   useEffect(() => refreshCart(), []);
@@ -174,6 +174,17 @@ export function useMemberCheckout(base = "/lk") {
   const [memberId, setMemberId] = useState<number | null>(null);
   const [order, setOrder] = useState<{ id: string; paymentName: string; failed: string } | null>(null);
 
+  // город магазина (магазин России: город из шапки, от него склад) — он и город доставки и пунктов выдачи
+  const shopCityKey = shopCity ? `${shopCity.city}|${shopCity.area}` : "";
+  useEffect(() => {
+    if (!shopCity) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- город магазина приходит снаружи (выбор в шапке)
+    setCityDraft(shopCity.city);
+    setCity(shopCity.city);
+    setRegion(shopCity.area);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shopCityKey]);
+
   // the city is read after the member stops typing
   useEffect(() => {
     const t = setTimeout(() => setCity(cityDraft.trim()), 450);
@@ -193,7 +204,7 @@ export function useMemberCheckout(base = "/lk") {
       if (name) setFullName((v) => v || titleCase(name));
       if (d.phone) setPhone((v) => v || d.phone!);
       if (d.email) setEmail((v) => v || d.email!);
-      if (d.address?.city) {
+      if (d.address?.city && !shopCity) {
         setCityDraft((v) => v || d.address!.city!);
         setCity((v) => v || d.address!.city!);
       }

@@ -7,6 +7,8 @@ export type PickupLabels = {
   title: string;
   close: string;
   loadingMap: string;
+  /** the points are still being looked up (the map is already shown) */
+  findingPoints?: string;
   mapFailed: string;
   map: string;
   list: string;
@@ -21,6 +23,7 @@ export const PICKUP_EN: PickupLabels = {
   title: "Pick-up point",
   close: "Close",
   loadingMap: "Loading the map…",
+  findingPoints: "Finding pick-up points…",
   mapFailed: "The map could not be loaded. Use the list instead.",
   map: "Map",
   list: "List",
@@ -35,6 +38,7 @@ export const PICKUP_RU: PickupLabels = {
   title: "Пункт выдачи",
   close: "Закрыть",
   loadingMap: "Загружаем карту…",
+  findingPoints: "Ищем пункты выдачи…",
   mapFailed: "Карту загрузить не удалось. Выберите пункт в списке.",
   map: "Карта",
   list: "Список",

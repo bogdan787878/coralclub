@@ -7,6 +7,7 @@ import { LkCheckout } from "@/components/lk/LkCheckout";
 import { loadMemberCart } from "@/lib/lk/memberCart";
 import { RU_BASE } from "@/lib/ru/shop";
 import { useRuMember } from "@/lib/ru/live";
+import { useRuCity } from "@/lib/ru/city";
 
 /**
  * Оформление магазина России — только для участника (механика регистрации): гостя отправляем на вход, а после
@@ -16,6 +17,7 @@ import { useRuMember } from "@/lib/ru/live";
 export function RuCheckout() {
   const member = useRuMember();
   const router = useRouter();
+  const city = useRuCity();
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -29,12 +31,12 @@ export function RuCheckout() {
     };
   }, [member, router]);
 
-  if (!member || !ready) {
+  if (!member || !ready || !city) {
     return (
       <div style={{ padding: "48px 16px" }}>
         <Loader>{member ? "Загружаем корзину…" : "Переходим ко входу…"}</Loader>
       </div>
     );
   }
-  return <LkCheckout base={RU_BASE} doneLink={{ href: `${RU_BASE}/`, label: "Вернуться в магазин" }} bar={false} taxNote={false} />;
+  return <LkCheckout base={RU_BASE} doneLink={{ href: `${RU_BASE}/`, label: "Вернуться в магазин" }} bar={false} taxNote={false} shopCity={city} />;
 }

@@ -62,6 +62,7 @@ export function LkCheckout({
   doneLink = { href: "/lk/", label: "В личный кабинет" },
   bar = true,
   taxNote = true,
+  shopCity,
 }: {
   base?: string;
   doneLink?: { href: string; label: string };
@@ -69,8 +70,10 @@ export function LkCheckout({
   bar?: boolean;
   /** «Цены включают налоги» в итоге */
   taxNote?: boolean;
+  /** город магазина (магазин России: город из шапки) — город доставки; при самовывозе полей города нет */
+  shopCity?: { city: string; area: string };
 } = {}) {
-  const c = useMemberCheckout(base);
+  const c = useMemberCheckout(base, shopCity);
   const searchOn = useAddressSearchEnabled();
   const { form, delivery: d, payment: p, promoState: pr, bonusState: b, lines, money, field, attempted } = c;
   const place = Boolean(form.city);
@@ -215,6 +218,7 @@ export function LkCheckout({
                 label="Как получить заказ"
                 onChange={(id) => {
                   d.setMode(id);
+                  // самовывоз — сразу карта (пункты ищутся, пока она открывается)
                   if (id === "pickup" && form.city) d.setSheetOpen(true);
                 }}
               />
@@ -298,9 +302,14 @@ export function LkCheckout({
                 </>
               ) : (
                 <>
-                  <FloatInput {...field("city")} label="Город" value={form.cityDraft} onChange={form.setCityDraft} autoComplete="address-level2" />
-                  {(form.needsRegion || form.region) && (
-                    <FloatInput {...field("region")} label="Регион, например Республика Татарстан" value={form.region} onChange={form.setRegion} autoComplete="address-level1" />
+                  {/* город известен (город магазина) — полей нет: пункт выбирается на карте */}
+                  {!shopCity && (
+                    <>
+                      <FloatInput {...field("city")} label="Город" value={form.cityDraft} onChange={form.setCityDraft} autoComplete="address-level2" />
+                      {(form.needsRegion || form.region) && (
+                        <FloatInput {...field("region")} label="Регион, например Республика Татарстан" value={form.region} onChange={form.setRegion} autoComplete="address-level1" />
+                      )}
+                    </>
                   )}
                   <div className={`${styles.pickup} ${c.field("point").shake ? styles.shake : ""}`} data-field="point">
                     {!form.city ? (
@@ -375,6 +384,8 @@ export function LkCheckout({
               )}
             </section>
 
+            {/* при самовывозе служба — по пункту, выбранному на карте: отдельного выбора нет */}
+            {!d.pickup && (
             <section className={styles.section}>
               <h2 className={styles.h2}>Способ доставки</h2>
               {!place ? (
@@ -414,6 +425,7 @@ export function LkCheckout({
                 <CourierSlots days={d.slotDays} day={d.slotDay} hours={d.slotHours} onDay={d.setSlotDate} onHours={d.setSlotTime} title="Дата и время доставки" dayLabel="День доставки" hoursLabel="Часы доставки" />
               )}
             </section>
+            )}
 
             <section className={styles.section} id="payment-method">
               <h2 className={styles.h2}>Оплата</h2>
@@ -560,8 +572,10 @@ export function LkCheckout({
           </aside>
         </div>
       )}
-      {d.sheetOpen && d.pickup && !d.pointsLoading && d.points.length > 0 && (
+      {/* карта — сразу, даже пока ищутся пункты выдачи */}
+      {d.sheetOpen && d.pickup && Boolean(form.city) && (
         <PickupSheet
+          loading={d.pointsLoading}
           country={c.country}
           countryName={c.countryName}
           city={form.city}

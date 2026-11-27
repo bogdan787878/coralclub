@@ -105,6 +105,7 @@ export function PickupSheet({
   onSelect,
   onClose,
   labels,
+  loading,
 }: {
   country: string;
   countryName: string;
@@ -117,6 +118,8 @@ export function PickupSheet({
   onClose: () => void;
   /** the words of the sheet (English by default) */
   labels?: Partial<PickupLabels>;
+  /** the points are still being looked up: the map shows already, with a note over it */
+  loading?: boolean;
 }) {
   const t: PickupLabels = { ...PICKUP_EN, ...labels };
   const el = useRef<HTMLDivElement>(null);
@@ -357,9 +360,9 @@ export function PickupSheet({
 
         <div className={styles.body}>
           <div className={styles.map} ref={el} />
-          {status === "loading" && (
+          {(status === "loading" || (status === "ready" && loading)) && (
             <p className={styles.state} role="status">
-              {t.loadingMap}
+              {status === "loading" ? t.loadingMap : (t.findingPoints ?? t.loadingMap)}
             </p>
           )}
           {status === "failed" && (
