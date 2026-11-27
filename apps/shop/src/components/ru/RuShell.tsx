@@ -1,8 +1,9 @@
 "use client";
 
 import Script from "next/script";
-import { useEffect, useSyncExternalStore, type ReactNode } from "react";
-import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { useEffect, useRef, useSyncExternalStore, type ReactNode } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { Icon } from "@/components/ui";
 import { asset } from "@/lib/asset";
 import { refreshCart } from "@/lib/cart";
@@ -68,6 +69,15 @@ export function RuShell({ children }: { children: ReactNode }) {
         ? "home"
         : "";
   const inCheckout = path.startsWith(`${RU_BASE}/checkout`);
+  const inSearch = path.startsWith(`${RU_BASE}/search`);
+  const router = useRouter();
+  // последняя страница перед поиском (рамка живёт между переходами внутри приложения)
+  const beforeSearch = useRef("");
+  useEffect(() => {
+    if (!inSearch) beforeSearch.current = window.location.pathname.replace(process.env.NEXT_PUBLIC_BASE_PATH ?? "", "") + window.location.search;
+  }, [path, inSearch]);
+  /** Выйти из поиска — туда, откуда пришли (или на главную, если поиск открыли по ссылке). */
+  const closeSearch = () => router.push(beforeSearch.current || `${RU_BASE}/`);
   // страница товара на телефоне: без шапки (кнопки «назад» и «поделиться» — над фото, как у маркетплейсов)
   const phone = usePhone();
   const pdpPhone = phone && path.startsWith(`${RU_BASE}/product/`);
@@ -92,9 +102,17 @@ export function RuShell({ children }: { children: ReactNode }) {
         >
           <div slot="corner" style={{ display: "flex", alignItems: "center" }}>
             {!inCheckout && <RuCityButton />}
-            <a className={menu.flagBtn} href={asset(`${RU_BASE}/search/`)} aria-label="Поиск" style={{ color: "inherit" }}>
-              <Icon name="search" />
-            </a>
+            {inSearch ? (
+              // в поиске лупа становится крестиком: выйти из режима поиска
+              <button type="button" className={menu.flagBtn} onClick={closeSearch} aria-label="Закрыть поиск" style={{ color: "inherit" }}>
+                <Icon name="close" />
+              </button>
+            ) : (
+              // переход внутри приложения, без перезагрузки страницы — поиск появляется плавно
+              <Link className={menu.flagBtn} href={`${RU_BASE}/search/`} aria-label="Поиск" style={{ color: "inherit" }}>
+                <Icon name="search" />
+              </Link>
+            )}
           </div>
         </cc-layout>
       )}

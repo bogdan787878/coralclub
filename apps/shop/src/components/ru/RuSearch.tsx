@@ -149,7 +149,6 @@ export function RuSearch() {
           </section>
         )}
 
-        {q.trim() && !search && <p className={styles.note}>Загружаем поиск…</p>}
 
         {result && (
           <>
@@ -186,7 +185,7 @@ export function RuSearch() {
                   <p className={styles.count}>
                     {result.partial ? "Точных совпадений нет — похожие товары" : `Найдено: ${products.length}`}
                   </p>
-                  <ul className={grid.grid} data-analytics-list="search">
+                  <ul key={result.ids.join(",")} className={`${grid.grid} ${styles.results}`} data-analytics-list="search">
                     {products.map((p, i) => (
                       <li key={p.code}>
                         <RuCard p={p} index={i + 1} />

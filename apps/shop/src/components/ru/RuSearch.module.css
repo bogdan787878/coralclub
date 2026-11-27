@@ -5,6 +5,37 @@
   font-family: var(--font-sans);
   color: var(--color-text);
 }
+
+/* появление: поле поиска опускается на место, остальное проявляется следом — без рывка */
+.form {
+  animation: searchIn 0.32s var(--ease-standard, cubic-bezier(0.2, 0, 0, 1)) both;
+}
+.page > div > *:not(form) {
+  animation: searchFade 0.36s 0.08s var(--ease-standard, cubic-bezier(0.2, 0, 0, 1)) both;
+}
+/* выдача меняется при наборе — мягко, без мигания */
+.results {
+  animation: searchFade 0.2s ease-out both;
+}
+@keyframes searchIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+@keyframes searchFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .form,
+  .page > div > *:not(form),
+  .results {
+    animation: none;
+  }
+}
 .form {
   position: relative;
   display: flex;
