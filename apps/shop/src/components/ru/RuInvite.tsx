@@ -4,24 +4,14 @@ import { useEffect, useState } from "react";
 import QRCode from "qrcode";
 import { cc4 } from "@coral/api";
 import { inviteUrl } from "@/lib/ru/ref";
-import { Button, Sheet } from "@/components/ui";
+import { Button, Icon, Sheet } from "@/components/ui";
 import styles from "./RuInvite.module.css";
-
-/** «Поделиться» как в макете (и в iOS): квадрат со стрелкой вверх. */
-function ShareIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M8 9H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1" />
-      <path d="M12 15V3M8.5 6.5 12 3l3.5 3.5" />
-    </svg>
-  );
-}
 
 /**
  * Пригласить в клуб — для вошедшего участника (дистрибьютора). Ссылка ведёт в этот магазин на регистрацию с ним
  * в консультантах (lib/ru/ref.ts: …/login/?tab=register&ref=<Coral ID>); из кабинета — только Coral ID (/account).
  *   «Зарегистрировать вручную» — регистрация нового участника под собой (форма магазина, консультант — вы);
- *   «Ссылка» — поделиться ссылкой (или скопировать);
+ *   «Ссылка» — как «Поделиться» на странице товара: системное меню «Поделиться» (или скопировать ссылку);
  *   «QR-код» — QR ссылки: показать, поделиться картинкой или сохранить.
  */
 export function RuInvite({ memberId, accountWhy = "", onManual }: { memberId: string; accountWhy?: string; onManual: () => void }) {
@@ -119,13 +109,13 @@ export function RuInvite({ memberId, accountWhy = "", onManual }: { memberId: st
       <div className={styles.row}>
         <Button variant="secondary" block onClick={shareLink} disabled={!link}>
           <span className={styles.btnIcon}>
-            <ShareIcon />
+            <Icon name="share" size={20} />
             Ссылка
           </span>
         </Button>
         <Button variant="secondary" block onClick={() => setQrOpen(true)} disabled={!link || !qr}>
           <span className={styles.btnIcon}>
-            <ShareIcon />
+            <Icon name="share" size={20} />
             QR-код
           </span>
         </Button>
