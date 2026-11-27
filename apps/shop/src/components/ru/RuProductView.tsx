@@ -70,6 +70,9 @@ export function RichText({ text }: { text: string }) {
   );
 }
 
+/** Дисклеймер БАД — сразу после описания. */
+const BAD_NOTE = "Биологически активная добавка. Не является лекарственным средством.";
+
 /* ----------------------- теги и ключевые элементы ----------------------- */
 
 /** Теги канона → значки основного магазина (DietaryBadges); «Без ГМО» значка не имеет — не показываем. */
@@ -432,8 +435,10 @@ export function RuProductView({
             <section className={styles.block}>
               <h3 className={styles.h3}>Описание</h3>
               <RichText text={d.components} />
+              {d.isSupplement && <p className={styles.small}>{BAD_NOTE}</p>}
             </section>
           )}
+          {!d.components && d.isSupplement && <p className={styles.small}>{BAD_NOTE}</p>}
 
           {/* применение и противопоказания — на странице, не в свёрнутых строках */}
           {d.howToUse.length > 0 && (
@@ -476,14 +481,13 @@ export function RuProductView({
               </h2>
               <div className={styles.certMedia}>
                 <Image src="/images/ru/cert-media.webp" alt="" fill sizes="(max-width: 1023px) 100vw, 400px" />
-                <Button variant="ghost" className={styles.certBtn} onClick={() => setDocsOpen(true)}>
-                  Смотреть сертификаты
-                </Button>
               </div>
+              <Button variant="ghost" block onClick={() => setDocsOpen(true)}>
+                Смотреть сертификаты
+              </Button>
             </section>
           )}
 
-          {d.isSupplement && <p className={styles.small}>Биологически активная добавка. Не является лекарственным средством.</p>}
         </div>
       </div>
 

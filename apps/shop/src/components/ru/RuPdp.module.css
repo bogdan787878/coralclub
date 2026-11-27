@@ -275,22 +275,12 @@ button.row {
 }
 .certMedia {
   position: relative;
-  height: 172px;
+  height: 142px;
   border-radius: 12px;
   overflow: hidden;
 }
 .certMedia img {
   object-fit: cover;
-}
-/* ghost-кнопка UI-кита по центру внизу картинки; на фото — белая подложка, чтобы читалась */
-.certBtn {
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  bottom: var(--space-12);
-  transform: translateX(-50%);
-  white-space: nowrap;
-  background: var(--color-neutral-white);
 }
 
 .details {
