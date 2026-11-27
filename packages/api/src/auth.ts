@@ -157,7 +157,14 @@ export async function guestToken(country: string, language = "en", location?: Se
 }
 
 /** Товары витрины страны для гостя (GET /catalog/products по анонимной сессии). Кодов, которых нет, в ответе нет. */
-export async function guestProducts(codes: string[], { country, language = "en", location }: { country: string; language?: string; location?: SessionLocation }): Promise<Product[]> {
+export async function guestProducts(codes: string[], opts: { country: string; language?: string; location?: SessionLocation }): Promise<Product[]> {
+  // API отдаёт не больше 50 товаров за запрос
+  if (codes.length > 50) {
+    const parts: string[][] = [];
+    for (let i = 0; i < codes.length; i += 50) parts.push(codes.slice(i, i + 50));
+    return (await Promise.all(parts.map((part) => guestProducts(part, opts)))).flat();
+  }
+  const { country, language = "en", location } = opts;
   if (!codes.length) return [];
   for (let attempt = 0; attempt < 2; attempt++) {
     const token = await guestToken(country, language, location);

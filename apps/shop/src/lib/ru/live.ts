@@ -72,7 +72,7 @@ export function useRuPrices(): Prices {
   );
 }
 
-/* ------------------------------ баннеры акций ------------------------------ */
+/* ------------------------- главная сайта: акции и хиты ------------------------- */
 
 export type RuBanner = { image: string; title: string; button: string; href: string; logo?: string };
 
@@ -81,41 +81,63 @@ const KNOWN: { test: RegExp; title: string; logo?: string }[] = [
   { test: /healthy-friday/, title: "Healthy Friday", logo: `${RU_SITE}/images/hf_center_ru.svg` },
 ];
 
-/** Баннеры главной сайта России (API 2.0 GET /home, блок BANNER_CAROUSEL — то же, что в слайдере coralclub.ru). */
-export async function loadRuBanners(): Promise<RuBanner[]> {
-  for (let attempt = 0; attempt < 2; attempt++) {
-    const token = await guestToken("RU", "ru");
-    if (!token) return [];
-    try {
-      const r = await fetch(`${cc4Base()}/home`, { headers: { accept: "application/json", authorization: `Bearer ${token}` } });
-      if (r.status === 401) {
-        try {
-          window.sessionStorage.removeItem("cc_guest:RU:ru");
-        } catch {
-          /* без хранилища */
+type HomeBlock = {
+  type?: string;
+  title?: string;
+  items?: { imageUrl?: string; text?: string; buttonText?: string; buttonLink?: string; code?: number }[];
+};
+
+let homeLoad: Promise<HomeBlock[]> | null = null;
+/** Блоки главной сайта России (API 2.0 GET /home) — один запрос на страницу. */
+function loadHome(): Promise<HomeBlock[]> {
+  homeLoad ??= (async () => {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const token = await guestToken("RU", "ru");
+      if (!token) return [];
+      try {
+        const r = await fetch(`${cc4Base()}/home`, { headers: { accept: "application/json", authorization: `Bearer ${token}` } });
+        if (r.status === 401) {
+          try {
+            window.sessionStorage.removeItem("cc_guest:RU:ru");
+          } catch {
+            /* без хранилища */
+          }
+          continue;
         }
-        continue;
+        const j = (await r.json().catch(() => null)) as { data?: HomeBlock[] } | null;
+        return j?.data ?? [];
+      } catch {
+        return [];
       }
-      const j = (await r.json().catch(() => null)) as {
-        data?: { type?: string; items?: { imageUrl?: string; text?: string; buttonText?: string; buttonLink?: string }[] }[];
-      } | null;
-      const block = j?.data?.find((b) => b.type === "BANNER_CAROUSEL");
-      return (block?.items ?? [])
-        .filter((it) => it.imageUrl)
-        .map((it) => {
-          const link = it.buttonLink ?? "";
-          const known = KNOWN.find((k) => k.test.test(link));
-          return {
-            image: it.imageUrl as string,
-            title: it.text?.trim() || known?.title || "Акция",
-            button: it.buttonText?.trim() || "Подробнее",
-            href: /^https?:/.test(link) ? link : `${RU_SITE}${link.startsWith("/") ? link : `/${link}`}`,
-            logo: it.text?.trim() ? undefined : known?.logo,
-          };
-        });
-    } catch {
-      return [];
     }
-  }
-  return [];
+    return [];
+  })().then((blocks) => {
+    if (!blocks.length) homeLoad = null; // не ответил — в следующий раз спросим снова
+    return blocks;
+  });
+  return homeLoad;
+}
+
+/** Баннеры главной сайта России (блок BANNER_CAROUSEL — то же, что в слайдере coralclub.ru). */
+export async function loadRuBanners(): Promise<RuBanner[]> {
+  const block = (await loadHome()).find((b) => b.type === "BANNER_CAROUSEL");
+  return (block?.items ?? [])
+    .filter((it) => it.imageUrl)
+    .map((it) => {
+      const link = it.buttonLink ?? "";
+      const known = KNOWN.find((k) => k.test.test(link));
+      return {
+        image: it.imageUrl as string,
+        title: it.text?.trim() || known?.title || "Акция",
+        button: it.buttonText?.trim() || "Подробнее",
+        href: /^https?:/.test(link) ? link : `${RU_SITE}${link.startsWith("/") ? link : `/${link}`}`,
+        logo: it.text?.trim() ? undefined : known?.logo,
+      };
+    });
+}
+
+/** Хиты продаж сайта России (блок «Хиты продаж» главной): артикулы по порядку сайта. */
+export async function loadRuHits(): Promise<number[]> {
+  const block = (await loadHome()).find((b) => b.type === "PRODUCTS_CAROUSEL" && /хит/i.test(b.title ?? ""));
+  return (block?.items ?? []).map((it) => Number(it.code)).filter((c) => Number.isFinite(c) && c > 0);
 }

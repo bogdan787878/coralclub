@@ -26,6 +26,9 @@ import styles from "./Ru.module.css";
 const OPEN = "cc:ru:city:open";
 const ASKED = "ru_city_asked";
 
+/** Открыть выбор города (из шапки, из шторки наличия на странице товара). */
+export const openRuCity = () => window.dispatchEvent(new Event(OPEN));
+
 /** Кнопка города в шапке: открывает выбор. */
 export function RuCityButton() {
   const city = useRuCity();
@@ -33,7 +36,7 @@ export function RuCityButton() {
     <button
       type="button"
       className={styles.cityBtn}
-      onClick={() => window.dispatchEvent(new Event(OPEN))}
+      onClick={openRuCity}
       aria-label={city ? `Город: ${city.city}. Изменить` : "Выбрать город"}
     >
       <Icon name="pin" size={18} />

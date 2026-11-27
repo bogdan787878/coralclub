@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ImageSlider, type SliderImage } from "@/components/organisms";
+import { ImageSlider, type SliderImage } from "@/components/organisms/ImageSlider";
 import { ShareButton } from "../../app/(shop)/products/[slug]/ShareButton";
 // the frame itself is the shop PDP's — same classes, same look
 import shop from "../../app/(shop)/products/[slug]/page.module.css";

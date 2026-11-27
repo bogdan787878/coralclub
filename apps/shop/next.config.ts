@@ -16,14 +16,20 @@ const lanHosts = Object.values(networkInterfaces())
 //    `*.labspace.tsx` files in src/app (the root of the base path is the
 //    landing itself); images are served from the bundle, not from Cloudflare.
 //    Build it with `npm run build:labspace` (see handoff/labspace-deploy.md).
+//  - магазин России отдельно (DEPLOY_TARGET=ru): ТОЛЬКО страницы магазина России — файлы `*.ru.tsx` в
+//    src/app (главная, товар, корзина, вход, оформление) в корне сайта; base path — RU_BASE_PATH (по
+//    умолчанию корень домена). Сборка: `npm run build:ru` → dist/ru (см. scripts/build-ru.mjs).
 // Local dev / any other host: no prefix.
 const isGithubPages = process.env.GITHUB_PAGES === "true";
 const isLabspace = process.env.DEPLOY_TARGET === "coralclub";
+const isRu = process.env.DEPLOY_TARGET === "ru";
 const basePath = isLabspace
   ? "/landings/labspace"
-  : isGithubPages
-    ? "/coralclub"
-    : "";
+  : isRu
+    ? (process.env.RU_BASE_PATH ?? "")
+    : isGithubPages
+      ? "/coralclub"
+      : "";
 
 const nextConfig: NextConfig = {
   // Static HTML export — no Node server on GitHub Pages / on the shop's host.
@@ -34,12 +40,16 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: lanHosts,
   // the labspace build exports into its own folder, `out/` stays untouched
   ...(isLabspace ? { distDir: "dist/labspace-build" } : {}),
+  ...(isRu ? { distDir: "dist/ru-build" } : {}),
   // labspace: only files named page.labspace.tsx / layout.labspace.tsx are routes
   ...(isLabspace ? { pageExtensions: ["labspace.tsx"] } : {}),
+  // магазин России: только page.ru.tsx / layout.ru.tsx — остального сайта в сборке нет
+  ...(isRu ? { pageExtensions: ["ru.tsx"] } : {}),
   // the dev server's generated types (.next/dev) describe other routes
   ...(isLabspace
     ? { typescript: { tsconfigPath: "tsconfig.labspace.json" } }
     : {}),
+  ...(isRu ? { typescript: { tsconfigPath: "tsconfig.ru.json" } } : {}),
   images: {
     // Raster images are resized + reformatted by Cloudflare Images; the
     // loader falls back to the original /public file for anything not yet
@@ -59,6 +69,8 @@ const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_BASE_PATH: basePath,
     NEXT_PUBLIC_DEPLOY_TARGET: process.env.DEPLOY_TARGET ?? "",
+    // корень магазина России: «/ru» внутри общего сайта, «» в его отдельной сборке
+    NEXT_PUBLIC_RU_BASE: isRu ? "" : "/ru",
   },
 };
 

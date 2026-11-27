@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useSyncExternalStore, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { Icon } from "@/components/ui";
 import { asset } from "@/lib/asset";
@@ -15,6 +15,20 @@ import { RU_BASE, RU_CART_KEY } from "@/lib/ru/shop";
 import { useRuMember } from "@/lib/ru/live";
 import menu from "@/components/checkout/CountryMenu.module.css";
 import { RuCityButton, RuCitySheet } from "./RuCity";
+
+/** Телефон и планшет (до 1024px) — там на странице товара своя верхняя полоса вместо шапки магазина. */
+const PHONE = "(max-width: 1023px)";
+function usePhone(): boolean {
+  return useSyncExternalStore(
+    (cb) => {
+      const m = window.matchMedia(PHONE);
+      m.addEventListener("change", cb);
+      return () => m.removeEventListener("change", cb);
+    },
+    () => window.matchMedia(PHONE).matches,
+    () => false,
+  );
+}
 
 /**
  * Рамка магазина России: общий Layout продукта (шапка, нижнее меню на телефоне, бейдж корзины) и, когда
@@ -40,7 +54,7 @@ export function RuShell({ children }: { children: ReactNode }) {
 
   const links = JSON.stringify({
     home: asset(`${RU_BASE}/`),
-    catalog: asset(`${RU_BASE}/#minerals`),
+    catalog: asset(`${RU_BASE}/#phase`),
     cart: asset(`${RU_BASE}/cart/`),
     me: asset(`${RU_BASE}/login/`),
   });
@@ -52,6 +66,9 @@ export function RuShell({ children }: { children: ReactNode }) {
         ? "home"
         : "";
   const inCheckout = path.startsWith(`${RU_BASE}/checkout`);
+  // страница товара на телефоне: без шапки (кнопки «назад» и «поделиться» — над фото, как у маркетплейсов)
+  const phone = usePhone();
+  const pdpPhone = phone && path.startsWith(`${RU_BASE}/product/`);
   // как на главной магазина: на главной нижнее меню появляется, когда докрутили до первого раздела после обложки
   const isHome = active === "home";
 
@@ -62,18 +79,18 @@ export function RuShell({ children }: { children: ReactNode }) {
       {member !== null && (
         <cc-layout
           key={`${member ? "member" : "guest"}-${isHome ? "home" : "page"}`}
-          {...(isHome ? { "reveal-after": "minerals" } : {})}
+          {...(isHome ? { "reveal-after": "phase" } : {})}
           locale="ru"
           {...(member ? {} : { cart: "local", "cart-key": RU_CART_KEY })}
           tabs="home catalog cart me"
           labels={JSON.stringify({ catalog: "Каталог", me: member ? "Аккаунт" : "Войти" })}
           links={links}
           active={active}
-          {...(inCheckout ? { parts: "header" } : {})}
+          {...(inCheckout ? { parts: "header" } : pdpPhone ? { parts: "tabbar" } : {})}
         >
           <div slot="corner" style={{ display: "flex", alignItems: "center" }}>
             {!inCheckout && <RuCityButton />}
-            <a className={menu.flagBtn} href={asset(`${RU_BASE}/#minerals`)} aria-label="Поиск" style={{ color: "inherit" }}>
+            <a className={menu.flagBtn} href={asset(`${RU_BASE}/#phase`)} aria-label="Поиск" style={{ color: "inherit" }}>
               <Icon name="search" />
             </a>
           </div>

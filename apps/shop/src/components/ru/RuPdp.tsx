@@ -3,15 +3,30 @@
 import { useEffect, useState } from "react";
 import { catalogProduct, guestProductDetail, type ProductDetail } from "@coral/api";
 import { Container, Heading, Section } from "@/components/ui";
-import { ProductDetailView } from "@/components/catalog/ProductDetailView";
 import { ShopSkeleton } from "@/components/lk/LkShop";
-import { RU_BASE, RU_PRODUCTS, ruProduct, ruTitle } from "@/lib/ru/shop";
+import { RU_BASE, RU_PRODUCTS, ruProduct, ruProducts, ruTitle, type RuProduct } from "@/lib/ru/shop";
+import { HYDRATION_PACK, RESET_PACKS } from "@/lib/ru/home";
 import { useRuMember } from "@/lib/ru/live";
 import { applyMemberCity, cityKey, useRuCity } from "@/lib/ru/city";
 import shop from "@/app/(shop)/products/[slug]/page.module.css";
 import styles from "@/app/landing/product/[slug]/page.module.css";
-import { RuBuyBox } from "./RuBuyBox";
+import { RuProductView } from "./RuProductView";
 import { RuCards } from "./RuCards";
+
+/** Состав наборов главной — как на витрине (у канона он бывает другим). */
+const PACK_PARTS = new Map([HYDRATION_PACK, ...RESET_PACKS].map((x) => [x.code, x.parts]));
+
+/** Низ страницы: у набора — что в него входит, у товара — товары той же фазы или домена. */
+function moreFor(p: RuProduct): { heading: string; list: RuProduct[] } {
+  const parts = ruProducts(PACK_PARTS.get(p.code) ?? p.parts);
+  if (p.set && parts.length) return { heading: "Что входит в набор", list: parts };
+  const same = (x: RuProduct) =>
+    x.code !== p.code &&
+    ((p.phase.includes("hydration") && x.phase.includes("hydration")) ||
+      (p.phase.includes("reset") && x.phase.includes("reset")) ||
+      (p.domains[0] !== undefined && x.domains.includes(p.domains[0])));
+  return { heading: "Вам может подойти", list: RU_PRODUCTS.filter(same).slice(0, 8) };
+}
 
 /**
  * Страница товара магазина России (как у «Друга клуба»): галерея, текст, блок покупки, подробности, состав,
@@ -65,25 +80,25 @@ export function RuPdp({ slug }: { slug: string }) {
   }
 
   const title = ruTitle(p);
-  const images = p.gallery ?? [...p.images, ...detail.pictures.map((src) => ({ src, alt: title }))];
-  const others = RU_PRODUCTS.filter((x) => x.slug !== slug);
+  const seen = new Set<string>();
+  const images = p.gallery ?? [...p.images, ...detail.pictures.map((src) => ({ src, alt: title }))].filter((i) => !seen.has(i.src) && seen.add(i.src));
+  const { heading, list } = moreFor(p);
   return (
-    <ProductDetailView
-      p={detail}
+    <RuProductView
+      p={p}
+      d={detail}
       title={title}
-      lead={detail.description || detail.components.split(/(?<=[.!?])\s+/)[0] || ""}
       images={images}
+      member={Boolean(member)}
       backHref={`${RU_BASE}/`}
-      idPrefix="ru"
-      buy={<RuBuyBox p={p} member={Boolean(member)} club={detail.club} retail={detail.retail} available={detail.available} />}
       more={
         <Section tone="default" className={styles.more}>
           <Container>
             <Heading as="h2" className={shop.moreTitle}>
-              Ещё для гидратации
+              {heading}
             </Heading>
           </Container>
-          <RuCards products={others} listId="pdp_similar" label="Ещё для гидратации" />
+          <RuCards products={list} listId="pdp_similar" label={heading} />
         </Section>
       }
     />

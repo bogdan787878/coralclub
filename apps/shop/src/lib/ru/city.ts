@@ -11,7 +11,7 @@
  * по списку ниже. Город хранится в браузере; пока человек его не подтвердил, это догадка (`chosen: false`).
  */
 import { useSyncExternalStore } from "react";
-import { setSessionLocation, getToken, type SessionLocation } from "@coral/api";
+import { clearProductCache, setSessionLocation, getToken, type SessionLocation } from "@coral/api";
 import { gatewayUrl } from "@/lib/lk/config";
 import {
   addressSearchEnabled,
@@ -260,6 +260,7 @@ export async function applyMemberCity(c: RuCity): Promise<void> {
   }
   const ok = await setSessionLocation(c).catch(() => false);
   if (ok) {
+    clearProductCache(); // наличие прежнего города больше не годится
     try {
       window.sessionStorage.setItem(MEMBER_MARK, want);
     } catch {

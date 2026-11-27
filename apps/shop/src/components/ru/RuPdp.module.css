@@ -1,0 +1,516 @@
+/* Страница товара магазина России (components/ru/RuProductView.tsx). Телефон в первую очередь. */
+
+.page {
+  min-height: 100svh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+/* ---------- верх: круглые кнопки над фото → белая полоса с названием ---------- */
+.topBar {
+  position: fixed;
+  z-index: 40;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: calc(var(--space-8) + env(safe-area-inset-top, 0px)) var(--space-16) var(--space-8);
+  background: transparent;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+  pointer-events: none;
+}
+.topBar > * {
+  pointer-events: auto;
+}
+.topTitle {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-standard);
+}
+.topBarSolid {
+  background: var(--color-bg);
+  box-shadow: 0 1px 0 var(--color-border);
+}
+.topBarSolid .topTitle {
+  opacity: 1;
+}
+/* на белой полосе кнопки без тени и подложки */
+.topBarSolid :global(button),
+.topBarSolid :global(a) {
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* ---------- раскладка ---------- */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.gallery {
+  background: var(--color-surface, #efefef);
+}
+.info {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-24);
+  padding: var(--space-16) var(--page-padding-inline, 16px) var(--space-32);
+}
+
+/* ---------- название, описание, цена ---------- */
+.head {
+  display: grid;
+  gap: var(--space-8);
+}
+.title {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.25;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: -0.01em;
+}
+.lead {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-text-muted, rgba(0, 0, 0, 0.65));
+}
+.price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-8);
+  margin-top: var(--space-8);
+}
+.price strong {
+  font-size: 1.75rem;
+  line-height: 1.1;
+  font-weight: 700;
+}
+.price s {
+  font-size: 1rem;
+  color: var(--color-text-muted, rgba(0, 0, 0, 0.5));
+}
+.off {
+  align-self: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: #c49a6c;
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.priceNote {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted, rgba(0, 0, 0, 0.55));
+}
+.soldOut {
+  margin: var(--space-8) 0 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+.buy {
+  margin-top: var(--space-8);
+}
+
+/* степпер «− 2 в корзине +» */
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--color-neutral-30, #eef1f3);
+}
+.stepper button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg);
+  color: inherit;
+  cursor: pointer;
+}
+.stepper span {
+  display: grid;
+  justify-items: center;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.stepper a {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: inherit;
+  opacity: 0.7;
+}
+
+/* ---------- доставка и наличие ---------- */
+.rows {
+  display: grid;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  width: 100%;
+  padding: var(--space-12) var(--space-16);
+  border: 0;
+  background: var(--color-bg);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+.row + .row {
+  border-top: 1px solid var(--color-border);
+}
+button.row {
+  cursor: pointer;
+}
+.row > span {
+  flex: 1 1 auto;
+  display: grid;
+  gap: 2px;
+}
+.row strong {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+.row small {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted, rgba(0, 0, 0, 0.55));
+}
+.yes {
+  color: #2f7d4f;
+}
+.no {
+  color: #b23b3b;
+}
+.wait {
+  opacity: 0.5;
+}
+
+/* ---------- теги, ключевые элементы, форма ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tags li {
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-neutral-30, #eef1f3);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+.block {
+  display: grid;
+  gap: var(--space-12);
+}
+.h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: var(--font-weight-medium);
+}
+.elements {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.elements li {
+  display: grid;
+  gap: 2px;
+  padding: var(--space-12);
+  border-radius: 12px;
+  background: var(--color-surface, #f4f4f4);
+}
+.elements strong {
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+.elements span {
+  font-size: 0.875rem;
+  line-height: 1.3;
+}
+.small {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted, rgba(0, 0, 0, 0.55));
+}
+.form {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* ---------- полное описание ---------- */
+.rich {
+  display: grid;
+  gap: var(--space-12);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.rich p,
+.rich ul {
+  margin: 0;
+}
+.rich ul {
+  padding-left: 1.2em;
+}
+.rich h3 {
+  margin: var(--space-8) 0 0;
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+/* ---------- сертификаты (дизайн прототипа: карточка с рамкой, текст и фото) ---------- */
+.cert {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #e5ecf1;
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+}
+.certText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.certEyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #004c50;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.certTitle {
+  margin: 0;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 600;
+  color: #39444c;
+}
+.certLead {
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+  color: #75828b;
+}
+.certLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(9, 22, 32, 0.8);
+  cursor: pointer;
+}
+.certMedia {
+  position: relative;
+  height: 142px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.certMedia img {
+  object-fit: cover;
+}
+
+.details {
+  margin-top: calc(-1 * var(--space-8));
+}
+
+/* ---------- кнопка внизу ---------- */
+.sticky {
+  position: fixed;
+  z-index: 44;
+  left: 0;
+  right: 0;
+  bottom: var(--cc-tabbar-space, 0px);
+  padding: var(--space-8) 0;
+  background: var(--color-bg);
+  box-shadow: 0 -8px 24px rgba(1, 17, 48, 0.08);
+  transform: translateY(calc(100% + var(--cc-tabbar-space, 0px)));
+  transition: transform var(--duration-base, 0.25s) var(--ease-standard);
+}
+.stickyOn {
+  transform: none;
+}
+.stickyRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+.stickyPrice {
+  display: grid;
+  flex: none;
+}
+.stickyPrice strong {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+.stickyPrice s {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted, rgba(0, 0, 0, 0.5));
+}
+.stickyBtn {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* ---------- шторки ---------- */
+.stockHere {
+  display: grid;
+  gap: 4px;
+  padding: var(--space-16);
+  border-radius: 16px;
+  background: var(--color-surface, #f4f4f4);
+}
+.stockHere > span {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+.stockHere p {
+  margin: 0;
+}
+.link {
+  justify-self: start;
+  margin-top: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-primary, inherit);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.stockLabel {
+  margin: var(--space-24) 0 var(--space-8);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted, rgba(0, 0, 0, 0.6));
+}
+.stockList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.stockList li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  padding: var(--space-12) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.stockList li > span:first-child {
+  display: grid;
+  gap: 2px;
+}
+.stockList small {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted, rgba(0, 0, 0, 0.55));
+}
+.stockList li > span:last-child {
+  font-weight: 700;
+}
+.stockNote {
+  margin: var(--space-16) 0 0;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted, rgba(0, 0, 0, 0.55));
+}
+.docs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.docs a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-12) 0;
+  border-bottom: 1px solid var(--color-border);
+  color: inherit;
+  text-decoration: none;
+}
+.docs a span {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- веб: фото слева, текст справа; верхняя полоса не нужна — есть шапка магазина ---------- */
+@media (min-width: 1024px) {
+  .topBar {
+    display: none;
+  }
+  .layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-48, 48px);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-32) var(--space-56, 56px) 0;
+  }
+  .gallery {
+    position: sticky;
+    top: 88px;
+    align-self: start;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+  .info {
+    padding: 0 0 var(--space-48, 48px);
+  }
+  .title {
+    font-size: 2rem;
+  }
+  .cert {
+    flex-direction: row;
+    align-items: center;
+  }
+  .certMedia {
+    flex: none;
+    width: 45%;
+    height: 198px;
+  }
+  .sticky {
+    display: none;
+  }
+}

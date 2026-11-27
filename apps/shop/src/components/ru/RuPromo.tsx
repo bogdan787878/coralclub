@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Carousel } from "@/components/organisms";
+import { Carousel } from "@/components/organisms/Carousel";
 import { loadRuBanners, type RuBanner } from "@/lib/ru/live";
 import styles from "./Ru.module.css";
 

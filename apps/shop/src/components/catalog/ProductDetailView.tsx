@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import type { ProductDetail } from "@coral/api";
 import { BodyLong, Heading, Section, Stack } from "@/components/ui";
-import { InfoAccordion } from "@/components/organisms";
+import { InfoAccordion } from "@/components/organisms/InfoAccordion";
 import { LandingGallery } from "@/components/landing/LandingGallery";
 import { PdpTabs, type PdpTab } from "@/components/friend/PdpTabs";
 import { BackButton } from "@/app/(shop)/products/[slug]/BackButton";
@@ -16,7 +16,7 @@ import tabsCss from "@/app/friend/product/[slug]/tabs.module.css";
 import facts from "@/components/friend/PdpBlocks.module.css";
 
 /** Таблица активных веществ (как «Supplement Facts» на странице товара «Друга клуба»). */
-function Facts({ p, headingId }: { p: ProductDetail; headingId: string }) {
+export function Facts({ p, headingId }: { p: ProductDetail; headingId: string }) {
   if (!p.ingredients.length && !p.composition) return null;
   const anyPercent = p.ingredients.some((r) => r.percent);
   return (

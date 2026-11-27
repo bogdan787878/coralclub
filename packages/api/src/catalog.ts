@@ -52,18 +52,27 @@ export function normalizeProduct(raw: Raw): Product | null {
 }
 
 const cache = new Map<number, Product>();
+/** Забыть полученные товары: сменился город сессии, а с ним склад и наличие. */
+export function clearProductCache(): void {
+  cache.clear();
+}
 
 /** Товары по кодам (уже полученные берутся из кэша). Кодов, которых API не вернул, в ответе просто нет. */
 export async function fetchProducts(codes: number[]): Promise<Product[]> {
   const need = codes.filter((c) => !cache.has(c));
-  if (need.length) {
-    const qs = need.map((c) => `products[]=${c}`).join("&");
-    const r = await cc4<{ data?: Raw[] }>(`/catalog/products?${qs}`);
-    for (const raw of r.json?.data ?? []) {
-      const p = normalizeProduct(raw);
-      if (p) cache.set(p.code, p);
-    }
-  }
+  // API отдаёт не больше 50 товаров за запрос
+  const parts: number[][] = [];
+  for (let i = 0; i < need.length; i += 50) parts.push(need.slice(i, i + 50));
+  await Promise.all(
+    parts.map(async (part) => {
+      const qs = part.map((c) => `products[]=${c}`).join("&");
+      const r = await cc4<{ data?: Raw[] }>(`/catalog/products?${qs}`);
+      for (const raw of r.json?.data ?? []) {
+        const p = normalizeProduct(raw);
+        if (p) cache.set(p.code, p);
+      }
+    }),
+  );
   return codes.map((c) => cache.get(c)).filter((p): p is Product => !!p);
 }
 
