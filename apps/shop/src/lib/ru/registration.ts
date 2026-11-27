@@ -10,16 +10,16 @@
 import { cc4Base, guestToken } from "@coral/api";
 import { shop } from "./site";
 
-export type Consultant = { id: string; name: string; avatar: string };
+export type Consultant = { id: string; name: string; avatar: string; /** реферальный код участника (ссылки и реферальная корзина сайта) */ refCode: string };
 
 
 /** Консультант по Coral ID или телефону. */
 export async function findConsultant(q: { memberId?: string; phone?: string }): Promise<Consultant | null> {
   const query: Record<string, string> = q.phone ? { phone: q.phone } : { memberId: q.memberId ?? "" };
-  const d = await shop<{ status?: boolean; result?: { MEMBER_ID: string; NAME: string; AVATAR: string } }>(
+  const d = await shop<{ status?: boolean; result?: { MEMBER_ID: string; NAME: string; AVATAR: string; REF_CODE?: string } }>(
     `/restApi/registration/consultant/?${new URLSearchParams(query)}`,
   );
-  return d?.status && d.result ? { id: String(d.result.MEMBER_ID), name: d.result.NAME, avatar: d.result.AVATAR } : null;
+  return d?.status && d.result ? { id: String(d.result.MEMBER_ID), name: d.result.NAME, avatar: d.result.AVATAR, refCode: String(d.result.REF_CODE ?? "") } : null;
 }
 
 const plain = (s: string) => s.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();

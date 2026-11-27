@@ -6,4 +6,5 @@ export const ICON = {
   minus: svg("minus"),
   plus: svg("plus"),
   trash: svg("trash"),
+  share: svg("share"),
 };

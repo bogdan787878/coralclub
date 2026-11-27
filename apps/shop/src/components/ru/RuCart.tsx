@@ -9,6 +9,7 @@ import { RU_BASE, RU_CART_KEY, RU_PRODUCTS, ruProductByCode, rub, type RuProduct
 import { useRuMember, useRuPrices } from "@/lib/ru/live";
 import { cityKey, useRuCity } from "@/lib/ru/city";
 import { loadDelivery } from "@/lib/ru/delivery";
+import { loadShareRef, shareCartUrl } from "@/lib/ru/shareCart";
 import friend from "@/components/friend/Friend.module.css";
 import { RuCards } from "./RuCards";
 import styles from "./RuCart.module.css";
@@ -24,7 +25,19 @@ export function RuCart() {
   const member = useRuMember();
   const router = useRouter();
   const prices = useRuPrices();
-  const el = useRef<HTMLElement & { imageUrl?: unknown; lineSub?: unknown }>(null);
+  const el = useRef<HTMLElement & { imageUrl?: unknown; lineSub?: unknown; shareLink?: unknown }>(null);
+  // реферальная корзина: участник (или тот, кто пригласил гостя) — заранее, ссылка по нажатию собирается сразу
+  const shareRef = useRef("");
+  useEffect(() => {
+    if (member === null) return;
+    let alive = true;
+    loadShareRef(Boolean(member)).then((r) => {
+      if (alive) shareRef.current = r;
+    });
+    return () => {
+      alive = false;
+    };
+  }, [member]);
   const city = useRuCity();
   const [freeFrom, setFreeFrom] = useState<number | null>(null);
 
@@ -49,6 +62,7 @@ export function RuCart() {
     const node = el.current;
     if (!node) return;
     node.lineSub = (id: string) => ruProductByCode(id)?.tag ?? "";
+    node.shareLink = (lines: { id: string; qty: number }[]) => shareCartUrl(lines, shareRef.current);
   }, [member]);
 
   // гость: строки корзины — по текущим ценам участника (положенные раньше могли быть по обычной)

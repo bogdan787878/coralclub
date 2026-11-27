@@ -82,6 +82,13 @@ svg { display: block; }
 .cta:hover:not(:disabled) { background: var(--c-action-hover); }
 .cta:disabled { opacity: .45; cursor: not-allowed; }
 .cta.wide { width: auto; }
+/* ghost-кнопка UI kit: «Поделиться корзиной» под «Оформить заказ» */
+.ghostBtn { width: 100%; min-height: 52px; padding: 0 24px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border-radius: 999px; border: 1px solid rgba(0, 32, 34, .16); background: transparent; color: var(--c-text); font-size: 1rem; font-weight: var(--fw);
+  transition: background-color .15s var(--ease); }
+.ghostBtn:hover:not(:disabled) { background: var(--c-surface); }
+.ghostBtn:disabled { opacity: .6; cursor: progress; }
+.ghostBtn svg { width: 20px; height: 20px; }
 .ghost { align-self: center; padding: 10px 4px; font-size: .9375rem; text-decoration: underline; text-underline-offset: 3px; }
 
 .empty { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 56px 16px; text-align: center; color: var(--c-muted); }
@@ -105,6 +112,7 @@ svg { display: block; }
   .thumb { width: 136px; height: 136px; }
   .sum { position: sticky; top: calc(var(--ru-sticky-top, 0px) + 24px); }
   .cta { min-height: 56px; }
+  .ghostBtn { min-height: 56px; }
   .qty { gap: 8px; padding: 4px; }
   .qty button { width: 32px; height: 32px; }
 }

@@ -14,7 +14,8 @@
  * Слоты (разметка сервиса со своими стилями): cart-banner (над строками), cart-extra (под строками, например
  * «Вам может понравиться»), cart-summary (вместо строк итога), cart-note (над кнопкой оформления).
  * Свойства: linePrice(raw) → {now, was, save, note} — цена строки по правилам сервиса; imageUrl(src) → адрес картинки;
- * lineSub(id) → подпись под названием строки (например, домен здоровья).
+ * lineSub(id) → подпись под названием строки (например, домен здоровья); shareLink(lines) → ссылка «Поделиться корзиной»
+ * (задана — под «Оформить заказ» появляется кнопка: системное «Поделиться», иначе ссылка копируется).
  *
  * События: cc:cart:checkout {lines} на элементе — отменяемое (preventDefault: переход делает сервис, иначе
  * links.checkout); cc:cart:changed на window — от хранилища при каждом изменении.
@@ -41,7 +42,7 @@ const TEXT = {
     retry: "Повторить", priceLater: "Цена при оформлении", remove: "Удалить", dec: (n: string) => `Уменьшить: ${n}`, inc: (n: string) => `Добавить: ${n}`,
     loading: "Загрузка", summary: "Ваш заказ", next: "Доставку и оплату выберете на следующем шаге.",
     freeLeft: (s: string) => `Ещё ${s} до бесплатной доставки`, freeDone: "Доставка будет бесплатной", goods: (n: number) => `Товары (${n})`,
-    total: "Итого",
+    total: "Итого", share: "Поделиться корзиной", copied: "Ссылка скопирована", shareTitle: "Корзина Coral Club",
   },
   en: {
     title: "Cart", items: (n: number) => `${n} ${n === 1 ? "item" : "items"}`, empty: "Your cart is empty.",
@@ -51,7 +52,7 @@ const TEXT = {
     retry: "Try again", priceLater: "Price at checkout", remove: "Remove", dec: (n: string) => `Decrease ${n}`, inc: (n: string) => `Increase ${n}`,
     loading: "Loading", summary: "Your order", next: "Delivery and payment come at the next step.",
     freeLeft: (s: string) => `Add ${s} more for free shipping`, freeDone: "You’ve unlocked free shipping", goods: (n: number) => `Items (${n})`,
-    total: "Total",
+    total: "Total", share: "Share cart", copied: "Link copied", shareTitle: "Coral Club cart",
   },
 };
 type Text = (typeof TEXT)["ru"];
@@ -72,6 +73,8 @@ export class CcCart extends HTMLElement {
   private priceFn: ((raw: RawLine) => LinePrice | null) | null = null;
   private imageFn: ((src: string) => string) | null = null;
   private subFn: ((id: string) => string) | null = null;
+  private shareFn: ((lines: { id: string; qty: number }[]) => Promise<string> | string) | null = null;
+  private shareState: "" | "busy" | "copied" = "";
   private store = getStore();
 
   constructor() {
@@ -104,6 +107,14 @@ export class CcCart extends HTMLElement {
   get lineSub() {
     return this.subFn;
   }
+  /** Ссылка «Поделиться корзиной» по строкам (id — артикул, qty). */
+  set shareLink(fn: ((lines: { id: string; qty: number }[]) => Promise<string> | string) | null) {
+    this.shareFn = typeof fn === "function" ? fn : null;
+    if (this.isConnected) this.render();
+  }
+  get shareLink() {
+    return this.shareFn;
+  }
 
   /** Адреса из атрибута links (не свойство links: React 19 присваивает атрибуты веб-компонента как свойства). */
   get linkMap(): CartLinks {
@@ -120,7 +131,7 @@ export class CcCart extends HTMLElement {
   connectedCallback() {
     // свойства, заданные до загрузки cart.js (страница успела раньше), лежат на самом элементе и прячут сеттеры:
     // забираем их и присваиваем заново
-    for (const key of ["linePrice", "imageUrl", "lineSub"] as const) {
+    for (const key of ["linePrice", "imageUrl", "lineSub", "shareLink"] as const) {
       if (Object.prototype.hasOwnProperty.call(this, key)) {
         const value = (this as unknown as Record<string, unknown>)[key];
         delete (this as unknown as Record<string, unknown>)[key];
@@ -146,6 +157,7 @@ export class CcCart extends HTMLElement {
     const qty = this.store.cartState().lines.find((l) => l.id === id)?.qty ?? 0;
     const act = el.dataset.act;
     if (act === "retry") return void this.store.refresh();
+    if (act === "share") return void this.share();
     if (act === "inc") return void this.store.setQty(id, qty + 1);
     if (act === "dec") return void this.store.setQty(id, qty - 1);
     if (act === "remove") return void this.store.remove(id);
@@ -197,6 +209,7 @@ export class CcCart extends HTMLElement {
             </dl></slot>
             <slot name="cart-note"></slot>
             <button class="cta" type="button" data-act="checkout">${esc(T.checkout)}</button>
+            ${this.shareFn ? `<button class="ghostBtn" type="button" data-act="share"${this.shareState === "busy" ? " disabled" : ""}>${ICON.share}<span>${esc(this.shareState === "copied" ? T.copied : T.share)}</span></button>` : ""}
           </aside>
         </div>`;
     }
@@ -205,6 +218,57 @@ export class CcCart extends HTMLElement {
         <header class="top"><h1>${esc(T.title)}</h1>${lines.length ? `<span class="count">${esc(T.items(n))}</span>` : ""}</header>
         ${main}
       </section>`;
+  }
+
+  /** «Поделиться корзиной»: ссылку даёт сервис; системное меню «Поделиться», иначе — в буфер обмена. */
+  private async share() {
+    if (!this.shareFn || this.shareState === "busy") return;
+    const T = this.labelSet;
+    const lines = this.store.cartState().lines.map((l) => ({ id: l.id, qty: l.qty }));
+    if (!lines.length) return;
+    this.shareState = "busy";
+    this.render();
+    let url = "";
+    try {
+      url = await this.shareFn(lines);
+    } catch {
+      url = "";
+    }
+    this.shareState = "";
+    if (url) {
+      if (typeof navigator.share === "function") {
+        try {
+          await navigator.share({ title: T.shareTitle, url });
+          this.render();
+          return;
+        } catch (e) {
+          if (e instanceof DOMException && e.name === "AbortError") return void this.render();
+        }
+      }
+      // в буфер обмена; где API буфера недоступен — как на сайте магазина, через временное поле
+      let copied = false;
+      try {
+        await navigator.clipboard.writeText(url);
+        copied = true;
+      } catch {
+        const tmp = document.createElement("textarea");
+        tmp.value = url;
+        tmp.setAttribute("readonly", "");
+        tmp.style.cssText = "position:fixed;opacity:0;top:0;left:0";
+        document.body.append(tmp);
+        tmp.select();
+        copied = document.execCommand("copy");
+        tmp.remove();
+      }
+      if (copied) {
+        this.shareState = "copied";
+        setTimeout(() => {
+          this.shareState = "";
+          if (this.isConnected) this.render();
+        }, 2000);
+      }
+    }
+    this.render();
   }
 
   private line(l: ViewLine, T: Text) {
