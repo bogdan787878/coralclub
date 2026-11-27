@@ -17,7 +17,6 @@ export type RuPhaseId = "hydration" | "detox" | "balance";
 
 export type RuHero = {
   title: { lead: string[]; accent: string };
-  body: string;
   cta: string;
   image: { desktopSrc: string; mobileSrc: string; alt: string };
 };
@@ -46,7 +45,6 @@ export const RU_PHASES: { id: RuPhaseId; name: string; hero: RuHero }[] = [
     name: "Гидратация",
     hero: {
       title: { lead: ["Система здоровья"], accent: "начинается с воды" },
-      body: "Гидратация — первый шаг системы Coral Club, на котором строится всё остальное.",
       cta: "Собрать набор",
       image: heroImage("hydration", "Саше Корал-Майн Сильвер и стакан минерализованной воды"),
     },
@@ -56,7 +54,6 @@ export const RU_PHASES: { id: RuPhaseId; name: string; hero: RuHero }[] = [
     name: "Детокс",
     hero: {
       title: { lead: ["Легче, спокойнее,"], accent: "яснее" },
-      body: "Внутренняя нагрузка снижается по шагам — примерно за три месяца.",
       cta: "Начать детокс",
       image: heroImage("restart", "Корал Детокс, Парашилд и Коло-Вада Плюс"),
     },
@@ -66,7 +63,6 @@ export const RU_PHASES: { id: RuPhaseId; name: string; hero: RuHero }[] = [
     name: "Баланс",
     hero: {
       title: { lead: ["Понять себя.", "Выбрать свой путь."], accent: "Чувствовать себя лучше" },
-      body: "Вода и детокс уже работают — выберите, что важно сейчас, и соберите свой маршрут.",
       cta: "Выбрать",
       image: heroImage("personalization", "Продукты Coral Club для энергии, сна и иммунитета"),
     },

@@ -168,7 +168,6 @@ export function RuHome() {
               <Accent>{p.hero.title.accent}</Accent>
             </>
           ),
-          body: <p>{p.hero.body}</p>,
           image: p.hero.image,
           cta: { label: p.hero.cta, onClick: toPhase },
         }))}
