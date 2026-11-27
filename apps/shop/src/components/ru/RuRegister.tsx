@@ -31,8 +31,8 @@ export function RuRegister({
   /** зарегистрирован (вручную) — Coral ID нового участника */
   onDone?: (memberId: string) => void;
 }) {
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
+  // имя и фамилия — одно поле; в базу уходят отдельно: первое слово — имя, остальное — фамилия
+  const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [emailTaken, setEmailTaken] = useState("");
@@ -44,7 +44,6 @@ export function RuRegister({
   // консультант пришёл по ссылке или это ручная регистрация — поиск не показываем
   const [fixedSponsor, setFixedSponsor] = useState(Boolean(sponsor));
 
-  const [agree, setAgree] = useState(false);
   const [subscribe, setSubscribe] = useState(false);
 
   const [tried, setTried] = useState(false);
@@ -71,14 +70,15 @@ export function RuRegister({
   }, [sponsor]);
 
   const phoneDigits = phone.replace(/\D/g, "").replace(/^[78](?=\d{10}$)/, "");
+  const words = fullName.trim().split(/\s+/).filter(Boolean);
+  const name = words[0] ?? "";
+  const surname = words.slice(1).join(" ");
   const errors = {
-    name: !name.trim() && "Укажите имя",
-    surname: !surname.trim() && "Укажите фамилию",
+    fullName: (!fullName.trim() && "Укажите имя и фамилию") || (words.length < 2 && "Добавьте фамилию, например: Анна Иванова"),
     phone: phoneDigits.length !== 10 && "10 цифр номера без +7",
     email: (!EMAIL_RX.test(email.trim()) && "Введите корректный e-mail") || emailTaken,
     password: !validPassword(password) && "Не короче 6 символов, хотя бы одна цифра или символ",
     consultant: !consultant && "Найдите консультанта по Coral ID или телефону",
-    agree: !agree && "Нужно ваше согласие",
   };
   const bad = (k: keyof typeof errors) => tried && Boolean(errors[k]);
   const hint = (k: keyof typeof errors) => (bad(k) ? String(errors[k]) : undefined);
@@ -155,8 +155,7 @@ export function RuRegister({
 
   return (
     <form className={styles.authForm} onSubmit={submit} noValidate autoComplete="on">
-      <FloatInput name="given-name" label="Имя" value={name} onChange={setName} autoComplete="given-name" error={bad("name")} hint={hint("name")} />
-      <FloatInput name="family-name" label="Фамилия" value={surname} onChange={setSurname} autoComplete="family-name" error={bad("surname")} hint={hint("surname")} />
+      <FloatInput name="name" label="Имя и фамилия" value={fullName} onChange={setFullName} autoComplete="name" error={bad("fullName")} hint={hint("fullName")} />
       <FloatInput
         name="tel"
         type="tel"
@@ -191,7 +190,7 @@ export function RuRegister({
         onChange={setPassword}
         autoComplete="new-password"
         error={bad("password")}
-        hint={hint("password") ?? "Не короче 6 символов, хотя бы одна цифра или символ"}
+        hint={hint("password") ?? "Не менее 6 символов, хотя бы одна цифра или символ"}
       />
 
       {fixedSponsor && consultant ? (
@@ -201,8 +200,10 @@ export function RuRegister({
             <img src={consultant.avatar} alt="" width={40} height={40} />
           )}
           <span>
-            <strong>{sponsor ? `Консультант: ${consultant.name}` : `Вас пригласил(а) ${consultant.name}`}</strong>
-            <small>Coral ID {consultant.id}{sponsor ? " — вы" : ""}</small>
+            <small>{sponsor ? "Консультант — вы" : "По приглашению"}</small>
+            <strong>
+              {consultant.name} {consultant.id}
+            </strong>
           </span>
         </div>
       ) : (
@@ -241,27 +242,29 @@ export function RuRegister({
       )}
 
       <label className={styles.regCheck}>
-        <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} />
-        <span>
-          Соглашаюсь с{" "}
-          <a href="https://coralclub.ru/faq/terms/" target="_blank" rel="noopener noreferrer">
-            правилами Coral Club
-          </a>{" "}
-          и даю согласие на{" "}
-          <a href="https://coralclub.ru/faq/privacy/" target="_blank" rel="noopener noreferrer">
-            обработку персональных данных
-          </a>
-        </span>
-      </label>
-      {bad("agree") && <span className={styles.regErr}>{errors.agree}</span>}
-      <label className={styles.regCheck}>
         <input type="checkbox" checked={subscribe} onChange={(e) => setSubscribe(e.target.checked)} />
-        <span>Хочу получать новости и предложения</span>
+        <span>Я хочу получать новости, специальные предложения и другую информацию о товарах и услугах Coral Club по электронной почте, в смс и через мессенджеры</span>
       </label>
 
       <Button variant="primary" block type="submit" disabled={busy === "create"}>
-        {busy === "create" ? "Регистрируем…" : sponsor ? "Зарегистрировать участника" : "Зарегистрироваться"}
+        {busy === "create" ? "Регистрируем…" : sponsor ? "Зарегистрировать участника" : "Стать членом клуба"}
       </Button>
+      {/* согласие — как на сайте магазина: нажатием кнопки, текстом под ней */}
+      <p className={styles.regConsent}>
+        Нажимая «{sponsor ? "Зарегистрировать участника" : "Стать членом клуба"}», {sponsor ? "участник даёт" : "я даю"}{" "}
+        <a href="https://coralclub.ru/faq/privacy/" target="_blank" rel="noopener noreferrer">
+          согласие на обработку персональных данных
+        </a>{" "}
+        в соответствии с{" "}
+        <a href="https://coralclub.ru/faq/privacy/" target="_blank" rel="noopener noreferrer">
+          Политикой конфиденциальности
+        </a>
+        , {sponsor ? "принимает" : "принимаю"}{" "}
+        <a href="https://coralclub.ru/faq/terms/" target="_blank" rel="noopener noreferrer">
+          Условия регистрации
+        </a>{" "}
+        и {sponsor ? "подтверждает" : "подтверждаю"}, что {sponsor ? "ему" : "мне"} исполнилось 18 лет
+      </p>
       <p className={`${styles.authMsg} ${msg.bad ? styles.authBad : ""}`} role="status">
         {msg.text}
       </p>

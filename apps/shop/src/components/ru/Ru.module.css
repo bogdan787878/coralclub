@@ -395,3 +395,17 @@
 .promoWide .promoMedia {
   aspect-ratio: 16 / 9;
 }
+
+/* согласие при регистрации — текстом под кнопкой, как на сайте магазина */
+.regConsent {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  text-align: center;
+  color: var(--color-text);
+}
+.regConsent a {
+  color: inherit;
+  text-decoration: underline;
+}
