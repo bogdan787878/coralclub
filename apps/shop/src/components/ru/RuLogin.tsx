@@ -163,14 +163,7 @@ export function RuLogin() {
   return (
     <main className={styles.auth}>
       {checkout && <p className={styles.authStep}>Оформление заказа</p>}
-      <h1 className={styles.authTitle}>
-        {tab === "register" ? (checkout ? "Зарегистрируйтесь, чтобы оформить заказ" : "Регистрация") : checkout ? "Войдите, чтобы оформить заказ" : "Вход в магазин"}
-      </h1>
-      <p className={styles.authText}>
-        {tab === "register"
-          ? "Регистрация бесплатная: цены участника — до 20% ниже обычных и бонусные баллы за каждую покупку. Корзина сохранится."
-          : "Заказы оформляют участники клуба — по ценам участника. Нет аккаунта — зарегистрируйтесь, корзина сохранится."}
-      </p>
+      {checkout && <h1 className={styles.authTitle}>{tab === "register" ? "Зарегистрируйтесь, чтобы оформить заказ" : "Войдите, чтобы оформить заказ"}</h1>}
 
       <div className={styles.authTabs} role="tablist" aria-label="Вход или регистрация">
         <button type="button" role="tab" aria-selected={tab === "login"} className={tab === "login" ? styles.authTabOn : ""} onClick={() => setTab("login")}>
