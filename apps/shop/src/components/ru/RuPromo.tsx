@@ -45,7 +45,6 @@ export function RuPromo({ title }: { title?: ReactNode } = {}) {
               )}
             </span>
             <span className={styles.promoTitle}>{b.title}</span>
-            <span className={styles.promoCta}>Смотреть товары →</span>
           </Link>
         ) : (
           <span key={i} className={styles.promo} aria-hidden="true">
