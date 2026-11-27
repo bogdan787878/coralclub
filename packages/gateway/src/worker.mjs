@@ -9,6 +9,7 @@
 //                          гостю ещё регистрация: /restApi/registration/{init,consultant,new}, /restApi/validEmail)
 //
 //   GET /config            →  { placesKey }   (секрет GOOGLE_PLACES_KEY, если задан)
+//   GET /geo               →  { country, lat, lng }   (примерное место посетителя по IP, из request.cf; не логируется)
 //
 // Привязки: SESSIONS (KV), ALLOWED_ORIGINS (через запятую, например https://bogdan787878.github.io), CC4_BASE (по умолчанию
 // https://api.coral.club). Токены, ссылки и значения кук нигде не логируются.
@@ -158,6 +159,13 @@ const gateway = {
     try {
       // ключ поиска адреса Google: браузерный (с ограничением по HTTP-референту), хранится секретом Worker, а не в репозитории
       if (url.pathname === "/config" && request.method === "GET") return reply(request, env, 200, { placesKey: env.GOOGLE_PLACES_KEY ?? "" });
+      if (url.pathname === "/geo" && request.method === "GET") {
+        // город магазина России по IP: страна и координаты города, которые Cloudflare знает о запросе
+        const cf = request.cf ?? {};
+        const lat = Number(cf.latitude);
+        const lng = Number(cf.longitude);
+        return reply(request, env, 200, { country: String(cf.country ?? ""), ...(Number.isFinite(lat) && Number.isFinite(lng) ? { lat, lng } : {}) });
+      }
       if (url.pathname === "/session" && request.method === "POST") return await createSession(request, env);
       if (url.pathname === "/session/guest" && request.method === "POST") return await createGuestSession(request, env);
       if (url.pathname.startsWith("/shop/")) return await shopCall(request, env, url.pathname.slice("/shop".length), url);

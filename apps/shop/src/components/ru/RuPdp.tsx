@@ -7,6 +7,7 @@ import { ProductDetailView } from "@/components/catalog/ProductDetailView";
 import { ShopSkeleton } from "@/components/lk/LkShop";
 import { RU_BASE, RU_PRODUCTS, ruProduct, ruTitle } from "@/lib/ru/shop";
 import { useRuMember } from "@/lib/ru/live";
+import { applyMemberCity, cityKey, useRuCity } from "@/lib/ru/city";
 import shop from "@/app/(shop)/products/[slug]/page.module.css";
 import styles from "@/app/landing/product/[slug]/page.module.css";
 import { RuBuyBox } from "./RuBuyBox";
@@ -20,17 +21,23 @@ import { RuCards } from "./RuCards";
 export function RuPdp({ slug }: { slug: string }) {
   const p = ruProduct(slug);
   const member = useRuMember();
+  const city = useRuCity();
   const [got, setGot] = useState<{ key: string; detail: ProductDetail | null } | null>(null);
-  const key = `${slug}:${member ? "m" : "g"}`;
+  // наличие — со склада города: другой город, другой ответ
+  const key = `${slug}:${member ? "m" : "g"}:${city ? cityKey(city) : ""}`;
 
   useEffect(() => {
-    if (!p || member === null) return;
+    if (!p || member === null || !city) return;
     let alive = true;
-    const ask = member ? catalogProduct(p.code) : guestProductDetail(String(p.code), { country: "RU", language: "ru" });
+    const ask = member
+      ? applyMemberCity(city).then(() => catalogProduct(p.code))
+      : guestProductDetail(String(p.code), { country: "RU", language: "ru", location: city });
     ask.then((detail) => alive && setGot({ key, detail }));
     return () => {
       alive = false;
     };
+    // city — новый объект на каждый рендер: следим за ключом
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [p, member, key]);
 
   if (!p) return null;

@@ -235,3 +235,116 @@
   line-height: 1.125rem;
   color: var(--color-text-muted);
 }
+
+/* ---------- город магазина: кнопка в шапке и шторка выбора ---------- */
+.cityBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 40px;
+  max-width: 150px;
+  padding: 0 var(--space-8);
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: inherit;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+.cityBtn span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.cityBtn svg {
+  flex: none;
+}
+.cityBtn:hover {
+  background: rgba(127, 127, 127, 0.18);
+}
+.cityText {
+  margin: 0 0 var(--space-16);
+  font-family: var(--font-sans);
+  color: var(--color-text-muted, rgba(0, 0, 0, 0.6));
+}
+.cityActions {
+  display: grid;
+  gap: var(--space-8);
+}
+.cityLocate {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: var(--space-12) 0 var(--space-8);
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-primary, inherit);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+.cityLocate:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+.cityList {
+  margin: var(--space-8) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.cityRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  width: 100%;
+  min-height: 52px;
+  padding: var(--space-8) 0;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  background: none;
+  color: inherit;
+  font-family: var(--font-sans);
+  text-align: left;
+  cursor: pointer;
+}
+.cityRow > span:first-child {
+  display: grid;
+  gap: 2px;
+}
+.cityRow strong {
+  font-weight: var(--font-weight-medium);
+  font-size: 1rem;
+}
+.cityRow small {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted, rgba(0, 0, 0, 0.55));
+}
+.cityRow[aria-current] {
+  color: var(--color-primary, inherit);
+}
+.cityRow:disabled {
+  cursor: progress;
+}
+.cityEmpty {
+  padding: var(--space-16) 0;
+  font-family: var(--font-sans);
+  color: var(--color-text-muted, rgba(0, 0, 0, 0.55));
+}
+.citySpin {
+  opacity: 0.6;
+}
+/* высота шторки выбора не прыгает, пока приходят подсказки */
+.cityPick {
+  min-height: min(62dvh, 560px);
+}
+@media (min-width: 768px) {
+  .cityPick {
+    min-height: 0;
+  }
+}

@@ -14,6 +14,7 @@ import { setShopTransport } from "@/lib/shopApi";
 import { RU_BASE, RU_CART_KEY } from "@/lib/ru/shop";
 import { useRuMember } from "@/lib/ru/live";
 import menu from "@/components/checkout/CountryMenu.module.css";
+import { RuCityButton, RuCitySheet } from "./RuCity";
 
 /**
  * Рамка магазина России: общий Layout продукта (шапка, нижнее меню на телефоне, бейдж корзины) и, когда
@@ -70,7 +71,8 @@ export function RuShell({ children }: { children: ReactNode }) {
           active={active}
           {...(inCheckout ? { parts: "header" } : {})}
         >
-          <div slot="corner">
+          <div slot="corner" style={{ display: "flex", alignItems: "center" }}>
+            {!inCheckout && <RuCityButton />}
             <a className={menu.flagBtn} href={asset(`${RU_BASE}/#minerals`)} aria-label="Поиск" style={{ color: "inherit" }}>
               <Icon name="search" />
             </a>
@@ -78,6 +80,7 @@ export function RuShell({ children }: { children: ReactNode }) {
         </cc-layout>
       )}
       {children}
+      {!inCheckout && <RuCitySheet isHome={isHome} />}
     </>
   );
 }

@@ -98,8 +98,20 @@ export async function switchStore(deliveryId: string): Promise<boolean> {
   return r.ok;
 }
 
+/* ---------- город: от него зависит склад, а значит наличие ---------- */
+
+/** Город сессии, как его пишет сайт магазина (Google): { city: "Бердск", area: "Новосибирская область" }. */
+export type SessionLocation = { city: string; area: string };
+
+/** Записать город в текущую сессию (участника): каталог и корзина дальше идут со склада этого города. */
+export async function setSessionLocation(location: SessionLocation): Promise<boolean> {
+  const r = await cc4("/auth/session", { method: "PATCH", body: { location } });
+  return r.ok;
+}
+
 /* ---------- гость: каталог без входа участника ---------- */
-const guestKey = (country: string, language: string) => `cc_guest:${country}:${language}`;
+const guestKey = (country: string, language: string, location?: SessionLocation) =>
+  `cc_guest:${country}:${language}${location ? `:${location.city}|${location.area}` : ""}`;
 const read = (key: string) => {
   try {
     return window.sessionStorage.getItem(key);
@@ -113,8 +125,8 @@ const read = (key: string) => {
  * EUR, deliveryId GERMANY), без входа участника. Токен хранится на вкладку; кэш по стране и языку.
  */
 const opening = new Map<string, Promise<string | null>>();
-export async function guestToken(country: string, language = "en"): Promise<string | null> {
-  const key = guestKey(country, language);
+export async function guestToken(country: string, language = "en", location?: SessionLocation): Promise<string | null> {
+  const key = guestKey(country, language, location);
   const have = typeof window === "undefined" ? null : read(key);
   if (have) return have;
   // одна сессия на страну и язык: параллельные запросы (цены, баннеры) ждут ту же, а не открывают свои —
@@ -122,8 +134,19 @@ export async function guestToken(country: string, language = "en"): Promise<stri
   let p = opening.get(key);
   if (!p) {
     p = post("/auth/session", { applicationToken: APPLICATION_TOKEN, country, language })
-      .then((s) => {
+      .then(async (s) => {
         const t = findToken(s.json) ?? null;
+        // город — свойство сессии: на каждый город своя сессия, а значит и своё наличие
+        if (t && location) {
+          const ok = await fetch(`${cc4Base()}/auth/session`, {
+            method: "PATCH",
+            headers: { accept: "application/json", "content-type": "application/json", authorization: `Bearer ${t}` },
+            body: JSON.stringify({ location }),
+          })
+            .then((r) => r.ok)
+            .catch(() => false);
+          if (!ok) return null;
+        }
         if (t) store(key, t);
         return t;
       })
@@ -134,17 +157,17 @@ export async function guestToken(country: string, language = "en"): Promise<stri
 }
 
 /** Товары витрины страны для гостя (GET /catalog/products по анонимной сессии). Кодов, которых нет, в ответе нет. */
-export async function guestProducts(codes: string[], { country, language = "en" }: { country: string; language?: string }): Promise<Product[]> {
+export async function guestProducts(codes: string[], { country, language = "en", location }: { country: string; language?: string; location?: SessionLocation }): Promise<Product[]> {
   if (!codes.length) return [];
   for (let attempt = 0; attempt < 2; attempt++) {
-    const token = await guestToken(country, language);
+    const token = await guestToken(country, language, location);
     if (!token) return [];
     try {
       const r = await fetch(`${cc4Base()}/catalog/products?${codes.map((c) => `products[]=${encodeURIComponent(c)}`).join("&")}`, {
         headers: { accept: "application/json", authorization: `Bearer ${token}` },
       });
       if (r.status === 401 || r.status >= 500) {
-        store(guestKey(country, language), null); // сессия истекла: откроем новую, один раз
+        store(guestKey(country, language, location), null); // сессия истекла: откроем новую, один раз
         continue;
       }
       const j = (await r.json().catch(() => null)) as { data?: Parameters<typeof normalizeProduct>[0][] } | null;
@@ -157,16 +180,16 @@ export async function guestProducts(codes: string[], { country, language = "en" 
 }
 
 /** Товар целиком для гостя (GET /catalog/product/{code} по анонимной сессии страны и языка), например русские тексты. */
-export async function guestProductDetail(code: string, { country, language = "en" }: { country: string; language?: string }): Promise<ProductDetail | null> {
+export async function guestProductDetail(code: string, { country, language = "en", location }: { country: string; language?: string; location?: SessionLocation }): Promise<ProductDetail | null> {
   for (let attempt = 0; attempt < 2; attempt++) {
-    const token = await guestToken(country, language);
+    const token = await guestToken(country, language, location);
     if (!token) return null;
     try {
       const r = await fetch(`${cc4Base()}/catalog/product/${encodeURIComponent(code)}`, {
         headers: { accept: "application/json", authorization: `Bearer ${token}` },
       });
       if (r.status === 401 || r.status >= 500) {
-        store(guestKey(country, language), null);
+        store(guestKey(country, language, location), null);
         continue;
       }
       const j = (await r.json().catch(() => null)) as { data?: Record<string, unknown> } | null;

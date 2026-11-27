@@ -5,6 +5,7 @@ import "@/lib/lk/config";
 import { useEffect, useSyncExternalStore } from "react";
 import { cc4Base, fetchProducts, getToken, guestProducts, guestToken, type Product } from "@coral/api";
 import { RU_PRODUCTS, RU_SITE } from "./shop";
+import { applyMemberCity, cityKey, useRuCity, type RuCity } from "./city";
 
 /* ---------------------------------- вход ---------------------------------- */
 
@@ -22,42 +23,51 @@ export function useRuMember(): boolean | null {
 
 type Prices = ReadonlyMap<number, Product>;
 const EMPTY: Prices = new Map();
-const cache = new Map<"guest" | "member", Prices>();
+/** цены и наличие — по входу и городу (склад города): «guest:Москва|Москва» */
+const cache = new Map<string, Prices>();
 const loading = new Set<string>();
 const listeners = new Set<() => void>();
 const emit = () => listeners.forEach((l) => l());
 
-function load(mode: "guest" | "member", attempt = 0) {
-  if (cache.has(mode) || (attempt === 0 && loading.has(mode))) return;
-  loading.add(mode);
+function load(mode: "guest" | "member", city: RuCity, attempt = 0) {
+  const key = `${mode}:${cityKey(city)}`;
+  if (cache.has(key) || (attempt === 0 && loading.has(key))) return;
+  loading.add(key);
   const codes = RU_PRODUCTS.map((p) => p.code);
-  const ask = mode === "member" ? fetchProducts(codes) : guestProducts(codes.map(String), { country: "RU", language: "ru" });
+  const ask =
+    mode === "member"
+      ? applyMemberCity(city).then(() => fetchProducts(codes))
+      : guestProducts(codes.map(String), { country: "RU", language: "ru", location: city });
   ask.then((list) => {
     if (list.length) {
-      cache.set(mode, new Map(list.map((p) => [p.code, p])));
-      loading.delete(mode);
+      cache.set(key, new Map(list.map((p) => [p.code, p])));
+      loading.delete(key);
       emit();
       return;
     }
     // API не ответил (сбой сессии, сеть): ещё пара попыток с паузой
-    if (attempt < 2) setTimeout(() => load(mode, attempt + 1), 1200 * (attempt + 1));
-    else loading.delete(mode);
+    if (attempt < 2) setTimeout(() => load(mode, city, attempt + 1), 1200 * (attempt + 1));
+    else loading.delete(key);
   });
 }
 
-/** Цены и наличие товаров главной: по сессии участника, если он вошёл, иначе — гостя России. */
+/** Цены и наличие товаров главной для города магазина: по сессии участника, если он вошёл, иначе — гостя России. */
 export function useRuPrices(): Prices {
   const member = useRuMember();
+  const city = useRuCity();
   const mode = member ? "member" : "guest";
+  const key = city ? `${mode}:${cityKey(city)}` : "";
   useEffect(() => {
-    if (member !== null) load(mode);
-  }, [member, mode]);
+    if (member !== null && city) load(mode, city);
+    // city — новый объект на каждый рендер: следим за ключом
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [member, mode, key]);
   return useSyncExternalStore(
     (cb) => {
       listeners.add(cb);
       return () => listeners.delete(cb);
     },
-    () => (member === null ? EMPTY : (cache.get(mode) ?? EMPTY)),
+    () => (member === null || !key ? EMPTY : (cache.get(key) ?? EMPTY)),
     () => EMPTY,
   );
 }

@@ -431,3 +431,74 @@ export function splitStreet(line: string): { street: string; build: string } {
   if (head) return { street: head[2], build: head[1] };
   return { street: text, build: "" };
 }
+
+/* ---- Cities (the Russian shop's city picker): the same Places / Geocoder ---- */
+
+export type CitySuggestion = { main: string; secondary: string; ref: unknown };
+
+/** Cities for what has been typed so far, in one country. */
+export async function suggestCities(
+  input: string,
+  session: unknown,
+  country = "RU",
+  language = "ru",
+): Promise<CitySuggestion[]> {
+  const { AutocompleteSuggestion } = await load();
+  const { suggestions } =
+    await AutocompleteSuggestion.fetchAutocompleteSuggestions({
+      input,
+      sessionToken: session,
+      includedRegionCodes: [country.toLowerCase()],
+      language,
+      includedPrimaryTypes: ["(cities)"],
+    });
+  return suggestions
+    .map((s) => s.placePrediction)
+    .filter((p): p is PlacePrediction => p !== null)
+    .slice(0, 8)
+    .map((p) => ({
+      main: p.mainText?.text ?? p.text.text,
+      secondary: p.secondaryText?.text ?? "",
+      ref: p,
+    }));
+}
+
+/** A picked city → its address components (locality, regions, country). */
+export async function cityComponents(
+  s: CitySuggestion,
+): Promise<AddressComponent[]> {
+  const place = (s.ref as PlacePrediction).toPlace();
+  await place.fetchFields({ fields: ["addressComponents"] });
+  return (place.addressComponents ?? []).map((c) => ({
+    long: c.longText,
+    short: c.shortText,
+    types: c.types,
+  }));
+}
+
+/** What is at a point (a city found by IP or by the browser's geolocation): the geocoder's results, best first. */
+export async function componentsAt(
+  point: MapPoint,
+  language = "ru",
+  region = "RU",
+): Promise<AddressComponent[][]> {
+  await load();
+  const w = window as unknown as MapsWindow;
+  const geo = (await w.google!.maps!.importLibrary("geocoding")) as {
+    Geocoder: new () => {
+      geocode(r: Record<string, unknown>): Promise<{ results: GeoResult[] }>;
+    };
+  };
+  const { results } = await new geo.Geocoder().geocode({
+    location: point,
+    language,
+    region,
+  });
+  return results.map((r) =>
+    r.address_components.map((c) => ({
+      long: c.long_name,
+      short: c.short_name,
+      types: c.types,
+    })),
+  );
+}
