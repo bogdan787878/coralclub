@@ -391,3 +391,7 @@
 .packTitle i {
   font-size: 1.05em;
 }
+/* одна акция — на всю ширину, баннер сайта целиком */
+.promoWide .promoMedia {
+  aspect-ratio: 16 / 9;
+}

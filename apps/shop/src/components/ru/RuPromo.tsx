@@ -7,7 +7,8 @@ import styles from "./Ru.module.css";
 
 /**
  * «Акции» главной: баннеры сайта России (тот же список, что в слайдере coralclub.ru, из API 2.0 /home),
- * вертикальными карточками в карусели. Пока список не пришёл — серые заглушки; пустой — блока нет.
+ * вертикальными карточками в карусели; одна акция — карточка на всю ширину. Пока список не пришёл — серые
+ * заглушки; пустой — блока нет.
  */
 export function RuPromo({ title }: { title?: ReactNode } = {}) {
   const [banners, setBanners] = useState<RuBanner[] | null>(null);
@@ -19,12 +20,20 @@ export function RuPromo({ title }: { title?: ReactNode } = {}) {
     };
   }, []);
   if (banners && !banners.length) return null;
+  // одна акция — карточка на всю ширину, баннер сайта целиком (16:9)
+  const single = banners?.length === 1;
 
   return (
-    <Carousel label="Акции" title={title} itemWidth="var(--ru-promo-w)" maxCols={4} minCols={3}>
+    <Carousel
+      label="Акции"
+      title={title}
+      itemWidth={single ? "100%" : "var(--ru-promo-w)"}
+      maxCols={single ? 1 : 4}
+      minCols={single ? 1 : 3}
+    >
       {(banners ?? [null, null]).map((b, i) =>
         b ? (
-          <a key={b.href + i} className={styles.promo} href={b.href} target="_blank" rel="noopener noreferrer" data-analytics-id="promo_banner">
+          <a key={b.href + i} className={`${styles.promo} ${single ? styles.promoWide : ""}`} href={b.href} target="_blank" rel="noopener noreferrer" data-analytics-id="promo_banner">
             <span className={styles.promoMedia}>
               {/* eslint-disable-next-line @next/next/no-img-element -- баннер с сайта магазина, внешний адрес */}
               <img src={b.image} alt="" loading={i > 1 ? "lazy" : undefined} />
