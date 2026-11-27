@@ -43,6 +43,21 @@ export type SeriesFeatureProps = {
    *  flex column with its own gap (e.g. PhasesSection), where the
    *  self-margin would double up on that gap. */
   tightTop?: boolean;
+  /** Своя покупка вместо общей корзины магазина (магазин России): название, цены, ссылка, количество и
+   *  действия корзины. С ней `product` не нужен. */
+  buy?: {
+    href: string;
+    name: string;
+    now: string;
+    was?: string;
+    note?: string;
+    qty: number;
+    /** нет — товара нет в наличии: кнопки корзины нет */
+    onAdd?: () => void;
+    onSetQty: (n: number) => void;
+  };
+  /** Подписи для переведённой витрины (по умолчанию английские). */
+  labels?: { add?: string; removeOne?: string; addOne?: string; inside?: string };
 };
 
 function CartIcon() {
@@ -65,14 +80,16 @@ export function SeriesFeature({
   blurbBody,
   carouselItems,
   tightTop,
+  buy,
+  labels,
 }: SeriesFeatureProps) {
   const cart = useCart();
   const [acted, setActed] = useState(false);
   const anim = acted ? ` ${styles.animIn}` : "";
 
-  const club = product?.prices[0]?.price;
-  const clubNote = product?.prices[0]?.note;
-  const regular = product?.prices[1]?.price;
+  const club = buy ? buy.now : product?.prices[0]?.price;
+  const clubNote = buy ? buy.note : product?.prices[0]?.note;
+  const regular = buy ? buy.was : product?.prices[1]?.price;
   const shopHref = product?.prices[1]?.cta.href;
   const images =
     customImages && customImages.length > 0
@@ -82,11 +99,17 @@ export function SeriesFeature({
         : [];
 
   const coralId = product?.coralId;
-  const qty = coralId ? (cart.find((l) => l.coralId === coralId)?.qty ?? 0) : 0;
+  const qty = buy ? buy.qty : coralId ? (cart.find((l) => l.coralId === coralId)?.qty ?? 0) : 0;
 
-  const href = product ? productHref(product.slug) : undefined;
+  const href = buy ? buy.href : product ? productHref(product.slug) : undefined;
+  const changeQty = (n: number) => (buy ? buy.onSetQty(n) : coralId && setQty(coralId, n));
 
   const add = () => {
+    if (buy) {
+      setActed(true);
+      buy.onAdd?.();
+      return;
+    }
     if (!product) return;
     setActed(true);
     addItem({
@@ -141,14 +164,14 @@ export function SeriesFeature({
             {/* on mobile just two more flex children (display:contents below
                 1024px); on desktop this becomes the text column beside .media
                 (generic heading) or stays stacked under it (blurbTitle) */}
-            {product && (
+            {(product || buy) && (
               <div className={styles.info}>
                 <div className={styles.priceRow}>
                   {/* name + price share one frame; the stretched link still
                       covers the whole card via .name::after */}
                   <div className={styles.nameFrame}>
                     <Link href={href as string} className={styles.name}>
-                      {product.headline}
+                      {buy ? buy.name : product?.headline}
                     </Link>
                     <p className={styles.price}>
                       <span className={styles.now}>{club}</span>
@@ -163,15 +186,15 @@ export function SeriesFeature({
                       the three states) so the name column beside it doesn't
                       reflow when a cart button swaps for a stepper */}
                   <div className={styles.actionSlot}>
-                    {coralId ? (
+                    {buy && !buy.onAdd && qty === 0 ? null : coralId || buy ? (
                       qty > 0 ? (
                         <span className={styles.stepper + anim}>
                           <button
                             type="button"
-                            aria-label="Remove one"
+                            aria-label={labels?.removeOne ?? "Remove one"}
                             onClick={() => {
                               setActed(true);
-                              setQty(coralId, qty - 1);
+                              changeQty(qty - 1);
                             }}
                           >
                             −
@@ -184,10 +207,10 @@ export function SeriesFeature({
                           </span>
                           <button
                             type="button"
-                            aria-label="Add one"
+                            aria-label={labels?.addOne ?? "Add one"}
                             onClick={() => {
                               setActed(true);
-                              setQty(coralId, qty + 1);
+                              changeQty(qty + 1);
                             }}
                           >
                             +
@@ -198,7 +221,7 @@ export function SeriesFeature({
                           type="button"
                           className={styles.cart + anim}
                           onClick={add}
-                          aria-label="Add to cart"
+                          aria-label={labels?.add ?? "Add to cart"}
                         >
                           <CartIcon />
                         </button>
@@ -240,7 +263,7 @@ export function SeriesFeature({
           beside it */}
       {carouselItems && carouselItems.length > 0 && (
         <div className={styles.desktopCarousel}>
-          <Carousel label={`${seriesName} — what's in it`}>
+          <Carousel label={`${seriesName} — ${labels?.inside ?? "what's in it"}`}>
             {carouselItems}
           </Carousel>
         </div>

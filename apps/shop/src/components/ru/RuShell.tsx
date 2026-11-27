@@ -54,7 +54,7 @@ export function RuShell({ children }: { children: ReactNode }) {
 
   const links = JSON.stringify({
     home: asset(`${RU_BASE}/`),
-    catalog: asset(`${RU_BASE}/#phase`),
+    catalog: asset(`${RU_BASE}/#phases`),
     cart: asset(`${RU_BASE}/cart/`),
     me: asset(`${RU_BASE}/login/`),
   });
@@ -79,7 +79,7 @@ export function RuShell({ children }: { children: ReactNode }) {
       {member !== null && (
         <cc-layout
           key={`${member ? "member" : "guest"}-${isHome ? "home" : "page"}`}
-          {...(isHome ? { "reveal-after": "phase" } : {})}
+          {...(isHome ? { "reveal-after": "phases" } : {})}
           locale="ru"
           {...(member ? {} : { cart: "local", "cart-key": RU_CART_KEY })}
           tabs="home catalog cart me"
@@ -90,7 +90,7 @@ export function RuShell({ children }: { children: ReactNode }) {
         >
           <div slot="corner" style={{ display: "flex", alignItems: "center" }}>
             {!inCheckout && <RuCityButton />}
-            <a className={menu.flagBtn} href={asset(`${RU_BASE}/#phase`)} aria-label="Поиск" style={{ color: "inherit" }}>
+            <a className={menu.flagBtn} href={asset(`${RU_BASE}/#phases`)} aria-label="Поиск" style={{ color: "inherit" }}>
               <Icon name="search" />
             </a>
           </div>

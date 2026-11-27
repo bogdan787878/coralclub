@@ -5,7 +5,7 @@ import { catalogProduct, guestProductDetail, type ProductDetail } from "@coral/a
 import { Container, Heading, Section } from "@/components/ui";
 import { ShopSkeleton } from "@/components/lk/LkShop";
 import { RU_BASE, RU_PRODUCTS, ruProduct, ruProducts, ruTitle, type RuProduct } from "@/lib/ru/shop";
-import { HYDRATION_PACK, RESET_PACKS } from "@/lib/ru/home";
+import { DETOX_PACKS, HYDRATION_PACK } from "@/lib/ru/home";
 import { useRuMember } from "@/lib/ru/live";
 import { applyMemberCity, cityKey, useRuCity } from "@/lib/ru/city";
 import shop from "@/app/(shop)/products/[slug]/page.module.css";
@@ -14,7 +14,7 @@ import { RuProductView } from "./RuProductView";
 import { RuCards } from "./RuCards";
 
 /** Состав наборов главной — как на витрине (у канона он бывает другим). */
-const PACK_PARTS = new Map([HYDRATION_PACK, ...RESET_PACKS].map((x) => [x.code, x.parts]));
+const PACK_PARTS = new Map([HYDRATION_PACK, ...DETOX_PACKS].map((x) => [x.code, x.parts]));
 
 /** Низ страницы: у набора — что в него входит, у товара — товары той же фазы или домена. */
 function moreFor(p: RuProduct): { heading: string; list: RuProduct[] } {

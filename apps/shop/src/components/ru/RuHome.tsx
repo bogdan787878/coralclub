@@ -1,87 +1,65 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Accent, Chip, Chips, Container, Heading, Section } from "@/components/ui";
+import { Fragment, useEffect, useState } from "react";
+import { Accent, Container, Section } from "@/components/ui";
 import { HeroCarousel } from "@/components/organisms/HeroCarousel";
 import { PhaseSwitcherPills } from "@/components/organisms/PhaseSwitcherPills";
+import { SeriesFeature } from "@/components/organisms/SeriesFeature";
+import { DomainCarousel } from "@/components/organisms/DomainCarousel";
 import home from "@/components/organisms/HomeView.module.css";
-import friend from "@/components/friend/Friend.module.css";
-import { loadRuHits } from "@/lib/ru/live";
-import {
-  BALANCE_DOMAINS,
-  BEAUTY_CARE,
-  BEAUTY_IN,
-  BEAUTY_PACK,
-  HYDRATION_PACK,
-  RESET_PACKS,
-  RU_PHASES,
-  type RuPack,
-  type RuPhaseId,
-} from "@/lib/ru/home";
-import { ruProductByCode, ruProducts, type RuProduct } from "@/lib/ru/shop";
-import { RuCards } from "./RuCards";
+import phasesCss from "@/components/organisms/PhasesSection.module.css";
+import { addRu, qtyOf, setRuQty, useRuCart } from "@/lib/ru/cart";
+import { loadRuHits, useRuMember, useRuPrices } from "@/lib/ru/live";
+import { BALANCE_DOMAINS, DETOX_PACKS, HYDRATION_PACK, RU_PHASES, type RuPack, type RuPhaseId } from "@/lib/ru/home";
+import { ruHref, ruProductByCode, ruProducts, rub, ruTitle, type RuProduct } from "@/lib/ru/shop";
+import { RuCard, RuCards } from "./RuCards";
 import { RuPromo } from "./RuPromo";
 import styles from "./Ru.module.css";
 
-/** Заголовок раздела: строка и курсивный акцент (как на главной магазина). */
-function Title({ lead, accent, as = "h2" }: { lead: string; accent?: string; as?: "h2" | "h3" }) {
-  return (
-    <Container>
-      <Heading as={as} className={as === "h2" ? friend.h2 : styles.packTitle}>
-        {lead}
-        {accent && (
-          <>
-            <br />
-            <Accent>{accent}</Accent>
-          </>
-        )}
-      </Heading>
-    </Container>
-  );
-}
+const SERIES_RU = { add: "В корзину", removeOne: "Убрать одну", addOne: "Добавить ещё", inside: "что входит" };
 
-/** Набор: одна крупная карточка, под ней — что в него входит. Без заголовка — карточка сама называет набор. */
-function Pack({ code, parts: partCodes, title, id, heading = "h2" }: { code: number; parts: number[]; title?: RuPack["title"]; id: string; heading?: "h2" | "h3" }) {
-  const p = ruProductByCode(code);
+/** Набор — SeriesFeature основного магазина: крупная карточка с ценой и корзиной России, под ней — состав. */
+function Pack({ pack, tightTop }: { pack: RuPack; tightTop?: boolean }) {
+  const p = ruProductByCode(pack.code);
+  const prices = useRuPrices();
+  const cart = useRuCart();
+  const member = useRuMember();
   if (!p) return null;
-  const parts = ruProducts(partCodes);
+  const live = prices.get(p.code);
+  const club = live?.club ?? null;
+  const retail = live?.retail ?? null;
+  const sold = live ? live.available && club !== null : true;
+  const off = club !== null && retail && retail > club ? Math.round((1 - club / retail) * 100) : 0;
+  const now = !live ? "…" : !sold ? "Нет в наличии" : rub(club as number);
+  const was = live && sold && off > 0 ? rub(retail as number) : undefined;
+  const images = (pack.images?.length ? pack.images : p.images.map((i) => i.src)).map((src) => ({ src, alt: p.name }));
+  const parts = ruProducts(pack.parts);
+
   return (
-    <div className={styles.pack}>
-      {title && <Title lead={title.lead} accent={title.accent} as={heading} />}
-      <RuCards products={[p]} listId={`${id}_pack`} label={p.name} minCols={1} />
-      {parts.length > 0 && (
-        <div className={styles.packParts}>
-          <Container>
-            <p className={styles.packLabel}>Что входит в набор</p>
-          </Container>
-          <RuCards products={parts} listId={`${id}_parts`} label={`Что входит: ${p.name}`} minCols={4} />
-        </div>
-      )}
-    </div>
+    <SeriesFeature
+      seriesName={p.name}
+      heading={pack.title ? undefined : p.name}
+      blurbTitle={pack.title}
+      blurbBody={pack.blurb}
+      images={images}
+      buy={{
+        href: ruHref(p.slug),
+        name: ruTitle(p),
+        now,
+        was,
+        note: was ? `Цена участника −${off}%` : undefined,
+        qty: qtyOf(cart, p.code),
+        onAdd: live && sold ? () => addRu(p, Boolean(member), rub(club as number), was) : undefined,
+        onSetQty: (n) => setRuQty(p.code, n),
+      }}
+      carouselItems={parts.length ? parts.map((x, i) => <RuCard key={x.code} p={x} index={i + 1} />) : undefined}
+      labels={SERIES_RU}
+      tightTop={tightTop}
+    />
   );
 }
 
-function Row({ id, lead, accent, products }: { id: string; lead: string; accent?: string; products: RuProduct[] }) {
-  if (!products.length) return null;
-  return (
-    <Section tone="default" className={friend.section} data-analytics-section={id}>
-      <Title lead={lead} accent={accent} />
-      <RuCards products={products} listId={id} label={lead} minCols={4} availableFirst />
-    </Section>
-  );
-}
-
-/** Акции сайта (баннеры) — во всех фазах. */
-function Promo() {
-  return (
-    <Section tone="default" className={friend.section} data-analytics-section="promo">
-      <Title lead="Акции" />
-      <RuPromo />
-    </Section>
-  );
-}
-
-/** Хиты продаж сайта России — во всех фазах; пока сайт не ответил, раздела нет. */
+/** Хиты продаж сайта России (API главной); пока сайт не ответил — раздела нет. */
 function Hits() {
   const [codes, setCodes] = useState<number[] | null>(null);
   useEffect(() => {
@@ -93,38 +71,31 @@ function Hits() {
   }, []);
   // фасовки одного товара (2200 и 2201) — одна карточка
   const products = [...new Map((codes ?? []).map((c) => ruProductByCode(c)).filter((p): p is RuProduct => Boolean(p)).map((p) => [p.code, p])).values()].slice(0, 12);
-  return <Row id="hits" lead="Хиты" accent="продаж" products={products} />;
-}
-
-function Hydration() {
+  if (!products.length) return null;
   return (
-    <>
-      <Section tone="default" className={friend.section} data-analytics-section="hydration">
-        <Pack {...HYDRATION_PACK} id="hydration" />
-      </Section>
-      <Promo />
-      <Hits />
-      <Section tone="default" className={friend.section} data-analytics-section="reset">
-        <Title lead="Перезагрузка" accent="очищение по шагам" />
-        <div className={styles.packs}>
-          {RESET_PACKS.map((pack) => (
-            <Pack key={pack.code} {...pack} id={`reset_${pack.code}`} heading="h3" />
-          ))}
-        </div>
-      </Section>
-    </>
+    <Section tone="surface" data-analytics-section="hits">
+      <RuCards
+        products={products}
+        listId="hits"
+        label="Хиты продаж"
+        availableFirst
+        title={
+          <>
+            Хиты <Accent>продаж</Accent>
+          </>
+        }
+      />
+    </Section>
   );
 }
 
-function Beauty() {
+/** Акции и хиты — под каждой фазой. */
+function Tail() {
   return (
     <>
-      <Row id="beauty_in" lead="Красота" accent="изнутри" products={BEAUTY_IN} />
-      <Row id="beauty_care" lead="Маски" accent="и уход" products={BEAUTY_CARE} />
-      <Section tone="default" className={friend.section} data-analytics-section="beauty_liumi">
-        <Pack {...BEAUTY_PACK} id="beauty" />
+      <Section tone="surface" data-analytics-section="promo">
+        <RuPromo title="Акции" />
       </Section>
-      <Promo />
       <Hits />
     </>
   );
@@ -133,67 +104,73 @@ function Beauty() {
 function Balance() {
   const [id, setId] = useState(BALANCE_DOMAINS[0]?.id ?? "");
   const domain = BALANCE_DOMAINS.find((d) => d.id === id) ?? BALANCE_DOMAINS[0];
+  if (!domain) return null;
   return (
     <>
-      <Section tone="default" className={friend.section} data-analytics-section="balance">
-        <Title lead="Что важно" accent="сейчас?" />
-        <Container>
-          <Chips className={styles.domains} aria-label="Домены здоровья">
-            {BALANCE_DOMAINS.map((d) => (
-              <Chip key={d.id} active={d.id === domain?.id} aria-pressed={d.id === domain?.id} onClick={() => setId(d.id)}>
-                {d.label}
-              </Chip>
-            ))}
-          </Chips>
-        </Container>
-        {domain && (
-          <div key={domain.id} className={styles.packs}>
-            {domain.packs.map((p) => (
-              <Pack key={p.code} code={p.code} parts={p.parts} id={`balance_${p.code}`} />
-            ))}
-            {domain.products.length > 0 && (
-              <div>
-                {domain.packs.length > 0 && <Title lead={`Ещё: ${domain.label.toLowerCase()}`} as="h3" />}
-                <RuCards products={domain.products} listId={`balance_${domain.id}`} label={domain.label} minCols={4} availableFirst />
-              </div>
-            )}
-          </div>
+      <DomainCarousel domains={BALANCE_DOMAINS} value={domain.id} onChange={setId} label="Домены здоровья" />
+      <Fragment key={domain.id}>
+        {domain.products.length > 0 && (
+          <RuCards
+            products={domain.products}
+            listId={`balance_${domain.id}`}
+            label={domain.label}
+            availableFirst
+            title={
+              <>
+                Ваш маршрут: <Accent>{domain.label.toLowerCase()}</Accent>
+              </>
+            }
+          />
         )}
-      </Section>
-      <Promo />
-      <Hits />
+        {domain.packs.map((p) => (
+          <Pack key={p.code} pack={{ code: p.code, parts: p.parts }} />
+        ))}
+      </Fragment>
     </>
   );
 }
 
 /**
- * Главная магазина России: хиро из трёх фаз (Гидратация, Красота, Баланс) с переключателем, под ним — разделы
- * выбранной фазы. Гидратация: набор и минералы, акции, хиты, «Перезагрузка» (три набора очищения). Красота:
- * LIŪMI, красота изнутри, маски и уход. Баланс: домены здоровья — наборы и продукты домена.
+ * Главная магазина России — разметка и компоненты главной основного магазина (HomeView): хиро-карусель фаз с
+ * теми же картинками, липкий переключатель фаз, блок фазы (PhasesSection), затем акции и хиты.
+ *   Гидратация — Гидрамакс Плюс и что в него входит.
+ *   Детокс — Корал Детокс, Парашилд, Коло-Вада Плюс, у каждого состав.
+ *   Баланс — домены здоровья (DomainCarousel) и их продукты и наборы.
  */
 export function RuHome() {
   const [phase, setPhase] = useState<RuPhaseId>("hydration");
-  const index = RU_PHASES.findIndex((p) => p.id === phase);
-  const toContent = () => document.getElementById("phase")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const ids = RU_PHASES.map((p) => p.id);
+  const index = ids.indexOf(phase);
+  // в какую сторону въезжает новая фаза — как у HomeView
+  const [prev, setPrev] = useState(phase);
+  const [dir, setDir] = useState(1);
+  if (phase !== prev) {
+    setDir(ids.indexOf(phase) - ids.indexOf(prev) >= 0 ? 1 : -1);
+    setPrev(phase);
+  }
+  const toPhase = () => document.getElementById("phases")?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   return (
-    <main className={friend.page} data-analytics-location="home">
+    <main data-analytics-location="home">
       <HeroCarousel
         activeIndex={index}
-        onSelect={(i) => setPhase(RU_PHASES[i]?.id ?? "hydration")}
+        onSelect={(i) => setPhase(ids[i] ?? "hydration")}
         labels={{ dots: "Фазы", dot: (n) => `Фаза ${n}` }}
         slides={RU_PHASES.map((p) => ({
           title: (
             <>
-              {p.hero.title.lead}
-              <br />
+              {p.hero.title.lead.map((l) => (
+                <Fragment key={l}>
+                  {l}
+                  <br />
+                </Fragment>
+              ))}
               <Accent>{p.hero.title.accent}</Accent>
             </>
           ),
           body: <p>{p.hero.body}</p>,
           image: p.hero.image,
-          cta: { label: "Выбрать", onClick: toContent },
-          align: "bottom" as const,
+          cta: { label: p.hero.cta, onClick: toPhase },
         }))}
       />
 
@@ -207,10 +184,18 @@ export function RuHome() {
         />
       </div>
 
-      <div id="phase" key={phase} className={`${home.swap} ${styles.phase}`}>
-        {phase === "hydration" && <Hydration />}
-        {phase === "beauty" && <Beauty />}
-        {phase === "balance" && <Balance />}
+      <div id="phases" className={styles.phase}>
+        <Section tone="surface" className={phasesCss.section}>
+          <div key={phase} className={`${phasesCss.inner} ${phasesCss.phaseSlide}`} style={{ ["--slide-dir" as string]: dir }}>
+            {phase === "hydration" && <Pack pack={HYDRATION_PACK} tightTop />}
+            {phase === "detox" && DETOX_PACKS.map((pack, i) => <Pack key={pack.code} pack={pack} tightTop={i === 0} />)}
+            {phase === "balance" && <Balance />}
+          </div>
+        </Section>
+      </div>
+
+      <div key={`tail-${phase}`} className={home.swap} style={{ ["--slide-dir" as string]: dir }}>
+        <Tail />
       </div>
 
       <footer className={styles.footer} data-analytics-location="footer">

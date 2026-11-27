@@ -7,7 +7,10 @@ import { DOMAIN_ICONS } from "./domainIcons";
 import styles from "./DomainCarousel.module.css";
 
 export type DomainCarouselProps = {
-  domains: DomainContent[];
+  /** нужны только id (иконка) и подпись */
+  domains: Pick<DomainContent, "id" | "label">[];
+  /** доступное имя ряда (по умолчанию английское) */
+  label?: string;
   value: string;
   onChange: (id: string) => void;
 };
@@ -25,12 +28,13 @@ export function DomainCarousel({
   domains,
   value,
   onChange,
+  label = "Personalisation domains",
 }: DomainCarouselProps) {
   return (
     <div
       className={styles.track}
       role="tablist"
-      aria-label="Personalisation domains"
+      aria-label={label}
     >
       {domains.map((d) => {
         const active = d.id === value;

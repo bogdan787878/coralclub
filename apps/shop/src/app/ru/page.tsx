@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { RuHome } from "@/components/ru/RuHome";
-import grid from "@/components/friend/FriendGrid.module.css";
 import styles from "@/components/ru/Ru.module.css";
 
 export const metadata: Metadata = {
@@ -8,10 +7,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-/** Главная магазина России: три фазы — Гидратация, Красота, Баланс (см. components/ru/RuHome). */
+/** Главная магазина России: три фазы — Гидратация, Детокс, Баланс (см. components/ru/RuHome). */
 export default function RuHomePage() {
   return (
-    <div className={`appShell ${grid.home} ${styles.home}`}>
+    <div className={`appShell ${styles.home}`}>
       <RuHome />
     </div>
   );

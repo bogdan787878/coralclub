@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Carousel } from "@/components/organisms/Carousel";
 import { loadRuBanners, type RuBanner } from "@/lib/ru/live";
 import styles from "./Ru.module.css";
@@ -9,7 +9,7 @@ import styles from "./Ru.module.css";
  * «Акции» главной: баннеры сайта России (тот же список, что в слайдере coralclub.ru, из API 2.0 /home),
  * вертикальными карточками в карусели. Пока список не пришёл — серые заглушки; пустой — блока нет.
  */
-export function RuPromo() {
+export function RuPromo({ title }: { title?: ReactNode } = {}) {
   const [banners, setBanners] = useState<RuBanner[] | null>(null);
   useEffect(() => {
     let alive = true;
@@ -21,7 +21,7 @@ export function RuPromo() {
   if (banners && !banners.length) return null;
 
   return (
-    <Carousel label="Акции" itemWidth="var(--ru-promo-w)" maxCols={4} minCols={3}>
+    <Carousel label="Акции" title={title} itemWidth="var(--ru-promo-w)" maxCols={4} minCols={3}>
       {(banners ?? [null, null]).map((b, i) =>
         b ? (
           <a key={b.href + i} className={styles.promo} href={b.href} target="_blank" rel="noopener noreferrer" data-analytics-id="promo_banner">

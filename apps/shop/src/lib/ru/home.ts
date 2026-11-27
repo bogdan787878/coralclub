@@ -1,56 +1,74 @@
 /**
- * Главная магазина России: три фазы на хиро — Гидратация, Красота, Баланс — и что показывать в каждой.
+ * Главная магазина России — та же главная, что у основного магазина (HeroCarousel, PhaseSwitcherPills,
+ * SeriesFeature, DomainCarousel, те же картинки хиро), на русском и на каталоге России. Три фазы:
+ * Гидратация, Детокс, Баланс. Сториз и инфоблоков нет.
  *
- * Набор всегда идёт одной крупной карточкой, под ним — что в него входит. Состав наборов — как на витрине
+ * Набор всегда — крупная карточка (SeriesFeature), под ней что в него входит. Состав наборов — как на витрине
  * магазина (поле «Состав» в API), а не как в каноне: у Парашилда в магазине есть МСМ, у Коло-Вада — комплекты.
  */
-import { DOMAIN_SHORT, RU_PRODUCTS, ruProducts, type RuProduct } from "./shop";
+import { asset } from "@/lib/asset";
+import heroImages from "../../../content/hero-images.json";
+import hydramaxSeries from "../../../content/series/hydramax-plus.json";
+import detoxSeries from "../../../content/series/coral-detox.json";
+import goDetoxSeries from "../../../content/series/go-detox.json";
+import { RU_PRODUCTS, type RuProduct } from "./shop";
 
-export type RuPhaseId = "hydration" | "beauty" | "balance";
+export type RuPhaseId = "hydration" | "detox" | "balance";
 
 export type RuHero = {
-  title: { lead: string; accent: string };
+  title: { lead: string[]; accent: string };
   body: string;
+  cta: string;
   image: { desktopSrc: string; mobileSrc: string; alt: string };
 };
 
 /** Набор: крупная карточка и что в него входит. */
-export type RuPack = { code: number; title: { lead: string; accent: string }; body?: string; parts: number[] };
+export type RuPack = {
+  code: number;
+  title?: { lead: string; accent: string };
+  blurb?: string;
+  /** фото крупной карточки (сцены серии основного сайта); нет — фото товара */
+  images?: string[];
+  parts: number[];
+};
+
+/** Картинка хиро основного сайта (content/hero-images.json), как в content/home.tsx. */
+function heroImage(id: string, alt: string): RuHero["image"] {
+  const e = heroImages.items.find((i) => i.id === id);
+  const desktop = e?.desktop ?? "";
+  const mobile = e?.mobile || desktop;
+  return { desktopSrc: desktop ? `${asset(desktop)}?v=3` : "", mobileSrc: mobile ? `${asset(mobile)}?v=3` : "", alt };
+}
 
 export const RU_PHASES: { id: RuPhaseId; name: string; hero: RuHero }[] = [
   {
     id: "hydration",
     name: "Гидратация",
     hero: {
-      title: { lead: "Система здоровья", accent: "начинается с воды" },
-      body: "Минералы в воду каждый день — основа, на которой работает всё остальное.",
-      image: { desktopSrc: "/images/hero/ru-water.jpg", mobileSrc: "/images/hero/ru-water.jpg", alt: "Девушка пьёт воду из стакана" },
+      title: { lead: ["Система здоровья"], accent: "начинается с воды" },
+      body: "Гидратация — первый шаг системы Coral Club, на котором строится всё остальное.",
+      cta: "Собрать набор",
+      image: heroImage("hydration", "Саше Корал-Майн Сильвер и стакан минерализованной воды"),
     },
   },
   {
-    id: "beauty",
-    name: "Красота",
+    id: "detox",
+    name: "Детокс",
     hero: {
-      title: { lead: "Красота", accent: "изнутри и снаружи" },
-      body: "Коллаген, уход за кожей и маски — одна система.",
-      image: {
-        desktopSrc: "/images/landing/hero-collection.webp",
-        mobileSrc: "/images/landing/hero-collection.webp",
-        alt: "Коллаген, маски и уход LIŪMI Coral Club",
-      },
+      title: { lead: ["Легче, спокойнее,"], accent: "яснее" },
+      body: "Внутренняя нагрузка снижается по шагам — примерно за три месяца.",
+      cta: "Начать детокс",
+      image: heroImage("restart", "Корал Детокс, Парашилд и Коло-Вада Плюс"),
     },
   },
   {
     id: "balance",
     name: "Баланс",
     hero: {
-      title: { lead: "Энергия, сон, иммунитет —", accent: "ваш баланс" },
-      body: "Выберите, что важно сейчас, — и соберите свою систему.",
-      image: {
-        desktopSrc: "/images/hero/ChatGPT Image Sep 13, 2026 at 07_47_43 PM.png",
-        mobileSrc: "/images/hero/ChatGPT Image Sep 13, 2026 at 07_47_43 PM.png",
-        alt: "Продукты Coral Club для энергии, сна и иммунитета",
-      },
+      title: { lead: ["Понять себя.", "Выбрать свой путь."], accent: "Чувствовать себя лучше" },
+      body: "Вода и детокс уже работают — выберите, что важно сейчас, и соберите свой маршрут.",
+      cta: "Выбрать",
+      image: heroImage("personalization", "Продукты Coral Club для энергии, сна и иммунитета"),
     },
   },
 ];
@@ -59,65 +77,63 @@ export const RU_PHASES: { id: RuPhaseId; name: string; hero: RuHero }[] = [
 
 export const HYDRATION_PACK: RuPack = {
   code: 80720,
-  title: { lead: "Обогащение воды", accent: "минералами" },
+  title: { lead: "Одной воды мало.", accent: "Нужны минералы" },
+  blurb: "Обычная вода быстро уходит из организма — удерживают её минералы и электролиты.",
+  images: hydramaxSeries.images,
   // Корал-Майн Сильвер, ПентоКан, Оушенмин, H-500
   parts: [2200, 2141, 225115, 91800],
 };
 
-/** «Перезагрузка» — раздел «Очищение» сайта: три ключевых набора, по шагам программы. */
-export const RESET_PACKS: RuPack[] = [
+/* --------------------------------- Детокс --------------------------------- */
+
+/** Три ключевых набора раздела «Очищение» сайта, по шагам программы. */
+export const DETOX_PACKS: RuPack[] = [
   {
     code: 8035007,
-    title: { lead: "Корал Детокс", accent: "мягкое очищение за 30 дней" },
+    title: { lead: "Четыре продукта, одна задача.", accent: "Снизить внутреннюю нагрузку" },
+    blurb: "Корал Детокс — ферменты, антиоксиданты, минералы и лецитин: набор на 30 дней, с которого начинается детокс.",
+    images: detoxSeries.images,
     // Ассимилятор, H-500, Лецитин подсолнечный, Корал-Майн
     parts: [91118, 91800, 2307, 2220],
   },
   {
     code: 80320,
-    title: { lead: "Парашилд", accent: "защита кишечника" },
+    title: { lead: "Парашилд.", accent: "Защита кишечника" },
+    blurb: "Растительные экстракты, пробиотики и минералы — второй шаг программы очищения.",
     // ПараФайт, Корал Бурдок Рут, МСМ, Супер-Флора, Корал-Майн
     parts: [2124, 91860, 2152, 2150, 2220],
   },
   {
     code: 1200,
-    title: { lead: "Коло-Вада Плюс", accent: "перезагрузка за 14 дней" },
+    title: { lead: "Что внутри коробки.", accent: "Три этапа, одна последовательность" },
+    blurb: "Коло-Вада Плюс — программа на 14 дней: три комплекта по этапам, порошок Коло-Вада Микс и пробиотик на весь курс.",
+    images: goDetoxSeries.images,
     // комплект №1, №2, Коло-Вада Микс, комплект №3, Супер-Флора
     parts: [91302, 91303, 91305, 91304, 2150],
   },
 ];
 
-/* -------------------------------- Красота -------------------------------- */
-
-export const BEAUTY_PACK: RuPack = {
-  code: 5800,
-  title: { lead: "Уход за лицом", accent: "LIŪMI" },
-  parts: [5801, 5802, 5803, 5804, 5805, 5806],
-};
-
-/** Красота изнутри: коллаген первым, дальше остальное «IN» канона (кроме воды — она в Гидратации). */
-export const BEAUTY_IN: RuProduct[] = [
-  ...ruProducts([2260, 2270]),
-  ...RU_PRODUCTS.filter((p) => p.beauty.includes("in") && !p.phase.includes("hydration") && ![2260, 2270].includes(p.code)),
-];
-
-/** Маски и уход: биоцеллюлозные маски, затем Privilege. */
-export const BEAUTY_CARE: RuProduct[] = [
-  ...ruProducts([610301, 610101, 610201]),
-  ...RU_PRODUCTS.filter((p) => p.name.startsWith("Privilege")),
-];
-
 /* --------------------------------- Баланс --------------------------------- */
 
-/** Домены «Баланса» — все домены канона, кроме кожи (она в «Красоте»), где есть товары. */
-export const BALANCE_DOMAINS = Object.keys(DOMAIN_SHORT)
-  .filter((d) => d !== "skin_hair_nails")
-  .map((id) => {
-    const inDomain = RU_PRODUCTS.filter((p) => p.domains.includes(id) && p.phase.includes("personalization"));
-    return {
-      id,
-      label: DOMAIN_SHORT[id],
-      packs: inDomain.filter((p) => p.set),
-      products: inDomain.filter((p) => !p.set && !p.beauty.includes("out")),
-    };
-  })
-  .filter((d) => d.packs.length + d.products.length > 0);
+/** Домены канона → иконки основного сайта (DomainCarousel) и подписи. Гормонов и сахара на основном сайте нет. */
+const DOMAINS: { canon: string; id: string; label: string }[] = [
+  { canon: "energy", id: "energy", label: "Энергия" },
+  { canon: "sleep_stress", id: "sleep-stress", label: "Сон и стресс" },
+  { canon: "immunity", id: "immunity", label: "Иммунитет" },
+  { canon: "digestive_gut_health", id: "digestion-gut", label: "Пищеварение" },
+  { canon: "skin_hair_nails", id: "skin-hair-nails", label: "Кожа и волосы" },
+  { canon: "metabolism_weight", id: "weight-metabolism", label: "Метаболизм" },
+  { canon: "brain_focus_memory", id: "brain-focus", label: "Мозг и память" },
+  { canon: "heart_cardiovascular", id: "heart-vessels", label: "Сердце и сосуды" },
+  { canon: "bones_joints", id: "bones-joints", label: "Суставы" },
+  { canon: "healthy_aging", id: "longevity", label: "Долголетие" },
+  { canon: "vision_eye_care", id: "vision-eyes", label: "Зрение" },
+  { canon: "reproductive_health", id: "reproductive", label: "Женское здоровье" },
+];
+
+export type RuDomain = { id: string; label: string; packs: RuProduct[]; products: RuProduct[] };
+
+export const BALANCE_DOMAINS: RuDomain[] = DOMAINS.map(({ canon, id, label }) => {
+  const inDomain = RU_PRODUCTS.filter((p) => p.domains.includes(canon) && p.phase.includes("personalization"));
+  return { id, label, packs: inDomain.filter((p) => p.set), products: inDomain.filter((p) => !p.set) };
+}).filter((d) => d.packs.length + d.products.length > 0);

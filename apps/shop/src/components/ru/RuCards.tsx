@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { Carousel } from "@/components/organisms/Carousel";
 import { ProductCard } from "@/components/organisms/ProductCard";
 import { CARD_RU } from "@/components/organisms/ProductCard";
@@ -8,7 +9,7 @@ import { ruHref, rub, ruTitle, type RuProduct } from "@/lib/ru/shop";
 import { useRuMember, useRuPrices } from "@/lib/ru/live";
 
 /** Карточка товара магазина России: цена участника, зачёркнутая обычная и тег скидки — для гостя и участника. */
-function RuCard({ p, index, wide }: { p: RuProduct; index: number; wide?: boolean }) {
+export function RuCard({ p, index, wide }: { p: RuProduct; index: number; wide?: boolean }) {
   const member = useRuMember();
   const prices = useRuPrices();
   const cart = useRuCart();
@@ -55,8 +56,11 @@ export function RuCards({
   listId,
   minCols,
   availableFirst,
+  title,
 }: {
   products: RuProduct[];
+  /** заголовок ряда — как у каруселей главной основного магазина */
+  title?: ReactNode;
   label: string;
   listId: string;
   minCols?: number;
@@ -70,7 +74,7 @@ export function RuCards({
   const list = availableFirst ? [...products.filter(sold), ...products.filter((p) => !sold(p))] : products;
   return (
     <div data-analytics-list={listId} data-analytics-list-items={list.map((p) => p.code).join(",")}>
-      <Carousel label={label} maxCols={4} minCols={minCols} stretchFew>
+      <Carousel label={label} title={title} maxCols={4} minCols={minCols} stretchFew>
         {list.map((p, i) => (
           <RuCard key={p.slug} p={p} index={i + 1} wide={products.length === 1} />
         ))}
