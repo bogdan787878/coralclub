@@ -57,12 +57,13 @@
   color: var(--color-text);
   opacity: 0.85;
 }
+/* выбранный домен — цвет кнопок UI kit (--color-action) */
 .domainOn {
-  background: var(--color-text);
-  color: var(--color-bg);
+  background: var(--color-action);
+  color: var(--color-action-contrast);
 }
 .domainOn .domainIcon {
-  color: var(--color-bg);
+  color: var(--color-action-contrast);
   opacity: 1;
 }
 
@@ -115,9 +116,9 @@
   color: var(--color-text-muted);
 }
 .chipOn {
-  background: var(--color-text);
-  border-color: var(--color-text);
-  color: var(--color-bg);
+  background: var(--color-action);
+  border-color: var(--color-action);
+  color: var(--color-action-contrast);
 }
 .chipOn span {
   color: inherit;
