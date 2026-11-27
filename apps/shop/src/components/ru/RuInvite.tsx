@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
 import { cc4 } from "@coral/api";
+import { inviteUrl } from "@/lib/ru/ref";
 import { Button, Sheet } from "@/components/ui";
 import styles from "./RuInvite.module.css";
 
@@ -17,31 +18,43 @@ function ShareIcon() {
 }
 
 /**
- * Пригласить в клуб — для вошедшего участника (дистрибьютора). Из кабинета берётся только его личная
- * пригласительная ссылка (API кабинета GET /account/ref_link), остальной кабинет не подключается.
+ * Пригласить в клуб — для вошедшего участника (дистрибьютора). Ссылка ведёт в этот магазин на регистрацию с ним
+ * в консультантах (lib/ru/ref.ts: …/login/?tab=register&ref=<Coral ID>); из кабинета — только Coral ID (/account).
  *   «Зарегистрировать вручную» — регистрация нового участника под собой (форма магазина, консультант — вы);
  *   «Ссылка» — поделиться ссылкой (или скопировать);
  *   «QR-код» — QR ссылки: показать, поделиться картинкой или сохранить.
  */
-export function RuInvite({ onManual }: { onManual: () => void }) {
+export function RuInvite({ memberId, accountWhy = "", onManual }: { memberId: string; accountWhy?: string; onManual: () => void }) {
   const [link, setLink] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [note, setNote] = useState("");
   const [qrOpen, setQrOpen] = useState(false);
   const [qr, setQr] = useState("");
 
+  // ссылка — в этот магазин: регистрация с вами в консультантах (ссылка кабинета coral.club/….html уводит на
+  // регистрацию сайта США). Нет Coral ID — ссылка кабинета (/account/ref_link), если он её выдал
   useEffect(() => {
+    if (memberId) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- адрес сайта известен только в браузере
+      setLink(inviteUrl(memberId));
+      setError("");
+      return;
+    }
     let alive = true;
-    cc4<{ data?: { link?: string } }>("/account/ref_link").then((r) => {
+    cc4<{ data?: string | { link?: string; url?: string }; message?: string }>("/account/ref_link").then((r) => {
       if (!alive) return;
-      const l = r.json?.data?.link ?? "";
+      const d = r.json?.data;
+      const l = typeof d === "string" ? d : (d?.link ?? d?.url ?? "");
       setLink(l);
-      if (!l) setError(r.ok ? "Пригласительная ссылка для этого аккаунта пока не выдана." : "Не удалось получить пригласительную ссылку.");
+      if (!l) {
+        const api = r.ok ? "ссылка пустая" : `API ответил ${r.status || "нет связи"}${r.json?.message ? `: ${r.json.message}` : ""}`;
+        setError(`Не удалось получить пригласительную ссылку: ${[accountWhy && `аккаунт — ${accountWhy}`, `ссылка — ${api}`].filter(Boolean).join("; ")}. Попробуйте выйти и войти заново.`);
+      }
     });
     return () => {
       alive = false;
     };
-  }, []);
+  }, [memberId, accountWhy]);
 
   useEffect(() => {
     if (!link) return;

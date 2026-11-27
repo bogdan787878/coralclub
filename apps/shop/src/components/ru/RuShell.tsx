@@ -16,6 +16,7 @@ import { RU_BASE, RU_CART_KEY } from "@/lib/ru/shop";
 import { useRuMember } from "@/lib/ru/live";
 import menu from "@/components/checkout/CountryMenu.module.css";
 import { RuCityButton, RuCitySheet } from "./RuCity";
+import { captureRef } from "@/lib/ru/ref";
 import shell from "./RuShell.module.css";
 
 /** Телефон и планшет (до 1024px) — там на странице товара своя верхняя полоса вместо шапки магазина. */
@@ -79,6 +80,9 @@ export function RuShell({ children }: { children: ReactNode }) {
   }, [path, inSearch]);
   /** Выйти из поиска — туда, откуда пришли (или на главную, если поиск открыли по ссылке). */
   const closeSearch = () => router.push(beforeSearch.current || `${RU_BASE}/`);
+
+  // пригласительная ссылка (?ref=Coral ID) — запомнить, с какой бы страницы магазина ни пришли
+  useEffect(() => captureRef(), [path]);
 
   // переходы как в iOS: ссылки магазина (и в шапке, и в нижнем меню Layout — они в его shadow DOM) открываются
   // внутри приложения, без перезагрузки; новая страница въезжает справа, «назад» — слева

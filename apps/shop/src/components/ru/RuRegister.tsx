@@ -4,6 +4,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { login } from "@coral/api";
 import { Button, FloatInput } from "@/components/ui";
 import { moveGuestCartToMember } from "@/lib/ru/cart";
+import { savedRef } from "@/lib/ru/ref";
 import {
   EMAIL_RX,
   checkEmail,
@@ -65,6 +66,22 @@ export function RuRegister({
   const [tried, setTried] = useState(false);
   const [busy, setBusy] = useState("");
   const [msg, setMsg] = useState<{ text: string; bad: boolean }>({ text: "", bad: false });
+
+  // пришли по пригласительной ссылке — консультант уже найден
+  useEffect(() => {
+    if (sponsor) return;
+    const ref = savedRef();
+    if (!ref) return;
+    let alive = true;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- ref известен только в браузере
+    setSponsorQuery(ref);
+    findConsultant({ memberId: ref })
+      .then((c) => alive && c && setConsultant(c))
+      .catch(() => undefined);
+    return () => {
+      alive = false;
+    };
+  }, [sponsor]);
 
   // регистрация вручную: консультант — сам дистрибьютор
   useEffect(() => {

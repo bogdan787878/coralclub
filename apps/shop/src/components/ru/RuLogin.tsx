@@ -25,7 +25,8 @@ export function RuLogin() {
   const next = raw.startsWith(`${RU_BASE}/`) ? raw : `${RU_BASE}/`;
   // пришли из корзины («Оформить заказ») — это шаг оформления, а не просто вход
   const checkout = next.startsWith(`${RU_BASE}/checkout`);
-  const [tab, setTab] = useState<"login" | "register">("login");
+  // пригласительная ссылка ведёт сразу на регистрацию (?tab=register&ref=…)
+  const [tab, setTab] = useState<"login" | "register">(q?.get("tab") === "register" ? "register" : "login");
 
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
@@ -34,6 +35,7 @@ export function RuLogin() {
   const [name, setName] = useState("");
   const [memberId, setMemberId] = useState("");
   const [accountFailed, setAccountFailed] = useState(false);
+  const [accountWhy, setAccountWhy] = useState("");
   // дистрибьютор регистрирует нового участника под собой; done — Coral ID зарегистрированного
   const [manual, setManual] = useState<{ done: string } | null>(null);
   // вход прошёл — уходим дальше без экрана «Вы вошли» (он мелькал, пока переносится корзина)
@@ -48,12 +50,19 @@ export function RuLogin() {
   useEffect(() => {
     if (!member) return;
     let alive = true;
-    cc4<{ data?: { name?: string; surname?: string; id?: number } }>("/account").then((r) => {
-      const d = r.json?.data;
-      if (alive && !d?.id) setAccountFailed(true);
-      if (alive && d) {
-        setName([d.name, d.surname].filter(Boolean).join(" ") || (d.id ? `Coral ID ${d.id}` : ""));
-        if (d.id) setMemberId(String(d.id));
+    cc4<{ data?: Record<string, unknown>; message?: string }>("/account").then((r) => {
+      if (!alive) return;
+      // поля аккаунта бывают разными: id | memberId | member_id, name | firstName, surname | lastName
+      const d = (r.json?.data ?? {}) as Record<string, unknown>;
+      const str = (...keys: string[]) => keys.map((k) => d[k]).find((v) => typeof v === "string" || typeof v === "number");
+      const id = str("id", "memberId", "member_id", "coralId");
+      const full = [str("name", "firstName", "first_name"), str("surname", "lastName", "last_name")].filter(Boolean).join(" ");
+      if (id) setMemberId(String(id));
+      if (full || id) setName(full || `Coral ID ${id}`);
+      if (!id) {
+        setAccountFailed(true);
+        // что ответил API — без токенов, чтобы было видно причину
+        setAccountWhy(r.ok ? "в ответе нет Coral ID" : `API ответил ${r.status || "нет связи"}${r.json?.message ? `: ${r.json.message}` : ""}`);
       }
     });
     return () => {
@@ -123,7 +132,7 @@ export function RuLogin() {
             {memberId ? (
               <RuRegister key={manual.done} sponsor={memberId} onDone={(id) => setManual({ done: id || "—" })} />
             ) : (
-              <p className={styles.authText}>{accountFailed ? "Не удалось получить ваш Coral ID. Обновите страницу или войдите заново." : "Загружаем ваш Coral ID…"}</p>
+              <p className={styles.authText}>{accountFailed ? `Не удалось получить ваш Coral ID (${accountWhy}). Обновите страницу или войдите заново.` : "Загружаем ваш Coral ID…"}</p>
             )}
             <Button variant="secondary" block onClick={() => setManual(null)}>
               Назад
@@ -146,7 +155,7 @@ export function RuLogin() {
         <Button variant="secondary" block onClick={signOut} disabled={busy}>
           Выйти
         </Button>
-        <RuInvite onManual={() => setManual({ done: "" })} />
+        <RuInvite memberId={memberId} accountWhy={accountFailed ? accountWhy : ""} onManual={() => setManual({ done: "" })} />
       </main>
     );
   }
