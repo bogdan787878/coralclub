@@ -27,25 +27,25 @@
   color: var(--color-text-muted);
 }
 
-/* chip — each badge in a light pill (RU storefront PDP) */
+/* chip — each badge in a pill on the design-system grey (RU storefront PDP) */
 .chips {
   gap: var(--space-8);
 }
 .chips .badge {
-  gap: var(--space-8);
-  padding: 10px 16px 10px 12px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--color-primary-10) 50%, var(--color-white));
+  gap: 6px;
+  padding: 6px 12px 6px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-neutral-30);
 }
-/* the icon files are drawn inside a ring — in a chip the ring is cropped off, only the glyph stays */
+/* the icon files are drawn inside a ring — in a chip the ring is cropped off, only the glyph stays (20 px) */
 .chips .icon {
-  width: 32px;
-  height: 32px;
-  margin: -4px;
+  width: 26px;
+  height: 26px;
+  margin: -3px;
   clip-path: circle(37%);
 }
 .chips .label {
-  font-size: 1rem;
-  line-height: 1.25rem;
+  font-size: var(--text-body-long-size); /* 14 */
+  line-height: var(--text-body-long-line);
   color: var(--color-text);
 }

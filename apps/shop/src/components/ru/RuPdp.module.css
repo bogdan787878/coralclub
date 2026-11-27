@@ -265,24 +265,6 @@ button.row {
   background: var(--color-bg);
   overflow: hidden;
 }
-.certText {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-}
-.certEyebrow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0;
-  font-size: var(--text-body-long-size);
-  line-height: var(--text-body-long-line);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text);
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-}
 .certTitle {
   margin: 0;
   font-size: 1.375rem;
@@ -291,34 +273,24 @@ button.row {
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
 }
-.certLead {
-  margin: 0;
-  font-size: var(--text-body-long-size);
-  line-height: var(--text-body-long-line);
-  color: var(--color-text-muted);
-}
-.certLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  min-height: 44px;
-  padding: 0;
-  border: 0;
-  background: none;
-  font: inherit;
-  font-size: var(--text-button-size);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text);
-  cursor: pointer;
-}
 .certMedia {
   position: relative;
-  height: 142px;
+  height: 172px;
   border-radius: 12px;
   overflow: hidden;
 }
 .certMedia img {
   object-fit: cover;
+}
+/* ghost-кнопка UI-кита по центру внизу картинки; на фото — белая подложка, чтобы читалась */
+.certBtn {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: var(--space-12);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: var(--color-neutral-white);
 }
 
 .details {

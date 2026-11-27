@@ -471,21 +471,14 @@ export function RuProductView({
           {/* сертификаты */}
           {d.certificates.length > 0 && (
             <section className={styles.cert} aria-labelledby={`cert-${p.code}`}>
-              <div className={styles.certText}>
-                <p className={styles.certEyebrow}>
-                  <Icon name="doc" size={20} />
-                  Качество и сертификация
-                </p>
-                <h2 id={`cert-${p.code}`} className={styles.certTitle}>
-                  Качество, которое можно проверить
-                </h2>
-                <p className={styles.certLead}>Сертификаты и документы на продукт в одном месте</p>
-                <button type="button" className={styles.certLink} onClick={() => setDocsOpen(true)}>
-                  Смотреть сертификаты <Icon name="next" size={20} />
-                </button>
-              </div>
+              <h2 id={`cert-${p.code}`} className={styles.certTitle}>
+                Качество, которое можно проверить
+              </h2>
               <div className={styles.certMedia}>
                 <Image src="/images/ru/cert-media.webp" alt="" fill sizes="(max-width: 1023px) 100vw, 400px" />
+                <Button variant="ghost" className={styles.certBtn} onClick={() => setDocsOpen(true)}>
+                  Смотреть сертификаты
+                </Button>
               </div>
             </section>
           )}
