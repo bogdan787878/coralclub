@@ -424,7 +424,8 @@ export function LkCheckout({
               ) : p.payments.length === 1 ? (
                 <OptionInfo title={p.payments[0].NAME} />
               ) : (
-                <OptionCards label="Способ оплаты">
+                // способы оплаты — друг под другом в одном блоке: логотип, название, радиокнопка справа
+                <OptionCards label="Способ оплаты" layout="group">
                   {p.payments.map((m) => (
                     <OptionCard
                       key={m.ID}
@@ -432,13 +433,11 @@ export function LkCheckout({
                       checked={p.paymentId === m.ID}
                       onChange={() => p.setPaymentChoice(m.ID)}
                       title={m.NAME}
-                      footer={
+                      icon={
                         m.IMAGE ? (
                           // eslint-disable-next-line @next/next/no-img-element -- the shop's own method logo
-                          <img src={payIcon(m.IMAGE)} alt="" style={{ width: 32, height: 32, objectFit: "contain", objectPosition: "left" }} />
-                        ) : (
-                          <span />
-                        )
+                          <img src={payIcon(m.IMAGE)} alt="" />
+                        ) : undefined
                       }
                     />
                   ))}

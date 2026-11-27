@@ -42,3 +42,11 @@
   color: var(--color-action);
   font-weight: var(--font-weight-medium);
 }
+
+/* web: days and hours wrap onto the next line — no sideways scroll */
+@media (min-width: 1024px) {
+  .chips {
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+}

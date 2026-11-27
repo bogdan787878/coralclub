@@ -3,7 +3,9 @@ import styles from "./OptionCards.module.css";
 
 /**
  * Radio options (delivery services, payment methods): a row of cards that
- * scrolls sideways, or `layout="list"` — one option per line, stacked.
+ * scrolls sideways (wraps on the web), `layout="list"` — one option per line, stacked,
+ * or `layout="group"` — one bordered block, options one under another with dividers:
+ * icon, name and a radio button at the right (payment methods).
  */
 export function OptionCards({
   label,
@@ -12,10 +14,10 @@ export function OptionCards({
 }: {
   label: string;
   children: ReactNode;
-  layout?: "row" | "list";
+  layout?: "row" | "list" | "group";
 }) {
   return (
-    <div className={layout === "list" ? styles.list : styles.row} role="radiogroup" aria-label={label}>
+    <div className={layout === "list" ? styles.list : layout === "group" ? styles.group : styles.row} role="radiogroup" aria-label={label}>
       {children}
     </div>
   );
@@ -84,6 +86,8 @@ export function OptionCard({
             )}
           </span>
         )}
+        {/* radio button of layout="group" (hidden in the other layouts) */}
+        <span className={styles.radio} aria-hidden="true" />
         <svg className={styles.check} viewBox="0 0 28 28" aria-hidden="true">
           <circle cx="14" cy="14" r="14" />
           {checked && (
