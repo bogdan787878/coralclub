@@ -312,3 +312,62 @@ div.body {
     background: var(--color-action-hover);
   }
 }
+
+/* ---------- wide (web): photo across the whole block, white copy over it ----------
+   The block spans the page grid column (--grid-edge insets), rounded; a left-to-right scrim keeps the copy legible.
+   Bottom padding leaves room for a carousel's dots and a phase switcher placed over the photo. */
+@media (min-width: 1024px) {
+  .wide.panel {
+    display: block;
+    background: transparent;
+    padding-inline: var(--grid-edge, 56px);
+  }
+  .wide .mediaCol {
+    position: absolute;
+    inset: 0 var(--grid-edge, 56px);
+    border-radius: var(--radius-base);
+    overflow: hidden;
+  }
+  .wide .mediaCol::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(0, 32, 34, 0.62) 0%, rgba(0, 32, 34, 0.38) 40%, transparent 68%);
+  }
+  .wide .bg {
+    object-position: 50% 50%;
+  }
+  .wide .content {
+    position: relative;
+    max-width: 620px;
+    min-height: inherit;
+    padding-block: var(--space-64) 140px;
+    justify-content: center;
+  }
+  .wide .copy {
+    flex: 0 0 auto;
+  }
+  .wide .inset,
+  .wide div.body {
+    padding-left: var(--space-56, 56px);
+  }
+  .wide h1.title,
+  .wide div.body {
+    color: var(--color-text-on-primary);
+    text-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.18),
+      0 4px 16px rgba(0, 0, 0, 0.22);
+  }
+  .wide .ctaRow {
+    padding-left: var(--space-56, 56px);
+  }
+  .wide .content .cta {
+    background: var(--color-neutral-white);
+    color: var(--color-text);
+  }
+  .wide .content .cta:hover {
+    background: var(--color-neutral-30);
+  }
+}

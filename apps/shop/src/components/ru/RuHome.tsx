@@ -176,6 +176,8 @@ export function RuHome() {
             </>
           ),
           image: p.hero.image,
+          // веб: фото на весь блок, текст поверх
+          wide: true,
           cta: { label: p.hero.cta, onClick: toPhase },
         }))}
       />

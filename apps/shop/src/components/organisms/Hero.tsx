@@ -26,6 +26,11 @@ export type HeroProps = {
   renderImage?: boolean;
   /** Phone and tablet: the title sits centred just above the button (photo's subject stays clear at the top). */
   align?: "top" | "bottom";
+  /**
+   * Web (1024+): the photo fills the whole block (the grid column, rounded) and the copy sits over it in white,
+   * instead of the split panel (text column + photo cell). Pass a wide (16:9) desktopSrc.
+   */
+  wide?: boolean;
 };
 
 /**
@@ -41,9 +46,10 @@ export function Hero({
   priority = true,
   renderImage = true,
   align = "top",
+  wide = false,
 }: HeroProps) {
   return (
-    <section className={`${styles.panel}${align === "bottom" ? ` ${styles.bottom}` : ""}`}>
+    <section className={`${styles.panel}${align === "bottom" ? ` ${styles.bottom}` : ""}${wide ? ` ${styles.wide}` : ""}`}>
       {/* No src yet (a hero block with a missing/not-yet-uploaded image) —
           skip <Image> entirely and let the neutral-gray .panel background
           show through, instead of passing next/image an empty src. */}

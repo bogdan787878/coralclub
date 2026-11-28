@@ -32,9 +32,10 @@ export type RuPack = {
 };
 
 /** Картинка хиро основного сайта (content/hero-images.json), как в content/home.tsx. */
-function heroImage(id: string, alt: string): RuHero["image"] {
+function heroImage(id: string, alt: string, wide?: string): RuHero["image"] {
   const e = heroImages.items.find((i) => i.id === id);
-  const desktop = e?.desktop ?? "";
+  // веб и планшет: широкий кадр (16:9) — обложка на всю ширину с текстом поверх
+  const desktop = wide ?? e?.desktop ?? "";
   const mobile = e?.mobile || desktop;
   return { desktopSrc: desktop ? `${asset(desktop)}?v=3` : "", mobileSrc: mobile ? `${asset(mobile)}?v=3` : "", alt };
 }
@@ -46,7 +47,7 @@ export const RU_PHASES: { id: RuPhaseId; name: string; hero: RuHero }[] = [
     hero: {
       title: { lead: ["Система здоровья"], accent: "начинается с воды" },
       cta: "К покупкам",
-      image: heroImage("hydration", "Саше Корал-Майн Сильвер и стакан минерализованной воды"),
+      image: heroImage("hydration", "Вода наливается из графина в стакан", "/images/hero/7thawijnhc7txn8fr3g9t84om0r38bjr.webp"),
     },
   },
   {
@@ -64,7 +65,7 @@ export const RU_PHASES: { id: RuPhaseId; name: string; hero: RuHero }[] = [
     hero: {
       title: { lead: ["Понять себя.", "Выбрать свой путь."], accent: "Чувствовать себя лучше" },
       cta: "К покупкам",
-      image: heroImage("personalization", "Продукты Coral Club для энергии, сна и иммунитета"),
+      image: heroImage("personalization", "Продукты Coral Club для энергии, сна и иммунитета", "/images/series/ChatGPT Image Sep 13, 2026 at 06_30_10 PM.png"),
     },
   },
 ];
