@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { createSearch, type Search, type SearchDoc } from "@coral/search";
-import { Container } from "@/components/ui";
+import { Container, Icon } from "@/components/ui";
 import { useRuPrices } from "@/lib/ru/live";
 import { searchQueryNow, setSearchQuery, useSearchQuery } from "@/lib/ru/searchQuery";
 import { RU_BASE, RU_PRODUCTS, ruProductByCode, type RuProduct } from "@/lib/ru/shop";
@@ -138,7 +138,7 @@ export function RuSearch() {
           />
           {q && (
             <button type="button" className={styles.clear} onClick={() => (setQ(""), input.current?.focus())} aria-label="Очистить">
-              ×
+              <Icon name="close" size={18} />
             </button>
           )}
         </form>

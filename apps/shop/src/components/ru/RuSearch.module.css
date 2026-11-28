@@ -72,6 +72,8 @@
 .clear {
   position: absolute;
   right: var(--space-8);
+  display: grid;
+  place-items: center;
   width: 36px;
   height: 36px;
   border: 0;
