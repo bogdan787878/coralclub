@@ -19,6 +19,8 @@ export type RuHero = {
   title: { lead: string[]; accent: string };
   cta: string;
   image: { desktopSrc: string; mobileSrc: string; alt: string };
+  /** веб: кадрирование фото на всю ширину (object-position) */
+  widePosition?: string;
 };
 
 /** Набор: крупная карточка и что в него входит. */
@@ -34,7 +36,7 @@ export type RuPack = {
 /** Картинка хиро основного сайта (content/hero-images.json), как в content/home.tsx. */
 function heroImage(id: string, alt: string, wide?: string): RuHero["image"] {
   const e = heroImages.items.find((i) => i.id === id);
-  // веб и планшет: широкий кадр (16:9) — обложка на всю ширину с текстом поверх
+  // веб и планшет: кадр основного сайта — тот же, что на телефоне (квадрат, широкий или он же вертикальный)
   const desktop = wide ?? e?.desktop ?? "";
   const mobile = e?.mobile || desktop;
   return { desktopSrc: desktop ? `${asset(desktop)}?v=3` : "", mobileSrc: mobile ? `${asset(mobile)}?v=3` : "", alt };
@@ -47,7 +49,8 @@ export const RU_PHASES: { id: RuPhaseId; name: string; hero: RuHero }[] = [
     hero: {
       title: { lead: ["Система здоровья"], accent: "начинается с воды" },
       cta: "К покупкам",
-      image: heroImage("hydration", "Вода наливается из графина в стакан", "/images/hero/7thawijnhc7txn8fr3g9t84om0r38bjr.webp"),
+      image: heroImage("hydration", "Саше Корал-Майн Сильвер и стакан минерализованной воды"),
+      widePosition: "50% 40%",
     },
   },
   {
@@ -57,6 +60,7 @@ export const RU_PHASES: { id: RuPhaseId; name: string; hero: RuHero }[] = [
       title: { lead: ["Легче, спокойнее,"], accent: "яснее" },
       cta: "К покупкам",
       image: heroImage("restart", "Корал Детокс, Парашилд и Коло-Вада Плюс"),
+      widePosition: "50% 70%",
     },
   },
   {
@@ -65,7 +69,8 @@ export const RU_PHASES: { id: RuPhaseId; name: string; hero: RuHero }[] = [
     hero: {
       title: { lead: ["Понять себя.", "Выбрать свой путь."], accent: "Чувствовать себя лучше" },
       cta: "К покупкам",
-      image: heroImage("personalization", "Продукты Coral Club для энергии, сна и иммунитета", "/images/series/ChatGPT Image Sep 13, 2026 at 06_30_10 PM.png"),
+      image: heroImage("personalization", "Продукты Coral Club для энергии, сна и иммунитета"),
+      widePosition: "50% 47%",
     },
   },
 ];

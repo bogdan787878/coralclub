@@ -98,7 +98,7 @@
   .dots.dotsOnImage {
     /* the photo cell: after the 460px text column by default, the whole block for a wide hero (--hero-photo-left) */
     left: var(--hero-photo-left, calc(460px + 24px));
-    right: var(--grid-edge, 56px);
+    right: var(--hero-photo-right, var(--grid-edge, 56px));
     width: auto;
     bottom: var(--hero-dots-bottom, 24px);
   }

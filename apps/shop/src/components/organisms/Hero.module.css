@@ -313,61 +313,37 @@ div.body {
   }
 }
 
-/* ---------- wide (web): photo across the whole block, white copy over it ----------
-   The block spans the page grid column (--grid-edge insets), rounded; a left-to-right scrim keeps the copy legible.
+/* ---------- wide (web): the photo across the full width, the copy over it ----------
+   Edge to edge (the panel is already full-bleed), no scrim: the copy sits over the light part of the photo in the
+   design-system text colour, on the page grid line (--grid-edge). --hero-wide-position frames the photo.
    Bottom padding leaves room for a carousel's dots and a phase switcher placed over the photo. */
 @media (min-width: 1024px) {
   .wide.panel {
     display: block;
-    background: transparent;
-    padding-inline: var(--grid-edge, 56px);
+    background: var(--color-neutral-30);
+    padding: 0;
   }
   .wide .mediaCol {
     position: absolute;
-    inset: 0 var(--grid-edge, 56px);
-    border-radius: var(--radius-base);
+    inset: 0;
+    border-radius: 0;
     overflow: hidden;
   }
-  .wide .mediaCol::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background: linear-gradient(90deg, rgba(0, 32, 34, 0.62) 0%, rgba(0, 32, 34, 0.38) 40%, transparent 68%);
-  }
   .wide .bg {
-    object-position: 50% 50%;
+    object-position: var(--hero-wide-position, 50% 50%);
   }
   .wide .content {
     position: relative;
-    max-width: 620px;
+    max-width: calc(var(--grid-edge, 56px) + 560px);
     min-height: inherit;
     padding-block: var(--space-64) 140px;
-    justify-content: center;
+    justify-content: flex-start;
   }
   .wide .copy {
     flex: 0 0 auto;
   }
   .wide .inset,
   .wide div.body {
-    padding-left: var(--space-56, 56px);
-  }
-  .wide h1.title,
-  .wide div.body {
-    color: var(--color-text-on-primary);
-    text-shadow:
-      0 1px 3px rgba(0, 0, 0, 0.18),
-      0 4px 16px rgba(0, 0, 0, 0.22);
-  }
-  .wide .ctaRow {
-    padding-left: var(--space-56, 56px);
-  }
-  .wide .content .cta {
-    background: var(--color-neutral-white);
-    color: var(--color-text);
-  }
-  .wide .content .cta:hover {
-    background: var(--color-neutral-30);
+    padding-left: var(--grid-edge, 56px);
   }
 }

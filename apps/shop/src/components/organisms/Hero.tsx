@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import Image from "next/image";
 import { BodyLong, Button, Heading } from "@/components/ui";
 import styles from "./Hero.module.css";
@@ -31,6 +31,8 @@ export type HeroProps = {
    * instead of the split panel (text column + photo cell). Pass a wide (16:9) desktopSrc.
    */
   wide?: boolean;
+  /** wide: how the photo is framed (object-position), e.g. "50% 70%" */
+  widePosition?: string;
 };
 
 /**
@@ -47,9 +49,13 @@ export function Hero({
   renderImage = true,
   align = "top",
   wide = false,
+  widePosition,
 }: HeroProps) {
   return (
-    <section className={`${styles.panel}${align === "bottom" ? ` ${styles.bottom}` : ""}${wide ? ` ${styles.wide}` : ""}`}>
+    <section
+      className={`${styles.panel}${align === "bottom" ? ` ${styles.bottom}` : ""}${wide ? ` ${styles.wide}` : ""}`}
+      style={widePosition ? ({ "--hero-wide-position": widePosition } as CSSProperties) : undefined}
+    >
       {/* No src yet (a hero block with a missing/not-yet-uploaded image) —
           skip <Image> entirely and let the neutral-gray .panel background
           show through, instead of passing next/image an empty src. */}

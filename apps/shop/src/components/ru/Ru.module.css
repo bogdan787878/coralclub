@@ -439,12 +439,13 @@
     padding-top: var(--space-24);
     /* точки — над переключателем: 24 (поле) + 44 (переключатель) + 12; фото — на весь блок (обложка wide) */
     --hero-dots-bottom: 80px;
-    --hero-photo-left: var(--grid-edge, 56px);
+    --hero-photo-left: 0px;
+    --hero-photo-right: 0px;
   }
-  /* переключатель — по центру блока обложки (в полях сетки), поверх низа фото */
+  /* переключатель — по центру обложки, поверх низа фото */
   div.phaseOnImage {
     width: auto;
-    margin: calc(-44px - 24px) var(--grid-edge, 56px) 24px;
+    margin: calc(-44px - 24px) 0 24px;
     justify-content: center;
   }
 }
