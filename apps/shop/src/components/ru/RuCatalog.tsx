@@ -137,7 +137,7 @@ export function RuCatalog() {
     <ul className={styles.grid} data-analytics-list={sale ? "catalog_sale" : `catalog_${domain || "all"}`}>
       {shown.map((p, i) => (
         <li key={p.code}>
-          <RuCard p={p} index={i + 1} />
+          <RuCard p={p} index={i + 1} eager={i < 4} />
         </li>
       ))}
     </ul>

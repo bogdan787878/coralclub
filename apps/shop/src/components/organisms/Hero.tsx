@@ -56,6 +56,7 @@ export function Hero({
           priority={priority}
           loading={priority ? undefined : "lazy"}
           sizes="100vw"
+          quality={75}
         />
       )}
       {renderImage && image.desktopSrc && (
@@ -68,6 +69,7 @@ export function Hero({
             priority={priority}
             loading={priority ? undefined : "lazy"}
             sizes="100vw"
+          quality={75}
           />
         </div>
       )}

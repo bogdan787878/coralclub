@@ -132,6 +132,8 @@ export function RuShell({ children }: { children: ReactNode }) {
     <>
       <Script src={asset("/layout/layout.js")} strategy="afterInteractive" />
       {/* источник корзины Layout выбирает один раз за загрузку страницы: ждём, пока станет известно, вошёл ли участник */}
+      {/* пока не известно, вошёл ли человек, шапки нет — держим её место, чтобы страница не прыгала (CLS) */}
+      {member === null && <div className={`${shell.headStub} ${path.startsWith(`${RU_BASE}/product/`) ? shell.headStubPdp : ""}`} aria-hidden="true" />}
       {member !== null && (
         <cc-layout
           key={`${member ? "member" : "guest"}-${isHome ? "home" : "page"}`}

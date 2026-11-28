@@ -49,7 +49,7 @@ function loadEngine(): Promise<Search> {
         phases: p.phase,
         feats: p.feat,
         forms: p.formGroup ? [p.formGroup] : [],
-        text: e?.text ?? p.lead,
+        text: e?.text ?? "",
       };
     });
     return createSearch(docs);
@@ -195,7 +195,7 @@ export function RuSearch() {
                   <ul key={result.ids.join(",")} className={`${grid.grid} ${styles.results}`} data-analytics-list="search">
                     {products.map((p, i) => (
                       <li key={p.code}>
-                        <RuCard p={p} index={i + 1} />
+                        <RuCard p={p} index={i + 1} eager={i < 4} />
                       </li>
                     ))}
                   </ul>

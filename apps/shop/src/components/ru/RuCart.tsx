@@ -4,6 +4,7 @@ import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { asset } from "@/lib/asset";
+import cfLoader from "@/lib/cf-image-loader";
 import { repriceGuestCart, useRuCart } from "@/lib/ru/cart";
 import { RU_BASE, RU_CART_KEY, RU_PRODUCTS, ruProductByCode, rub, type RuProduct } from "@/lib/ru/shop";
 import { useRuMember, useRuPrices } from "@/lib/ru/live";
@@ -73,7 +74,8 @@ export function RuCart() {
   useEffect(() => {
     const node = el.current;
     if (!node || member !== false) return;
-    node.imageUrl = (src: string) => (src.startsWith("/") ? asset(src) : src);
+    // фото строки — через Cloudflare Images (WebP/AVIF, 256 px), а не оригинал PNG
+    node.imageUrl = (src: string) => (src.startsWith("/") ? cfLoader({ src, width: 256 }) : src);
   }, [member]);
 
   useEffect(() => {

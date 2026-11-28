@@ -58,11 +58,14 @@ const corpus = textFiles
   .replace(/"\/images\/[^"]*":"[^"]*"/g, "");
 const spellings = (rel) => new Set([rel, encodeURI(rel), rel.replaceAll(" ", "%20"), rel.split("/").map(encodeURIComponent).join("/")]);
 const isUsed = (rel) => [...spellings(rel)].some((v) => corpus.includes(v));
+// картинки из манифеста Cloudflare Images сайт берёт с CDN (ресайз, WebP/AVIF) — оригиналы в архив не кладём
+const manifest = JSON.parse(readFileSync(path.join(ROOT, "src/lib/image-manifest.json"), "utf8"));
+const onCdn = (rel) => Boolean(manifest.accountHash && manifest.ids?.[rel]);
 let removed = 0;
 for (const f of walk(BUILD)) {
   const rel = "/" + f.split(path.sep).join("/");
   if (!/^\/(images|fonts|reels|admin|icons|video|videos)\//.test(rel)) continue;
-  if (rel === "/fonts/README.md" || !isUsed(rel)) {
+  if (rel === "/fonts/README.md" || onCdn(rel) || !isUsed(rel)) {
     rmSync(path.join(BUILD, f));
     removed++;
   }

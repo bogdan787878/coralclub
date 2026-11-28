@@ -35,3 +35,20 @@
     display: none !important;
   }
 }
+
+/* место шапки до её появления (высота шапки Layout: 76 px, на вебе 72 px) */
+.headStub {
+  height: 76px;
+  background: var(--color-malachite-90, #004144);
+}
+@media (min-width: 1024px) {
+  .headStub {
+    height: 72px;
+  }
+}
+/* страница товара на телефоне — без шапки */
+@media (max-width: 1023px) {
+  .headStubPdp {
+    display: none;
+  }
+}

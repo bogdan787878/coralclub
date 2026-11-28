@@ -2,12 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button, FloatInput, Icon, Sheet } from "@/components/ui";
-import {
-  cityComponents,
-  newSession,
-  suggestCities,
-  type CitySuggestion,
-} from "@/lib/addressSearch";
+import type { CitySuggestion } from "@/lib/addressSearch";
+
+/** Поиск городов Google — по требованию (открыли выбор города), не в общем JS страницы. */
+const loadPlaces = () => import("@/lib/addressSearch");
 import {
   POPULAR,
   autoGeolocateRuCity,
@@ -150,8 +148,9 @@ export function RuCitySheet({ isHome }: { isHome: boolean }) {
     }
     const t = setTimeout(async () => {
       try {
-        session.current ??= await newSession();
-        const found = await suggestCities(q, session.current);
+        const g = await loadPlaces();
+        session.current ??= await g.newSession();
+        const found = await g.suggestCities(q, session.current);
         if (!alive) return;
         setGoogle({
           q,
@@ -160,7 +159,7 @@ export function RuCitySheet({ isHome }: { isHome: boolean }) {
             city: s.main,
             area: s.secondary.replace(/,?\s*Россия$/, ""),
             pick: async () => {
-              const c = cityFromComponents(await cityComponents(s));
+              const c = cityFromComponents(await (await loadPlaces()).cityComponents(s));
               session.current = null; // выбор закрывает сессию ввода Google
               return c;
             },

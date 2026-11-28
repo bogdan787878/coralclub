@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { catalogProduct, guestProductDetail, type ProductDetail } from "@coral/api";
 import { Container, Heading, Section } from "@/components/ui";
 import { RU_BASE, RU_PRODUCTS, ruProduct, ruProducts, ruTitle, type RuProduct } from "@/lib/ru/shop";
@@ -32,8 +32,12 @@ function moreFor(p: RuProduct): { heading: string; list: RuProduct[] } {
  * «Ещё для гидратации». Тексты и цены — API каталога России: гостю по анонимной сессии (обе цены), участнику
  * по его сессии (его цена). Фото — наши пэкшоты, затем фото товара из API.
  */
-export function RuPdp({ slug }: { slug: string }) {
-  const p = ruProduct(slug);
+export function RuPdp({ slug, lead = "" }: { slug: string; /** краткое описание (из полного каталога при сборке) */ lead?: string }) {
+  // один объект на страницу (от него зависит загрузка цен и наличия)
+  const p = useMemo(() => {
+    const base = ruProduct(slug);
+    return base && lead ? { ...base, lead } : base;
+  }, [slug, lead]);
   const member = useRuMember();
   const city = useRuCity();
   const [got, setGot] = useState<{ key: string; detail: ProductDetail | null } | null>(null);

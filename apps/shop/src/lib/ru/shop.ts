@@ -5,7 +5,8 @@
  * фазы, домены здоровья и наборы — из канона продуктов (Product Master). Фото — наши пэкшоты (первые два), где они
  * есть, иначе фото с сайта магазина. Цены и наличие — из API на лету, по городу покупателя (см. ./live, ./city).
  */
-import catalog from "../../../content/ru/catalog.json";
+// в браузер — лёгкий индекс (scripts/ru-catalog-index.mjs): без лида и лишних фото; лид — на странице товара
+import catalog from "../../../content/ru/catalog.index.json";
 
 /** Корень магазина: «/ru» внутри общего сайта, «» в отдельной сборке магазина России (DEPLOY_TARGET=ru). */
 export const RU_BASE = process.env.NEXT_PUBLIC_RU_BASE ?? "/ru";
@@ -26,7 +27,8 @@ type Raw = {
   set: boolean;
   parts: number[];
   codes: number[];
-  lead: string;
+  /** в индексе нет: лид передаётся странице товара при сборке (ruLead) */
+  lead?: string;
   feat: string[];
   form: string;
   own: string[];
@@ -185,11 +187,12 @@ function fromRaw(r: Raw): RuProduct {
     beauty: r.beauty,
     set: r.set,
     parts: r.parts,
-    lead: r.lead,
+    lead: r.lead ?? "",
     feat: r.feat ?? [],
     release: r.form === "Набор" || r.form === "Уход и косметика" ? "" : (r.form ?? ""),
     formGroup: r.form || (r.set ? "Набор" : ""),
     images,
+    // превью и запасной кадр сайта (полные фото — на странице товара из API)
     pictures: r.preview ? [r.preview, ...r.pictures.filter((x) => x !== r.preview)] : r.pictures,
     gallery: GALLERY[r.slug],
   };

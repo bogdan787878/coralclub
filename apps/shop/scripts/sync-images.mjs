@@ -143,6 +143,43 @@ for (const abs of files) {
   console.log("ok");
 }
 
+// Фото товаров с сайта магазина России (превью карточки и один запасной кадр из content/ru/catalog.index.json) —
+// загрузкой по URL: Cloudflare забирает картинку сам, а сайт берёт её ресайзом и в WebP/AVIF (format=auto), а не
+// полноразмерную с ru.coral.club. Ключ манифеста — адрес картинки (его же видит загрузчик next/image).
+async function uploadFromUrl(id, url) {
+  const form = new FormData();
+  form.append("id", id);
+  form.append("requireSignedURLs", "false");
+  form.append("url", url);
+  const { ok, status, json } = await cf("POST", "", form);
+  if (!ok) throw new Error(`upload ${url} failed (HTTP ${status}): ${JSON.stringify(json.errors ?? json)}`);
+  return json.result;
+}
+const ruIndex = join(ROOT, "content", "ru", "catalog.index.json");
+let remote = 0;
+try {
+  const { products = [] } = JSON.parse(readFileSync(ruIndex, "utf8"));
+  const urls = [...new Set(products.flatMap((p) => [p.preview, ...(p.pictures ?? [])]).filter((u) => /^https:\/\//.test(u ?? "")))];
+  for (const url of urls) {
+    seen.add(url);
+    if (manifest.ids[url]) continue;
+    const id = `ru-site/${sha1(Buffer.from(url)).slice(0, 20)}`;
+    process.stdout.write(`  ↑ ${url} … `);
+    try {
+      await deleteImage(id);
+      const result = await uploadFromUrl(id, url);
+      manifest.ids[url] = result.id;
+      remote++;
+      console.log("ok");
+    } catch (e) {
+      // одна недоступная картинка сайта не роняет выкладку: она останется с сайта, как раньше
+      console.log(`пропущено (${e.message})`);
+    }
+  }
+} catch {
+  /* индекса каталога России нет — только локальные картинки */
+}
+
 // Drop (and delete remotely) entries whose file was removed.
 for (const srcKey of Object.keys(manifest.ids)) {
   if (seen.has(srcKey)) continue;
@@ -162,7 +199,7 @@ writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2) + "\n");
 
 console.log(
   `\naccountHash: ${manifest.accountHash || "(none yet)"}` +
-    `\nuploaded ${uploaded}, skipped ${skipped}, pruned ${pruned}` +
+    `\nuploaded ${uploaded}, from site ${remote}, skipped ${skipped}, pruned ${pruned}` +
     `\nmanifest → ${relative(ROOT, MANIFEST_PATH)}`,
 );
 if (!manifest.accountHash) {

@@ -13,12 +13,10 @@
 import { useSyncExternalStore } from "react";
 import type { SessionLocation } from "@coral/api";
 import { gatewayUrl } from "@/lib/lk/config";
-import {
-  addressSearchEnabled,
-  componentsAt,
-  loadPlacesKeyFromGateway,
-  type AddressComponent,
-} from "@/lib/addressSearch";
+import type { AddressComponent } from "@/lib/addressSearch";
+
+/** Поиск и геокодер Google — по требованию: в общий JS каждой страницы не входят. */
+const places = () => import("@/lib/addressSearch");
 
 export type RuCity = SessionLocation;
 export type RuCityState = RuCity & { chosen: boolean };
@@ -250,8 +248,9 @@ const norm = (s: string) => s.toLowerCase().replace(/ё/g, "е").replace(/[\s-]+
 
 /** Ключ Google (из шлюза): есть — поиск и геокодер Google; нет — список выше. */
 export async function placesReady(): Promise<boolean> {
-  if (addressSearchEnabled()) return true;
-  return loadPlacesKeyFromGateway(gatewayUrl()).catch(() => false);
+  const g = await places();
+  if (g.addressSearchEnabled()) return true;
+  return g.loadPlacesKeyFromGateway(gatewayUrl()).catch(() => false);
 }
 
 /** Компоненты адреса Google → город и регион, как их берёт сайт магазина. Не Россия — null. */
@@ -285,7 +284,7 @@ function nearest(lat: number, lng: number): RuCity {
 export async function cityAt(lat: number, lng: number): Promise<RuCity | null> {
   if (await placesReady()) {
     try {
-      for (const comps of await componentsAt({ lat, lng })) {
+      for (const comps of await (await places()).componentsAt({ lat, lng })) {
         const c = cityFromComponents(comps);
         if (c) return c;
       }

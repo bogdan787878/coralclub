@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { RuPdp } from "@/components/ru/RuPdp";
 import { RU_PRODUCTS, ruProduct, ruTitle } from "@/lib/ru/shop";
+// полный каталог — только при сборке страницы: лид товара уходит в эту страницу, а не в общий JS всех страниц
+import full from "../../../../../content/ru/catalog.json";
+
+const LEADS = new Map((full.products as { slug: string; lead?: string }[]).map((p) => [p.slug, p.lead ?? ""]));
 
 type Params = { slug: string };
 
@@ -17,5 +21,5 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 export default async function RuProductPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
   if (!ruProduct(slug)) notFound();
-  return <RuPdp slug={slug} />;
+  return <RuPdp slug={slug} lead={LEADS.get(slug) ?? ""} />;
 }

@@ -9,7 +9,21 @@ import { ruHref, rub, ruTitle, type RuProduct } from "@/lib/ru/shop";
 import { useRuMember, useRuPrices, useRuSaleInfo } from "@/lib/ru/live";
 
 /** Карточка товара магазина России: цена участника, зачёркнутая обычная и тег скидки — для гостя и участника. */
-export function RuCard({ p, index, wide, single }: { p: RuProduct; index: number; wide?: boolean; /** одно фото, без слайдера (карусели) */ single?: boolean }) {
+export function RuCard({
+  p,
+  index,
+  wide,
+  single,
+  eager,
+}: {
+  p: RuProduct;
+  index: number;
+  wide?: boolean;
+  /** одно фото, без слайдера (карусели) */
+  single?: boolean;
+  /** первый экран сетки: фото сразу, с высоким приоритетом (LCP) */
+  eager?: boolean;
+}) {
   const member = useRuMember();
   const prices = useRuPrices();
   const cart = useRuCart();
@@ -31,6 +45,7 @@ export function RuCard({ p, index, wide, single }: { p: RuProduct; index: number
     <div data-analytics-item={p.code} data-analytics-index={index} style={{ display: "contents" }}>
       <ProductCard
         fluid
+        priority={eager}
         wide={wide}
         title={title}
         tag={p.tag}

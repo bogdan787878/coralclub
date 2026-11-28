@@ -47,6 +47,8 @@ function resolveFit(
 }
 
 export type ProductCardProps = {
+  /** первый экран (верх сетки каталога): первое фото — сразу и с высоким приоритетом, а не лениво */
+  priority?: boolean;
   /** Two-line product name. */
   title: ReactNode;
   /** Tan category pill above the name. */
@@ -129,6 +131,7 @@ function CartIcon() {
  * name and the sale price. The text block links to the product page.
  */
 export function ProductCard({
+  priority = false,
   title,
   category,
   tag,
@@ -204,6 +207,7 @@ export function ProductCard({
                       alt={img.alt}
                       fill
                       sizes="(max-width: 767px) 150px, 250px"
+                      priority={priority && i === 0}
                       style={{
                         objectFit: fit,
                         ...(img.position

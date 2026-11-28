@@ -42,3 +42,19 @@
     --page-padding-inline: var(--grid-edge);
   }
 }
+
+/* шапка, пока не загрузился layout.js: её место (иначе страница прыгает вниз, CLS) */
+.ru cc-layout:not(:defined) {
+  display: block;
+  height: 76px;
+  background: var(--color-malachite-90, #004144);
+}
+.ru cc-layout[parts="tabbar"]:not(:defined) {
+  height: 0;
+}
+@media (min-width: 1024px) {
+  .ru cc-layout:not(:defined),
+  .ru cc-layout[parts="tabbar"]:not(:defined) {
+    height: 72px;
+  }
+}

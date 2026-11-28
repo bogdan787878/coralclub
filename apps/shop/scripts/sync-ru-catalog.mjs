@@ -204,6 +204,8 @@ const search = products.map((p) => {
 });
 const SEARCH_OUT = path.join(ROOT, "content/ru/search.json");
 writeFileSync(SEARCH_OUT, JSON.stringify(search) + "\n");
+// лёгкий индекс для браузера (без лида и лишних фото)
+await import("./ru-catalog-index.mjs");
 console.log(`индекс поиска → ${path.relative(ROOT, SEARCH_OUT)}`);
 const missing = canon.products.filter((c) => ![c.code, ...(c.codes ?? [])].some((x) => listed.has(Number(x))));
 if (missing.length) console.log(`нет на витрине России: ${missing.map((c) => `${c.code} ${c.name}`).join("; ")}`);
