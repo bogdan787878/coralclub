@@ -10,12 +10,13 @@
     "friend:sync": "node scripts/sync-friend-catalog.mjs",
     "predev": "npm run gen && npm run mfe",
     "dev": "next dev",
-    "prebuild": "npm run gen && npm run mfe",
+    "prebuild": "npm run gen && npm run mfe && node scripts/fonts.mjs unpack",
     "build": "next build",
     "start": "next start",
     "dev:proxy": "node scripts/dev-proxy.mjs",
     "build:labspace": "node scripts/build-labspace.mjs",
     "build:ru": "node scripts/build-ru.mjs",
+    "fonts:pack": "node scripts/fonts.mjs pack",
     "mfe": "npm run build -w @coral/cart -w @coral/layout && node scripts/copy-mfe.mjs"
   },
   "dependencies": {

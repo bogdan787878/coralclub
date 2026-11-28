@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@/components/landing/Analytics";
 import "./globals.css";
+import { FontFaces } from "@/components/app/FontFaces";
 
 // Root layout of the coralclub.ru build (DEPLOY_TARGET=coralclub): the
 // "Система красоты" landing alone. Same as layout.tsx + the analytics runtime
@@ -25,6 +26,9 @@ export default function LabspaceLayout({
 }) {
   return (
     <html lang="ru">
+      <head>
+        <FontFaces />
+      </head>
       <body>
         {children}
         <Analytics />

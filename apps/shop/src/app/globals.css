@@ -1,4 +1,4 @@
-@import "../styles/fonts.css";
+/* шрифты (@font-face) — components/app/FontFaces.tsx: путь с basePath сайта */
 @import "@coral/ui/tokens.css";
 
 /* ============================================================

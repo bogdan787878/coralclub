@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { FontFaces } from "@/components/app/FontFaces";
 
 export const metadata: Metadata = {
   title: "Coral Club",
@@ -17,6 +18,9 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="ru">
+      <head>
+        <FontFaces />
+      </head>
       <body>{children}</body>
     </html>
   );
