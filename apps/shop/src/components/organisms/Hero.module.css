@@ -347,6 +347,19 @@ div.body {
   .wide div.body {
     padding-left: var(--grid-edge, 56px);
   }
+  /* между текстом и кнопкой — побольше воздуха */
+  .wide .content {
+    gap: var(--space-32);
+  }
+  /* кнопка — как на телефоне: белая, с мягкой тенью */
+  .wide .content .cta {
+    background: var(--color-neutral-white);
+    color: var(--color-text);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  }
+  .wide .content .cta:hover {
+    background: var(--color-neutral-30);
+  }
   /* текст — белый с лёгкой тенью: читается на любой части фото */
   .wide h1.title,
   .wide div.body {
