@@ -6,7 +6,7 @@ import { ProductCard } from "@/components/organisms/ProductCard";
 import { CARD_RU } from "@/components/organisms/ProductCard";
 import { addRu, qtyOf, setRuQty, useRuCart } from "@/lib/ru/cart";
 import { ruHref, rub, ruTitle, type RuProduct } from "@/lib/ru/shop";
-import { useRuMember, useRuPrices } from "@/lib/ru/live";
+import { useRuMember, useRuPrices, useRuSaleInfo } from "@/lib/ru/live";
 
 /** Карточка товара магазина России: цена участника, зачёркнутая обычная и тег скидки — для гостя и участника. */
 export function RuCard({ p, index, wide, single }: { p: RuProduct; index: number; wide?: boolean; /** одно фото, без слайдера (карусели) */ single?: boolean }) {
@@ -19,10 +19,13 @@ export function RuCard({ p, index, wide, single }: { p: RuProduct; index: number
   const sold = live ? live.available && club !== null : true;
   const title = ruTitle(p);
 
-  // для всех одинаково: цена участника, зачёркнутая обычная и тег скидки (вход — при оформлении заказа)
+  // для всех одинаково: цена участника, зачёркнутая обычная и тег скидки (вход — при оформлении заказа);
+  // товар в акции — цена акции, зачёркнутая цена до акции и скидка акции
+  const sale = useRuSaleInfo().get(p.code);
   const off = club !== null && retail && retail > club ? Math.round((1 - club / retail) * 100) : 0;
   const price = !live ? "…" : !sold ? "Нет в наличии" : rub(club as number);
-  const was = live && sold && off > 0 ? rub(retail as number) : undefined;
+  const was = live && sold && sale ? rub(sale.was) : live && sold && off > 0 ? rub(retail as number) : undefined;
+  const tag = sale ? sale.tag : `−${off}%`;
 
   return (
     <div data-analytics-item={p.code} data-analytics-index={index} style={{ display: "contents" }}>
@@ -34,7 +37,7 @@ export function RuCard({ p, index, wide, single }: { p: RuProduct; index: number
         labels={CARD_RU}
         price={price}
         priceWas={was}
-        priceTag={was ? `−${off}%` : undefined}
+        priceTag={was ? tag : undefined}
         href={ruHref(p.slug)}
         cartHref={ruHref(p.slug)}
         images={single ? p.images.slice(0, 1) : p.images /* первым всегда пэкшот на сером, и у широкой карточки */}

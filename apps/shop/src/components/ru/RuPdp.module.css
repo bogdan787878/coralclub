@@ -124,6 +124,12 @@
 .buy {
   margin-top: var(--space-8);
 }
+/* сроки акции рядом с тегом скидки */
+.saleDates {
+  font-size: var(--text-body-long-size);
+  line-height: var(--text-body-long-line);
+  color: var(--color-text-muted);
+}
 
 /* степпер «− 2 в корзине +» */
 .stepper {

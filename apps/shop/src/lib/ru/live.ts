@@ -91,7 +91,16 @@ const KNOWN: { test: RegExp; title: string; logo?: string }[] = [
 type HomeBlock = {
   type?: string;
   title?: string;
-  items?: { imageUrl?: string; text?: string; buttonText?: string; buttonLink?: string; code?: number }[];
+  items?: {
+    imageUrl?: string;
+    text?: string;
+    buttonText?: string;
+    buttonLink?: string;
+    code?: number;
+    clubAmount?: number;
+    originalAmount?: number;
+    badges?: { text?: string }[];
+  }[];
 };
 
 let homeLoad: Promise<HomeBlock[]> | null = null;
@@ -152,3 +161,51 @@ async function loadRuCarousel(title: RegExp): Promise<number[]> {
 export const loadRuHits = () => loadRuCarousel(/хит/i);
 /** Акционные товары (блок «Акции» главной сайта). */
 export const loadRuSale = () => loadRuCarousel(/акци/i);
+
+/** Цена акции: цена по акции, цена до акции, скидка акции («−25%»), сроки («13–30.11»). */
+export type RuSaleInfo = { price: number; was: number; tag: string; dates: string };
+
+let saleInfo: Map<number, RuSaleInfo> | null = null;
+let saleInfoLoad: Promise<void> | null = null;
+const saleListeners = new Set<() => void>();
+const EMPTY_SALE = new Map<number, RuSaleInfo>();
+
+/** Цены акции по артикулу — из блока «Акции» главной сайта (clubAmount, originalAmount, значки). */
+function loadRuSaleInfo(): Promise<void> {
+  saleInfoLoad ??= (async () => {
+    const block = (await loadHome()).find((b) => b.type === "PRODUCTS_CAROUSEL" && /акци/i.test(b.title ?? ""));
+    const map = new Map<number, RuSaleInfo>();
+    for (const it of block?.items ?? []) {
+      const code = Number(it.code);
+      if (!Number.isFinite(code) || typeof it.clubAmount !== "number" || typeof it.originalAmount !== "number") continue;
+      if (it.originalAmount <= it.clubAmount) continue;
+      const texts = (it.badges ?? []).map((b) => String(b.text ?? "").trim()).filter(Boolean);
+      const pct = texts.find((t) => /%/.test(t));
+      const off = Math.round((1 - it.clubAmount / it.originalAmount) * 100);
+      map.set(code, {
+        price: it.clubAmount,
+        was: it.originalAmount,
+        tag: pct ? pct.replace(/^[-–]/, "−") : `−${off}%`,
+        dates: (texts.find((t) => !/%/.test(t) && /\d/.test(t)) ?? "").replace(/\s*-\s*/, "–"),
+      });
+    }
+    saleInfo = map;
+    saleListeners.forEach((l) => l());
+  })();
+  return saleInfoLoad;
+}
+
+/** Цены акции по артикулу (пусто, пока не загрузились или акций нет). */
+export function useRuSaleInfo(): ReadonlyMap<number, RuSaleInfo> {
+  useEffect(() => {
+    void loadRuSaleInfo();
+  }, []);
+  return useSyncExternalStore(
+    (cb) => {
+      saleListeners.add(cb);
+      return () => saleListeners.delete(cb);
+    },
+    () => saleInfo ?? EMPTY_SALE,
+    () => EMPTY_SALE,
+  );
+}

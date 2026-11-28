@@ -17,6 +17,7 @@ import { useRuCity } from "@/lib/ru/city";
 import { WAREHOUSES, inStock } from "@/lib/ru/stock";
 import { cheapest, daysText, loadDelivery, type DeliveryOption } from "@/lib/ru/delivery";
 import { RU_BASE, rub, type RuProduct } from "@/lib/ru/shop";
+import { useRuSaleInfo } from "@/lib/ru/live";
 import { openRuCity } from "./RuCity";
 import styles from "./RuPdp.module.css";
 
@@ -358,9 +359,12 @@ export function RuProductView({
   const [docsOpen, setDocsOpen] = useState(false);
 
   const sold = d.available && d.club !== null;
+  // товар в акции — цена до акции зачёркнута, тег — скидка акции и её сроки
+  const sale = useRuSaleInfo().get(p.code);
   const off = d.club !== null && d.retail && d.retail > d.club ? Math.round((1 - d.club / d.retail) * 100) : 0;
   const price = d.club !== null ? rub(d.club) : "";
-  const was = off > 0 && d.retail ? rub(d.retail) : undefined;
+  const was = sale ? rub(sale.was) : off > 0 && d.retail ? rub(d.retail) : undefined;
+  const offTag = sale ? sale.tag : off > 0 ? `−${off}%` : "";
 
   // кнопка внизу — только когда своя кнопка под ценой ушла вверх (при первом открытии ничего не закрывает)
   useEffect(() => {
@@ -402,7 +406,8 @@ export function RuProductView({
               <div className={styles.price}>
                 <span className={styles.now}>{price}</span>
                 {was && <span className={styles.was}>{was}</span>}
-                {off > 0 && <span className={styles.off}>−{off}%</span>}
+                {offTag && <span className={styles.off}>{offTag}</span>}
+                {sale?.dates && <span className={styles.saleDates}>Акция {sale.dates}</span>}
               </div>
             ) : (
               <p className={styles.soldOut}>Нет в наличии</p>
