@@ -332,12 +332,13 @@ div.body {
   .wide .bg {
     object-position: var(--hero-wide-position, 50% 50%);
   }
+  /* текст и кнопка — внизу блока слева, над точками и переключателем фаз */
   .wide .content {
     position: relative;
     max-width: calc(var(--grid-edge, 56px) + 560px);
     min-height: inherit;
-    padding-block: var(--space-64) 140px;
-    justify-content: flex-start;
+    padding-block: var(--space-64) 112px;
+    justify-content: flex-end;
   }
   .wide .copy {
     flex: 0 0 auto;
