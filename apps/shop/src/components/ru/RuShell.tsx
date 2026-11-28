@@ -85,6 +85,18 @@ export function RuShell({ children }: { children: ReactNode }) {
   // пригласительная ссылка (?ref=Coral ID) — запомнить, с какой бы страницы магазина ни пришли
   useEffect(() => captureRef(), [path]);
 
+  // вход истёк (API ответил 401 — например, за ночь): токен уже забыт; корзина и цены выбираются один раз за
+  // загрузку страницы — перезагружаем её гостем (корзина в браузере, цены гостя). На оформлении — ко входу.
+  useEffect(() => {
+    const onExpired = () => {
+      const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+      if (window.location.pathname.includes(`${RU_BASE}/checkout`)) window.location.assign(`${base}${RU_BASE}/login/?next=${encodeURIComponent(`${RU_BASE}/checkout/`)}`);
+      else window.location.reload();
+    };
+    window.addEventListener("cc:auth:expired", onExpired);
+    return () => window.removeEventListener("cc:auth:expired", onExpired);
+  }, []);
+
   // переходы как в iOS: ссылки магазина (и в шапке, и в нижнем меню Layout — они в его shadow DOM) открываются
   // внутри приложения, без перезагрузки; новая страница въезжает справа, «назад» — слева
   const [dir, setDir] = useState<1 | -1>(1);
