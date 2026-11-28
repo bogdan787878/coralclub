@@ -92,6 +92,23 @@
   }
 }
 
+/* dotsOnImage (web): on the photo — the hero's right-hand cell (after the 460px text column and its 24px gap,
+   up to the --grid-edge inset), bottom centre, white; --hero-dots-bottom leaves room for a switcher below */
+@media (min-width: 1024px) {
+  .dots.dotsOnImage {
+    left: calc(460px + 24px);
+    right: var(--grid-edge, 56px);
+    width: auto;
+    bottom: var(--hero-dots-bottom, 24px);
+  }
+  .dotsOnImage .dot {
+    background: rgba(255, 255, 255, 0.45);
+  }
+  .dotsOnImage .dotOn {
+    background: #ffffff;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .track {
     scroll-behavior: auto;

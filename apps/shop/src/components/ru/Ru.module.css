@@ -432,3 +432,18 @@
     padding-bottom: var(--space-64);
   }
 }
+
+/* веб: обложка с отступом сверху; точки слайдера и переключатель фаз — внутри фото, внизу по центру */
+@media (min-width: 1024px) {
+  .heroWrap {
+    padding-top: var(--space-24);
+    /* точки — над переключателем: 24 (поле) + 44 (переключатель) + 12 */
+    --hero-dots-bottom: 80px;
+  }
+  /* переключатель — в колонке фото (после текстовой колонки 460 и зазора 24 до поля сетки), поверх низа фото */
+  div.phaseOnImage {
+    width: auto;
+    margin: calc(-44px - 24px) var(--grid-edge, 56px) 24px calc(460px + 24px);
+    justify-content: center;
+  }
+}

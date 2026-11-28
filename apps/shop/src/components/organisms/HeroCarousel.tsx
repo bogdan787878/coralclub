@@ -13,6 +13,11 @@ export type HeroCarouselProps = {
   onSelect: (index: number) => void;
   /** Accessible names (default English) for a translated storefront. */
   labels?: { dots: string; dot: (n: number) => string };
+  /**
+   * Web (1024+): the dots sit on the photo, bottom centre (white), above a phase switcher the page puts there
+   * too — instead of under the text column. Default off (the main shop keeps them under the text).
+   */
+  dotsOnImage?: boolean;
 };
 
 /**
@@ -27,6 +32,7 @@ export function HeroCarousel({
   activeIndex,
   onSelect,
   labels,
+  dotsOnImage,
 }: HeroCarouselProps) {
   const track = useRef<HTMLDivElement>(null);
   const settle = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -98,7 +104,7 @@ export function HeroCarousel({
 
       {slides.length > 1 && (
         <div
-          className={styles.dots}
+          className={`${styles.dots} ${dotsOnImage ? styles.dotsOnImage : ""}`}
           role="tablist"
           aria-label={labels?.dots ?? "Phase"}
         >

@@ -157,7 +157,9 @@ export function RuHome() {
 
   return (
     <main data-analytics-location="home">
+      <div className={styles.heroWrap}>
       <HeroCarousel
+        dotsOnImage
         activeIndex={index}
         onSelect={(i) => setPhase(ids[i] ?? "hydration")}
         labels={{ dots: "Фазы", dot: (n) => `Фаза ${n}` }}
@@ -177,9 +179,10 @@ export function RuHome() {
           cta: { label: p.hero.cta, onClick: toPhase },
         }))}
       />
+      </div>
 
       {/* на телефоне шапка не липкая — переключатель у самого верха экрана; на вебе — под липкой шапкой (RuGrid) */}
-      <div className={home.phaseSwitcherSticky} style={{ top: "calc(var(--ru-sticky-top, 0px) + env(safe-area-inset-top, 0px) + 12px)" }}>
+      <div className={`${home.phaseSwitcherSticky} ${styles.phaseOnImage}`} style={{ top: "calc(var(--ru-sticky-top, 0px) + env(safe-area-inset-top, 0px) + 12px)" }}>
         <PhaseSwitcherPills
           phases={RU_PHASES.map((p) => ({ id: p.id, name: p.name }))}
           value={phase}
