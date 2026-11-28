@@ -67,11 +67,38 @@
   opacity: 1;
 }
 
-/* ---------- фильтры ---------- */
+/* ---------- фильтры: на телефоне и планшете — в шторке (кнопка-иконка), на вебе — колонкой слева ---------- */
 .filters {
+  display: none;
+}
+.sheetFacets {
   display: grid;
-  gap: var(--space-12);
-  margin: var(--space-16) 0;
+  gap: var(--space-20, 20px);
+}
+/* в шторке значения фильтра переносятся, без прокрутки вбок */
+.sheetFacets .facet {
+  flex-wrap: wrap;
+  margin-inline: 0;
+  padding-inline: 0;
+  overflow: visible;
+}
+.sheetFacets .facet > * {
+  white-space: normal;
+}
+.sheetFacets .facetName {
+  flex-basis: 100%;
+  margin: 0 0 var(--space-4, 4px);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+.sheetActions {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  gap: var(--space-8);
+  margin-top: var(--space-24);
+  padding-top: var(--space-12);
+  background: var(--color-bg);
 }
 /* фильтр — одна строка с прокруткой вбок, до краёв экрана */
 .facet {
@@ -129,21 +156,63 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-12);
-  margin: 0 0 var(--space-16);
+  margin: var(--space-16) 0;
+}
+/* сортировка и фильтры — кнопки-чипсы UI kit (открывают шторки) */
+.tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+.tool {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 var(--space-12);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-neutral-30);
+  color: var(--color-text);
+  font: inherit;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-long-size);
+  cursor: pointer;
+}
+.filterBtn {
+  width: 40px;
+  padding: 0;
+  justify-content: center;
+}
+.toolBadge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: var(--radius-pill);
+  background: var(--color-action);
+  color: var(--color-action-contrast);
+  font-size: 0.6875rem;
+  font-style: normal;
+  font-weight: var(--font-weight-medium);
+  line-height: 18px;
+  text-align: center;
+}
+
+/* ---------- акция: сверху её картинка, под ней — её товары ---------- */
+.saleHero {
+  aspect-ratio: 16 / 9;
+  margin-top: var(--space-8);
+}
+.saleGrid {
+  margin-top: var(--space-24);
 }
 .count {
   font-size: var(--text-body-long-size);
   color: var(--color-text-muted);
-}
-.sort select {
-  min-height: 36px;
-  padding: 0 var(--space-12);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
-  background: var(--color-bg);
-  color: var(--color-text);
-  font: inherit;
-  font-size: var(--text-body-long-size);
 }
 .visuallyHidden {
   position: absolute;
@@ -224,7 +293,14 @@
     align-items: start;
     margin-top: var(--space-32);
   }
+  .filterBtn {
+    display: none;
+  }
+  .saleHero {
+    aspect-ratio: 3 / 1;
+  }
   .filters {
+    display: grid;
     position: sticky;
     top: calc(var(--ru-sticky-top, 0px) + var(--space-24));
     gap: var(--space-24);
@@ -254,6 +330,9 @@
   }
   .bar {
     margin: 0 0 var(--space-16);
+  }
+  .tool:hover {
+    background: var(--color-border);
   }
   .grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));

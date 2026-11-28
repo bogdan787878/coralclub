@@ -64,6 +64,8 @@ export const NAMES = {
   arrowRight: "arrow-right",
   arrowDown: "arrow-down",
   arrowUp: "arrow-up",
+  filter: "sliders-horizontal",
+  sort: "arrow-up-down",
 };
 
 const inner = (lucide) => {

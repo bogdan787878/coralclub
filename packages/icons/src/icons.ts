@@ -52,6 +52,8 @@ export const ICONS = {
   "lock": "<rect width=\"18\" height=\"11\" x=\"3\" y=\"11\" rx=\"2\" ry=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 10 0v4\"/>",
   "arrowRight": "<path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/>",
   "arrowDown": "<path d=\"M12 5v14\"/><path d=\"m19 12-7 7-7-7\"/>",
-  "arrowUp": "<path d=\"m5 12 7-7 7 7\"/><path d=\"M12 19V5\"/>"
+  "arrowUp": "<path d=\"m5 12 7-7 7 7\"/><path d=\"M12 19V5\"/>",
+  "filter": "<line x1=\"21\" x2=\"14\" y1=\"4\" y2=\"4\"/><line x1=\"10\" x2=\"3\" y1=\"4\" y2=\"4\"/><line x1=\"21\" x2=\"12\" y1=\"12\" y2=\"12\"/><line x1=\"8\" x2=\"3\" y1=\"12\" y2=\"12\"/><line x1=\"21\" x2=\"16\" y1=\"20\" y2=\"20\"/><line x1=\"12\" x2=\"3\" y1=\"20\" y2=\"20\"/><line x1=\"14\" x2=\"14\" y1=\"2\" y2=\"6\"/><line x1=\"8\" x2=\"8\" y1=\"10\" y2=\"14\"/><line x1=\"16\" x2=\"16\" y1=\"18\" y2=\"22\"/>",
+  "sort": "<path d=\"m21 16-4 4-4-4\"/><path d=\"M17 20V4\"/><path d=\"m3 8 4-4 4 4\"/><path d=\"M7 4v16\"/>"
 } as const;
 export type IconName = keyof typeof ICONS;

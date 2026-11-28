@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Container, Heading } from "@/components/ui";
+import { Button, Container, Heading, Icon, OptionCard, OptionCards, Sheet } from "@/components/ui";
 import { DOMAIN_ICONS } from "@/components/organisms/domainIcons";
-import { loadRuSale, useRuPrices } from "@/lib/ru/live";
+import { loadRuBanners, loadRuSale, promoSlug, useRuPrices, type RuBanner } from "@/lib/ru/live";
 import { RU_DOMAINS, RU_PRODUCTS, ruProductByCode, type RuProduct } from "@/lib/ru/shop";
 import { RuCard } from "./RuCards";
+import promo from "./Ru.module.css";
 import styles from "./RuCatalog.module.css";
+
 
 type Sort = "name" | "cheap" | "dear";
 const SORTS: { id: Sort; label: string }[] = [
@@ -35,8 +37,11 @@ export function RuCatalog() {
   const [forms, setForms] = useState<string[]>([]);
   const [feats, setFeats] = useState<string[]>([]);
   const [sort, setSort] = useState<Sort>("name");
-  // ?sale=1 — товары по акции (блок «Акции» главной сайта); null — не режим акций
+  // ?sale=<акция> — товары по акции (блок «Акции» главной сайта) под картинкой акции; null — не режим акций
   const [sale, setSale] = useState<RuProduct[] | null>(null);
+  const [banner, setBanner] = useState<RuBanner | null | undefined>(undefined);
+  // фильтры и сортировка — в шторках (на вебе фильтры — колонкой слева)
+  const [sheet, setSheet] = useState<"" | "filters" | "sort">("");
 
   // домен из адреса (ссылки с главной) — после загрузки, страница статическая
   useEffect(() => {
@@ -44,8 +49,10 @@ export function RuCatalog() {
     const d = params.get("d") ?? "";
     // eslint-disable-next-line react-hooks/set-state-in-effect -- адрес известен только в браузере
     if (RU_DOMAINS.some((x) => x.id === d)) setDomain(d);
-    if (params.get("sale") === "1") {
+    const promoId = params.get("sale") ?? "";
+    if (promoId) {
       setSale([]);
+      loadRuBanners().then((list) => setBanner(list.find((b) => promoSlug(b.href) === promoId) ?? list[0] ?? null));
       loadRuSale().then((codes) =>
         setSale([
           ...new Map(
@@ -84,7 +91,7 @@ export function RuCatalog() {
       const l = prices.get(p.code);
       return !l || (l.available && l.club !== null);
     };
-    const sorted = [...list].sort((a, b) => {
+    const sorted = sale ? list : [...list].sort((a, b) => {
       if (sort === "name") return a.name.localeCompare(b.name, "ru");
       const pa = price(a);
       const pb = price(b);
@@ -94,9 +101,73 @@ export function RuCatalog() {
     });
     // нет в наличии в городе покупателя — в конце
     return [...sorted.filter(sold), ...sorted.filter((p) => !sold(p))];
-  }, [inDomain, forms, feats, sort, prices]);
+  }, [inDomain, forms, feats, sort, prices, sale]);
 
-  const title = sale ? "Акции" : (RU_DOMAINS.find((d) => d.id === domain)?.label ?? "Каталог");
+  const title = RU_DOMAINS.find((d) => d.id === domain)?.label ?? "Каталог";
+  const active = forms.length + feats.length;
+  const sortLabel = SORTS.find((x) => x.id === sort)?.label ?? "";
+  const close = () => setSheet("");
+
+  const facets = (
+    <>
+      {formFacet.length > 1 && (
+        <div className={styles.facet}>
+          <span className={styles.facetName}>Форма</span>
+          {formFacet.map(([v, n]) => (
+            <button key={v} type="button" aria-pressed={forms.includes(v)} className={`${styles.chip} ${forms.includes(v) ? styles.chipOn : ""}`} onClick={() => setForms((x) => toggle(x, v))}>
+              {v} <span>{n}</span>
+            </button>
+          ))}
+        </div>
+      )}
+      {featFacet.length > 0 && (
+        <div className={styles.facet}>
+          <span className={styles.facetName}>Особенности</span>
+          {featFacet.map(([v, n]) => (
+            <button key={v} type="button" aria-pressed={feats.includes(v)} className={`${styles.chip} ${feats.includes(v) ? styles.chipOn : ""}`} onClick={() => setFeats((x) => toggle(x, v))}>
+              {v} <span>{n}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </>
+  );
+
+  const grid = shown.length ? (
+    <ul className={styles.grid} data-analytics-list={sale ? "catalog_sale" : `catalog_${domain || "all"}`}>
+      {shown.map((p, i) => (
+        <li key={p.code}>
+          <RuCard p={p} index={i + 1} />
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p className={styles.empty}>{sale ? "Товары акции загружаются…" : "Под эти фильтры товаров нет."}</p>
+  );
+
+  // акция: сверху только картинка акции, под ней — её товары
+  if (sale) {
+    return (
+      <main className={styles.page} data-analytics-location="catalog_sale">
+        <Container>
+          <h1 className={styles.visuallyHidden}>{banner?.title ?? "Акция"}</h1>
+          <div className={`${promo.promoMedia} ${styles.saleHero} ${banner ? "" : promo.promoSkeleton}`}>
+            {banner && (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element -- баннер с сайта магазина, внешний адрес */}
+                <img src={banner.image} alt={banner.title} />
+                {banner.logo && (
+                  // eslint-disable-next-line @next/next/no-img-element -- логотип акции с сайта магазина
+                  <img className={promo.promoLogo} src={banner.logo} alt="" />
+                )}
+              </>
+            )}
+          </div>
+          <div className={styles.saleGrid}>{grid}</div>
+        </Container>
+      </main>
+    );
+  }
 
   return (
     <main className={styles.page} data-analytics-location="catalog">
@@ -107,92 +178,79 @@ export function RuCatalog() {
       {/* домены — плитки, на телефоне два ряда с прокруткой вбок */}
       <div className={styles.domains} role="tablist" aria-label="Домены здоровья">
         {RU_DOMAINS.map((d) => {
-          const Icon = DOMAIN_ICONS[d.id];
+          const DomainIcon = DOMAIN_ICONS[d.id];
           const on = d.id === domain;
           return (
-            <button
-              key={d.id}
-              type="button"
-              role="tab"
-              aria-selected={on}
-              className={`${styles.domain} ${on ? styles.domainOn : ""}`}
-              onClick={() => pick(d.id)}
-            >
+            <button key={d.id} type="button" role="tab" aria-selected={on} className={`${styles.domain} ${on ? styles.domainOn : ""}`} onClick={() => pick(d.id)}>
               <span className={styles.domainLabel}>{d.label}</span>
-              {Icon && <Icon className={styles.domainIcon} />}
+              {DomainIcon && <DomainIcon className={styles.domainIcon} />}
             </button>
           );
         })}
       </div>
 
       <Container>
-        {/* веб: фильтры — липкая колонка слева, справа сортировка и сетка (как у маркетплейсов) */}
+        {/* веб: фильтры — липкая колонка слева; телефон и планшет — кнопка-иконка и шторка */}
         <div className={styles.body}>
           <aside className={styles.filters} aria-label="Фильтры">
-            {formFacet.length > 1 && (
-              <div className={styles.facet}>
-                <span className={styles.facetName}>Форма</span>
-                {formFacet.map(([v, n]) => (
-                  <button
-                    key={v}
-                    type="button"
-                    aria-pressed={forms.includes(v)}
-                    className={`${styles.chip} ${forms.includes(v) ? styles.chipOn : ""}`}
-                    onClick={() => setForms((s) => toggle(s, v))}
-                  >
-                    {v} <span>{n}</span>
-                  </button>
-                ))}
-              </div>
-            )}
-            {featFacet.length > 0 && (
-              <div className={styles.facet}>
-                <span className={styles.facetName}>Особенности</span>
-                {featFacet.map(([v, n]) => (
-                  <button
-                    key={v}
-                    type="button"
-                    aria-pressed={feats.includes(v)}
-                    className={`${styles.chip} ${feats.includes(v) ? styles.chipOn : ""}`}
-                    onClick={() => setFeats((s) => toggle(s, v))}
-                  >
-                    {v} <span>{n}</span>
-                  </button>
-                ))}
-              </div>
-            )}
+            {facets}
           </aside>
           <div className={styles.main}>
             <div className={styles.bar}>
               <span className={styles.count}>
                 {shown.length} {plural(shown.length)}
               </span>
-              <label className={styles.sort}>
-                <span className={styles.visuallyHidden}>Сортировка</span>
-                <select value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
-                  {SORTS.map((s) => (
-                    <option key={s.id} value={s.id}>
-                      {s.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
+              <div className={styles.tools}>
+                <button type="button" className={styles.tool} onClick={() => setSheet("sort")} aria-haspopup="dialog">
+                  <Icon name="sort" size={18} />
+                  {sortLabel}
+                </button>
+                <button type="button" className={`${styles.tool} ${styles.filterBtn}`} onClick={() => setSheet("filters")} aria-haspopup="dialog" aria-label={active ? `Фильтры: выбрано ${active}` : "Фильтры"}>
+                  <Icon name="filter" size={18} />
+                  {active > 0 && <em className={styles.toolBadge}>{active}</em>}
+                </button>
+              </div>
             </div>
-
-            {shown.length ? (
-              <ul className={styles.grid} data-analytics-list={`catalog_${domain || "all"}`}>
-                {shown.map((p, i) => (
-                  <li key={p.code}>
-                    <RuCard p={p} index={i + 1} />
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className={styles.empty}>Под эти фильтры товаров нет.</p>
-            )}
+            {grid}
           </div>
         </div>
       </Container>
+
+      <Sheet open={sheet === "filters"} onClose={close} title="Фильтры" closeLabel="Закрыть">
+        <div className={styles.sheetFacets}>{facets}</div>
+        <div className={styles.sheetActions}>
+          {active > 0 && (
+            <Button
+              variant="ghost"
+              onClick={() => {
+                setForms([]);
+                setFeats([]);
+              }}
+            >
+              Сбросить
+            </Button>
+          )}
+          <Button variant="primary" block onClick={close}>
+            Показать {shown.length} {plural(shown.length)}
+          </Button>
+        </div>
+      </Sheet>
+      <Sheet open={sheet === "sort"} onClose={close} title="Сортировка" closeLabel="Закрыть">
+        <OptionCards label="Сортировка" layout="group">
+          {SORTS.map((x) => (
+            <OptionCard
+              key={x.id}
+              name="sort"
+              checked={sort === x.id}
+              onChange={() => {
+                setSort(x.id);
+                close();
+              }}
+              title={x.label}
+            />
+          ))}
+        </OptionCards>
+      </Sheet>
     </main>
   );
 }

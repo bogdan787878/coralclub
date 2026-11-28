@@ -80,6 +80,9 @@ export function useRuPrices(): Prices {
 
 export type RuBanner = { image: string; title: string; button: string; href: string; logo?: string };
 
+/** Акция по ссылке баннера: последняя часть адреса («…/promo/healthy-friday/» → «healthy-friday»). */
+export const promoSlug = (href: string) => href.replace(/[?#].*$/, "").split("/").filter(Boolean).pop() ?? "";
+
 /** Пустые подписи баннеров сайта: заголовок и логотип, которые сайт рисует поверх картинки сам. */
 const KNOWN: { test: RegExp; title: string; logo?: string }[] = [
   { test: /healthy-friday/, title: "Healthy Friday", logo: `${RU_SITE}/images/hf_center_ru.svg` },

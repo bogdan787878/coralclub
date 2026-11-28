@@ -4,7 +4,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { Carousel } from "@/components/organisms/Carousel";
 import { RU_BASE } from "@/lib/ru/shop";
-import { loadRuBanners, type RuBanner } from "@/lib/ru/live";
+import { loadRuBanners, promoSlug, type RuBanner } from "@/lib/ru/live";
 import styles from "./Ru.module.css";
 
 /**
@@ -36,7 +36,7 @@ export function RuPromo({ title }: { title?: ReactNode } = {}) {
     >
       {(banners ?? [null, null]).map((b, i) =>
         b ? (
-          <Link key={b.href + i} className={`${styles.promo} ${single ? styles.promoWide : ""}`} href={`${RU_BASE}/catalog/?sale=1`} data-analytics-id="promo_banner">
+          <Link key={b.href + i} className={`${styles.promo} ${single ? styles.promoWide : ""}`} href={`${RU_BASE}/catalog/?sale=${encodeURIComponent(promoSlug(b.href) || "sale")}`} data-analytics-id="promo_banner">
             <span className={styles.promoMedia}>
               {/* eslint-disable-next-line @next/next/no-img-element -- баннер с сайта магазина, внешний адрес */}
               <img src={b.image} alt="" loading={i > 1 ? "lazy" : undefined} />
