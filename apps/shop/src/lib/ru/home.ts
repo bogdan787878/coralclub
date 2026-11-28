@@ -36,7 +36,7 @@ export type RuPack = {
 /** Картинка хиро основного сайта (content/hero-images.json), как в content/home.tsx. */
 function heroImage(id: string, alt: string, wide?: string): RuHero["image"] {
   const e = heroImages.items.find((i) => i.id === id);
-  // веб и планшет: кадр основного сайта — тот же, что на телефоне (квадрат, широкий или он же вертикальный)
+  // веб и планшет: широкий кадр (16:9) той же сцены, что на телефоне, — слева пустая стена под текст
   const desktop = wide ?? e?.desktop ?? "";
   const mobile = e?.mobile || desktop;
   return { desktopSrc: desktop ? `${asset(desktop)}?v=3` : "", mobileSrc: mobile ? `${asset(mobile)}?v=3` : "", alt };
@@ -49,8 +49,7 @@ export const RU_PHASES: { id: RuPhaseId; name: string; hero: RuHero }[] = [
     hero: {
       title: { lead: ["Система здоровья"], accent: "начинается с воды" },
       cta: "К покупкам",
-      image: heroImage("hydration", "Саше Корал-Майн Сильвер и стакан минерализованной воды"),
-      widePosition: "50% 40%",
+      image: heroImage("hydration", "Саше Корал-Майн Сильвер и стакан минерализованной воды", "/images/hero/hero-hydration-wide.webp"),
     },
   },
   {
@@ -59,8 +58,7 @@ export const RU_PHASES: { id: RuPhaseId; name: string; hero: RuHero }[] = [
     hero: {
       title: { lead: ["Легче, спокойнее,"], accent: "яснее" },
       cta: "К покупкам",
-      image: heroImage("restart", "Корал Детокс, Парашилд и Коло-Вада Плюс"),
-      widePosition: "50% 70%",
+      image: heroImage("restart", "Парашилд, Корал Детокс и Го Детокс", "/images/hero/hero-detox-wide.webp"),
     },
   },
   {
@@ -69,8 +67,7 @@ export const RU_PHASES: { id: RuPhaseId; name: string; hero: RuHero }[] = [
     hero: {
       title: { lead: ["Понять себя.", "Выбрать свой путь."], accent: "Чувствовать себя лучше" },
       cta: "К покупкам",
-      image: heroImage("personalization", "Продукты Coral Club для энергии, сна и иммунитета"),
-      widePosition: "50% 47%",
+      image: heroImage("personalization", "Промарин Коллаген Трипептиды и маска Hydro Boost", "/images/hero/hero-balance-wide.webp"),
     },
   },
 ];
