@@ -50,15 +50,22 @@ svg { display: block; }
   .right { grid-column: 3; }
 }
 .search { display: none; }
+.catBtn { display: none; }
 .lbl { display: none; }
 @media (min-width: 1024px) {
   .brand { font-size: 1.5rem; }
   .logo { height: 28px; }
   /* веб: логотип слева, поиск (слот search) на всю ширину, справа город и разделы с подписями */
-  .head { grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 32px; padding-block: 14px; }
-  .brand { grid-column: 1; justify-self: start; }
-  .search { display: block; grid-column: 2; min-width: 0; }
-  .right { grid-column: 3; gap: 20px; }
+  .head { grid-template-columns: auto auto minmax(0, 1fr) auto; column-gap: 24px; padding-block: 14px; }
+  .brand { grid-column: 1; justify-self: start; margin-right: 8px; }
+  /* «Каталог» — отдельная кнопка после логотипа (светлее фона шапки) */
+  .catBtn { grid-column: 2; display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 20px 0 16px;
+    border-radius: 999px; background: var(--color-malachite-70, #007d79); color: #fff; font-size: 1rem; font-weight: var(--fw);
+    transition: background-color .15s var(--ease); }
+  .catBtn:hover, .catBtn.on { background: var(--color-malachite-50, #08bdba); color: var(--c-head-bg); }
+  .catBtn svg { width: 20px; height: 20px; }
+  .search { display: block; grid-column: 3; min-width: 0; }
+  .right { grid-column: 4; gap: 20px; }
   .desk { display: flex; align-items: center; gap: 20px; }
   .desk .icon { width: auto; height: auto; flex-direction: column; gap: 2px; min-width: 48px; }
   .desk .ico { position: relative; display: inline-flex; }

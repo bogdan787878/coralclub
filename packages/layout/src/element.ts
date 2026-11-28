@@ -19,7 +19,8 @@
  *   hide-on-scroll  нижнее меню прячется при прокрутке вниз и появляется при прокрутке вверх
  *
  * Слоты (разметка сервиса со своими стилями): corner — справа в шапке на всех ширинах (например, флаг страны);
- * search — поле поиска в шапке на вебе (1024+): логотип слева, поиск на всю ширину, справа разделы с подписями;
+ * search — поле поиска в шапке на вебе (1024+): логотип (он — на главную), кнопка «Каталог», поиск на всю ширину,
+ * справа профиль и корзина с подписями (как у маркетплейсов);
  * menu, brand, actions — в шапке «полосой».
  * Хранилище корзины общее с приложением корзины (@coral/cart/store), бейдж обновляется сам.
  * Внутрь: window.coralLayout.cart.open() — перейти на страницу корзины; .count(), .refresh(), .add(…).
@@ -194,8 +195,13 @@ export class CcLayout extends HTMLElement {
           </header>`
         : `<header class="head">
             <a class="brand" href="${esc(L.home)}"><slot name="brand">${LOGO}</slot></a>
+            ${this.tabList.includes("catalog") ? `<a class="catBtn${active === "catalog" ? " on" : ""}" href="${esc(L.catalog)}"${active === "catalog" ? ' aria-current="page"' : ""}>${ICON.catalog}<span>${esc(T.catalog)}</span></a>` : ""}
             <div class="search"><slot name="search"></slot></div>
-            <div class="right"><slot name="corner"></slot><nav class="desk" aria-label="${esc(T.menu)}"><slot name="actions"></slot>${this.tabList.map(desk).join("")}</nav></div>
+            <div class="right"><slot name="corner"></slot><nav class="desk" aria-label="${esc(T.menu)}"><slot name="actions"></slot>${this.tabList
+              .filter((k) => k !== "home" && k !== "catalog")
+              .sort((a, b) => Number(b === "me") - Number(a === "me"))
+              .map(desk)
+              .join("")}</nav></div>
           </header>`;
     this.root.innerHTML = `<style>${CSS}</style>
       ${header ? head : ""}
