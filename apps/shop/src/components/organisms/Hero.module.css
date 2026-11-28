@@ -340,6 +340,13 @@ div.body {
     padding-block: var(--space-64) 112px;
     justify-content: flex-end;
   }
+  /* широкий экран: кнопка — на одной линии с переключателем фаз (24 px от низа), текст — у самого низа;
+     до 1280 px переключатель по центру дотянулся бы до текста — там запас выше */
+  @media (min-width: 1280px) {
+    .wide .content {
+      padding-bottom: var(--space-24);
+    }
+  }
   .wide .copy {
     flex: 0 0 auto;
   }

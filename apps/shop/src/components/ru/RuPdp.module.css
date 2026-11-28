@@ -69,7 +69,14 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: var(--space-24);
-  padding: var(--space-16) var(--page-padding-inline, 16px) var(--space-32);
+  padding: var(--space-16) var(--page-padding-inline, 16px) var(--space-24);
+}
+/* всё, что под фото и покупкой: на телефоне — продолжение той же ленты */
+.details {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-24);
+  padding: 0 var(--page-padding-inline, 16px) var(--space-32);
 }
 
 /* ---------- название, описание, цена ---------- */
@@ -569,9 +576,39 @@ button.row {
     max-width: min(100%, 72vh, 640px);
     margin-inline: auto;
   }
-  .info {
+  .info,
+  .details {
     width: 100%;
     max-width: 720px;
     margin-inline: auto;
+  }
+}
+
+/* веб: подробности — под фото и покупкой, во всю ширину колонки сетки; описание, теги и состав — на всю ширину,
+   применение и противопоказания, форма выпуска и хранение — попарно в две колонки */
+@media (min-width: 1024px) {
+  .details {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-40) var(--space-56, 56px);
+    max-width: var(--container-max, 1200px);
+    margin: var(--space-56, 56px) auto 0;
+    padding: var(--space-48, 48px) 0 var(--space-48, 48px);
+    border-top: 1px solid var(--color-border-strong, rgba(0, 32, 34, 0.1));
+  }
+  .dWide {
+    grid-column: 1 / -1;
+  }
+  .d1 { order: 1; }
+  .d2 { order: 2; }
+  .d3 { order: 3; }
+  .d4 { order: 4; }
+  .d5 { order: 5; }
+  .d6 { order: 6; }
+  .d7 { order: 7; }
+  .d8 { order: 8; grid-column: 1 / -1; }
+  .d9 { order: 9; }
+  /* описание — строки не длиннее ~90 знаков */
+  .d3 {
+    max-width: 880px;
   }
 }

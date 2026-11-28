@@ -29,9 +29,11 @@ const unshout = (s: string) => (/[a-zа-яё]/.test(s) || !/[A-ZА-ЯЁ]/.test(s
 /** Строка: **жирный** — жирным; ссылки сайта [текст](url) — просто текстом. */
 function inline(text: string): ReactNode[] {
   const plain = text.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
-  return plain.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
-    part.startsWith("**") && part.endsWith("**") ? <strong key={i}>{unshout(part.slice(2, -2))}</strong> : <Fragment key={i}>{part}</Fragment>,
-  );
+  return plain
+    .split(/(\*\*[^*]+\*\*)/g)
+    .map((part, i) =>
+      part.startsWith("**") && part.endsWith("**") ? <strong key={i}>{unshout(part.slice(2, -2))}</strong> : <Fragment key={i}>{part}</Fragment>,
+    );
 }
 
 /** Полное описание сайта (markdown): абзац из одного **жирного** — заголовок, «- » — список. */
@@ -45,7 +47,17 @@ export function RichText({ text }: { text: string }) {
     <div className={styles.rich}>
       {blocks.map((b, i) => {
         const heading = /^(\*\*[^*]+\*\*|#{1,4}\s.+)$/.exec(b.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1"));
-        if (heading) return <h3 key={i}>{unshout(heading[0].replace(/^#+\s*/, "").replace(/\*\*/g, "").trim())}</h3>;
+        if (heading)
+          return (
+            <h3 key={i}>
+              {unshout(
+                heading[0]
+                  .replace(/^#+\s*/, "")
+                  .replace(/\*\*/g, "")
+                  .trim(),
+              )}
+            </h3>
+          );
         const lines = b.split("\n");
         if (lines.every((l) => /^\s*[-•]\s+/.test(l))) {
           return (
@@ -190,7 +202,10 @@ function Delivery({ price }: { price: number | null }) {
       ].filter((r): r is { label: string; o: DeliveryOption } => Boolean(r.o))
     : [];
   // порог бесплатной доставки у способов разный — показываем самый низкий
-  const frees = (list ?? []).filter((o) => o.price > 0).map((o) => o.free).filter((f): f is number => f !== null);
+  const frees = (list ?? [])
+    .filter((o) => o.price > 0)
+    .map((o) => o.free)
+    .filter((f): f is number => f !== null);
   const free = frees.length ? Math.min(...frees) : null;
   const freeNow = free !== null && price !== null && price >= free;
 
@@ -289,7 +304,9 @@ function StockSheet({ p, open, onClose, here }: { p: RuProduct; open: boolean; o
                 <strong>{w.name}</strong>
                 <small>{w.cities}</small>
               </span>
-              <span className={v === undefined ? styles.wait : v ? styles.yes : styles.no}>{v === undefined ? "…" : v ? "Есть" : v === false ? "Нет" : "—"}</span>
+              <span className={v === undefined ? styles.wait : v ? styles.yes : styles.no}>
+                {v === undefined ? "…" : v ? "Есть" : v === false ? "Нет" : "—"}
+              </span>
             </li>
           );
         })}
@@ -377,7 +394,11 @@ export function RuProductView({
 
   const elements = keyElements(d);
   const badges = p.feat.map((f) => BADGE_SLUG[f]).filter((x): x is string => Boolean(x));
-  const storage = [d.storage && `Хранение: ${d.storage}`, d.shelfLife && `Срок годности: ${d.shelfLife}`, d.country && `Страна производства: ${d.country}`].filter(Boolean) as string[];
+  const storage = [
+    d.storage && `Хранение: ${d.storage}`,
+    d.shelfLife && `Срок годности: ${d.shelfLife}`,
+    d.country && `Страна производства: ${d.country}`,
+  ].filter(Boolean) as string[];
   // таблица состава: строки без количества (вспомогательные компоненты, сноски «*…») — не строки таблицы, а
   // пояснение под ней; текст «Состав: …» при таблице не нужен — он её повторяет
   const rows = d.ingredients.filter((r) => r.amount || r.percent);
@@ -429,80 +450,90 @@ export function RuProductView({
               <Icon name="next" size={20} />
             </button>
           </section>
-
-          {/* теги и ключевые элементы — компоненты основного магазина */}
-          {badges.length > 0 && <DietaryBadges items={badges} labels={BADGE_LABEL} variant="chip" />}
-          {elements.length > 0 && <PeriodicElements items={elements} heading="Ключевые элементы" />}
-          {(p.release || p.pack) && (
-            <section className={styles.block}>
-              <h3 className={styles.h3}>Форма выпуска</h3>
-              <BodyLong>
-                {p.release}
-                {p.release && p.pack && " · "}
-                {p.pack}
-              </BodyLong>
-            </section>
-          )}
-
-          {/* полное описание */}
-          {d.components && (
-            <section className={styles.block}>
-              <h3 className={styles.h3}>Описание</h3>
-              <RichText text={d.components} />
-              {d.isSupplement && <p className={styles.small}>{BAD_NOTE}</p>}
-            </section>
-          )}
-          {!d.components && d.isSupplement && <p className={styles.small}>{BAD_NOTE}</p>}
-
-          {/* применение и противопоказания — на странице, не в свёрнутых строках */}
-          {d.howToUse.length > 0 && (
-            <section className={styles.block}>
-              <h3 className={styles.h3}>Способ применения</h3>
-              <RichText text={d.howToUse.join("\n\n")} />
-            </section>
-          )}
-          {d.contraindications && (
-            <section className={styles.block}>
-              <h3 className={styles.h3}>Противопоказания</h3>
-              <RichText text={d.contraindications} />
-            </section>
-          )}
-
-          {/* таблица состава — открыто, не в свёрнутой строке */}
-          {(rows.length > 0 || d.composition) && (
-            <div className={styles.facts}>
-              <Facts p={facts} headingId={`ru-facts-${p.code}`} />
-              {notes.map((n) => (
-                <p key={n} className={styles.small}>
-                  {n}
-                </p>
-              ))}
-            </div>
-          )}
-
-          {storage.length > 0 && (
-            <section className={styles.block}>
-              <h3 className={styles.h3}>Хранение</h3>
-              <RichText text={storage.join("\n\n")} />
-            </section>
-          )}
-
-          {/* сертификаты */}
-          {d.certificates.length > 0 && (
-            // сертификаты — картинка и кнопка «Сертификат качества» в лавровых ветвях; по нажатию — список документов
-            <section className={styles.certBlock} aria-label="Сертификаты">
-              <div className={styles.certMedia}>
-                <Image src="/images/ru/cert-media.webp" alt="" fill sizes="(max-width: 1023px) 100vw, 480px" />
-              </div>
-              <button type="button" className={styles.cert} onClick={() => setDocsOpen(true)}>
-                <Laurel className={styles.laurel} />
-                <span>Сертификат качества</span>
-                <Laurel className={`${styles.laurel} ${styles.laurelRight}`} />
-              </button>
-            </section>
-          )}
-
         </div>
+      </div>
+
+      {/* всё остальное — под фото и покупкой (на телефоне — той же лентой; на вебе — во всю ширину, сеткой) */}
+      <div className={styles.details}>
+        {/* теги и ключевые элементы — компоненты основного магазина */}
+        {badges.length > 0 && (
+          <div className={`${styles.dWide} ${styles.d1}`}>
+            <DietaryBadges items={badges} labels={BADGE_LABEL} variant="chip" />
+          </div>
+        )}
+        {elements.length > 0 && (
+          <div className={`${styles.dWide} ${styles.d2}`}>
+            <PeriodicElements items={elements} heading="Ключевые элементы" />
+          </div>
+        )}
+        {(p.release || p.pack) && (
+          <section className={`${styles.block} ${styles.d6}`}>
+            <h3 className={styles.h3}>Форма выпуска</h3>
+            <BodyLong>
+              {p.release}
+              {p.release && p.pack && " · "}
+              {p.pack}
+            </BodyLong>
+          </section>
+        )}
+
+        {/* полное описание */}
+        {d.components && (
+          <section className={`${styles.block} ${styles.dWide} ${styles.d3}`}>
+            <h3 className={styles.h3}>Описание</h3>
+            <RichText text={d.components} />
+            {d.isSupplement && <p className={styles.small}>{BAD_NOTE}</p>}
+          </section>
+        )}
+        {!d.components && d.isSupplement && <p className={`${styles.small} ${styles.dWide} ${styles.d3}`}>{BAD_NOTE}</p>}
+
+        {/* применение и противопоказания — на странице, не в свёрнутых строках */}
+        {d.howToUse.length > 0 && (
+          <section className={`${styles.block} ${styles.d4}`}>
+            <h3 className={styles.h3}>Способ применения</h3>
+            <RichText text={d.howToUse.join("\n\n")} />
+          </section>
+        )}
+        {d.contraindications && (
+          <section className={`${styles.block} ${styles.d5}`}>
+            <h3 className={styles.h3}>Противопоказания</h3>
+            <RichText text={d.contraindications} />
+          </section>
+        )}
+
+        {/* таблица состава — открыто, не в свёрнутой строке */}
+        {(rows.length > 0 || d.composition) && (
+          <div className={`${styles.facts} ${styles.d8}`}>
+            <Facts p={facts} headingId={`ru-facts-${p.code}`} />
+            {notes.map((n) => (
+              <p key={n} className={styles.small}>
+                {n}
+              </p>
+            ))}
+          </div>
+        )}
+
+        {storage.length > 0 && (
+          <section className={`${styles.block} ${styles.d7}`}>
+            <h3 className={styles.h3}>Хранение</h3>
+            <RichText text={storage.join("\n\n")} />
+          </section>
+        )}
+
+        {/* сертификаты */}
+        {d.certificates.length > 0 && (
+          // сертификаты — картинка и кнопка «Сертификат качества» в лавровых ветвях; по нажатию — список документов
+          <section className={`${styles.certBlock} ${styles.d9}`} aria-label="Сертификаты">
+            <div className={styles.certMedia}>
+              <Image src="/images/ru/cert-media.webp" alt="" fill sizes="(max-width: 1023px) 100vw, 480px" />
+            </div>
+            <button type="button" className={styles.cert} onClick={() => setDocsOpen(true)}>
+              <Laurel className={styles.laurel} />
+              <span>Сертификат качества</span>
+              <Laurel className={`${styles.laurel} ${styles.laurelRight}`} />
+            </button>
+          </section>
+        )}
       </div>
 
       {more}
